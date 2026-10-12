@@ -289,7 +289,7 @@ struct is returned through a hidden pointer); a union {TI128; Vec} gives the `sq
 func_001ED888 is a pointer-to-member call (`(p->*a->pmf)(x, y)`, else virtual 12): both must return a value.
 
 Given up:
-- func_001EEC68: D_00368A38 gp_rel in a delay slot
+- func_001EEC68: matched in session 4 (new asm_filter)
 - func_001EDA50: vector constant built with pextlw/pcpyld; func_001ED720: static init with ldl/ldr copies; not attempted
 - func_001EF3A8, func_001EF000: lq/pcpyud lane extraction, long; not attempted
 - func_001ED938, func_001EEFB0, func_001EE600: split tails
