@@ -24,6 +24,7 @@ struct S001BF1D0 {
 
 extern "C" {
 extern S001BD998* D_0036CB74;
+void func_001BB068(void);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD608);
@@ -90,9 +91,17 @@ extern "C" void func_001BF200(S001BF1D0* p, s32 v) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF230);
+extern "C" int func_001BF230(S001BF1D0* p) {
+    p->unk8 |= 2;
+    func_001BB068();
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF258);
+extern "C" int func_001BF258(S001BF1D0* p) {
+    p->unk8 &= ~2;
+    func_001BB068();
+    return 1;
+}
 
 extern "C" void func_001BF288(S001BF1D0* p) {
     p->unk8 |= 4;

@@ -42,3 +42,11 @@ Given up:
 ## t_1BB500
 
 Matched 2: func_001BD158 func_001BD438
+
+## t_1BD608
+
+Matched 2: func_001BF230 func_001BF258
+
+Given up:
+- func_001BE498: two nops before a branch and a different load schedule after a 0x60-byte struct copy
+- func_001BF5C0: argument register allocation (a kept in $a0 in the original); 3 tries
