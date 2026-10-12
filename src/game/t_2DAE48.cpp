@@ -1,5 +1,9 @@
 #include "common.h"
 
+asm(".set D_00368A38_lui, D_00368A38");
+
+asm(".set D_0036CDB4_lui, D_0036CDB4");
+
 struct S2DB8A0_0 {
     char pad0[0x64];
     s32 unk64;
@@ -163,6 +167,14 @@ void func_002DB110(int, int);
 extern char D_003630E8[];
 void func_001CE218(S2DAE48_J *, int);
 void func_0027C160(int, u32, int);
+extern S2DAE48_L *D_0036CDB4_lui[] asm("D_0036CDB4_lui") __attribute__((section(".sdata")));
+extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
+extern int D_00368A38;
+extern int D_00370EE0[] __attribute__((section(".sdata")));
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_00114958(int, int);
+void func_001194B8(int);
 }
 
 extern "C" int func_002DAE48(int *p) {
@@ -381,7 +393,27 @@ extern "C" s32 CFunc_ResumeControllerChecking(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", CFunc_GetButtonsPressed);
+extern "C" int CFunc_GetButtonsPressed(int params, S2DAE48_C *script) {
+    S2DAE48_K **pads = D_0036CDB4_lui[0]->unk28;
+    int i;
+    int idx = 0;
+    int pressed = 0;
+    for (i = 0; i < 2; i++) {
+        S2DAE48_K *pad = *pads;
+        if (pad) {
+            func_001CE218(pad->unk1C, 0x8000);
+            if (pad->unk1C->unk38) {
+                idx = i;
+                pressed = 1;
+                break;
+            }
+        }
+        pads++;
+    }
+    func_0027C160(script->unk20, 0xC9428A08, idx);
+    func_0027C160(script->unk20, 0x4EE1B0DD, pressed);
+    return 1;
+}
 
 extern "C" s32 func_002DC9D8(s32 i) {
     return D_003E8420[i];
@@ -455,7 +487,12 @@ extern "C" void func_002DCC30(S2DAE48_E *p, int v) {
     func_001C5610(p, v);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DCC98);
+extern "C" void func_002DCC98(S2DC168_0 *p) {
+    int heap = D_00368A38_lui[0];
+    func_00119490(heap, func_00119610(heap, 0x3A));
+    func_00114958(D_00370EE0[0] + 8, p->unk18);
+    func_001194B8(D_00368A38);
+}
 
 extern "C" void func_002DCD00(S2DC168_0 *arg0) {
     func_00113FB8(arg0->unk18);

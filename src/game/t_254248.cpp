@@ -1,5 +1,7 @@
 #include "common.h"
 
+asm(".set D_00370AE0_gp, D_00370AE0");
+
 struct S254248_A {
     char pad0[0x1E0];
     int unk1E0;
@@ -52,6 +54,7 @@ int func_00266CE0(int);
 void func_00267310(int, f32);
 int func_0026DAB0(int);
 void func_0026D660(u64 *, u64 *);
+extern int D_00370AE0_gp asm("D_00370AE0_gp");
 }
 
 extern "C" int CFunc_AddSoundEventData(void) {
@@ -236,7 +239,13 @@ extern "C" int CFunc_IsSoundPlayingByID(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddSoundBanks);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_ClearSoundBank);
+extern "C" int CFunc_ClearSoundBank(int a) {
+    int x;
+    if (func_0027D1F8(a, 0, &x, 0)) {
+        func_00267910(D_00370AE0_gp, x);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_RemoveAllSoundBanks(void) {
     func_00267A00(D_00370AE0[0]);

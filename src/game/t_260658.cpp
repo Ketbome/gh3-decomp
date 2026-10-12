@@ -1,5 +1,7 @@
 #include "common.h"
 
+asm(".set D_00368748_lui, D_00368748");
+
 struct S002606A0 {
     char pad[0xA0];
     int unkA0;
@@ -52,6 +54,7 @@ void func_00260D28_f(f32) asm("func_00260D28");
 f32 func_00260D08_f(void) asm("func_00260D08");
 s64 func_00316A40(s64, s64);
 s64 func_00317588_f(f32) asm("func_00317588");
+extern int D_00368748_lui[] asm("D_00368748_lui") __attribute__((section(".sdata")));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AllowAssetLoading);
@@ -207,7 +210,9 @@ extern "C" int CFunc_CD(void) {
     return D_00368748;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_NotCD);
+extern "C" int CFunc_NotCD(void) {
+    return D_00368748_lui[0] ^ 1;
+}
 
 extern "C" int CFunc_Bootstrap(void) {
     return D_00368750;

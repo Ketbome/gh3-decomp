@@ -198,3 +198,11 @@ Given up:
 - CFunc_UpdateNixie: -1 built as 64-bit `lui/ori 0xffff` and scheduled before the index; 4 forms tried.
 - func_002CA818: original loads the call result into a0 last (jal delay slot), same as t_250010
   CFunc_SetLightVolumeParams; member-call form tried too.
+
+### Round 3 retries with the `.set` alias (+4)
+- t_2DAE48: CFunc_GetButtonsPressed (`pads++` at the end of the loop body), func_002DCC98
+- t_254248: CFunc_ClearSoundBank (reverse alias: `.set D_00370AE0_gp, D_00370AE0` + scalar `extern int ... asm(...)`)
+- t_260658: CFunc_NotCD (`return D ^ 1`)
+Given up:
+- t_2DCE78 func_002DD288 (now only a layout problem): original keeps separate `b end / v0 = 0` returns and leaves
+  call delay slots empty; plain, volatile and guard-object forms tried.
