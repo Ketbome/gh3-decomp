@@ -218,11 +218,46 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297578);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002976E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297838);
+extern "C" S296A10_N *func_00297838(S296A10_N *x) {
+    if (x->unk0 == 0 && x->unk4->unk4 == x) {
+        x = x->unkC;
+    } else if (x->unk8) {
+        S296A10_N *y = x->unk8;
+        while (y->unkC) {
+            y = y->unkC;
+        }
+        x = y;
+    } else {
+        S296A10_N *y = x->unk4;
+        while (x == y->unk8) {
+            x = y;
+            y = y->unk4;
+        }
+        x = y;
+    }
+    return x;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002978C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002979D8);
+extern "C" S296A10_N *func_002979D8(S296A10_N *x) {
+    if (x->unkC) {
+        x = x->unkC;
+        while (x->unk8) {
+            x = x->unk8;
+        }
+    } else {
+        S296A10_N *y = x->unk4;
+        while (x == y->unkC) {
+            x = y;
+            y = y->unk4;
+        }
+        if (x->unkC != y) {
+            x = y;
+        }
+    }
+    return x;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297A48);
 

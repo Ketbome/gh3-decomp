@@ -99,7 +99,7 @@ func_00298050, func_002980B0, func_00298110
 (func_002974D8/func_00297528: red-black tree rotate left/right; func_00297Dxx..func_00298110: destructors that
 unlink from an intrusive list and free through func_00119400(D_00368A38, p).)
 Given up:
-- func_002979D8 / func_00297838 (red-black tree increment/decrement): short loops, original has the R5900 nops.
+- (SOLVED round 5 after the short-loop fix) func_002979D8 / func_00297838 (red-black tree increment/decrement).
 
 ### t_26F3B8 (+14)
 func_00271180, func_00270EE0, func_00271158, func_00270E10, func_00271198, func_0026FFE8, func_00270FF0,
@@ -145,6 +145,7 @@ Given up:
 ### t_2DCE78 (+4)
 CFunc_StartNetworkGame, func_002DD0B0, func_002DEE18, func_002DE220
 Given up:
+- (SOLVED round 5: func_002DD0D0, func_002DD738 -- `do { i -= 0x19; } while (i != -1);` array-ctor loop)
 - func_002DE578: original keeps the node in $a0 and copies it to $v0 for the null test (2 forms tried).
 - func_002DD0D0, func_002DD738: short loops. func_002DD288: D_0036F608 is read both via `$gp` and `lui` in
   one function. func_002DD670/func_002DD490/func_002DE638: loops unrolled by 4 (not tried).
@@ -452,3 +453,9 @@ Given up:
 - func_0028BE80: 2-case switch tree rooted at 0x20 here, at 0x21 in the original (case order does not matter).
 - func_0028C518, func_0028C4B0: u32->float; the original leaves the `b` delay slot after `cvt.s.w` empty (gas
   fills it). Toolchain.
+
+### Round 5 retries after the short-loop / `la` / usd fixes (+4)
+- t_296A10 func_002979D8, func_00297838; t_2DCE78 func_002DD0D0, func_002DD738.
+- Still failing: t_2949F0 func_00295D40 (store scheduling at the end: the original counted the lui-form store as
+  2 insns; 4 orders); t_26F3B8 func_00270F08 (two copies of the bit-scan loop, `li v1,1` hoisted; 3 forms);
+  t_2754A0 func_00276008/func_002762F0 (hash lookup + alias chase; loop shapes differ, 2 forms).

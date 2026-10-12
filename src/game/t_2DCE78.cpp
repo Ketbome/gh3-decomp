@@ -16,6 +16,8 @@ struct S2DCE78_V {
 };
 
 extern "C" {
+int func_002DD108(void);
+int func_002DD288(void);
 extern s32 D_0037236C;
 extern f32 D_00372370;
 extern f32 D_00372374;
@@ -33,7 +35,7 @@ s32 func_00113DF0(int, int, int);
 int func_001ECC90(s32);
 int func_001F35D0(s32);
 int func_00276D68(s32, void *, int);
-int func_002DD738(int, int);
+void func_002DD738(int, int);
 int func_002DDBD8(int, int);
 s32 func_002DE280(s32);
 }
@@ -48,7 +50,12 @@ extern "C" int func_002DD0B0(S2DCE78_A *p) {
     return p->unk1C(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD0D0);
+extern "C" void func_002DD0D0(void) {
+    if (func_002DD108()) {
+        while (func_002DD288()) {
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD108);
 
@@ -78,7 +85,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD578);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD670);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD738);
+extern "C" void func_002DD738(int init, int prio) {
+    if (prio == 0xFFFF && init) {
+        int i = 0x63;
+        do {
+            i -= 0x19;
+        } while (i != -1);
+    }
+}
 
 extern "C" void func_002DD778(void) {
     func_002DD738(1, 0xFFFF);
