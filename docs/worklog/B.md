@@ -202,3 +202,13 @@ Matched 6: func_001DE9A8 func_001DE9B0 func_001DE9B8 func_001DE9C0 func_001DF6E8
 Given up:
 - func_001E07C0: original reloads unk98 for the second inline null-checked getter; ours CSEs it (4 tries)
 - func_001DE968, func_001E0760, func_001DF890: split tail merged with the next function (alabel); cannot be written in C
+
+## t_1E0AE8
+
+Matched 15: func_001E0BC0 func_001E0EE0 func_001E0F00 func_001E0F08 func_001E0F18 func_001E0F38 func_001E0F48 func_001E0F78 func_001E0F98 func_001E0FA0 func_001E0FA8 func_001E12A8 func_001E12E8 func_001E1A28 func_001E1F88
+
+Given up:
+- func_001E0B60: original keeps if/else branch form for the null-checked getter and reloads unk98; ours presets 0 and CSEs (5 tries incl. volatile)
+- func_001E1650: branch layout (bnezl) and and-operand order; 3 tries
+- func_001E1068: v0/v1 swapped between vtable and list head; 3 tries
+- func_001E19F0, func_001E0F50, func_001E1C90, func_001E0BB0: split tails
