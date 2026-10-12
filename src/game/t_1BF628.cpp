@@ -24,6 +24,7 @@ extern "C" {
 extern N1C* D_0036CBDC;
 extern N1C* D_0036CBE0;
 extern s32 D_00369A64;
+extern u8 D_00372D58[] __attribute__((section(".sdata")));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF628);
@@ -40,7 +41,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF8F8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF960);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF9C8);
+extern "C" void func_001BF9C8(char* p, void* x) {
+    if (x) {
+        *(void**)(p + 0x14) = x;
+    } else {
+        *(void**)(p + 0x14) = D_00372D58;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF9E8);
 
@@ -50,7 +57,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFCE8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFD58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFDD8);
+extern "C" void func_001BFDD8(N1C* n, N1C** list) {
+    if (!*list) {
+        n->unk18 = 0;
+        n->unk1C = *list;
+        *list = n;
+        return;
+    }
+    N1C* c = *list;
+    while (c->unk1C) c = c->unk1C;
+    N1C* x = c->unk1C;
+    n->unk1C = x;
+    if (x) x->unk18 = n;
+    c->unk1C = n;
+    n->unk18 = c;
+}
 
 GP_DATA(D_0036CBE0);
 GP_DATA(D_0036CBDC);

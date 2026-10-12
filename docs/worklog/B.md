@@ -467,3 +467,12 @@ Given up:
 - func_00205F00: task init; v0/v1 for the vtable vs the 0xFF byte constant (inline init helper fixed the rest); 9 tries
 - func_00205F98 (list walk), func_002044F8, func_002057F8: not attempted; func_002060A0: static init (ldl/sdl)
 - func_00206220/func_00206238: alabel split; VU0: func_002042A0 func_00204688 func_00205B48 func_00205C60 func_00205DF0
+
+## Session 5 retries (new asm_filter: short-loop nops, one-pass `la`)
+
+- t_1ABAA0: func_001ACF98 MATCH (short loop; `else if (head) {walk} else head = n` order)
+- t_1BF628: func_001BFDD8 MATCH (tail `x = c->next; n->next = x; if (x) x->prev = n;`), func_001BF9C8 MATCH
+  (`la` of D_00372D58 needs `extern u8 D_00372D58[] __attribute__((section(".sdata")))` so gcc emits the macro)
+- t_1B00D0 (now `// cflags: -funroll-loops`): func_001B1D60 MATCH (callees take no args: a0 not preserved),
+  func_001B00D0 func_001B01D8 func_001B02F0 MATCH (record walk unrolled x4; `E* e = (E*)q[0] + j;`).
+  func_001B1AB8 still DIFFERS: which of count/table pointer gets the copy (`move t2,a3`); 10 forms tried.

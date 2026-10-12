@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S001B08F0_44 {
@@ -55,13 +56,69 @@ extern "C" {
 void func_001B1380(s32 a, s32 b);
 void func_001BD608(S001B1818_7C* p);
 void func_001BD6E0(S001B1818_7C* p);
+void func_0011A470(void);
+void func_001BB068(void);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B00D0);
+struct E1B0 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B01D8);
+struct N1B1D {
+    char pad0[0x8];
+    void* unk8;
+    char padC[0x190];
+    N1B1D* next;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B02F0);
+extern "C" N1B1D* D_00372C34;
+
+extern "C" int func_001B00D0(char* p, u32 idx) {
+    u32* q = *(u32**)(p + 0x38);
+    u32 count = *q++;
+    for (u32 i = 0; i < count; i++) {
+        if (i == idx) return *(int*)q[0];
+        q += 2;
+        u32 n = *q++;
+        q += n;
+    }
+    return 0;
+}
+
+extern "C" int func_001B01D8(char* p, u32 idx, int j) {
+    u32* q = *(u32**)(p + 0x38);
+    u32 count = *q++;
+    for (u32 i = 0; i < count; i++) {
+        if (i == idx) {
+            E1B0* e = (E1B0*)q[0] + j;
+            return e->unk8;
+        }
+        q += 2;
+        u32 n = *q++;
+        q += n;
+    }
+    return 0;
+}
+
+extern "C" void func_001B02F0(char* p, u32 idx, int j, int v) {
+    u32* q = *(u32**)(p + 0x38);
+    u32 count = *q++;
+    for (u32 i = 0; i < count; i++) {
+        if (i == idx) {
+            E1B0* e = (E1B0*)q[0] + j;
+            e->unk8 = v;
+            return;
+        }
+        q += 2;
+        u32 n = *q++;
+        q += n;
+    }
+}
+TEXT_PAD(8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B0410);
 
@@ -201,7 +258,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1C80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1D18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1D60);
+extern "C" void func_001B1D60(N1B1D* n) {
+    if (D_00372C34 == n) {
+        D_00372C34 = n->next;
+    } else {
+        for (N1B1D* c = D_00372C34; c->next; c = c->next) {
+            if (c->next == n) {
+                c->next = n->next;
+                break;
+            }
+        }
+    }
+    if (n->unk8) func_0011A470();
+    func_001BB068();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1DD0);
 

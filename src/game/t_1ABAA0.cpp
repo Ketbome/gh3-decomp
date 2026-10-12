@@ -39,6 +39,17 @@ extern "C" {
 void func_001ACDC0(S001ACCC0* p, s32 v);
 }
 
+struct N1ACF {
+    char pad0[0x28];
+    N1ACF* next;
+};
+
+struct S1ACF {
+    char pad0[0x1C];
+    u32 flags;
+    N1ACF* head;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1ABAA0", func_001ABAA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ABAA0", func_001AC840);
@@ -140,7 +151,18 @@ extern "C" S001ACCC0* func_001ACF70(S001ACCC0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ABAA0", func_001ACF90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ABAA0", func_001ACF98);
+extern "C" void func_001ACF98(S1ACF* p, N1ACF* n) {
+    if (p->flags & 2) {
+        p->head = n;
+    } else if (p->head) {
+        N1ACF* c = p->head;
+        while (c->next) c = c->next;
+        c->next = n;
+    } else {
+        p->head = n;
+    }
+    p->flags &= ~2;
+}
 
 extern "C" S001ACCC0* func_001AD008(S001ACCC0* p) {
     return p->unk28;
