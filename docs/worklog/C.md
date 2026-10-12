@@ -15,6 +15,9 @@
   `if (ok) { ...; return 1; } return 0;` gives the inline `b` + `v0 = 0` form.
 - Float fields zeroed with `mtc1 $0`: chained assignment `a = b = c = 0.0f` (separate statements store `sw $0`);
   store order follows the chain in a non-obvious way (4, C, 8 for `p->4 = p->8 = p->C`).
+- Short loops cannot match yet: the original pads loops shorter than 6 instructions with nops before the closing
+  branch (R5900 short-loop erratum, done by the original assembler). gcc puts the branch in `.set noreorder`, so
+  modern gas `-mfix-r5900` does not help either. Toolchain question; skip functions with tiny loops.
 - Masks like `and` with `-0x101`/`-0x201` then `sb` at +2: bitfields in a u32 (clear bit 8, bit 9, byte field at 16).
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
@@ -48,3 +51,12 @@ Given up:
 - func_00277220 (path compare, '/'=='\\', case-insensitive): `v0 = 0` not stolen into the `bne` delay slot.
 - func_00276698: original copies the hash-chain loop test before the loop (header duplication); 3 forms tried.
 - func_00275660, func_00275610: contain an `alabel` (two entry points); skip.
+
+### t_296A10 (+17)
+func_00297CC0, func_00298170, func_00296A10, func_00296AF0, func_002973C0, func_002974D8, func_00297528,
+func_00297D18, func_00297D78, func_00297DD8, func_00297E38, func_00297F30, func_00297F90, func_00297FF0,
+func_00298050, func_002980B0, func_00298110
+(func_002974D8/func_00297528: red-black tree rotate left/right; func_00297Dxx..func_00298110: destructors that
+unlink from an intrusive list and free through func_00119400(D_00368A38, p).)
+Given up:
+- func_002979D8 / func_00297838 (red-black tree increment/decrement): short loops, original has the R5900 nops.
