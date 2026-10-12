@@ -152,3 +152,13 @@ Matched 13: func_001D29C8 func_001D2AC8 func_001D2AE8 func_001D2B08 func_001D2B1
 
 Given up:
 - func_001D2A30: passes a 128-bit vector loaded with lq as three float args (pcpyud); not attempted
+
+## t_1D4540
+
+Matched 32: func_001D4540 func_001D4560 func_001D4580 func_001D45A0 func_001D4600 func_001D4650 func_001D48A0 func_001D4AA0 func_001D4CF0 func_001D4D48 func_001D5000 func_001D5018 func_001D5020 func_001D5028 func_001D5030 func_001D51F8 func_001D52E8 func_001D5348 func_001D5350 func_001D54A0 func_001D5570 func_001D5588 func_001D55C0 func_001D57F0 func_001D57F8 func_001D5800 func_001D5848 func_001D5858 func_001D5B60 func_001D6450 func_001D6460 func_001D6488
+
+Given up:
+- func_001D55D8: xor operand/load order of two flag bits (5 tries, plain, temps, bitfields)
+- func_001D5870, func_001D5D28, func_001D5F60, func_001D59E8: D_00368A38 is macro-form (no .extern) but gp_rel when in a branch delay slot (original assembler); our gas expands the macro into the slot
+- func_001D4BB0: original copies the hoisted key load (move t0,v1); 4 tries
+- func_001D5CB0: callee-saved register assignment of passed-through args (2 tries)
