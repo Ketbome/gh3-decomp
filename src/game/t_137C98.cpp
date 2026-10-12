@@ -49,6 +49,13 @@ struct S137_P { char pad0[0x20]; int unk20; float unk24; float unk28; float unk2
 
 struct S137_C { char pad0[0x4]; int unk4; S137_B unk8; };
 
+struct S137_H { char pad0[0x1E0]; int unk1E0; };
+struct S137_ColP { u8 r; u8 g; u8 b; u8 a; };
+struct S137_Col {
+    S137_ColP c;
+    S137_Col(const S137_Col& o) : c(o.c) {}
+};
+
 struct S_00138958 { char pad0[0x4]; int unk4; };
 struct S_00138960 { char pad0[0x4]; int unk4; };
 struct S_00139580 { char pad0[0x1B8]; float unk1B8; };
@@ -75,7 +82,14 @@ float func_002EC118(float);
 float func_002EC10C(void);
 extern int D_003694D0;
 void func_0030A970(char*, void*);
-
+extern S137_H* D_00368A38;
+void func_00119490(S137_H*, int);
+void func_001194B8(S137_H*);
+void func_00157738(void*, int, int);
+void func_00138010(void*, S137_P*, int, S137_Col);
+void func_00159768(void*, int, int);
+void func_00157760(void*, int, int);
+int func_001384B0(void*, S137_P*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137C98);
@@ -88,7 +102,20 @@ extern "C" void func_00137F30(int v) {
     D_003694D0 = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137F38);
+GP_DATA(D_003694D0);
+extern "C" int func_00137F38(void* self, S137_P* b, int c, int d, S137_Col color) {
+    S137_H* heap = D_00368A38;
+    func_00119490(heap, heap->unk1E0);
+    func_00157738(self, 0, 0);
+    func_001194B8(D_00368A38);
+    func_00138010(self, b, d, color);
+    func_001384B0(self, b);
+    if (D_003694D0) {
+        func_00159768(self, D_003694D0, c);
+    }
+    func_00157760(self, c, 0);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138010);
 

@@ -194,7 +194,9 @@ Given up:
 - func_0012D298: matched later (base ctor declared returning a pointer)
 - func_0012C780: `sra` in the jal delay slot then `andi s0; move v0,s0` after the call; 8 tries (same quirk as
   func_0012A9A0)
-- func_0012D028, func_0012D0E8: D_00368A38 both %gp_rel and lui/%lo
+- func_0012D028, func_0012D0E8: pooled new/delete (same source as t_1298B0's), blocked by the toolchain: gcc emits
+  `la $3,D_00371470` (8-byte array, small) and asm_filter does not expand `la` to lui/addiu like SN's assembler;
+  declaring it unsized makes gcc split lui/addiu itself and schedule them apart
 - func_0012BD38, func_0012D000, func_0012C750, func_0012BCD8, func_0012CEE0, func_0012D210: split tails
 - func_0012CF40: iterator on the stack; func_0012D1A0: nop delay loops; func_0012BF38: jtbl
 - func_0012BE38: not attempted yet (virtual call through container)
@@ -266,6 +268,7 @@ Given up:
 
 Matched 10: func_001384B0 func_00138850 func_00138908 func_00138978 func_00138D98 func_00139510 func_00139590
 func_001395A8 func_001397A8 func_00139C18 (func_001389F0 retyped to pass its 2nd argument)
+Matched 1 (gp retry, solved): func_00137F38 (color by value = class with copy ctor, passed by invisible reference)
 
 - ldl/ldr/sdl/sdr = assignment of a 0x38-byte char-aligned struct. func_002EC118(float)/func_002EC10C(void) are the
   VU0 sin/cos start/result helpers (gamespy.s). u128 arguments go in one register each (func_00138D98); the
@@ -276,7 +279,7 @@ Given up:
 - func_00137E30, func_00137EB0: the last `sdr` is not put in the jr delay slot by SN's assembler (ours fills it)
 - func_00138E78: `li 0x19F1C; addu; lw 0` not folded in the original (ours folds the offset); 3 tries
 - func_001396D0: 128-bit != compare (pceqw/ppacb), gcc 2.95 rejects TImode compares
-- func_00137F38, func_00138790: D_00368A38 both %gp_rel and lui/%lo
+- func_00138790: pooled new, blocked by `la` of D_00371288 (see t_12B970)
 - func_00138A18: float lanes of 128-bit values; func_00138B08, func_00138950, func_00138E60: split tails
 
 ## t_139CE8
