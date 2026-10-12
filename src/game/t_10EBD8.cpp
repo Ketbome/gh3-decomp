@@ -1,6 +1,40 @@
 #include "common.h"
 
+typedef unsigned int u128_10E __attribute__((mode(TI)));
+
+union U10E {
+    u128_10E q;
+    float f[4];
+};
+
+struct S10E {
+    u128_10E* unk0;
+};
+
+struct A10E {
+    int unk0;
+    int unk4;
+    int unk8;
+    void* unkC;
+};
+
+struct B10E {
+    A10E unk0;
+    A10E unk10;
+    void* unk20;
+};
+
+struct C10E {
+    A10E unk0;
+    A10E unk10;
+    int unk20;
+    B10E unk24;
+};
+
 extern "C" {
+extern u8 D_003378E0[];
+extern u8 D_003378C8[];
+extern u8 D_003378B0[];
 void func_0010D818(int, int);
 }
 
@@ -68,7 +102,11 @@ extern "C" int func_00110150(S_00110150* self) {
     return self->unk4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_00110158);
+extern "C" void func_00110158(S10E* self, int i, u128_10E v) {
+    u128_10E* p = self->unk0;
+    p += i;
+    *p = v;
+}
 
 extern "C" void func_00110170(S_00110170* self, int i, float v) {
     float* p = self->unk10;

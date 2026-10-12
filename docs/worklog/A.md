@@ -4,6 +4,9 @@ Notes:
 - 0x4 candidates and functions starting with `addiu $sp, +N` are split tails: skipped.
 - Functions that save `$s` registers only match with `-fopt-stack` (official flags give `sq`): skipped until the
   flag is adopted (they are listed per file as "opt-stack").
+- Old-assembler artifact: `.sdata` globals read/written outside a delay slot appear as `lui`+`%lo` (macro
+  expansion, `$at` for stores); declare them `extern T D[] __attribute__((section(".sdata")))`. Inside a delay slot
+  they are `%gp_rel`: declare them as scalars. A symbol used both ways in one file can't be matched with one declaration.
 - scripts/fcheck.py drops the relocation of an instruction that follows a `nop` (regex `\s+` eats the newline), so
   a `jal`/`%lo` right after a `nop` reports DIFFERS: skipped ("fcheck nop bug").
 
@@ -19,3 +22,22 @@ Given up:
 - func_00188870: fcheck nop bug (matches otherwise)
 - opt-stack: func_00187E08 func_00187F00 func_001883A8 func_00188520 func_00188568 func_00188A70 func_00188F80
   func_00188FB8 func_00189010 func_00189040 func_00189818
+
+## t_10C000
+
+Matched 3: func_0010C120 func_0010D420 func_0010C2E0
+
+Given up:
+- func_0010C170, func_0010C050, func_0010C0B8: same .sdata symbols both as lui/%lo and %gp_rel (see notes)
+- func_0010C330: 4x4 determinant, float scheduling; 2 tries
+- func_0010C1A0: hand-written asm (float constants via lui/ori, `c1` sqrt)
+- func_0010D548, func_0010D438: 128-bit vector lane code (pextlw/pcpyud), not attempted
+
+## t_10EBD8
+
+Matched 1: func_00110158
+
+Given up:
+- func_0010F698, func_0010F6A8, func_0010F6C0: float lane of a 128-bit load (lq+mtc1); unions go through the stack
+- func_0010FE60: last store not in the delay slot (switch tail); 5 tries
+- func_0010FED0: inline ctor store scheduling; 4 tries
