@@ -210,3 +210,19 @@ Given up:
 Given up:
 - t_2DCE78 func_002DD288 (now only a layout problem): original keeps separate `b end / v0 = 0` returns and leaves
   call delay slots empty; plain, volatile and guard-object forms tried.
+
+### t_288B10 (+17)
+func_002896E0, func_00289710, func_00289868, func_00288D88, func_00288DC0, func_00288DF8, func_00289CF8,
+func_0028A558, func_00289898, func_002898E8, func_00289C88, func_00288E30, func_00288B10 (`delete` through a
+virtual destructor, vptr at 0xC), func_00288B88, func_00289048, func_002897E8, func_00289750
+(S288_Val: {obj, value, flags}; low 4 bits of flags = type, bit 6 tested with `((u32)f >> 6) & 1`; the
+virtual-call wrappers pass their incoming a1 through as the first argument.)
+Given up:
+- func_00288C00, func_00288C48, func_00288D20, func_00288C90: `type = n` (`(f & ~0xF) | n`) allocates the loaded
+  word in v1 and -16 in v0; original the other way. Bitfield, temp, `&= ; |=`, operand-order forms tried.
+- func_0028AAC0: arg moves order (a0 last, in the jal delay slot); `&a` of the parameter fixed the rest.
+- func_002891A8, func_00289228: original reloads p->unk4 before the loop and has a `nop` before the loop label;
+  3 forms tried.
+- func_00289E10: handle-assign inline; everything matches except the original keeps the second `if (obj)`
+  after the inlined setter (ours folds it). 4 forms tried.
+- func_00289938: starts with a stray `addiu sp,0x10; nop` fragment (split boundary).
