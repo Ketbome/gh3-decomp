@@ -30,9 +30,9 @@ Given up:
 ## t_10C000
 
 Matched 3: func_0010C120 func_0010D420 func_0010C2E0
+Matched 3 (gp retry, solved): func_0010C170 func_0010C050 func_0010C0B8
 
 Given up:
-- func_0010C170, func_0010C050, func_0010C0B8: same .sdata symbols both as lui/%lo and %gp_rel (see notes)
 - func_0010C330: 4x4 determinant, float scheduling; 2 tries
 - func_0010C1A0: hand-written asm (float constants via lui/ori, `c1` sqrt)
 - func_0010D548, func_0010D438: 128-bit vector lane code (pextlw/pcpyud), not attempted

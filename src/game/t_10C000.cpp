@@ -18,9 +18,21 @@ extern int D_00372A94;
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C000);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C050);
+extern "C" int func_0010C050(int n) {
+    int a = D_00372A80 * D_00372A84 + D_00372A88;
+    D_00372A84 = (D_00372A84 ^ a) + (a >> 4);
+    D_00372A88 += (a >> 3) - 0x10101010;
+    D_00372A80 = a;
+    return ((a & 0xFFFF) * n) >> 16;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C0B8);
+extern "C" int func_0010C0B8(int n) {
+    int a = D_00372A8C * D_00372A90 + D_00372A94;
+    D_00372A90 = (D_00372A90 ^ a) + (a >> 4);
+    D_00372A94 += (a >> 3) - 0x10101010;
+    D_00372A8C = a;
+    return ((a & 0xFFFF) * n) >> 16;
+}
 
 extern "C" void func_0010C120(int* a, int* b, int* c, int* d, int* e, int* g) {
     if (a) *a = D_00372A80;
@@ -31,7 +43,14 @@ extern "C" void func_0010C120(int* a, int* b, int* c, int* d, int* e, int* g) {
     if (g) *g = D_00372A94;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C170);
+extern "C" void func_0010C170(int a, int b, int c, int d, int e, int f) {
+    D_00372A80 = a;
+    D_00372A84 = b;
+    D_00372A88 = c;
+    D_00372A8C = d;
+    D_00372A90 = e;
+    D_00372A94 = f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C1A0);
 
