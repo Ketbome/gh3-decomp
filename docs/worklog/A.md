@@ -654,3 +654,19 @@ Given up:
 - func_0015B268 (hash Get through `self->unk8`): original loads unk8 before the `addiu sp` and shares one
   `return 0` block; 5 forms tried
 - func_0015BB80: static init of 12 x 16-byte entries, scheduled stores; func_0015D0D0: not attempted
+
+## t_150DE8 (A6)
+
+Matched 18: func_001510F0 func_00151950 func_00152648 func_00152990 func_001529F0 func_00152A50 func_00152AB0
+func_00152C20 func_00152C78 func_00152CE0 func_00152D08 func_00152D30 func_00152D80 func_00152DC8 func_00150DE8
+func_00152850 func_00152908 func_00152B88
+
+- `delete p` / `delete[] p` through file-local inline `operator delete`/`operator delete[]` calling
+  func_00119400(D_00368A38, p). A vptr at 0xC with members after it needs a base {pad[0xC]; virtual ~B();} and a
+  derived struct for the rest (otherwise gcc puts the vptr last).
+- func_00152850/func_00152908: hash Clear/dtor again (entry reset func_00152638).
+
+Given up:
+- func_00152B38 (ctor): the D_00372B58 argument load is in the jal delay slot in the original, ours hoists it
+  above the field stores; 1 try
+- func_00152B10: pextlw/pcpyld; func_00152670 (0x1E0) not attempted
