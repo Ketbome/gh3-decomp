@@ -453,3 +453,8 @@ func_0014F978 func_0014F9D8 func_00150520 (func_0014F150 retyped to pass self)
 Given up / open:
 - func_0014F910: static list-node init; register/store order not found yet (several permutations)
 - func_0014E7E8 (list search), func_0014F0E0 (split), split tails: not attempted
+
+## t_146580
+
+Matched 7: CFunc_DumpScreenElements CFunc_ScreenElementExists CFunc_SetRootScreenElement CFunc_ResolveScreenElementID
+func_001482F8 func_00148350 func_00148508
