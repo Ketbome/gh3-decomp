@@ -43,9 +43,9 @@ def compile_object(src, out_dir):
 
 def original(name):
     """(address, size, {offset: (kind, symbol, addend)}) from the function's asm/nonmatchings file."""
-    path = next((ROOT / "asm" / "nonmatchings").rglob(f"{name}.s"), None)
+    path = next((p for d in ("nonmatchings", "matchings") for p in (ROOT / "asm" / d).rglob(f"{name}.s")), None)
     if not path:
-        sys.exit(f"{name}: no asm/nonmatchings file")
+        sys.exit(f"{name}: no asm/nonmatchings or asm/matchings file")
     text = path.read_text()
     size = int(re.search(r"^nonmatching \w+, 0x([0-9A-F]+)", text, re.M).group(1), 16)
     refs = {}

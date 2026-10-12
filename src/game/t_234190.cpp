@@ -78,31 +78,33 @@ extern "C" void func_00235080(S234* self, S234b* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002350B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002352A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_CreatePakManMap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002358B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_DestroyPakManMap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00235BF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_PendingPakManLoads);
 
-extern "C" int func_00235D80(int a) {
+extern "C" int CFunc_ExistsPakManMap(int a) {
     int tmp = 0;
     func_0027D870(a, 0x6C525544, &tmp, 1);
     return func_00233C50(tmp) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00235DB8);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_SetPakManCurrent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00235F20);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManCurrent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00235FC0);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManCurrentName);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236068);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManNumFreeSlots);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236100);
 
-extern "C" int func_00236140(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_EnablePakManStreaming);
+
+extern "C" int CFunc_DisablePakManStreaming(void) {
     D_0036FD2C = 0;
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236150);
+INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_RefreshPakManSizes);

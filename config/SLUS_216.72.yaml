@@ -20,11 +20,14 @@ options:
   generate_asm_macros_files: False
 
   find_file_boundaries: False
+  # Keep a .s for functions already in C++ too: fcheck.py and progress.py read them.
+  disassemble_all: True
 
   o_as_suffix: True
 
   symbol_addrs_path:
     - config/symbol_addrs.txt
+    - config/symbols/cfuncs.txt
   reloc_addrs_path:
     - config/reloc_addrs.txt
 

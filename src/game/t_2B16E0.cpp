@@ -8,4 +8,4 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2B16E0", func_002B1F48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B16E0", func_002B2370);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B16E0", func_002B2978);
+INCLUDE_ASM("asm/nonmatchings/game/t_2B16E0", CFunc_UpdateScoreFastPerFrame);

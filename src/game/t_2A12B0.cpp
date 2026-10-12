@@ -61,61 +61,63 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1670);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A16C0);
 
-extern "C" s32 func_002A16D0(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_OverwriteCorruptMemcardContent);
+
+extern "C" s32 CFunc_AutoListDeleteStart(void) {
     return 0;
 }
 
-extern "C" s32 func_002A16D8(void) {
+extern "C" s32 CFunc_AutoListDeleteFinished(void) {
     return 0;
 }
 
-extern "C" s32 func_002A16E0(void) {
+extern "C" s32 CFunc_GetMemCardFileProp(void) {
     return 0;
 }
 
-extern "C" s32 func_002A16E8(void) {
+extern "C" s32 CFunc_RegisterState(void) {
     return 0;
 }
 
-extern "C" s32 func_002A16F0(void) {
+extern "C" s32 CFunc_UnregisterAllStates(void) {
     return 0;
 }
 
-extern "C" s32 func_002A16F8(void) {
+extern "C" s32 CFunc_RegisterCompositeObjectDesc(void) {
     return 0;
 }
 
-extern "C" s32 func_002A1700(void) {
+extern "C" s32 CFunc_PassMgr_Init(void) {
     return 0;
 }
 
-extern "C" s32 func_002A1708(void) {
+extern "C" s32 CFunc_ProcessorMgr_Init(void) {
     return 0;
 }
 
-extern "C" s32 func_002A1710(void) {
+extern "C" s32 CFunc_RegisterPassGroupDesc(void) {
     return 0;
 }
 
-extern "C" s32 func_002A1718(void) {
+extern "C" s32 CFunc_RegisterProcessorGroupDesc(void) {
     return 0;
 }
 
-extern "C" s32 func_002A1720(s32 arg0) {
+extern "C" s32 CFunc_HACK_ps2_set_saveload_successor_checksum(s32 arg0) {
     s32 sp0;
     func_0027D870(arg0, 0, (s32) &sp0, 1);
     D_00372EF0[0] = sp0;
     return 1;
 }
 
-extern "C" s32 func_002A1758(int arg0, S2A1758_1 *arg1) {
+extern "C" s32 CFunc_HACK_ps2_get_saveload_successor_checksum(int arg0, S2A1758_1 *arg1) {
     func_0027C448(arg1->unk20, 0x91652189 /* ps2_saveload_successor_checksum */, D_00372EF0[0]);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1788);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_DEBUG_set_DofZDepth);
 
-extern "C" s32 func_002A17F0(int arg0, S2A1758_1 *arg1) {
+extern "C" s32 CFunc_DEBUG_get_DofZDepth(int arg0, S2A1758_1 *arg1) {
     func_0027C1F8(arg1->unk20, 0x6FEC35E2, D_0036CA70[0]);
     return 1;
 }
@@ -144,70 +146,72 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1918);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1AE0);
 
-extern "C" void func_002A1C50(s32 arg0) {
+extern "C" void CFunc_IsInNodeArray(s32 arg0) {
     s32 sp0;
     func_0027D870(arg0, 0, (s32) &sp0, 1);
     func_00222F90(sp0);
 }
 
-extern "C" void func_002A1C80(s32 arg0) {
+extern "C" void CFunc_CreateFromStructure(s32 arg0) {
     func_002297D8(D_0036F608[0], arg0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1CA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_Create);
 
-extern "C" int func_002A1CF0(int arg0, int arg1) {
+extern "C" int CFunc_CallScriptOnNode(int arg0, int arg1) {
     return func_002A1AE0(arg0, arg1, 8);
 }
 
-extern "C" int func_002A1D10(int arg0, int arg1) {
+extern "C" int CFunc_SetObjectColor(int arg0, int arg1) {
     return func_002A1AE0(arg0, arg1, 6);
 }
 
-extern "C" int func_002A1D30(int arg0, int arg1) {
+extern "C" int CFunc_Kill(int arg0, int arg1) {
     return func_002A1AE0(arg0, arg1, 1);
 }
 
-extern "C" int func_002A1D50(int arg0, int arg1) {
+extern "C" int CFunc_Visible(int arg0, int arg1) {
     return func_002A1AE0(arg0, arg1, 2);
 }
 
-extern "C" int func_002A1D70(int arg0, int arg1) {
+extern "C" int CFunc_Invisible(int arg0, int arg1) {
     return func_002A1AE0(arg0, arg1, 3);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1D90);
 
-extern "C" s32 func_002A1E30(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_SetGSIdleProcParams);
+
+extern "C" s32 CFunc_PrintNodeArrayParsingStatus(void) {
     return 1;
 }
 
-extern "C" void func_002A1E38(void) {
+extern "C" void CFunc_NodeArrayBusy(void) {
     func_002297A8(D_0036F608[0]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1E60);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_LoadNodeArray);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1EF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_ReLoadNodeArray);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2030);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_NodeArrayManLoad);
 
-extern "C" s32 func_002A2098(s32 arg0) {
+extern "C" s32 CFunc_NodeArrayManUnload(s32 arg0) {
     s32 sp0;
     func_0027D188(arg0, 0, (s32) &sp0, 1);
     func_00225BF0(D_0036F520[0], sp0);
     return 1;
 }
 
-extern "C" s32 func_002A20D0(void) {
+extern "C" s32 CFunc_DumpHavokMemStats(void) {
     return 1;
 }
 
-extern "C" s32 func_002A20D8(void) {
+extern "C" s32 CFunc_SetLeakCheck(void) {
     return 1;
 }
 
-extern "C" s32 func_002A20E0(void) {
+extern "C" s32 CFunc_CasArtist(void) {
     return func_002765E0(0x2A648514 /* cas_artist */, 0) != 0;
 }
 
@@ -217,23 +221,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2200);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2230);
 
-extern "C" int func_002A2260(int arg0, int arg1) {
+extern "C" int CFunc_ClearFlag(int arg0, int arg1) {
     return func_002A2568(arg0, arg1, 1);
 }
 
-extern "C" int func_002A2280(int arg0, int arg1) {
+extern "C" int CFunc_SendFlag(int arg0, int arg1) {
     return func_002A2568(arg0, arg1, 0);
 }
 
-extern "C" int func_002A22A0(int arg0, int arg1) {
+extern "C" int CFunc_QueryFlag(int arg0, int arg1) {
     return func_002A2568(arg0, arg1, 2);
 }
 
-extern "C" int func_002A22C0(int arg0, int arg1) {
+extern "C" int CFunc_SendException(int arg0, int arg1) {
     return func_002A2568(arg0, arg1, 5);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A22E0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_IsCreated);
 
 extern "C" void func_002A2550(S2A2550_0 *arg0, s32 arg1, s32 arg2) {
     arg0->unk0 = arg1;
@@ -256,11 +262,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2FB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A3110);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_SpawnSound);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A3218);
 
-extern "C" s32 func_002A3270(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_c_PauseGame);
+
+extern "C" s32 CFunc_c_UnPauseGame(void) {
     func_002DCD20(D_00372318[0], 0);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A3298);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_GameIsPaused);

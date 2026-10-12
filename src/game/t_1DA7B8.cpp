@@ -39,21 +39,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DBB40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DBC78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC078);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_BroadcastEvent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC098);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_LaunchEvent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC0B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_WaitForEvent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC100);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_ObjectExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC248);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_TerminateObjectsScripts);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC450);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_AssignAlias);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC5E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_SetObjectProps);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC740);
+INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", CFunc_PrintEventLog);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DC748);
 

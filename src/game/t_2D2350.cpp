@@ -19,15 +19,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D2390);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D2758);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D2E68);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_script_callback_script_cfunc);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D31E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D3210);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_update_guitar_volume_cfunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D35A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_CheckButtonsBoss);
 
-extern "C" s32 func_002D37E8(void) {
+extern "C" s32 CFunc_CheckBossCutoff(void) {
     f32 temp_f1;
 
     if (D_003721D8 > 0.0f) {
@@ -40,13 +40,13 @@ extern "C" s32 func_002D37E8(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D3858);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_StarPowerOn);
 
-extern "C" s32 func_002D3AA0(void) {
+extern "C" s32 CFunc_ResetWhammyCachedRows(void) {
     D_0036CBF4[0] = 0;
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D3AB0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_proj_gh3c_build_gs_available_guitar_array_last_loop);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D40B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_select_guitar_build_brand_array);

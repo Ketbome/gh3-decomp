@@ -139,6 +139,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F230);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F268);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", CFunc_ToggleAddScenes);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F298);
 
 extern "C" void func_0014F708(void) {
@@ -173,21 +175,23 @@ extern "C" void func_0014F800(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F820);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F858);
+INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", CFunc_CheckFlexibleParticleStructure);
 
-extern "C" int func_0014F888(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", CFunc_CheckSplineParticleStructure);
+
+extern "C" int CFunc_EngineConfig(void) {
     return 0;
 }
 
-extern "C" int func_0014F890(void) {
+extern "C" int CFunc_EngineCreateWaterRipple(void) {
     return 0;
 }
 
-extern "C" int func_0014F898(void) {
+extern "C" int CFunc_EngineWind(void) {
     return 0;
 }
 
-extern "C" int func_0014F8A0(void) {
+extern "C" int CFunc_EngineUpdateFXMaterial(void) {
     return 0;
 }
 

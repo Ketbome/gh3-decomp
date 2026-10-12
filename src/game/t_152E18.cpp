@@ -246,7 +246,7 @@ extern "C" S_00154180* func_00154180(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_001541A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_001541E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_152E18", CFunc_LightShow_UpdateLightingTweaks);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00154380);
 

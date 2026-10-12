@@ -6,7 +6,7 @@ int func_001DAC78(int, int, int, int, int, int, f32);
 int func_0027AF38(int, int, int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B3AC8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", CFunc_CalcSongScoreInfo);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B47E0);
 

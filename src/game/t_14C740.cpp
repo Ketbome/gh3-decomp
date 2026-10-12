@@ -54,16 +54,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D068);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D070);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D320);
+INCLUDE_ASM("asm/nonmatchings/game/t_14C740", CFunc_SetFontProperties);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D678);
 
-extern "C" int func_0014D6C0(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_14C740", CFunc_SetFontNonProportionalNumbers);
+
+extern "C" int CFunc_AllocateDecompressedFontBuffers(void) {
     func_0014D010();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D6E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_14C740", CFunc_DecompressFonts);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D788);
 

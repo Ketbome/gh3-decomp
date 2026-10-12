@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Adds TEXT_PAD(n) after C++ functions that the original follows with 8 or more bytes of padding.
 
-The padding behind a function is kept in its asm/nonmatchings file (the nops after `endlabel`). The compiler
+The padding behind a function is kept in its asm/(non)matchings file (the nops after `endlabel`). The compiler
 reproduces up to 4 bytes of it (the next function is 8-byte aligned); more than that marks the end of an original
 object file, whose code the linker aligned to 16 bytes, and has to be written out. Idempotent.
 
@@ -23,7 +23,7 @@ def trailing_padding(asm_path):
 
 
 def fix(path):
-    folder = ROOT / "asm" / "nonmatchings" / "game" / path.stem
+    folders = [ROOT / "asm" / d / "game" / path.stem for d in ("matchings", "nonmatchings")]
     lines = path.read_text().splitlines(keepends=True)
     out = []
     i = 0
@@ -33,7 +33,7 @@ def fix(path):
         out.append(line)
         m = DEF.match(line)
         name = m and m.group(1)
-        asm = folder / f"{name}.s" if name else None
+        asm = next((f / f"{name}.s" for f in folders if (f / f"{name}.s").exists()), None) if name else None
         if asm and asm.exists() and ("{" in line or (i + 1 < len(lines) and lines[i + 1].startswith("{"))):
             j = i
             while not lines[j].startswith("}"):

@@ -14,142 +14,144 @@ extern int D_00369A4C[] __attribute__((section(".sdata")));
 void func_0016BB28(int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BA88);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_IsInArray);
 
-extern "C" int func_0024BBD0(void) {
+extern "C" int CFunc_Test(void) {
     return 1;
 }
 
-extern "C" int func_0024BBD8(void) {
+extern "C" int CFunc_DetectOldGlobalReferences(void) {
     return 1;
 }
 
-extern "C" int func_0024BBE0(void) {
+extern "C" int CFunc_EnableLookUpSymbolNotInMainThreadTest(void) {
     return 1;
 }
 
-extern "C" int func_0024BBE8(void) {
+extern "C" int CFunc_SetAsianFontScale(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BBF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_EnableDuplicateSymbolWarning);
 
-extern "C" int func_0024BC30(void) {
+extern "C" int CFunc_DumpCompositeObjects(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BC38);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ConvertPippedScriptGlobalToModifiable);
 
-extern "C" int func_0024BC70(void) {
+extern "C" int CFunc_DestroyAllParticles(void) {
     if (D_00369A4C[0] != 0) {
         func_0016BB28(D_00369A4C[0]);
     }
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BCA0);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DestroyParticlesByGroupID);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BD38);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DestroyAllFastParticles);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024BDE8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Change);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C468);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_SetEventHandlerOnObject);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C5C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetNode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C628);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetNodeName);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C688);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetTriggerNodeName);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C6C0);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetNodeProfileInfo);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C748);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_InitCOIM);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C7B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ReserveCOIMBlocksForPermObjects);
 
-extern "C" int func_0024C808(void) {
+extern "C" int CFunc_IsCOIMInited(void) {
     return 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C810);
 
-extern "C" int func_0024C8A8(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ProximCleanup);
+
+extern "C" int CFunc_Inside(void) {
     return ((S0024C8A8*)D_0036E010[0])->unk8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C8B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_LoadQB);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C990);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_UnloadQB);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CA30);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ScreenShot);
 
-extern "C" int func_0024CA80(void) {
+extern "C" int CFunc_ResetEngine(void) {
     func_002754B0(D_00370EE0[0]);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CAA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ToggleMetrics);
 
-extern "C" int func_0024CAE8(void) {
+extern "C" int CFunc_GetMetricsMode(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CAF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_IsTextureInDictionary);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CB50);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetRelativePath);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CC88);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetFileNameFromPath);
 
-extern "C" int func_0024CD30(void) {
+extern "C" int CFunc_LoadDBG(void) {
     return 1;
 }
 
-extern "C" int func_0024CD38(void) {
+extern "C" int CFunc_GetCCallstack(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CD40);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_StringRemove);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024CE40);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DisplayLoadingScreen);
 
-extern "C" int func_0024CFC0(void) {
+extern "C" int CFunc_HideLoadingScreen(void) {
     func_001573D8();
     return 1;
 }
 
-extern "C" int func_0024CFE0(void) {
+extern "C" int CFunc_InitFileCache(void) {
     return 1;
 }
 
-extern "C" int func_0024CFE8(void) {
+extern "C" int CFunc_CachePlatFile(void) {
     return 1;
 }
 
-extern "C" int func_0024CFF0(void) {
+extern "C" int CFunc_CacheFile(void) {
     return 1;
 }
 
-extern "C" int func_0024CFF8(void) {
+extern "C" int CFunc_IsFileCached(void) {
     return 1;
 }
 
-extern "C" int func_0024D000(void) {
+extern "C" int CFunc_WaitForFileCache(void) {
     return 1;
 }
 
-extern "C" int func_0024D008(void) {
+extern "C" int CFunc_IsFileCacheFinished(void) {
     return 1;
 }
 
-extern "C" int func_0024D010(void) {
+extern "C" int CFunc_ResizeFileCacheStreamBuff(void) {
     return 1;
 }
 
-extern "C" int func_0024D018(void) {
+extern "C" int CFunc_ToggleFileCaching(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D020);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetBuildVersion);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D060);
 
@@ -157,28 +159,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D068);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D128);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D1E8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Sin);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D248);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Cos);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D2A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Tan);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D308);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ASin);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D368);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ACos);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D3C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ATan);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D428);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Sqrt);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D480);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Mod);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D500);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_NormalizeVector);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D5D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetVectorComponents);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D660);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_SetVectorComponents);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D760);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetAngle);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D858);
+INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_RotateVector);

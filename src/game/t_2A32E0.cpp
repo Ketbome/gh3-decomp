@@ -27,7 +27,9 @@ int func_0030A970(void *, s32);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A32E0);
 
-extern "C" s32 func_002A3340(s32 arg0) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_ProfileTasks);
+
+extern "C" s32 CFunc_SetSlomo(s32 arg0) {
     f32 sp0;
 
     sp0 = 1.0f;
@@ -36,77 +38,81 @@ extern "C" s32 func_002A3340(s32 arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3380);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetSlomo);
 
-extern "C" s32 func_002A33C0(void) {
+extern "C" s32 CFunc_LaunchScriptDebugger(void) {
     return D_00368744[0] != 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A33D0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_Debounce);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A34A0);
 
-extern "C" s32 func_002A34F0(int arg0, S2A34F0_1 *arg1) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_SetSaveZoneNameToCurrent);
+
+extern "C" s32 CFunc_GetSaveZoneName(int arg0, S2A34F0_1 *arg1) {
     func_0027C028(arg1->unk20, 0x20F4889D /* save_zone */, D_003301E0);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3520);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_DestroyZoneEntities);
 
-extern "C" s32 func_002A3620(void) {
+extern "C" s32 CFunc_PrintInteractNodeUsers(void) {
     return 0;
 }
 
-extern "C" s32 func_002A3628(void) {
+extern "C" s32 CFunc_CleanupOrphanEntities(void) {
     func_002348A0();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3648);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_IsObjectDestructing);
 
-extern "C" s32 func_002A3698(void) {
+extern "C" s32 CFunc_ForEachPlayer(void) {
     return 1;
 }
 
-extern "C" s32 func_002A36A0(void) {
+extern "C" s32 CFunc_ToggleLOD(void) {
     return 1;
 }
 
-extern "C" s32 func_002A36A8(void) {
+extern "C" s32 CFunc_ResetWaypoints(void) {
     D_003723D8[0] = 0;
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A36B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetWaypointPos);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3748);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetWaypointDir);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A37E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_DoesWaypointExist);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3818);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A38D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_CreateParticleSystem_Fast);
 
-extern "C" s32 func_002A3E40(void) {
+extern "C" s32 CFunc_StartServer(void) {
     return 0;
 }
 
-extern "C" s32 func_002A3E48(void) {
+extern "C" s32 CFunc_JoinServer(void) {
     return 0;
 }
 
-extern "C" s32 func_002A3E50(void) {
+extern "C" s32 CFunc_breakpoint(void) {
     return 1;
 }
 
-extern "C" s32 func_002A3E58(s32 arg0) {
+extern "C" s32 CFunc_DumpCameraGPU(s32 arg0) {
     s32 sp0;
     func_0027D188(arg0, 0x61414D56 /* STRING */, (s32) &sp0, 0);
     func_0030A970(D_00330260, sp0);
     return 1;
 }
 
-extern "C" s32 func_002A3E98(void) {
+extern "C" s32 CFunc_WasMovieAborted(void) {
     return D_00372EE0;
 }
 
@@ -129,63 +135,63 @@ extern "C" void func_002A4920(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4940);
 
-extern "C" s32 func_002A49E0(void) {
+extern "C" s32 CFunc_MC_EnumerateFolders(void) {
     return 1;
 }
 
-extern "C" s32 func_002A49E8(void) {
+extern "C" s32 CFunc_MC_CreateFolder(void) {
     return 0;
 }
 
-extern "C" s32 func_002A49F0(void) {
+extern "C" s32 CFunc_MC_SetActiveFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A49F8(void) {
+extern "C" s32 CFunc_MC_SpaceForNewFile(void) {
     return 0;
 }
 
-extern "C" s32 func_002A4A00(void) {
+extern "C" s32 CFunc_MC_SpaceForNewFolder(void) {
     return 0;
 }
 
-extern "C" s32 func_002A4A08(void) {
+extern "C" s32 CFunc_MC_TestValidateDiskContents(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A10(void) {
+extern "C" s32 CFunc_MC_LoadTOCInActiveFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A18(void) {
+extern "C" s32 CFunc_MC_WaitAsyncOpsFinished(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A20(void) {
+extern "C" s32 CFunc_MC_FolderExists(void) {
     return 0;
 }
 
-extern "C" s32 func_002A4A28(void) {
+extern "C" s32 CFunc_MC_GetUniqueFolderName(void) {
     return 0;
 }
 
-extern "C" s32 func_002A4A30(void) {
+extern "C" s32 CFunc_MC_DeleteFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A38(void) {
+extern "C" s32 CFunc_MC_HasActiveFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A40(void) {
+extern "C" s32 CFunc_MC_HasValidatedFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A48(void) {
+extern "C" s32 CFunc_MC_ClearValidatedFolder(void) {
     return 1;
 }
 
-extern "C" s32 func_002A4A50(void) {
+extern "C" s32 CFunc_MC_AsyncOpsFinished(void) {
     return 1;
 }
 

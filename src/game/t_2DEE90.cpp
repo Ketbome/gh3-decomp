@@ -43,7 +43,7 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 int func_00119400(s32, void *);
 }
 
-extern "C" s32 func_002DEE90(void) {
+extern "C" s32 CFunc_SendNetMessage(void) {
     return 0;
 }
 

@@ -76,19 +76,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB568);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB570);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB5B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_MarkGameOver);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB618);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_SetJoinMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB660);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_SetHostMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB6E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_IsHost);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_ChangeLevelPending);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB708);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB750);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB808);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_EnterSurveyorMode);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_ExitSurveyorMode);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB8D8);
 

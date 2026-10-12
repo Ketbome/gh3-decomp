@@ -204,34 +204,34 @@ extern "C" int func_0025FF00(void) {
     return D_0036D540[D_0036D550[0]]->unk58;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_0025FF28);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_UnloadAnim);
 
-extern "C" int func_00260020(void) {
+extern "C" int CFunc_LoadAsset(void) {
     return 0;
 }
 
-extern "C" int func_00260028(void) {
+extern "C" int CFunc_UnloadAsset(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_00260030);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_LoadAnim);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_00260118);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_ReloadAnim);
 
-extern "C" int func_00260270(void) {
+extern "C" int CFunc_LoadSkeleton(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_00260278);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_IsAssetLoaded);
 
-extern "C" int func_00260308(void) {
+extern "C" int CFunc_LoadTerrainSounds(void) {
     return 0;
 }
 
-extern "C" int func_00260310(void) {
+extern "C" int CFunc_SetScenePermanent(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_00260318);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_LoadScene);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", func_00260568);
+INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_UnloadScene);

@@ -45,50 +45,54 @@ extern u64 D_003706D0;
 extern S00261C98 D_0039A3C8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260658);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AllowAssetLoading);
 
-extern "C" int func_002606A0(void) {
+extern "C" int CFunc_AreAssetsLocked(void) {
     return ((S002606A0*)D_0036F658[0])->unkA0 != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002606B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_PushAssetContext);
 
-extern "C" int func_00260710(void) {
+extern "C" int CFunc_PopAssetContext(void) {
     ((S00260710*)D_0036F658[0])->unk18--;
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260730);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetSearchAllAssetContexts);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260800);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_Randomize);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260828);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_ResetTimer);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeGreaterThan);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002608C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260910);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetStartTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260950);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetTrueStartTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002609A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetMicroseconds);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002609E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_ResetSongTimer);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260A18);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_IncrementSongTimer);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260A58);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetSongTime);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetSongTimeMs);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260AC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260B00);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetLocalSystemTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260C30);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetDeltaTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260CA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetDeltaTime);
 
-extern "C" int func_00260D00(void) {
+extern "C" int CFunc_PrintTime(void) {
     return 1;
 }
 
@@ -111,89 +115,97 @@ extern "C" void func_00260D88(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260D98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260E30);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeMarkerReached_SetParams);
 
-extern "C" int func_00260F20(int a, int b) {
+extern "C" int CFunc_TimeMarkerReached_ClearParams(int a, int b) {
     func_00289CF8(b);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260F40);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeMarkerReached);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261090);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_OnServer);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002610C0);
 
-extern "C" int func_00261158(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetNetworkMode);
+
+extern "C" int CFunc_UseNetworkPreferences(void) {
     func_001CA9B0(D_00372580[0]);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261180);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TestNetSetup);
 
-extern "C" void func_00261348(void) {
+extern "C" void CFunc_NeedToTestNetSetup(void) {
     func_00296550(D_003717E0[0]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261370);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_LoadNetworkDrivers);
 
-extern "C" int func_002613F0(void) {
+extern "C" int CFunc_InNetGame(void) {
     return 0;
 }
 
-extern "C" int func_002613F8(void) {
+extern "C" int CFunc_IsObserving(void) {
     return 0;
 }
 
-extern "C" int func_00261400(void) {
+extern "C" int CFunc_IsSurveying(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261408);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SkatersAreReady);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002614A0);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetServerMode);
 
-extern "C" int func_002614E0(void) {
+extern "C" int CFunc_GameIsOver(void) {
     return 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002614E8);
 
-extern "C" int func_002616C8(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetConfig);
+
+extern "C" int CFunc_PrintConfig(void) {
     return 1;
 }
 
-extern "C" int func_002616D0(void) {
+extern "C" int CFunc_CD(void) {
     return D_00368748;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002616D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_NotCD);
 
-extern "C" int func_002616E8(void) {
+extern "C" int CFunc_Bootstrap(void) {
     return D_00368750;
 }
 
-extern "C" int func_002616F0(void) {
+extern "C" int CFunc_PAL(void) {
     return 0;
 }
 
-extern "C" int func_002616F8(void) {
+extern "C" int CFunc_IsPal(void) {
     return D_00368768[0] == 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261708);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetTerritory);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261790);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AddToCutsceneDestroyList);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261938);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_RemoveFromCutsceneDestroyList);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261A48);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_FlushCutsceneDestroyList);
 
-extern "C" int func_00261B58(void) {
+extern "C" int CFunc_CutsceneDestroyListActive(void) {
     return ((S00261B58*)D_00368A38[0])->unk23C != 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261B70);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_PlayCutscene);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261C90);
 
@@ -205,10 +217,10 @@ extern "C" void func_00261CC8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261CE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00262430);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_CenterCamera);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00262570);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetMovementVelocity);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002625B0);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetRotateVelocity);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002625F0);
+INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_LaunchViewer);

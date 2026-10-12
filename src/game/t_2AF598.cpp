@@ -4,33 +4,33 @@ extern "C" {
 extern s32 D_00373008[] __attribute__((section(".sdata")));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AF598);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GetHeldPattern);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AF698);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AF8E8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GuitarGetAnalogueInfo);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AFAE0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GuitarControllerMake);
 
-extern "C" s32 func_002AFB48(void) {
+extern "C" s32 CFunc_StartWildcardSearch(void) {
     return 0;
 }
 
-extern "C" s32 func_002AFB50(void) {
+extern "C" s32 CFunc_GetWildcardFile(void) {
     return 0;
 }
 
-extern "C" s32 func_002AFB58(void) {
+extern "C" s32 CFunc_EndWildcardSearch(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AFB60);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_InputArrayCreate);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AFE38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AFF30);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_InputArrayAddElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002B0178);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_SongArraySet);
 
 extern "C" s32 func_002B0370(void) {
     s32 var_4;
@@ -52,4 +52,4 @@ extern "C" s32 func_002B03A8(void) {
     return var_4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002B03E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_UpdateScoreFastInit);

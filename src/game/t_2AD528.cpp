@@ -10,23 +10,23 @@ extern "C" {
 int func_002AE2A8(int, int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD528);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_AppendSnapshotParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD580);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_OverrideColor);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD6E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_SetTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD790);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_GetPyroScript);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD7F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADAA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_PlaySnapshot);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADB90);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_CycleNextSnapshot);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADDB0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_RefreshSpotlightOverrideParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADF28);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_EnableSpotlights);
 
 extern "C" void func_002ADFD8(S2ADFD8_0 *arg0) {
     arg0->unk0 = 0;
@@ -74,79 +74,79 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED68);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_MonitorControllerStates);
 
-extern "C" s32 func_002AF0F8(void) {
+extern "C" s32 CFunc_AllocateDataBuffer(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF100(void) {
+extern "C" s32 CFunc_ClearDataBuffer(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF108(void) {
+extern "C" s32 CFunc_WriteDataBuffer(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF110(void) {
+extern "C" s32 CFunc_ReadDataBuffer(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF118(void) {
+extern "C" s32 CFunc_DataBufferPutChecksum(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF120(void) {
+extern "C" s32 CFunc_DataBufferPutInt(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF128(void) {
+extern "C" s32 CFunc_DataBufferPutFloat(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF130(void) {
+extern "C" s32 CFunc_DataBufferPutString(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF138(void) {
+extern "C" s32 CFunc_DataBufferGetChecksum(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF140(void) {
+extern "C" s32 CFunc_DataBufferGetInt(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF148(void) {
+extern "C" s32 CFunc_DataBufferGetFloat(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF150(void) {
+extern "C" s32 CFunc_DataBufferGetString(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF158(void) {
+extern "C" s32 CFunc_GetBufferFileCount(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF160(void) {
+extern "C" s32 CFunc_ReplayInput(void) {
     return 0;
 }
 
-extern "C" s32 func_002AF168(void) {
+extern "C" s32 CFunc_RecordInput(void) {
     return 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF170);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF348);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_SetInput);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF3D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_EnableInput);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF438);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF460);
+INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_IsGuitarController);
 
-extern "C" s32 func_002AF4A8(void) {
+extern "C" s32 CFunc_UnBindGuitarControllerStatus(void) {
     return 1;
 }
 

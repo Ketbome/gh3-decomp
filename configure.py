@@ -109,7 +109,7 @@ def linked_c_files():
 
 
 def write_ninja():
-    asm = [p.relative_to(ROOT) for p in sorted((ROOT / "asm").rglob("*.s")) if "nonmatchings" not in p.parts]
+    asm = [p.relative_to(ROOT) for p in sorted((ROOT / "asm").rglob("*.s")) if not {"nonmatchings", "matchings"} & set(p.parts)]
     linked = linked_c_files()
     srcs = sorted(p for p in linked if (ROOT / p).exists())
     headers = " ".join(str(p.relative_to(ROOT)) for p in sorted((ROOT / "include").rglob("*.h")))
@@ -153,7 +153,10 @@ def write_ninja():
     for src in srcs:
         obj = Path("build") / src.with_suffix(".o")
         objs.append(obj)
-        out.append(f"build {obj}: cc {src} | {headers} include/gcc_prelude.inc")
+        # The functions a file still pulls in with INCLUDE_ASM are inputs too.
+        included = " ".join(str(p.relative_to(ROOT)) for p in
+                            sorted((ROOT / "asm" / "nonmatchings" / src.parent.relative_to("src") / src.stem).glob("*.s")))
+        out.append(f"build {obj}: cc {src} | {headers} include/gcc_prelude.inc {included}")
     out += [
         f"build build/SLUS_216.72.elf: ld | {' '.join(map(str, objs))} {' '.join(LD_SCRIPTS)}",
         f"  scripts = {' '.join('-T ' + s for s in LD_SCRIPTS)}",

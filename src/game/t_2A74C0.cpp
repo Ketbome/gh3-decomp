@@ -36,4 +36,4 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7EF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7F78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A8398);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", CFunc_LightShow_Init);

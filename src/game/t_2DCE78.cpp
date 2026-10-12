@@ -223,3 +223,5 @@ extern "C" s32 func_002DEE40(void) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DEE48);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", CFunc_StartNetworkGame);

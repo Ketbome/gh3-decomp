@@ -35,70 +35,72 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5638);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5748);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A57E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetMemCardSpaceAvailable);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5850);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetMemCardSpaceRequired);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5948);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardGetUniqueFileName);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5B78);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardFileExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5BE0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_DeleteMemCardFile);
 
-extern "C" s32 func_002A5C50(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_FormatCard);
+
+extern "C" s32 CFunc_CardIsInSlot(void) {
     return func_001218A0(D_00368E48[0], 0, 0) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5C80);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_CardIsNew);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5CC0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_CardIsFormatted);
 
-extern "C" s32 func_002A5D10(void) {
+extern "C" s32 CFunc_SaveFailedDueToInsufficientSpace(void) {
     return D_00371D7C;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5D18);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetSummaryInfo);
 
 extern "C" void func_002A5DB0(void) {
     func_0026D480(0);
     func_002691B0(D_00370AE0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5DD8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_SaveToMemoryCard);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5E58);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_LoadFromMemoryCard);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5EF8);
 
-extern "C" void func_002A6530(void) {
+extern "C" void CFunc_GetMemCardDirectoryListing(void) {
     func_001E5050();
 }
 
-extern "C" s32 func_002A6550(void) {
+extern "C" s32 CFunc_ShowStorageSelector(void) {
     return 0;
 }
 
-extern "C" s32 func_002A6558(void) {
+extern "C" s32 CFunc_StorageSelectorFinished(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6560);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardSystemInitialize);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A65C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_SetSaveFileName);
 
-extern "C" s32 func_002A6630(void) {
+extern "C" s32 CFunc_EnumContentFiles(void) {
     return 0;
 }
 
-extern "C" s32 func_002A6638(void) {
+extern "C" s32 CFunc_EnumContentFilesFinished(void) {
     return 0;
 }
 
-extern "C" s32 func_002A6640(void) {
+extern "C" s32 CFunc_NewShowStorageSelector(void) {
     return 0;
 }
 
-extern "C" s32 func_002A6648(int arg0, S2A6648_1 *arg1) {
+extern "C" s32 CFunc_GetContentFolderIndexFromFile(int arg0, S2A6648_1 *arg1) {
     func_0027C448(arg1->unk20, 0xF6D04971 /* DEVICE */, 0x1CA1FF20 /* DEFAULT */);
     return 0;
 }

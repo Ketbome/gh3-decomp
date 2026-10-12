@@ -21,7 +21,7 @@ void func_001194B8(int);
 void func_00119CC0(int);
 }
 
-extern "C" int func_0025C450(void) {
+extern "C" int CFunc_PrintChecksumTableUsage(void) {
     func_00277208();
     return 1;
 }
@@ -42,41 +42,41 @@ extern "C" void func_0025C790(void) {
     func_0025C6A0(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C7B0);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_PushMemProfile);
 
-extern "C" int func_0025C7E8(void) {
+extern "C" int CFunc_PopMemProfile(void) {
     func_0011A568();
     return 1;
 }
 
-extern "C" int func_0025C808(void) {
+extern "C" int CFunc_GotExtraMemory(void) {
     return D_00368744[0] != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C818);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemPushContext);
 
-extern "C" int func_0025C8B0(void) {
+extern "C" int CFunc_MemPopContext(void) {
     func_001194B8(D_00368A38[0]);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C8D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemInitHeap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C958);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemDeleteHeap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C9D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_SetMemThreadSafe);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CA18);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_AnalyzeHeap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CA80);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_PrintMemInfo);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CAE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CBF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DisplayFreeMem);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CD30);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_GetHeapSize);
 
-extern "C" int func_0025CDB8(void) {
+extern "C" int CFunc_GetMemProfileSize(void) {
     return 1;
 }
 
@@ -84,13 +84,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CDC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D458);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D478);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DumpHeaps);
 
-extern "C" int func_0025D4B0(void) {
+extern "C" int CFunc_DumpFragments(void) {
     return 1;
 }
 
-extern "C" int func_0025D4B8(void) {
+extern "C" int CFunc_MemViewToggle(void) {
     func_0011E9C8();
     return 1;
 }
@@ -116,11 +116,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D680);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D6E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D740);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DumpMemStatistics);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025DEF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_GetNumUsedStructs);
 
-extern "C" int func_0025DF70(void) {
+extern "C" int CFunc_InitNetMiscHeap(void) {
     func_00119CC0(D_00368A38[0]);
     return 1;
 }

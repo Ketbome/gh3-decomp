@@ -10,119 +10,129 @@ extern int D_0036CDB4[] __attribute__((section(".sdata")));
 void func_001C74F8(int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002626E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewerModel);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262778);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewerAnim);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262808);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewerLODDist);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002628A0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewerObjectID);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262910);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ReloadViewerAnim);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002629B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ResetModelViewerCamera);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002629F8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262A80);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ClearViewerObject);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262AB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262B30);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ResetPS2);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262BF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ResetHD);
 
-extern "C" int func_00262C28(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_LoadExecPS2);
+
+extern "C" int CFunc_ExitDemo(void) {
     func_00116638();
     return 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262C48);
 
-extern "C" int func_00262C88(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_IsPS2);
+
+extern "C" int CFunc_IsPS3(void) {
     return 0;
 }
 
-extern "C" int func_00262C90(void) {
+extern "C" int CFunc_IsNGC(void) {
     return D_00368740[0] == 5;
 }
 
-extern "C" int func_00262CA8(void) {
+extern "C" int CFunc_IsXBOX(void) {
     return D_00368740[0] == 4;
 }
 
-extern "C" int func_00262CC0(void) {
+extern "C" int CFunc_IsXENON(void) {
     return D_00368740[0] == 6;
 }
 
-extern "C" int func_00262CD8(void) {
+extern "C" int CFunc_IsWIN32(void) {
     return D_00368740[0] == 9;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262CF0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetPlatform);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262D88);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetPlatformExt);
 
-extern "C" int func_00262DC8(void) {
+extern "C" int CFunc_StartDelaySystemUI(void) {
     func_001163F0();
     return 1;
 }
 
-extern "C" int func_00262DE8(void) {
+extern "C" int CFunc_StopDelaySystemUI(void) {
     func_00116400();
     return 1;
 }
 
-extern "C" void func_00262E08(void) {
+extern "C" void CFunc_SystemUIDelayed(void) {
     func_001163F8();
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262E28);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerDebounce);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262F18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002634B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263718);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerPressed);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002637C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerMake);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263878);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_EnableActuators);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263920);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_VibrateController);
 
-extern "C" void func_002639B8(void) {
+extern "C" void CFunc_PadsPluggedIn(void) {
     func_001C74F8(D_0036CDB4[0]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002639E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetAnalogueInfo);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263C08);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_RightAnalogHeld);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263E28);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_BindFrontEndToController);
 
-extern "C" int func_00263ED0(void) {
+extern "C" int CFunc_ReAcquireControllers(void) {
     return 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263ED8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263F18);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetScreenMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00263F58);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetScreenMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264008);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_CreateViewport);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_DestroyViewport);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264040);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264080);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ViewportExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264100);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportProperties);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264248);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewport2DPosFrom3D);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264348);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewportCameraPos);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00264498);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewportCameraOrient);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002645C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraPos);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraOrient);

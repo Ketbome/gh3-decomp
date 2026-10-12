@@ -50,7 +50,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232A58);
 extern "C" void func_00232BC8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232BD0);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_LoadPak);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002333F8);
 
@@ -58,19 +58,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002335F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233728);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233810);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_UnloadPak);
 
 extern "C" bool func_002338E0(S232* self) {
     return !func_00230230(self->unk0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233908);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_WaitUnloadPak);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002339C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_AsyncLoadPakInProgress);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002339E8);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_LinkRawAsset);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233A98);
+INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_UnlinkRawAsset);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233B68);
 

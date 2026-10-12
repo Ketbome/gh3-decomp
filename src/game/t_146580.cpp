@@ -27,39 +27,41 @@ extern "C" int func_00146E68(S_00146E68* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00146E78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00146F70);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_CreateScreenElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147038);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_DestroyScreenElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001470F0);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_RunScriptOnScreenElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147338);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_SetScreenElementProps);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001473E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_DoScreenElementMorph);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147458);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_SetScreenElementLock);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001474E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_ScreenElementSystemInit);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147570);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_GetScreenElementDims);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147648);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_GetScreenElementPosition);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147730);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_MenuSelectedIndexIs);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147838);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_ScreenElementExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147888);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_GetScreenElementProps);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147AC0);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_SetRootScreenElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147B18);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_CreateMultipleTextElements);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00147ED8);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_GetScreenElementChildren);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00148168);
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_ResolveScreenElementID);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001481D0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_146580", CFunc_DumpScreenElements);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001481E0);
 

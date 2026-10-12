@@ -17,228 +17,228 @@ void func_0026CBE8(int);
 void func_002E7010(int);
 }
 
-extern "C" int func_00254248(void) {
+extern "C" int CFunc_AddSoundEventData(void) {
     return 0;
 }
 
-extern "C" int func_00254250(void) {
+extern "C" int CFunc_RequestNewSoundEvent(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254258);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopSoundEvent);
 
-extern "C" int func_002542A0(void) {
+extern "C" int CFunc_IsSoundEventPlaying(void) {
     return 0;
 }
 
-extern "C" int func_002542A8(void) {
+extern "C" int CFunc_AddSoundEventScript(void) {
     return 0;
 }
 
-extern "C" int func_002542B0(void) {
+extern "C" int CFunc_RemoveSoundEventScript(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002542B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadSound);
 
-extern "C" int func_002542F8(void) {
+extern "C" int CFunc_UnloadAllSFX(void) {
     func_0026A030();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254318);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_ResetBCSND);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254340);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadFSB);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254390);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_UnLoadFSB);
 
-extern "C" int func_002543C8(void) {
+extern "C" int CFunc_LockDSP(void) {
     return 0;
 }
 
-extern "C" int func_002543D0(void) {
+extern "C" int CFunc_UnLockDSP(void) {
     return 0;
 }
 
-extern "C" int func_002543D8(int a) {
+extern "C" int CFunc_PlayStream(int a) {
     int x = 0;
     return func_0027D870(a, 0, &x, 0) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254408);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StreamExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254458);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002544D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_RemoveStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254548);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopSoundStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254588);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopStream);
 
-extern "C" int func_002545F0(int a) {
+extern "C" int CFunc_StopSoundsByBuss(int a) {
     int x = 0;
     func_0027D870(a, 0, &x, 0);
     return 1;
 }
 
-extern "C" int func_00254620(void) {
+extern "C" int CFunc_StopAudioStreams(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254628);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_IsStreamPlaying);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002546B0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetStreamParams);
 
-extern "C" int func_002547E0(void) {
+extern "C" int CFunc_PreprocessStreamSets(void) {
     func_0026E8B8();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254800);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayStreamFromSet);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002548A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadSoundRAM);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254930);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayTrack);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254A00);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayMusicStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254A80);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadStreamFrameAmp);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254AB8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_FreeStreamFrameAmp);
 
-extern "C" int func_00254AF0(void) {
+extern "C" int CFunc_BCSND_UpdateSound(void) {
     func_002EA460();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254B10);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetStereoSound);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254B58);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlaySound);
 
-extern "C" int func_00254D70(void) {
+extern "C" int CFunc_IsSoundLoaded(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254D78);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopSound);
 
-extern "C" int func_00254DD8(void) {
+extern "C" int CFunc_StopAllSounds(void) {
     func_002E8968();
     return 1;
 }
 
-extern "C" int func_00254DF8(void) {
+extern "C" int CFunc_SetSoundSeekPosition(void) {
     return 0;
 }
 
-extern "C" int func_00254E00(void) {
+extern "C" int CFunc_IsSoundSeekDone(void) {
     return 0;
 }
 
-extern "C" int func_00254E08(void) {
+extern "C" int CFunc_PauseSoundsByBuss(void) {
     return 0;
 }
 
-extern "C" int func_00254E10(void) {
+extern "C" int CFunc_UnPauseSoundsByBuss(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254E18);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSoundParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254F68);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_IsSoundPlaying);
 
-extern "C" int func_00254FA0(void) {
+extern "C" int CFunc_IsSoundPlayingByID(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00254FA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddSoundBanks);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255030);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_ClearSoundBank);
 
-extern "C" int func_00255068(void) {
+extern "C" int CFunc_RemoveAllSoundBanks(void) {
     func_00267A00(D_00370AE0[0]);
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255090);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_RemoveSoundGroup);
 
-extern "C" int func_002550E0(void) {
+extern "C" int CFunc_ClearSoundGroups(void) {
     func_00266D20();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255100);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetDefaultSoundPriority);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255140);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSfxReverb);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002551F0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSfxDropoff);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255258);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSfxVolume);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002552A0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetGlobalPitchModulation);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255340);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetMusicVolume);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255380);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetMusicStreamVolume);
 
-extern "C" int func_002553C0(void) {
+extern "C" int CFunc_StopMusic(void) {
     func_0026AE70();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002553E0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseMusic);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255418);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255448);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStreamNum);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002554A0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStreamID);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255518);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadMusicHeader);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255580);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadStreamHeader);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002555D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddMusicTrack);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255650);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_ChangeTrackState);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002556B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_TrackEnabled);
 
-extern "C" void func_00255750(void) {
+extern "C" void CFunc_MusicIsPaused(void) {
     func_0026C870();
 }
 
-extern "C" int func_00255770(int a) {
+extern "C" int CFunc_ClearMusicTrackList(int a) {
     func_0026CBE8(func_0027DF00(a, 0x389129E4) == 0);
     return 1;
 }
 
-extern "C" int func_002557A0(void) {
+extern "C" int CFunc_SkipMusicTrack(void) {
     func_0026CC48();
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002557C0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetMusicMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255800);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetRandomMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255838);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetMusicLooping);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255878);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetCurrentTrack);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002558B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetValueFromVolume);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_002559D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PreLoadStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255AE8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PreLoadSoundStream);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255CA8);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PreLoadChecksumStream);
 
-extern "C" void func_00255FB0(int a) {
+extern "C" void CFunc_PreLoadStreamDone(int a) {
     int x;
     func_0027D870(a, 0, &x, 1);
     func_002E7010(x);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00255FE0);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_IsSoundStreamPlaying);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", func_00256020);
+INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StartPreLoadedStream);

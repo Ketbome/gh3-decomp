@@ -13,52 +13,52 @@ void func_001E19F8(int);
 void func_001E1A28(int);
 }
 
-extern "C" int func_00252068(void) {
+extern "C" int CFunc_KillCamAnim(void) {
     func_00251F68();
     return 1;
 }
 
-extern "C" int func_00252088(void) {
+extern "C" int CFunc_ViewportUsedByMovieCamera(void) {
     return 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252090);
 
-extern "C" int func_00252D50(void) {
+extern "C" int CFunc_ShowCamOffset(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252D58);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_GetCamOffset);
 
-extern "C" void func_00252EC8(void) {
+extern "C" void CFunc_HasMovieStarted(void) {
     func_001E19F8(D_0036CDB4[0]->unk308);
 }
 
-extern "C" void func_00252EF0(void) {
+extern "C" void CFunc_IsMovieQueued(void) {
     func_001E1A28(D_0036CDB4[0]->unk308);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252F18);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_CamDistFromPosLessThan);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252FC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002530A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002531C0);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_SetActiveCamera);
 
-extern "C" int func_00253280(void) {
+extern "C" int CFunc_SetPrepassViewportCamera(void) {
     return 0;
 }
 
-extern "C" int func_00253288(void) {
+extern "C" int CFunc_WaitMovie(void) {
     return 0;
 }
 
-extern "C" int func_00253290(void) {
+extern "C" int CFunc_MovieMembFunc(void) {
     return 0;
 }
 
-extern "C" int func_00253298(void) {
+extern "C" int CFunc_DumpMovies(void) {
     return 0;
 }
 
@@ -69,43 +69,43 @@ extern "C" void func_002532C0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002532C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002533D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_CreateBussSystem);
 
-extern "C" int func_00253410(void) {
+extern "C" int CFunc_SoundBussLock(void) {
     return 0;
 }
 
-extern "C" int func_00253418(void) {
+extern "C" int CFunc_SoundBussUnLock(void) {
     return 0;
 }
 
-extern "C" void func_00253420(void) {
+extern "C" void CFunc_SetSoundBussParams(void) {
     func_00269B70();
 }
 
-extern "C" int func_00253440(void) {
+extern "C" int CFunc_GetSoundBussParams(void) {
     return 0;
 }
 
-extern "C" int func_00253448(void) {
+extern "C" int CFunc_PushSoundBussParams(void) {
     return 0;
 }
 
-extern "C" int func_00253450(void) {
+extern "C" int CFunc_PopSoundBussParams(void) {
     return 0;
 }
 
-extern "C" int func_00253458(void) {
+extern "C" int CFunc_CreateSoundBussEffects(void) {
     return 0;
 }
 
-extern "C" int func_00253460(void) {
+extern "C" int CFunc_DestroySoundBussEffects(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00253468);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_SetSoundBussEffects);
 
-extern "C" int func_00253670(void) {
+extern "C" int CFunc_GetSoundBussEffects(void) {
     return 1;
 }
 
@@ -115,4 +115,4 @@ INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002538C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002539C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00253CB8);
+INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_SoundEventFast);

@@ -102,15 +102,15 @@ extern "C" s32 func_001C7760(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C7768);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuAutoRepeatTimes);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C77E8);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuPadMappings);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C78B8);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetButtonEventMappings);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C7930);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetAnalogStickActiveForMenus);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C7970);
+INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetEnableMovies);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C79B0);
 

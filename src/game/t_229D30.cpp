@@ -38,7 +38,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229F38);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A1D8);
 
-extern "C" void func_0022A250(int a) {
+extern "C" void CFunc_ParseNodeArray(int a) {
     func_00229538(D_0036F608, a);
 }
 

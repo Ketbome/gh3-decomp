@@ -56,7 +56,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001170D8);
 extern "C" void func_00117108(void) {
 }
 
-extern "C" int func_00117110(void) {
+extern "C" int CFunc_CreatePlatformMessageBox(void) {
     return 0;
 }
 

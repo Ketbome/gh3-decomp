@@ -105,7 +105,7 @@ extern "C" void func_002DB8F0(S2DB8F0_0 *arg0, s32 arg1) {
     arg0->unk50 = (s32) (arg0->unk50 | arg1);
 }
 
-extern "C" s32 func_002DB900(void) {
+extern "C" s32 CFunc_ReQBRAll(void) {
     func_002DAFA8();
     return 1;
 }
@@ -155,7 +155,9 @@ extern "C" void func_002DC8E0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DC8E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DC908);
+INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", CFunc_ResumeControllerChecking);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", CFunc_GetButtonsPressed);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DC9D8);
 
@@ -169,11 +171,15 @@ extern "C" s32 func_002DCA40(s32 arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DCA48);
 
-extern "C" s32 func_002DCA60(void) {
+INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", CFunc_GetButtonsReleased);
+
+extern "C" s32 CFunc_GetButtonsHeld(void) {
     return 1;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DCA68);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", CFunc_ShouldGameBePausedDueToSysNotification);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DCAA8);
 

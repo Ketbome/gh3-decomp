@@ -40,36 +40,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A530);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A550);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A5A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_GetLanguage);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A5C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_German);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A5E8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_French);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A608);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_Spanish);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A628);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_Italian);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A648);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_English);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A650);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_IsCompositeObjectManagerEnabled);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A768);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CreateCompositeObject);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A7F8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_GetUniqueCompositeObjectID);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A9F0);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CreateCompositeObjectInstance);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024AA18);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_PauseObjects);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024AA40);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_UnPauseObjects);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024AA68);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_FlushDeadObjects);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024AAC8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CompositeObjectExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024B100);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_Orient);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024B220);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_GetDistance);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024B5C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_AddArrayElement);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_RemoveArrayElement);

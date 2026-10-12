@@ -14,7 +14,9 @@ ROOT = Path(__file__).resolve().parent.parent
 
 def main():
     sizes = {}
-    for path in (ROOT / "asm" / "nonmatchings" / "game").rglob("*.s"):
+    paths = list((ROOT / "asm" / "nonmatchings" / "game").rglob("*.s"))
+    paths += list((ROOT / "asm" / "matchings" / "game").rglob("*.s"))
+    for path in paths:
         m = re.search(r"^nonmatching (\w+), 0x([0-9A-F]+)", path.read_text(), re.M)
         if m:
             sizes[m.group(1)] = int(m.group(2), 16)
@@ -28,7 +30,8 @@ def main():
             asm_bytes += sizes.get(name, 0)
             asm_funcs += 1
         c_funcs += len(re.findall(r"^(?!INCLUDE_ASM)\S.*\b(func_[0-9A-F]{8}|\w+__\w*)\s*\([^;]*\)\s*\{", text, re.M))
-    # Sizes without the alignment padding between functions; splat writes a .s for every function, matched or not.
+    # Sizes without the alignment padding between functions; splat writes a .s for every function (disassemble_all):
+    # asm/matchings for the ones in C++, asm/nonmatchings for the others.
     total = sum(sizes.values())
     done = total - asm_bytes
     print(f"SLUS_216.72: {done:#x} / {total:#x} bytes of game code in C++ ({100 * done / total:.2f}%)")

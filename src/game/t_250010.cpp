@@ -8,64 +8,64 @@ extern char D_00355EB0[];
 void func_00250A18(int, int, void*);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250010);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_NudgeVC);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250098);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_InitAnimCompressTable);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250138);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_InitAnimSystem);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250280);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_UpdateAnimCache);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250378);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetAnimCacheState);
 
-extern "C" int func_00250738(void) {
+extern "C" int CFunc_FinishRendering(void) {
     func_0014F150();
     return 1;
 }
 
-extern "C" int func_00250758(void) {
+extern "C" int CFunc_TogglePass(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250760);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetScreen);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250850);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_AllowBoneLOD);
 
-extern "C" int func_00250890(void) {
+extern "C" int CFunc_PreLoadMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250898(void) {
+extern "C" int CFunc_StartPreLoadedMovie(void) {
     return 0;
 }
 
-extern "C" int func_002508A0(void) {
+extern "C" int CFunc_IsMoviePreLoaded(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002508A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_PlayMovie);
 
-extern "C" int func_00250970(void) {
+extern "C" int CFunc_KillMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250978(void) {
+extern "C" int CFunc_PauseMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250980(void) {
+extern "C" int CFunc_ResumeMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250988(void) {
+extern "C" int CFunc_SeekMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250990(void) {
+extern "C" int CFunc_StopLoopingAndFinishMovie(void) {
     return 0;
 }
 
-extern "C" int func_00250998(void) {
+extern "C" int CFunc_IsMoviePlaying(void) {
     return 0;
 }
 
@@ -73,19 +73,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002509A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250A18);
 
-extern "C" void func_00250B30(int a) {
+extern "C" void CFunc_LoadTexture(int a) {
     func_00250A18(a, 0, D_00355EA0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250B58);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_UnloadTexture);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250C30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250D68);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_DrawDirectionalLightLines);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250F68);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_IsTextureLoaded);
 
-extern "C" int func_00250FE8(void) {
+extern "C" int CFunc_SetShadowMapParams(void) {
     return 0;
 }
 
@@ -93,85 +93,85 @@ INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250FF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251090);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251110);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_InitLightManager);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251198);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251278);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetShadowDir);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002512A8);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetShadowDirFromLight);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251358);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251418);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightFlag);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251488);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_ClearLightFlag);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002514F8);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_MoveLight);
 
-extern "C" int func_00251558(void) {
+extern "C" int CFunc_CompactIntervals(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251560);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightDirection);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002515B0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetLightDirection);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251618);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightColor);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251668);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetLightColor);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251728);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightIntensity);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251778);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetLightIntensity);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002517C8);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightGroupIntensity);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251848);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetLightGroupIntensity);
 
-extern "C" int func_002518A0(void) {
+extern "C" int CFunc_SetDynamicShadowIntensity(void) {
     return 0;
 }
 
-extern "C" int func_002518A8(void) {
+extern "C" int CFunc_KillLight(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002518B0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_EnableLight);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002518F0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_DisableLight);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251930);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_EnableLightGroup);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251978);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_DisableLightGroup);
 
-extern "C" int func_002519C0(void) {
+extern "C" int CFunc_ApplyLightGroup(void) {
     return 0;
 }
 
-extern "C" int func_002519C8(void) {
+extern "C" int CFunc_RemoveCurLightGroup(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_002519D0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_AddLightToGroup);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251A38);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_CreateLightGroup);
 
-extern "C" int func_00251A90(void) {
+extern "C" int CFunc_SetModelLightsFadeTime(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251A98);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SetLightVolumeParams);
 
-extern "C" void func_00251B08(int a) {
+extern "C" void CFunc_LoadParticleTexture(int a) {
     func_00250A18(a, 1, D_00355EB0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251B30);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_HackAddLight);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251BE0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetDisplaySettings);
 
-extern "C" int func_00251C70(void) {
+extern "C" int CFunc_SetRowHeightTables(void) {
     func_002A3EA0();
     return 1;
 }
@@ -180,14 +180,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251C90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251CA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251DC0);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_PlayIGCCam);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251E28);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_PlaySkaterCamAnim);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251ED8);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_GetSkaterCamAnimParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251F28);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_SkaterCamAnimFinished);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251F68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00252008);
+INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_KillSkaterCamAnim);

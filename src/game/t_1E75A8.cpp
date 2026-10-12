@@ -115,8 +115,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9500);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9508);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9510);
+INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_SetProgressionDifficulty);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9548);
+INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_GetProgressionDifficulty);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9588);
+INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_SetProgressionMaxDifficulty);

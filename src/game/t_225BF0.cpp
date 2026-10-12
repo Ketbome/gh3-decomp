@@ -79,17 +79,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226918);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226970);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002269D8);
+INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_CreateNodeFlag);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226A58);
+INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_ChangeNodeFlag);
 
-extern "C" void func_00226AF0(int a) {
+INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_GetNodeFlag);
+
+extern "C" void CFunc_NodeFlagExists(int a) {
     int tmp = 0;
     func_0027D870(a, 0, &tmp, 1);
     func_00226918(tmp);
 }
 
-extern "C" int func_00226B20(void) {
+extern "C" int CFunc_DumpNodeFlags(void) {
     return 1;
 }
 
