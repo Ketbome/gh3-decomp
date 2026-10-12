@@ -34,17 +34,126 @@ struct S00290A20 {
     int unk1E8;
 };
 
+struct S2908_Loop {
+    int ptr;
+    int count;
+};
+
+struct S2908_Script {
+    char pad0[0x4];
+    int unk4;
+    char pad8[0x13C];
+    int unk144;
+    S2908_Loop loops[20];
+    int unk1E8;
+    int unk1EC;
+    char pad1F0[0x4];
+    int unk1F4;
+};
+
+struct S2908_Node {
+    char pad0[0x4];
+    int unk4;
+    int unk8;
+    char padC[0x4];
+    S2908_Node *next;
+    S2908_Node *prev;
+};
+
+struct S2908_List {
+    char pad0[0x14];
+    void *vptr;
+    int unk18;
+    S2908_Node *head;
+    S2908_Node *tail;
+    int unk24;
+};
+
+struct S2908_Comp {
+    u32 b0 : 8;
+    u32 b8 : 1;
+    u32 type : 7;
+    u16 unk2;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+
+struct S2908_V {
+    char pad0[0x14];
+    virtual ~S2908_V();
+};
+
+struct S2908_Buf {
+    char pad0[0x4];
+    void *unk4;
+    char pad8[0xE];
+    u8 unk16;
+};
+
 extern "C" {
-int func_00290BD0(int, int);
+void func_0028EB18(void *, char *);
+void func_0028EBA0(void *);
+int func_0028E868(int, int);
+void func_00279358(void *, int, int, int);
+int func_00118F20(int, int, int, int);
+void func_001C55A8(void *);
+int func_00291D28(int, int, int);
+
+void func_00291C40(void *);
+void func_00291F08(int, int *);
+void func_00291FC0(void *);
+void func_00291020(S2908_List *, S2908_Node *);
+void func_00290D18(S2908_Node *, int);
+void func_002908A0(S2908_Script *, int);
+void func_0011A470(int);
+void func_00119400(int, void *);
+extern char D_0035BBB0[];
+extern char D_0035BBC8[];
+extern char D_0035BF60[];
+extern int D_00368A38;
+extern S2908_V *D_003715D4;
+extern u32 D_003715D8;
+extern S2908_Comp D_003AAC88;
+void func_00290BD0(int, int);
 extern S002920F0* D_003715C0[2];
 extern int D_003715D0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002908A0);
+extern "C" void func_002908A0(S2908_Script *s, int v) {
+    int n = ++s->unk1E8;
+    if (n >= 20) {
+        func_0028EB18(s, D_0035BBB0);
+        return;
+    }
+    s->loops[n].ptr = v;
+    s->loops[s->unk1E8].count = 0;
+    s->unk1EC = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290908);
+extern "C" void func_00290908(S2908_Script *s, int v) {
+    while (s->unk1EC) {
+        if (s->loops[s->unk1E8].count != 0) {
+            break;
+        }
+        if (func_0028E868(v, s->loops[s->unk1E8].ptr)) {
+            func_0028EBA0(s);
+            continue;
+        }
+        break;
+    }
+    func_002908A0(s, v);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002909A8);
+extern "C" void func_002909A8(S2908_Script *s, int a) {
+    if (s->unk144 != 0 || (s->unk4 & 0xFE00)) {
+        if (++s->unk144 >= 20) {
+            func_0028EB18(s, D_0035BBC8);
+            return;
+        }
+    }
+    func_00279358((char *)s + 4 + s->unk144 * 16, a, 0, 0);
+}
 
 extern "C" void func_00290A20(S00290A20* p) {
     p->unk14C[p->unk1E8].unk0++;
@@ -54,7 +163,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290A40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290AA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290BD0);
+extern "C" void func_00290BD0(int init, int prio) {
+    if (prio == 0xFFFF && init) {
+        D_003AAC88.b8 = 0;
+        D_003AAC88.type = 0;
+        D_003AAC88.unk2 = 0;
+        D_003AAC88.unk4 = 0;
+        D_003AAC88.unkC = 0;
+        D_003AAC88.unk8 = 0;
+    }
+}
 
 extern "C" void func_00290C20(void) {
     func_00290BD0(1, 0xFFFF);
@@ -62,7 +180,17 @@ extern "C" void func_00290C20(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290C40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290CA0);
+GP_DATA(D_003715D8);
+GP_DATA(D_003715D4);
+extern "C" void func_00290CA0(void) {
+    if (D_003715D8 >= 2) {
+        D_003715D8--;
+    } else {
+        delete D_003715D4;
+        D_003715D4 = 0;
+        D_003715D8 = 0;
+    }
+}
 
 extern "C" S00290CF8* func_00290CF8(S00290CF8* p) {
     p->unk8 = 0;
@@ -73,9 +201,24 @@ extern "C" S00290CF8* func_00290CF8(S00290CF8* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290D18);
+extern "C" void func_00290D18(S2908_Node *p, int flags) {
+    if (p->unk8) {
+        func_0011A470(p->unk8);
+    }
+    if (flags & 1) {
+        func_00291C40(p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290D68);
+extern "C" S2908_List *func_00290D68(S2908_List *p) {
+    func_001C55A8(p);
+    p->vptr = D_0035BF60;
+    p->unk18 = func_00291D28(func_00118F20(D_00368A38, 0x1C, 1, 0), 8, 0);
+    p->head = 0;
+    p->tail = 0;
+    p->unk24 = 0;
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290DD8);
 
@@ -85,11 +228,43 @@ extern "C" void func_00290FD8(void) {
 extern "C" void func_00290FE0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00290FE8);
+extern "C" void func_00290FE8(S2908_List *l, S2908_Node *n) {
+    n->prev = 0;
+    n->next = l->head;
+    l->head = n;
+    if (n->next) {
+        n->next->prev = n;
+    }
+    if (l->tail == 0) {
+        l->tail = l->head;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291020);
+extern "C" void func_00291020(S2908_List *l, S2908_Node *n) {
+    if (n->prev) {
+        n->prev->next = n->next;
+    }
+    if (n->next) {
+        n->next->prev = n->prev;
+    }
+    if (n == l->head) {
+        l->head = n->next;
+    }
+    if (n == l->tail) {
+        l->tail = n->prev;
+    }
+    n->next = 0;
+    n->prev = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291080);
+extern "C" void func_00291080(S2908_List *l, S2908_Node *n) {
+    int k = n->unk4;
+    func_00291F08(l->unk18, &k);
+    func_00291020(l, n);
+    if (n) {
+        func_00290D18(n, 3);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002910E0);
 
@@ -101,7 +276,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002917B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002918F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291900);
+extern "C" void func_00291900(S2908_List *l) {
+    S2908_Node *n = l->head;
+    while (n) {
+        S2908_Node *next = n->next;
+        int k = n->unk4;
+        func_00291F08(l->unk18, &k);
+        n->next = 0;
+        n->prev = 0;
+        if (n) {
+            func_00290D18(n, 3);
+        }
+        n = next;
+    }
+    l->head = 0;
+    l->tail = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291980);
 
@@ -117,7 +307,10 @@ extern "C" void func_00291CF0(S00291CF0* p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291D00);
+extern "C" S00291CF0 *func_00291D00(S00291CF0 *p) {
+    func_00291CF0(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291D28);
 
@@ -125,7 +318,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291F08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291FC0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00292078);
+extern "C" void func_00292078(S2908_Buf *p, int flags) {
+    if (!p->unk16 && p->unk4) {
+        func_00291FC0(p);
+        if (p->unk4) {
+            func_00119400(D_00368A38, p->unk4);
+        }
+        p->unk4 = 0;
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 GP_DATA(D_003715D0);
 GP_DATA(D_003715C0);
