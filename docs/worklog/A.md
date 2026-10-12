@@ -209,3 +209,21 @@ func_0012EFE0 func_0012F228 func_0012F258 func_0012F2E0 func_0012F368 func_0012F
 Given up:
 - func_0012F8D0: nop delay loops; func_0012E5F8: split tail
 - larger ones (>0x90) not attempted yet
+
+## t_12F9A0 (`// cflags: -funroll-loops`)
+
+Matched 17: func_0012F9A0 func_0012F9B0 func_0012F9E8 func_0012FA98 func_0012FD20 func_0012FD48 func_001305B8
+func_00130C58 func_00130CE0 func_00130CF8 func_00130D10 func_00130DC8 func_00130E50 func_00130ED8 func_00130F70
+func_001316B8 func_00131728
+
+- The 4-entry checks (func_00130C58, func_00130DC8...) are `for (i = 0; i < 4; i++)` loops fully unrolled.
+- func_0012F9B0: 0x1200-byte struct assignment = lq/sq loop. func_00130CE0: `i * 0x80 + (char*)self + 0x40`
+  gives the original operand order.
+- func_0012F9E8 = pooled `operator delete` (two pools D_003692A0[D_003692B0], [^1], else func_00119400); reading
+  D_003692B0 twice (not a local) matches.
+
+Given up:
+- func_00131970, func_001318D0: loop reloads p->unk4 at the top in the original (ours keeps the condition's load;
+  -fno-gcse fixes them but breaks func_0012F9E8); 3 tries
+- func_00131338, func_001310E8: 128-bit vector constants (por/pcpyld); func_00131008, func_00130628: vu0
+- func_0012F9E0: split tail
