@@ -256,3 +256,20 @@ b8/type/u16/next/value; `next = 0` before `value = 0` except in the int/float ad
 Given up:
 - func_0027D4E0: saved-register assignment (key/out/req in s3/s1/s2); 3 forms tried.
 - func_0027D2D8 (vector getter, pextlw build of {x,y,z,1.0f}), func_0027B7D0/func_0027BF30: short loops / not tried.
+
+### t_28CC70 (+20, object list walkers over func_002899B0)
+func_0028DAD8, func_0028DBD0, func_0028EB50, func_0028DE38, func_0028EAC0, func_0028EB18, func_0028D168,
+func_0028CE18, func_0028DA40, func_0028CD90, func_0028CE90, func_0028D668, func_0028D7D8, func_0028CCE8,
+func_0028D720, func_0028D878, func_0028D490, func_0028D940, func_0028DC30, func_0028E220
+(Single-call walk `a0 = 0; b test; ...; a0 = s0; test: jal` = `for (p = next(0); p; p = next(p))` (cross-jumped);
+`p = next(0); while (p) { n = next(p); ...; p = n; }` for the two-call form. `srl/andi/bnezl` bit test =
+inline `bool B1() { return (*(u32 *)this >> 1) & 1; }`; `hit = a || b || c` as a 0/1 flag = `bool hit = ...; if (hit)`.
+func_0028D490: 10-arg call, arg loads ordered by declaring locals for a0, a2, t0, t1 first.)
+Given up:
+- func_0028DA08: original keeps the first `return 0` inline (`bnezl`); 6 forms tried (inline member gets close).
+- func_0028DDE8, func_0028CC70, func_0028DCF8, func_0028D098: saved-register assignment of the args (3-4 forms each).
+- func_0028E610: only the prologue save order (s0/s2) differs; 3 forms tried. func_0028E4F8 (same pattern in a
+  loop): original keeps `n - 1 != -1` unfolded.
+- func_0028DB50: original hoists `a == 0` (sltiu) after the duplicated loop test; bool local gets it except prologue.
+- func_0028D578: short loops. func_0028E8A0/func_0028E9B0: loops unrolled (`-funroll-loops`, not set for the file).
+- 0x4/0xC functions (`addiu sp; nop`) are split fragments.
