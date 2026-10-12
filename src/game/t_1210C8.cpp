@@ -38,6 +38,13 @@ struct SA121_C {
     SA121_S* unk58;
 };
 
+struct SA121_D {
+    char pad0[0x34];
+    void* unk34;
+    char pad38[0xC];
+    void* unk44;
+};
+
 struct SA121_L {
     char pad0[0xC];
     SA121_L* unkC;
@@ -68,6 +75,14 @@ void func_00121870(void*, int);
 extern int D_00372AC0;
 int func_00121DD0(SA121_S*, int);
 void func_00113F38(void);
+extern u32 D_00368738;
+extern int D_00368768;
+int func_00122940(void);
+int func_001170D0(void);
+void func_00122A10(void);
+extern int D_00368F20;
+extern u8 D_00339370[];
+void func_001CE888(void*, void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_001210C8);
@@ -298,11 +313,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122A10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122AC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122DE0);
+extern "C" void func_00122DE0(void) {
+    D_00368738 = 0xC743B45A;
+    if (func_00122940() == 0) {
+        if (D_00368768 != 1) {
+            if (D_00368768 != 0) {
+                return;
+            }
+            if (func_001170D0()) {
+                func_00122A10();
+                return;
+            }
+        }
+        D_00368738 = 0x77B12AAB;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122E58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122F88);
+GP_DATA(D_00368F20);
+extern "C" void func_00122F88(SA121_D* self, int flags) {
+    self->unk44 = D_00339370;
+    void** r = &self->unk34;
+    void* p = *r;
+    D_00368F20--;
+    if (p) {
+        func_001CE888(p, r);
+        *r = 0;
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122FF8);
 
