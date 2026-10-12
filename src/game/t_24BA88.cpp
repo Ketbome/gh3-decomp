@@ -63,6 +63,12 @@ void func_001D5D28(int, int, int, int);
 void func_0027C160(int, u32, int);
 int func_0027D400(int, u32, void *, int);
 void func_0027ABB0(int, int);
+extern char D_00370268[];
+void func_00113528(char *);
+char *func_0030E6D0(char *, int);
+extern u32 D_00399AA8[];
+void func_002A6B70(char *, int, u32);
+u32 func_001150B8(char *);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_IsInArray);
