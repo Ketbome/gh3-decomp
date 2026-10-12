@@ -227,3 +227,11 @@ Given up:
   -fno-gcse fixes them but breaks func_0012F9E8); 3 tries
 - func_00131338, func_001310E8: 128-bit vector constants (por/pcpyld); func_00131008, func_00130628: vu0
 - func_0012F9E0: split tail
+
+## t_1319D0
+
+Matched 5: func_00131FC0 func_00132000 func_001323F8 func_00132438 func_00132480
+
+Given up:
+- func_001324D0: float lanes of a 128-bit value (dsrl32/pcpyud + mtc1); func_00132390: 128-bit vector constant
+- func_00132F50: split tail
