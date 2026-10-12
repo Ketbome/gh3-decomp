@@ -78,6 +78,10 @@ Given up:
 - func_00277220 (path compare, '/'=='\\', case-insensitive): `v0 = 0` not stolen into the `bne` delay slot.
 - func_00276698: original copies the hash-chain loop test before the loop (header duplication); 3 forms tried.
 - func_00275660, func_00275610: contain an `alabel` (two entry points); skip.
+Round 3 (+13): func_00275570, func_00275830, func_00275A40, func_00276D68, func_002756A8, func_00276720,
+func_00277298, func_00276DC8/E88/F30/FD8, func_00277080, func_00277128 (pool-alloc templates; `.set` alias for
+D_00368A38, D_00371088, D_00371098). func_00275A20/func_00276D48 wrappers now carry the real signatures.
+- func_00276008, func_002762F0, func_00277378: short loops. func_00275898/func_002754C0/func_00276620: `alabel`.
 
 ### t_296A10 (+17)
 func_00297CC0, func_00298170, func_00296A10, func_00296AF0, func_002973C0, func_002974D8, func_00297528,
