@@ -361,3 +361,26 @@ Given up:
 - func_0018B9E0, func_0018BB28: 4-byte color returned through a hidden pointer from callees returning it in v0
 - func_0018D718: D_00368A38 lui/%lo (file mixes both forms); func_0018BE00: pextlw/pcpyld packing
 - func_0018D280, func_0018D7B8: split tails
+
+## t_15D2E0
+
+Matched 28: func_0015D3F0 func_0015E0D0 func_0015E0A8 func_0015D5A0 func_0015DBF0 func_0015EDD0 func_0015F240
+func_0015F218 func_0015DDB8 func_0015D2E8 func_0015D570 func_0015F168 func_0015EBD0 func_0015F038 func_0015E128
+func_0015EA08 func_0015E5C0 func_0015EAC0 func_0015F268 func_0015EB90 func_0015EA78 func_0015F110 func_0015ED48
+func_0015DC18 func_0015E460 func_0015E510 func_0015E190 func_0015F070
+
+- Virtual calls that load the vtable into t0/t1 pass the caller's own a1..a3(/t0) straight through: give the
+  function and the call those extra parameters.
+- func_0015DDB8 is a static-init function (init, priority 0xFFFF): list head at D_0037DAF0+4 set to itself; go
+  through `L* l = &D` so the base is not folded.
+- 4-byte char-aligned color passed by value: class with a user copy ctor (`c(o.c)`, lwl/lwr) and an operator=
+  copying one u32 (lw/sw). func_0015EB90 builds an unused copy (`C tmp(self->unk18);`).
+
+Given up:
+- func_0015D6F0 (and the same list walks func_0015DB20, func_0015DB90, func_0015D750): iterator objects on the
+  stack; everything matches except the first `it != end` test, which the original reloads from memory; 7 tries
+- func_0015EDF8, func_0015EE28: function-static guards with a stray `nop` after the guard store; 2 tries
+- func_0015E0F8: ctor, vtable address lands in v1 instead of v0 (also tried a real ctor via asm label); 3 tries
+- func_0015D318: 8x unrolled loop (file has no -funroll-loops); func_0015DDE8, func_0015EFE8: D_00368A38 %gp_rel
+  (file uses lui); func_0015EE50, func_0015EDA0: 128-bit returns
+- func_0015EC68, func_0015E630, func_0015D560, func_0015DDB0: split tails
