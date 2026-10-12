@@ -688,3 +688,19 @@ func_00160970 func_00160DE8 func_00160FF8 func_001610A0 func_00161138
 Given up:
 - func_0015FC88 (dtor with list clear): self/list register assignment differs (s1/s2/s3); 3 tries
 - func_0015FBD8, func_0015FB68: 128-bit constants (pextlw/pcpyld)
+
+## t_1992F8 (A6, `// cflags: -funroll-loops`)
+
+Matched 14: func_00199398 func_00199960 func_001999F0 func_00199A30 func_00199AC8 func_00199B08 func_00199BB0
+func_00199C60 func_00199D38 func_0019A2E0 func_0019A5D8 func_0019A640 func_00199C18 func_0019AE30
+
+- The file needs -funroll-loops: func_00199C18 (16 zero stores, descending) is `for (i = 0; i < 16; i++) m[i] = 0;`
+  and func_0019AE30 (octree count) is a 16-child loop unrolled 8x; all other functions still match with it.
+- Clone helpers (func_00199960...): `p = ctor(new(size)); *p = *self; return p;` with a u128-array struct
+  (lq/sq copy loop).
+- func_00199D38: `tbl->m[i]` (array inside a struct) gives `addu base, index`; a plain `int*` gives the reverse.
+
+Given up:
+- func_00199CB8: `sra` on lbu values (ours srl; `/ 8` also srl); 2 tries
+- func_001993D8: body matches, but the original keeps an empty trailing loop (`li -3; addiu 1; slti 4`) that
+  our -funroll-loops build deletes, and hoists two constants; 3 tries
