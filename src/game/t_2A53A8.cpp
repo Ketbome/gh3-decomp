@@ -19,6 +19,8 @@ int func_0027C448(s32, int, int);
 int func_00288410(int, int, int, int, int);
 int func_002884A8(void);
 void func_002A6C10(void);
+int func_002A6C40_r(void) asm("func_002A6C40");
+void func_002A6C10_a(int) asm("func_002A6C10");
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A53A8);
@@ -134,7 +136,9 @@ extern "C" void func_002A6C40(void) {
     func_00115028();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6C60);
+extern "C" void func_002A6C60(void) {
+    func_002A6C10_a(func_002A6C40_r());
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6C88);
 
