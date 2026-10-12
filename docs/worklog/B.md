@@ -445,7 +445,7 @@ Given up:
 
 ## t_202258 (`// cflags: -funroll-loops`, needed by func_00203A18)
 
-Matched 9: func_00202D50 func_00204248 func_00203448 func_002028D8 func_00202828 func_00203A18 func_00202C88 func_00203208 (+func_00203448)
+Matched 8: func_00202D50 func_00204248 func_00203448 func_002028D8 func_00202828 func_00203A18 func_00202C88 func_00203208
 
 Notes: a 64-byte copy done as `lq 0xA0(v1); addiu a1,v1,0xA0; addiu a2,v1,0x100; sq ...; lq 0x10(a1); sq 0x10(a2)` is an
 inline `M& operator=(const M&)` copying the four u128 rows (a plain struct assignment folds every offset).
@@ -457,3 +457,13 @@ Given up:
 - func_00203058: &t kept in a saved register and stack slot order v/t/f (frame 0x60); 4 tries
 - func_00203858: long float logic; not attempted. VU0: func_00202258 func_00202400 func_00202960 func_00203138 func_00203318 func_00203AD8 func_00202ED0
 - func_00203440: split tail
+
+## t_204298
+
+Matched 9: func_00205680 func_002059E8 func_00205B00 func_00205E58 func_00205700 func_00204A78 func_00205EA0 func_00204498 func_00205A50
+
+Given up:
+- func_00205748: constructor; with `void* vt = D; p->unk4 = K; p->unk18 = vt;` only the two stores swap (48 orders tried)
+- func_00205F00: task init; v0/v1 for the vtable vs the 0xFF byte constant (inline init helper fixed the rest); 9 tries
+- func_00205F98 (list walk), func_002044F8, func_002057F8: not attempted; func_002060A0: static init (ldl/sdl)
+- func_00206220/func_00206238: alabel split; VU0: func_002042A0 func_00204688 func_00205B48 func_00205C60 func_00205DF0
