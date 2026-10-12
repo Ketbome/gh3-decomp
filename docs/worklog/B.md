@@ -95,7 +95,7 @@ Given up:
 Matched 3: func_001B1478 func_001B1C40 func_001B1C60
 
 Given up:
-- func_001B1E38, func_001B1D60: global stores through $at / mixed gp and %hi access of one symbol (assembler macro form)
+- func_001B1E38: u16/u32 views of D_00372C30, register allocation and store order (session 4, 3 tries); func_001B1D60: short loops padded with nops
 - func_001B00D0, func_001B01D8, func_001B02F0, func_001B1AB8: loops unrolled by 4 (our -O2 does not unroll)
 
 ## t_1BB500
