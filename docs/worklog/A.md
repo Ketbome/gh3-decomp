@@ -69,10 +69,10 @@ Given up:
 
 Matched 8: func_00115028 func_00116288 func_001162B8 func_001163B8 func_00116578 func_00116590 func_001165C8
 func_001167C8 (func_001150B8 retyped to pass its argument)
+Matched 1 (gp retry, solved): func_001153C8
 
 Given up:
 - func_00116660: nozdiv; with the flag only a scheduling diff left
-- func_001153C8: .sdata symbols both lui/%lo and %gp_rel
 - func_001150E0, func_001165E8: split tails
 
 ## t_116E38

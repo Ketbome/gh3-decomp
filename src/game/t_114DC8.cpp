@@ -41,6 +41,12 @@ u32 func_00115028(const char*);
 void func_001165C0(void);
 void func_001162B8(void);
 void func_00116178(int, int);
+void func_00119400(int, int);
+extern int D_00368A38;
+extern int D_00372AA0;
+extern int D_00372AA4;
+extern int D_00372AA8;
+extern int D_00372AAC;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00114DC8);
@@ -76,7 +82,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001150D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115170);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001153C8);
+extern "C" void func_001153C8(void) {
+    if (D_00372AAC) func_00119400(D_00368A38, D_00372AAC);
+    if (D_00372AA8) func_00119400(D_00368A38, D_00372AA8);
+    if (D_00372AA4) func_00119400(D_00368A38, D_00372AA4);
+    if (D_00372AA0) func_00119400(D_00368A38, D_00372AA0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115438);
 
