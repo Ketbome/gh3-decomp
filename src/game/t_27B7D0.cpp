@@ -380,18 +380,7 @@ extern "C" int func_0027D470(void *p, u32 key, void * *out, int req) {
     return 0;
 }
 
-extern "C" int func_0027D4E0(void *p, u32 key, u32 *out, int req) {
-    u32 v;
-    if (func_0027CC30(p, key, 7, &v)) {
-        out[0] = key;
-        out[1] = v;
-        return 1;
-    }
-    if (req) {
-        func_0027F1E0(p, 0, 1);
-    }
-    return 0;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027D4E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027D560);
 
