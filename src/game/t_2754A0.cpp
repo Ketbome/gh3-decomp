@@ -59,6 +59,19 @@ struct S2754A0_F {
 };
 
 extern "C" {
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
+char *func_0011A380(int);
+void func_0030A2F4(char *, char *, int);
+int func_0030AA88(char *);
+void func_0030A49C(void *, int, int);
+extern int D_00368744;
+extern char D_7000100[];
+extern char *D_00371170;
+extern char *D_00371178;
+extern char *D_0037117C;
+extern char *D_00371180;
 extern int D_00368A38;
 void *func_00118F20(int, int, int, int);
 void *func_0011C130(void *, int, int, int, int, int);
@@ -171,7 +184,15 @@ extern "C" void func_00275698(void) {
 extern "C" void func_002756A0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002756A8);
+extern "C" char *func_002756A8(char *s) {
+    int h = D_00368A38;
+    func_00119490(h, func_00119610(h, 5));
+    int n = func_0030AA88(s) + 1;
+    char *d = func_0011A380(n);
+    func_0030A2F4(d, s, n);
+    func_001194B8(D_00368A38);
+    return d;
+}
 
 extern "C" void func_00275730(void) {
     func_0011A470();
