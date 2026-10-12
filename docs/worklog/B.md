@@ -38,3 +38,7 @@ Given up:
 - func_001B2168: float->int cvt.w.s rejected by our assembler for r5900
 - func_001B21A0: cvt.s.w lands in the jr delay slot in ours, original keeps a nop
 - func_001B3BA8, func_001B3C98: MATCH with a fixed parser, but scripts/fcheck.py misses the reloc of an instruction that follows a bare nop (regex \s+ eats the newline) and reports DIFFERS; left as INCLUDE_ASM until fcheck is fixed (C3C98 needs callees declared returning int)
+
+## t_1BB500
+
+Matched 2: func_001BD158 func_001BD438
