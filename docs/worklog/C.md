@@ -29,6 +29,20 @@
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
 
+- **Mixed `$gp` / `lui` uses of one symbol now match** (round 3): keep the normal declaration (`extern T D_X;`, gas
+  makes it `$gp` from gcc's `.extern D_X, 4`) and add a lui-form view through a gas alias:
+  `asm(".set D_X_lui, D_X");` at the top, `extern T D_X_lui[] asm("D_X_lui") __attribute__((section(".sdata")));`.
+  The alias has no `.extern` size so gas expands it with `lui`; relocations still name `D_X` (checked with objdump,
+  the alias does not even reach the symbol table). Unblocks the old "read via `$gp` and `lui`" give-ups.
+- `xori v0,v0,1` + `beqz` after a bool call: `bool missing = !f(...); if (missing)` (a direct `if (!f())` folds
+  into `bnez`).
+- `if (p) { ...; return 1; } return 0;` gives the `bnez` + `b end / v0 = 0` layout seen in most CFuncs.
+- A 16-byte float struct with `__attribute__((aligned(16)))` on the struct is BLKmode (copied with lq/sq, kept on
+  the stack); the original kept some in registers (`dsrl32`/`pcpyud` field extraction): not reproduced yet.
+- `mfc1` followed by a use of the register: our gas inserts a `nop` (hazard), SN's did not. Toolchain question;
+  skip functions where `cvt.w.s`/`mfc1` result is used by the next instruction.
+- Two-case checksum `if/else if` laid out "second case first": write it as a `switch` (source order of cases).
+
 ## Files
 
 ### t_2DAE48 (+11)
@@ -160,3 +174,19 @@ Given up:
 - t_2A53A8: func_002A6C60; t_25C450: func_0025DFB8
 Given up:
 - t_282268 func_00283070: seven stores, 6 orders tried, scheduler order never matches.
+
+### t_250010 (+34)
+func_00250FF0, func_00251090, CFunc_SetShadowDir, CFunc_SetLightFlag, CFunc_ClearLightFlag, CFunc_MoveLight,
+CFunc_SetLightDirection, CFunc_SetLightColor, CFunc_SetLightIntensity, CFunc_GetLightIntensity,
+CFunc_GetLightGroupIntensity, CFunc_EnableLight, CFunc_DisableLight, CFunc_EnableLightGroup,
+CFunc_DisableLightGroup, CFunc_AddLightToGroup, CFunc_AllowBoneLOD, CFunc_PlayIGCCam, CFunc_GetSkaterCamAnimParams,
+CFunc_SkaterCamAnimFinished, CFunc_KillSkaterCamAnim, CFunc_IsTextureLoaded, CFunc_SetLightGroupIntensity,
+CFunc_InitLightManager, CFunc_NudgeVC, CFunc_GetDisplaySettings, CFunc_InitAnimCompressTable, func_00251358,
+CFunc_PlaySkaterCamAnim, func_00251F68, func_002509A0, CFunc_PlayMovie, CFunc_SetScreen, CFunc_UnloadTexture
+Given up:
+- CFunc_CreateLightGroup: original `move v1,v0; bnez v1` + `li v0,1 / v0 = 0`; every form gives `sltu` (5 tried).
+- CFunc_SetLightVolumeParams: arg moves order (a0 last, in the jal delay slot); 2 forms tried.
+- CFunc_GetLightDirection: light->dir kept in a TImode register (see notes); 3 forms tried.
+- CFunc_GetLightColor: matches except the `mfc1` hazard nops (see notes).
+- func_00250A18 (dead stores at sp+0xA0/0xA4), CFunc_HackAddLight (pextlw vector build), CFunc_UpdateAnimCache,
+  func_00251CA0 (ldl/ldr struct copy): not tried yet.
