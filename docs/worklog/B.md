@@ -278,3 +278,17 @@ Given up:
 - func_001ECC90: constructor; ours deletes the first (dead) vtable store at 0x18, the original keeps it (1 try)
 - func_001EC818, func_001EC8D0: list iterators on the stack with ldl/ldr struct copies; not attempted
 - func_001EBFE0: split tail
+
+## t_1ED6D0
+
+Matched 20: func_001ED6D0 func_001ED858 func_001ED880 func_001ED888 func_001ED9F8 func_001EDA20 func_001EDB00 func_001EE428 func_001EE5A8 func_001EE6F8 func_001EEFE0 func_001EF2F0 func_001EF338 func_001EF368 func_001EF548 func_001EF570 func_001EF590 func_001EF5F0 func_001EF618 func_001EF688
+
+Notes: 128-bit vectors returned in $v0 / passed in $a2 are `typedef int TI128 __attribute__((mode(TI)))` (a 16-byte
+struct is returned through a hidden pointer); a union {TI128; Vec} gives the `sq` then `swc1` of one lane.
+func_001ED888 is a pointer-to-member call (`(p->*a->pmf)(x, y)`, else virtual 12): both must return a value.
+
+Given up:
+- func_001EEC68: D_00368A38 gp_rel in a delay slot
+- func_001EDA50: vector constant built with pextlw/pcpyld; func_001ED720: static init with ldl/ldr copies; not attempted
+- func_001EF3A8, func_001EF000: lq/pcpyud lane extraction, long; not attempted
+- func_001ED938, func_001EEFB0, func_001EE600: split tails
