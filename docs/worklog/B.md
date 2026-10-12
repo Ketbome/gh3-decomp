@@ -269,3 +269,12 @@ Given up:
 - func_001EB338, func_001EB2B0, func_001EA060: short loops padded with nops
 - func_001E97C8, func_001EA798, func_001E9A00, func_001EA118, func_001EA318, func_001EB378: macro symbol gp_rel in a delay slot
 - func_001E95C0, func_001EB170, func_001EB2F0, func_001EA9D8, func_001E9980, func_001EA970: split tails / data
+
+## t_1EB630 (`// cflags: -funroll-loops`)
+
+Matched 9: func_001EBAB0 func_001EBAE8 func_001EBC80 func_001EBCB0 func_001EBFF0 func_001EC018 func_001ECC40 func_001ECC70 func_001ECD18
+
+Given up:
+- func_001ECC90: constructor; ours deletes the first (dead) vtable store at 0x18, the original keeps it (1 try)
+- func_001EC818, func_001EC8D0: list iterators on the stack with ldl/ldr struct copies; not attempted
+- func_001EBFE0: split tail
