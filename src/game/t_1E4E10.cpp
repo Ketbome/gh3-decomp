@@ -44,6 +44,16 @@ s32 func_001E6538(void);
 void func_001E6560(void);
 void func_001E6578(void);
 void func_001E6590(void);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+void* func_00118F20(s32, s32, s32, s32);
+void* func_0011C130(void*, int, s32, s32, int, int);
+void func_0011C248(void*, int);
+extern void* D_00371028[];
+extern s32 D_00371030[];
+extern void* D_00371228[];
+extern s32 D_00371230[];
+extern void* D_00370FA8[];
+extern s32 D_00370FB0[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E4E10);
@@ -52,6 +62,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5050);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5128);
 
+GP_DATA(D_0036DA4C);
 extern "C" void func_001E5C50(void) {
     D_0036DA4C();
 }
@@ -60,6 +71,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5C70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5D98);
 
+GP_DATA(D_00372DC0);
+GP_DATA(D_00372DB8);
 extern "C" void func_001E5E90(s32 a, s32 b) {
     if (b == 0xFFFF && a != 0) {
         S1E5E90* o = &D_0038EC50;
@@ -105,23 +118,41 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6030);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E62A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E64A0);
+extern "C" void func_001E64A0(void) {
+    D_00371038++;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E64B8);
+extern "C" void func_001E64B8(void) {
+    D_00371238++;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E64D0);
+extern "C" void func_001E64D0(void) {
+    D_00370FB8++;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E64E8);
+extern "C" s32 func_001E64E8(void) {
+    return D_00371028[D_00371038] != 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6510);
+extern "C" s32 func_001E6510(void) {
+    return D_00371228[D_00371238] != 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6538);
+extern "C" s32 func_001E6538(void) {
+    return D_00370FA8[D_00370FB8] != 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6560);
+extern "C" void func_001E6560(void) {
+    D_00371038--;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6578);
+extern "C" void func_001E6578(void) {
+    D_00371238--;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6590);
+extern "C" void func_001E6590(void) {
+    D_00370FB8--;
+}
 
 extern "C" s32 func_001E65A8(void) {
     return D_00371038;

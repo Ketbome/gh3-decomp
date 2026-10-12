@@ -233,8 +233,9 @@ Given up:
 Matched 10: func_001E5C50 func_001E5E90 func_001E5F38 func_001E5F58 func_001E5FD0 func_001E65A8 func_001E65B0 func_001E65B8 func_001E6920 func_001E6950
 
 Given up:
-- func_001E64A0..func_001E6590 (6 inc/dec), func_001E67B8, func_001E6830: counters are macro-form loads with the gp store in the jr delay slot; file declares them gp so the getters match
-- func_001E64E8, func_001E6510, func_001E6538: need macro form of the counters (conflicts with the getters)
+- session 4 (new asm_filter): matched the 6 inc/dec func_001E64A0..func_001E6590 and func_001E64E8 func_001E6510 func_001E6538
+- func_001E65C0 func_001E6668 func_001E6710 func_001E67B8 func_001E6830: the original builds the array address with an
+  unsplit `la` (lui+addiu adjacent, same register); ours splits %hi/%lo and schedules them apart (toolchain)
 - func_001E5ED0: split tail
 
 ## t_1E75A8
