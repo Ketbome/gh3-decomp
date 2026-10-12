@@ -117,3 +117,13 @@ Given up:
 - func_0011D9E0: init store scheduling; 1 try
 - func_0011D830: unrolled loops
 - func_0011EE38, func_0011ED68: not attempted (unsigned->float, D_0036876C lui)
+
+## t_11F000
+
+Matched 3: func_0011F4D8 func_0011F510 func_0011F598
+
+Given up:
+- func_0011F3A8: li -1 lands in v0 instead of v1; 1 try
+- func_00120E00: .sdata store macro in a delay slot (gcc thinks 1 insn; the original kept it out)
+- func_001206D0: two-entry search, original keeps nops in delay slots; 2 tries (also not -funroll-loops)
+- func_0011FA98, func_0011F8D0, func_0011F9A8, func_001208C0: unrolled/loop code, not attempted
