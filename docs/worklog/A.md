@@ -456,7 +456,7 @@ Given up / open:
 
 ## t_146580
 
-Matched 16: CFunc_DumpScreenElements CFunc_ScreenElementExists CFunc_SetRootScreenElement CFunc_ResolveScreenElementID
+Matched 18: CFunc_DumpScreenElements CFunc_ScreenElementExists CFunc_SetRootScreenElement CFunc_ResolveScreenElementID
 func_001482F8 func_00148350 func_00148508 CFunc_DoScreenElementMorph func_00146DE0 CFunc_SetScreenElementLock
 CFunc_ScreenElementSystemInit func_00148258 CFunc_SetScreenElementProps CFunc_CreateScreenElement
 CFunc_DestroyScreenElement CFunc_GetScreenElementPosition CFunc_GetScreenElementDims CFunc_MenuSelectedIndexIs
@@ -477,3 +477,20 @@ Given up:
 Matched: t_1550C0 func_00155128 (u128 return of a global) · t_15B258 func_0015B370 · t_16E670 func_0016E990 ·
 t_1727C8 func_00172960 (unused 0x40-byte local keeps the frame) · t_17D4D8 func_0017F280 · t_1965D0 func_00197ED8 ·
 t_1992F8 func_00199D28 · t_19B448 func_0019BF10 · t_19D4E8 func_0019F318 · t_1A37A8 func_001A46D0
+
+## t_14A6B0
+
+Matched 18: func_0014B168 func_0014A910 func_0014A728 func_0014C348 func_0014AC08 func_0014AE30 func_0014C480
+func_0014A6F8 func_0014A770 func_0014A6B0 func_0014C418 func_0014AC58 func_0014B1F8 func_0014AE80 func_0014B0F8
+func_0014C390 func_0014C4A8 func_0014B368
+
+- Hash table (items of {key, value, next}, 12 bytes; table {bits, items, count, ..., u8 unk15}): Get through an
+  inline taking `const u32& key` (stores the key to the stack); Remove has no `if (!e)` check (loop guard only).
+- `Ref = 0` (func_0014B0F8): `void** r = &p->unk34; if (*r) { detach; *r = 0; } *r = 0;`.
+- func_0014AE10 is defined as `void(void)` but called with self: alias `func_0014AE10_p` via asm label.
+
+Given up:
+- func_0014B1B0: matched with the committed prelude, but the uncommitted hazard-nop change in
+  include/gcc_prelude.inc drops the nop the original has between `c.le.s` and `bc1t`; left as INCLUDE_ASM
+  (C: `S4* q = (S4*)self->unk30; return func_0010EC98(q, a, b, 0) <= q->unk20 * q->unk20;`)
+- larger ones (>0x100) not attempted
