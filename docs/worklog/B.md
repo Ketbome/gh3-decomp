@@ -389,3 +389,23 @@ Given up:
   registers (4 tries)
 - func_001F9A48, func_001F9D68, func_001FA330: split tails
 Not yet attempted: everything above 0x40 in this file; t_1FBAF0 .. t_249620 untouched.
+
+## Session 5
+
+Habit (verified by match): a `nop` right before a label inside straight-line code, with a repeated body, is a fully
+unrolled loop (`-funroll-loops`): t_1FBAF0 func_001FC1E0 (`for i<3: if (!a[i]) return i+1;`) and func_001FBDE0.
+Table scans unrolled x5 (`slt` on the pointer, 5 copies of the body) are `for (int i = 0; i < 50; i++) { E* e = &D[i]; ...}`
+(an index loop, not a pointer loop). `&p->field` computed before the null check (`addiu a1` in the beqz delay slot)
+is an inline helper taking `void** pp`.
+
+## t_1FBAF0 (`// cflags: -funroll-loops`)
+
+Matched 11: func_001FBB18 func_001FBB70 func_001FBC50 func_001FBDE0 func_001FBF10 func_001FC030 func_001FC1E0 func_001FCB08 func_001FD9B8 func_001FDA30 func_001FDA88
+
+Given up:
+- func_001FBEA8, func_001FBE50: `move v1,v0; bnez v1` + `li v0,1 / v0 = 0` bool return; every form gives sltu (3 tries)
+- func_001FC608, func_001FC690: arg order (original loads a0 from the stack before `move a2,s1`; `sw 0` after the key ori); 4 tries
+- func_001FC0A8: original saves $s0-$s7/$ra with `sq` (no -fopt-stack layout; it reads a stack argument); not reproducible from source
+- func_001FC468: same arg-order schedule as FC608 plus a mid-function `return 0` block; 3 tries
+- func_001FCA90: constructor with dead u8[4] stores; li s1,-1 / vtable store schedule (4 tries)
+- func_001FBD68, func_001FCA38, func_001FBFC8: split tails
