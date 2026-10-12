@@ -102,6 +102,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236100);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_EnablePakManStreaming);
 
+GP_DATA(D_0036FD2C);
 extern "C" int CFunc_DisablePakManStreaming(void) {
     D_0036FD2C = 0;
     return 1;

@@ -52,6 +52,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFD58);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFDD8);
 
+GP_DATA(D_0036CBE0);
+GP_DATA(D_0036CBDC);
 extern "C" void func_001BFE40(N1C* n) {
     if (D_0036CBE0 == n) {
         D_0036CBE0 = n->unk1C;

@@ -89,6 +89,8 @@ extern "C" void func_001C5CB8(S001C5CB8* p) {
     p->unk1C();
 }
 
+GP_DATA(D_0036CDB4);
+GP_DATA(D_0036CDB8);
 extern "C" S0036CDB4* func_001C5CD8(s32 a) {
     if (D_0036CDB4 == 0 && a != 0) {
         D_0036CDB4 = func_001C5D80(func_00113DF0(0x328, 0, 1));

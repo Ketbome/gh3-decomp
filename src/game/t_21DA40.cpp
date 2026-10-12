@@ -159,6 +159,7 @@ extern "C" int func_0021E498(S21D* self) {
     return 1;
 }
 
+GP_DATA(D_00372E28);
 extern "C" void func_0021E4C8(void) {
     func_0027AC90(&D_00372E28);
 }

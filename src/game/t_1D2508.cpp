@@ -148,6 +148,8 @@ extern "C" void func_001D4198(void) {
     func_001D3818(1, 0xFFFF);
 }
 
+GP_DATA(D_0036D3B0);
+GP_DATA(D_0036D3B4);
 extern "C" S0036D3B0* func_001D41B8(s32 a) {
     if (D_0036D3B0 == 0 && a != 0) {
         D_0036D3B0 = func_001D4260(func_00113DF0(0x458, 0, 1));

@@ -35,6 +35,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD780);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD8E8);
 
+GP_DATA(D_0036CB74);
 extern "C" S001BD998* func_001BD998(void) {
     S001BD998* p = D_0036CB74;
 

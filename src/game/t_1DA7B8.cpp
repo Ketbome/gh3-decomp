@@ -124,6 +124,7 @@ extern "C" int CFunc_LaunchEvent(void* params, void* script) {
     return 1;
 }
 
+GP_DATA(D_0036D554);
 extern "C" int CFunc_WaitForEvent(void* params, void* script) {
     s32 v;
     func_0027D870(params, 0x7321A8D6, &v, 0);

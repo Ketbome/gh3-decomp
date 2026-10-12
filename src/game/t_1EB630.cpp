@@ -69,6 +69,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1EB630", func_001EB630);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1EB630", func_001EBA98);
 
+GP_DATA(D_0036E060);
 extern "C" void func_001EBAB0(void* v) {
     if (D_0036E060 < 0x60) {
         D_0032C550[D_0036E060++] = v;

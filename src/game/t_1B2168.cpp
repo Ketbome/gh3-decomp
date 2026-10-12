@@ -50,6 +50,7 @@ extern "C" void func_001B3CF8(s32 v) {
     D_0036C850 = v;
 }
 
+GP_DATA(D_0036C854);
 extern "C" void func_001B3D00(s32 v) {
     D_00372B18 = v;
     D_0036C854 = v;

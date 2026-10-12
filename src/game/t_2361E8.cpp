@@ -17,6 +17,7 @@ void func_002367E0(int, int);
 extern List236 D_003979F0;
 }
 
+GP_DATA(D_0036FD28);
 extern "C" int CFunc_UpdatePakManVisibility(void) {
     D_0036FD28();
     return 1;
