@@ -292,3 +292,23 @@ Given up:
 - func_001EDA50: vector constant built with pextlw/pcpyld; func_001ED720: static init with ldl/ldr copies; not attempted
 - func_001EF3A8, func_001EF000: lq/pcpyud lane extraction, long; not attempted
 - func_001ED938, func_001EEFB0, func_001EE600: split tails
+
+## Session 4
+
+Habits: stack slots of address-taken scalars do not follow declaration order; when the order is wrong an array
+(`s32 s[3]`) fixes it, and in other functions plain scalars do (try both). A callee that returns a value which is
+ignored still changes `$v0`/`$v1` choice later (declare it returning int). A member loaded and narrowed
+(`u8 d = p->x` giving `lbu`) where the original does `lw` + `sb`: pass it through an inline function's int parameter.
+`for (i < arr->GetSize())` (inline getter) reloads the pointer at the loop top where a plain `arr->count` is CSE'd.
+128-bit vectors passed by value or copied: `TI128` (a 16-byte aligned struct is passed by reference).
+
+## t_1EF6D0
+
+Matched 13 (session 4): func_001EFA78 func_001EF9A0 func_001EFF40 func_001EFC60 func_001F0118 func_001F0438 func_001F0A30 func_001F0360 func_001EFB58 func_001EF898 func_001F0EF8 func_001EFD98 func_001F0FC8 (plus 20 earlier)
+
+Given up:
+- func_001F08D8, func_001F07E8: `if (!bool_call())` is xori+beqz in the original, ours bnezl (5 forms)
+- func_001F16C0: s0/s1 swapped between `this` and a field loaded before a call (3 tries)
+- func_001EF950: TI128 lane extraction (dsrl32/pcpyud + mtc1) into float args; union/struct forms go through the stack
+- func_001EF7E0, func_001F01D0, func_001F0B70: 128-bit constant built with pextlw/pcpyld; not reproduced
+- func_001F0B48: split tail
