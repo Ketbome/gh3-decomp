@@ -60,7 +60,14 @@ struct S250_Cam {
     int unk308;
 };
 
+struct S250_Key {
+    int type;
+    u32 id;
+};
+
 extern "C" {
+void func_0027ACF8(void *, u32);
+void func_001E1378(int, u32, void *, u32, S250_Key);
 int func_0014F150(void);
 int func_002A3EA0(void);
 extern char D_00355EA0[];
@@ -616,7 +623,26 @@ extern "C" int CFunc_SetRowHeightTables(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251C90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00251CA0);
+extern "C" void func_00251CA0(u32 a, void *params) {
+    S250_Key k;
+    k.type = 1;
+    if (func_0027DF00((int)params, 0xB2EDCD7D)) {
+        k.type = 0;
+        func_0027AE70(params, 0xB2EDCD7D);
+    }
+    if (func_0027D870((int)params, 0xA2AB3C71, &k.id, 0)) {
+        k.type = 2;
+        func_0027ACF8(params, 0xA2AB3C71);
+    }
+    if (func_0027D870((int)params, 0x7C1549EC, &k.id, 0)) {
+        k.type = 3;
+        func_0027ACF8(params, 0x7C1549EC);
+    }
+    u32 name = 0;
+    func_0027D870((int)params, 0xA1DC81F9, &name, 0);
+    int m = D_0036CDB4[0]->unk308;
+    func_001E1378(m, name, params, a, k);
+}
 
 extern "C" int CFunc_PlayIGCCam(int params, int script) {
     void *p = func_0027AA98(func_001287F0(8, 1), params);

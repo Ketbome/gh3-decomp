@@ -203,7 +203,7 @@ Given up:
 - CFunc_GetLightDirection: light->dir kept in a TImode register (see notes); 3 forms tried.
 - CFunc_GetLightColor: retried after the mfc1 fix: original converts through a pointer to the stack vector (`addiu a3,sp,16`, interleaved `sb`); plain, inline, and unrolled-loop forms (with -funroll-loops) all reorder. 5 forms.
 - func_00250A18 (dead stores at sp+0xA0/0xA4), CFunc_HackAddLight (pextlw vector build), CFunc_UpdateAnimCache,
-  func_00251CA0 (ldl/ldr struct copy): not tried yet.
+  (func_00251CA0 SOLVED round 5: 8-byte key struct passed by value; `m = ...->unk308` read into a local first.)
 
 ### t_2C9AC0 (+10)
 CFunc_HideStencilShadow, CFunc_ClearMasterBloom, CFunc_HideDOF (`.set` alias), CFunc_fretbar_iterator_CFunc_Setup,
@@ -324,7 +324,9 @@ Given up:
   to `li 0xfd41; dsll; ori; dsll; ori; dsll 14` (asm_filter only rewrites li.s; toolchain question).
 - CFunc_TimeGreaterThan: u32->float conversion; original leaves the `b` delay slot empty after cvt.s.w.
 - CFunc_CenterCamera, CFunc_SkatersAreReady: `movn`/`movz` list walks (see t_24DDB8 CompressVC).
-- Cutscene destroy-list functions, PlayCutscene (ldl/ldr struct copy), TestNetSetup, SetConfig: not tried.
+- CFunc_PlayCutscene (round 5): by-value key struct fine, but the `D_0036CDB4` load is scheduled into the memset
+  `jal` delay slot (original counted the macro load as 2 insns); scalar, unknown-size and volatile forms fail.
+- Cutscene destroy-list functions, TestNetSetup, SetConfig: not tried.
 
 ### t_2626E0 (+18, viewer/controller CFuncs)
 CFunc_ClearViewerObject, CFunc_DestroyViewport, CFunc_IsPS2, CFunc_LoadExecPS2, CFunc_SetScreenMode,
