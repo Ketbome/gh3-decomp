@@ -14,8 +14,6 @@ struct S2A1_Ref {
     int unk4;
 };
 
-asm(".set D_00372EF0_gp, D_00372EF0");
-asm(".set D_0036F608_gp, D_0036F608");
 
 struct S2A1_Dtor {
     char pad0[0xC];
@@ -79,8 +77,6 @@ int func_001D03D8(int, int, int, int, int);
 void func_00289ED8(int, void *);
 extern int D_00368A38;
 void func_00119400(int, void *);
-extern int D_00372EF0_gp asm("D_00372EF0_gp");
-extern s32 D_0036F608_gp asm("D_0036F608_gp");
 extern s32 D_00369A64[] __attribute__((section(".sdata")));
 int func_00224220(int, int);
 int func_002299B0(s32, int, int, int);
@@ -319,9 +315,10 @@ extern "C" s32 func_002A1828(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1830);
 
+GP_DATA(D_00372EF0);
 extern "C" void func_002A1840(int a, int b) {
     if (b == 0xFFFF && a) {
-        D_00372EF0_gp = 0x806FFF30;
+        D_00372EF0[0] = 0x806FFF30;
     }
 }
 
@@ -334,7 +331,7 @@ extern "C" int func_002A1888(int a, int b) {
     if (!r) {
         return 0;
     }
-    return func_002299B0(D_0036F608_gp, r, a, b);
+    return func_002299B0(D_0036F608[0], r, a, b);
 }
 
 extern "C" int func_002A18E0(int a) {
@@ -342,7 +339,7 @@ extern "C" int func_002A18E0(int a) {
     if (!r) {
         return 0;
     }
-    return func_002297D8(D_0036F608_gp, r);
+    return func_002297D8(D_0036F608[0], r);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1918);
