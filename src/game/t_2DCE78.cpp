@@ -1,5 +1,20 @@
 #include "common.h"
 
+struct S2DCE78_A {
+    char pad0[0x1C];
+    int (*unk1C)(S2DCE78_A *);
+};
+
+struct S2DCE78_B {
+    char pad0[0xEE5C];
+    int unkEE5C;
+};
+
+struct S2DCE78_V {
+    char pad0[0xEE00];
+    virtual ~S2DCE78_V();
+};
+
 extern "C" {
 extern s32 D_0037236C;
 extern f32 D_00372370;
@@ -29,7 +44,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DCF10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD080);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD0B0);
+extern "C" int func_002DD0B0(S2DCE78_A *p) {
+    return p->unk1C(p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD0D0);
 
@@ -138,7 +155,15 @@ extern "C" s32 func_002DE1D0(s32 arg0) {
     return D_00372580;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE220);
+extern "C" void func_002DE220(void) {
+    if ((u32)D_00372584 >= 2) {
+        D_00372584--;
+    } else {
+        delete (S2DCE78_V *)D_00372580;
+        D_00372580 = 0;
+        D_00372584 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE280);
 
@@ -216,7 +241,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE738);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DEA78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DEE18);
+extern "C" void func_002DEE18(S2DCE78_B *p, int b) {
+    if (b) {
+        int *q = (int *)((char *)p + 0x10ED0);
+        *q = 0;
+    }
+    p->unkEE5C = 0;
+}
 
 extern "C" s32 func_002DEE40(void) {
     return 0;
@@ -224,4 +255,6 @@ extern "C" s32 func_002DEE40(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DEE48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", CFunc_StartNetworkGame);
+extern "C" s32 CFunc_StartNetworkGame(void) {
+    return 0;
+}

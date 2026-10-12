@@ -101,3 +101,10 @@ func_00268328, func_002668F8, func_00266850, func_00266800, func_00266B60
 Given up:
 - func_002682B8, func_00268228: float literals 0.01f/0.1f built inline by the original (see notes).
 - func_00266E08, func_00266D20, func_00267B30, func_00266FA8: not tried (loops/unrolled clears).
+
+### t_2DCE78 (+4)
+CFunc_StartNetworkGame, func_002DD0B0, func_002DEE18, func_002DE220
+Given up:
+- func_002DE578: original keeps the node in $a0 and copies it to $v0 for the null test (2 forms tried).
+- func_002DD0D0, func_002DD738: short loops. func_002DD288: D_0036F608 is read both via `$gp` and `lui` in
+  one function. func_002DD670/func_002DD490/func_002DE638: loops unrolled by 4 (not tried).
