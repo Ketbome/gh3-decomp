@@ -591,3 +591,12 @@ Matched 4: func_00185B98 func_001873D8 func_00187430 func_00187480 (value getter
 ## t_163750
 
 Matched 3: func_00163AD8 func_00163B00 func_00164E60 (dtor unlinking an embedded list node, as t_1298B0 func_0012A3E8)
+
+## t_1A7A50
+
+Matched 5: func_001A90F8 func_001A8520 func_001A8120 func_001A9240 func_001A9288
+
+Given up:
+- func_001A8168, func_001A84E0: the -1 lands in v1 (ours v0); also tried returning the callee's value; 2 tries
+- func_001A8560 (qsort comparator, args are the elements): `bnezl`/`li v1,1` vs ours `bnez`; 3 tries (keeping it
+  needs the `extern u8 func_001A8560[]` declaration turned into a prototype and a `(void*)` cast at the call)
