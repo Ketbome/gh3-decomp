@@ -48,6 +48,8 @@ struct S2562_Comp {
 extern "C" {
 int func_0010C050(int);
 void func_0027C1F8(int, u32, f32);
+int func_0010C050(int);
+void func_0027C1F8(int, u32, f32);
 int func_0011A5B8(S2562_Arr *, int);
 char *func_0027EF60(S2562_Arr *, int);
 int func_0030E650(char *, char *);
@@ -465,7 +467,35 @@ extern "C" int CFunc_RemoveFlag(int params, S2562_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetRandomValue);
+extern "C" int CFunc_GetRandomValue(int params, S2562_Script *script) {
+    u32 name;
+    func_0027D870(params, 0xA1DC81F9, &name, 0);
+    if (func_0027DF00(params, 0xA5F054F4)) {
+        int a = 0;
+        int b = 0;
+        func_0027D1F8(params, 0x174841BC, &a, 0);
+        func_0027D1F8(params, 0x8E411006, &b, 0);
+        if (a > b) {
+            int t = a;
+            a = b;
+            b = t;
+        }
+        int st = script->unk20;
+        u32 n = name;
+        func_0027C160(st, n, a + func_0010C050(b - a + 1));
+    } else {
+        int res = 1000;
+        func_0027D1F8(params, 0x022CF075, &res, 0);
+        f32 a = 0.0f;
+        f32 b = 0.0f;
+        func_0027D268(params, 0x174841BC, &a, 0);
+        func_0027D268(params, 0x8E411006, &b, 0);
+        int st = script->unk20;
+        u32 n = name;
+        func_0027C1F8(st, n, a + (f32)func_0010C050(res) * (b - a) / ((f32)res - 1.0f));
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_ForEachIn);
 

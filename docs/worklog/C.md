@@ -199,7 +199,7 @@ Given up:
 - CFunc_CreateLightGroup: original `move v1,v0; bnez v1` + `li v0,1 / v0 = 0`; every form gives `sltu` (5 tried).
 - CFunc_SetLightVolumeParams: arg moves order (a0 last, in the jal delay slot); 2 forms tried.
 - CFunc_GetLightDirection: light->dir kept in a TImode register (see notes); 3 forms tried.
-- CFunc_GetLightColor: matches except the `mfc1` hazard nops (see notes).
+- CFunc_GetLightColor: retried after the mfc1 fix: original converts through a pointer to the stack vector (`addiu a3,sp,16`, interleaved `sb`); plain, inline, and unrolled-loop forms (with -funroll-loops) all reorder. 5 forms.
 - func_00250A18 (dead stores at sp+0xA0/0xA4), CFunc_HackAddLight (pextlw vector build), CFunc_UpdateAnimCache,
   func_00251CA0 (ldl/ldr struct copy): not tried yet.
 
@@ -396,7 +396,7 @@ CFunc_ArrayContains, func_00256340, func_00256848
 `return r` turns into `bnezl`. A value loaded right after a call and before the result test (`lw t2,0x20(s1)`):
 read it into a local there. `int r = 0; if (x) { f(x); r = 1; } return r;` gives `beqz` + `v0 = 0` delay.)
 Given up:
-- CFunc_GetRandomValue: needs the `nop` SN's assembler put between `mtc1` and `cvt.s.w` (toolchain); rest matched.
+- (SOLVED after the mfc1 prelude fix: `if (a > b)` swap) CFunc_GetRandomValue.
 - CFunc_GetElement: args of the final calls (`script->unk20` loaded before the inner call, `move a0` before
   `move a2`) and an unfilled `beqz` delay slot; 5 forms (locals, member calls with asm labels).
 - CFunc_HackSetReverbPlease, CFunc_AddSfxHeader: flag set by branches (original keeps `x = 0; if (c == K) x = 1`
@@ -404,7 +404,7 @@ Given up:
 - CFunc_GetTerrainTypeParam: original keeps `&y` (sp+4) in s0 across the first call; 2 forms.
 - CFunc_GlobalExists: not tried. func_00256838/func_002571C8: split fragments.
 
-### t_2908A0 (+14, script loop stack / intrusive node list)
+### t_2908A0 (+13, script loop stack / intrusive node list)
 func_002908A0, func_00290908, func_002909A8, func_00290BD0, func_00290CA0, func_00290D18, func_00290D68,
 func_00290FE8, func_00291020, func_00291080, func_00291900, func_00291D00, func_00292078
 (func_00290908: unrotated `while` (test at top, `b` back) came from `if (f()) { g(); continue; } break;` as the
