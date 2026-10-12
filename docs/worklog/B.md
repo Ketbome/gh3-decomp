@@ -224,7 +224,7 @@ Given up:
 Matched 9: func_001E2D18 func_001E2E40 func_001E2FF0 func_001E3280 func_001E32C8 func_001E32D0 func_001E32D8 func_001E3310 func_001E3380
 
 Given up:
-- func_001E3048: D_00368A38 gp_rel in a delay slot
+- func_001E3048: matched in session 4 (new asm_filter)
 - func_001E2E90: register choice for the null-checked owner (a0/v1 vs ours v1/a1); 3 tries
 - func_001E3220: outgoing arg move order (a2 from call result last); 5 tries incl. variadic and member-call
 
