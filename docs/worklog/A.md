@@ -150,3 +150,11 @@ Given up:
 - func_00123778: `li a2,512` / `sw` order swapped; 1 try
 - func_00123E68: delay loop with nops, not attempted
 - func_00123B68, func_00123BB0, func_00123C00, func_00123C60: list iterator kept on the stack, not attempted
+
+## t_1277C0
+
+Matched 16: func_001277C0 func_001279A8 func_00127A60 func_00128098 func_001283A8 func_00128460 func_001288B0 func_00128940 func_00128980 func_001289C0 func_00128A00 func_00128A40 func_00128AC0 func_00128B08 func_00129080 func_00129350 
+
+Given up:
+- func_001277F8: split tail
+- larger candidates (>0x60) not attempted yet
