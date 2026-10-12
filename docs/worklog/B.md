@@ -350,3 +350,21 @@ Given up:
 - func_001F3DE0, func_001F3950, func_001F4DE0, func_001F4948, func_001F5510, func_001F5590: VU0 macro code
 - func_001F3E68 (ldl/sdl struct copies), func_001F5820, func_001F3A40 (list iteration with stack iterators): not attempted
 - func_001F4048: split tail
+
+Session 4 retries with the new asm_filter (SN one-pass assembler model) are noted in each file's section above.
+More habits: stack slots of address-taken locals follow the order in which their ADDRESS is first used
+(`TI128 v; TI128* pv = &v; *pv = MakeVec(..)` puts v first). A struct built with an inline constructor that calls
+out (`T t(x)`) recomputes `&t` (addiu sp) at each use where a plain local keeps it in a saved register.
+Destructors with a delete flag: `if (flags & 1) func_00119400(D_00368A38, this)`; read D_00368A38 into a local before
+the vtable store when the original loads it early.
+
+## t_1F5958
+
+Matched 17: func_001F5DC8 func_001F5E80 func_001F78A8 func_001F5DA0 func_001F5ED8 func_001F62A0 func_001F6268 func_001F77E8 func_001F5FE0 func_001F5D28 func_001F64B0 func_001F5F08 func_001F7828 func_001F5DD0 func_001F6F68 func_001F6778 func_001F78D0
+
+Given up:
+- func_001F5F88: constructor with dead u8[4] stores; register choice / sb order (10 tries)
+- func_001F6440: three saved registers in the original (this not reused for the loaded count); 3 tries
+- func_001F6528, func_001F6ED8: lanes of one TI128 read as three float args (dsrl32/pcpyud into separate regs)
+- func_001F5C30 (ldl/sdl copies), func_001F62D0, func_001F5958, func_001F65B0: not attempted; F6DA0, F5AC8: VU0
+- func_001F5CF8, func_001F5EA0, func_001F5AC0: split tails
