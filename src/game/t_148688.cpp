@@ -3,6 +3,8 @@
 struct S_148 { char pad0[0x8]; void* unk8; char padC[0x234]; int unk240; int unk244; char pad248[0x10]; int unk258; char pad25C[4]; int unk260; char pad264[0xC]; int unk270; };
 struct P_148 { char pad0[0x2C]; int unk2C; };
 
+struct S25C_148 { char pad0[0x25C]; float unk25C; };
+
 extern "C" {
 int func_0027D1F8(void*, int, int*, int);
 bool func_0027DF00(void*, u32);
@@ -23,7 +25,10 @@ void func_00139420(void*, int);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00148688);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00148C98);
+extern "C" int func_00148C98(S25C_148* self, float* out) {
+    *out = self->unk25C;
+    return self->unk25C > 0.0001f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00148CD0);
 

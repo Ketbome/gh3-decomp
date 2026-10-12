@@ -122,7 +122,9 @@ extern "C" void func_0014DB10(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DB30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC38);
+extern "C" float func_0014DC38(int i) {
+    return (float)i * 0.016666668f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC58);
 

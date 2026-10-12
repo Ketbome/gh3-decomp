@@ -174,7 +174,10 @@ extern "C" void func_0014B190(void) {
     func_0014B168(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014B1B0);
+extern "C" int func_0014B1B0(S3_14A* self, void* a, void* b) {
+    S4_14A* q = (S4_14A*)self->unk30;
+    return func_0010EC98(q, a, b, 0) <= q->unk20 * q->unk20;
+}
 
 extern "C" S7_14A* func_0014B1F8(S7_14A* self, int n) {
     self->unk4 = n;

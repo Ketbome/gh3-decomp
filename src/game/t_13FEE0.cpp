@@ -32,7 +32,15 @@ struct S_00141B50 { char pad0[0x244]; int unk244; };
 
 struct S_00141B00 { char pad0[0xC]; int unkC; char pad10[0x230]; int unk240; int unk244; };
 
+struct CP_13F { u8 r; u8 g; u8 b; u8 a; };
+struct C_13F {
+    CP_13F c;
+    C_13F(const C_13F& o) : c(o.c) {}
+};
+struct S_00141B70 { char pad0[0xE8]; C_13F unkE8; char padEC[0xA4]; float unk190; char pad194[0x68]; float unk1FC; char pad200[0x44]; int unk244; };
+
 extern "C" {
+void func_0015EB90(int, C_13F);
 int func_0013FE00(void*);
 void func_0013FC78(void*, char*, int);
 void func_0013FC50(void*, char*);
@@ -233,7 +241,18 @@ extern "C" void func_00141B50(S_00141B50* self, int v) {
     func_0015EA48(self->unk244, v);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00141B70);
+extern "C" void func_00141B70(S_00141B70* self) {
+    func_0015EB00(self->unk244, 0);
+    func_0015EB30(self->unk244, self->unk1FC);
+    float f = self->unk190;
+    C_13F c(self->unkE8);
+    if (f >= 0.0001f) {
+        c.c.a = (int)(C_13F(self->unkE8).c.a * f);
+    } else {
+        c.c.a = 0;
+    }
+    func_0015EB90(self->unk244, c);
+}
 
 extern "C" void func_00141C28(S13F_Y* self, void* params) {
     S13F_C c = self->unk1D8;
