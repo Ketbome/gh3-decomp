@@ -187,9 +187,9 @@ extern "C" S13B_X* func_0013D2D0(S13B_X* self) {
     c = &self->unk268;
     c->r = 0;
     self->unk8 = D_0033AE18;
-    c->g = 0;
     c->a = 0x80;
     c->b = 0;
+    c->g = 0;
     self->unk244 = 0;
     self->unk248 = 0;
     self->unk240 = 0;
