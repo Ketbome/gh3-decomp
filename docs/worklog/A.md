@@ -235,3 +235,16 @@ Matched 5: func_00131FC0 func_00132000 func_001323F8 func_00132438 func_00132480
 Given up:
 - func_001324D0: float lanes of a 128-bit value (dsrl32/pcpyud + mtc1); func_00132390: 128-bit vector constant
 - func_00132F50: split tail
+
+## t_133A98
+
+Matched 14: func_00133CE8 func_00133F60 func_00133FA0 func_001342E8 func_00134340 func_00134380 func_00134748
+func_001348C8 func_00134938 func_001349D0 func_00134A20 func_00134D28 func_00134D60 func_00134DD0
+(func_00134278 retyped to take void*)
+
+Given up:
+- func_00134288: `move v0,a1` in the bne delay slot + movn; 5 tries (if-conversion picks movz)
+- func_00134700: vtable address in v0 instead of v1 (ctor); 2 tries
+- func_00133A98: prologue `move s2,a0`/`sd s3` order; 3 tries
+- func_00134210: loop layout (`bnezl body; b ret0` vs our beqz); 3 tries
+- func_001342B0: 128-bit vector constants; func_00134998, func_00134208: split tails
