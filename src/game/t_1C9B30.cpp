@@ -206,7 +206,10 @@ extern "C" s32 CFunc_ChangeLevelPending(void) {
     return func_00114030(D_00369A60_lv[0]->unk28);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB708);
+extern "C" void func_001CB708(char* p) {
+    func_00114958(D_00370EE0 + 8, *(s32*)(p + 0x14));
+    *(s32*)(p + 0x81D8) = 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB750);
 

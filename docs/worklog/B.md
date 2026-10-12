@@ -71,7 +71,7 @@ Matched 19: func_001CA000 func_001CA008 func_001CA010 func_001CA020 func_001CA03
 func_001C9B30 func_001C9FB0 func_001CA670 CFunc_SetHostMode CFunc_SetJoinMode CFunc_MarkGameOver CFunc_ChangeLevelPending (session 2)
 
 Given up:
-- func_001CB708: needs D_00370EE0 in macro form while func_001C9B30 uses it gp-relative; gas applies the `.extern` size to every use of the symbol in the file, so both cannot coexist
+- func_001CB708: matched in session 4 (new asm_filter)
 - CFunc_IsHost: last `x ? 1 : 0` of a u64 callee is a branch (move v1,v0; bnez) in the original, ours sltu/movz (5 tries)
 
 ## t_1CBB50
