@@ -454,7 +454,8 @@ Given up / open:
 - func_0014F910: static list-node init; register/store order not found yet (several permutations)
 - func_0014E7E8 (list search), func_0014F0E0 (split), split tails: not attempted
 
-## t_146580
+## t_146580 (not committed: another worker edits this file concurrently)
 
-Matched 7: CFunc_DumpScreenElements CFunc_ScreenElementExists CFunc_SetRootScreenElement CFunc_ResolveScreenElementID
-func_001482F8 func_00148350 func_00148508
+Drafts that matched in fcheck (C++ kept by nobody, redo if free): CFunc_ScreenElementExists (Ref temp + manual
+detach), CFunc_SetRootScreenElement, CFunc_ResolveScreenElementID, func_001482F8, func_00148350 (clip a/b to n),
+func_00148508
