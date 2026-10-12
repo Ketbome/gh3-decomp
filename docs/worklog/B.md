@@ -68,3 +68,10 @@ Matched 5: func_001C5CB8 func_001C5CD8 func_001C5D28 CFunc_SetAnalogStickActiveF
 
 Given up:
 - func_001C6868, func_001C67C0: loops unrolled (x16 / x8); our -O2 does not unroll
+
+## t_1C7AA0
+
+Matched 13: func_001C7AA0 func_001C7B18 func_001C7B38 func_001C7B98 func_001C8470 func_001C8568 func_001C8E98 func_001C8ED0 func_001C91D8 func_001C9368 func_001C9468 func_001C94A8 func_001C94C0
+
+Given up:
+- func_001C95D8: our gcc turns the last compare into movz/movn (if-chain, early returns, switch, default-first: 5 tries)
