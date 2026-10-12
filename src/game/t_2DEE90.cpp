@@ -37,6 +37,11 @@ struct S2DF988_0 {
     s32 unk9C;
 };
 
+struct S2DEE90_A {
+    char pad0[0x1C];
+    int (*unk1C)(S2DEE90_A *);
+};
+
 extern "C" {
 extern int D_00363DB8[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
@@ -197,7 +202,9 @@ extern "C" void func_002DF3F8(S2DF398_0 *arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF458);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF4A0);
+extern "C" int func_002DF4A0(S2DEE90_A *p) {
+    return p->unk1C(p);
+}
 
 extern "C" s32 func_002DF4C0(void) {
     return 4;
