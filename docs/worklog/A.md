@@ -494,3 +494,12 @@ Given up:
   include/gcc_prelude.inc drops the nop the original has between `c.le.s` and `bc1t`; left as INCLUDE_ASM
   (C: `S4* q = (S4*)self->unk30; return func_0010EC98(q, a, b, 0) <= q->unk20 * q->unk20;`)
 - larger ones (>0x100) not attempted
+
+## t_148688
+
+Matched 8: func_00149FF0 func_00149780 func_001497F0 func_001497A8 func_00149730 func_00148FF0 func_001498D0
+func_00149658 (same selected-index logic as CFunc_MenuSelectedIndexIs)
+
+Given up / open:
+- func_00148C98: `c.lt.s`/`bc1t` hazard nop (see t_14A6B0 func_0014B1B0), not attempted
+- func_00149818: split head (alabel func_00149820); >0x150 ones not attempted
