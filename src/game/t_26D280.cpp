@@ -22,6 +22,7 @@ extern int D_00370C18;
 void func_00273070(void);
 int func_0026E5C8(int, int);
 extern int D_00370CB8;
+void func_0026DFE8(S0026DFE8 *);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D280);
@@ -79,7 +80,10 @@ extern "C" int func_0026DE20(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DE28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DFC0);
+extern "C" S0026DFE8 *func_0026DFC0(S0026DFE8 *p) {
+    func_0026DFE8(p);
+    return p;
+}
 
 extern "C" void func_0026DFE8(S0026DFE8* p) {
     p->unk0 = 0;
