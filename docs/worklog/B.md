@@ -409,3 +409,13 @@ Given up:
 - func_001FC468: same arg-order schedule as FC608 plus a mid-function `return 0` block; 3 tries
 - func_001FCA90: constructor with dead u8[4] stores; li s1,-1 / vtable store schedule (4 tries)
 - func_001FBD68, func_001FCA38, func_001FBFC8: split tails
+
+## t_1FDB00
+
+Matched 6: func_001FDE48 func_001FEC48 func_001FECB8 func_001FED90 func_001FEDE8 func_001FEE90
+
+Given up:
+- func_001FDB08: only diff is `b; nop` where ours puts the last `cvt.s.w` (u32->float) in the `b` delay slot (2 tries)
+- func_001FED08: MakeVec(0,0,0,1) register choice (zero in a2, hi in v1 in the original); 2 tries
+- func_001FDDC0: constructor with dead u8[4] stores and u64 bit clears; not attempted
+- func_001FEB48, func_001FDC60: VU0; func_001FEB08: split tail
