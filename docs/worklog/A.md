@@ -401,13 +401,16 @@ Given up:
 Matched 20: func_0016C6C0 func_0016D0F8 func_0016DDA0 func_0016E458 func_0016C620 func_0016C638 func_0016C6D0
 func_0016C798 func_0016D108 func_0016DDB0 func_0016E468 func_0016D318 func_0016D468 func_0016E120 func_0016C650
 func_0016C9C0 func_0016C5C0 func_0016D3E8 func_0016C4A0 func_0016C4F8
+Matched 1 (gp retry, solved): func_0016E070
 
 - func_0016D3E8: static init of two 4-byte globals; byte stores to non-gp .sdata symbols via section arrays,
   first byte of each via %gp_rel scalars.
 
 Given up:
 - func_0016C878: element address must be `(i*4 + self) + 0x154` unfolded; 5 address forms tried
-- func_0016E070, func_0016CDF0, func_0016CD28: D_00368A38 %gp_rel (file uses lui); func_0016CCB0: pextlw
+- func_0016CD28: dtor clearing the same list (self+4) twice; ours keeps self+4 in a saved register across both
+  loops (CSE), the original recomputes it (v1/v0 + copy); 3 tries (see t_15D2E0 func_0016CD28 helper)
+- func_0016CDF0: not attempted yet (0x154, stack list node copy); func_0016CCB0: pextlw
 - func_0016D070 (inside func_0016D060), func_0016D370 and other 0x4..0x10 fragments: split tails
 
 ## t_189938

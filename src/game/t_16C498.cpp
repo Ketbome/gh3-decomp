@@ -52,6 +52,11 @@ struct C_16C {
     C_16C(const C_16C& o) : c(o.c) {}
     C_16C& operator=(const C_16C& o) { *(u32*)this = *(const u32*)&o; return *this; }
 };
+struct P_16C {
+    u32 unk0;
+    u32 unk4;
+    int Has(u32 p) { return !(p < unk0) && p < unk4; }
+};
 struct S_0016C878 { char pad0[0x154]; C_16C unk154[1]; };
 struct S_16C { char pad0[8]; VEntry* unk8; char padC[0x30]; float unk3C; char pad40[0x10]; float unk50; float unk54; float unk58; float unk5C; void* unk60; char pad64[0x140]; int unk1A4; int unk1A8; };
 
@@ -87,6 +92,10 @@ void func_0016DDA0(Z_0016D0F8*);
 void func_0016E458(Z_0016D0F8*);
 void func_0016D318(int, int);
 void func_0016D3E8(int, int);
+void func_00119400(int, void*);
+extern int D_0036A6F0;
+extern P_16C* D_0036A6E0[2];
+void func_0011C2E8(P_16C*, void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016C498);
@@ -317,7 +326,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016DDD8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016DFB8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016E070);
+GP_DATA(D_0036A6F0);
+GP_DATA(D_0036A6E0);
+extern "C" void func_0016E070(void* p) {
+    P_16C* pool = D_0036A6E0[D_0036A6F0];
+    if ((pool && pool->Has((u32)p)) || ((pool = D_0036A6E0[D_0036A6F0 ^ 1]) && pool->Has((u32)p))) {
+        func_0011C2E8(pool, p);
+    } else if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 GP_DATA(D_0036A740);
 extern "C" void func_0016E120(void) {
