@@ -600,3 +600,10 @@ Given up:
 - func_001A8168, func_001A84E0: the -1 lands in v1 (ours v0); also tried returning the callee's value; 2 tries
 - func_001A8560 (qsort comparator, args are the elements): `bnezl`/`li v1,1` vs ours `bnez`; 3 tries (keeping it
   needs the `extern u8 func_001A8560[]` declaration turned into a prototype and a `(void*)` cast at the call)
+
+## t_1A9A60
+
+Matched 4: func_001A9D68 func_001A9A60 func_001A9CF0 (0x50-byte u128 struct copy = lq/sq loop) func_001A9D28
+
+- func_001A9A60: reading the flags into a `u32` local makes `& ~2u` a lui/ori mask and gives the beqzl layout.
+- func_001A9E78: split head (alabel func_001A9E88); its loop has nops.
