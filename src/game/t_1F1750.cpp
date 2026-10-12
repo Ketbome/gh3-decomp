@@ -192,6 +192,10 @@ s32 func_0027D470(void*, s32, Arr1F1**, int);
 void* func_001D8618(void*, void*);
 extern void* D_0036D3B0;
 void func_001619B0(void*, void*);
+extern char D_0034EF60[];
+extern char D_0034EEE8[];
+extern s32 D_00372DF8;
+void func_001F3DC0(void*);
 }
 
 extern "C" s32 func_001F1750(S1F1750* p, void* a, void** b) {
@@ -494,7 +498,35 @@ extern "C" s32 func_001F3560(char* p, u32 key) {
 extern "C" void func_001F35C8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F1750", func_001F35D0);
+extern "C" char* func_001F35D0(char* p) {
+    char* q = p + 0x60;
+    func_001D0F68(p);
+    *(char* volatile*)(p + 0x18) = D_0034EF60;
+    s32 id = D_00372DF8;
+    *(char**)(p + 0x18) = D_0034EEE8;
+    *(s32*)(p + 0x4) = id;
+    *(s32*)(p + 0x60) = 1;
+    *(s32*)(p + 0x1C) = 0;
+    *(s32*)(q + 0x4) = 1;
+    *(s32*)(q + 0x8) = 0;
+    *(s32*)(q + 0xC) = 0;
+    *(s32*)(q + 0x10) = 0;
+    *(s32*)(q + 0x14) = 0;
+    char* h = p + 0x80;
+    *(char**)h = h;
+    *(char**)(p + 0x78) = q;
+    *(char**)(h + 4) = h;
+    *(f32*)(q + 0x28) = 1.0f;
+    *(s32*)(p + 0x98) = 0;
+    *(s32*)(p + 0xB4) = 0;
+    func_001F3DC0(p + 0x20);
+    func_001F3DC0(p + 0x40);
+    *(s32*)(p + 0x60) = 0;
+    *(s32*)(q + 0x4) = 1;
+    *(f32*)(p + 0xB8) = 1.0f;
+    *(char**)(p + 0x8C) = q;
+    return p;
+}
 
 extern "C" void func_001F36A0(char* p) {
     func_001563B0(*(void**)(p + 0x1C));

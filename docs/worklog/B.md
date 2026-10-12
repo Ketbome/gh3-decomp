@@ -330,7 +330,7 @@ Given up:
 - func_001F2000: fully unrolled sum; first `sum += f()` is mov.s in the original, add.s in ours (5 forms)
 - func_001F34A0: block order of the timer branch (the `-=` block placed last in the original); 6 tries
 - func_001F3268: store order of the constructor fields (li 1 first in the original); 7 orders tried
-- func_001F32F0: xori+beqz `!bool` pattern; func_001F35D0: constructor with dead first vtable store
+- func_001F32F0: xori+beqz `!bool` pattern (func_001F35D0 matched later with the volatile vtable store)
 - func_001F1F18, func_001F2460, func_001F23D8: split tails
 
 ## t_1F3840
