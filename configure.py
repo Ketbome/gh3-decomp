@@ -28,7 +28,7 @@ AS_FLAGS = "-EL -march=r5900 -mabi=eabi -G0 -no-pad-sections -Iinclude"
 # It is a Windows program, run with wibo (tools/wibo/wibo-macos on macOS, wibo-i686 on Linux).
 WIBO = "tools/wibo/wibo-macos" if sys.platform == "darwin" else "tools/wibo/wibo-i686"
 CC = f"{WIBO} tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe"
-CC_FLAGS = "-O2 -G8 -fopt-stack -fno-exceptions -fno-rtti -Iinclude"
+CC_FLAGS = "-O2 -G8 -fopt-stack -mno-check-zero-division -fno-exceptions -fno-rtti -Iinclude"
 # Compiler output is assembled as o64 so that address arithmetic on 32-bit pointers expands to
 # addiu/addu as SN's assembler did; with eabi the modern gas emits daddiu/daddu.
 CC_AS_FLAGS = "-EL -march=r5900 -mabi=o64 -no-pad-sections -mno-pdr -Iinclude"
@@ -137,6 +137,7 @@ def write_ninja():
         # encode as daddu, the way SN's assembler did.
         "rule cc",
         f"  command = {CC} {CC_FLAGS} $cflags -S $in -o $out.s && "
+        f"{sys.executable} scripts/asm_filter.py $out.s && "
         f"$as {CC_AS_FLAGS} include/gcc_prelude.inc $out.s -o $out && "
         f"{sys.executable} scripts/set_eabi64.py $out",
         "  description = CC $in",

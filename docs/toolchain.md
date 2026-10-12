@@ -38,7 +38,8 @@ What points to it:
   2.95.3-107, -114) save `$ra` with `sq`/`lq`; only 2.95.3-136 matches.
 - Sony's ee-gcc 2.96 orders the prologue differently (`lui` before `subu $sp`).
 
-Flags: `-O2 -G8 -fopt-stack -fno-exceptions -fno-rtti`. `-fopt-stack` is an SN option ("Optimise stack
+Flags: `-O2 -G8 -fopt-stack -mno-check-zero-division -fno-exceptions -fno-rtti`. The game has no divide-by-zero
+traps (292 divisions, no `break 7`). `-fopt-stack` is an SN option ("Optimise stack
 frame"): without it saved `$s` registers are stored as 128-bit (`sq`) above `$ra`; with it they are `sd`, below `$ra`,
 as in the game. Adding it changed none of the 721 functions matched at the time. Some objects also used
 `-funroll-loops` (per-file `// cflags:` line, see decomp_guide.md). The binary has no RTTI type names and an almost empty
@@ -46,7 +47,8 @@ as in the game. Adding it changed none of the 721 functions matched at the time.
 
 The compiler is a Windows executable, run with [wibo](https://github.com/decompals/wibo). Its output is assembled
 with the modern binutils (`mips-ps2-decompals`), as o64 so that 32-bit address arithmetic stays `addiu`/`addu`;
-`include/gcc_prelude.inc` makes `move` encode as `daddu`. `scripts/set_eabi64.py` then sets the object's ABI flags
+`include/gcc_prelude.inc` makes `move` encode as `daddu`, and `scripts/asm_filter.py` rewrites `li.s` as the
+inline `lui`/`ori`/`mtc1` SN's assembler produced (the modern gas would use `.lit4`). `scripts/set_eabi64.py` then sets the object's ABI flags
 back to EABI64 so the linker accepts it next to the assembly.
 
 ## C++ names
