@@ -175,3 +175,22 @@ Given up:
 - func_0012A048, func_0012A0F8: D_00368A38 both %gp_rel and lui/%lo (the file uses lui)
 - func_0012A038, func_001298B0, func_0012B700: split tails / odd fragments
 - func_0012A1B0: float wrap loops, not attempted yet
+
+## t_12B970
+
+Matched 12: func_0012BD10 func_0012BD58 func_0012BD98 func_0012BDD0 func_0012C1B8 func_0012C200 func_0012C878
+func_0012C8A8 func_0012C920 func_0012C958 func_0012D318 func_0012D630 (func_0012BC90, func_0012BCB8 retyped to
+pass (self, n))
+
+- `nor/movz/addiu -4/movz` = list node `Get()` (unk4 == 0xFFFFFFFF -> 0) then a null-checked cast to the
+  object 4 bytes before; `delete n` on a class with a virtual destructor at vptr 0x14 gives the `lh 8/lw 0xC/jalr`
+  call with 3.
+
+Given up:
+- func_0012D298: ctor; li 2 / vtable register allocation vs store order; 7 tries
+- func_0012C780: `sra` in the jal delay slot then `andi s0; move v0,s0` after the call; 8 tries (same quirk as
+  func_0012A9A0)
+- func_0012D028, func_0012D0E8: D_00368A38 both %gp_rel and lui/%lo
+- func_0012BD38, func_0012D000, func_0012C750, func_0012BCD8, func_0012CEE0, func_0012D210: split tails
+- func_0012CF40: iterator on the stack; func_0012D1A0: nop delay loops; func_0012BF38: jtbl
+- func_0012BE38: not attempted yet (virtual call through container)
