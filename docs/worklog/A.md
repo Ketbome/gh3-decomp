@@ -7,6 +7,8 @@ Notes:
 - Old-assembler artifact: `.sdata` globals read/written outside a delay slot appear as `lui`+`%lo` (macro
   expansion, `$at` for stores); declare them `extern T D[] __attribute__((section(".sdata")))`. Inside a delay slot
   they are `%gp_rel`: declare them as scalars. A symbol used both ways in one file can't be matched with one declaration.
+- Divisions: the original has no divide-by-zero `break` checks; ours needs `-mno-check-zero-division` ("nozdiv").
+- `cvt.w.s` (float->int, `.word 0x46..` in the asm) is rejected by the assembler for r5900: skipped ("cvt.w.s").
 - scripts/fcheck.py drops the relocation of an instruction that follows a `nop` (regex `\s+` eats the newline), so
   a `jal`/`%lo` right after a `nop` reports DIFFERS: skipped ("fcheck nop bug").
 
@@ -60,3 +62,23 @@ Given up:
 - func_00113A70, func_00113AC8 (strcat): original has nops inside the short loop (assembler R5900 fix)
 - func_00113770: c/r register swap (a0 vs v1); 5 tries
 - func_00113BF8, func_00114C70: unrolled loops (-funroll-loops style), not attempted
+
+## t_114DC8
+
+Matched 8: func_00115028 func_00116288 func_001162B8 func_001163B8 func_00116578 func_00116590 func_001165C8
+func_001167C8 (func_001150B8 retyped to pass its argument)
+
+Given up:
+- func_00116660: nozdiv; with the flag only a scheduling diff left
+- func_001153C8: .sdata symbols both lui/%lo and %gp_rel
+- func_001150E0, func_001165E8: split tails
+
+## t_116E38
+
+Matched 8: func_00116E90 func_00117118 func_00117168 func_00117C20 func_00117C60 func_00117CC0 func_00118640
+func_00118700
+
+Given up:
+- func_001183C8: cvt.w.s
+- func_001187D0, func_00118798: D_00373248 used both lui/%lo and %gp_rel in this file
+- func_001179F8, func_00117940: iterator on the stack, not attempted
