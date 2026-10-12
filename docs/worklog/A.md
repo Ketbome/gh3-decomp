@@ -515,3 +515,15 @@ Matched 6: func_001443D8 func_00144448 func_00144498 func_00145488 func_00145558
 
 Open: func_00145ED0, func_00145508 split heads; func_00146280 (0xF8, Ref-returning parent search) and larger not
 attempted.
+
+## t_14C740
+
+Matched 7: func_0014D7A0 func_0014E4B0 func_0014CF18 func_0014E118 func_0014CFD8 CFunc_SetFontNonProportionalNumbers
+func_0014E098
+
+Given up / open:
+- func_0014DC38 (`(float)i * 0.016666668f`): the original keeps a nop after `mtc1`; the uncommitted hazard
+  change in include/gcc_prelude.inc removes it (matches only with the committed prelude, re-check later)
+- func_0014D010: 0x222E0 `lui a1` hoisted before the prologue in ours; 1 try
+- func_0014E6A8: list walk; head uses `v0 = 0; movn v0,a0,...`, ours movz; 2 tries
+- func_0014C740: delay loop of nops (asm); func_0014E148: split head
