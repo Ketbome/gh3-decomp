@@ -483,3 +483,6 @@ Given up:
 - t_1EF6D0: func_001F07E8 func_001F08D8 MATCH (`bool missing = !f(...); if (missing)`)
 - t_1F1750: func_001F32F0 MATCH. Habit: a checksum `switch` compares cases in VALUE order of the switch type:
   switch on `(u32)k` when the smaller-unsigned key is compared first; case bodies follow source order.
+- t_1B2168: func_001B2168 (cvt.w.s now assembles; index as `*(u8*)(i + p + 0x10)`), func_001B3BA8, func_001B3C98 MATCH.
+  func_001B21A0 still: the original never puts cvt.*/div.s in a delay slot (toolchain).
+- t_1C7AA0 func_001C95D8 and t_1F3840 func_001F3C88 retried (u32 key, case orders): still DIFFERS.
