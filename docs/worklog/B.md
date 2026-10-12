@@ -20,6 +20,8 @@ Session 2 (toolchain with -fopt-stack): `sd` saves now match. Macro-form global 
 into the SAME register) are gcc treating the symbol as small data (`lw $x, sym` macro, not split) while gas has no
 `.extern` size for it: declare `extern T D_X[] __attribute__((section(".sdata")));` (incomplete type = no `.extern`,
 section .sdata = gcc does not split). For another type on the same symbol use `__asm__("D_X")` on a second declaration.
+The original assembler used gp_rel for such a symbol only when the load sits in a branch delay slot; our gas
+expands the macro there (warning), so those functions cannot match. A symbol is either gp or macro per file.
 Virtual calls: vptr after the data members (`char pad[off]; virtual ...`), entry n of the vtable at 8*n (lh delta, lw pfn).
 
 Compiler habits that helped: single-bit tests `andi+sltu` need an inline member `bool Test(m) { return (f & m) != 0; }`
@@ -162,3 +164,11 @@ Given up:
 - func_001D5870, func_001D5D28, func_001D5F60, func_001D59E8: D_00368A38 is macro-form (no .extern) but gp_rel when in a branch delay slot (original assembler); our gas expands the macro into the slot
 - func_001D4BB0: original copies the hoisted key load (move t0,v1); 4 tries
 - func_001D5CB0: callee-saved register assignment of passed-through args (2 tries)
+
+## t_1D6598
+
+Matched 21: func_001D67C8 func_001D6BA0 func_001D6BA8 func_001D7710 func_001D7C28 func_001D7C68 func_001D7CA8 func_001D7CE8 func_001D7D28 func_001D7D68 func_001D7DA8 func_001D7DE8 func_001D7E28 func_001D7E68 func_001D7EA8 func_001D7EE8 func_001D7F00 func_001D7F20 func_001D8058 func_001D80D8 func_001D8150
+
+Given up:
+- func_001D6738: D_00368A38 gp_rel in a jal delay slot (macro symbol in this file)
+- func_001D8208: register choice/schedule of the tail (dead u8[4] stores, vtable/255 in v1/v0 swapped); 6 tries
