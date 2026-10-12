@@ -414,3 +414,12 @@ func_0018A3D8 func_0018AD18 func_0018A7A0 func_0018A800 func_0018A468 func_0018A
 Given up:
 - func_0018AC50, func_0018B128, func_0018AEA0: D_00368A38 %gp_rel (file uses lui); func_0018B070: 128-bit consts
 - func_0018A4D0: color returned through a hidden pointer; func_0018A538, func_0018B058: split tails
+
+## t_1816C0
+
+Matched 13: func_001818F8 func_00181910 func_001824B8 func_00181C58 func_001821E0 func_00182180 func_001822A8
+func_00182338 func_001823A8 func_00182370 func_001823F0 func_00183460
+
+- func_001824B8 (BCD byte -> int): parameter is u32, return u8.
+- func_00183460: `(int)(x * (float)D_0036876C[0])` with D_0036876C an int section(".sdata") array; cvt.w.s matches.
+- Not attempted yet: the 0x3C+ candidates of this file.
