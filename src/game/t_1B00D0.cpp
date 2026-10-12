@@ -51,6 +51,12 @@ struct S001B1F08 {
     s32 unk4;
 };
 
+extern "C" {
+void func_001B1380(s32 a, s32 b);
+void func_001BD608(S001B1818_7C* p);
+void func_001BD6E0(S001B1818_7C* p);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B00D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B01D8);
@@ -85,7 +91,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1418);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1428);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1478);
+extern "C" void func_001B1478(void) {
+    func_001B1380(1, 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1498);
 
@@ -181,9 +189,13 @@ extern "C" s32 func_001B1C20(S001B1818* p, s32 i) {
 extern "C" void func_001B1C38(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1C40);
+extern "C" void func_001B1C40(S001B1818* p) {
+    func_001BD608(p->unk7C);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1C60);
+extern "C" void func_001B1C60(S001B1818* p) {
+    func_001BD6E0(p->unk7C);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1C80);
 
