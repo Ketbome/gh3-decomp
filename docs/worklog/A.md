@@ -527,3 +527,15 @@ Given up / open:
 - func_0014D010: 0x222E0 `lui a1` hoisted before the prologue in ours; 1 try
 - func_0014E6A8: list walk; head uses `v0 = 0; movn v0,a0,...`, ours movz; 2 tries
 - func_0014C740: delay loop of nops (asm); func_0014E148: split head
+
+## t_1550C0
+
+Matched 8 (+ func_00155128 earlier): func_00156C88 func_00155138 func_00155668 func_00155170 func_00156550
+func_00157098 func_00156590 func_001550C0
+
+- func_001551A8 / func_001552F0 are defined `void(void)` but called with arguments: asm-label aliases `_p`.
+- func_001550C0: `EB0* n = &D[i]` for two stores and `D[i].unk98` for the third gives both operand orders.
+
+Given up:
+- func_00156F80: `(i-1)*0x160` -- original adds -352 to the product, ours folds it into the ld/sd offset; 3 tries
+- func_00155290: a0/a1 swapped for the index/pointer; 3 tries
