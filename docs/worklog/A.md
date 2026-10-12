@@ -41,3 +41,22 @@ Given up:
 - func_0010F698, func_0010F6A8, func_0010F6C0: float lane of a 128-bit load (lq+mtc1); unions go through the stack
 - func_0010FE60: last store not in the delay slot (switch tail); 5 tries
 - func_0010FED0: inline ctor store scheduling; 4 tries
+
+## t_110D00
+
+Matched 2: func_00111A08 func_00111A20
+
+Given up:
+- func_00112CB0: float lane of a 128-bit load
+- func_001117F8: inline ctor store scheduling (like func_0010FED0), not attempted
+
+## t_112D48
+
+Matched 10: func_00113528 func_00113930 func_00113B68 func_00113BA0 func_001140B0 func_001140F0 func_00114460
+func_001149D8 func_00114A18 func_00114A78
+
+Given up:
+- func_00113988 (strcmp), func_001139E0 (stricmp): loop/branch layout; ~12 variants
+- func_00113A70, func_00113AC8 (strcat): original has nops inside the short loop (assembler R5900 fix)
+- func_00113770: c/r register swap (a0 vs v1); 5 tries
+- func_00113BF8, func_00114C70: unrolled loops (-funroll-loops style), not attempted

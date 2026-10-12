@@ -6,6 +6,12 @@ struct S_00111A38 { char pad0[0x4]; int unk4; };
 struct S_00112A30 { char pad0[0x28]; int unk28; };
 struct S_00112A50 { char pad0[0x3C]; int unk3C; };
 
+struct SA110 {
+    float* unk0;
+    char pad4[0xC];
+    float* unk10;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00110D00);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00111290);
@@ -14,9 +20,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_001117F8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00111860);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00111A08);
+extern "C" void func_00111A08(SA110* self, int i, float* v) {
+    float* p = self->unk0;
+    p += i;
+    *p = *v;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00111A20);
+extern "C" void func_00111A20(SA110* self, int i, float* v) {
+    float* p = self->unk10;
+    p += i;
+    *p = *v;
+}
 
 extern "C" int func_00111A38(S_00111A38* self) {
     return self->unk4;
