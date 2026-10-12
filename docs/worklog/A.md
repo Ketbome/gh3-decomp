@@ -503,3 +503,15 @@ func_00149658 (same selected-index logic as CFunc_MenuSelectedIndexIs)
 Given up / open:
 - func_00148C98: `c.lt.s`/`bc1t` hazard nop (see t_14A6B0 func_0014B1B0), not attempted
 - func_00149818: split head (alabel func_00149820); >0x150 ones not attempted
+
+## t_1443D0
+
+Matched 6: func_001443D8 func_00144448 func_00144498 func_00145488 func_00145558 func_00144FC0
+
+- Ref handle {p, 0, 0}: constructing one from a pointer is `unk4(0), unk8(0) { p = x; if (p) attach; }` (stores
+  4, 8, then p). Passed by value (func_00144FC0 -> func_00145068) it is a class with that copy-like ctor and no
+  dtor (the caller never releases the temp).
+- func_00145558: list walk with node `Get()` = `n->unk4 != -1 ? n : 0` (nor/movn).
+
+Open: func_00145ED0, func_00145508 split heads; func_00146280 (0xF8, Ref-returning parent search) and larger not
+attempted.
