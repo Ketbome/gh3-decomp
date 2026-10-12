@@ -30,6 +30,8 @@ struct S_00141690 { char pad0[0x248]; int unk248; };
 struct S_00141968 { char pad0[0x248]; int unk248; };
 struct S_00141B50 { char pad0[0x244]; int unk244; };
 
+struct S_00141B00 { char pad0[0xC]; int unkC; char pad10[0x230]; int unk240; int unk244; };
+
 extern "C" {
 int func_0013FE00(void*);
 void func_0013FC78(void*, char*, int);
@@ -64,7 +66,7 @@ void func_001CEDE0(S13F_X*, u32);
 void func_00139420(S13F_X*, int);
 void func_0013B0B0(S13F_X*, void*);
 void func_0027C448(void*, u32, int);
-extern int D_00372B88[] __attribute__((section(".sdata")));
+extern volatile int D_00372B88;
 int func_0015B268(int, int);
 void func_0015EB60(int, int);
 void func_00140F80(S13F_X*, int, void*);
@@ -220,7 +222,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00141A40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00141AF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00141B00);
+extern "C" void func_00141B00(void* p, int v) {
+    S_00141B00* self = (S_00141B00*)p;
+    self->unk240 = v;
+    func_0015EB60(self->unk244, func_0015B268(D_00372B88, v));
+    self->unkC |= 0x1000;
+}
 
 extern "C" void func_00141B50(S_00141B50* self, int v) {
     func_0015EA48(self->unk244, v);

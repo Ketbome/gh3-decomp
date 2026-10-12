@@ -318,6 +318,7 @@ Matched 7: func_0013DEB8 func_0013DF18 func_0013EB38 func_0013EC10 func_0013EC98
 
 Matched 8: func_0013FEE0 func_00140930 func_00140A00 func_00140A60 func_001413A0 func_00141920 func_001419E8
 func_00141C28 (func_00141B50 retyped to pass its 2nd argument)
+Matched 1 (retry, solved): func_00141B00 (D_00372B88 `volatile`: keeps its load out of the jal delay slot)
 
 - A 4-byte char-aligned color struct copies with lwl/lwr; passing it by value through a hidden stack copy (as
   func_00141B70 does) needs a user copy constructor (TREE_ADDRESSABLE).
@@ -325,7 +326,7 @@ func_00141C28 (func_00141B50 retyped to pass its 2nd argument)
 
 Given up:
 - func_00141B70: matches except our assembler inserts a nop after `mfc1 v0` before `sb v0` (hazard), SN's did not
-- func_00141A40, func_00141B00: `ori a1`/`move a0` order and .sdata load scheduling around calls; 4 tries
+- func_00141A40: `ori a1`/`move a0` order around the `int x = 0` stack init before the getter calls; 7 tries
 - func_00141988 (split), func_00141658, func_00141668, func_00141AF8: split tails
 
 ## t_152E18
