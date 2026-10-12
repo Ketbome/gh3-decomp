@@ -8,6 +8,7 @@ struct S2ADFD8_0 {
 
 extern "C" {
 int func_002AE2A8(int, int);
+extern f32 D_00373130[] __attribute__((section(".sdata")));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_AppendSnapshotParams);
@@ -72,7 +73,9 @@ extern "C" void func_002AECF8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED50);
+extern "C" f32 func_002AED50(void *p, int i) {
+    return D_00373130[i];
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_MonitorControllerStates);
 
