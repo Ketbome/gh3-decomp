@@ -486,3 +486,13 @@ stores, the dtor store at every exit. `n->unk4 == -1 ? 0 : n` as an inline funct
 Given up:
 - func_0029D8F8: second list walk with inline begin/next; original keeps separate exits; 1 form.
 - func_0029E388/func_0029E548 etc.: fragments with the real function after a stack-fix prefix (no label).
+
+### t_298A30 (+14)
+func_00298A30, func_002999C8, func_00299A08, func_00299A48 (dtors: vptr at 8 + optional free), func_00298A70
+(dtor + unlink, self-link stores written 0x10 then 0xC), func_0029A660, func_0029A740, func_0029A778,
+func_0029A5F0 (virtual calls through the vptr at 0x2418; `v4` declared returning int for its register choice),
+func_00299CB8, func_0029A6A8 (iterator walk), func_00299838 (`now = *t->unk10` read before the test; min via
+`if (d > lim) d = lim` -> movn), func_00299640, func_002997D0 (message struct built on the stack)
+Given up:
+- func_0029A590: soft-float double constant built with `dli` (low word non-zero; gas gives a different
+  sequence; toolchain, as t_260658 func_00260D98).
