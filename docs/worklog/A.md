@@ -325,7 +325,7 @@ Matched 1 (retry, solved): func_00141B00 (D_00372B88 `volatile`: keeps its load 
 - A member function can be bound to a splat name with `__asm__("func_...")` on its declaration (fcheck accepts it).
 
 Given up:
-- func_00141B70: matches except our assembler inserts a nop after `mfc1 v0` before `sb v0` (hazard), SN's did not
+- func_00141B70: solved after the mfc1 prelude fix 703ed82 (color class with copy ctor; `C(self->unkE8).c.a`)
 - func_00141A40: `ori a1`/`move a0` order around the `int x = 0` stack init before the getter calls; 7 tries
 - func_00141988 (split), func_00141658, func_00141668, func_00141AF8: split tails
 
