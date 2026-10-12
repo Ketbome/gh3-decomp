@@ -89,7 +89,7 @@ void func_0012D630(SB12_O*);
 void func_0012DF30(SB12_O*);
 void func_0012A3E8(void*, int);
 void* func_0012A3A0(void*);
-void func_0012D0E8(SB12_O*);
+void func_0012D0E8(void*);
 extern u8 D_00339C30[];
 int func_0015FAA0(char*, int, int);
 int func_0012A538(void*);
