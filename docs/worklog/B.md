@@ -221,3 +221,12 @@ Given up:
 - func_001E3048: D_00368A38 gp_rel in a delay slot
 - func_001E2E90: register choice for the null-checked owner (a0/v1 vs ours v1/a1); 3 tries
 - func_001E3220: outgoing arg move order (a2 from call result last); 5 tries incl. variadic and member-call
+
+## t_1E4E10
+
+Matched 10: func_001E5C50 func_001E5E90 func_001E5F38 func_001E5F58 func_001E5FD0 func_001E65A8 func_001E65B0 func_001E65B8 func_001E6920 func_001E6950
+
+Given up:
+- func_001E64A0..func_001E6590 (6 inc/dec), func_001E67B8, func_001E6830: counters are macro-form loads with the gp store in the jr delay slot; file declares them gp so the getters match
+- func_001E64E8, func_001E6510, func_001E6538: need macro form of the counters (conflicts with the getters)
+- func_001E5ED0: split tail
