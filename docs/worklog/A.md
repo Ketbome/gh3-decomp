@@ -158,3 +158,20 @@ Matched 16: func_001277C0 func_001279A8 func_00127A60 func_00128098 func_001283A
 Given up:
 - func_001277F8: split tail
 - larger candidates (>0x60) not attempted yet
+
+## t_1298B0 (`// cflags: -ffast-math -funroll-loops`)
+
+Matched 16: func_00129F70 func_0012A3A0 func_0012A3E8 func_0012A448 func_0012A478 func_0012A4D0 func_0012A510
+func_0012A538 func_0012A590 func_0012A5E8 func_0012A648 func_0012A6F8 func_0012A778 func_0012A7D8 (+ func_0012A4B0
+retyped)
+
+- `min.s`/`max.s` in the original (func_0012A590) are only emitted with `-ffast-math`; the other functions of the
+  file still match with it. func_00129F70 is a loop unrolled 5x (`-funroll-loops`).
+- A `u32` field set to 0xFFFFFFFF gives `lui 0xffff; ori 0xffff` (an `int` gives `li -1`).
+
+Given up:
+- func_0012A9A0: `andi`/`lw` scheduling of `((x >> 29) & 1) ^ 1` argument; 8 tries (bitfields too)
+- func_0012A828: `ori a1`/`move a0` order before some calls, delay slot fill; 2 tries
+- func_0012A048, func_0012A0F8: D_00368A38 both %gp_rel and lui/%lo (the file uses lui)
+- func_0012A038, func_001298B0, func_0012B700: split tails / odd fragments
+- func_0012A1B0: float wrap loops, not attempted yet
