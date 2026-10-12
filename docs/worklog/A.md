@@ -108,13 +108,17 @@ Matched 1 (gp retry, solved): func_0011C408
 Matched 16: func_0011D348 func_0011D4F8 func_0011DA60 func_0011DB08 func_0011DB88 func_0011DBB8 func_0011DBE8
 func_0011DC18 func_0011DD68 func_0011E130 func_0011E730 func_0011E780 func_0011E8D0 func_0011E918 func_0011E960
 func_0011ED30
+Matched 2 (retry, solved): func_0011ED00 func_0011ECF0
+
+- func_0011ED00/func_0011ECF0: the counters are `volatile` (load kept out of the delay slot, `lw`+dsll32/dsrl32
+  instead of `lwu` for the u64 return), plus GP_DATA.
 
 Given up:
-- func_0011ED00, func_0011ECF0: `ld`/`lw` %gp_rel kept out of the jr delay slot (old assembler macro); ours fills it
+- func_0011ED68, func_0011EE38: all match except the unsigned->float `b` keeps a nop in its delay slot (ours puts
+  the cvt.s.w there); D_0036876C must be read into an int local; 4 tries
 - func_0011E4E8: 2D array push, two extra instructions; 4 tries
 - func_0011D9E0: init store scheduling; 1 try
 - func_0011D830: unrolled loops
-- func_0011EE38, func_0011ED68: not attempted (unsigned->float, D_0036876C lui)
 
 ## t_11F000
 
