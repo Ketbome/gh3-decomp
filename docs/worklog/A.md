@@ -305,3 +305,17 @@ Matched 7: func_0013DEB8 func_0013DF18 func_0013EB38 func_0013EC10 func_0013EC98
 
 - func_0013FE00: same ref-counted pointer class (here the ctor takes the pointer by value, plus
   `operator=(const Ref&)`); declaring `int n = 0` before the Ref local gives the original order and loop shape.
+
+## t_13FEE0
+
+Matched 8: func_0013FEE0 func_00140930 func_00140A00 func_00140A60 func_001413A0 func_00141920 func_001419E8
+func_00141C28 (func_00141B50 retyped to pass its 2nd argument)
+
+- A 4-byte char-aligned color struct copies with lwl/lwr; passing it by value through a hidden stack copy (as
+  func_00141B70 does) needs a user copy constructor (TREE_ADDRESSABLE).
+- A member function can be bound to a splat name with `__asm__("func_...")` on its declaration (fcheck accepts it).
+
+Given up:
+- func_00141B70: matches except our assembler inserts a nop after `mfc1 v0` before `sb v0` (hazard), SN's did not
+- func_00141A40, func_00141B00: `ori a1`/`move a0` order and .sdata load scheduling around calls; 4 tries
+- func_00141988 (split), func_00141658, func_00141668, func_00141AF8: split tails
