@@ -61,7 +61,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1670);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A16C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", CFunc_OverwriteCorruptMemcardContent);
+extern "C" s32 CFunc_OverwriteCorruptMemcardContent(void) {
+    return 0;
+}
 
 extern "C" s32 CFunc_AutoListDeleteStart(void) {
     return 0;
