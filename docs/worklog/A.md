@@ -552,3 +552,17 @@ func_00163328 func_00162140 func_00162378 func_00162EE8 func_00161E78 func_00161
 Given up:
 - func_001623B8 (ctor): vptr store scheduled before `move a0,s1` instead of in the jal delay slot; 2 tries
 - func_00161950, func_001623A0, func_001629C0: split fragments
+
+## t_19D4E8
+
+Matched 6: func_0019F2F0 func_0019E178 func_0019E1B0 func_0019E090 func_0019EC88 func_0019EB10 (+ func_0019F318
+earlier)
+
+- DMA packet helpers: packet pointer D_00373270, current tag D_003732E0, base D_00373280. func_0019EB10: the char
+  store `base[2] = q` aliases everything, so `e[0]` is read into a temp before it.
+
+Given up:
+- func_0019E318, func_0019E340: unaligned u64 stores (packed struct) come out `sdl; sdr`, the original has
+  `sdr; sdl` (assembler `usd` expansion order?)
+- func_0019E2B8: same as func_0019EB10 with `/ 12`; e/v0 register swap left; 2 tries
+- func_0019ECE8: nop delay loop
