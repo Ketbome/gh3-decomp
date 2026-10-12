@@ -187,7 +187,7 @@ pass (self, n))
   call with 3.
 
 Given up:
-- func_0012D298: ctor; li 2 / vtable register allocation vs store order; 7 tries
+- func_0012D298: matched later (base ctor declared returning a pointer)
 - func_0012C780: `sra` in the jal delay slot then `andi s0; move v0,s0` after the call; 8 tries (same quirk as
   func_0012A9A0)
 - func_0012D028, func_0012D0E8: D_00368A38 both %gp_rel and lui/%lo
@@ -244,7 +244,7 @@ func_001348C8 func_00134938 func_001349D0 func_00134A20 func_00134D28 func_00134
 
 Given up:
 - func_00134288: `move v0,a1` in the bne delay slot + movn; 5 tries (if-conversion picks movz)
-- func_00134700: vtable address in v0 instead of v1 (ctor); 2 tries
+- func_00134700: matched later (base ctor declared returning a pointer)
 - func_00133A98: prologue `move s2,a0`/`sd s3` order; 3 tries
 - func_00134210: loop layout (`bnezl body; b ret0` vs our beqz); 3 tries
 - func_001342B0: 128-bit vector constants; func_00134998, func_00134208: split tails

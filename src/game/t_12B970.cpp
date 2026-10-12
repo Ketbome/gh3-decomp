@@ -88,7 +88,7 @@ void func_0012BE38(void*, int, int, int, int, float, float, float, float);
 void func_0012D630(SB12_O*);
 void func_0012DF30(SB12_O*);
 void func_0012A3E8(void*, int);
-void func_0012A3A0(void*);
+void* func_0012A3A0(void*);
 void func_0012D0E8(SB12_O*);
 extern u8 D_00339C30[];
 int func_0015FAA0(char*, int, int);
@@ -241,7 +241,20 @@ extern "C" void func_0012D278(void) {
     func_0012D1A0(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012D298);
+extern "C" SB12_O* func_0012D298(SB12_O* self, int a) {
+    func_0012A3A0((char*)self + 4);
+    self->unk18 = D_00339C30;
+    self->unk3C = 2;
+    self->unk58 = 0;
+    self->unk5C = 0.016666668f;
+    self->unk60 = 0;
+    self->unk64 = 0;
+    self->unk68 = a;
+    self->unk6C = 0;
+    self->unk70 = 0;
+    self->unk74 = 1;
+    return self;
+}
 
 extern "C" void func_0012D318(SB12_O* self, int flags) {
     self->unk18 = D_00339C30;
