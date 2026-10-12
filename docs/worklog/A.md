@@ -168,6 +168,7 @@ Given up:
 Matched 16: func_00129F70 func_0012A3A0 func_0012A3E8 func_0012A448 func_0012A478 func_0012A4D0 func_0012A510
 func_0012A538 func_0012A590 func_0012A5E8 func_0012A648 func_0012A6F8 func_0012A778 func_0012A7D8 (+ func_0012A4B0
 retyped)
+Matched 2 (gp retry, solved): func_0012A048 func_0012A0F8 (pooled delete/new; `return r` inside the pool branch)
 
 - `min.s`/`max.s` in the original (func_0012A590) are only emitted with `-ffast-math`; the other functions of the
   file still match with it. func_00129F70 is a loop unrolled 5x (`-funroll-loops`).
@@ -176,7 +177,6 @@ retyped)
 Given up:
 - func_0012A9A0: `andi`/`lw` scheduling of `((x >> 29) & 1) ^ 1` argument; 8 tries (bitfields too)
 - func_0012A828: `ori a1`/`move a0` order before some calls, delay slot fill; 2 tries
-- func_0012A048, func_0012A0F8: D_00368A38 both %gp_rel and lui/%lo (the file uses lui)
 - func_0012A038, func_001298B0, func_0012B700: split tails / odd fragments
 - func_0012A1B0: float wrap loops, not attempted yet
 
