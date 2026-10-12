@@ -307,6 +307,7 @@ extern "C" void func_001F4208(void* p, void* a) {
     func_001F4ED0(p, a);
 }
 
+GP_DATA(D_0036E3B8);
 extern "C" void func_001F4248(S1F41D8* p) {
     D_00372E18[0] = func_00276008(0x75596EC6, 0);
     D_0036E3B0 = func_00275DE0(0xAE64C56C, 0);
