@@ -670,3 +670,21 @@ Given up:
 - func_00152B38 (ctor): the D_00372B58 argument load is in the jal delay slot in the original, ours hoists it
   above the field stores; 1 try
 - func_00152B10: pextlw/pcpyld; func_00152670 (0x1E0) not attempted
+
+## t_15F2F8 (A6)
+
+Matched 20: func_0015F4E0 func_0015F698 func_0015F900 func_0015F9D0 func_0015FAA0 func_0015FD88 func_00160100
+func_00160610 func_00160658 func_00160730 func_001607F0 func_001608D0 func_00160930 func_00160A40 func_00160768
+func_00160970 func_00160DE8 func_00160FF8 func_001610A0 func_00161138
+
+- Embedded list at self+0x14, iterator pattern as t_189938 (`It end(&head); It it(head.next);`).
+- First-element checks (func_00160610/func_00160658): test `self->unk14.unk4 != &self->unk14` first and build
+  the iterator inside the if; then the original loads before `addiu sp` (frame setup lands in the delay slot).
+- func_00160970: u64 flag word at 0x50; bit tests as `(int)(*(s64*)&self->unk50 >> n) & 1`, the store as a u64
+  bitfield from a `u32` parameter (dsll32/dsrl 31).
+- func_0015F7C0 is defined with one float but called with two: alias `func_0015F7C0_2`.
+- `r |= f(...) != 0` gives sltu/or.
+
+Given up:
+- func_0015FC88 (dtor with list clear): self/list register assignment differs (s1/s2/s3); 3 tries
+- func_0015FBD8, func_0015FB68: 128-bit constants (pextlw/pcpyld)

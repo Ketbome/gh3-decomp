@@ -47,12 +47,56 @@ struct S0015F9B8 {
     void* unk4;
 };
 
+struct S15F_A { char pad0[0x10]; void* unk10; };
+struct S15F_B { char pad0[0x8]; void* unk8; };
+struct S15F_C { char pad0[0x4]; void* unk4; };
+struct O15F_H { char pad0[0x34]; VEntry* unk34; };
+struct H15F { O15F_H* unk0; int unk4; int unk8; };
+struct S15F_D { char pad0[0x4]; int unk4; int unk8; int unkC; char pad10[0x48]; VEntry* unk58; };
+struct S15F_P { char pad0[0x4]; int unk4; char pad8[0x218]; int unk220; };
+struct Y15F { int unk0; int unk4; int unk8; O15F_H* unkC; char pad10[0x8]; void* unk18; };
+struct N15F { N15F* unk0; N15F* unk4; Y15F* unk8; };
+struct It15F {
+    int unk0;
+    N15F* cur;
+    It15F(N15F* n) : cur(n) {}
+    bool operator!=(const It15F& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct L15F { char pad0[0x14]; N15F unk14; };
+struct B50_15F {
+    u64 f0 : 1;
+    u64 f1 : 1;
+    u64 f2 : 1;
+    u64 f3 : 61;
+};
+struct S15F_E { char pad0[0x14]; N15F unk14; char pad20[0x30]; B50_15F unk50; };
+struct LL15F { int unk0; N15F unk4; };
+struct S15F_F { char pad0[0x10]; LL15F unk10; char pad20[0x10]; void* unk30; char pad34[0x24]; void* unk58; };
+
 extern "C" {
 extern u8 D_0033DAC0[];
 extern u8 D_0033DA98[];
 void func_0018D668(void);
 void func_0018D718(void);
 void func_0018D780(void);
+extern int D_00368A38;
+void func_00119400(int, void*);
+void func_0030A2F4(void*, void*, int);
+extern int D_0036F658;
+void func_0022B0D0(H15F*, int, int, int);
+void func_00134340(H15F*);
+int func_00160768(L15F*);
+void func_001607F0(L15F*, int);
+int func_00160970(S15F_E*, u32);
+void func_0015F1F0(int);
+int func_0015F7C0_2(S0015F320*, int, int, float, float) __asm__("func_0015F7C0");
+int func_0015F7E8(S0015F320*, int, int, int);
+int func_0015F810(S0015F320*, int, int);
+extern u8 D_0033DD30[];
+void func_00155170(void*);
+void func_0014C418(int);
+void func_00161AC8(S15F_F*);
 }
 
 extern "C" void func_0015F2F8(S0015F320* self, int a1) {
@@ -119,7 +163,10 @@ extern "C" void func_0015F4B8(S0015F320* self, int a1) {
     ((void (*)(void*, int))e->fn)((char*)self + e->delta, a1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015F4E0);
+extern "C" void func_0015F4E0(S0015F320* self, int a, int b, int c, int d, int e) {
+    VEntry* v = &self->unk18[40];
+    ((void (*)(void*, int, int, int, int, int))v->fn)((char*)self + v->delta, a, b, c, d, e);
+}
 
 extern "C" void func_0015F508(S0015F320* self, int a1, int a2) {
     VEntry* e = &self->unk18[41];
@@ -171,7 +218,14 @@ extern "C" int func_0015F670(S0015F320* self) {
     return ((int (*)(void*))e->fn)((char*)self + e->delta);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015F698);
+extern "C" void func_0015F698(S0015F320* self, void* dst) {
+    int n = func_0015F580(self, 0);
+    if (!((S15F_A*)self)->unk10) {
+        func_0015F5D0(self, (int)dst);
+    } else {
+        func_0030A2F4(dst, ((S15F_A*)self)->unk10, n * 4);
+    }
+}
 
 extern "C" void func_0015F6F8(S0015F320* self, int a1) {
     VEntry* e = &self->unk18[53];
@@ -244,7 +298,12 @@ extern "C" S0015F8E8* func_0015F8E8(S0015F8E8* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015F900);
+extern "C" void func_0015F900(S15F_B* self, int flags) {
+    self->unk8 = D_0033DAC0;
+    if (flags & 1) {
+        func_00119400(D_00368A38, self);
+    }
+}
 
 extern "C" void func_0015F940(S0015F940* self) {
     VEntry* e = &self->unk8[2];
@@ -267,7 +326,12 @@ extern "C" S0015F9B8* func_0015F9B8(S0015F9B8* self, int a1) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015F9D0);
+extern "C" void func_0015F9D0(S15F_C* self, int flags) {
+    self->unk4 = D_0033DA98;
+    if (flags & 1) {
+        func_00119400(D_00368A38, self);
+    }
+}
 
 extern "C" int func_0015FA10(S0015FA10* self) {
     VEntry* e = &self->unk4[3];
@@ -298,7 +362,19 @@ extern "C" void func_0015FA90(void) {
 extern "C" void func_0015FA98(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015FAA0);
+extern "C" int func_0015FAA0(int a, int b) {
+    H15F h;
+    func_0022B0D0(&h, D_0036F658, a, b);
+    int r;
+    if (h.unk0) {
+        VEntry* e = &h.unk0->unk34[2];
+        r = ((int (*)(void*))e->fn)((char*)h.unk0 + e->delta);
+    } else {
+        r = 0;
+    }
+    func_00134340(&h);
+    return r;
+}
 
 extern "C" int func_0015FB08(void) {
     return 1;
@@ -356,7 +432,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015FBD8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015FC88);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015FD88);
+extern "C" int func_0015FD88(S15F_D* self, S15F_P* o) {
+    if (!self->unkC) {
+        self->unk8 = o->unk220;
+        VEntry* e = &self->unk58[2];
+        ((int (*)(void*, int))e->fn)((char*)self + e->delta, o->unk220);
+        self->unkC = o->unk4;
+    }
+    return 1;
+}
 
 extern "C" int func_0015FDE8(S0015FDE8* self, int a1) {
     VEntry* e = &self->unk58[3];
@@ -365,7 +449,14 @@ extern "C" int func_0015FDE8(S0015FDE8* self, int a1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_0015FE10);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160100);
+extern "C" int func_00160100(L15F* self, S15F_P* o) {
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        func_0015F508(*(S0015F320**)it.cur->unk8, o->unk4, o->unk220);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160168);
 
@@ -373,9 +464,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160170);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160458);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160610);
+extern "C" void func_00160610(L15F* self, S15F_D* o) {
+    if (self->unk14.unk4 != &self->unk14) {
+        It15F it(self->unk14.unk4);
+        Y15F* y = it.cur->unk8;
+        if (y && !y->unk18) {
+            o->unk8++;
+            y->unk18 = o;
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160658);
+extern "C" void* func_00160658(L15F* self) {
+    void* r = 0;
+    if (self->unk14.unk4 != &self->unk14) {
+        It15F it(self->unk14.unk4);
+        Y15F* y = it.cur->unk8;
+        if (y) {
+            r = y->unk18;
+        }
+    }
+    return r;
+}
 
 extern "C" int func_00160688(void) {
     return 0;
@@ -383,36 +493,133 @@ extern "C" int func_00160688(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160690);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160730);
+extern "C" int func_00160730(L15F* self) {
+    func_001607F0(self, func_00160768(self));
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160768);
+extern "C" int func_00160768(L15F* self) {
+    int r = 0;
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        O15F_H* o = it.cur->unk8->unkC;
+        if (o) {
+            VEntry* e = &o->unk34[2];
+            char* y = ((char* (*)(void*))e->fn)((char*)o + e->delta);
+            if (y) {
+                r |= *(int*)(y + 0xB0);
+            }
+        }
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001607F0);
+extern "C" void func_001607F0(L15F* self, int a) {
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        func_0015F530(*(S0015F320**)it.cur->unk8, a);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160850);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001608C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001608D0);
+extern "C" int func_001608D0(S15F_D* self, int v) {
+    int r = 0;
+    if (v != self->unk4) {
+        VEntry* e = &self->unk58[4];
+        r = ((int (*)(void*))e->fn)((char*)self + e->delta);
+        if (r) {
+            self->unk4 = v;
+        }
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160930);
+extern "C" void func_00160930(S15F_E* self, int b) {
+    self->unk50.f2 = b;
+    func_00160970(self, b ^ 1);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160970);
+extern "C" int func_00160970(S15F_E* self, u32 v) {
+    if (((int)(*(s64*)&self->unk50 >> 2) & 1) && v) {
+        return 0;
+    }
+    if (((int)(*(s64*)&self->unk50 >> 1) & 1) == v) {
+        return 1;
+    }
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        func_0015F2F8(*(S0015F320**)it.cur->unk8, v);
+    }
+    self->unk50.f1 = v;
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160A40);
+extern "C" int func_00160A40(L15F* self, int key) {
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        if (key == it.cur->unk8->unk8) {
+            return it.cur->unk8->unk0;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160A90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160C58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160DE8);
+extern "C" int func_00160DE8(L15F* self, int key) {
+    int any = key == (int)0xC4E78E22;
+    int found = 0;
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        Y15F* y = it.cur->unk8;
+        if (key == y->unk8 || any) {
+            func_0015F1F0(y->unk0);
+            found = 1;
+        }
+    }
+    return found;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160E80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160FF8);
+extern "C" int func_00160FF8(L15F* self, int a, int b, float f, float g) {
+    int r = 0;
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        r |= func_0015F7C0_2(*(S0015F320**)it.cur->unk8, a, b, f, g) != 0;
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001610A0);
+extern "C" int func_001610A0(L15F* self, int a, int b, int c) {
+    int r = 0;
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        r |= func_0015F7E8(*(S0015F320**)it.cur->unk8, a, b, c) != 0;
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00161138);
+extern "C" int func_00161138(L15F* self, int a, int b) {
+    int r = 0;
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        r |= func_0015F810(*(S0015F320**)it.cur->unk8, a, b) != 0;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001611C0);
