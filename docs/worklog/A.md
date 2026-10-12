@@ -582,3 +582,12 @@ Given up:
 - func_0019B778: pad-to-16 byte loop; ours increments in place, original copies `p+1` through another register; 4 tries
 - func_0019B978: unaligned u64 store order (`sdr; sdl`), as t_19D4E8 func_0019E318
 - func_0019D248: split head (alabel func_0019D258)
+
+## t_185918
+
+Matched 4: func_00185B98 func_001873D8 func_00187430 func_00187480 (value getter inline: flag bit 2 -> `*p`, bit 0 ->
+`p`, else 0)
+
+## t_163750
+
+Matched 3: func_00163AD8 func_00163B00 func_00164E60 (dtor unlinking an embedded list node, as t_1298B0 func_0012A3E8)

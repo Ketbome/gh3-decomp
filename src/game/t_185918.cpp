@@ -10,9 +10,26 @@ struct S001874D8 {
     u16 unkE;
 };
 
+struct S_001873D8 { int unk0; int unk4; char pad8[8]; int* unk10; };
+
+extern "C" {
+extern int D_0036B594;
+extern int D_00368A38;
+void func_00119400(int, int);
+void func_001BE498(int);
+void func_001BF230(int);
+void func_001BF258(int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00185918);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00185B98);
+GP_DATA(D_0036B594);
+extern "C" void func_00185B98(void) {
+    if (D_0036B594) {
+        func_00119400(D_00368A38, D_0036B594);
+    }
+    D_0036B594 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00185BC0);
 
@@ -42,15 +59,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187158);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001871D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001873D8);
+static inline int S_001873D8_Get(S_001873D8* self) {
+    if ((self->unk4 >> 2) & 1) {
+        return *self->unk10;
+    }
+    if (self->unk4 & 1) {
+        return (int)self->unk10;
+    }
+    return 0;
+}
+
+extern "C" void func_001873D8(S_001873D8* self) {
+    func_001BE498(S_001873D8_Get(self));
+}
 
 extern "C" int func_00187428(void) {
     return 96;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187430);
+extern "C" void func_00187430(S_001873D8* self) {
+    func_001BF230(S_001873D8_Get(self));
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187480);
+extern "C" void func_00187480(S_001873D8* self) {
+    func_001BF258(S_001873D8_Get(self));
+}
 
 extern "C" u16 func_001874D0(S001874D0* self) {
     return self->unkC;
