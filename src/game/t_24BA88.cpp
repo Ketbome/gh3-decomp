@@ -59,6 +59,10 @@ S24B_Node *func_00289E08(S24B_Script *);
 extern int D_0036F658[] __attribute__((section(".sdata")));
 void func_0022B0D0(S24B_Ref *, int, u32, int);
 void func_00134340(S24B_Ref *);
+void func_001D5D28(int, int, int, int);
+void func_0027C160(int, u32, int);
+int func_0027D400(int, u32, void *, int);
+void func_0027ABB0(int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_IsInArray);
@@ -142,9 +146,31 @@ extern "C" int CFunc_GetTriggerNodeName(int params, S24B_Script *script) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetNodeProfileInfo);
+extern "C" int CFunc_GetNodeProfileInfo(int params, S24B_Script *script) {
+    u32 k;
+    func_0027D870(params, 0x7A8017BA, &k, 1);
+    int node = func_00224220(k, 1);
+    if (node) {
+        int s = 0;
+        if (func_0027D400(node, 0x7EA855F0, &s, 0)) {
+            int out = script->unk20;
+            if (s) {
+                func_0027ABB0(out, s);
+            }
+            return 1;
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_InitCOIM);
+extern "C" int CFunc_InitCOIM(int params) {
+    int a = 0;
+    int b = 0;
+    func_0027D1F8(params, 0x083FDB95, &a, 1);
+    func_0027D1F8(params, 0xB0847D54, &b, 1);
+    func_001D5D28(D_0036D410[0], a, b, params);
+    return 1;
+}
 
 extern "C" int CFunc_ReserveCOIMBlocksForPermObjects(int params) {
     int n;
@@ -316,7 +342,14 @@ extern "C" int CFunc_ATan(int params, S24B_Script *script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Sqrt);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Mod);
+extern "C" int CFunc_Mod(int params, S24B_Script *script) {
+    int a;
+    int b;
+    func_0027D1F8(params, 0x174841BC, &a, 1);
+    func_0027D1F8(params, 0x8E411006, &b, 1);
+    func_0027C160(script->unk20, 0xE80BACB7, a % b);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_NormalizeVector);
 
