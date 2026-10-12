@@ -430,3 +430,9 @@ Given up:
   `bnezl` + `move v0,s0`; 4 forms.
 - func_002874A8 (movz bracket counter loop), func_00288A20, func_002882E8, func_002884A0: not tried.
 - func_00286A60/func_00287498/func_002882C0/func_002882D8/func_00287F30/func_00288778/func_00288990: fragments.
+
+### t_2754A0 round 5 (+6, pool create templates)
+func_00276DC8, func_00276E88, func_00276F30, func_00276FD8, func_00277080, func_00277128
+(`void **slot = &pools[cur]; *slot = func_0011C130(func_00118F20(heap, 0x70, 1, 0), size, a, b, 1, 0);
+flags[cur] = 1;` -- the slot address is computed before the calls. The round-3 entries for these six and for
+func_002756A8, func_00276720, func_00277298 were not in the file (lost before commit); the six are now in.)
