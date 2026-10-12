@@ -278,7 +278,7 @@ Given up:
 Matched 9: func_001EBAB0 func_001EBAE8 func_001EBC80 func_001EBCB0 func_001EBFF0 func_001EC018 func_001ECC40 func_001ECC70 func_001ECD18
 
 Given up:
-- func_001ECC90: constructor; ours deletes the first (dead) vtable store at 0x18, the original keeps it (1 try)
+- func_001ECC90: constructor; with the volatile first vtable store only v0/v1 differ (original moves the return value into v0 early); 5 tries
 - func_001EC818, func_001EC8D0: list iterators on the stack with ldl/ldr struct copies; not attempted
 - func_001EBFE0: split tail
 
