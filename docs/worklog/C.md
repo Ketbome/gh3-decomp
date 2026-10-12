@@ -292,3 +292,16 @@ Given up:
 - CFunc_VCWibblePlayFromKeyframe: sdata-attr macro load of D_0036F658 goes into a branch delay slot (original
   counted it as 2 insns); plain extern splits through v0 instead of a1. Rest of the structure matches.
 - CFunc_FeelerCheck (TImode vector fields), CFunc_ToggleRenderMetrics/func_0024E3C0 (handle refs), not tried.
+
+### t_2A12B0 (+27)
+func_002A12B0..func_002A1670 (13 destructors: set vtable at +0xC, call the base dtor, free with func_00119400 when
+`flags & 1`), func_002A1840, func_002A2200, func_002A2230, func_002A18E0, func_002A1888, CFunc_c_PauseGame,
+CFunc_GameIsPaused, CFunc_Create, CFunc_DEBUG_set_DofZDepth, CFunc_NodeArrayManLoad, CFunc_LoadNodeArray,
+CFunc_SetGSIdleProcParams, CFunc_SpawnSound, CFunc_ReLoadNodeArray
+(`$gp` views of D_00372EF0/D_0036F608 via `.set X_gp, X` + scalar asm-label extern, since the file declares
+them as sdata arrays; D_0036CA58 is stored both ways in one function: scalar + `_lui` alias.
+CFunc_NodeArrayManLoad/Unload now take `(params, script)`; ReLoadNodeArray calls them with both.)
+Given up:
+- func_002A2E68, func_002A2FB0: inlined hash-table lookup inside a `movn` list walk (same walk as t_24DDB8
+  CFunc_CompressVC, which does not match); not tried further.
+- func_002A1830/func_002A3218 etc.: split fragments.
