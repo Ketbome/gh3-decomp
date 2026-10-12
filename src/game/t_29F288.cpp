@@ -25,6 +25,11 @@ struct S29FA00_0 {
     s32 unk30D8;
 };
 
+struct S29F288_A {
+    char pad0[0x30D8];
+    int unk30D8;
+};
+
 extern "C" {
 int func_0011A128(void);
 int func_0027D400(int, int, int, int);
@@ -101,7 +106,9 @@ extern "C" void func_0029F978(S29F970_0 *arg0, s32 arg1) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029F9F8);
+extern "C" void func_0029F9F8(int p, int v) {
+    ((S29F288_A *)p)->unk30D8 = v;
+}
 
 extern "C" s32 func_0029FA00(S29FA00_0 *arg0) {
     return arg0->unk30D8;
