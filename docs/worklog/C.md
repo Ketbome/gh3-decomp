@@ -29,6 +29,15 @@
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
 
+- **Volatile accesses and delay slots (toolchain finding, not fixed: scripts/ is not mine).** gcc prints
+  `#.set volatile` / `#.set novolatile` (commented out) around every volatile load/store; SN's assembler kept those
+  out of branch delay slots, our gas fills `jal`/`jr` delay slots with them. Rewriting them in
+  `scripts/asm_filter.py` as `.set noreorder` / `.set reorder` makes t_292928 func_00293C00, func_00293C70 and
+  func_00293218 (fields 8 and C volatile) MATCH, and every matched function of that file still matches (checked
+  with a private fcheck copy). Likely also t_292928 func_002931F0 and t_26F3B8 func_00270FC0.
+- **Systematic v0/v1 swap.** Many simple read-modify-write functions (`f = (f & ~0xF) | n`, `p->a += n; p->b += n`,
+  `(x + 0x7FF) / 2048 * 2048`) get the loaded value in v1 and the constant in v0 in the original, the other way in
+  ours; no source form or `-f` flag tried (-O3, -fno-schedule-insns[2], -fno-regmove, -fno-gcse, ...) changes it.
 - **Mixed `$gp` / `lui` uses of one symbol now match** (round 3): keep the normal declaration (`extern T D_X;`, gas
   makes it `$gp` from gcc's `.extern D_X, 4`) and add a lui-form view through a gas alias:
   `asm(".set D_X_lui, D_X");` at the top, `extern T D_X_lui[] asm("D_X_lui") __attribute__((section(".sdata")));`.
@@ -226,3 +235,14 @@ Given up:
 - func_00289E10: handle-assign inline; everything matches except the original keeps the second `if (obj)`
   after the inlined setter (ours folds it). 4 forms tried.
 - func_00289938: starts with a stray `addiu sp,0x10; nop` fragment (split boundary).
+
+### t_292928 (+11)
+func_00292D70, func_002939A0, func_002939D8, func_00293A08, func_002934D0, func_00292BB0, func_00293BB8,
+func_00293678, func_00294818, func_00293A38 (32-byte local), func_002947C0 (`volatile` hardware registers)
+Wrappers func_002934A8/func_00293578 now carry their real signatures.
+Given up:
+- func_00293C00, func_00293C70, func_00293218: match only with the volatile delay-slot fix (see notes).
+- func_00293288, func_002932E0, func_00293FD0, func_00294868, func_00293038: v0/v1 swap (see notes).
+- func_00293530 (16-byte struct argument in a1/a2 copied to the stack): ours builds a second copy.
+- func_00293D08: store scheduling around a semaphore-param struct; func_002930B8, func_00292FB0: `lui $at` store
+  macros (gcc puts the sdata-attr store in delay slots).
