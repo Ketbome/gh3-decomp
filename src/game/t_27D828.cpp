@@ -67,7 +67,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E358);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E410);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E488);
+extern "C" S0027E348 *func_0027E488(S0027E348 *p) {
+    func_0027E348(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E4B0);
 
