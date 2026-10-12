@@ -60,3 +60,13 @@ func_00298050, func_002980B0, func_00298110
 unlink from an intrusive list and free through func_00119400(D_00368A38, p).)
 Given up:
 - func_002979D8 / func_00297838 (red-black tree increment/decrement): short loops, original has the R5900 nops.
+
+### t_26F3B8 (+14)
+func_00271180, func_00270EE0, func_00271158, func_00270E10, func_00271198, func_0026FFE8, func_00270FF0,
+func_0026F7E8, func_00270020, func_002710B8, func_00271108, func_00270540, func_0026F6E8, func_0026F768
+Given up:
+- func_0026FAC8 (`a >= 22` as 0/1): original keeps a branch, every form gives slt/xori.
+- func_0026F580: original copies the float arg to $f0 and stores it in the jal delay slot (4 forms tried).
+- func_00270FC0: zeroes six globals; the macro-form (`lui $at`) store last must stay out of the `jr` delay slot,
+  ours (sdata-attr array) is put in it. gcc `-mno-split-addresses` would give the original form.
+- func_00270F08: short loops; func_002709C8: unrolled clear loop, not tried.
