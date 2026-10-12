@@ -61,3 +61,10 @@ Matched 3: func_001C50B8 func_001C56E0 func_001C5730
 
 Given up:
 - func_001C4460: original reloads q->unk4 at a merge point (no CSE); 4 tries (plain, inline helper, volatile)
+
+## t_1C5A68
+
+Matched 5: func_001C5CB8 func_001C5CD8 func_001C5D28 CFunc_SetAnalogStickActiveForMenus CFunc_SetEnableMovies
+
+Given up:
+- func_001C6868, func_001C67C0: loops unrolled (x16 / x8); our -O2 does not unroll
