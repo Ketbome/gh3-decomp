@@ -64,9 +64,20 @@ Given up:
 ### t_26F3B8 (+14)
 func_00271180, func_00270EE0, func_00271158, func_00270E10, func_00271198, func_0026FFE8, func_00270FF0,
 func_0026F7E8, func_00270020, func_002710B8, func_00271108, func_00270540, func_0026F6E8, func_0026F768
+(func_00270EE0 shows DIFFERS in scripts/fcheck.py only because of the `nop` parsing bug; it matches.)
 Given up:
 - func_0026FAC8 (`a >= 22` as 0/1): original keeps a branch, every form gives slt/xori.
 - func_0026F580: original copies the float arg to $f0 and stores it in the jal delay slot (4 forms tried).
 - func_00270FC0: zeroes six globals; the macro-form (`lui $at`) store last must stay out of the `jr` delay slot,
   ours (sdata-attr array) is put in it. gcc `-mno-split-addresses` would give the original form.
 - func_00270F08: short loops; func_002709C8: unrolled clear loop, not tried.
+
+### t_273498 (+12)
+func_00273910, func_00274AD8, func_00273CB8, func_00273B48, func_00274310, func_00274178, func_002741F8,
+func_002750F0, func_002750A0, func_00273F08, func_00274688, func_00273D88
+Given up:
+- func_002741B8: gcc schedules `lui` before `move a1,a0`; the macro-form load of D_00368748 is costed as one insn
+  by our sdata-attr trick (original compiler counted two).
+- func_002738C0: original keeps `& 0xFF000000 & 0x08000000` as two `and`s; ours folds to a bit test.
+- func_00273EB0: delay-slot stealing differs (`li v0,2` from the branch target), 4 forms tried.
+- func_00275010: has an `alabel`.
