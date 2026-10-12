@@ -100,10 +100,14 @@ Given up:
 func_00295068, func_00296920, func_002969B0, func_002969E0, func_002965E8, func_00296948, func_00295E08,
 func_00295DB8, func_002961C8
 Given up:
-- func_00295098, func_002950D8: modulo (div-by-zero trap, see notes).
 - func_00295118: min() register allocation (copy in $a2, slt in $v1), 8 forms tried.
 - func_00296550: original reloads p->unk1C after the first test; ours folds the redundant test.
 - func_00295CF8: handwritten (`ei`).
+Round 2 (+7): file now has `// cflags: -mno-check-zero-division`; func_00295098, func_002950D8, func_00295010,
+func_00294FD0, func_00296678, func_002966D8, func_00296868 (strcmp/strcpy pair: declaring func_0030A970 as
+returning `char *` moves the constant 1 to $v1).
+- func_00296470 (constructor): store order of the embedded list node, 5 orders tried.
+- func_00295D40: short loop.
 
 ### t_266800 (+5)
 func_00268328, func_002668F8, func_00266850, func_00266800, func_00266B60
