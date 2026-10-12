@@ -379,3 +379,13 @@ Given up:
 - func_001F9920, func_001F8C28: list Find via func_0012CEE8 plus an inline first-element getter; frame size and
   register allocation differ (1 try each, worth another look)
 - func_001F7B10, func_001F7C70, func_001F7D70, func_001F7E70, func_001F8A88: VU0; func_001F7AB0, func_001F86D0: split tails
+
+## t_1F9A48
+
+Matched 10 (session 4, small ones only): func_001F9EC0 func_001FAEE0 func_001FAC18 func_001FAC38 func_001FAC60 func_001FADB8 func_001FADE8 func_001FAE10 func_001FAE30 func_001FAEC0
+
+Given up:
+- func_001F9E80: inline first-element getter with one stack iterator reused for the sub-list; branch polarity and
+  registers (4 tries)
+- func_001F9A48, func_001F9D68, func_001FA330: split tails
+Not yet attempted: everything above 0x40 in this file; t_1FBAF0 .. t_249620 untouched.

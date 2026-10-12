@@ -1,5 +1,25 @@
 #include "common.h"
 
+typedef int TI128 __attribute__((mode(TI)));
+
+struct S1FADE8 {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+};
+
+extern "C" {
+void func_001FA348(int, int);
+void func_001FB028(void*);
+void func_001FB6C0(void*);
+void func_001FAF90(void*);
+void* func_00113D20(u32);
+void* func_001FAC90(void*);
+extern char D_0038F5B0[];
+void func_00276D68(u32, void*, int);
+void func_001FB480(void*, TI128);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A50);
@@ -18,7 +38,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9D70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9E80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9EC0);
+extern "C" s32 func_001F9EC0(char* p) {
+    return *(s32*)(p + 0x2C);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9EC8);
 
@@ -30,11 +52,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FA330);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FA348);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC18);
+extern "C" void func_001FAC18() {
+    func_001FA348(1, 0xFFFF);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC38);
+extern "C" void* func_001FAC38() {
+    return func_001FAC90(func_00113D20(0xE0));
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC60);
+extern "C" void func_001FAC60() {
+    func_00276D68(0x07713C7B, D_0038F5B0, 0x10);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC90);
 
@@ -42,19 +70,37 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAD10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAD68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FADB8);
+extern "C" void func_001FADB8(char* p) {
+    TI128 a = *(TI128*)(p + 0xB0);
+    *(TI128*)(p + 0xC0) = a;
+    *(TI128*)(p + 0xB0) = *(TI128*)(*(char**)(p + 0xC) + 0x80);
+    func_001FB480(p, a);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FADE8);
+extern "C" void func_001FADE8(S1FADE8* p) {
+    p->v2();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAE10);
+extern "C" s32 func_001FAE10(void* p) {
+    func_001FB028(p);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAE30);
+extern "C" s32 func_001FAE30(void* p) {
+    func_001FB6C0(p);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAE50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEC0);
+extern "C" s32 func_001FAEC0(void* p) {
+    func_001FAF90(p);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEE0);
+extern "C" s32 func_001FAEE0() {
+    return 2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEE8);
 
