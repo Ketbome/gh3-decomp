@@ -434,3 +434,13 @@ func_00182338 func_001823A8 func_00182370 func_001823F0 func_00183460
 - func_001824B8 (BCD byte -> int): parameter is u32, return u8.
 - func_00183460: `(int)(x * (float)D_0036876C[0])` with D_0036876C an int section(".sdata") array; cvt.w.s matches.
 - Not attempted yet: the 0x3C+ candidates of this file.
+
+## t_14E7E0 (committed by the integrator's rescue commit dfab98d)
+
+Matched 13: CFunc_ToggleAddScenes func_0014E850 func_0014E948 CFunc_CheckFlexibleParticleStructure
+CFunc_CheckSplineParticleStructure func_0014EB28 func_0014EB78 func_0014F1D0 func_0014F1E0 func_0014F958
+func_0014F978 func_0014F9D8 func_00150520 (func_0014F150 retyped to pass self)
+
+Given up / open:
+- func_0014F910: static list-node init; register/store order not found yet (several permutations)
+- func_0014E7E8 (list search), func_0014F0E0 (split), split tails: not attempted
