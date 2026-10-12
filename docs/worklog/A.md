@@ -563,3 +563,12 @@ Given up:
   `sdr; sdl` (assembler `usd` expansion order?)
 - func_0019E2B8: same as func_0019EB10 with `/ 12`; e/v0 register swap left; 2 tries
 - func_0019ECE8: nop delay loop
+
+## t_19F538
+
+Matched 4: func_0019F9F8 func_0019F750 func_0019F6F8 func_0019F7E0 (doubly linked chain, head D_00373300 / tail
+D_00373304, prev at 0x4C; func_0019F7E0 = the unlink inline with first == last)
+
+Given up:
+- func_001A01F0, func_001A0468: u64 bitfield at 0x10; `move v0,a0` / v0-v1 order differs; 2 tries each
+- func_0019F790, func_0019FEB0, func_001A1330: short loops with nops; func_001A1318: split fragment
