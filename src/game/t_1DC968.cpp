@@ -52,6 +52,12 @@ struct S1DE8E8 {
     s32 unk18;
 };
 
+struct Pool1DC {
+    char* unk0;
+    char* unk4;
+    bool Contains(void* p) { return (char*)p >= unk0 && (char*)p < unk4; }
+};
+
 extern "C" {
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(s32 heap, void* p);
@@ -65,6 +71,14 @@ s32 func_00223460(void* p);
 S1DC968* func_001DD640(S1DC968* p);
 s32 func_00275570(void);
 extern s32 D_00370F40[] __attribute__((section(".sdata")));
+void func_001DCB80(void*);
+extern Pool1DC* D_0036D540[2];
+extern s32 D_0036D550;
+void* func_0011C2A8(Pool1DC*);
+s32 func_00119610(s32, int);
+void func_00119490(s32, s32);
+void func_001194B8(s32);
+void func_0011C2E8(Pool1DC*, void*);
 }
 
 extern "C" void func_001DC968(S1DC968* p) {
@@ -82,13 +96,48 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DC9A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCB80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCC38);
+extern "C" void func_001DCC38(char* p, int flags) {
+    if (!*(u8*)(p + 0x16)) {
+        if (*(void**)(p + 4)) {
+            func_001DCB80(p);
+            if (*(void**)(p + 4)) {
+                func_00119400(D_00368A38[0], *(void**)(p + 4));
+            }
+            *(void**)(p + 4) = 0;
+        }
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCCB0);
+GP_DATA(D_0036D550);
+GP_DATA(D_0036D540);
+extern "C" void* func_001DCCB0(s32 size) {
+    Pool1DC* pool = D_0036D540[D_0036D550];
+    if (pool) {
+        void* r = func_0011C2A8(pool);
+        if (!r) {
+            s32 h = D_00368A38[0];
+            func_00119490(h, func_00119610(h, 1));
+            r = func_00118F20(D_00368A38[0], size, 1, 0);
+            func_001194B8(D_00368A38[0]);
+        }
+        return r;
+    }
+    return func_00118F20(D_00368A38[0], size, 1, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCD68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCE20);
+extern "C" void func_001DCE20(void* p) {
+    Pool1DC* a = D_0036D540[D_0036D550];
+    if ((a && a->Contains(p)) || ((a = D_0036D540[D_0036D550 ^ 1]) && a->Contains(p))) {
+        func_0011C2E8(a, p);
+    } else if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" void func_001DCED0(S1DCED0* p, s32 flags) {
     p->unk14 = D_0034C290;
@@ -136,6 +185,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD4C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD568);
 
+GP_DATA(D_0036D6C8);
 extern "C" S1DC968* func_001DD5F8(void) {
     if (D_0036D6C8 == 0) {
         D_0036D6C8 = func_001DD640((S1DC968*)func_00118F20(D_00368A38[0], 0x10, 1, 0));

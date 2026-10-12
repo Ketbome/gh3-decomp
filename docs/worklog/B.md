@@ -197,7 +197,7 @@ Matched 12: func_001DB560 func_001DB568 func_001DB570 func_001DB578 func_001DB9C
 Matched 12: func_001DC968 func_001DC978 func_001DCED0 func_001DCF30 func_001DD118 func_001DD5F8 func_001DD640 func_001DD960 func_001DE1B0 func_001DE2B0 func_001DE7A0 func_001DE8E8
 
 Given up:
-- func_001DCC38, func_001DCCB0, func_001DCE20: D_00368A38 gp_rel in a delay slot
+- func_001DCC38, func_001DCCB0, func_001DCE20: matched in session 4 (new asm_filter)
 - func_001DD658: arg setup order (move a0,v0 after a2/a3); 5 tries incl. member call via asm label
 - func_001DD148: 128-bit store built with pextlw/pcpyld from float constants; not attempted
 
