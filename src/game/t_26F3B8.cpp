@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S0026FAB8 {
@@ -6,11 +7,13 @@ struct S0026FAB8 {
 };
 
 struct S26F3B8_A {
-    char pad0[0xC];
+    int unk0;
+    int unk4;
+    int unk8;
     u16 unkC;
     s8 unkE;
     s8 unkF;
-    char pad10[0x4];
+    int unk10;
 };
 
 struct S26F3B8_B {
@@ -22,7 +25,16 @@ struct S26F3B8_B {
     int unk10;
 };
 
+struct S26F_Pair {
+    s8 a;
+    s8 b;
+};
+
 extern "C" {
+void func_002700A0(void);
+void func_00292FB0(int);
+void func_0026F828(int, int, f32);
+extern S26F_Pair D_003A90B0[8];
 extern int D_003733C8;
 void func_00293038(void);
 void func_00293098(void);
@@ -165,7 +177,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002705A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270928);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002709C8);
+extern "C" void func_002709C8(void) {
+    func_002700A0();
+    func_00292FB0(-1);
+    func_0026F828(0, 0, 0.0f);
+    for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < 22; j++) {
+            S26F3B8_A *s = &D_003A8D40[i][j];
+            s->unk0 = 0;
+            s->unk4 = 0;
+            s->unk8 = 0;
+            s->unk10 = 0;
+        }
+    }
+    for (int k = 0; k < 8; k++) {
+        D_003A90B0[k].a = -1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270A90);
 

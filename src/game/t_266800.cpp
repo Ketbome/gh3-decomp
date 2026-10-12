@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S00267628 {
@@ -14,7 +15,49 @@ struct S266800_A {
     int unk14;
 };
 
+struct S2668_Ent {
+    char pad0[0x8];
+    int unk8;
+    char padC[0xC];
+};
+
+struct S2668_Src {
+    int unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    int unk10;
+    int unk14;
+};
+
+struct S2668_Ctx {
+    int unk0;
+    char pad4[0xC];
+    f32 unk10;
+};
+
+struct S2668_Out {
+    int unk0;
+    int unk4;
+    int unk8;
+    f32 unkC;
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+    int unk30;
+};
+
 extern "C" {
+extern int D_00370AF0;
+extern int D_00370B00;
+extern int D_00370AF4;
+extern S2668_Ent D_003A2820[128];
+void func_002709C8(void);
 extern int D_00370AEC;
 void func_0026FA38(int);
 void func_0026FA78(void);
@@ -104,7 +147,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266E90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266F50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266FA8);
+GP_DATA(D_00370AF0);
+GP_DATA(D_00370B00);
+GP_DATA(D_00370AF4);
+GP_DATA(D_00370AE8);
+extern "C" void func_00266FA8(void) {
+    if (func_00266778() == 0) {
+        D_00370AF0 = 0;
+        D_00370B00 = 0;
+        for (int i = 127; i >= 0; i--) {
+            D_003A2820[i].unk8 = 0;
+        }
+        func_002709C8();
+        D_00370AF4 = 0;
+        D_00370AE8 = 25.0f;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267048);
 
@@ -166,7 +224,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267A60);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267A80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267B30);
+extern "C" void func_00267B30(int unused, S2668_Out *out, S2668_Ctx *ctx, S2668_Src *src) {
+    if (src) {
+        out->unk0 = src->unk0;
+        f32 x = src->unk4;
+        out->unk10 = x;
+        f32 y = src->unk8;
+        out->unk14 = y;
+        f32 z = src->unkC;
+        if (z == 0.0f) {
+            z = ctx->unk10;
+        }
+        out->unkC = z;
+        out->unk20 = x;
+        out->unk24 = y;
+        out->unk28 = 0.0f;
+        out->unk18 = x;
+        out->unk1C = y;
+        out->unk2C = 0.0f;
+        out->unk30 = src->unk10;
+        out->unk8 = src->unk14;
+    } else {
+        out->unk0 = 0;
+        out->unk14 = out->unk10 = 100.0f;
+        out->unkC = 0.0f;
+        out->unk30 = 0;
+        out->unk8 = 0;
+    }
+    out->unk4 = ctx->unk0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267BC8);
 

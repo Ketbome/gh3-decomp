@@ -110,7 +110,7 @@ Given up:
 - func_0026F580: original copies the float arg to $f0 and stores it in the jal delay slot (4 forms tried).
 - (SOLVED round 5: plain externs, last one `volatile`) func_00270FC0: zeroes six globals; the macro-form (`lui $at`) store last must stay out of the `jr` delay slot,
   ours (sdata-attr array) is put in it. gcc `-mno-split-addresses` would give the original form.
-- func_00270F08: short loops; func_002709C8: unrolled clear loop, not tried.
+- func_00270F08: see round 5. (SOLVED round 5, file now `-funroll-loops`) func_002709C8 (nested 2x22 slot clear).
 
 ### t_273498 (+12)
 func_00273910, func_00274AD8, func_00273CB8, func_00273B48, func_00274310, func_00274178, func_002741F8,
@@ -140,7 +140,8 @@ returning `char *` moves the constant 1 to $v1).
 func_00268328, func_002668F8, func_00266850, func_00266800, func_00266B60
 Given up:
 - (SOLVED round 5, inline li.s) func_002682B8, func_00268228.
-- func_00266E08, func_00266D20, func_00267B30, func_00266FA8: not tried (loops/unrolled clears).
+- (SOLVED round 5, file now `-funroll-loops`) func_00266FA8 (`for (i = 127; i >= 0; i--)` clear), func_00267B30
+  (two groups of three float stores come out in reverse group order). func_00266E08, func_00266D20: not tried.
 
 ### t_2DCE78 (+4)
 CFunc_StartNetworkGame, func_002DD0B0, func_002DEE18, func_002DE220
