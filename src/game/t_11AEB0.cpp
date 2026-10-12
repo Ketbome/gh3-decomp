@@ -204,7 +204,13 @@ extern "C" void* func_0011C3A8(int i) {
     return func_00118F20(D_00368A38[0], func_0011C470(i), 1, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011C408);
+extern "C" void func_0011C408(int i, S_0011C2E8_b* p) {
+    if (D_00368B40[i]) {
+        func_0011C2E8((S_0011C2E8*)D_00368B40[i], p);
+    } else if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" int func_0011C458(int i) {
     return D_00368B40[i];

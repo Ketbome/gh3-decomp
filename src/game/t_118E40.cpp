@@ -86,6 +86,9 @@ extern u8 D_00338968[];
 extern u8 D_00338898[];
 extern u8 D_00414348[];
 void func_00119DD8(int);
+void func_00119F60(int);
+void func_001194B8(int);
+void func_00118E40(int, int);
 SA118_K* func_0011A170(void*, u32);
 void func_00119400(int, void*);
 void* func_00118F20(int, int, int, int);
@@ -203,7 +206,14 @@ extern "C" void func_0011A100(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A128);
+extern "C" void func_0011A128(void) {
+    if (D_00368A38[0]) {
+        func_00119F60(D_00368A38[0]);
+        func_001194B8(D_00368A38[0]);
+        func_00118E40(D_00368A38[0], 2);
+        D_00368A38[0] = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A170);
 
