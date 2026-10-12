@@ -172,3 +172,12 @@ Matched 21: func_001D67C8 func_001D6BA0 func_001D6BA8 func_001D7710 func_001D7C2
 Given up:
 - func_001D6738: D_00368A38 gp_rel in a jal delay slot (macro symbol in this file)
 - func_001D8208: register choice/schedule of the tail (dead u8[4] stores, vtable/255 in v1/v0 swapped); 6 tries
+
+## t_1D85E8
+
+Matched 16: func_001D85E8 func_001D8720 func_001D87B8 func_001D8828 func_001D8848 func_001D8878 func_001D8930 func_001D8978 func_001D89C0 func_001D8A08 func_001D8A50 func_001D8A88 func_001D8B30 func_001D8BA0 func_001D8BC8 func_001D8BF0
+
+Given up:
+- file holds two objects: D_0036D554 is macro-form before ~0x1D97A0 and gp after; declared macro, so func_001D97A0 func_001D9F40 func_001DA028 func_001DA0C8 func_001DA150 func_001DA1A0 cannot match here
+- func_001D88C0, func_001D8AB8: D_00368A38 gp_rel in a delay slot
+- func_001D9740: loop register allocation (original copies the element pointer); 3 tries
