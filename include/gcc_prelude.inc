@@ -10,3 +10,17 @@
 .macro cvt.w.s dst, src
     trunc.w.s \dst, \src
 .endm
+
+# `li.d` into an integer register (a `double` constant for the soft-float library): gas refuses the mnemonic for the
+# r5900; SN's assembler encoded it like `dli` of the constant's bits. Assembled as mips3, gas does the same.
+.macro __gp_lid
+    .macro li.d reg, value
+        .purgem li.d
+        .set push
+        .set mips3
+        li.d \reg, \value
+        .set pop
+        __gp_lid
+    .endm
+.endm
+__gp_lid

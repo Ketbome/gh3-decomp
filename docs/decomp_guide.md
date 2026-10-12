@@ -64,7 +64,8 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   `scripts/fix_gp_data.py <file>` adds those lines from the original assembly: run it before judging a DIFFERS.
 - **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
   `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
-  configure.py and fcheck.py both read it. It applies to the whole file, so only use it when every C++ function
+  configure.py and fcheck.py both read it. Seen so far: `-funroll-loops`, `-ffast-math`
+  (`min.s`/`max.s`), and `-O0` for a few library-like objects (later flags win over the default `-O2`). It applies to the whole file, so only use it when every C++ function
   of the file still matches.
 - **Structs.** Use a struct with the fields the function touches, named by offset (`unk18`), padded with
   `char pad[...]`. Define it at the top of the file. Do not edit shared headers.
