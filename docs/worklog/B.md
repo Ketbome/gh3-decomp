@@ -368,3 +368,14 @@ Given up:
 - func_001F6528, func_001F6ED8: lanes of one TI128 read as three float args (dsrl32/pcpyud into separate regs)
 - func_001F5C30 (ldl/sdl copies), func_001F62D0, func_001F5958, func_001F65B0: not attempted; F6DA0, F5AC8: VU0
 - func_001F5CF8, func_001F5EA0, func_001F5AC0: split tails
+
+## t_1F79D8
+
+Matched 15: func_001F79E0 func_001F7A88 func_001F7AC8 func_001F7C28 func_001F7D28 func_001F7E28 func_001F8C08 func_001F8D40 func_001F97C0 func_001F9810 func_001F79E8 func_001F9028 func_001F9740 func_001F9860 func_001F8D90
+
+Notes: func_001F8D90 is an inline sorted-list Find (`E* c = &node->e; if (c->key == key) return c; if (key < c->key) return 0;`).
+
+Given up:
+- func_001F9920, func_001F8C28: list Find via func_0012CEE8 plus an inline first-element getter; frame size and
+  register allocation differ (1 try each, worth another look)
+- func_001F7B10, func_001F7C70, func_001F7D70, func_001F7E70, func_001F8A88: VU0; func_001F7AB0, func_001F86D0: split tails
