@@ -15,16 +15,17 @@ Notes:
 
 ## t_187930
 
-Matched 22: func_00188360 func_00188420 func_00188448 func_00188700 func_001888D0 func_00188908 func_00188940
-func_00188998 func_001889E0 func_00188A00 func_00188A38 func_00188AD0 func_00188AE8 func_00188B70 func_00188C50
-func_00188C70 func_00188C88 func_00188E38 func_00189078 func_001893D0 func_001894C8 func_00189508
+Matched 22 (first pass): func_00188360 func_00188420 func_00188448 func_00188700 func_001888D0 func_00188908
+func_00188940 func_00188998 func_001889E0 func_00188A00 func_00188A38 func_00188AD0 func_00188AE8 func_00188B70
+func_00188C50 func_00188C70 func_00188C88 func_00188E38 func_00189078 func_001893D0 func_001894C8 func_00189508
+
+Matched 21 (after -fopt-stack): func_00187F00 func_00188120 func_001882A8 func_001883A8 func_00188520 func_00188568 func_00188618 func_00188680 func_00188870 func_00188A70 func_00188D68 func_00188DD0 func_00188F80 func_00188FB8 func_00189010 func_00189040 func_00189180 func_001892F8 func_00189360 func_00189718 func_00189818
 
 Given up:
 - func_00189400: last stores load source/dest in the other order (scheduling); 5 tries
-- func_00189180: store via assembler macro (`lui $at`), not reproducible
-- func_00188870: fcheck nop bug (matches otherwise)
-- opt-stack: func_00187E08 func_00187F00 func_001883A8 func_00188520 func_00188568 func_00188A70 func_00188F80
-  func_00188FB8 func_00189010 func_00189040 func_00189818
+- func_00187E08: lui/lhu register swap (v0/v1); 6 tries
+- func_001885B0, func_00188D00, func_00189290: alloc args set in order a2,a3,a1 in the original; 3 tries
+- func_001891A0: D_0036C7EC both lui/%lo and %gp_rel
 
 ## t_10C000
 
