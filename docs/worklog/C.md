@@ -246,3 +246,13 @@ Given up:
 - func_00293530 (16-byte struct argument in a1/a2 copied to the stack): ours builds a second copy.
 - func_00293D08: store scheduling around a semaphore-param struct; func_002930B8, func_00292FB0: `lui $at` store
   macros (gcc puts the sdata-attr store in delay slots).
+
+### t_27B7D0 (+26, script structure components)
+Getters func_0027D188/D1F8/D268/D400/D470 (+ name wrappers func_0027CFA8/D000/D058/D0B0/D118), func_0027D378;
+adders func_0027C0D0/C160/C1F8/C448/C740/C898/C028/C5B0/CB80/C4D8/C678/C7D0/C928; func_0027B800, func_0027BFD0.
+(Component: u32 bitfield word {b0:8, b8:1, type:7} + u16 at 2, key, value, next. The inline constructor clears
+b8/type/u16/next/value; `next = 0` before `value = 0` except in the int/float adders. Types seen: 1 int, 2 float,
+3 string, 5 pair, 6 vector, 7 blob, 0xA structure, 0xC array, 0xD checksum, 0x1A name.)
+Given up:
+- func_0027D4E0: saved-register assignment (key/out/req in s3/s1/s2); 3 forms tried.
+- func_0027D2D8 (vector getter, pextlw build of {x,y,z,1.0f}), func_0027B7D0/func_0027BF30: short loops / not tried.
