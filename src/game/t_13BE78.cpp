@@ -22,7 +22,9 @@ struct S13B_X {
     S13B_X* unk78;
     char pad7C[0x8];
     S13B_X* unk84;
-    char pad88[0x17C];
+    char pad88[0x174];
+    float unk1FC;
+    char pad200[0x4];
     int unk204;
     char pad208[0x38];
     int unk240;
@@ -94,9 +96,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C280);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C550);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C5F8);
+extern "C" void func_0013C5F8(S13B_X* self, float f) {
+    if (!(self->unkC & 0x8000)) {
+        self->unk1FC = f;
+        self->unkC |= 0x1000;
+    }
+    for (S13B_X* c = self->unk78; c; c = c->unk84) {
+        func_0013C5F8(c, f + 1.0f);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C678);
+extern "C" void func_0013C678(S13B_X* self, int v) {
+    self->unk204 = v;
+    self->unkC |= 0x10000000;
+    for (S13B_X* c = self->unk78; c; c = c->unk84) {
+        func_0013C678(c, v);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C6E0);
 

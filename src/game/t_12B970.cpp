@@ -99,6 +99,27 @@ int func_0012BD10(SB12_Self*, int);
 float func_0012BC90(SB12_Self*, int);
 }
 
+struct SB12_Pool {
+    u32 unk0;
+    u32 unk4;
+    int Has(u32 p) { return !(p < unk0) && p < unk4; }
+};
+
+extern "C" {
+extern int D_00368A38;
+extern int D_00371480;
+extern SB12_Pool* D_00371470[2];
+extern int D_00369208;
+extern SB12_Pool* D_003691F8[2];
+void func_00119400(int, void*);
+void func_0011C2E8(SB12_Pool*, void*);
+void* func_0011C2A8(SB12_Pool*);
+int func_00119610(int, int);
+void func_00119490(int, int);
+void* func_00118F20(int, u32, int, int);
+void func_001194B8(int);
+}
+
 struct S_0012C1F8 { char pad0[0x38]; int unk38; };
 struct S_0012D208 { char pad0[0x8]; int unk8; };
 
@@ -225,11 +246,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CF40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012D000);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012D028);
+extern "C" void* func_0012D028(u32 size) {
+    SB12_Pool* pool = D_00371470[D_00371480];
+    if (pool) {
+        void* r = func_0011C2A8(pool);
+        if (!r) {
+            int heap = D_00368A38;
+            func_00119490(heap, func_00119610(heap, 1));
+            r = func_00118F20(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return r;
+    }
+    return func_00118F20(D_00368A38, size, 1, 0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012D0E8);
+extern "C" void func_0012D0E8(void* p) {
+    SB12_Pool* pool = D_003691F8[D_00369208];
+    if ((pool && pool->Has((u32)p)) || ((pool = D_003691F8[D_00369208 ^ 1]) && pool->Has((u32)p))) {
+        func_0011C2E8(pool, p);
+    } else if (p) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012D1A0);
+extern "C" void func_0012D1A0(int a, int b) {
+    if (b == 0xFFFF && a) {
+        int i;
+        for (i = 0x7F; i != -1; i -= 0x20) {
+        }
+        for (i = 0x7F; i != -1; i -= 0x20) {
+        }
+    }
+}
 
 extern "C" int func_0012D208(S_0012D208* self) {
     return self->unk8;

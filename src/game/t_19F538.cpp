@@ -17,6 +17,7 @@ struct N_19F { N_19F* next; char pad4[0x48]; N_19F* prev; };
 
 extern "C" {
 extern int D_00372D24;
+extern char* D_00373308;
 extern int* D_00373320;
 extern N_19F* D_00373300;
 extern N_19F* D_00373304;
@@ -57,7 +58,20 @@ extern "C" void func_0019F750(N_19F* first, N_19F* last, N_19F* before) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F790);
+extern "C" void func_0019F790(N_19F* n, int* b, N_19F** head) {
+    if (!*head) {
+        *head = n;
+        n->prev = 0;
+    } else {
+        N_19F* p = *head;
+        while (p->next) {
+            p = p->next;
+        }
+        p->next = n;
+        n->prev = p;
+    }
+    *b = 0;
+}
 
 extern "C" void func_0019F7E0(N_19F* n) {
     N_19F_Unlink(n, n);
@@ -90,7 +104,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FA28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FE18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FEB0);
+extern "C" void func_0019FEB0(void) {
+    char* p = D_00373308;
+    if (p) {
+        int off = D_00372D24 ? 0 : 4;
+        do {
+            *(int*)(p + off) = 0;
+            p = *(char**)(p + 0x280);
+        } while (p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FEF0);
 
@@ -126,6 +149,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A11D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1318);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1330);
+extern "C" int func_001A1330(u32 x) {
+    int n = 0;
+    while (x) {
+        x >>= 1;
+        n++;
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1358);

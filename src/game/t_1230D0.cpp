@@ -74,6 +74,7 @@ void func_00129710(int, void*);
 void func_001297B8(int, void*, int);
 void* func_0011DF78(int, int, int, int);
 int func_00123E68(void*, void*);
+int func_0011DBB8(void*, void*, int, int);
 void func_0011E008(void*);
 void func_0016F820(int, int, int);
 int func_001CFF58(void*, u32, int);
@@ -265,7 +266,14 @@ extern "C" void func_00123D00(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123D08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123E68);
+extern "C" int func_00123E68(void* a, void* b) {
+    if (!func_0011DBB8(a, b, 8, 0x100)) {
+        return 0;
+    }
+    for (int i = 0xFF; i >= 0; i -= 0x20) {
+    }
+    return 1;
+}
 
 extern "C" int func_00123EB8(int a) {
     int r = 0;

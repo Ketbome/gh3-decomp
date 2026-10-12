@@ -128,9 +128,29 @@ INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113988);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_001139E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113A70);
+extern "C" void func_00113A70(char* d, const char* s) {
+    while (*d) {
+        d++;
+    }
+    while (*s) {
+        *d = *s;
+        s++;
+        d++;
+    }
+    *d = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113AC8);
+extern "C" void func_00113AC8(char* d, int n, const char* s) {
+    while (*d) {
+        d++;
+    }
+    while (*s) {
+        *d = *s;
+        s++;
+        d++;
+    }
+    *d = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113B20);
 

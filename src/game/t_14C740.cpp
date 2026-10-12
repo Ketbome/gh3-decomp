@@ -30,11 +30,19 @@ void func_00182940(void);
 void func_00181C38(void);
 void func_00181C58(void);
 void func_0014C740(int, int);
+void func_0014C560(void*, int, int);
+extern u8 D_00377FC0[];
 void func_0014DA60(int, int);
 void func_0014D010(void);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014C740);
+extern "C" void func_0014C740(int a, int b) {
+    if (b == 0xFFFF && a) {
+        func_0014C560(D_00377FC0, 8, 0);
+        for (int i = 0x7F; i != -1; i -= 0x20) {
+        }
+    }
+}
 
 extern "C" void func_0014C7A0(void) {
     func_0014C740(1, 0xFFFF);

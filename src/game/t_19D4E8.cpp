@@ -56,7 +56,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019E1E8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019E2B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019E318);
+extern "C" void func_0019E318(u64 a, u64 b) {
+    U64P_19D* p = D_00373270;
+    p->v = b;
+    p++;
+    p->v = a;
+    p++;
+    D_00373270 = p;
+}
+
+static inline void Put_19D(u64 v) {
+    U64P_19D* p = D_00373270;
+    p->v = v;
+    D_00373270 = p + 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019E340);
 
@@ -107,7 +120,10 @@ extern "C" int func_0019EC88(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ECE8);
+extern "C" void func_0019ECE8(void) {
+    while (!func_0019EC88()) {
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ED10);
 

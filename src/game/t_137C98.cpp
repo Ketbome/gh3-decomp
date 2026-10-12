@@ -90,6 +90,11 @@ void func_00138010(void*, S137_P*, int, S137_Col);
 void func_00159768(void*, int, int);
 void func_00157760(void*, int, int);
 int func_001384B0(void*, S137_P*);
+extern int D_00371298;
+extern void* D_00371288[2];
+void* func_0011C2A8(void*);
+int func_00119610(S137_H*, int);
+void* func_00118F20(S137_H*, u32, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137C98);
@@ -129,7 +134,20 @@ extern "C" int func_001384B0(void* self, S137_P* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_001384F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138790);
+extern "C" void* func_00138790(u32 size) {
+    void* pool = D_00371288[D_00371298];
+    if (pool) {
+        void* r = func_0011C2A8(pool);
+        if (!r) {
+            S137_H* heap = D_00368A38;
+            func_00119490(heap, func_00119610(heap, 1));
+            r = func_00118F20(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return r;
+    }
+    return func_00118F20(D_00368A38, size, 1, 0);
+}
 
 extern "C" void func_00138850(int a, int b) {
     if (b == 0xFFFF && a) {

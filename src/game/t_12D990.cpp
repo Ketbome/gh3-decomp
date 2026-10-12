@@ -379,7 +379,15 @@ extern "C" void func_0012F618(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012F620);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012F8D0);
+extern "C" S12D_E* func_0012F8D0(S12D_E* self, int a) {
+    func_0012E600((S_0012E600*)self, a);
+    self->unk14 = D_00339ED8;
+    for (int i = 0x7F; i != -1; i -= 0x20) {
+    }
+    for (int j = 0x7F; j != -1; j -= 0x20) {
+    }
+    return self;
+}
 
 extern "C" void func_0012F958(S12D_E* self, int flags) {
     self->unk14 = D_00339ED8;

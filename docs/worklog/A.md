@@ -62,7 +62,7 @@ func_001149D8 func_00114A18 func_00114A78
 
 Given up:
 - func_00113988 (strcmp), func_001139E0 (stricmp): loop/branch layout; ~12 variants
-- func_00113A70, func_00113AC8 (strcat): original has nops inside the short loop (assembler R5900 fix)
+- func_00113A70, func_00113AC8 (strcat): solved after the short-loop padding fix (A6)
 - func_00113770: c/r register swap (a0 vs v1); 5 tries
 - func_00113BF8, func_00114C70: unrolled loops (-funroll-loops style), not attempted
 
@@ -129,7 +129,7 @@ Given up:
 - func_0011F3A8: li -1 lands in v0 instead of v1; 1 try
 - func_00120E00: globals are `volatile` (DI/EI around them, fixes the delay slot), but the xori lands in v0
   instead of v1; 5 tries
-- func_001206D0: two-entry search, original keeps nops in delay slots; 2 tries (also not -funroll-loops)
+- func_001206D0: two-entry search, original keeps nops in delay slots; 3 tries (also not -funroll-loops, not volatile)
 - func_0011FA98, func_0011F8D0, func_0011F9A8, func_001208C0: unrolled/loop code, not attempted
 
 ## t_1210C8
@@ -142,7 +142,7 @@ static counter decrement, keep `&field` in a variable)
 
 Given up:
 - func_001224F8: final `lw` not in the jr delay slot (branch-target label); 1 try
-- func_00122FF8: div.s with hazard nops, not attempted
+- func_00122FF8: div.s with two hazard nops before it (assembler); C is `p->unkC / p->unk10`, ours fills the jr slot
 
 ## t_1230D0
 
@@ -153,7 +153,7 @@ func_00124688
 Given up:
 - func_00123568: matched on retry (inline li.s now works)
 - func_00123778: `li a2,512` / `sw` order swapped; 1 try
-- func_00123E68: delay loop with nops, not attempted
+- func_00123E68: solved (A6): `for (i = 0xFF; i >= 0; i -= 0x20) {}` after the call
 - func_00123B68, func_00123BB0, func_00123C00, func_00123C60: list iterator kept on the stack, not attempted
 
 ## t_1277C0
@@ -195,11 +195,12 @@ Given up:
 - func_0012D298: matched later (base ctor declared returning a pointer)
 - func_0012C780: `sra` in the jal delay slot then `andi s0; move v0,s0` after the call; 8 tries (same quirk as
   func_0012A9A0)
-- func_0012D028, func_0012D0E8: pooled new/delete (same source as t_1298B0's), blocked by the toolchain: gcc emits
+- func_0012D028, func_0012D0E8: solved after the one-pass `la` fix (A6). Was: pooled new/delete, blocked: gcc emits
   `la $3,D_00371470` (8-byte array, small) and asm_filter does not expand `la` to lui/addiu like SN's assembler;
   declaring it unsized makes gcc split lui/addiu itself and schedule them apart
 - func_0012BD38, func_0012D000, func_0012C750, func_0012BCD8, func_0012CEE0, func_0012D210: split tails
-- func_0012CF40: iterator on the stack; func_0012D1A0: nop delay loops; func_0012BF38: jtbl
+- func_0012CF40: iterator on the stack; func_0012BF38: jtbl
+- func_0012D1A0: solved (A6): two empty `for (i = 0x7F; i != -1; i -= 0x20) {}` loops
 - func_0012BE38: not attempted yet (virtual call through container)
 
 ## t_12D990
@@ -214,7 +215,8 @@ func_0012EFE0 func_0012F228 func_0012F258 func_0012F2E0 func_0012F368 func_0012F
 - Store order: gcc often emits a run of stores as [last, first, second, ...]; permute the source.
 
 Given up:
-- func_0012F8D0: nop delay loops; func_0012E5F8: split tail
+- func_0012F8D0: solved (A6): two empty delay loops; each needs its own loop variable (`int i`, `int j`)
+- func_0012E5F8: split tail
 - larger ones (>0x90) not attempted yet
 
 ## t_12F9A0 (`// cflags: -funroll-loops`)
@@ -277,10 +279,11 @@ Matched 1 (gp retry, solved): func_00137F38 (color by value = class with copy ct
 - Float literals must be the exact float (57.2957763671875f, 0.01745329424738884f) or the low bits differ.
 
 Given up:
-- func_00137E30, func_00137EB0: the last `sdr` is not put in the jr delay slot by SN's assembler (ours fills it)
+- func_00137E30, func_00137EB0: the last `sdr` is not put in the jr delay slot by SN's assembler (ours fills it);
+  still differs after the usd fix (A6, `*dst = D_0032A520`)
 - func_00138E78: `li 0x19F1C; addu; lw 0` not folded in the original (ours folds the offset); 3 tries
 - func_001396D0: 128-bit != compare (pceqw/ppacb), gcc 2.95 rejects TImode compares
-- func_00138790: pooled new, blocked by `la` of D_00371288 (see t_12B970)
+- func_00138790: solved after the `la` fix (A6)
 - func_00138A18: float lanes of 128-bit values; func_00138B08, func_00138950, func_00138E60: split tails
 
 ## t_139CE8
@@ -292,7 +295,8 @@ Matched 7: func_00139CE8 func_00139EB0 func_00139EE0 func_00139FC0 func_0013A010
 - func_00139EE0: `andi; movz` comes from an inline `if (x & 0x4000) return 1; return 0;` helper.
 
 Given up:
-- func_00139F98: has assembler load-delay nops (`lw; nop; beqz`), not gcc -O2 output
+- func_00139F98: last sibling walk; the original reloads `c->unk84` in the bnezl delay slot and its loop is not
+  rotated; while/for/goto forms tried (A6), 4 tries
 
 ## t_13BE78
 
@@ -303,7 +307,7 @@ func_0013D2D0 func_0013D360 func_0013D6E8
   vtable address lands in v0 instead of v1 (func_0013CC28). This also explains func_00134700 / func_0012D298.
 
 Given up:
-- func_0013C678, func_0013C5F8: short loops with an assembler-inserted nop before the back branch (R5900 fix)
+- func_0013C678, func_0013C5F8: solved after the short-loop padding fix (A6): recursive walks over unk78/unk84
 - func_0013CE58, func_0013CF78: recursive bool check; our gcc either tail-converts or adds `move v1,v0`; 5 tries
 - func_0013C1F0: parent walk with a ref temp; loop variable copied (move a0,s0) and rotated; 3 tries
 
@@ -523,7 +527,8 @@ Given up / open:
 - func_0014DC38: matched after the prelude fix 703ed82
 - func_0014D010: 0x222E0 `lui a1` hoisted before the prologue in ours; 1 try
 - func_0014E6A8: list walk; head uses `v0 = 0; movn v0,a0,...`, ours movz; 2 tries
-- func_0014C740: delay loop of nops (asm); func_0014E148: split head
+- func_0014C740: solved (A6): call + empty delay loop
+- func_0014E148: split head
 
 ## t_1550C0
 
@@ -559,10 +564,11 @@ earlier)
   store `base[2] = q` aliases everything, so `e[0]` is read into a temp before it.
 
 Given up:
-- func_0019E318, func_0019E340: unaligned u64 stores (packed struct) come out `sdl; sdr`, the original has
-  `sdr; sdl` (assembler `usd` expansion order?)
+- func_0019E318: solved after the usd fix (A6)
+- func_0019E340: usd fixed, but the 2nd store goes through `a1 = p+8` (ours folds `8(p)`); inline/post-increment
+  forms tried (A6), 4 tries
 - func_0019E2B8: same as func_0019EB10 with `/ 12`; e/v0 register swap left; 2 tries
-- func_0019ECE8: nop delay loop
+- func_0019ECE8: solved (A6): `while (!func_0019EC88()) {}`
 
 ## t_19F538
 
@@ -571,7 +577,9 @@ D_00373304, prev at 0x4C; func_0019F7E0 = the unlink inline with first == last)
 
 Given up:
 - func_001A01F0, func_001A0468: u64 bitfield at 0x10; `move v0,a0` / v0-v1 order differs; 2 tries each
-- func_0019F790, func_0019FEB0, func_001A1330: short loops with nops; func_001A1318: split fragment
+- func_0019F790, func_0019FEB0, func_001A1330: solved (A6); func_0019F790 needs `if (!*head)` then `p = *head`
+  in the else
+- func_001A1318: split fragment
 
 ## t_19B448
 
@@ -580,7 +588,7 @@ Matched 3 (+ func_0019BF10 earlier): func_0019C208 func_0019B668 func_0019CFE8 (
 
 Given up:
 - func_0019B778: pad-to-16 byte loop; ours increments in place, original copies `p+1` through another register; 4 tries
-- func_0019B978: unaligned u64 store order (`sdr; sdl`), as t_19D4E8 func_0019E318
+- func_0019B978: usd fixed; register allocation of table/value (a1/v1 vs v1/a1) and p+8/p+12 order; 5 tries (A6)
 - func_0019D248: split head (alabel func_0019D258)
 
 ## t_185918
