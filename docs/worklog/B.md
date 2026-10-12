@@ -246,3 +246,26 @@ Given up:
 - func_001E8FA0: v0/v1 swapped between the global and the checksum local; 3 tries
 - func_001E7998: v0/v1 choice for the vtable address; 1 try
 - func_001E7EA8, func_001E8FF0, func_001E8E40: split tails
+
+## Session 3
+
+Hash table inlines (verified by match in t_1E95C0): table `{s32 bits; HNode* buckets; s32 count; s32 iterIdx;
+HNode* iterNode; u8; u8 unk15}`, node `{u32 key; void* val; HNode* next}` (12 bytes, `mult` by 12). `Get(const u32&)`
+(key spilled to the stack), `Start()` (iterIdx=-1, iterNode=0) and `GetNext()`; the exact forms are in t_1E95C0
+(`Next()` with a separate `Scan(size)` for-ever loop, `GetNext` with one result variable `r`).
+Base constructors take the derived constructor's arguments through (`func(p, a)`): declaring them so fixes the
+prologue order (`sd s1` before `move s0,a0`) and the v0/v1 choice of the vtable store.
+
+## t_1E95C0
+
+Matched 26: func_001E9858 func_001E9998 func_001E9C08 func_001E9CB0 func_001E9D98 func_001E9DA8 func_001E9E48 func_001E9E58 func_001EA190 func_001EA1D0 func_001EA1E0 func_001EA208 func_001EA218 func_001EA430 func_001EA4A0 func_001EA510 func_001EA600 func_001EA6B0 func_001EA6C0 func_001EA6E8 func_001EA6F0 func_001EA988 func_001EA990 func_001EAF58 func_001EAF68 func_001EB1C0
+
+Given up:
+- func_001E99A0: D_00368A38 macro load scheduled before the vtable store in the original, ours in the jal delay slot (3 tries)
+- func_001EA578: `if (a && f()) k = 0;` becomes movn in ours, branch-likely in the original (3 tries)
+- func_001EB218: `!bool_call()` is xori+beqz in the original, ours folds the branch or hoists li 1 (4 tries)
+- func_001EA830: arg setup order of the second func_0027CC30 call (li a2 first in ours); 7 tries
+- func_001EAA68, func_001EABC0: `for (Start(), v = GetNext(); ...)`: in the folded first GetNext the loop's false block lands before the loop in ours, after it in the original (6 tries)
+- func_001EB338, func_001EB2B0, func_001EA060: short loops padded with nops
+- func_001E97C8, func_001EA798, func_001E9A00, func_001EA118, func_001EA318, func_001EB378: macro symbol gp_rel in a delay slot
+- func_001E95C0, func_001EB170, func_001EB2F0, func_001EA9D8, func_001E9980, func_001EA970: split tails / data
