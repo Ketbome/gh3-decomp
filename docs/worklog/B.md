@@ -6,6 +6,43 @@ Skipped as a class (toolchain, not source): functions that save `$s0..$s7` (orig
 most loads of non-gp globals done as `lui $x; lw $x, %lo(..)($x)` into one register (assembler-macro form in the
 original; our gcc splits `%hi` into a separate register, it only lines up by chance).
 
+Toolchain findings (for the integrator, not fixable from source):
+- `scripts/fcheck.py --all` only checks `func_*` names; check `CFunc_*` and other names explicitly.
+- `scripts/fcheck.py` drops the relocation of an instruction that follows a bare `nop` (the `\s+` in its line regex
+  eats the newline), so such functions report DIFFERS even when identical (t_1B2168 func_001B3BA8, func_001B3C98).
+- Loops unrolled x4/x8/x16 (`andi n,3` preconditioning, `li 31; addiu -16; bgez`) come out byte-identical with
+  `-funroll-loops` added; -O2 alone never unrolls. Other files (t_1ABAA0 func_001ACCC0) match without it, so the
+  flag looks per object.
+- Short loops padded with 3 nops before the back branch (SN assembler r5900 short-loop fix); our gas does not pad.
+- `cvt.w.s` (float to int) is rejected by our assembler for r5900.
+
+Compiler habits that helped: single-bit tests `andi+sltu` need an inline member `bool Test(m) { return (f & m) != 0; }`
+(a direct `(x & 4) != 0` folds to a shift); a callee declared to return int changes `$v0`/`$v1` choice; returning
+the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments passed through untouched (a1..a3
+live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
+call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
+
+## t_1ABAA0
+
+Matched 0.
+
+Given up:
+- func_001ACF98: short loop padded with 3 nops (assembler short-loop fix); C otherwise lines up
+
+## t_1BF628
+
+Matched 0.
+
+Given up:
+- func_001BF9C8: address of D_00372D58 built by an la macro (nop in the branch delay slot); ours splits it and hoists lui
+- func_001BFDD8: short loop padded with 3 nops (SN assembler r5900 short-loop fix), our gas does not pad
+
+## t_1B4190
+
+Matched 0. func_001B5BD0..func_001B5C80 and func_001B47B8, func_001B46C0: macro-form non-gp global loads/stores
+(tried func_001B5BD0..5C80: `%hi` lands in another register).
+
+
 ## t_1CBB50
 
 Matched 52: func_001CBC10 func_001CBC58 func_001CBC60 func_001CBC70 func_001CBC78 func_001CBC98 func_001CBCC0 func_001CBCC8 func_001CBCD8 func_001CBCF0 func_001CBCF8 func_001CBD10 func_001CBD20 func_001CBD28 func_001CBD30 func_001CBD48 func_001CBD70 func_001CBD78 func_001CBD88 func_001CBD90 func_001CBD98 func_001CBDA0 func_001CBDA8 func_001CBDB0 func_001CBDB8 func_001CBFE8 func_001CC050 func_001CC070 func_001CC090 func_001CC0A0 func_001CC0B0 func_001CC0C0 func_001CC0D0 func_001CC0E8 func_001CC170 func_001CC198 func_001CC258 func_001CC260 func_001CC270 func_001CC2D8 func_001CCE00 func_001CD1F0 func_001CD2B8 func_001CD640 func_001CD678 func_001CD6B0 func_001CD6B8 func_001CD6C0 func_001CD6D0 func_001CDA00 func_001CDA20 func_001CDA40
