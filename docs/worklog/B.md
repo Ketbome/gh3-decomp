@@ -419,3 +419,26 @@ Given up:
 - func_001FED08: MakeVec(0,0,0,1) register choice (zero in a2, hi in v1 in the original); 2 tries
 - func_001FDDC0: constructor with dead u8[4] stores and u64 bit clears; not attempted
 - func_001FEB48, func_001FDC60: VU0; func_001FEB08: split tail
+
+## t_2001E0
+
+Matched 27 (session 5): func_002005E8 func_00201A40 func_00201A70 func_00200AD8 func_00200F58 func_002019E8 func_00200C58
+func_00200E10 func_00200DB8 func_00200E68 func_002004C0 func_00201C80 func_00201980 func_00200CA8 func_00201BF8
+func_00200D28 func_00201008 func_00200428 func_00201460 func_002018E0 func_00200520 func_00201B50 func_00201AA0
+func_002012B0 func_00201500 func_00201CF0 func_00201730
+
+Notes (verified by match): long runs of stores (func_00201AA0): the scheduler emits the LAST store of each kind
+(sw / sq / swc1) first, in source order of those, then the rest in source order; so put the store that must come
+first at the end of its kind's group. `&p->m[1][i]` with an inline `f32& operator[](int)` on a row struct gives the
+`(p+row) + i*4` address order. A value read right after a call into a saved reg in the branch delay slot:
+`ok = f(.., &a, ..); id = a; if (ok)`. A 4-case switch whose cases each end in the same `if (!x) kill(q)` is
+cross-jumped into one tail (func_00200520). `delete (T*)p` with a virtual dtor (vptr at 0x104) gives the dtor(3) call.
+Toolchain (for the integrator): the original never has `div.s` or `cvt.*` in a branch/jal delay slot (0 of either
+in the whole game, vs 315 mul.s); ours fills slots with them (func_002009B0, t_1FDB00 func_001FDB08).
+
+Given up:
+- func_002009B0: div.s/cvt.s.w placed in delay slots by ours only (toolchain, see above)
+- func_00200380: constructor; prologue (`move s0,a0` in the jal delay slot) and member addresses s1/s2 hoisted (2 tries)
+- func_00202158: 64-byte struct copies (lq/sq through a computed dst pointer; stack copy order); 2 tries
+- func_002001E8: static init with ldl/sdl copies; func_00201130 func_002011C0 func_002015F8: VU0
+- func_002001E0, func_00200A70: split tails
