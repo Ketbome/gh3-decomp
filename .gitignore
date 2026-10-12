@@ -1,0 +1,13 @@
+*.iso
+/disc/
+/tools/
+/.venv/
+/build/
+/asm/
+/assets/
+*.o
+.splache
+__pycache__/
+/build.ninja
+.ninja_*
+.DS_Store

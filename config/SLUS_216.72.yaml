@@ -1,0 +1,79 @@
+name: Guitar Hero III - Legends of Rock (USA) (SLUS-21672)
+sha1: cd97d0be4779d21af9467e569bd5ccbde863e41f
+options:
+  basename: SLUS_216.72
+  target_path: disc/SLUS_216.72.rom
+  elf_path: build/SLUS_216.72.elf
+  base_path: ..
+  platform: ps2
+  compiler: EEGCC
+
+  gp_value: 0x00370070
+  ld_gp_expression: cod_SDATA_START + 0x7FF0
+
+  ld_script_path: build/SLUS_216.72.ld
+  ld_dependencies: True
+  ld_wildcard_sections: True
+  ld_bss_contains_common: True
+
+  create_asm_dependencies: False
+  generate_asm_macros_files: False
+
+  find_file_boundaries: False
+
+  o_as_suffix: True
+
+  symbol_addrs_path:
+    - config/symbol_addrs.txt
+  reloc_addrs_path:
+    - config/reloc_addrs.txt
+
+  undefined_funcs_auto_path: build/undefined_funcs_auto.txt
+  undefined_syms_auto_path: build/undefined_syms_auto.txt
+
+  string_encoding: ASCII
+  data_string_encoding: ASCII
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+
+  named_regs_for_c_funcs: False
+
+  section_order:
+    - .text
+    - .data
+    - .rodata
+    - .gcc_except_table
+    - .sdata
+    - .sbss
+    - .bss
+
+  auto_link_sections:
+    - .data
+    - .rodata
+    - .gcc_except_table
+    - .sdata
+    - .sbss
+    - .bss
+
+# Offsets are into disc/SLUS_216.72.rom, the flat image objcopy makes of the ELF (vram - 0x100000).
+# Each subsegment runs up to the next one, so the zero padding between ELF sections is included.
+segments:
+  - name: cod
+    type: code
+    start: 0x000000
+    vram: 0x00100000
+    bss_size: 0xB5E08
+    subalign: null
+    subsegments:
+      - [0x000000, asm, cod/temp_init] # .temp_init (crt0; overwritten by .stack at run time) + gap
+      - [0x00C000, asm, cod/text] # .text
+      - [0x100308, cpp, game/probe]
+      - [0x100380, asm, cod/text_100380]
+      - [0x221080, textbin, cod/vutext] # .vutext (VU1 microcode)
+      - [0x22A080, data, cod/data] # .data
+      - [0x237800, rodata, cod/rodata] # .rodata
+      - [0x268000, gcc_except_table, cod/gcc_except_table] # .gcc_except_table
+      - [0x268080, sdata, cod/sdata] # .sdata
+      - { type: sbss, vram: 0x00372A80, name: cod/sbss } # .sbss
+      - { type: bss, vram: 0x00373400, name: cod/bss } # .bss
+  - [0x272A40]
