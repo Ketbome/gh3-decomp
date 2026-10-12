@@ -442,3 +442,18 @@ Given up:
 - func_00202158: 64-byte struct copies (lq/sq through a computed dst pointer; stack copy order); 2 tries
 - func_002001E8: static init with ldl/sdl copies; func_00201130 func_002011C0 func_002015F8: VU0
 - func_002001E0, func_00200A70: split tails
+
+## t_202258 (`// cflags: -funroll-loops`, needed by func_00203A18)
+
+Matched 9: func_00202D50 func_00204248 func_00203448 func_002028D8 func_00202828 func_00203A18 func_00202C88 func_00203208 (+func_00203448)
+
+Notes: a 64-byte copy done as `lq 0xA0(v1); addiu a1,v1,0xA0; addiu a2,v1,0x100; sq ...; lq 0x10(a1); sq 0x10(a2)` is an
+inline `M& operator=(const M&)` copying the four u128 rows (a plain struct assignment folds every offset).
+Toolchain (for the integrator): the original has `nop; nop` before a `div.s` that starts a branch target
+(func_002034A8, func_00202D90); our build does not insert them.
+
+Given up:
+- func_002034A8, func_00202D90: `nop; nop; div.s` at a branch target (toolchain)
+- func_00203058: &t kept in a saved register and stack slot order v/t/f (frame 0x60); 4 tries
+- func_00203858: long float logic; not attempted. VU0: func_00202258 func_00202400 func_00202960 func_00203138 func_00203318 func_00203AD8 func_00202ED0
+- func_00203440: split tail
