@@ -1,4 +1,10 @@
 #include "common.h"
+struct S2D4468_A {
+    int unk0;
+    int unk4;
+    int unk8;
+};
+
 
 struct S2D5878_0 {
     s32 unk0;
@@ -30,13 +36,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5A90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5B48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5BC0);
+extern "C" void func_002D5BC0(S2D4468_A *p) {
+    p->unk0 = 0;
+    p->unk4 = 0;
+    p->unk8 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5BD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5C88);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5CB0);
+extern "C" void func_002D5CB0(S2D4468_A *p) {
+    p->unk0 = 0;
+    p->unk4 = 0;
+    p->unk8 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5CC0);
 
