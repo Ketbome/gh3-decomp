@@ -194,3 +194,18 @@ Given up:
 - func_0012BD38, func_0012D000, func_0012C750, func_0012BCD8, func_0012CEE0, func_0012D210: split tails
 - func_0012CF40: iterator on the stack; func_0012D1A0: nop delay loops; func_0012BF38: jtbl
 - func_0012BE38: not attempted yet (virtual call through container)
+
+## t_12D990
+
+Matched 22: func_0012D990 func_0012DA00 func_0012DF30 func_0012E228 func_0012E3B8 func_0012E628 func_0012E668
+func_0012E6D0 func_0012E6F0 func_0012E728 func_0012E790 func_0012E818 func_0012ED80 func_0012EE08 func_0012EF50
+func_0012EFE0 func_0012F228 func_0012F258 func_0012F2E0 func_0012F368 func_0012F5B0 func_0012F958
+(func_0012E870, func_0012EE68, func_0012F348, func_0012F980 retyped to pass (self, params))
+
+- `delete[]` of an array of objects with a virtual destructor (func_0012DF30): 16-byte cookie, dtor called with 0;
+  the file defines `inline void operator delete[](void* p) { func_00119400(D_00368A38[0], p); }`, which matches.
+- Store order: gcc often emits a run of stores as [last, first, second, ...]; permute the source.
+
+Given up:
+- func_0012F8D0: nop delay loops; func_0012E5F8: split tail
+- larger ones (>0x90) not attempted yet
