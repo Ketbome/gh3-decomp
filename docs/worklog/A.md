@@ -319,3 +319,24 @@ Given up:
 - func_00141B70: matches except our assembler inserts a nop after `mfc1 v0` before `sb v0` (hazard), SN's did not
 - func_00141A40, func_00141B00: `ori a1`/`move a0` order and .sdata load scheduling around calls; 4 tries
 - func_00141988 (split), func_00141658, func_00141668, func_00141AF8: split tails
+
+## t_152E18
+
+Matched 35: func_00153150 func_00153178 func_001531A0 func_001531C8 func_001531F0 func_00153218 func_00153240
+func_00153D80 func_00153DB0 func_00153F98 func_00154078 func_001540A8 func_00154108 func_00154510 func_00154640
+func_00153430 func_00153F08 func_00153F38 func_00153F68 func_00153FC8 func_00153FF8 func_001540D8 func_00152E88
+func_00153100 func_00153588 func_00154608 func_00154708 func_001546B8 func_00154670 func_001541A0 func_001544B8
+func_001547C8 func_00153510 func_00154750 func_00153810
+
+- An asm-label alias (`extern int X_lo[] __asm__("D_00368A38") __attribute__((section(".sdata")))` next to the
+  scalar) does NOT solve the both-forms problem: gcc emits `lw $4,D_00368A38` for both and the scalar's
+  `.extern D_00368A38,4` makes gas pick %gp_rel for every use. A real fix needs asm_filter (scripts/) to expand
+  non-delay-slot loads of .sdata symbols to lui/%lo like SN's assembler did.
+- func_00152E88: returning the virtual call's result fixed the vt/fn register order.
+
+Given up:
+- func_001537E0, func_00154430, func_00153DE0, func_00153E70: D_00368A38 lui/%lo while the file uses %gp_rel
+- func_00152E18, func_00152ED8: original keeps the 2nd arg in a1 until the delay slot and loads the object into
+  a2; ours moves a1 to s1 first; 2 tries
+- func_00152F48: dead `lw v0,0x10(a0)` before a virtual call, not reproduced
+- func_00153408, func_00153078, func_00153010: split tails
