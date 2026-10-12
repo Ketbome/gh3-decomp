@@ -102,6 +102,8 @@ s32 func_00160A90(void*, s32, s32, s32);
 void func_0010F690(void*);
 s32 func_001EED78(void*, void*, s32, s32, s32, s32, s32, f32, f32);
 void func_0027C448(void*, u32, s32);
+extern s32 D_00372B58;
+extern s32 D_0036C798;
 }
 
 extern "C" void func_001EF6D0(S1F0010* p) {
@@ -384,10 +386,30 @@ extern "C" s32 func_001F07C8(void* p) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1EF6D0", func_001F07E8);
+extern "C" int func_001F07E8(S1F0010* p, void* s) {
+    s32 a = 0;
+    bool missing = !func_0027D870(s, 0xA1DC81F9, &a, 0);
+    if (missing) func_0027D870(s, 0, &a, 1);
+    s32 b;
+    func_0027D188(s, 0x286A8D26, &b, 1);
+    s32 c = 0;
+    missing = !func_0027D870(s, 0x7E4813A7, &c, 0);
+    if (missing) c = D_00372B58;
+    s32 d = 0;
+    func_0027D870(s, 0x32EC33F0, &d, 0);
+    D_0036C798 = d;
+    func_001EF6F8(p, a, (void*)b, &c);
+    return 1;
+}
 
 static inline bool Has1F08D8(void* a, u32 k, s32* v) { return func_0027D870(a, k, v, 0); }
-INCLUDE_ASM("asm/nonmatchings/game/t_1EF6D0", func_001F08D8);
+extern "C" int func_001F08D8(S1F0010* p, void* s) {
+    s32 a = 0;
+    bool missing = !func_0027D870(s, 0xA1DC81F9, &a, 0);
+    if (missing) func_0027D870(s, 0, &a, 1);
+    func_001619D8(p->unk210, a);
+    return 1;
+}
 
 extern "C" s32 func_001F0950(void* p, void* a) {
     s32 v = 0;

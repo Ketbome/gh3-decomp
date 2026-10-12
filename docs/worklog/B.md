@@ -480,3 +480,6 @@ Given up:
   `__attribute__((section(".sdata")))` so gcc emits `la`; the matched readers of the same arrays still match)
 - t_1E95C0: func_001EB2B0 (`c = n; do c = c->next; while (c);`), func_001EB338, func_001EA060, func_001EB218
   (`bool missing = !f(); if (missing)` + `if (!prev) head = next; else prev->next = next;`) MATCH
+- t_1EF6D0: func_001F07E8 func_001F08D8 MATCH (`bool missing = !f(...); if (missing)`)
+- t_1F1750: func_001F32F0 MATCH. Habit: a checksum `switch` compares cases in VALUE order of the switch type:
+  switch on `(u32)k` when the smaller-unsigned key is compared first; case bodies follow source order.

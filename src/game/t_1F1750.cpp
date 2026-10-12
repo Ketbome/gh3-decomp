@@ -196,6 +196,9 @@ extern char D_0034EF60[];
 extern char D_0034EEE8[];
 extern s32 D_00372DF8;
 void func_001F3DC0(void*);
+bool func_0027D268_b(void*, u32, f32*, int) asm("func_0027D268");
+s32 func_0010C050(s32);
+s32 func_003174C0(f32);
 }
 
 extern "C" s32 func_001F1750(S1F1750* p, void* a, void** b) {
@@ -473,7 +476,37 @@ extern "C" void func_001F32C8(char* p) {
     func_001D0F90(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F1750", func_001F32F0);
+extern "C" void func_001F32F0(char* p, void* s) {
+    s32 k;
+    f32 t = 0.0f;
+    if (func_0027D870(s, 0xAF06447B, &k, 0)) {
+        switch ((u32)k) {
+        case 0x0203B372:
+            *(s32*)(p + 0x1C) = 1;
+            *(s32*)(p + 0x24) = D_00370F40[0] + func_00275570();
+            break;
+        case 0xD43297CF:
+            *(s32*)(p + 0x1C) = 0;
+            break;
+        }
+    }
+    bool missing = !func_0027D870(s, 0x1869F559, (s32*)(p + 0x2C), 0);
+    if (missing) {
+        missing = !func_0027D268_b(s, 0xC218CF77, &t, 0);
+        if (missing) {
+            f32 lo;
+            f32 hi;
+            func_0027D268(s, 0x234EA94E, &lo, 1);
+            func_0027D268(s, 0xB33DB9A4, &hi, 1);
+            f32 d = hi - lo;
+            t = lo + d * (f32)func_0010C050(10000) * 0.0001f;
+        }
+    }
+    s32 r = func_003174C0(t * 1000.0f);
+    *(s32*)(p + 0x20) = r;
+    *(s32*)(p + 0x28) = r;
+    *(s32*)(p + 0x24) = D_00370F40[0] + func_00275570();
+}
 
 extern "C" void func_001F3478(S1F1750_V* p, void* a) {
     p->v3(a);
