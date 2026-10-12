@@ -167,7 +167,7 @@ Matched 32: func_001D4540 func_001D4560 func_001D4580 func_001D45A0 func_001D460
 
 Given up:
 - func_001D55D8: xor operand/load order of two flag bits (5 tries, plain, temps, bitfields)
-- func_001D5870, func_001D5D28, func_001D5F60, func_001D59E8: D_00368A38 is macro-form (no .extern) but gp_rel when in a branch delay slot (original assembler); our gas expands the macro into the slot
+- func_001D5D28, func_001D5F60, func_001D59E8 (func_001D5870 matched in session 4 with the new asm_filter): D_00368A38 is macro-form (no .extern) but gp_rel when in a branch delay slot (original assembler); our gas expands the macro into the slot
 - func_001D4BB0: original copies the hoisted key load (move t0,v1); 4 tries
 - func_001D5CB0: callee-saved register assignment of passed-through args (2 tries)
 
