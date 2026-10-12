@@ -439,3 +439,16 @@ func_002756A8, func_00276720, func_00277298 were not in the file (lost before co
 plus func_002756A8 (strdup into heap 5).)
 - func_00277298: original adds the region sizes to the `D_7000100` address in registers (`lui/ori` + `addu`);
   gcc folds symbol+constant. func_00276720: pool alloc, same problem as t_286A60 func_00288000.
+
+### t_28AB28 (+8) -- file now has `// cflags: -funroll-loops`
+func_0028AB70, func_0028ADE8, func_0028B738, func_0028B7D0, func_0028B840, func_0028B910, func_0028C590,
+func_0028C770 (search loops unrolled by 4); func_0028C570 now forwards `(p, v)`.
+(Flag test kept as `srl 10; andi 1`: inline `bool B10() { return (word >> 10) & 1; }`; clears of two bits as
+1-bit bitfields keep two `and`s; `b = !b` written as `if (b) b = 0; else b = 1;` stays branchy. vptr placed
+after the data members: data that follows the vptr goes in a derived struct.)
+Given up:
+- func_0028ACA8, func_0028AD40: push `stack[++n] = v` gives `addu base,idx` (original `addu idx,base`) and the
+  pop load is scheduled differently; 4 forms (inline Push/Pop).
+- func_0028BE80: 2-case switch tree rooted at 0x20 here, at 0x21 in the original (case order does not matter).
+- func_0028C518, func_0028C4B0: u32->float; the original leaves the `b` delay slot after `cvt.s.w` empty (gas
+  fills it). Toolchain.
