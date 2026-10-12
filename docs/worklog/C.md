@@ -415,3 +415,18 @@ Given up:
   5 loop forms give the duplicated-test shape.
 - func_00290C40 (fragment + `alabel`), func_00291C40/func_00291F08/func_00291FC0/func_00292130 (hash table, short
   loops in 291FC0): not tried.
+
+### t_286A60 (+13)
+func_00287578, func_00287EB0, func_00287EF0, func_00287F50, func_002880B8, func_00288170, func_002881F8,
+func_00288238, func_00288410, func_002886F8, func_002887D8, func_00288808, func_00288910
+(Pool free templates: `if (pl && pl->Has(p))` with `Has` an inline `p >= start && p < end`, and the pool index
+global read again for `[idx ^ 1]`. A `la` of an extern 8-byte array the original expanded to lui/addiu: keep the
+old `extern T D[] __attribute__((section(".sdata")))` declaration (asm_filter does not rewrite `la`).
+func_00288678+8 is a real function start: referenced as `(char *)func_00288678 + 8`.)
+Given up:
+- func_00288888: bit-7 test is `lbu; dsrl 7` in the original; u32 bitfield, inline bool getter and u8 read give
+  `andi`/`srl` (3 forms).
+- func_00288000 (pool alloc): `if (r) return r;` comes out `bnez` (gcc knows v0 == s0) instead of
+  `bnezl` + `move v0,s0`; 4 forms.
+- func_002874A8 (movz bracket counter loop), func_00288A20, func_002882E8, func_002884A0: not tried.
+- func_00286A60/func_00287498/func_002882C0/func_002882D8/func_00287F30/func_00288778/func_00288990: fragments.
