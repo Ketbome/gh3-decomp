@@ -80,7 +80,10 @@ extern "C" void func_00269208(S00269208* p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00269218);
+extern "C" S00269208 *func_00269218(S00269208 *p) {
+    func_00269208(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00269240);
 
@@ -149,7 +152,10 @@ extern "C" void func_0026A730(S00269208* p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026A740);
+extern "C" S00269208 *func_0026A740(S00269208 *p) {
+    func_0026A730(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026A768);
 
@@ -159,7 +165,10 @@ extern "C" void func_0026A948(S00269208* p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026A958);
+extern "C" S00269208 *func_0026A958(S00269208 *p) {
+    func_0026A948(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026A980);
 
