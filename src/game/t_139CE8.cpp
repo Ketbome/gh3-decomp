@@ -1,8 +1,96 @@
 #include "common.h"
 
+struct S139_X;
+
+static inline int S139_Locked(struct S139_X* self);
+
+struct S139_R {
+    S139_X* p;
+    int unk4;
+    int unk8;
+};
+
+struct S139_X {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x1C];
+    int unk2C;
+    char pad30[0x48];
+    S139_X* unk78;
+    char pad7C[0x8];
+    S139_X* unk84;
+    char pad88[0x18];
+    float unkA0;
+    char padA4[0x4C];
+    float unkF0;
+    char padF4[0x4C];
+    float unk140;
+};
+
+extern "C" {
+void func_001CE868(S139_X*, S139_R*);
+void func_001CE888(S139_X*, S139_R*);
+void func_0013C080(S139_R*, S139_X*, int, int*);
+void func_0013A8C0(S139_X*, int, void*);
+void func_001CF538(S139_X*, int, void*);
+int func_0027B300(void*, int);
+extern int D_0036D554;
+int func_001DAC78(int, int, int, int, int, int, f32);
+}
+
+struct S139_Ref {
+    S139_X* p;
+    int unk4;
+    int unk8;
+    S139_Ref(S139_X* const& x) {
+        unk4 = 0;
+        unk8 = 0;
+        p = x;
+        if (p) {
+            func_001CE868(p, (S139_R*)this);
+        }
+    }
+    ~S139_Ref() {
+        if (p) {
+            func_001CE888(p, (S139_R*)this);
+            p = 0;
+        }
+    }
+    S139_Ref& operator=(S139_X* x) {
+        if (p) {
+            func_001CE888(p, (S139_R*)this);
+            p = 0;
+        }
+        p = x;
+        if (p) {
+            func_001CE868(p, (S139_R*)this);
+        }
+        return *this;
+    }
+};
+
+static inline int S139_Locked(S139_X* self) {
+    if (self->unkC & 0x4000) {
+        return 1;
+    }
+    return 0;
+}
+
+
 struct S_00139E98 { char pad0[0xC]; int unkC; char pad1[0x1EC]; float unk1FC; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139CE8);
+extern "C" void func_00139CE8(S139_X* self, float v, int both) {
+    if (self->unkF0 != v) {
+        self->unkF0 = v;
+        self->unk140 = self->unkA0;
+        self->unkC |= 0x400;
+    }
+    if (both && self->unkA0 != v) {
+        self->unkA0 = v;
+        self->unk140 = v;
+        self->unkC |= 0x400;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139D50);
 
@@ -11,17 +99,66 @@ extern "C" void func_00139E98(S_00139E98* self, float v) {
     self->unkC |= 0x9000;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139EB0);
+extern "C" void func_00139EB0(S139_X* self, int flag) {
+    if (flag) {
+        self->unkC |= 0x20000;
+    } else {
+        self->unkC &= ~0x20000;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139EE0);
+extern "C" void func_00139EE0(S139_X* self, int on) {
+    if (on == S139_Locked(self)) {
+        return;
+    }
+    if (on == 1) {
+        self->unkC |= 0x4000;
+    } else {
+        self->unkC &= ~0x4000;
+    }
+    int d = D_0036D554;
+    if (on == 1) {
+        func_001DAC78(d, 0x3056434F /* notify_child_lock */, self->unk2C, 0x36B2EE74 /* system */, 0, 0, -1.0f);
+    } else {
+        func_001DAC78(d, 0x4A57316B /* notify_child_unlock */, self->unk2C, 0x36B2EE74 /* system */, 0, 0, -1.0f);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139F98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139FC0);
+extern "C" S139_X* func_00139FC0(S139_X* self, int a, int* b) {
+    S139_R r;
+    S139_X* p;
+    func_0013C080(&r, self, a, b);
+    p = r.p;
+    if (p) {
+        func_001CE888(p, &r);
+        r.p = 0;
+    }
+    return p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A010);
+extern "C" S139_X* func_0013A010(S139_X* self, int a) {
+    S139_R r;
+    S139_X* p;
+    func_0013C080(&r, self, 0, &a);
+    p = r.p;
+    if (p) {
+        func_001CE888(p, &r);
+        r.p = 0;
+    }
+    return p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A060);
+extern "C" int func_0013A060(S139_X* self) {
+    S139_Ref r(self->unk78);
+    int n = 0;
+    while (r.p) {
+        r = r.p->unk84;
+        n++;
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A100);
 
@@ -31,7 +168,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A770);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A8C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013B038);
+extern "C" void func_0013B038(S139_X* self, void* list) {
+    int it = func_0027B300(list, 0);
+    while (it) {
+        func_0013A8C0(self, it, list);
+        func_001CF538(self, it, list);
+        it = func_0027B300(list, it);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013B0B0);
 

@@ -274,3 +274,14 @@ Given up:
 - func_001396D0: 128-bit != compare (pceqw/ppacb), gcc 2.95 rejects TImode compares
 - func_00137F38, func_00138790: D_00368A38 both %gp_rel and lui/%lo
 - func_00138A18: float lanes of 128-bit values; func_00138B08, func_00138950, func_00138E60: split tails
+
+## t_139CE8
+
+Matched 7: func_00139CE8 func_00139EB0 func_00139EE0 func_00139FC0 func_0013A010 func_0013A060 func_0013B038
+
+- func_0013A060: ref-counted pointer (func_001CE868 attach / func_001CE888 detach, 12-byte {p, 0, 0}) written as
+  an inline class with ctor taking `S139_X* const&`, dtor and operator=; the dtor's final check survives only that way.
+- func_00139EE0: `andi; movz` comes from an inline `if (x & 0x4000) return 1; return 0;` helper.
+
+Given up:
+- func_00139F98: has assembler load-delay nops (`lw; nop; beqz`), not gcc -O2 output
