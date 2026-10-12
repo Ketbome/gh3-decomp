@@ -273,3 +273,22 @@ Given up:
 - func_0028DB50: original hoists `a == 0` (sltiu) after the duplicated loop test; bool local gets it except prologue.
 - func_0028D578: short loops. func_0028E8A0/func_0028E9B0: loops unrolled (`-funroll-loops`, not set for the file).
 - 0x4/0xC functions (`addiu sp; nop`) are split fragments.
+
+### t_24DDB8 (+29, math/render CFuncs) — file now has `// cflags: -ffast-math`
+CFunc_SetProgressive, CFunc_SetRenderMode, CFunc_SetWireframeMode, CFunc_ResetTextureAnim, CFunc_StopTextureAnim,
+CFunc_EnableExplicitUVWibble, CFunc_DisableExplicitUVWibble, func_0024F4B8, CFunc_DebugRenderIgnore,
+CFunc_StartTextureAnim, CFunc_Anim_GetAnimLength, CFunc_GetMetrics, CFunc_MathCeil, CFunc_MathFloor,
+CFunc_GetCurrentCameraObject, CFunc_SetUVWibbleOffsets, CFunc_Clamp, CFunc_GetCurrentGeomStats,
+CFunc_ScreenFX_AddFXInstance/ClearFXInstances/FxInstanceExists/RemoveFXInstance/UpdateFXInstanceParams,
+CFunc_MathMin, CFunc_MathPow, CFunc_DebugLine, CFunc_SetUVWibbleParams
+(`min.s`/`max.s` need `-ffast-math` (as t_1298B0): `x < y ? x : y` emits `min.s y, x`. Inlined required
+GetFloat = `if (func_0027CC30(p, key, 2, &v)) f = v; else { func_0027F1E0(p, 0, 1); f = 0.0f; }` with a fresh `v`
+per call. `script->unk20` loaded before a libm call: put it in a local first. Virtual call through vptr at 0x44,
+entry 0x50 = 10th virtual (entry n at 8*n).)
+Given up:
+- CFunc_SetClippingDistances: only `sd ra` vs `ori a1` order in the prologue (inline setter fixed the body).
+- CFunc_LinearMap: original has two `nop`s before `div.s` (assembler hazard padding we do not reproduce).
+- CFunc_CompressVC: list walk with `movn`; loop variable register / load order differ (7 forms).
+- CFunc_VCWibblePlayFromKeyframe: sdata-attr macro load of D_0036F658 goes into a branch delay slot (original
+  counted it as 2 insns); plain extern splits through v0 instead of a1. Rest of the structure matches.
+- CFunc_FeelerCheck (TImode vector fields), CFunc_ToggleRenderMetrics/func_0024E3C0 (handle refs), not tried.
