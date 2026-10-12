@@ -496,3 +496,13 @@ func_00299CB8, func_0029A6A8 (iterator walk), func_00299838 (`now = *t->unk10` r
 Given up:
 - func_0029A590: soft-float double constant built with `dli` (low word non-zero; gas gives a different
   sequence; toolchain, as t_260658 func_00260D98).
+
+### t_2A32E0 (+9)
+CFunc_SetSaveZoneNameToCurrent, CFunc_DoesWaypointExist, CFunc_GetSlomo, CFunc_ProfileTasks, CFunc_Debounce,
+func_002A4AF0, func_002A4A78, func_002A4940 (factory: vptr stored twice, base then derived)
+(`if (...) { ...; return 1; } return 1;` keeps the `li v0,1` duplicated in both paths like the original.)
+Given up:
+- CFunc_IsObjectDestructing: bit-7 flag test `lbu; dsrl 7; bnez` (same as t_286A60 func_00288888); u32 and u64
+  bitfields give `lw/andi`.
+- func_002A3818: `if (a == K) r = K2;` is if-converted to movz here, branchy in the original; 2 forms.
+- CFunc_GetWaypointPos/Dir (TImode vector kept in s0), CFunc_DestroyZoneEntities, func_002A4B50: not tried.

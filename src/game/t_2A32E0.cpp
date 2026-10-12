@@ -5,7 +5,51 @@ struct S2A34F0_1 {
     s32 unk20;
 };
 
+struct S2A49_Obj {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    char *vptr;
+};
+
+struct S2A3_Ent {
+    char pad0[0x14];
+    S2A3_Ent *next;
+};
+
 extern "C" {
+int CFunc_CheckFlexibleParticleStructure(int, int);
+int CFunc_CheckSplineParticleStructure(int, int);
+extern int D_0036D3B0;
+S2A3_Ent *func_001D4AC0(int, u32);
+void func_002140D8(S2A3_Ent *, u32, f32, bool);
+extern int D_00368A38_v asm("D_00368A38");
+S2A49_Obj *func_00118F20(int, int, int, int);
+void *func_001287F0(int, int);
+int func_0027AA70(void *);
+extern char D_00362400[];
+extern char D_00363790[];
+void func_002366E0(u32, void *, int);
+bool func_0027D870(int, u32, void *, int);
+int func_0027D1F8(int, u32, void *, int);
+int func_002DD670(u32);
+f32 func_0011ED20(void);
+void func_0027C1F8(int, u32, f32);
+void func_002754A0(int, int);
+extern int D_00370EE0_p asm("D_00370EE0");
+int func_001E65A8(void);
+int func_001E65B0(void);
+int func_001E65B8(void);
+void func_001E6560(void);
+void func_001E6578(void);
+void func_001E6590(void);
+void func_001E64A0(void);
+void func_001E64B8(void);
+void func_001E64D0(void);
+int func_001E64E8(void);
+int func_001E6510(void);
+int func_001E6538(void);
 extern int D_003301E0[];
 extern int D_00330260[];
 extern s32 D_00368744[] __attribute__((section(".sdata")));
@@ -27,7 +71,13 @@ int func_0030A970(void *, s32);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A32E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_ProfileTasks);
+extern "C" int CFunc_ProfileTasks(int params) {
+    int on = 1;
+    int t = D_00370EE0_p;
+    func_0027D1F8(params, 0, &on, 0);
+    func_002754A0(t, on);
+    return 1;
+}
 
 extern "C" s32 CFunc_SetSlomo(s32 arg0) {
     f32 sp0;
@@ -38,7 +88,11 @@ extern "C" s32 CFunc_SetSlomo(s32 arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetSlomo);
+extern "C" int CFunc_GetSlomo(int params, S2A34F0_1 *script) {
+    int st = script->unk20;
+    func_0027C1F8(st, 0xB88A3F78, func_0011ED20());
+    return 1;
+}
 
 extern "C" s32 CFunc_LaunchScriptDebugger(void) {
     return D_00368744[0] != 0;
@@ -46,11 +100,28 @@ extern "C" s32 CFunc_LaunchScriptDebugger(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A33D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_Debounce);
+extern "C" int CFunc_Debounce(int params) {
+    u32 btn = 0;
+    func_0027D870(params, 0, &btn, 0);
+    if (btn) {
+        f32 t = 1.0f;
+        func_0027D268(params, 0x906B67BA, (int)&t, 0);
+        int clr = 0;
+        func_0027D1F8(params, 0x1A4E0EF9, &clr, 0);
+        for (S2A3_Ent *o = func_001D4AC0(D_0036D3B0, 0x27D7CD28); o; o = o->next) {
+            func_002140D8(o, btn, t, clr != 0);
+        }
+        return 1;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A34A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_SetSaveZoneNameToCurrent);
+extern "C" int CFunc_SetSaveZoneNameToCurrent(void) {
+    func_002366E0(0x7A354E97, D_003301E0, 0);
+    return 1;
+}
 
 extern "C" s32 CFunc_GetSaveZoneName(int arg0, S2A34F0_1 *arg1) {
     func_0027C028(arg1->unk20, 0x20F4889D /* save_zone */, D_003301E0);
@@ -87,7 +158,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetWaypointPos);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_GetWaypointDir);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_DoesWaypointExist);
+extern "C" int CFunc_DoesWaypointExist(int params) {
+    u32 id;
+    if (func_0027D870(params, 0xA1DC81F9, &id, 0)) {
+        return func_002DD670(id);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3818);
 
@@ -137,7 +214,19 @@ extern "C" void func_002A4920(void) {
     func_002A48D0(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4940);
+extern "C" S2A49_Obj *func_002A4940(u32 key) {
+    if (key == 0xDDFE0DB9) {
+        S2A49_Obj *p = func_00118F20(D_00368A38_v, 0x14, 1, 0);
+        p->vptr = D_00362400;
+        p->unk0 = func_0027AA70(func_001287F0(8, 1));
+        p->unk4 = func_0027AA70(func_001287F0(8, 1));
+        p->unk8 = 0;
+        p->vptr = D_00363790;
+        p->unkC = 0;
+        return p;
+    }
+    return 0;
+}
 
 extern "C" s32 CFunc_MC_EnumerateFolders(void) {
     return 1;
@@ -203,9 +292,28 @@ extern "C" void func_002A4A58(void) {
     func_002A5638();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4A78);
+extern "C" int func_002A4A78(void) {
+    func_001E64A0();
+    func_001E64B8();
+    func_001E64D0();
+    if (func_001E64E8() && func_001E6510() && func_001E6538()) {
+        return 1;
+    }
+    func_001E6560();
+    func_001E6578();
+    func_001E6590();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4AF0);
+extern "C" int func_002A4AF0(void) {
+    if (func_001E65A8() || func_001E65B0() || func_001E65B8()) {
+        func_001E6560();
+        func_001E6578();
+        func_001E6590();
+        return 1;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4B50);
 
