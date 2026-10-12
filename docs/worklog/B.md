@@ -507,9 +507,23 @@ Two identical MakeVec hi halves are CSE'd (non-volatile asm), as in the original
 
 ## t_208310
 
-Matched 8: func_00208388 func_002083F8 func_002084F0 func_002085F0 func_00208448 func_00208640 func_002086D0 (+ ctor via base returning void*)
+Matched 7: func_00208388 func_002083F8 func_002084F0 func_002085F0 func_00208448 func_00208640 func_002086D0
 
 Given up:
 - func_00208FA8: `sw` of the first call result lands before the arg setup in ours, in the jal delay slot in the original (4 tries)
 - func_00208538: vector + 64-byte copies through a stack temp; load order/registers of the u128 vs the first row (4 tries)
 - func_00208778, func_00208C50, func_00208DE0: not attempted
+
+## t_20AD10
+
+Matched 8: func_0020C220 func_0020CD08 func_0020C268 func_0020C540 func_0020B920 func_0020AE18 func_0020AEC8 func_0020AD50
+
+Notes: func_0020C268 confirms the store-order rule (17 stores: the last one in source is emitted first). A key read
+once into a saved register after the call that fills it: `u32 kk; f(.., &kk, ..); u32 k = kk;`.
+Toolchain: `nop; nop` before `div.s` also outside branch targets (func_0020AD10: `add.s $f0` then `div.s .., $f0`),
+probably an SN assembler hazard rule for div.s; ours emits none.
+
+Given up:
+- func_0020AD10: nops before div.s (toolchain)
+- func_0020C460: wrap-angle loops, FP register choice (4 forms)
+- func_0020C5D8: the w-lane store goes through a separate `addiu v1,s2,48` base; everything else matches (4 forms)
