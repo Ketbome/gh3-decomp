@@ -86,3 +86,10 @@ Matched 13: func_001D03B8 func_001D0788 func_001D0F18 func_001D0F38 func_001D0F6
 
 Given up:
 - func_001D1D90: passes a 128-bit vector loaded with lq as three float args (pcpyud); not attempted
+
+## t_1D2508
+
+Matched 13: func_001D29C8 func_001D2AC8 func_001D2AE8 func_001D2B08 func_001D2B18 func_001D2C18 func_001D2C38 func_001D2C58 func_001D2C70 func_001D3508 func_001D4198 func_001D41B8 func_001D4208
+
+Given up:
+- func_001D2A30: passes a 128-bit vector loaded with lq as three float args (pcpyud); not attempted
