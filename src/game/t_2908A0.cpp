@@ -91,7 +91,14 @@ struct S2908_Buf {
     u8 unk16;
 };
 
+struct S2908_Pool {
+    char *start;
+    char *end;
+    bool Has(void *p) { return (char *)p >= start && (char *)p < end; }
+};
+
 extern "C" {
+void func_0011C2E8(S2908_Pool *, void *);
 void func_0028EB18(void *, char *);
 void func_0028EBA0(void *);
 int func_0028E868(int, int);
@@ -299,7 +306,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291988);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291C38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291C40);
+GP_DATA(D_003715D0);
+GP_DATA(D_003715C0);
+extern "C" void func_00291C40(void *p) {
+    S2908_Pool *pl = (S2908_Pool *)D_003715C0[D_003715D0];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p);
+        return;
+    }
+    pl = (S2908_Pool *)D_003715C0[D_003715D0 ^ 1];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p);
+        return;
+    }
+    if (p) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 extern "C" void func_00291CF0(S00291CF0* p) {
     p->unk0 = 0;

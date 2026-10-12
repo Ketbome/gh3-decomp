@@ -404,9 +404,9 @@ Given up:
 - CFunc_GetTerrainTypeParam: original keeps `&y` (sp+4) in s0 across the first call; 2 forms.
 - CFunc_GlobalExists: not tried. func_00256838/func_002571C8: split fragments.
 
-### t_2908A0 (+13, script loop stack / intrusive node list)
+### t_2908A0 (+14, script loop stack / intrusive node list)
 func_002908A0, func_00290908, func_002909A8, func_00290BD0, func_00290CA0, func_00290D18, func_00290D68,
-func_00290FE8, func_00291020, func_00291080, func_00291900, func_00291D00, func_00292078
+func_00290FE8, func_00291020, func_00291080, func_00291900, func_00291D00, func_00292078, func_00291C40 (pool free)
 (func_00290908: unrotated `while` (test at top, `b` back) came from `if (f()) { g(); continue; } break;` as the
 end of the body. Stores of two zeroes come out in reverse source order. `delete` of a non-virtual object =
 `if (n) dtor(n, 3)`. Loop labels get an 8-byte `.align` nop from gcc itself.)
