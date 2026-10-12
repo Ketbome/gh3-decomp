@@ -79,10 +79,10 @@ Given up:
 
 Matched 8: func_00116E90 func_00117118 func_00117168 func_00117C20 func_00117C60 func_00117CC0 func_00118640
 func_00118700
+Matched 2 (gp retry, solved): func_001187D0 func_00118798
 
 Given up:
-- func_001183C8: cvt.w.s
-- func_001187D0, func_00118798: D_00373248 used both lui/%lo and %gp_rel in this file
+- func_001183C8: cvt.w.s now fine; original copies the u8 (`move a2,v1`) before the `== 1` test/store; 4 tries
 - func_001179F8, func_00117940: iterator on the stack, not attempted
 
 ## t_118E40

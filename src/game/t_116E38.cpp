@@ -49,6 +49,15 @@ struct SA116_L {
     void* unk14;
 };
 
+struct SA116_Sema {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+};
+
 extern "C" {
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern SA116_V* D_003688E8;
@@ -79,6 +88,8 @@ extern int D_003689E0;
 extern int D_00373248;
 void func_002EE6A0(int);
 void func_002EE680(int);
+int func_002EE660(void*);
+void func_002EE670(int);
 }
 
 extern "C" u8* func_00116E38(void) {
@@ -304,9 +315,16 @@ extern "C" void func_00118700(SA116_P* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118790);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118798);
+extern "C" void func_00118798(void) {
+    SA116_Sema s;
+    s.unk8 = 1;
+    s.unk4 = 10;
+    D_00373248 = func_002EE660(&s);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001187D0);
+extern "C" void func_001187D0(void) {
+    func_002EE670(D_00373248);
+}
 
 GP_DATA(D_003689E0);
 extern "C" void func_001187F8(void) {
