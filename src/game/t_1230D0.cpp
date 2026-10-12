@@ -155,7 +155,16 @@ extern "C" float func_00123540(SA123_V* self) {
     return self->unkD4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123568);
+extern "C" int func_00123568(SA123_V* self, u32 key, int params) {
+    float v;
+    if (key == 0x44EA2B6D) {
+        func_0027D268(params, 0, &v, 1);
+        self->unkD0 = v * 57.2957763671875f;
+        func_001234B0(self);
+        return 1;
+    }
+    return func_001CFF58(self, key, params);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_001235E0);
 
