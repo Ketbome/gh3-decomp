@@ -248,3 +248,12 @@ Given up:
 - func_00133A98: prologue `move s2,a0`/`sd s3` order; 3 tries
 - func_00134210: loop layout (`bnezl body; b ret0` vs our beqz); 3 tries
 - func_001342B0: 128-bit vector constants; func_00134998, func_00134208: split tails
+
+## t_135A98
+
+Matched 3: func_00135F28 func_00137618 func_001376B8
+
+Given up:
+- func_00135D20: `move s0,zero` (loop counter init) scheduled before the count load in the original; 5 tries
+- func_00135ED8, func_00135E20: 128-bit vector constant / float lanes
+- func_00137668, func_00137690, func_001377B8: split tails
