@@ -158,9 +158,9 @@ Given up:
 ### t_260658 (+6)
 CFunc_OnServer, CFunc_ResetTimer, CFunc_IncrementSongTimer, func_00260AC8, func_00260D50, CFunc_ResetSongTimer
 Given up:
-- CFunc_NotCD: D_00368748 read through macro `lui $v0` here but `$gp` in CFunc_CD/SetConfig of the same file;
+- CFunc_NotCD (solved round 3): D_00368748 read through macro `lui $v0` here but `$gp` in CFunc_CD/SetConfig of the same file;
   explicit split uses `$v1`.
-- func_00261C98 (static init of an intrusive list head at D_0039A3C8): original builds the address with an
+- (SOLVED round 5, see t_2647A8) func_00261C98 (static init of an intrusive list head at D_0039A3C8): original builds the address with an
   unfolded `la` then `+4`; 3 forms tried.
 
 ### Small batch across files (+10)
@@ -355,7 +355,7 @@ CFunc_DeleteMemCardFile, CFunc_MemCardSystemInitialize, CFunc_SetSaveFileName, C
 CFunc_GetMemCardSpaceRequired, CFunc_SaveToMemoryCard, func_002A6730 (destructor), CFunc_GetMemCardSpaceAvailable
 (Three global stores came out rotated: source order DAD0, DAD4, DAD8 gives the original DAD4, DAD8, DAD0.)
 Given up / not tried:
-- func_002A6700 (self-linked list head at D_003AAD80+4 built as `la` then `+4`, same as t_260658 func_00261C98).
+- (SOLVED round 5, see t_2647A8) func_002A6700 (self-linked list head at D_003AAD80+4 built as `la` then `+4`, same as t_260658 func_00261C98).
 - func_002A6678, func_002A67B8: split fragments.
 
 ### Toolchain notes for the integrator (round 4)
@@ -364,7 +364,7 @@ Given up / not tried:
 - Several functions match except for one `nop` the original has right before an 8-byte aligned branch-target label
   (t_2626E0 CFunc_ControllerPressed/ControllerMake/EnableActuators). Looks like assembler padding, not gcc.
 
-### Round 5: retries after the one-pass assembler filter (+4)
+### Round 5: retries after the one-pass assembler filter (+5)
 - t_26F3B8 func_00270FC0, t_292928 func_002930B8/func_00292FB0, t_266800 func_00268228/func_002682B8.
 - A global store that the original keeps out of the `jr` delay slot (lui/%lo form): declare that global
   `volatile` (gcc does not put volatile insns in delay slots, and the macro expansion is `.set noreorder`).
@@ -373,3 +373,15 @@ Given up / not tried:
   put in delay slots, 3 forms); t_260658 func_00260D98 (`li.d` of 0.001f-as-double: low word non-zero, gas puts it
   in .rodata; a u64 constant gives gas's different `dli` sequence); t_292928 func_002931F0/func_00293218 (volatile
   struct stores still pulled into delay slots by gas).
+
+### t_2647A8 (+18)
+CFunc_CreateViewportTextureOverride, CFunc_AddPrepassViewport, CFunc_PrepassViewportExists,
+CFunc_RemovePrepassViewport, CFunc_AddZoneProfiles, CFunc_RemoveZoneProfiles, CFunc_SetZoneProfiles,
+CFunc_CreateRandomAppearance, CFunc_AddEditableList, CFunc_RemoveEditableList, CFunc_ForEachInEditableList,
+CFunc_SelectFrom, func_00264BE8, func_00264F60, func_00264F90, func_00265680, func_002663F8, func_00266780
+(Static-init list head `la D; +4` unfolded: `D.head.next = &D.head; D.head.next->prev = &D.head;` -- also solved
+t_260658 func_00261C98 and t_2A53A8 func_002A6700. Stack slot order sp+0 = third out param, +4/+8 the first two:
+a `u32 v[3]` local. List clear: load `D.head.unk4` first, then store unk4 before unk0.)
+Given up:
+- func_00264B70: address of D_0039A4F0 built in v0 instead of v1 (v0/v1 swap, 3 forms).
+- func_00265388, func_00265008, func_00265580, func_002664F8 (STL list/vector copies), func_00266428 (short loop).

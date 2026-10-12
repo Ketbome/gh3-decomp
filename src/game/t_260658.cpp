@@ -525,7 +525,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_PlayCutscene);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261C90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261C98);
+extern "C" void func_00261C98(int init, int prio) {
+    if (prio == 0xFFFF && init) {
+        D_0039A3C8.unk4.unk0 = &D_0039A3C8.unk4;
+        D_0039A3C8.unk4.unk0->unk4 = &D_0039A3C8.unk4;
+    }
+}
 
 extern "C" void func_00261CC8(void) {
     func_00261C98(1, 0xFFFF);

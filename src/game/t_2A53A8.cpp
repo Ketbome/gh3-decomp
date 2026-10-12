@@ -17,7 +17,18 @@ struct S2A6648_1 {
     s32 unk20;
 };
 
+struct S2A67_Node {
+    S2A67_Node *unk0;
+    S2A67_Node *unk4;
+};
+
+struct S2A67_List {
+    int unk0;
+    S2A67_Node unk4;
+};
+
 extern "C" {
+extern S2A67_List D_003AAD80;
 int func_00121C18(S2A5_Card *);
 int func_001E32D8(u32);
 int func_002A53E0(u32, int);
@@ -243,7 +254,12 @@ extern "C" s32 CFunc_GetContentFolderIndexFromFile(int arg0, S2A6648_1 *arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6678);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6700);
+extern "C" void func_002A6700(int init, int prio) {
+    if (prio == 0xFFFF && init) {
+        D_003AAD80.unk4.unk0 = &D_003AAD80.unk4;
+        D_003AAD80.unk4.unk0->unk4 = &D_003AAD80.unk4;
+    }
+}
 
 extern "C" void func_002A6730(S2A5_Dtor *p, int flags) {
     p->unk10 = D_00362400;
