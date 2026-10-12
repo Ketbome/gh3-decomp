@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct S2A74C0_A {
+    char pad0[0x4];
+    int *unk4;
+};
+
 extern "C" {
 extern s32 D_00371EF4;
 extern s32 D_00372F30[] __attribute__((section(".sdata")));
@@ -12,7 +17,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7540);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A75F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7638);
+extern "C" int func_002A7638(S2A74C0_A *p, int i) {
+    return p->unk4[i];
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7650);
 
