@@ -267,7 +267,8 @@ Given up:
 - func_001EA830: arg setup order of the second func_0027CC30 call (li a2 first in ours); 7 tries
 - func_001EAA68, func_001EABC0: `for (Start(), v = GetNext(); ...)`: in the folded first GetNext the loop's false block lands before the loop in ours, after it in the original (6 tries)
 - func_001EB338, func_001EB2B0, func_001EA060: short loops padded with nops
-- func_001E97C8, func_001EA798, func_001E9A00, func_001EA118, func_001EA318, func_001EB378: macro symbol gp_rel in a delay slot
+- session 4 (new asm_filter): matched func_001E97C8 func_001EA798 func_001E9A00 func_001EA118 func_001EA318; func_001EB378 not retried
+- func_001E99A0: new-with-vtable schedule (D_00368A38 load placed after the vtable store in the original); 3 tries
 - func_001E95C0, func_001EB170, func_001EB2F0, func_001EA9D8, func_001E9980, func_001EA970: split tails / data
 
 ## t_1EB630 (`// cflags: -funroll-loops`)
