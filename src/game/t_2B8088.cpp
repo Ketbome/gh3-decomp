@@ -1,0 +1,12 @@
+#include "common.h"
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2B8088", func_002B8088);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2B8088", func_002B8308);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2B8088", func_002B8530);
+
+extern "C" void func_002B8ED0(void) {
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2B8088", func_002B8ED8);

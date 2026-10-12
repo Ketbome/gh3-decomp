@@ -63,6 +63,34 @@ def split():
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
+VU_SPECIAL_REG = re.compile(r"(?<![\$\w])(ACC|Q|R|I)\b")
+
+
+def fix_split_output():
+    """splat writes INCLUDE_ASM paths as absolute paths, the empty functions it decompiles itself without
+    C linkage, and the per-function .s files without the `$` the modern gas needs on the R5900 special
+    registers (ACC, Q, R, I) of VU0 macro instructions."""
+    for src in (ROOT / "src").rglob("*.c*"):
+        text = src.read_text()
+        fixed = text.replace(f'INCLUDE_ASM("{ROOT}/', 'INCLUDE_ASM("')
+        if src.suffix == ".cpp":
+            fixed = re.sub(r"^void (func_[0-9A-F]{8})\(void\) \{", r'extern "C" void \1(void) {', fixed, flags=re.M)
+        if fixed != text:
+            src.write_text(fixed)
+    for path in (ROOT / "asm" / "nonmatchings").rglob("*.s"):
+        lines = path.read_text().splitlines(keepends=True)
+        changed = False
+        for i, line in enumerate(lines):
+            m = re.match(r"(\s+/\*.*?\*/\s+)(v\w+(?:\.\w+)?)(\s.*)", line, re.S)
+            if m:
+                rest = VU_SPECIAL_REG.sub(r"$\1", m.group(3))
+                if rest != m.group(3):
+                    lines[i] = m.group(1) + m.group(2) + rest
+                    changed = True
+        if changed:
+            path.write_text("".join(lines))
+
+
 def patch_ld_script():
     """The original link aligned .sbss and .bss to 128 bytes; splat's script only aligns to 16."""
     path = ROOT / "build" / "SLUS_216.72.ld"
@@ -141,6 +169,7 @@ def main():
     extract()
     make_rom()
     split()
+    fix_split_output()
     patch_ld_script()
     write_ninja()
 

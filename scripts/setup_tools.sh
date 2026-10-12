@@ -29,6 +29,6 @@ curl -sSfL "https://github.com/decompme/compilers/releases/download/compilers/ps
     | tar xJ -C tools/compilers "$COMPILER"
 
 python3 -m venv .venv
-.venv/bin/pip install -q "splat64[mips]"
+.venv/bin/pip install -q "splat64[mips]" pyelftools "git+https://github.com/matt-kempster/m2c.git"
 
 echo "tools ready: .venv/bin/python configure.py && ninja"

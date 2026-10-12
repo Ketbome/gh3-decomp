@@ -1,37 +1,38 @@
 #!/usr/bin/env python3
-"""Reports how much of .text is decompiled, from the last linked build.
+"""Reports how much of the game's own code is decompiled to C++.
 
-Counts bytes of .text that come from compiled objects (build/src/**), minus functions those
-files still pull in from assembly with INCLUDE_ASM. Library code (Sony SDK, libc, GameSpy...) is
-still in the denominator: its ranges are not mapped yet (docs/toolchain.md).
+Every function of the game range (0x10C000-0x2EC0B0) lives in a src/game file, either as C++ or as an
+INCLUDE_ASM line; the bytes still included from asm/nonmatchings are subtracted. Library code (GameSpy, Sony SDK, libc, libstdc++,
+libm) is excluded: see docs/text_map.md.
 """
 
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TEXT = (0x10C000, 0x32101C)
 
 
 def main():
-    map_path = ROOT / "build" / "SLUS_216.72.elf.map"
-    if not map_path.exists():
-        print("no build/SLUS_216.72.elf.map, run ninja first")
+    sizes = {}
+    for path in (ROOT / "asm" / "nonmatchings" / "game").rglob("*.s"):
+        m = re.search(r"^nonmatching (\w+), 0x([0-9A-F]+)", path.read_text(), re.M)
+        if m:
+            sizes[m.group(1)] = int(m.group(2), 16)
+    if not sizes:
+        print("no asm/nonmatchings, run configure.py first")
         return
-    done = 0
-    for m in re.finditer(r"^ \.text\s+0x([0-9a-f]+)\s+0x([0-9a-f]+)\s+(build/src/\S+\.o)$",
-                         map_path.read_text(), re.M):
-        done += int(m.group(2), 16)
-    for src in (ROOT / "src").rglob("*.c*"):
-        for name in re.findall(r"^INCLUDE_ASM\([^,]+,\s*(\w+)\);", src.read_text(), re.M):
-            path = next((ROOT / "asm" / "nonmatchings").rglob(f"{name}.s"), None)
-            m = path and re.search(r"^nonmatching \w+, 0x([0-9A-F]+)", path.read_text(), re.M)
-            done -= int(m.group(1), 16) if m else 0
-    asm_funcs = sum(len(re.findall(r"^glabel ", p.read_text(), re.M))
-                    for p in (ROOT / "asm" / "cod").glob("*.s"))
-    total = TEXT[1] - TEXT[0]
-    print(f"SLUS_216.72: {done:#x} / {total:#x} bytes of .text in C++ ({100 * done / total:.3f}%)")
-    print(f"    functions still in assembly: {asm_funcs}")
+    asm_bytes = asm_funcs = c_funcs = 0
+    for src in (ROOT / "src").rglob("*.cpp"):
+        text = src.read_text()
+        for name in re.findall(r"^INCLUDE_ASM\([^,]+,\s*(\w+)\);", text, re.M):
+            asm_bytes += sizes.get(name, 0)
+            asm_funcs += 1
+        c_funcs += len(re.findall(r"^(?!INCLUDE_ASM)\S.*\b(func_[0-9A-F]{8}|\w+__\w*)\s*\([^;]*\)\s*\{", text, re.M))
+    # Sizes without the alignment padding between functions; splat writes a .s for every function, matched or not.
+    total = sum(sizes.values())
+    done = total - asm_bytes
+    print(f"SLUS_216.72: {done:#x} / {total:#x} bytes of game code in C++ ({100 * done / total:.2f}%)")
+    print(f"    functions: {c_funcs} in C++, {asm_funcs} still INCLUDE_ASM")
 
 
 if __name__ == "__main__":

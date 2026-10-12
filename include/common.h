@@ -1,6 +1,7 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#define INCLUDE_ASM_USE_MACRO_INC 1
 #include "include_asm.h"
 
 typedef signed char s8;

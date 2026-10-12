@@ -11,7 +11,7 @@ that release; the build checks its result against it.
 
 | Binary | Code in matching C++ | Functions still in assembly |
 |---|---|---|
-| `SLUS_216.72` | 0.005% | ~10,000 |
+| `SLUS_216.72` (game code, 8,709 functions) | 0.19% | 8,465 |
 
 The rebuilt executable is byte-identical to the original. `python3 scripts/progress.py` prints the current numbers.
 
@@ -24,7 +24,8 @@ You need:
 - `7z`, `ninja`, `curl` and Python 3.9+;
 - the tools in `tools/` (not part of this repository): `scripts/setup_tools.sh` downloads the PS2 binutils,
   SN Systems' `ee-gcc` 2.95.3 (from the [decompme compilers](https://github.com/decompme/compilers) release),
-  [wibo](https://github.com/decompals/wibo) to run it, and creates `.venv` with [splat](https://github.com/ethteck/splat).
+  [wibo](https://github.com/decompals/wibo) to run it, and creates `.venv` with [splat](https://github.com/ethteck/splat), [m2c](https://github.com/matt-kempster/m2c)
+  and pyelftools.
 
 ```
 scripts/setup_tools.sh
@@ -42,8 +43,8 @@ Works on macOS (arm64) and Linux (x86-64).
 |---|---|
 | `src/`, `include/` | The decompiled code |
 | `config/` | How the binary is split (`SLUS_216.72.yaml`) and the symbol names |
-| `scripts/` | Tool setup, progress report |
-| `docs/` | What has been learned about the game: start at [docs/toolchain.md](docs/toolchain.md) |
+| `scripts/` | Tool setup, progress report, single-function check (`fcheck.py`), candidate list |
+| `docs/` | [decomp_guide.md](docs/decomp_guide.md) (how to contribute), [toolchain.md](docs/toolchain.md), [text_map.md](docs/text_map.md) |
 
 Names of functions and variables are ours unless stated; the executable is stripped. A function that does not match
 yet stays as the original assembly.

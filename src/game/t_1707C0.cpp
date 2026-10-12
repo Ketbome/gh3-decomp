@@ -1,0 +1,37 @@
+#include "common.h"
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001707C0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001708F8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00170940);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00170B00);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001711B8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001711D8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171540);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001715F8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171708);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171928);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171BB0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171BD0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171E60);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171F08);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171F38);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00172098);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001724D0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_001724F0);
