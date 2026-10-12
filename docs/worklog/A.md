@@ -257,3 +257,20 @@ Given up:
 - func_00135D20: `move s0,zero` (loop counter init) scheduled before the count load in the original; 5 tries
 - func_00135ED8, func_00135E20: 128-bit vector constant / float lanes
 - func_00137668, func_00137690, func_001377B8: split tails
+
+## t_137C98
+
+Matched 10: func_001384B0 func_00138850 func_00138908 func_00138978 func_00138D98 func_00139510 func_00139590
+func_001395A8 func_001397A8 func_00139C18 (func_001389F0 retyped to pass its 2nd argument)
+
+- ldl/ldr/sdl/sdr = assignment of a 0x38-byte char-aligned struct. func_002EC118(float)/func_002EC10C(void) are the
+  VU0 sin/cos start/result helpers (gamespy.s). u128 arguments go in one register each (func_00138D98); the
+  callee's float params come right after the u128s.
+- Float literals must be the exact float (57.2957763671875f, 0.01745329424738884f) or the low bits differ.
+
+Given up:
+- func_00137E30, func_00137EB0: the last `sdr` is not put in the jr delay slot by SN's assembler (ours fills it)
+- func_00138E78: `li 0x19F1C; addu; lw 0` not folded in the original (ours folds the offset); 3 tries
+- func_001396D0: 128-bit != compare (pceqw/ppacb), gcc 2.95 rejects TImode compares
+- func_00137F38, func_00138790: D_00368A38 both %gp_rel and lui/%lo
+- func_00138A18: float lanes of 128-bit values; func_00138B08, func_00138950, func_00138E60: split tails
