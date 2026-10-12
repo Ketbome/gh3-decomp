@@ -108,7 +108,7 @@ func_0026F7E8, func_00270020, func_002710B8, func_00271108, func_00270540, func_
 Given up:
 - func_0026FAC8 (`a >= 22` as 0/1): original keeps a branch, every form gives slt/xori.
 - func_0026F580: original copies the float arg to $f0 and stores it in the jal delay slot (4 forms tried).
-- func_00270FC0: zeroes six globals; the macro-form (`lui $at`) store last must stay out of the `jr` delay slot,
+- (SOLVED round 5: plain externs, last one `volatile`) func_00270FC0: zeroes six globals; the macro-form (`lui $at`) store last must stay out of the `jr` delay slot,
   ours (sdata-attr array) is put in it. gcc `-mno-split-addresses` would give the original form.
 - func_00270F08: short loops; func_002709C8: unrolled clear loop, not tried.
 
@@ -139,7 +139,7 @@ returning `char *` moves the constant 1 to $v1).
 ### t_266800 (+5)
 func_00268328, func_002668F8, func_00266850, func_00266800, func_00266B60
 Given up:
-- func_002682B8, func_00268228: float literals 0.01f/0.1f built inline by the original (see notes).
+- (SOLVED round 5, inline li.s) func_002682B8, func_00268228.
 - func_00266E08, func_00266D20, func_00267B30, func_00266FA8: not tried (loops/unrolled clears).
 
 ### t_2DCE78 (+4)
@@ -244,8 +244,8 @@ Given up:
 - func_00293C00, func_00293C70, func_00293218: match only with the volatile delay-slot fix (see notes).
 - func_00293288, func_002932E0, func_00293FD0, func_00294868, func_00293038: v0/v1 swap (see notes).
 - func_00293530 (16-byte struct argument in a1/a2 copied to the stack): ours builds a second copy.
-- func_00293D08: store scheduling around a semaphore-param struct; func_002930B8, func_00292FB0: `lui $at` store
-  macros (gcc puts the sdata-attr store in delay slots).
+- func_00293D08: store scheduling around a semaphore-param struct. (SOLVED round 5 with plain externs:
+  func_002930B8, func_00292FB0.)
 
 ### t_27B7D0 (+26, script structure components)
 Getters func_0027D188/D1F8/D268/D400/D470 (+ name wrappers func_0027CFA8/D000/D058/D0B0/D118), func_0027D378;
@@ -363,3 +363,13 @@ Given up / not tried:
   rejects `li.d` on r5900. Blocks t_260658 func_00260D98.
 - Several functions match except for one `nop` the original has right before an 8-byte aligned branch-target label
   (t_2626E0 CFunc_ControllerPressed/ControllerMake/EnableActuators). Looks like assembler padding, not gcc.
+
+### Round 5: retries after the one-pass assembler filter (+4)
+- t_26F3B8 func_00270FC0, t_292928 func_002930B8/func_00292FB0, t_266800 func_00268228/func_002682B8.
+- A global store that the original keeps out of the `jr` delay slot (lui/%lo form): declare that global
+  `volatile` (gcc does not put volatile insns in delay slots, and the macro expansion is `.set noreorder`).
+- Still failing: t_273498 func_002741B8 (scheduler puts `lui` of the address arg before `move a1,a0`, 4 forms);
+  t_24DDB8 CFunc_VCWibblePlayFromKeyframe (unknown-size `extern int D[]` fixes the load, but the two zero inits are
+  put in delay slots, 3 forms); t_260658 func_00260D98 (`li.d` of 0.001f-as-double: low word non-zero, gas puts it
+  in .rodata; a u64 constant gives gas's different `dli` sequence); t_292928 func_002931F0/func_00293218 (volatile
+  struct stores still pulled into delay slots by gas).

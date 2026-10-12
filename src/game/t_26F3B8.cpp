@@ -36,6 +36,12 @@ void func_00271198(u16, u16, int);
 extern u32 D_00372EA8[] __attribute__((section(".sdata")));
 extern S26F3B8_A D_003A8D40[][22];
 extern int D_00370D10;
+extern int D_003733A8;
+extern int D_00370D30;
+extern int D_00370D38;
+extern int D_00370D34;
+extern int D_00370D3C;
+extern volatile int D_003733AC;
 extern int D_00370D14;
 void func_0026F6E8(void);
 }
@@ -189,7 +195,16 @@ extern "C" void func_00270EE0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270F08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270FC0);
+GP_DATA(D_00370D30);
+GP_DATA(D_00370D38);
+extern "C" void func_00270FC0(void) {
+    D_003733A8 = 0;
+    D_00370D30 = 0;
+    D_00370D38 = 0;
+    D_00370D34 = 0;
+    D_00370D3C = 0;
+    D_003733AC = 0;
+}
 
 extern "C" void func_00270FF0(void) {
     func_00271198(0x8040, 0x1700, 0);

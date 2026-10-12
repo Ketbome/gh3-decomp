@@ -24,6 +24,13 @@ extern float D_00370AE8;
 extern int D_00369CD8;
 extern int D_00369A64;
 extern f32 D_00370B04;
+extern f32 D_00370B08;
+extern f32 D_00368764;
+void func_00275EE8(u32, int);
+void func_0026F580(f32);
+void func_0026D688(f32);
+void func_0026F5A8(f32);
+void func_0026D6B0(f32);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void *);
 extern int D_00370AE0;
@@ -175,9 +182,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268130);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002681B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268228);
+GP_DATA(D_00370B04);
+extern "C" void func_00268228(f32 f) {
+    if (func_00266778() == 0) {
+        func_00275EE8(0xD7BB618D, 0);
+        D_00370B04 = f;
+        f = f * D_00368764 * 0.01f;
+        if (f < 0.1f) {
+            f = 0.0f;
+        }
+        func_0026F580(f);
+        func_0026D688(f);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002682B8);
+extern "C" void func_002682B8(f32 f) {
+    if (func_00266778() == 0) {
+        func_00275EE8(0xD7BB618D, 0);
+        if (f <= 0.01f) {
+            f = 0.01f;
+        }
+        D_00370B08 = f;
+        func_0026F5A8(f);
+        func_0026D6B0(f);
+    }
+}
 
 extern "C" f32 func_00268328(void) {
     return D_00370B04;

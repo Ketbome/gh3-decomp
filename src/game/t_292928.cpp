@@ -58,6 +58,13 @@ struct S00293340 {
 
 extern "C" {
 extern int D_003733C4;
+extern int D_003733C8;
+extern int D_003733BC;
+extern int D_003733B8;
+extern int D_003733C0;
+extern int D_00371718;
+void func_002930E8(void);
+void func_00293098(int);
 int func_00293EE0(void*);
 void func_00293FD0(void*, int);
 int func_00294818(void*);
@@ -115,7 +122,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292D98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292F78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292FB0);
+GP_DATA(D_00371718);
+extern "C" void func_00292FB0(int a) {
+    if (a >= 0) {
+        D_003733BC = a;
+        D_003733B8 = 0x1F51E0;
+        D_00371718 = 1;
+        D_003733C8 = 0;
+        D_003733C0 = 0;
+    }
+    func_002930E8();
+    for (int i = 0; i < D_003733C8; i++) {
+        func_00293098(i);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293038);
 
@@ -123,7 +143,12 @@ extern "C" void func_00293098(int i) {
     D_00427EB0[i].unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_002930B8);
+extern "C" void func_002930B8(void) {
+    if (D_003733C8 != 0) {
+        D_003733C8 = 0;
+        D_003733BC = D_00427EB0[0].unk0;
+    }
+}
 
 extern "C" void func_002930E8(void) {
     D_003733C4 = 0;
