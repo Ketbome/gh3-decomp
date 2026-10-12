@@ -176,7 +176,7 @@ Given up:
 Matched 21: func_001D67C8 func_001D6BA0 func_001D6BA8 func_001D7710 func_001D7C28 func_001D7C68 func_001D7CA8 func_001D7CE8 func_001D7D28 func_001D7D68 func_001D7DA8 func_001D7DE8 func_001D7E28 func_001D7E68 func_001D7EA8 func_001D7EE8 func_001D7F00 func_001D7F20 func_001D8058 func_001D80D8 func_001D8150
 
 Given up:
-- func_001D6738: D_00368A38 gp_rel in a jal delay slot (macro symbol in this file)
+- func_001D6738: matched in session 4 (new asm_filter)
 - func_001D8208: register choice/schedule of the tail (dead u8[4] stores, vtable/255 in v1/v0 swapped); 6 tries
 
 ## t_1D85E8

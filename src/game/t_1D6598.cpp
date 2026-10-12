@@ -117,13 +117,23 @@ void func_001DA368(s32 a, void* q, s32 b, s32 c);
 u32 func_0011C030(void* p);
 void func_001194B8(s32 heap, u32 v);
 s32 func_001D7710(S1D80D8* p);
+void func_00119490(s32 heap, s32 v);
+void* func_00113D20(u32 size);
+void func_001D5250(void*, void*, s32, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D6598);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D6730);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D6738);
+extern "C" void func_001D6738(S1D67C8* p, void* a) {
+    s32 h = D_00368A38[0];
+    func_00119490(h, func_001D7710((S1D80D8*)p));
+    p->unk3C = func_0011C030((void*)func_001D7710((S1D80D8*)p));
+    ((S1D67C8_R*)func_001D7710((S1D80D8*)p))->unk9C = 0;
+    func_001D7710((S1D80D8*)p);
+    func_001D5250(func_00113D20(0x180), a, *(s32*)((char*)p + 0x74), 0);
+}
 
 extern "C" void func_001D67C8(S1D67C8* p, S1D67C8_Q* q) {
     func_001D7710((S1D80D8*)p);
