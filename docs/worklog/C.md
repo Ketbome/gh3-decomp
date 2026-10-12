@@ -20,6 +20,8 @@
   modern gas `-mfix-r5900` does not help either. Toolchain question; skip functions with tiny loops.
 - Division cannot match yet: the game has 292 `div`/`divu` and no `break 7`, so it was built without the
   divide-by-zero trap (`-mno-check-zero-division`); our flags emit `bnez`/`break 7`. Skip functions with `/` or `%`.
+- Float constants with non-zero low bits (0.01f = 0x3C23D70A): the original builds them inline
+  (`lui $at; ori $at; mtc1`), our gas puts gcc's `li.s` in `.lit4` (stray data). Skip unless a D_ constant exists.
 - Masks like `and` with `-0x101`/`-0x201` then `sb` at +2: bitfields in a u32 (clear bit 8, bit 9, byte field at 16).
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
@@ -93,3 +95,9 @@ Given up:
 - func_00295118: min() register allocation (copy in $a2, slt in $v1), 8 forms tried.
 - func_00296550: original reloads p->unk1C after the first test; ours folds the redundant test.
 - func_00295CF8: handwritten (`ei`).
+
+### t_266800 (+5)
+func_00268328, func_002668F8, func_00266850, func_00266800, func_00266B60
+Given up:
+- func_002682B8, func_00268228: float literals 0.01f/0.1f built inline by the original (see notes).
+- func_00266E08, func_00266D20, func_00267B30, func_00266FA8: not tried (loops/unrolled clears).
