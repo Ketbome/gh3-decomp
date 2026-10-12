@@ -504,3 +504,12 @@ Two identical MakeVec hi halves are CSE'd (non-volatile asm), as in the original
   colour ctor; inline task init taking the callback as a parameter).
 - t_1FBAF0 func_001FCA90 and t_2001E0 func_00200380 retried with the base-ctor fix: closer, still DIFFERS
   (FCA90: `li s1,-1` scheduled early; 200380: s1/s2 = member addresses computed after the first member ctor).
+
+## t_208310
+
+Matched 8: func_00208388 func_002083F8 func_002084F0 func_002085F0 func_00208448 func_00208640 func_002086D0 (+ ctor via base returning void*)
+
+Given up:
+- func_00208FA8: `sw` of the first call result lands before the arg setup in ours, in the jal delay slot in the original (4 tries)
+- func_00208538: vector + 64-byte copies through a stack temp; load order/registers of the u128 vs the first row (4 tries)
+- func_00208778, func_00208C50, func_00208DE0: not attempted
