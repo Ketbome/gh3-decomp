@@ -527,3 +527,18 @@ Given up:
 - func_0020AD10: nops before div.s (toolchain)
 - func_0020C460: wrap-angle loops, FP register choice (4 forms)
 - func_0020C5D8: the w-lane store goes through a separate `addiu v1,s2,48` base; everything else matches (4 forms)
+
+## t_20EE10 (`// cflags: -funroll-loops`, needed by the 3-entry slot scans)
+
+Matched 9: func_002103C8 func_0020F400 func_00210558 func_0020F158 func_00210870 func_002102F8 func_0020EFA8
+func_0020F0C0 func_00210678 (+ prototype of func_00210558 now returns int)
+
+Notes: unrolled 3-slot scan `for (i < 3) { E* e = &arr[i]; if (!e->unk0) { e->vcall(x, y); return 1; } }` keeps a1/a2
+untouched: pass the caller's extra args through (register choice a3 for e). Fields loaded before a compare in the
+original: read them into locals first (func_0020F0C0, order b then a).
+
+Given up:
+- func_00210968: our gcse hoists the 0x0203B372 / 1 constants into saved regs across the calls; the original
+  rematerialises them (bool via branches); 4 forms
+- func_0020EF70, func_0020F040: `nop; nop` before div.s (toolchain); func_00210A18: 4 inline sub-object inits, not tried
+- func_0020EEF0: stack iterators; not attempted
