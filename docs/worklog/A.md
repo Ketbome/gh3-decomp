@@ -454,11 +454,23 @@ Given up / open:
 - func_0014F910: static list-node init; register/store order not found yet (several permutations)
 - func_0014E7E8 (list search), func_0014F0E0 (split), split tails: not attempted
 
-## t_146580 (not committed: another worker edits this file concurrently)
+## t_146580
 
-Drafts that matched in fcheck (C++ kept by nobody, redo if free): CFunc_ScreenElementExists (Ref temp + manual
-detach), CFunc_SetRootScreenElement, CFunc_ResolveScreenElementID, func_001482F8, func_00148350 (clip a/b to n),
-func_00148508
+Matched 16: CFunc_DumpScreenElements CFunc_ScreenElementExists CFunc_SetRootScreenElement CFunc_ResolveScreenElementID
+func_001482F8 func_00148350 func_00148508 CFunc_DoScreenElementMorph func_00146DE0 CFunc_SetScreenElementLock
+CFunc_ScreenElementSystemInit func_00148258 CFunc_SetScreenElementProps CFunc_CreateScreenElement
+CFunc_DestroyScreenElement CFunc_GetScreenElementPosition CFunc_GetScreenElementDims CFunc_MenuSelectedIndexIs
+
+- Element lookups return a ref-counted handle {p,0,0} on the stack (func_00145488/func_00145310), released by hand
+  (`if (r.p) { func_001CE888(r.p, &r); r.p = 0; }`); `if (lookup) {...; return 1;} return 0;` gives the original
+  branch layout. func_0027DF00 returns bool (`!x` is xori). GetScreenElementDims: `float w = field;` then
+  `int iw = (int)(w * call())`.
+
+Given up:
+- func_00148490 (ctor): store order of 13 fields not reproduced; 5 orders tried (base ctor returning a pointer
+  fixed v0/v1)
+- func_001468A8, func_00146E78: unrolled loops; func_001481E0: split head
+- not attempted yet: func_001483B0, func_00146778, func_00148530, func_00146C10, func_00146580
 
 ## Small-function pass (agent A5)
 
