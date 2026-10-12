@@ -321,3 +321,17 @@ Given up:
 - CFunc_TimeGreaterThan: u32->float conversion; original leaves the `b` delay slot empty after cvt.s.w.
 - CFunc_CenterCamera, CFunc_SkatersAreReady: `movn`/`movz` list walks (see t_24DDB8 CompressVC).
 - Cutscene destroy-list functions, PlayCutscene (ldl/ldr struct copy), TestNetSetup, SetConfig: not tried.
+
+### t_2626E0 (+18, viewer/controller CFuncs)
+CFunc_ClearViewerObject, CFunc_DestroyViewport, CFunc_IsPS2, CFunc_LoadExecPS2, CFunc_SetScreenMode,
+CFunc_ViewportExists, CFunc_GetPlatformExt, CFunc_GetScreenMode, CFunc_ResetModelViewerCamera, CFunc_SetViewMode,
+CFunc_SetViewerModel, CFunc_SetViewerAnim, CFunc_GetViewerObjectID, CFunc_SetViewportProperties,
+CFunc_SetViewerLODDist, CFunc_VibrateController, CFunc_ReloadViewerAnim, CFunc_CreateViewport
+(IsPS2: `x == 1 || x == 2 || x == 3` on a global folds into a range test; reading the global through an inline
+getter per comparison (`Platform() == 1 || Platform() == 2 ...`) keeps the beq chain.)
+Given up:
+- CFunc_ControllerPressed/CFunc_ControllerMake (match except one `nop` the original has before the 8-aligned
+  `return 0` label), CFunc_EnableActuators (same: `nop` before an 8-aligned branch target). Assembler/toolchain
+  question like the short-loop nops.
+- CFunc_BindFrontEndToController: register choice for the pad table pointer (2 forms).
+- CFunc_ResetPS2/CFunc_ResetHD: loops with `nop nop` after the jal (short-loop padding).
