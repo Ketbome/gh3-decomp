@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 asm(".set D_00368A38_lui, D_00368A38");
@@ -117,7 +118,35 @@ struct S0028CF18 {
     int unkD8;
 };
 
+struct S28C_Comp {
+    u32 b0 : 8;
+    u32 b8 : 1;
+    u32 type : 7;
+    u16 unk2;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+
+struct S28C_Loop {
+    int ptr;
+    int count;
+};
+
+struct S28C_Script {
+    char pad0[0x4];
+    S28C_Comp comps[20];
+    int unk144;
+    S28C_Loop loops[20];
+    int unk1E8;
+    int unk1EC;
+    char pad1F0[0x4];
+    int unk1F4;
+    int unk1F8;
+};
+
 extern "C" {
+void func_002791E0(S28C_Comp *);
 void func_001D8CD0(int, void *, int, int, int, int, int, int);
 extern int D_00368A38;
 extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
@@ -443,11 +472,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_28CC70", func_0028E6D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28CC70", func_0028E858);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28CC70", func_0028E8A0);
+extern "C" S28C_Script *func_0028E8A0(S28C_Script *s) {
+    S28C_Comp *c = s->comps;
+    for (int i = 19; i != -1; i--) {
+        c->b8 = 0;
+        c->type = 0;
+        c->unk2 = 0;
+        c->unk4 = 0;
+        c->unkC = 0;
+        c->unk8 = 0;
+        c++;
+    }
+    func_0028E9B0(s);
+    s->unk1F8 = 1;
+    return s;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28CC70", func_0028E9A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28CC70", func_0028E9B0);
+extern "C" void func_0028E9B0(void *p) {
+    S28C_Script *s = (S28C_Script *)p;
+    int i;
+    for (i = 0; i < 20; i++) {
+        func_002791E0(&s->comps[i]);
+    }
+    s->unk144 = 0;
+    s->unk1E8 = 0;
+    for (i = 0; i < 20; i++) {
+        s->loops[i].ptr = 0;
+        s->loops[i].count = 0;
+    }
+    s->unk1EC = 0;
+    s->unk1F4 = 0;
+}
 
 extern "C" void func_0028EAC0(S28C_Obj *p) {
     if (p->unk144 || (p->unk4 & 0xFE00) || p->unk1E8 || p->unk1F4) {

@@ -153,7 +153,7 @@ Given up:
 ### t_268EB8 (+5)
 func_0026AC30, func_0026AE70, func_00269FE0, func_0026ABB8, func_00269F08
 Given up:
-- func_00269888: needs `-funroll-loops` (see notes).
+- (SOLVED round 5, file now `-funroll-loops`) func_00269888.
 - func_0026A368 (and the identical t_266800 func_00266E08): hash-chain lookup, not tried yet.
 
 ### t_260658 (+6)
@@ -179,7 +179,7 @@ Given up:
   with volatile stores).
 - t_29F288 func_0029F578: dead stack store of 4 kept; ours turns `(x & 4) == 0` into a shift.
 - t_2E7010 func_002E8C08: register allocation (base $v0, constant $v1).
-- t_26D280 func_0026E138: one-entry table scan; looks like an unrolled loop (`-funroll-loops`).
+- (SOLVED round 5, t_26D280 now `-funroll-loops`) t_26D280 func_0026E138: one-entry table scan loop.
 
 ### Wrapper batch (+9)
 - t_268EB8: func_00269218, func_0026A740, func_0026A958 (call init, return this)
@@ -272,7 +272,9 @@ Given up:
 - func_0028E610: only the prologue save order (s0/s2) differs; 3 forms tried. func_0028E4F8 (same pattern in a
   loop): original keeps `n - 1 != -1` unfolded.
 - func_0028DB50: original hoists `a == 0` (sltiu) after the duplicated loop test; bool local gets it except prologue.
-- func_0028D578: short loops. func_0028E8A0/func_0028E9B0: loops unrolled (`-funroll-loops`, not set for the file).
+- func_0028D578: hash lookup + alias chase (see t_2754A0 func_00276008). (SOLVED round 5, file now `-funroll-loops`:
+  func_0028E8A0 (CScript ctor: component array-ctor loop written `for (i = 19; i != -1; i--) { inline clears; c++; }`),
+  func_0028E9B0 (one `int i` shared by both loops).)
 - 0x4/0xC functions (`addiu sp; nop`) are split fragments.
 
 ### t_24DDB8 (+29, math/render CFuncs) — file now has `// cflags: -ffast-math`
@@ -458,3 +460,5 @@ Given up:
 - Still failing: t_2949F0 func_00295D40 (store scheduling at the end: the original counted the lui-form store as
   2 insns; 4 orders); t_26F3B8 func_00270F08 (two copies of the bit-scan loop, `li v1,1` hoisted; 3 forms);
   t_2754A0 func_00276008/func_002762F0 (hash lookup + alias chase; loop shapes differ, 2 forms).
+- Note: t_2DCE78 cannot take `-funroll-loops` (func_002DD738's empty array-ctor loop disappears), so its
+  unrolled-by-4 functions stay.

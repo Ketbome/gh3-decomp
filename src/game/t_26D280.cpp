@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S0026DFE8 {
@@ -11,7 +12,12 @@ struct S0026D660 {
     u64 unkC90;
 };
 
+struct S26D_Ent {
+    int key;
+};
+
 extern "C" {
+extern S26D_Ent D_003A34A0[];
 extern int D_00370C14;
 void func_00273498(void);
 void func_0026E0B8(void);
@@ -99,7 +105,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E0B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E0E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E138);
+extern "C" S26D_Ent *func_0026E138(int k) {
+    for (int i = 0; i < 1; i++) {
+        if (D_003A34A0[i].key == k) {
+            return &D_003A34A0[i];
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E158);
 
