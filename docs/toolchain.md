@@ -52,7 +52,8 @@ inline `lui`/`ori`/`mtc1` SN's assembler produced (the modern gas would use `.li
 loads/stores the way SN's one-pass assembler did: ee-gcc writes the `.extern sym,size` at the end of the file, so
 outside delay slots the size was not known yet (`lui`+`%lo`), while in a delay slot (`nomacro`) it used `%gp_rel`.
 Data the object defined itself was known small (`GP_DATA` in the source). Verified on 1,471 matched functions.
-The prelude also stops gas from adding a hazard nop after `mfc1` (SN's assembler kept the ones after `mtc1` and
+Short loops are padded with nops before the backward branch up to 6 instructions (the R5900 short-loop erratum,
+which SN's assembler worked around). The prelude also stops gas from adding a hazard nop after `mfc1` (SN's assembler kept the ones after `mtc1` and
 between an FPU compare and `bc1t`/`bc1f`). `scripts/set_eabi64.py` then sets the object's ABI flags
 back to EABI64 so the linker accepts it next to the assembly.
 
