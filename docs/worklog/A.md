@@ -417,7 +417,7 @@ Given up:
 
 ## t_1816C0
 
-Matched 13: func_001818F8 func_00181910 func_001824B8 func_00181C58 func_001821E0 func_00182180 func_001822A8
+Matched 12: func_001818F8 func_00181910 func_001824B8 func_00181C58 func_001821E0 func_00182180 func_001822A8
 func_00182338 func_001823A8 func_00182370 func_001823F0 func_00183460
 
 - func_001824B8 (BCD byte -> int): parameter is u32, return u8.
