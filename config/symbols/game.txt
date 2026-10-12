@@ -1,0 +1,5 @@
+// Game functions named from evidence (inferred, not from symbols). Format: name = address; // type:func  // evidence
+// Not yet listed in the yaml: apply with scripts/apply_names.py when no worker is running (see decomp_guide.md).
+SetProgressionMaxDifficulty = 0x001E94F8; // type:func  // wrapped by CFunc_SetProgressionMaxDifficulty
+SetProgressionDifficulty = 0x001E9500; // type:func  // wrapped by CFunc_SetProgressionDifficulty
+GetProgressionDifficulty = 0x001E9508; // type:func  // wrapped by CFunc_GetProgressionDifficulty
