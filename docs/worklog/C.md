@@ -2,8 +2,7 @@
 
 ## Notes
 
-- Functions that save `$s0`-`$s7`/`$fp` cannot match yet: the game code saves them with `sd`, our ee-gcc 2.95.3-136
-  build always emits `sq` (and a different frame layout). Skipped as a class until the toolchain question is solved.
+- (Fixed by the integrator with `-fopt-stack`) saved `$s` registers used to come out as `sq`.
 - `delete p` on a class with a virtual destructor (vptr at 0x14, gcc 2.x vtable entries {s16 delta, s16, fn}) matches
   the singleton release pattern (`if (refs >= 2) refs--; else { delete obj; obj = 0; refs = 0; }`).
 - A pointer loaded from `$gp` used only on one branch: read the global inside the branch, not into a local first.
@@ -36,7 +35,13 @@
 CFunc_GetButtonsReleased, CFunc_ResumeControllerChecking, func_002DC9D8, func_002DC9F0, func_002DB998,
 func_002DB9B8, func_002DCAD0, CFunc_ShouldGameBePausedDueToSysNotification, func_002DCA08, func_002DBA28,
 func_002DCB40
-Given up: func_002DBA80 (saves $s0: sd vs sq).
+Round 2 after `-fopt-stack` (+11): func_002DBA80, func_002DCD20, func_002DCC30, func_002DB268, func_002DB510,
+func_002DC670, func_002DB078, func_002DAE48, func_002DAEE0, func_002DAFB0, func_002DB7B8
+Given up:
+- CFunc_GetButtonsPressed: D_0036CDB4 needs the macro `lui` form here but `$gp` in func_002DCA08 (same file);
+  the explicit split is scheduled before `addiu sp`. Otherwise matches.
+- func_002DCC98: D_00368A38 read via `lui` and via `$gp` in the same function.
+- func_002DC5B8, func_002DCB98 (constructors): unused byte-color local kept on the stack; not solved.
 
 ### t_254248 (+21)
 CFunc_ResetBCSND, CFunc_PauseStream, CFunc_FreeStreamFrameAmp, CFunc_IsSoundPlaying, CFunc_LoadStreamFrameAmp,
