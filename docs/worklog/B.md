@@ -212,3 +212,12 @@ Given up:
 - func_001E1650: branch layout (bnezl) and and-operand order; 3 tries
 - func_001E1068: v0/v1 swapped between vtable and list head; 3 tries
 - func_001E19F0, func_001E0F50, func_001E1C90, func_001E0BB0: split tails
+
+## t_1E2B90
+
+Matched 0: 
+
+Given up:
+- func_001E3048: D_00368A38 gp_rel in a delay slot
+- func_001E2E90: register choice for the null-checked owner (a0/v1 vs ours v1/a1); 3 tries
+- func_001E3220: outgoing arg move order (a2 from call result last); 5 tries incl. variadic and member-call
