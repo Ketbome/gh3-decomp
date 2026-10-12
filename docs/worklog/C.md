@@ -153,3 +153,10 @@ Given up:
 - t_29F288 func_0029F578: dead stack store of 4 kept; ours turns `(x & 4) == 0` into a shift.
 - t_2E7010 func_002E8C08: register allocation (base $v0, constant $v1).
 - t_26D280 func_0026E138: one-entry table scan; looks like an unrolled loop (`-funroll-loops`).
+
+### Wrapper batch (+9)
+- t_268EB8: func_00269218, func_0026A740, func_0026A958 (call init, return this)
+- t_26D280: func_0026DFC0; t_271480: func_00271590; t_2797A8: func_0027AA70; t_27D828: func_0027E488
+- t_2A53A8: func_002A6C60; t_25C450: func_0025DFB8
+Given up:
+- t_282268 func_00283070: seven stores, 6 orders tried, scheduler order never matches.

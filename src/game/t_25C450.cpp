@@ -19,6 +19,7 @@ int func_00264B70(void);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_001194B8(int);
 void func_00119CC0(int);
+void func_00264F60(void);
 }
 
 extern "C" int CFunc_PrintChecksumTableUsage(void) {
@@ -129,7 +130,12 @@ extern "C" void func_0025DF98(void) {
     D_003705D8 = func_00264B70();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025DFB8);
+extern "C" void func_0025DFB8(void) {
+    if (D_003705D8 != 0) {
+        func_00264F60();
+        D_003705D8 = 0;
+    }
+}
 
 extern "C" void func_0025DFE0(void) {
 }
