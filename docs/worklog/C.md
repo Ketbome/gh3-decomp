@@ -348,3 +348,18 @@ Given up:
 - CFunc_SetEventHandler: `b = resp == K` comes out `sltiu`; original computes it as `sltu v0,s1,v0; xori` using the
   zeroed register of `b`, and the two flag registers are swapped (1 form).
 - CFunc_ScriptExists, CFunc_SymbolIsCFunc, CFunc_CleanUpAndRemoveSymbol: inlined symbol-hash lookups with short loops.
+
+### t_2A53A8 (+14, memory card CFuncs)
+func_002A53A8, CFunc_CardIsNew, func_002A54C8, CFunc_CardIsFormatted, func_002A6E50, func_002A6B70,
+CFunc_DeleteMemCardFile, CFunc_MemCardSystemInitialize, CFunc_SetSaveFileName, CFunc_FormatCard,
+CFunc_GetMemCardSpaceRequired, CFunc_SaveToMemoryCard, func_002A6730 (destructor), CFunc_GetMemCardSpaceAvailable
+(Three global stores came out rotated: source order DAD0, DAD4, DAD8 gives the original DAD4, DAD8, DAD0.)
+Given up / not tried:
+- func_002A6700 (self-linked list head at D_003AAD80+4 built as `la` then `+4`, same as t_260658 func_00261C98).
+- func_002A6678, func_002A67B8: split fragments.
+
+### Toolchain notes for the integrator (round 4)
+- `li.d` (double constant into a GPR, soft-float): SN's assembler expanded it to `li; dsll; ori; dsll; ...`, our gas
+  rejects `li.d` on r5900. Blocks t_260658 func_00260D98.
+- Several functions match except for one `nop` the original has right before an 8-byte aligned branch-target label
+  (t_2626E0 CFunc_ControllerPressed/ControllerMake/EnableActuators). Looks like assembler padding, not gcc.

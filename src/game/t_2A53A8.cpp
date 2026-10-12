@@ -1,11 +1,55 @@
 #include "common.h"
 
+struct S2A5_Dtor {
+    void *unk0;
+    void *unk4;
+    char pad8[0x8];
+    void *unk10;
+};
+
+struct S2A5_Card {
+    char pad0[0x10];
+    int unk10;
+};
+
 struct S2A6648_1 {
     char pad0[0x20];
     s32 unk20;
 };
 
 extern "C" {
+int func_00121C18(S2A5_Card *);
+int func_001E32D8(u32);
+int func_002A53E0(u32, int);
+void func_0027C160(s32, u32, int);
+int func_001E3B60(u32);
+extern char D_00362400[];
+void func_0027AC90(void *);
+void func_00113250(void *);
+extern int D_00368A38;
+void func_00119400(int, void *);
+int func_00121D78(S2A5_Card *);
+int func_00275EE8(u32, int);
+S2A5_Card *func_001218A0_c(s32, int, int) asm("func_001218A0");
+int func_002A5478(void);
+void func_00121BF8(S2A5_Card *);
+int func_00121C70(S2A5_Card *);
+void func_0011A558(u32, int, int);
+void func_0011A560(int, int, int);
+void func_0011A568(void);
+void func_002A67E8(int);
+void func_002882E8(int, int, int, int);
+void func_0026C7A8(int);
+void func_0026C878(int);
+int func_0027D870(int, u32, u32 *, int);
+int func_0027D188(int, u32, int *, int);
+int func_001E46B0(u32);
+extern int D_0036DAD0;
+extern int D_0036DAD4;
+extern int D_0036DAD8;
+void func_002A4940(void);
+void func_001E5130(void (*)(void), int, int);
+void func_001E5C70(u32, int);
 extern s32 D_00368E48[] __attribute__((section(".sdata")));
 extern s32 D_00370AE0;
 extern s32 D_00371D7C;
@@ -23,13 +67,25 @@ int func_002A6C40_r(void) asm("func_002A6C40");
 void func_002A6C10_a(int) asm("func_002A6C10");
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A53A8);
+extern "C" int func_002A53A8(u32 a) {
+    if (a == 0xDDFE0DB9) {
+        return func_00275EE8(0x285FECB3, 0);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A53E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5478);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A54C8);
+extern "C" int func_002A54C8(int a) {
+    int n = func_002A5478();
+    int q = a / n;
+    if (a % n != 0) {
+        return q * n + n;
+    }
+    return a;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5510);
 
@@ -37,25 +93,75 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5638);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5748);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetMemCardSpaceAvailable);
+extern "C" int CFunc_GetMemCardSpaceAvailable(int params, S2A6648_1 *script) {
+    func_0027C160(script->unk20, 0x0C37C363, 0);
+    func_0027C160(script->unk20, 0x0855B2FC, 1000000);
+    S2A5_Card *c = func_001218A0_c(D_00368E48[0], 0, 0);
+    if (c) {
+        int d = script->unk20;
+        func_0027C160(d, 0x0C37C363, func_00121D78(c));
+        return 1;
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetMemCardSpaceRequired);
+extern "C" int CFunc_GetMemCardSpaceRequired(int params, S2A6648_1 *script) {
+    u32 t = 0;
+    func_0027D870(params, 0, &t, 0);
+    u32 x = t;
+    int r = func_002A53E0(x, func_001E32D8(x));
+    func_0027C160(script->unk20, 0xEB3860C3, r);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardGetUniqueFileName);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardFileExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_DeleteMemCardFile);
+extern "C" int CFunc_DeleteMemCardFile(int params) {
+    u32 n;
+    func_0026C7A8(1);
+    func_0026C878(1);
+    func_0027D870(params, 0x11093FB5, &n, 1);
+    int r = func_001E46B0(n);
+    func_0026C7A8(-1);
+    func_0026C878(-1);
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_FormatCard);
+extern "C" int CFunc_FormatCard(void) {
+    int r = 0;
+    func_0026C7A8(1);
+    func_0026C878(1);
+    S2A5_Card *c = func_001218A0_c(D_00368E48[0], 0, 0);
+    if (c) {
+        r = func_00121C18(c);
+    }
+    func_0026C7A8(-1);
+    func_0026C878(-1);
+    return r;
+}
 
 extern "C" s32 CFunc_CardIsInSlot(void) {
     return func_001218A0(D_00368E48[0], 0, 0) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_CardIsNew);
+extern "C" int CFunc_CardIsNew(void) {
+    S2A5_Card *c = func_001218A0_c(D_00368E48[0], 0, 0);
+    if (c && c->unk10 == -1) {
+        return 1;
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_CardIsFormatted);
+extern "C" int CFunc_CardIsFormatted(void) {
+    S2A5_Card *c = func_001218A0_c(D_00368E48[0], 0, 0);
+    if (c) {
+        func_00121BF8(c);
+        return func_00121C70(c);
+    }
+    return 0;
+}
 
 extern "C" s32 CFunc_SaveFailedDueToInsufficientSpace(void) {
     return D_00371D7C;
@@ -68,7 +174,21 @@ extern "C" void func_002A5DB0(void) {
     func_002691B0(D_00370AE0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_SaveToMemoryCard);
+GP_DATA(D_00371D7C);
+extern "C" int CFunc_SaveToMemoryCard(int params) {
+    u32 n;
+    func_0026C7A8(1);
+    func_0026C878(1);
+    D_00371D7C = 0;
+    func_0027D870(params, 0x11093FB5, &n, 1);
+    int r = func_001E3B60(n);
+    func_0026C7A8(-1);
+    func_0026C878(-1);
+    if (r == 2) {
+        D_00371D7C = 1;
+    }
+    return r == 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_LoadFromMemoryCard);
 
@@ -86,9 +206,23 @@ extern "C" s32 CFunc_StorageSelectorFinished(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardSystemInitialize);
+extern "C" int CFunc_MemCardSystemInitialize(void) {
+    D_0036DAD0 = 31000;
+    D_0036DAD4 = 9000;
+    D_0036DAD8 = 3000;
+    func_001E5130(func_002A4940, func_002764E8(0x71ACFFE9, 0), 0);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_SetSaveFileName);
+extern "C" int CFunc_SetSaveFileName(int params) {
+    u32 n;
+    int s;
+    func_0027D870(params, 0x11093FB5, &n, 1);
+    u32 x = n;
+    func_0027D188(params, 0xA1DC81F9, &s, 1);
+    func_001E5C70(x, s);
+    return 1;
+}
 
 extern "C" s32 CFunc_EnumContentFiles(void) {
     return 0;
@@ -111,13 +245,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6678);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6700);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6730);
+extern "C" void func_002A6730(S2A5_Dtor *p, int flags) {
+    p->unk10 = D_00362400;
+    void *q = p->unk0;
+    if (q) {
+        func_0027AC90(q);
+        func_00113250(q);
+    }
+    q = p->unk4;
+    if (q) {
+        func_0027AC90(q);
+        func_00113250(q);
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A67B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A67E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6B70);
+extern "C" void func_002A6B70(int a, int b, int c) {
+    func_0011A560(a, 0, 0);
+    func_002882E8(a, b, 0, c);
+    func_0011A568();
+}
 
 extern "C" int func_002A6BD0(int arg0, int arg1, int arg2, int arg3) {
     return func_00288410(arg0, arg1, arg2, arg3, 0);
@@ -142,7 +295,13 @@ extern "C" void func_002A6C60(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6C88);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6E50);
+extern "C" void func_002A6E50(int a, int b) {
+    func_0011A558(0x328084D7, 0, 0);
+    if (b) {
+        func_002A67E8(a);
+    }
+    func_0011A568();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6EA8);
 
