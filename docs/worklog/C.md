@@ -331,11 +331,10 @@ CFunc_SetViewerLODDist, CFunc_VibrateController, CFunc_ReloadViewerAnim, CFunc_C
 (IsPS2: `x == 1 || x == 2 || x == 3` on a global folds into a range test; reading the global through an inline
 getter per comparison (`Platform() == 1 || Platform() == 2 ...`) keeps the beq chain.)
 Given up:
-- CFunc_ControllerPressed/CFunc_ControllerMake (match except one `nop` the original has before the 8-aligned
-  `return 0` label), CFunc_EnableActuators (same: `nop` before an 8-aligned branch target). Assembler/toolchain
-  question like the short-loop nops.
+- (SOLVED round 5) CFunc_ControllerPressed/CFunc_ControllerMake/CFunc_EnableActuators: the `nop` is the loop
+  alignment of a 2-iteration loop fully unrolled; the file now has `// cflags: -funroll-loops`.
 - CFunc_BindFrontEndToController: register choice for the pad table pointer (2 forms).
-- CFunc_ResetPS2/CFunc_ResetHD: loops with `nop nop` after the jal (short-loop padding).
+- (SOLVED round 5 after the short-loop fix) CFunc_ResetPS2/CFunc_ResetHD.
 
 ### t_258420 (+22, script-control CFuncs)
 CFunc_IsTrue, CFunc_EnableScriptPrintf, CFunc_ClearEventHandler, CFunc_IsPair, CFunc_AddFlag, CFunc_GotParam,

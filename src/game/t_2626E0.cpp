@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S2626_Ctl {
@@ -37,7 +38,27 @@ struct S2626_Script {
     int unk20;
 };
 
+struct S2626_Mgr {
+    char pad0[0x28];
+    int pads[2];
+};
+
+struct S2626_ActEnt {
+    int on;
+    char pad4[0xC];
+};
+
+struct S2626_ActMgr {
+    char pad0[0x3C];
+    S2626_ActEnt act[2];
+};
+
 extern "C" {
+extern char D_00370870[];
+extern char D_00370878[];
+extern char D_00370880[];
+int func_002F2D48(char *, int, int, int, int, int);
+int func_002FFF50(int *);
 int func_00262F18(int, u32);
 int func_002634B8(int, u32);
 void func_00275648(S2626_Range *);
@@ -197,9 +218,26 @@ extern "C" int CFunc_ClearViewerObject(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262AB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ResetPS2);
+extern "C" int CFunc_ResetPS2(void) {
+    while (func_002F2D48(D_00370870, 0x4402, 0, 0, 0, 0) < 0) {
+    }
+    int r;
+    while (!func_002FFF50(&r) || r != 0) {
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ResetHD);
+extern "C" int CFunc_ResetHD(void) {
+    func_002F2D48(D_00370878, 0x5003, 0, 0, 0, 0);
+    while (func_002F2D48(D_00370880, 0x4806, 0, 0, 0, 0) < 0) {
+    }
+    while (func_002F2D48(D_00370870, 0x4402, 0, 0, 0, 0) < 0) {
+    }
+    int r;
+    while (!func_002FFF50(&r) || r != 0) {
+    }
+    return 1;
+}
 
 extern "C" int CFunc_LoadExecPS2(int params) {
     int name;
@@ -276,11 +314,57 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262F18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_002634B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerPressed);
+extern "C" int CFunc_ControllerPressed(int params) {
+    S2626_Mgr *m = (S2626_Mgr *)D_0036CDB4[0];
+    u32 button = 0;
+    if (!func_0027D870(params, 0, &button, 0)) {
+        return 0;
+    }
+    int n;
+    if (func_0027D1F8(params, 0, &n, 0)) {
+        return func_00262F18(m->pads[n], button) != 0;
+    }
+    for (int i = 0; i < 2; i++) {
+        if (func_00262F18(m->pads[i], button)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerMake);
+extern "C" int CFunc_ControllerMake(int params) {
+    S2626_Mgr *m = (S2626_Mgr *)D_0036CDB4[0];
+    u32 button = 0;
+    if (!func_0027D870(params, 0, &button, 0)) {
+        return 0;
+    }
+    int n;
+    if (func_0027D1F8(params, 0, &n, 0)) {
+        return func_002634B8(m->pads[n], button) != 0;
+    }
+    for (int i = 0; i < 2; i++) {
+        if (func_002634B8(m->pads[i], button)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_EnableActuators);
+extern "C" int CFunc_EnableActuators(int params) {
+    int on = 1;
+    func_0027D1F8(params, 0, &on, 0);
+    int dev = D_0036D020;
+    for (int i = 0; i < 2; i++) {
+        if (((S2626_ActMgr *)D_0036CDB4[0])->act[i].on) {
+            if (on) {
+                func_001CD678(dev, i);
+            } else {
+                func_001CD640(dev, i);
+            }
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_VibrateController(int params) {
     int a;
