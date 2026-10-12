@@ -465,3 +465,14 @@ Given up:
   t_2754A0 func_00276008/func_002762F0 (hash lookup + alias chase; loop shapes differ, 2 forms).
 - Note: t_2DCE78 cannot take `-funroll-loops` (func_002DD738's empty array-ctor loop disappears), so its
   unrolled-by-4 functions stay.
+
+### t_24BA88 (+6) -- file now has `// cflags: -funroll-loops`
+CFunc_ProximCleanup, CFunc_DestroyParticlesByGroupID, CFunc_UnloadQB (15-entry clear unrolled by 5),
+CFunc_GetFileNameFromPath (`if (!s) {...} else {...}` order and two calls cross-jumped), CFunc_DestroyAllFastParticles,
+CFunc_LoadQB (two out locals in a local struct to get their stack order)
+(Virtual call vptr/fn register choice depends on the declared return type: int vs void.)
+Given up:
+- CFunc_Sqrt: with `-ffast-math` + `__builtin_sqrtf` only the `lwc1; nop; nop; sqrt.s` placement differs (SN
+  assembler hazard nops before sqrt.s, like the `div.s` nops of t_24DDB8 CFunc_LinearMap). Toolchain.
+- func_0024D068, func_0024D128: pool alloc (same as t_286A60 func_00288000).
+- CFunc_GetVectorComponents (TImode vector), CFunc_StringRemove, CFunc_IsInArray, ...: not tried.

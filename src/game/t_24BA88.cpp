@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S24B_Script {
@@ -22,7 +23,64 @@ struct S0024C8A8 {
     int unk8;
 };
 
+struct S24B_Obj {
+    char pad0[0x14];
+    S24B_Obj *next;
+    char pad18[0x14];
+    int unk2C;
+    char pad30[0xA4];
+    int unkD4;
+};
+
+struct S24B_PBase {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual int Destroy(u32);
+};
+
+struct S24B_FBase {
+    char pad0[0x8];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void Kill();
+};
+
+struct S24B_FObj {
+    char pad0[0xC];
+    S24B_FBase *unkC;
+    char pad10[0x4];
+    S24B_FObj *next;
+};
+
 extern "C" {
+void func_00113528(char *);
+char *func_0030E6D0(char *, int);
+void func_002A6B70(char *, int, u32);
+extern char D_00370268[];
+extern int D_0036D3B0;
+S24B_Obj *func_001D4AC0(int, u32);
+void func_0016BBC0(int, u32);
+void func_001EB1C0(void);
+void func_002A6BF0(u32);
+u32 func_001150B8(char *);
+extern u32 D_00399AA8[15];
 extern void* D_0036E010[] __attribute__((section(".sdata")));
 int func_001573D8(void);
 extern int D_00370EE0[] __attribute__((section(".sdata")));
@@ -114,9 +172,28 @@ extern "C" int CFunc_DestroyAllParticles(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DestroyParticlesByGroupID);
+extern "C" int CFunc_DestroyParticlesByGroupID(int params) {
+    u32 id = 0;
+    func_0027D870(params, 0x87FA53ED, &id, 1);
+    if (D_00369A4C[0]) {
+        func_0016BBC0(D_00369A4C[0], id);
+    }
+    for (S24B_Obj *o = func_001D4AC0(D_0036D3B0, 0xA9DB601E); o; o = o->next) {
+        ((S24B_PBase *)o)->Destroy(id);
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DestroyAllFastParticles);
+extern "C" int CFunc_DestroyAllFastParticles(void) {
+    S24B_FObj *o;
+    for (o = (S24B_FObj *)func_001D4AC0(D_0036D3B0, 0xC5BCEB9E); o; o = o->next) {
+        o->unkC->Kill();
+    }
+    for (o = (S24B_FObj *)func_001D4AC0(D_0036D3B0, 0xA9DB601E); o; o = o->next) {
+        o->unkC->Kill();
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Change);
 
@@ -193,15 +270,59 @@ extern "C" int CFunc_IsCOIMInited(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024C810);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_ProximCleanup);
+extern "C" int CFunc_ProximCleanup(void) {
+    S24B_Obj *o;
+    for (o = func_001D4AC0(D_0036D3B0, 0x07713C7B); o; o = o->next) {
+        o->unkD4 = 0;
+    }
+    for (o = func_001D4AC0(D_0036D3B0, 0x0F1641E3); o; o = o->next) {
+        o->unk2C = 0;
+    }
+    func_001EB1C0();
+    return 1;
+}
 
 extern "C" int CFunc_Inside(void) {
     return ((S0024C8A8*)D_0036E010[0])->unk8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_LoadQB);
+extern "C" int CFunc_LoadQB(int params) {
+    struct {
+        u32 x;
+        char *name;
+    } a;
+    a.x = 0x0FA33D9B;
+    a.name = 0;
+    func_0027D188(params, 0, &a.name, 0);
+    func_0027D870(params, 0x42D6DD1E, &a.x, 0);
+    if (func_0027DF00(params, 0x6DD1DECF)) {
+        u32 *p = D_00399AA8;
+        for (int i = 0; i < 15; i++) {
+            if (*p == 0) {
+                *p = func_001150B8(a.name);
+                break;
+            }
+            p++;
+        }
+        func_002A6B70(a.name, 1, a.x);
+    } else {
+        func_002A6B70(a.name, 0, a.x);
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_UnloadQB);
+extern "C" int CFunc_UnloadQB(int params) {
+    char *name = 0;
+    func_0027D188(params, 0, &name, 0);
+    u32 k = func_001150B8(name);
+    func_002A6BF0(k);
+    for (int i = 0; i < 15; i++) {
+        if (k == D_00399AA8[i]) {
+            D_00399AA8[i] = 0;
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_ScreenShot(int params) {
     char *name;
@@ -241,7 +362,23 @@ extern "C" int CFunc_IsTextureInDictionary(int params) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetRelativePath);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetFileNameFromPath);
+extern "C" int CFunc_GetFileNameFromPath(int params, S24B_Script *script) {
+    char *path = D_00370268;
+    func_0027D188(params, 0xF4AB74F0, &path, 1);
+    func_00113528(path);
+    char *s = func_0030E6D0(path, '\\');
+    if (!s) {
+        s = func_0030E6D0(path, '/');
+        if (!s) {
+            func_0027C028(script->unk20, 0xC3F4169A, path);
+        } else {
+            func_0027C028(script->unk20, 0xC3F4169A, s + 1);
+        }
+    } else {
+        func_0027C028(script->unk20, 0xC3F4169A, s + 1);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_LoadDBG(void) {
     return 1;
