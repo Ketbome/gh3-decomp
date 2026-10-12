@@ -615,3 +615,22 @@ Matched 4: func_001A9D68 func_001A9A60 func_001A9CF0 (0x50-byte u128 struct copy
 
 - func_001A9A60: reading the flags into a `u32` local makes `& ~2u` a lui/ori mask and gives the beqzl layout.
 - func_001A9E78: split head (alabel func_001A9E88); its loop has nops.
+
+## t_16E670 (A6)
+
+Matched 20: func_0016E728 func_0016E778 func_0016E7A8 func_0016E7E8 func_0016E810 func_0016E900 func_0016E9A0
+func_0016ED28 func_0016ED90 func_0016EE18 func_0016EF20 func_0016FDC8 func_0016FE10 func_0016FEF0 func_0016EFC8
+func_0016FB98 func_0016FC10 func_0016E670 func_0016E850 func_0016FAD8
+
+- `v >= old ? 1 : -1` gives `li 1; movn -1` (the `<` form picks movz).
+- func_0016E670 = the same hash Remove as t_14A6B0 func_0014C4A8; func_0016E850 = pooled delete with %gp_rel pools.
+- List iterators: `for (It it(l->head.next); it != It(&self->unk0->head); ++it)` re-stores the end temp each pass
+  (func_0016FB98, func_0016FAD8). Copying an iterator (`It it = b;`, func_0016FC10) needs a user copy ctor
+  (otherwise ldl/sdl); `if (l) {...; return n;} return 0;` gives its branch layout.
+
+Given up:
+- func_0016EF40: list unlink; the original reloads `p->unk0` in the bnel delay slot (no CSE), as t_139CE8
+  func_00139F98; 3 tries
+- func_0016F5F0: v0/v1 swap on the iterator init only (vcalls fixed by typing them as returning int); 5 tries
+- func_0016FCD8: unsigned->float `b` keeps a nop + two nops before div.s (assembler), as func_0011ED68
+- func_0016FE50: pextlw/pcpyld; func_0016F030 (alabel), split tails
