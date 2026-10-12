@@ -53,8 +53,9 @@ Given up:
 
 ## t_1B4190
 
-Matched 0. func_001B5BD0..func_001B5C80 and func_001B47B8, func_001B46C0: macro-form non-gp global loads/stores
-(tried func_001B5BD0..5C80: `%hi` lands in another register).
+Matched 6 in session 4 (new asm_filter): func_001B47B8 func_001B5BD0 func_001B5BF8 func_001B5C20 func_001B5C50 func_001B5C80.
+Given up: func_001B5CB0 (gp store placed in the bne delay slot in the original, ours schedules it before the compare; 6 tries);
+func_001B46C0 not attempted.
 
 
 ## t_1CBB50
