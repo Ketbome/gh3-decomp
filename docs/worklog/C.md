@@ -19,7 +19,11 @@
   branch (R5900 short-loop erratum, done by the original assembler). gcc puts the branch in `.set noreorder`, so
   modern gas `-mfix-r5900` does not help either. Toolchain question; skip functions with tiny loops.
 - Division cannot match yet: the game has 292 `div`/`divu` and no `break 7`, so it was built without the
-  divide-by-zero trap (`-mno-check-zero-division`); our flags emit `bnez`/`break 7`. Skip functions with `/` or `%`.
+  divide-by-zero trap. Verified: func_00295098 and func_002950D8 (t_2949F0) MATCH when compiled with
+  `-mno-check-zero-division` added to the flags. Skip functions with `/` or `%` until the flags change.
+- Loops unrolled by 4 with a remainder prologue (t_2DCE78 func_002DD670/func_002DD490) and a 2-entry table scan
+  (t_268EB8 func_00269888) point to `-funroll-loops`: func_00269888 written as a plain `for (i = 0; i < 2; i++)`
+  loop MATCHES with `-funroll-loops` (instruction for instruction), and does not without it.
 - Float constants with non-zero low bits (0.01f = 0x3C23D70A): the original builds them inline
   (`lui $at; ori $at; mtc1`), our gas puts gcc's `li.s` in `.lit4` (stray data). Skip unless a D_ constant exists.
 - Masks like `and` with `-0x101`/`-0x201` then `sb` at +2: bitfields in a u32 (clear bit 8, bit 9, byte field at 16).
@@ -108,3 +112,9 @@ Given up:
 - func_002DE578: original keeps the node in $a0 and copies it to $v0 for the null test (2 forms tried).
 - func_002DD0D0, func_002DD738: short loops. func_002DD288: D_0036F608 is read both via `$gp` and `lui` in
   one function. func_002DD670/func_002DD490/func_002DE638: loops unrolled by 4 (not tried).
+
+### t_268EB8 (+5)
+func_0026AC30, func_0026AE70, func_00269FE0, func_0026ABB8, func_00269F08
+Given up:
+- func_00269888: needs `-funroll-loops` (see notes).
+- func_0026A368 (and the identical t_266800 func_00266E08): hash-chain lookup, not tried yet.
