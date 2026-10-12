@@ -55,7 +55,23 @@ struct L_161 { char pad0[0x14]; N_161 unk14; };
 struct SBC_161 { char pad0[0xBC]; void* unkBC; };
 struct S1E0_161 { char pad0[0x1E0]; int unk1E0; };
 
+typedef unsigned int u128_161 __attribute__((mode(TI)));
+struct S2A4_161 { char pad0[0x2A4]; int unk2A4[9]; int unk2C8; };
+struct SBC2_161 { char pad0[0x8]; s8 unk8; char pad9[0x87]; char unk90[0x10]; char unkA0[0x10]; int unkB0; int unkB4; int unkB8; void* unkBC; };
+struct O34_161 { char pad0[0x34]; VEntry* unk34; };
+struct D8_161 { char pad0[0xC]; O34_161* unkC; };
+struct N2_161 { int unk0; N2_161* unk4; D8_161* unk8; };
+struct L54_161 { char pad0[0x18]; N2_161* unk18; char pad1C[0x38]; s16 unk54; };
+struct S40_161 { char pad0[0xC]; int unkC; char pad10[0x30]; u128_161 unk40; B50_161 unk50; VEntry* unk58; };
+
 extern "C" {
+void func_0030A49C(void*, int, int);
+void func_0030A2F4(void*, void*, int);
+int func_0015F2D0(int);
+void func_0015F2A8(int, int);
+void func_0010F690(void*);
+void func_001342B0(void*);
+int func_00162918(S00162918*);
 void func_0011D348(void*);
 void func_001628B8(S8_161*);
 void func_0015F1A0(int);
@@ -119,9 +135,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161D40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161DD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161E78);
+extern "C" int func_00161E78(L_161* self) {
+    int r = 0;
+    It_161 end(&self->unk14);
+    It_161 it(self->unk14.unk4);
+    for (; it != end; ++it) r |= func_0015F2D0(*it.cur->unk8);
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161EE0);
+extern "C" int func_00161EE0(L_161* self, int x) {
+    It_161 end(&self->unk14);
+    It_161 it(self->unk14.unk4);
+    for (; it != end; ++it) func_0015F2A8(*it.cur->unk8, x);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161F48);
 
@@ -131,9 +158,31 @@ extern "C" void func_00161FD8(S50_161* self, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161FF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162070);
+extern "C" int func_00162070(L54_161* self) {
+    if (self->unk54 != 1) {
+        return 0;
+    }
+    It_161 it((N_161*)self->unk18);
+    O34_161* o = ((N2_161*)it.cur)->unk8->unkC;
+    void* v;
+    if (o) {
+        VEntry* e = &o->unk34[2];
+        v = ((void* (*)(void*))e->fn)((char*)o + e->delta);
+    } else {
+        v = 0;
+    }
+    return v ? func_00162918((S00162918*)v) : 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_001620D8);
+extern "C" u128_161 func_001620D8(S40_161* self) {
+    if (((u32)*(u64*)&self->unk50 & 1) && !self->unkC) {
+        return self->unk40;
+    }
+    VEntry* e = &self->unk58[13];
+    self->unk40 = ((u128_161 (*)(void*))e->fn)((char*)self + e->delta);
+    *(u64*)&self->unk50 |= 1;
+    return self->unk40;
+}
 
 extern "C" void func_00162140(S50_161* self, int a) {
     self->unk50.f0 = 0;
@@ -223,7 +272,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162BB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162E08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162EE8);
+extern "C" void func_00162EE8(S2A4_161* self, void* src, int n) {
+    if (n >= 10) {
+        n = 9;
+    }
+    if (!src) {
+        func_0030A49C(self->unk2A4, 0xFF, n * 4);
+    } else {
+        func_0030A2F4(self->unk2A4, src, n * 4);
+    }
+    self->unk2C8 = n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162F48);
 

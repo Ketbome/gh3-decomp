@@ -539,3 +539,16 @@ func_00157098 func_00156590 func_001550C0
 Given up:
 - func_00156F80: `(i-1)*0x160` -- original adds -352 to the product, ours folds it into the ld/sd offset; 3 tries
 - func_00155290: a0/a1 swapped for the index/pointer; 3 tries
+
+## t_161580
+
+Matched 15: func_00161FD8 func_00162358 func_001628B8 func_00161960 func_001618A0 func_001618F8 func_00162420
+func_00163328 func_00162140 func_00162378 func_00162EE8 func_00161E78 func_00161EE0 func_00162070 func_001620D8
+
+- u64 flag word at 0x50: setting a bit = u64 bitfield (`ld/and/or/sd`); testing bit 0 = `(u32)*(u64*)& & 1` (lw).
+- Embedded list at self+0x14 walked with stack iterators (`It end(&head); It it(head.next)`), as in t_189938.
+- func_00162140: the vcall passes the function's 2nd argument through (vtable lands in a2).
+
+Given up:
+- func_001623B8 (ctor): vptr store scheduled before `move a0,s1` instead of in the jal delay slot; 2 tries
+- func_00161950, func_001623A0, func_001629C0: split fragments
