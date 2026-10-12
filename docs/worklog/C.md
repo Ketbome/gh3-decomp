@@ -335,3 +335,16 @@ Given up:
   question like the short-loop nops.
 - CFunc_BindFrontEndToController: register choice for the pad table pointer (2 forms).
 - CFunc_ResetPS2/CFunc_ResetHD: loops with `nop nop` after the jal (short-loop padding).
+
+### t_258420 (+22, script-control CFuncs)
+CFunc_IsTrue, CFunc_EnableScriptPrintf, CFunc_ClearEventHandler, CFunc_IsPair, CFunc_AddFlag, CFunc_GotParam,
+CFunc_OnExceptionRun, CFunc_IsStructure, CFunc_GenerateUTF16FromASCII, CFunc_ScriptAssert, CFunc_ScriptIsRunning,
+CFunc_ClearEventHandlerGroup, CFunc_AppendSuffixToChecksum, CFunc_Goto, CFunc_ExtendCrc,
+CFunc_ResetEventHandlersFromTable, CFunc_GetLowerCaseString, CFunc_GetUpperCaseString, CFunc_Block,
+CFunc_SetExceptionHandler, CFunc_MangleChecksums, CFunc_StructureContains
+(`xori v0,1; beqz` needs the callee declared `bool` (asm-label alias `func_0027D870_b`), then
+`bool missing = !f(); if (missing)`.)
+Given up:
+- CFunc_SetEventHandler: `b = resp == K` comes out `sltiu`; original computes it as `sltu v0,s1,v0; xori` using the
+  zeroed register of `b`, and the two flag registers are swapped (1 form).
+- CFunc_ScriptExists, CFunc_SymbolIsCFunc, CFunc_CleanUpAndRemoveSymbol: inlined symbol-hash lookups with short loops.
