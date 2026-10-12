@@ -376,6 +376,10 @@ Matched 28: func_0015D3F0 func_0015E0D0 func_0015E0A8 func_0015D5A0 func_0015DBF
 func_0015F218 func_0015DDB8 func_0015D2E8 func_0015D570 func_0015F168 func_0015EBD0 func_0015F038 func_0015E128
 func_0015EA08 func_0015E5C0 func_0015EAC0 func_0015F268 func_0015EB90 func_0015EA78 func_0015F110 func_0015ED48
 func_0015DC18 func_0015E460 func_0015E510 func_0015E190 func_0015F070
+Matched 2 (gp retry, solved): func_0015DDE8 func_0015EFE8
+
+- func_0015DDE8: dtor of two embedded lists; inline clear helper writing `&l->unk4` each time (no local for the
+  sentinel), stores next-then-prev.
 
 - Virtual calls that load the vtable into t0/t1 pass the caller's own a1..a3(/t0) straight through: give the
   function and the call those extra parameters.
@@ -389,8 +393,7 @@ Given up:
   stack; everything matches except the first `it != end` test, which the original reloads from memory; 7 tries
 - func_0015EDF8, func_0015EE28: function-static guards with a stray `nop` after the guard store; 2 tries
 - func_0015E0F8: ctor, vtable address lands in v1 instead of v0 (also tried a real ctor via asm label); 3 tries
-- func_0015D318: 8x unrolled loop (file has no -funroll-loops); func_0015DDE8, func_0015EFE8: D_00368A38 %gp_rel
-  (file uses lui); func_0015EE50, func_0015EDA0: 128-bit returns
+- func_0015D318: 8x unrolled loop (file has no -funroll-loops); func_0015EE50, func_0015EDA0: 128-bit returns
 - func_0015EC68, func_0015E630, func_0015D560, func_0015DDB0: split tails
 
 ## t_16C498
