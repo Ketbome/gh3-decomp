@@ -298,3 +298,10 @@ Given up:
 - func_0013C678, func_0013C5F8: short loops with an assembler-inserted nop before the back branch (R5900 fix)
 - func_0013CE58, func_0013CF78: recursive bool check; our gcc either tail-converts or adds `move v1,v0`; 5 tries
 - func_0013C1F0: parent walk with a ref temp; loop variable copied (move a0,s0) and rotated; 3 tries
+
+## t_13DEB8
+
+Matched 7: func_0013DEB8 func_0013DF18 func_0013EB38 func_0013EC10 func_0013EC98 func_0013ED28 func_0013FE00
+
+- func_0013FE00: same ref-counted pointer class (here the ctor takes the pointer by value, plus
+  `operator=(const Ref&)`); declaring `int n = 0` before the Ref local gives the original order and loop shape.
