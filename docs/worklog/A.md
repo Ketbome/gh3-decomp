@@ -334,6 +334,8 @@ func_00153D80 func_00153DB0 func_00153F98 func_00154078 func_001540A8 func_00154
 func_00153430 func_00153F08 func_00153F38 func_00153F68 func_00153FC8 func_00153FF8 func_001540D8 func_00152E88
 func_00153100 func_00153588 func_00154608 func_00154708 func_001546B8 func_00154670 func_001541A0 func_001544B8
 func_001547C8 func_00153510 func_00154750 func_00153810
+Matched 4 (gp retry, solved): func_001537E0 func_00154430 func_00153DE0 func_00153E70 (manual `delete[]` loop of
+10-byte elements, `while (self->unk4 != e)`; func_00154540 also takes a float: bound as `func_00154540_f`)
 
 - An asm-label alias (`extern int X_lo[] __asm__("D_00368A38") __attribute__((section(".sdata")))` next to the
   scalar) does NOT solve the both-forms problem: gcc emits `lw $4,D_00368A38` for both and the scalar's
@@ -342,7 +344,6 @@ func_001547C8 func_00153510 func_00154750 func_00153810
 - func_00152E88: returning the virtual call's result fixed the vt/fn register order.
 
 Given up:
-- func_001537E0, func_00154430, func_00153DE0, func_00153E70: D_00368A38 lui/%lo while the file uses %gp_rel
 - func_00152E18, func_00152ED8: original keeps the 2nd arg in a1 until the delay slot and loads the object into
   a2; ours moves a1 to s1 first; 2 tries
 - func_00152F48: dead `lw v0,0x10(a0)` before a virtual call, not reproduced
