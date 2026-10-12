@@ -476,3 +476,5 @@ Given up:
 - t_1B00D0 (now `// cflags: -funroll-loops`): func_001B1D60 MATCH (callees take no args: a0 not preserved),
   func_001B00D0 func_001B01D8 func_001B02F0 MATCH (record walk unrolled x4; `E* e = (E*)q[0] + j;`).
   func_001B1AB8 still DIFFERS: which of count/table pointer gets the copy (`move t2,a3`); 10 forms tried.
+- t_1E4E10: func_001E65C0 func_001E6668 func_001E6710 func_001E67B8 func_001E6830 MATCH (arrays declared
+  `__attribute__((section(".sdata")))` so gcc emits `la`; the matched readers of the same arrays still match)

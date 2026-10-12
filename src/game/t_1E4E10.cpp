@@ -48,12 +48,12 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void* func_00118F20(s32, s32, s32, s32);
 void* func_0011C130(void*, int, s32, s32, int, int);
 void func_0011C248(void*, int);
-extern void* D_00371028[];
-extern s32 D_00371030[];
-extern void* D_00371228[];
-extern s32 D_00371230[];
-extern void* D_00370FA8[];
-extern s32 D_00370FB0[];
+extern void* D_00371028[] __attribute__((section(".sdata")));
+extern s32 D_00371030[] __attribute__((section(".sdata")));
+extern void* D_00371228[] __attribute__((section(".sdata")));
+extern s32 D_00371230[] __attribute__((section(".sdata")));
+extern void* D_00370FA8[] __attribute__((section(".sdata")));
+extern s32 D_00370FB0[] __attribute__((section(".sdata")));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E4E10);
@@ -166,15 +166,39 @@ extern "C" s32 func_001E65B8(void) {
     return D_00370FB8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E65C0);
+extern "C" void func_001E65C0(s32 a, s32 b) {
+    void** slot = &D_00371028[D_00371038];
+    *slot = func_0011C130(func_00118F20(D_00368A38[0], 0x70, 1, 0), 0x10, a, b, 1, 0);
+    D_00371030[D_00371038] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6668);
+extern "C" void func_001E6668(s32 a, s32 b) {
+    void** slot = &D_00371228[D_00371238];
+    *slot = func_0011C130(func_00118F20(D_00368A38[0], 0x70, 1, 0), 0x8, a, b, 1, 0);
+    D_00371230[D_00371238] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6710);
+extern "C" void func_001E6710(s32 a, s32 b) {
+    void** slot = &D_00370FA8[D_00370FB8];
+    *slot = func_0011C130(func_00118F20(D_00368A38[0], 0x70, 1, 0), 0x10, a, b, 1, 0);
+    D_00370FB0[D_00370FB8] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E67B8);
+extern "C" void func_001E67B8(void) {
+    void* o = D_00371028[D_00371038];
+    if (o) {
+        if (D_00371030[D_00371038]) func_0011C248(o, 3);
+        D_00371028[D_00371038] = 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E6830);
+extern "C" void func_001E6830(void) {
+    void* o = D_00371228[D_00371238];
+    if (o) {
+        if (D_00371230[D_00371238]) func_0011C248(o, 3);
+        D_00371228[D_00371238] = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E68A8);
 
