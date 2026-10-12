@@ -500,3 +500,7 @@ this). That alone freed $v0 and fixed the register choice for the vtable/id stor
 behind several older constructor give-ups. Dead u8[4] colour locals are an inline ctor `C(u8 r, u8 g, u8 b, u8 a)`.
 `delete p` (virtual dtor at vptr+8) null-checks for you: `if (x) {...; delete x; x = 0;}` gives the double load.
 Two identical MakeVec hi halves are CSE'd (non-volatile asm), as in the original (func_00206FF8).
+- t_204298: func_00205748 func_00205F00 MATCH (base ctors func_001D0F68 / func_00113EA8 return `void*`; inline
+  colour ctor; inline task init taking the callback as a parameter).
+- t_1FBAF0 func_001FCA90 and t_2001E0 func_00200380 retried with the base-ctor fix: closer, still DIFFERS
+  (FCA90: `li s1,-1` scheduled early; 200380: s1/s2 = member addresses computed after the first member ctor).

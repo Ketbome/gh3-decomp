@@ -24,6 +24,12 @@ struct S204 {
 
 struct C204 {
     u8 r, g, b, a;
+    C204(u8 r_, u8 g_, u8 b_, u8 a_) {
+        r = r_;
+        g = g_;
+        b = b_;
+        a = a_;
+    }
 };
 
 struct S204_V {
@@ -74,9 +80,9 @@ int func_00222F90(u32);
 void func_00205E50(S204*, int);
 void func_001DD190(void*);
 void func_001DD260(void*, void*, void*);
-void func_001D0F68(void*);
+void* func_001D0F68(void*);
 float func_00275DE0(u32, int);
-void func_00113EA8(void*, int);
+void* func_00113EA8(void*, int);
 void func_00205F98(void);
 extern u8 D_00350018[];
 extern int D_00370EE0;
@@ -143,7 +149,20 @@ extern "C" void func_00205700(void) {
     D_0036E99C = func_00205F00(func_00113D20(8));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205748);
+extern "C" void* func_00205748(void* self) {
+    S204* p = (S204*)self;
+    func_001D0F68(p);
+    p->unk18 = D_0034FFA0;
+    p->unk4 = (void*)0xCE0CA665;
+    C204 c(0, 0x80, 0x80, 0xFF);
+    float f = func_00275DE0(0xAD501995, 0);
+    p->unk2C = 10;
+    p->unk4C = 3;
+    p->unk24 = f * f;
+    p->unk20 = f;
+    p->unk1C = 0;
+    return p;
+}
 
 extern "C" void func_002057D0(S204* self, int flag) {
     self->unk18 = D_0034FFA0;
@@ -221,7 +240,22 @@ extern "C" int func_00205EA0(S204* p, int s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205EF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205F00);
+static inline void InitTask204(S204_O* o, void* fn, void* data, int pri) {
+    func_00113EA8(o, pri);
+    o->unk1C = fn;
+    o->unk20 = data;
+    o->unk18 = D_00350018;
+}
+
+extern "C" void* func_00205F00(void* self) {
+    S204* p = (S204*)self;
+    S204_O* o = (S204_O*)func_00113D20(0x24);
+    InitTask204(o, (void*)func_00205F98, p, -0x44C);
+    p->unk4 = o;
+    C204 c(0xFF, 0, 0, 0xFF);
+    func_00114958(D_00370EE0 + 8, o);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205F98);
 
