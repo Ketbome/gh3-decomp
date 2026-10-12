@@ -82,3 +82,23 @@ Given up:
 - func_001183C8: cvt.w.s
 - func_001187D0, func_00118798: D_00373248 used both lui/%lo and %gp_rel in this file
 - func_001179F8, func_00117940: iterator on the stack, not attempted
+
+## t_118E40
+
+Matched 16: func_00119180 func_0011A100 func_0011A208 func_0011A380 func_0011A3E0 func_0011A410 func_0011A440
+func_0011A470 func_0011A520 func_0011A5B8 func_0011A5E0 func_0011A648 func_0011A8A8 func_0011A8F8 func_0011A928
+func_0011AD80
+
+Given up:
+- func_00119490, func_001194B8: address order (n*4+self)+0x194 vs ours (self+0x194)+n*4; 6 tries
+- func_0011A0B0: `move a0,v0` scheduled before the global store; 2 tries
+- func_0011A128: D_00368A38 both lui/%lo and %gp_rel in one function
+- func_0011A170, func_00119A60: unrolled loops
+- func_00118EF8: split tail
+
+## t_11AEB0
+
+Matched 6: func_0011AF30 func_0011AF90 func_0011AFF0 func_0011C2A8 func_0011C3A8 func_0011C480
+
+Given up:
+- func_0011C408: needs D_00368A38 as %gp_rel, the rest of the file uses lui/%lo
