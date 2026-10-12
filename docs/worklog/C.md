@@ -512,3 +512,16 @@ CFunc_UnPauseSpawnedScript, CFunc_PauseSpawnedScripts, CFunc_DumpScripts, CFunc_
 func_0025AA28's result), CFunc_OnExitRun, CFunc_KillSpawnedScript, CFunc_StringLength, CFunc_Toggle2d
 Given up:
 - CFunc_CanPop: original keeps `xori 1; sltiu 1` on the second bool result (`!!b`), gcc folds it; 3 forms.
+
+### Toolchain notes for the integrator (round 5)
+- `li.d` / `dli` of a double whose low word is non-zero (0.001f as double): gas puts li.d in .rodata and expands
+  dli differently from SN (`li hi; dsll 16; ori; dsll 16; ori; dsll n` with trailing-zero shift). Blocks
+  t_260658 func_00260D98, t_298A30 func_0029A590.
+- u32->float conversion: SN left the `b` delay slot after `cvt.s.w` empty; gas fills it (t_28AB28 func_0028C518,
+  func_0028C4B0; t_260658 CFunc_TimeGreaterThan).
+- `sqrt.s` / `div.s`: SN put two nops before them after a `lwc1` (t_24BA88 CFunc_Sqrt, t_24DDB8 CFunc_LinearMap).
+- -O0 files t_2E2FB0/t_2E4FD0 are C (`-x c`, no `-fopt-stack`), and SN's assembler did not fill delay slots at
+  -O0 (gcc emits them in reorder mode); with `// cflags: -O0 -fno-opt-stack -x c` only the gas delay-slot
+  filling differs. t_2E4FD0 also has -O2 functions (func_002E6340..).
+- Volatile struct-field stores are still moved into `jr`/`jal` delay slots by gas (t_292928 func_002931F0,
+  func_00293218).
