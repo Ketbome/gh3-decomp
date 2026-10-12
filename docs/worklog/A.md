@@ -127,3 +127,14 @@ Given up:
 - func_00120E00: .sdata store macro in a delay slot (gcc thinks 1 insn; the original kept it out)
 - func_001206D0: two-entry search, original keeps nops in delay slots; 2 tries (also not -funroll-loops)
 - func_0011FA98, func_0011F8D0, func_0011F9A8, func_001208C0: unrolled/loop code, not attempted
+
+## t_1210C8
+
+Matched 14: func_00121618 func_00121668 func_00121870 func_001218A0 func_00121B18 func_00121B68 func_00121C18
+func_00121CD8 func_00121D78 func_00121DD0 func_00122460 func_00122490 func_00122608 func_001226A0
+(func_00121BD0, func_00121BF8 retyped to pass their arguments)
+
+Given up:
+- func_001224F8: final `lw` not in the jr delay slot (branch-target label); 1 try
+- func_00122F88, func_00122DE0: same .sdata symbol both lui/%lo and %gp_rel
+- func_00122FF8: div.s with hazard nops, not attempted
