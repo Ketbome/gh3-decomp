@@ -7,6 +7,8 @@
   the END of the file, and SN's one-pass assembler did not know yet that the symbol was small: it expanded the macro to
   `lui`+`%lo` unless the size had been seen earlier. In a delay slot (`.set nomacro`) only one instruction fits, and it
   used `%gp_rel`. The modern gas reads the whole file and uses `%gp_rel` everywhere, so both cases are written out.
+- `la` of a global follows the same one-pass rule (`lui`+`addiu %lo` / `addiu $28,%gp_rel` in a delay slot), and
+  `usd` (unaligned 64-bit store) was expanded `sdr` then `sdl`, the other way round from the modern gas.
 - Short loops: SN's assembler worked around the R5900 short-loop erratum by padding a loop of fewer than 6
   instructions (from its head label through the delay slot of the backward branch) with nops before the branch.
 
@@ -21,6 +23,8 @@ from pathlib import Path
 LI_S = re.compile(r"^(\s*)li\.s\s+(\$f\d+),\s*(\S+)\s*$", re.M)
 MEM = re.compile(r"^(\s*)(lb|lbu|lh|lhu|lw|lwu|ld|lq|sb|sh|sw|sd|sq|lwc1|swc1|l\.s|s\.s)\s+(\$f?\d+),\s*([A-Za-z_.$][\w.$]*(?:\s*[-+]\s*\d+)?)\s*$")
 STORES = {"sb", "sh", "sw", "sd", "sq", "swc1", "s.s"}
+LA = re.compile(r"^(\s*)la\s+(\$\d+),\s*([A-Za-z_.][\w.$]*(?:\s*[-+]\s*\d+)?)\s*$")
+USD = re.compile(r"^(\s*)usd\s+(\$\d+),\s*(-?\d+)\((\$\d+)\)\s*$")
 EXTERN = re.compile(r"^\s*\.extern\s+([\w.$]+)\s*,\s*(\d+)")
 
 
@@ -38,6 +42,26 @@ def memory_macros(text):
         m = EXTERN.match(line)
         if m and int(m.group(2)) <= 8:
             small.add(m.group(1))
+        u = USD.match(line)
+        if u:
+            indent, reg, off, base = u.groups()
+            off = int(off)
+            out += [f"{indent}.set\tnoreorder", f"{indent}sdr\t{reg},{off}({base})",
+                    f"{indent}sdl\t{reg},{off + 7}({base})", f"{indent}.set\treorder"]
+            continue
+        a = LA.match(line)
+        if a:
+            indent, reg, sym = a.groups()
+            sym = sym.replace(" ", "")
+            name = re.match(r"[\w.$]+", sym).group(0)
+            if nomacro:
+                out.append(f"{indent}addiu\t{reg},$28,%gp_rel({sym})")
+            elif name in small:
+                out.append(line)
+            else:
+                out += [f"{indent}.set\tnoreorder", f"{indent}lui\t{reg},%hi({sym})",
+                        f"{indent}addiu\t{reg},{reg},%lo({sym})", f"{indent}.set\treorder"]
+            continue
         m = MEM.match(line)
         if not m or m.group(4).startswith("$"):
             out.append(line)
