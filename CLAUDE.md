@@ -27,5 +27,7 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
   INCLUDE_ASM line with C++. Workflow and rules: `docs/decomp_guide.md`. The build must stay byte-identical.
 - Code that does not match stays as INCLUDE_ASM. C++ must not emit data of its own (rodata/literals/statics).
 - Unknown names: `extern "C"` with splat names `func_XXXXXXXX` / `D_XXXXXXXX`. Real names go in `config/symbol_addrs.txt`.
+- Clean-room only: never use leaked or copyrighted source code (e.g. the leaked THUG source) as a reference.
+  Names come from the executable itself (strings, tables), the game's own QB scripts and our own analysis.
 - Documentation states what is verified by byte match and what is inferred.
 - Git identity for this repo: ketbome / pablo.moraga.san@gmail.com (local config).

@@ -46,7 +46,9 @@ Works on macOS (arm64) and Linux (x86-64).
 | `scripts/` | Tool setup, progress report, single-function check (`fcheck.py`), candidate list |
 | `docs/` | [decomp_guide.md](docs/decomp_guide.md) (how to contribute), [toolchain.md](docs/toolchain.md), [text_map.md](docs/text_map.md) |
 
-Names of functions and variables are ours unless stated; the executable is stripped. A function that does not match
+Names of functions and variables are ours unless stated; the executable is stripped. Names come only from the
+executable itself (strings, the script command table), the game's own scripts and our own analysis: no leaked or
+otherwise copyrighted source code is used. A function that does not match
 yet stays as the original assembly.
 
 ## Licence
