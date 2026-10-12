@@ -54,6 +54,9 @@ struct E_0018D4B8 { char pad0[0x1C]; T_18B9C0* unk1C; char pad20[4]; T_18B9C0* u
 struct S_0018D4B8 { char pad0[4]; void* unk4; char pad8[4]; int unkC; char pad10[4]; T_18B9C0* unk14; };
 
 extern "C" {
+extern int D_00368A38;
+void* func_00118F20(int, int, int, int);
+void* func_0018D6A0_4(void*, int, int, int) __asm__("func_0018D6A0");
 void func_001AFAC8(P_0018D050*, float, float, float, float, float, float, float, float);
 void func_001ACE28(P_0018D050*, int);
 int func_001ACD38(P_0018D050*);
@@ -501,7 +504,9 @@ extern "C" int func_0018D710(S0018D710* self) {
     return self->unk8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018D718);
+extern "C" void* func_0018D718(int a, int b, int c) {
+    return func_0018D6A0_4(func_00118F20(D_00368A38, 0xC, 1, 0), a, b, c);
+}
 
 extern "C" void func_0018D780(S_0018D780* p) {
     if (p) {

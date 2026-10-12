@@ -446,6 +446,8 @@ struct SA187_Z {
     VObj* unk60;
 };
 
+struct S_001891A0 { char pad0[0xC]; int unkC; };
+
 extern "C" {
 void func_0015E0F8(void*);
 void func_0015E128(void*, int);
@@ -481,6 +483,7 @@ void func_0015A7F8(void*, int);
 void func_0015A7B8(void*, int, int);
 void func_0015B0B8(void*, int);
 void func_001891A0(void*);
+void func_001B1D60(int);
 void func_00153430(void*, int);
 void func_0015B9E8(void*, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -923,7 +926,15 @@ extern "C" void func_00189180(SA187_8* self, int a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_001891A0);
+extern "C" void func_001891A0(void* p) {
+    S_001891A0* self = (S_001891A0*)p;
+    int c = self->unkC;
+    if (D_0036C7EC[0] == c) {
+        D_0036C7EC[0] = 0;
+    }
+    func_001B1D60(c);
+    self->unkC = 0;
+}
 
 extern "C" void func_001891E0(S001891E0* self) {
     func_001B1F08(self->unkC);

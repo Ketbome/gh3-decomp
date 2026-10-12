@@ -21,11 +21,12 @@ func_00188C50 func_00188C70 func_00188C88 func_00188E38 func_00189078 func_00189
 
 Matched 21 (after -fopt-stack): func_00187F00 func_00188120 func_001882A8 func_001883A8 func_00188520 func_00188568 func_00188618 func_00188680 func_00188870 func_00188A70 func_00188D68 func_00188DD0 func_00188F80 func_00188FB8 func_00189010 func_00189040 func_00189180 func_001892F8 func_00189360 func_00189718 func_00189818
 
+Matched 1 (gp retry, solved): func_001891A0
+
 Given up:
 - func_00189400: last stores load source/dest in the other order (scheduling); 5 tries
 - func_00187E08: lui/lhu register swap (v0/v1); 6 tries
 - func_001885B0, func_00188D00, func_00189290: alloc args set in order a2,a3,a1 in the original; 3 tries
-- func_001891A0: D_0036C7EC both lui/%lo and %gp_rel
 
 ## t_10C000
 
@@ -356,6 +357,8 @@ func_0018C3F8 func_0018BBD0 func_0018D668 func_0018D780 func_0018CB98 func_0018B
 func_0018BF68 func_0018C1A8 func_0018BF10 func_0018C150 func_0018D588 func_0018BA88 func_0018D118 func_0018CC08
 func_0018BC30 func_0018C948 func_0018D050 func_0018D200 func_0018CEC0 func_0018D178 func_0018D5E0 func_0018D3F0
 func_0018D350 func_0018CF48 func_0018BCD0 func_0018CDC8 func_0018C9C8 (func_001ACF30 / func_001B1898 retyped)
+Matched 1 (gp retry, solved): func_0018D718 (calls func_0018D6A0 with a 4th argument: asm-label alias
+`func_0018D6A0_4`)
 
 - func_0018D6A0: the base ctor takes the 3rd argument too (a2 left in place across the call).
 - func_0018D350: temp object on the stack; `r = 0` must be in an else branch (otherwise hoisted to a 3rd saved
@@ -367,7 +370,7 @@ Given up:
 - func_0018D4B8: loop is laid out jump-to-test in the original (ours rotates it); 1 try
 - func_0018CAA0: stray `nop` after the 64-byte copy through a stack temp, copy order differs; 1 try
 - func_0018B9E0, func_0018BB28: 4-byte color returned through a hidden pointer from callees returning it in v0
-- func_0018D718: D_00368A38 lui/%lo (file mixes both forms); func_0018BE00: pextlw/pcpyld packing
+- func_0018BE00: pextlw/pcpyld packing
 - func_0018D280, func_0018D7B8: split tails
 
 ## t_15D2E0
