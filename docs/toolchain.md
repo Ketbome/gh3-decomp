@@ -38,9 +38,11 @@ What points to it:
   2.95.3-107, -114) save `$ra` with `sq`/`lq`; only 2.95.3-136 matches.
 - Sony's ee-gcc 2.96 orders the prologue differently (`lui` before `subu $sp`).
 
-Flags: `-O2 -G8 -fno-exceptions -fno-rtti`. The binary has no RTTI type names and an almost empty
-`.gcc_except_table`. `-G8` is assumed (the game uses `$gp`-relative `.sdata`/`.sbss`); not yet checked against a
-function that touches small data.
+Flags: `-O2 -G8 -fopt-stack -fno-exceptions -fno-rtti`. `-fopt-stack` is an SN option ("Optimise stack
+frame"): without it saved `$s` registers are stored as 128-bit (`sq`) above `$ra`; with it they are `sd`, below `$ra`,
+as in the game. Adding it changed none of the 721 functions matched at the time. Some objects also used
+`-funroll-loops` (per-file `// cflags:` line, see decomp_guide.md). The binary has no RTTI type names and an almost empty
+`.gcc_except_table`. `-G8` is verified by byte match (a getter/setter of a 4-byte global reached through `$gp`).
 
 The compiler is a Windows executable, run with [wibo](https://github.com/decompals/wibo). Its output is assembled
 with the modern binutils (`mips-ps2-decompals`), as o64 so that 32-bit address arithmetic stays `addiu`/`addu`;

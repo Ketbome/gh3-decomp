@@ -56,6 +56,12 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   as INCLUDE_ASM). `fcheck.py` reports a file that has data of its own. Small strings and constants (8 bytes or
   less) live in `.sdata` and are reached through `$gp` (`%gp_rel`); larger ones through `%hi`/`%lo`.
   A float constant whose low 16 bits are zero is built with `lui`+`mtc1`: that one is a literal (`1.0f`).
+- **Globals reached with `lui`/`lw`** (not `%gp_rel`) while being 8 bytes or less: declare them as an array
+  of unknown size (`extern int D_XXXXXXXX[];`, used as `D_XXXXXXXX[0]`) so the compiler does not assume `$gp`.
+- **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
+  `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
+  configure.py and fcheck.py both read it. It applies to the whole file, so only use it when every C++ function
+  of the file still matches.
 - **Structs.** Use a struct with the fields the function touches, named by offset (`unk18`), padded with
   `char pad[...]`. Define it at the top of the file. Do not edit shared headers.
 - **Types.** `s8 u8 s16 u16 s32 u32 f32` (`include/common.h`). `int`/pointers are 32 bits; `long` is 64 bits

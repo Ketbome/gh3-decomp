@@ -35,7 +35,8 @@ def compile_object(src, out_dir):
     asm = out_dir / "out.s"
     obj = out_dir / "out.o"
     cc = [str(ROOT / part) if i < 2 else part for i, part in enumerate(configure.CC.split())]
-    subprocess.run(cc + configure.CC_FLAGS.split() + ["-S", str(src), "-o", str(asm)], cwd=ROOT, check=True)
+    flags = configure.CC_FLAGS.split() + configure.extra_cflags(src).split()
+    subprocess.run(cc + flags + ["-S", str(src), "-o", str(asm)], cwd=ROOT, check=True)
     subprocess.run([f"{BINUTILS}as"] + configure.CC_AS_FLAGS.split()
                    + ["include/gcc_prelude.inc", str(asm), "-o", str(obj)], cwd=ROOT, check=True)
     return obj
@@ -50,7 +51,7 @@ def original(name):
     size = int(re.search(r"^nonmatching \w+, 0x([0-9A-F]+)", text, re.M).group(1), 16)
     refs = {}
     start = None
-    for m in re.finditer(r"^\s+/\* [0-9A-F]+ ([0-9A-F]{8}) [0-9A-F]{8} \*/\s+(\S+)\s+(.*)$", text, re.M):
+    for m in re.finditer(r"^[ \t]+/\* [0-9A-F]+ ([0-9A-F]{8}) [0-9A-F]{8} \*/[ \t]+(\S+)[ \t]*(.*)$", text, re.M):
         addr = int(m.group(1), 16)
         start = addr if start is None else start
         op = f"{m.group(2)} {m.group(3).strip()}"
@@ -161,7 +162,9 @@ def main():
     names = sys.argv[2:]
     if names == ["--all"]:
         text = src.read_text()
-        names = re.findall(r"^(?:extern \"C\" )?[\w\s\*]*?\b(func_[0-9A-F]{8})\s*\([^;{]*\)\s*\{", text, re.M)
+        known = {p.stem for d in ("nonmatchings", "matchings") for p in (ROOT / "asm" / d / "game" / src.stem).glob("*.s")}
+        names = [n for n in re.findall(r"^(?!\s)(?!INCLUDE_ASM).*?\b(\w+)\s*\([^;{]*\)\s*(?:const\s*)?\{", text, re.M)
+                 if n in known]
     rom = ROM.read_bytes()
     with tempfile.TemporaryDirectory() as tmp:
         obj = compile_object(src, Path(tmp))

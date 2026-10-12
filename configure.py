@@ -28,13 +28,22 @@ AS_FLAGS = "-EL -march=r5900 -mabi=eabi -G0 -no-pad-sections -Iinclude"
 # It is a Windows program, run with wibo (tools/wibo/wibo-macos on macOS, wibo-i686 on Linux).
 WIBO = "tools/wibo/wibo-macos" if sys.platform == "darwin" else "tools/wibo/wibo-i686"
 CC = f"{WIBO} tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe"
-CC_FLAGS = "-O2 -G8 -fno-exceptions -fno-rtti -Iinclude"
+CC_FLAGS = "-O2 -G8 -fopt-stack -fno-exceptions -fno-rtti -Iinclude"
 # Compiler output is assembled as o64 so that address arithmetic on 32-bit pointers expands to
 # addiu/addu as SN's assembler did; with eabi the modern gas emits daddiu/daddu.
 CC_AS_FLAGS = "-EL -march=r5900 -mabi=o64 -no-pad-sections -mno-pdr -Iinclude"
 
 LD_SCRIPTS = ["build/SLUS_216.72.ld", "build/undefined_funcs_auto.txt",
               "build/undefined_syms_auto.txt", "config/linker_script_extra.ld"]
+
+
+def extra_cflags(src):
+    """Flags a source file asks for on a `// cflags: ...` line near its top (some of the original objects were
+    built with more than -O2, e.g. -funroll-loops)."""
+    for line in (ROOT / src).read_text().splitlines()[:10]:
+        if line.startswith("// cflags:"):
+            return line.split(":", 1)[1].strip()
+    return ""
 
 
 def run(cmd, **kwargs):
@@ -127,7 +136,7 @@ def write_ninja():
         # Compile to assembly and assemble with the modern gas; gcc_prelude.inc makes `move`
         # encode as daddu, the way SN's assembler did.
         "rule cc",
-        f"  command = {CC} {CC_FLAGS} -S $in -o $out.s && "
+        f"  command = {CC} {CC_FLAGS} $cflags -S $in -o $out.s && "
         f"$as {CC_AS_FLAGS} include/gcc_prelude.inc $out.s -o $out && "
         f"{sys.executable} scripts/set_eabi64.py $out",
         "  description = CC $in",
@@ -157,6 +166,9 @@ def write_ninja():
         included = " ".join(str(p.relative_to(ROOT)) for p in
                             sorted((ROOT / "asm" / "nonmatchings" / src.parent.relative_to("src") / src.stem).glob("*.s")))
         out.append(f"build {obj}: cc {src} | {headers} include/gcc_prelude.inc {included}")
+        flags = extra_cflags(src)
+        if flags:
+            out.append(f"  cflags = {flags}")
     out += [
         f"build build/SLUS_216.72.elf: ld | {' '.join(map(str, objs))} {' '.join(LD_SCRIPTS)}",
         f"  scripts = {' '.join('-T ' + s for s in LD_SCRIPTS)}",

@@ -5,7 +5,7 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
 ## Stack
 
 - splat, m2c, pyelftools (Python, `.venv`); splat splits the executable into `asm/` (generated, not committed)
-- SN Systems ee-gcc 2.95.3 build 136 (`tools/compilers/`, Windows exe run with wibo), `-O2 -G8 -fno-exceptions -fno-rtti`
+- SN Systems ee-gcc 2.95.3 build 136 (`tools/compilers/`, Windows exe run with wibo), `-O2 -G8 -fopt-stack -fno-exceptions -fno-rtti`
 - PS2 binutils `mips-ps2-decompals` (`tools/binutils/`), ninja
 - Details and evidence: `docs/toolchain.md`
 
