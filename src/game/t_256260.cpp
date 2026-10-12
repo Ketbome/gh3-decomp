@@ -1,6 +1,87 @@
+// cflags: -funroll-loops
 #include "common.h"
 
+struct S2562_Script {
+    char pad0[0x20];
+    int unk20;
+};
+
+struct S2562_Snd {
+    int unk0;
+    int unk4;
+};
+
+struct S2562_Surf {
+    f32 unk0;
+    int unk4;
+    f32 unk8;
+    f32 unkC;
+    f32 unk10;
+    int unk14;
+    f32 unk18;
+    int unk1C;
+};
+
+struct S2562_Arr {
+    char pad0[0x2];
+    u8 type;
+    char pad3;
+    int size;
+    int data;
+    S2562_Arr *Get(int i) {
+        if (size == 1) {
+            return (S2562_Arr *)data;
+        }
+        return ((S2562_Arr **)data)[i];
+    }
+};
+
+struct S2562_Comp {
+    u32 b0 : 8;
+    u32 b8 : 1;
+    u32 type : 7;
+    u16 unk2;
+    u32 key;
+    u32 val;
+};
+
 extern "C" {
+int func_0010C050(int);
+void func_0027C1F8(int, u32, f32);
+int func_0011A5B8(S2562_Arr *, int);
+char *func_0027EF60(S2562_Arr *, int);
+int func_0030E650(char *, char *);
+void *func_001287F0(int, int);
+int func_0027AA70(void *);
+void func_0027C898(int, u32, int);
+void func_0027C678(int, u32, int);
+S2562_Comp *func_0027B300(int, S2562_Comp *);
+bool func_0027D470(int, u32, void *, int);
+S2562_Arr *func_002764E8(u32, int);
+S2562_Arr *func_00256848(int, S2562_Script *, int);
+int func_0030AA88(char *);
+extern char D_003704B8[];
+int func_00249960(u32);
+int func_00249F20(int *, int, u32);
+void func_0027C7D0(int, u32, int);
+int func_0026A1A8(u32, int, int, int, int);
+bool func_0027D870(int, u32, void *, int);
+bool func_0027D1F8(int, u32, void *, int);
+bool func_0027D188(int, u32, void *, int);
+bool func_0027D268(int, u32, void *, int);
+bool func_0027D400(int, u32, void *, int);
+void func_0027ABB0(int, int);
+void func_0027AE70(int, u32);
+void func_0027ACF8(int, u32);
+void func_0027C160(int, u32, int);
+void func_002E8C08(u32);
+int func_002E8C28(u32, int);
+void func_002E7C08(void);
+void func_002E7C30(void);
+void func_002EA758(f32);
+int func_001139E0(char *, char *);
+int func_0028DAB8(char *);
+extern S2562_Snd *D_00370AE0;
 void func_002E9818(void);
 void func_002E99D0(void);
 void func_002E8318(void);
@@ -16,9 +97,23 @@ extern "C" int CFunc_PauseSound(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_PauseAllSounds);
+extern "C" int CFunc_PauseAllSounds(int params) {
+    int p = 1;
+    func_0027D1F8(params, 0x28656D12, &p, 0);
+    if (p == 1) {
+        func_002E7C08();
+    } else {
+        func_002E7C30();
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_SetPositionalSoundSilenceOverrideMode);
+extern "C" int CFunc_SetPositionalSoundSilenceOverrideMode(int params) {
+    int v = 1;
+    func_0027D1F8(params, 0, &v, 1);
+    D_00370AE0->unk4 = v != 0;
+    return 1;
+}
 
 extern "C" int CFunc_OutputFModCPUUsage(void) {
     return 1;
@@ -44,7 +139,22 @@ extern "C" int CFunc_EnableUserMusic(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", func_00256340);
+extern "C" void func_00256340(S2562_Surf *out, int params) {
+    func_0027D268(params, 0xB83FD2C4, &out->unk0, 0);
+    func_0027D268(params, 0x46393859, &out->unk8, 0);
+    func_0027D268(params, 0xE9F3E637, &out->unkC, 0);
+    func_0027D268(params, 0x2D1BD620, &out->unk10, 0);
+    func_0027D268(params, 0x61B8FCE2, &out->unk18, 0);
+    int a = 0;
+    int b = 0;
+    int c = 0;
+    func_0027D1F8(params, 0x4A1295A1, &a, 0);
+    func_0027D1F8(params, 0x01DAD3EB, &b, 0);
+    func_0027D1F8(params, 0xF0FEE45B, &c, 0);
+    out->unk4 = a;
+    out->unk14 = b;
+    out->unk1C = c;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_AddSfxHeader);
 
@@ -54,7 +164,16 @@ extern "C" int CFunc_HackSetEffect(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_ResetWhammyPitchShift);
+extern "C" int CFunc_ResetWhammyPitchShift(int params) {
+    u32 id;
+    func_0027D870(params, 0, &id, 1);
+    int r = 0;
+    if (id) {
+        func_002E8C08(id);
+        r = 1;
+    }
+    return r;
+}
 
 extern "C" void CFunc_EnableMenuMusic(int a) {
     func_002E9C00(!func_0027DF00(a, 0xB0BAB2AE));
@@ -82,7 +201,13 @@ extern "C" int CFunc_UnPauseAllSFX(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_SetMenuMusicVolume);
+extern "C" int CFunc_SetMenuMusicVolume(int params) {
+    int v = 11;
+    if (func_0027D1F8(params, 0xF6A36814, &v, 0)) {
+        func_002EA758(v * (1.0f / 11.0f));
+    }
+    return 1;
+}
 
 extern "C" void func_00256740(int a, int b) {
 }
@@ -95,7 +220,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetTerrainTypeParam);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", func_00256838);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", func_00256848);
+extern "C" S2562_Arr *func_00256848(int params, S2562_Script *script, int unused) {
+    S2562_Arr *r = 0;
+    int search = 0;
+    bool global = func_0027DF00(params, 0x0281513F);
+    if (!func_0027D470(params, 0, &r, 0)) {
+        search = script->unk20 != 0;
+    }
+    if (search) {
+        S2562_Comp *p = func_0027B300(params, 0);
+        while (p) {
+            if (p->type == 0xD) {
+                if (global) {
+                    r = func_002764E8(p->val, 0);
+                } else {
+                    func_0027D470(script->unk20, p->val, &r, 0);
+                }
+                if (r) {
+                    goto done;
+                }
+            }
+            p = func_0027B300(params, p);
+        }
+    }
+    return r;
+done:
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_Wait);
 
@@ -104,39 +255,215 @@ extern "C" int CFunc_WaitOneGameFrame(int a, int b) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_CastToInteger);
+extern "C" int CFunc_CastToInteger(int params, S2562_Script *script) {
+    u32 name = 0;
+    bool missing = !func_0027D870(params, 0, &name, 0);
+    if (missing) {
+        return 0;
+    }
+    f32 f = 0.0f;
+    int v;
+    if (func_0027D268(script->unk20, name, &f, 0)) {
+        v = (int)f;
+    } else {
+        int i;
+        if (!func_0027D870(script->unk20, name, &i, 0)) {
+            return 0;
+        }
+        v = i;
+    }
+    func_0027ACF8(script->unk20, name);
+    func_0027C160(script->unk20, name, v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_StringToInteger);
+extern "C" int CFunc_StringToInteger(int params, S2562_Script *script) {
+    u32 name;
+    bool missing = !func_0027D870(params, 0, &name, 0);
+    if (missing) {
+        return 0;
+    }
+    char *str = D_003704B8;
+    missing = !func_0027D188(script->unk20, name, &str, 0);
+    if (missing) {
+        return 0;
+    }
+    int v = 0;
+    int len = func_0030AA88(str);
+    char *p = str;
+    for (int i = 0; i < len; i++) {
+        v = v * 10 + *p - '0';
+        p++;
+    }
+    func_0027ACF8(script->unk20, name);
+    func_0027C160(script->unk20, name, v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_WideStringToInteger);
+extern "C" int CFunc_WideStringToInteger(int params, S2562_Script *script) {
+    u32 name = 0;
+    bool missing = !func_0027D870(params, 0, &name, 0);
+    if (missing) {
+        return 0;
+    }
+    char *str;
+    missing = !func_0027D188(script->unk20, name, &str, 0);
+    int st = script->unk20;
+    if (missing) {
+        return 0;
+    }
+    char *p = str;
+    int v = 0;
+    int sign = 1;
+    if (*p == '-') {
+        sign = -1;
+        p++;
+    }
+    while (*p) {
+        v = v * 10 + *p - '0';
+        p++;
+    }
+    v *= sign;
+    func_0027ACF8(st, name);
+    func_0027C160(script->unk20, name, v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_IntegerEquals);
+extern "C" int CFunc_IntegerEquals(int params) {
+    int a = 0;
+    func_0027D1F8(params, 0x174841BC, &a, 0);
+    int b = 0;
+    func_0027D1F8(params, 0x8E411006, &b, 0);
+    return a == b;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_ChecksumEquals);
+extern "C" int CFunc_ChecksumEquals(int params) {
+    u32 a = 0;
+    func_0027D870(params, 0x174841BC, &a, 0);
+    u32 b = 0;
+    func_0027D870(params, 0x8E411006, &b, 0);
+    return a == b;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_StringEquals);
+extern "C" int CFunc_StringEquals(int params) {
+    char *a;
+    char *b;
+    func_0027D188(params, 0x174841BC, &a, 1);
+    func_0027D188(params, 0x8E411006, &b, 1);
+    int x = func_0028DAB8(a);
+    return x == func_0028DAB8(b);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_LocalizedStringEquals);
+extern "C" int CFunc_LocalizedStringEquals(int params) {
+    char *a;
+    char *b;
+    func_0027D188(params, 0x174841BC, &a, 1);
+    func_0027D188(params, 0x8E411006, &b, 1);
+    return func_001139E0(a, b) == 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_ArrayContains);
+extern "C" int CFunc_ArrayContains(int params) {
+    S2562_Arr *a;
+    u32 i = 0;
+    func_0027D470(params, 0x5EF31148, &a, 1);
+    int type = a->type;
+    for (; i < a->size; i++) {
+        switch (type) {
+            case 1: {
+                int v;
+                func_0027D1F8(params, 0x71059581, &v, 1);
+                if (func_0011A5B8(a, i) == v) {
+                    return 1;
+                }
+                break;
+            }
+            case 0xD: {
+                u32 c;
+                func_0027D870(params, 0x71059581, &c, 1);
+                if (c == (u32)a->Get(i)) {
+                    return 1;
+                }
+                break;
+            }
+            case 3: {
+                char *str;
+                func_0027D188(params, 0x71059581, &str, 1);
+                if (func_0030E650(str, func_0027EF60(a, i)) == 0) {
+                    return 1;
+                }
+                break;
+            }
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", func_002571C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetArraySize);
+extern "C" int CFunc_GetArraySize(int params, S2562_Script *script) {
+    S2562_Arr *a = func_00256848(params, script, 1);
+    int i = 0;
+    if (func_0027D1F8(params, 0x0BA453B9, &i, 0)) {
+        a = a->Get(i);
+        if (func_0027D1F8(params, 0x92AD0203, &i, 0)) {
+            a = a->Get(i);
+            if (func_0027D1F8(params, 0xE5AA3295, &i, 0)) {
+                a = a->Get(i);
+            }
+        }
+    }
+    int n = 0;
+    if (a) {
+        n = a->size;
+    }
+    func_0027C160(script->unk20, 0x7F5B3D4D, n);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_SetArrayElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_AddParams);
+extern "C" int CFunc_AddParams(int params, S2562_Script *script) {
+    int s = script->unk20;
+    if (params) {
+        func_0027ABB0(s, params);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_AddParam);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_RemoveComponent);
+extern "C" int CFunc_RemoveComponent(int params, S2562_Script *script) {
+    u32 name;
+    bool missing = !func_0027D870(params, 0xA1DC81F9, &name, 0);
+    if (missing) {
+        func_0027D870(params, 0, &name, 1);
+    }
+    u32 k;
+    int s = script->unk20;
+    if (func_0027D870(params, 0x10C6F3DB, &k, 0)) {
+        func_0027D400(script->unk20, k, &s, 1);
+    }
+    func_0027ACF8(s, name);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GlobalExists);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_RemoveParameter);
+extern "C" int CFunc_RemoveParameter(int params, S2562_Script *script) {
+    u32 n;
+    func_0027D870(params, 0, &n, 0);
+    int s = script->unk20;
+    func_0027ACF8(s, n);
+    func_0027AE70(s, n);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_RemoveFlag);
+extern "C" int CFunc_RemoveFlag(int params, S2562_Script *script) {
+    u32 n;
+    func_0027D870(params, 0, &n, 0);
+    func_0027AE70(script->unk20, n);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetRandomValue);
 

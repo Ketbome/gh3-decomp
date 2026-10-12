@@ -385,3 +385,21 @@ a `u32 v[3]` local. List clear: load `D.head.unk4` first, then store unk4 before
 Given up:
 - func_00264B70: address of D_0039A4F0 built in v0 instead of v1 (v0/v1 swap, 3 forms).
 - func_00265388, func_00265008, func_00265580, func_002664F8 (STL list/vector copies), func_00266428 (short loop).
+
+### t_256260 (+19) -- file now has `// cflags: -funroll-loops`
+CFunc_PauseAllSounds, CFunc_SetPositionalSoundSilenceOverrideMode, CFunc_ResetWhammyPitchShift,
+CFunc_SetMenuMusicVolume, CFunc_CastToInteger, CFunc_IntegerEquals, CFunc_ChecksumEquals, CFunc_StringEquals,
+CFunc_LocalizedStringEquals, CFunc_RemoveComponent, CFunc_RemoveParameter, CFunc_RemoveFlag, CFunc_AddParams,
+CFunc_WideStringToInteger, CFunc_GetArraySize, CFunc_StringToInteger (strlen-counted loop unrolled by 4),
+CFunc_ArrayContains, func_00256340, func_00256848
+(`if (r) goto done; ... return r; done: return r;` inside a list walk gives the plain `bnez` to the epilogue that
+`return r` turns into `bnezl`. A value loaded right after a call and before the result test (`lw t2,0x20(s1)`):
+read it into a local there. `int r = 0; if (x) { f(x); r = 1; } return r;` gives `beqz` + `v0 = 0` delay.)
+Given up:
+- CFunc_GetRandomValue: needs the `nop` SN's assembler put between `mtc1` and `cvt.s.w` (toolchain); rest matched.
+- CFunc_GetElement: args of the final calls (`script->unk20` loaded before the inner call, `move a0` before
+  `move a2`) and an unfilled `beqz` delay slot; 5 forms (locals, member calls with asm labels).
+- CFunc_HackSetReverbPlease, CFunc_AddSfxHeader: flag set by branches (original keeps `x = 0; if (c == K) x = 1`
+  as branches / uses the `missing` register in an sltu); 3 forms each.
+- CFunc_GetTerrainTypeParam: original keeps `&y` (sp+4) in s0 across the first call; 2 forms.
+- CFunc_GlobalExists: not tried. func_00256838/func_002571C8: split fragments.
