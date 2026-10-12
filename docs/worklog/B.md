@@ -181,3 +181,7 @@ Given up:
 - file holds two objects: D_0036D554 is macro-form before ~0x1D97A0 and gp after; declared macro, so func_001D97A0 func_001D9F40 func_001DA028 func_001DA0C8 func_001DA150 func_001DA1A0 cannot match here
 - func_001D88C0, func_001D8AB8: D_00368A38 gp_rel in a delay slot
 - func_001D9740: loop register allocation (original copies the element pointer); 3 tries
+
+## t_1DA7B8
+
+Matched 12: func_001DB560 func_001DB568 func_001DB570 func_001DB578 func_001DB9C0 func_001DBAC0 CFunc_BroadcastEvent CFunc_LaunchEvent CFunc_WaitForEvent CFunc_PrintEventLog func_001DC750 func_001DC760
