@@ -1,22 +1,165 @@
 #include "common.h"
 
+struct S1E89F8 {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x1C];
+    virtual void v1();
+    virtual void v2();
+    virtual s32 v3();
+    virtual void v4();
+};
+
+struct S1E8E20 {
+    u32 unk0;
+};
+
+struct S1E9360 {
+    char pad0[0x4];
+    s32 unk4;
+};
+
+struct S1E7948_S {
+    char pad0[0x60];
+    s32 unk60;
+    s32 unk64;
+    s32 unk68;
+};
+
+struct S1E7948 {
+    char pad0[0x10];
+    S1E7948_S unk10;
+};
+
+struct S1E75A8_SC {
+    char pad0[0x20];
+    void* unk20;
+};
+
+struct S1E88F8_N {
+    S1E88F8_N* unk0;
+    S1E88F8_N* unk4;
+    u32* unk8;
+};
+
+struct S1E88F8_I {
+    s32 unk0;
+    S1E88F8_N* unk4;
+};
+
+struct S1E88F8 {
+    char pad0[0x18];
+    S1E88F8_N unk18;
+};
+
+struct S1E8068_X {
+    char pad0[0x10];
+    s32 unk10;
+};
+
+struct S1E8068_N {
+    S1E8068_N* unk0;
+    S1E8068_N* unk4;
+    S1E8068_X* unk8;
+};
+
+struct S1E8068_I {
+    s32 unk0;
+    S1E8068_N* unk4;
+};
+
+struct S1E8068 {
+    char pad0[0xC];
+    S1E8068_N unkC;
+};
+
+struct S1E7EC8_H {
+    S1E7EC8_H* unk0;
+    S1E7EC8_H* unk4;
+};
+
+struct S1E7EC8 {
+    s32 unk0;
+    s32 unk4;
+    char pad8[0x4];
+    S1E7EC8_H unkC;
+    char unk14[0x8];
+    void* unk1C;
+};
+
+struct S1E8EB0 {
+    char pad0[0x2C];
+    void* unk2C;
+    void* unk30;
+};
+
+struct S1E7998 {
+    char pad0[0xC];
+    void* unkC;
+    s32 unk10;
+    char unk14[0x4];
+};
+
+extern "C" {
+extern s32 D_0036DD70;
+extern s32 D_0036DD74;
+void func_001E8B50(void* p);
+void func_001E8AB0(void* p);
+extern S1E7948 D_0038ED70;
+void func_0027D1F8(void* p, u32 key, s32* out, s32 d);
+void func_0027C160(void* p, u32 key, s32 v);
+void func_001E9500(s32 v);
+void func_001E94F8(s32 v);
+s32 func_001E9508(void);
+extern char D_0034D928[];
+void func_001E99A0(void* p);
+extern char D_0034DBD0[];
+void func_00275730(void* p);
+void func_001E8660(void* p, s32 v);
+s32 func_001E9CB0(s32 v);
+s32 func_001E9D98(s32 v);
+s32 func_001E9390(void* p, s32 a, s32 b);
+void func_001E8E20(S1E8E20* p, s32 f);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E75A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E76C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7948);
+extern "C" void func_001E7948(s32 a, s32 b) {
+    if (b == 0xFFFF && a != 0) {
+        S1E7948* o = &D_0038ED70;
+        S1E7948_S* t = &o->unk10;
+        t->unk60 = 0;
+        t->unk64 = 0;
+        t->unk68 = 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7978);
+extern "C" void func_001E7978(void) {
+    func_001E7948(1, 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7998);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E79F0);
+extern "C" void func_001E79F0(S1E7998* p) {
+    void* q = p->unk14;
+    s32 a = func_001E9CB0(p->unk10);
+    s32 b = func_001E9D98(p->unk10);
+    if (func_001E9390(q, a, b) != 0) {
+        func_001E8E20((S1E8E20*)p, 1);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7A58);
+extern "C" u32 func_001E7A58(void) {
+    return 0xB4BA8031;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7A68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7AE0);
+extern "C" s32 func_001E7AE0(void) {
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7AE8);
 
@@ -28,15 +171,40 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7D70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7EA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7EC0);
+extern "C" s32 func_001E7EC0(void) {
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7EC8);
+extern "C" S1E7EC8* func_001E7EC8(S1E7EC8* p) {
+    S1E7EC8_H* h = &p->unkC;
+    p->unk1C = D_0034D928;
+    h->unk0 = h;
+    p->unk0 = 0;
+    p->unk4 = 0;
+    h->unk4 = h;
+    func_001E99A0(p->unk14);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7F18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7FD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8068);
+extern "C" S1E8068_X* func_001E8068(S1E8068* p, s32 key) {
+    S1E8068_I it;
+    S1E8068_I e;
+    it.unk4 = p->unkC.unk4;
+    e.unk4 = &p->unkC;
+    while (it.unk4 != e.unk4) {
+        S1E8068_X* x = it.unk4->unk8;
+        if (x->unk10 == key) {
+            return x;
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unkC;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E80C0);
 
@@ -50,17 +218,36 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8660);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8838);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E88F8);
+extern "C" void func_001E88F8(S1E88F8* p) {
+    S1E88F8_I it;
+    S1E88F8_I e;
+    it.unk4 = p->unk18.unk4;
+    e.unk4 = &p->unk18;
+    while (it.unk4 != e.unk4) {
+        *it.unk4->unk8 = 0x0F636D0D;
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk18;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8948);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E89F8);
+extern "C" s32 func_001E89F8(S1E89F8* p) {
+    return p->unkC != 0xB4E103FD ? 0 : p->v3();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8A38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8A40);
+extern "C" void func_001E8A40(S1E89F8* p) {
+    p->unkC = 0xB4E103FD;
+    func_001E8AB0(p);
+    p->v4();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8A88);
+extern "C" void func_001E8A88(S1E89F8* p) {
+    p->unkC = 0xBD982FDC;
+    func_001E8B50(p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8AB0);
 
@@ -87,11 +274,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8CA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8D88);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8E20);
+extern "C" void func_001E8E20(S1E8E20* p, s32 f) {
+    p->unk0 = f ? 0x4E29E602 : 0x0F636D0D;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8E40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8EB0);
+extern "C" void func_001E8EB0(S1E8EB0* p, s32 flags) {
+    p->unk2C = D_0034DBD0;
+    func_00275730(p->unk30);
+    p->unk30 = 0;
+    func_001E8660(p, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8F00);
 
@@ -99,24 +293,48 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8FA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8FF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9008);
+extern "C" s32 func_001E9008(void) {
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9010);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E92B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9360);
+extern "C" s32 func_001E9360(S1E9360* p) {
+    return p->unk4 < 2 ? 0 : func_001E9508();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9390);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E94F8);
+extern "C" void func_001E94F8(s32 v) {
+    D_0036DD70 = v;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9500);
+extern "C" void func_001E9500(s32 v) {
+    D_0036DD74 = v;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9508);
+extern "C" s32 func_001E9508(void) {
+    return D_0036DD74;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_SetProgressionDifficulty);
+extern "C" int CFunc_SetProgressionDifficulty(void* params) {
+    s32 v;
+    func_0027D1F8(params, 0x44949010, &v, 1);
+    func_001E9500(v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_GetProgressionDifficulty);
+extern "C" int CFunc_GetProgressionDifficulty(void* params, S1E75A8_SC* script) {
+    void* x = script->unk20;
+    func_0027C160(x, 0x44949010, func_001E9508());
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", CFunc_SetProgressionMaxDifficulty);
+extern "C" int CFunc_SetProgressionMaxDifficulty(void* params) {
+    s32 v;
+    func_0027D1F8(params, 0x44949010, &v, 1);
+    func_001E94F8(v);
+    return 1;
+}
