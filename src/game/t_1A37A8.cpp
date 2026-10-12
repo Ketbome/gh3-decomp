@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+extern int D_0037334C;
+extern int D_00373348;
 extern int D_0036C58C;
 void func_001A41D0(int, int, int);
 }
@@ -35,7 +37,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A44E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A4698);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A46D0);
+extern "C" void func_001A46D0(void) {
+    D_0037334C = 0;
+    D_00373348 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A46E0);
 

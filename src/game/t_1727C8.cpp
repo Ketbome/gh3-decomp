@@ -17,7 +17,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_001728A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172940);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172960);
+extern "C" int func_00172960(void) {
+    char buf[0x40];
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172970);
 

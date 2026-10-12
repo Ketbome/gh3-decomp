@@ -1,5 +1,7 @@
 #include "common.h"
 
+struct S_0019F318 { char pad0[0xC]; int unkC; };
+
 extern "C" {
 extern int D_003732E8;
 }
@@ -71,7 +73,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019EE38);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019F2F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019F318);
+extern "C" void func_0019F318(S_0019F318* self) {
+    self->unkC |= 0x10;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019F328);
 

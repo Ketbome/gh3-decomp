@@ -2,7 +2,10 @@
 
 struct S_001563B0 { char pad0[0x60]; int unk60; };
 
+typedef unsigned int u128_155 __attribute__((mode(TI)));
+
 extern "C" {
+extern u128_155 D_00378210;
 void func_001551A8(void);
 void func_001561C8(int);
 void func_00156878(int, int);
@@ -14,7 +17,9 @@ struct S_00156FA8 { char pad0[0x160]; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001550C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155128);
+extern "C" u128_155 func_00155128(void) {
+    return D_00378210;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155138);
 

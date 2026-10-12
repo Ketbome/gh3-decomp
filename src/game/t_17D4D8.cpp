@@ -91,7 +91,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F1A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F268);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F280);
+extern "C" int func_0017F280(void) {
+    return D_0036AA90 + 1;
+}
 
 extern "C" int func_0017F290(void) {
     return D_0036AA90;

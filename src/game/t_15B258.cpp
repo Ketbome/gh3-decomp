@@ -26,6 +26,8 @@ struct S0015B360 {
     u8 unk16;
 };
 
+struct S_0015B370 { int unk0; int unk4; int unk8; };
+
 extern "C" {
 void func_00189938(void);
 void func_0015B968(int, int);
@@ -68,7 +70,11 @@ extern "C" bool func_0015B360(S0015B360* self) {
     return self->unk16 != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15B258", func_0015B370);
+extern "C" void func_0015B370(S_0015B370* self) {
+    self->unk0 = 0;
+    self->unk4 = 0;
+    self->unk8 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15B258", func_0015B380);
 

@@ -459,3 +459,9 @@ Given up / open:
 Drafts that matched in fcheck (C++ kept by nobody, redo if free): CFunc_ScreenElementExists (Ref temp + manual
 detach), CFunc_SetRootScreenElement, CFunc_ResolveScreenElementID, func_001482F8, func_00148350 (clip a/b to n),
 func_00148508
+
+## Small-function pass (agent A5)
+
+Matched: t_1550C0 func_00155128 (u128 return of a global) · t_15B258 func_0015B370 · t_16E670 func_0016E990 ·
+t_1727C8 func_00172960 (unused 0x40-byte local keeps the frame) · t_17D4D8 func_0017F280 · t_1965D0 func_00197ED8 ·
+t_1992F8 func_00199D28 · t_19B448 func_0019BF10 · t_19D4E8 func_0019F318 · t_1A37A8 func_001A46D0

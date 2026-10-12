@@ -28,7 +28,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BCA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BE48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BF10);
+extern "C" int func_0019BF10(u16* p) {
+    return (*p + 1) << 4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BF20);
 

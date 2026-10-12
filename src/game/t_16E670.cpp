@@ -11,6 +11,8 @@ struct S0016EDF0 {
     VEntry* unk24;
 };
 
+struct S_0016E990 { int unk0; int unk4; int unk8; };
+
 extern "C" {
 void func_001B4E70(void);
 void func_00199370(void);
@@ -34,7 +36,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016E900);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016E958);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016E990);
+extern "C" void func_0016E990(S_0016E990* self) {
+    self->unk0 = 0;
+    self->unk4 = 0;
+    self->unk8 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016E9A0);
 

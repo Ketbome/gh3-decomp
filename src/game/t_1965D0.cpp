@@ -7,6 +7,8 @@ struct S00198160 {
     void* unk20;
 };
 
+struct S_00197ED8 { char pad0[0x1E8]; int unk1E8; };
+
 extern "C" {
 void func_0016CD28(void);
 extern u8 D_00346C78[];
@@ -28,7 +30,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1965D0", func_001973F8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1965D0", func_00197E30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1965D0", func_00197ED8);
+extern "C" int func_00197ED8(S_00197ED8* self) {
+    return self->unk1E8 > 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1965D0", func_00197EE8);
 
