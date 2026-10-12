@@ -1,6 +1,6 @@
 # Worklog B (src/game/t_1ABAA0.cpp .. t_249620.cpp)
 
-The 0x4 candidates are tails of the previous function (splat split errors): skipped.
+The 0x4 candidates are tails of the previous function (splat split errors): skipped, as are other split tails (functions starting with `addiu $sp, +N` or ending without `jr`).
 
 ## t_1CBB50
 
@@ -8,3 +8,12 @@ Matched 52: func_001CBC10 func_001CBC58 func_001CBC60 func_001CBC70 func_001CBC7
 
 Given up:
 - func_001CC310: register allocation (li v0,1 hoisted before %hi load into a0); 3 tries
+
+## t_1C9B30
+
+Matched 11: func_001CA000 func_001CA008 func_001CA010 func_001CA020 func_001CA038 func_001CA998 func_001CB080 func_001CB550 func_001CB558 func_001CB560 func_001CB568
+
+Given up:
+- func_001C9B30, func_001C9FB0, func_001CA670, CFunc_SetHostMode, CFunc_SetJoinMode: save $s0 with sd (our build emits sq)
+- CFunc_MarkGameOver, CFunc_ChangeLevelPending: D_00369A60 loaded with lui/lw into the same register (assembler macro); our gcc splits %hi into another register
+- func_001CB708: needs D_00370EE0 via %hi/%lo while func_001C9B30 uses it gp-relative (one declaration per file)
