@@ -194,3 +194,11 @@ Given up:
 - func_001DCC38, func_001DCCB0, func_001DCE20: D_00368A38 gp_rel in a delay slot
 - func_001DD658: arg setup order (move a0,v0 after a2/a3); 5 tries incl. member call via asm label
 - func_001DD148: 128-bit store built with pextlw/pcpyld from float constants; not attempted
+
+## t_1DE968
+
+Matched 6: func_001DE9A8 func_001DE9B0 func_001DE9B8 func_001DE9C0 func_001DF6E8 func_001E0428
+
+Given up:
+- func_001E07C0: original reloads unk98 for the second inline null-checked getter; ours CSEs it (4 tries)
+- func_001DE968, func_001E0760, func_001DF890: split tail merged with the next function (alabel); cannot be written in C
