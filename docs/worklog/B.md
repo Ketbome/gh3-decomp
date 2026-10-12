@@ -489,3 +489,14 @@ Given up:
 - t_1C5A68 (now `// cflags: -funroll-loops`): func_001C67C0 MATCH (`KV e[n][32]` at 0xF4, loop unrolled x8).
   func_001C6868 (clear loop x16) still DIFFERS: original stores a register holding 0 and loops forward, ours
   reverses the loop and stores $0 (5 forms).
+
+## t_2062E8
+
+Matched 13: func_00207798 func_00207DD8 func_00207B78 func_00206728 func_00207090 func_00207D70 func_002081A8
+func_00206D80 func_00208038 func_00207BD8 func_00206FF8 func_002070F8 func_002077E0
+
+Notes (verified): constructors: declare the base constructor (func_001D0F68) as returning `void*` (it returns
+this). That alone freed $v0 and fixed the register choice for the vtable/id stores (func_00208038), the problem
+behind several older constructor give-ups. Dead u8[4] colour locals are an inline ctor `C(u8 r, u8 g, u8 b, u8 a)`.
+`delete p` (virtual dtor at vptr+8) null-checks for you: `if (x) {...; delete x; x = 0;}` gives the double load.
+Two identical MakeVec hi halves are CSE'd (non-volatile asm), as in the original (func_00206FF8).
