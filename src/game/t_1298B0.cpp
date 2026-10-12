@@ -88,7 +88,7 @@ void func_0012A448(SA129_L*);
 void func_0012A510(SA129_L*);
 extern u8 D_00339920[];
 extern u8 D_00339958[];
-extern int D_00368A38[] __attribute__((section(".sdata")));
+extern int D_00368A38;
 void func_00119400(int, void*);
 void func_0012C8A8(void*);
 void func_00289FD8(int);
@@ -140,7 +140,7 @@ extern "C" void func_0012A048(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_003690D8[D_003690E8 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38[0], p);
+        func_00119400(D_00368A38, p);
     }
 }
 
@@ -149,14 +149,14 @@ extern "C" void* func_0012A0F8(u32 size) {
     if (pool) {
         void* r = func_0011C2A8(pool);
         if (!r) {
-            int heap = D_00368A38[0];
+            int heap = D_00368A38;
             func_00119490(heap, func_00119610(heap, 1));
-            r = func_00118F20(D_00368A38[0], size, 1, 0);
-            func_001194B8(D_00368A38[0]);
+            r = func_00118F20(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
         }
         return r;
     }
-    return func_00118F20(D_00368A38[0], size, 1, 0);
+    return func_00118F20(D_00368A38, size, 1, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1298B0", func_0012A1B0);
@@ -178,7 +178,7 @@ extern "C" void func_0012A3E8(SA129_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        func_00119400(D_00368A38, self);
     }
 }
 
@@ -251,7 +251,7 @@ extern "C" void func_0012A5E8(SA129_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        func_00119400(D_00368A38, self);
     }
 }
 
@@ -296,7 +296,7 @@ extern "C" void func_0012A6F8(SA129_K* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        func_00119400(D_00368A38, self);
     }
 }
 
