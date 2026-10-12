@@ -29,3 +29,12 @@ Matched 3: func_001B1478 func_001B1C40 func_001B1C60
 Given up:
 - func_001B1E38, func_001B1D60: global stores through $at / mixed gp and %hi access of one symbol (assembler macro form)
 - func_001B00D0, func_001B01D8, func_001B02F0, func_001B1AB8: loops unrolled by 4 (our -O2 does not unroll)
+
+## t_1B2168
+
+Matched 6: func_001B2230 func_001B3CF8 func_001B3D00 func_001B3D10 func_001B3D18 func_001B3DB0
+
+Given up:
+- func_001B2168: float->int cvt.w.s rejected by our assembler for r5900
+- func_001B21A0: cvt.s.w lands in the jr delay slot in ours, original keeps a nop
+- func_001B3BA8, func_001B3C98: MATCH with a fixed parser, but scripts/fcheck.py misses the reloc of an instruction that follows a bare nop (regex \s+ eats the newline) and reports DIFFERS; left as INCLUDE_ASM until fcheck is fixed (C3C98 needs callees declared returning int)
