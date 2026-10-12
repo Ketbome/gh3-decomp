@@ -120,6 +120,9 @@ s32 func_001E9CB0(s32 v);
 s32 func_001E9D98(s32 v);
 s32 func_001E9390(void* p, s32 a, s32 b);
 void func_001E8E20(S1E8E20* p, s32 f);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+void func_00119400(s32 heap, void* p);
+extern char D_0034D6A8[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E75A8);
@@ -161,7 +164,14 @@ extern "C" s32 func_001E7AE0(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7AE8);
+extern "C" void func_001E7AE8(char* p, int flags) {
+    s32 h = D_00368A38[0];
+    *(char**)(p + 0xC) = D_0034D6A8;
+    func_00119400(h, *(void**)(p + 4));
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E7B48);
 

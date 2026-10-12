@@ -242,7 +242,7 @@ Given up:
 Matched 27: func_001E7948 func_001E7978 func_001E79F0 func_001E7A58 func_001E7AE0 func_001E7EC0 func_001E7EC8 func_001E8068 func_001E88F8 func_001E89F8 func_001E8A40 func_001E8A88 func_001E8C80 func_001E8C88 func_001E8C90 func_001E8C98 func_001E8CA0 func_001E8E20 func_001E8EB0 func_001E9008 func_001E9360 func_001E94F8 func_001E9500 func_001E9508 CFunc_SetProgressionDifficulty CFunc_GetProgressionDifficulty CFunc_SetProgressionMaxDifficulty
 
 Given up:
-- func_001E7AE8: D_00368A38 gp_rel in a delay slot
+- func_001E7AE8: matched in session 4 (new asm_filter; `s32 h = D_00368A38` read before the vtable store)
 - func_001E8FA0: v0/v1 swapped between the global and the checksum local; 3 tries
 - func_001E7998: v0/v1 choice for the vtable address; 1 try
 - func_001E7EA8, func_001E8FF0, func_001E8E40: split tails
