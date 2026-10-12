@@ -634,3 +634,23 @@ Given up:
 - func_0016F5F0: v0/v1 swap on the iterator init only (vcalls fixed by typing them as returning int); 5 tries
 - func_0016FCD8: unsigned->float `b` keeps a nop + two nops before div.s (assembler), as func_0011ED68
 - func_0016FE50: pextlw/pcpyld; func_0016F030 (alabel), split tails
+
+## t_15B258 (A6)
+
+Matched 21: func_0015B2F0 func_0015B568 func_0015B770 func_0015B7B0 func_0015B8C0 func_0015B8E8 func_0015B920
+func_0015B968 func_0015B9C0 func_0015B9E8 func_0015BB20 func_0015D160 func_0015B380 func_0015B438 func_0015B4B0
+func_0015B808 func_0015BAB0 func_0015BCA8 func_0015BE58 func_0015C0F8 func_0015C178
+
+- Hash table again (Remove = t_14A6B0's; func_0015B380 = Clear, func_0015B438 = dtor).
+- `while (p->next) p = p->next;` reloads `p->next` in the bnel delay slot (that is plain gcc, not a quirk).
+- func_0015BE58: `bool missing = !f(); if (missing)` gives `xori 1; beqz` (a direct `if (!f())` gives bnez).
+  Lookup-or-assert inline: `int t; if (!func_0027CC30(...,&t)) { func_0027F1E0(s,0,1); return 0; } return t;`.
+- List iterator with `T*& operator*()` returning `cur->unk8`, bound to a reference before the test, gives the
+  original copy/`+8` registers (func_0015C0F8, func_0015C178).
+- sprintf func_0030B550 declared variadic (no stray `move a3,zero`).
+- func_0015BC80 is defined `void(void)` but its result is used: alias `func_0015BC80_r`.
+
+Given up:
+- func_0015B268 (hash Get through `self->unk8`): original loads unk8 before the `addiu sp` and shares one
+  `return 0` block; 5 forms tried
+- func_0015BB80: static init of 12 x 16-byte entries, scheduled stores; func_0015D0D0: not attempted
