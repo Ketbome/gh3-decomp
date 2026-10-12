@@ -29,10 +29,10 @@ def main():
         for name in re.findall(r"^INCLUDE_ASM\([^,]+,\s*(\w+)\);", text, re.M):
             asm_bytes += sizes.get(name, 0)
             asm_funcs += 1
-        c_funcs += len(re.findall(r"^(?!INCLUDE_ASM)\S.*\b(func_[0-9A-F]{8}|\w+__\w*)\s*\([^;]*\)\s*\{", text, re.M))
     # Sizes without the alignment padding between functions; splat writes a .s for every function (disassemble_all):
     # asm/matchings for the ones in C++, asm/nonmatchings for the others.
     total = sum(sizes.values())
+    c_funcs = len(sizes) - asm_funcs
     done = total - asm_bytes
     print(f"SLUS_216.72: {done:#x} / {total:#x} bytes of game code in C++ ({100 * done / total:.2f}%)")
     print(f"    functions: {c_funcs} in C++, {asm_funcs} still INCLUDE_ASM")

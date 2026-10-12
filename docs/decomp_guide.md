@@ -12,9 +12,26 @@ Decompiling a function means replacing its INCLUDE_ASM line with C++ that compil
    executable).
 4. Check: `.venv/bin/python scripts/fcheck.py src/game/<file>.cpp func_XXXXXXXX`. It compiles the file privately and
    compares that function only; several checks can run at once. Repeat until `MATCH`.
-5. If it does not match after a reasonable effort, put the INCLUDE_ASM line back. Never leave a non-matching
-   function in C++.
-6. `ninja` (one at a time) confirms the whole executable is still byte-identical.
+5. If it does not match after a reasonable effort, put the INCLUDE_ASM line back
+   (`scripts/revert_func.py <file> <func>`). Never leave a non-matching function in C++.
+6. `scripts/fix_padding.py <file>`: a function the original follows with 8+ bytes of padding (the end of one of
+   its object files) needs `TEXT_PAD(n);` after it; the script adds it.
+7. `ninja -j4` (one at a time) confirms the whole executable is still byte-identical.
+
+After adding names to `config/symbols/`, run `scripts/apply_names.py`, `configure.py`, `scripts/sync_src.py` and
+`configure.py` again: a new name can split a function in two, and sync_src adds the INCLUDE_ASM line for the new one.
+
+## Working in parallel (agents)
+
+Each worker owns a set of `src/game` files and nobody else edits them. To survive a crash without losing work:
+
+- Keep a log in `docs/worklog/<your range>.md`: per file, what was matched and every function you gave up on with
+  one line on why (so nobody retries it blindly). Read it first when you start; skip what it says failed.
+- After each file (or every ~10 functions): `scripts/fix_padding.py <file>`, then `scripts/fcheck.py <file> --all`
+  must print only MATCH lines and no FILE line; then commit just your paths:
+  `git add <file> docs/worklog/<range>.md && git commit -m "decomp: <file> +N functions"`. If git says
+  `index.lock` exists, wait a few seconds and retry. Never `git add -A`, never push, never commit someone else's file.
+- Do not run `configure.py`, `ninja` or splat: one integrator does that.
 
 ## Rules that keep the build matching
 
