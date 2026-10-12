@@ -486,3 +486,6 @@ Given up:
 - t_1B2168: func_001B2168 (cvt.w.s now assembles; index as `*(u8*)(i + p + 0x10)`), func_001B3BA8, func_001B3C98 MATCH.
   func_001B21A0 still: the original never puts cvt.*/div.s in a delay slot (toolchain).
 - t_1C7AA0 func_001C95D8 and t_1F3840 func_001F3C88 retried (u32 key, case orders): still DIFFERS.
+- t_1C5A68 (now `// cflags: -funroll-loops`): func_001C67C0 MATCH (`KV e[n][32]` at 0xF4, loop unrolled x8).
+  func_001C6868 (clear loop x16) still DIFFERS: original stores a register holding 0 and loops forward, ours
+  reverses the loop and stores $0 (5 forms).
