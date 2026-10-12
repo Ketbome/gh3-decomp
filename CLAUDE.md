@@ -13,6 +13,7 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
 
 - `scripts/setup_tools.sh`: download tools, create `.venv`
 - `.venv/bin/python configure.py`: extract from the ISO, split, write `build.ninja` (rerun after editing the yaml)
+- `scripts/integrate.sh`: verify HEAD in a separate worktree (configure + sync + ninja) and push if identical
 - `ninja`: build and compare (`build/SLUS_216.72.ok` only when byte-identical)
 - `.venv/bin/python scripts/progress.py`: progress
 - `.venv/bin/python scripts/fcheck.py <file.cpp> <func...|--all>`: check functions without linking (safe in parallel)
