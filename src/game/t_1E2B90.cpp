@@ -29,16 +29,8 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 s32 func_00119730(s32 h, s32 a, s32 b);
 void func_00119490(s32 h, s32 a);
 extern s32 D_00368740[] __attribute__((section(".sdata")));
-s32 func_001E32C8(void);
 s32 func_001E32D0(void);
-s32 func_001E2D18(S1E2D18* p);
 s32 func_001E3280(s32 v);
-s32 func_001E32D8(void* p);
-void func_001E2E40(S1E2E40* p, void* q);
-void func_001E2E90(S1E2E90* p, void* q);
-void* func_001E2FF0(void* p);
-void* func_001E3220(void* p, s32 v);
-s32 func_001E3310(void* p, s32 v);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E2B90);

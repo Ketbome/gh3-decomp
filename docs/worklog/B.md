@@ -215,7 +215,7 @@ Given up:
 
 ## t_1E2B90
 
-Matched 0: 
+Matched 9: func_001E2D18 func_001E2E40 func_001E2FF0 func_001E3280 func_001E32C8 func_001E32D0 func_001E32D8 func_001E3310 func_001E3380
 
 Given up:
 - func_001E3048: D_00368A38 gp_rel in a delay slot
