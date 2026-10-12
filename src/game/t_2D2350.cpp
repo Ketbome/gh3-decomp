@@ -27,6 +27,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_update_guitar_volume_cfunc);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_CheckButtonsBoss);
 
+GP_DATA(D_003721D8);
 extern "C" s32 CFunc_CheckBossCutoff(void) {
     f32 temp_f1;
 

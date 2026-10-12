@@ -13,6 +13,7 @@ extern "C" s32 CFunc_SetNetworkPreference(void) {
     return 0;
 }
 
+GP_DATA(D_00371FF0);
 extern "C" s32 CFunc_InitAtoms(void) {
     if (D_00371FF0 == 0) {
         D_00371FF0 = func_002D58B0(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 2, 0);
@@ -57,6 +58,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", func_002BDEA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_AddCrowdModelCam);
 
+GP_DATA(D_003720D0);
 extern "C" s32 CFunc_ClearCrowdModelCams(void) {
     D_003720D0 = 0;
     return 1;

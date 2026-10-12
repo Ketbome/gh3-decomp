@@ -48,6 +48,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F580);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F5A8);
 
+GP_DATA(D_00370D14);
+GP_DATA(D_00370D10);
 extern "C" void func_0026F6E8(void) {
     S26F3B8_B v;
     v.unk8 = 0;

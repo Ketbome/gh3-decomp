@@ -239,11 +239,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295CF8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295D40);
 
+GP_DATA(D_00371784);
 extern "C" void func_00295DA8(void) {
     D_00371784 = 0;
     D_00372ED0 = 0;
 }
 
+GP_DATA(D_003717E0);
+GP_DATA(D_003717E4);
 extern "C" int func_00295DB8(int a) {
     if (D_003717E0 == 0 && a != 0) {
         D_003717E0 = func_00296470(func_00113DF0(0x1E0, 0, 1));

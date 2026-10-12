@@ -34,6 +34,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BBA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BC98);
 
+GP_DATA(D_00370C50);
 extern "C" int func_0026BCA0(void) {
     return D_00370C50 >= 0;
 }

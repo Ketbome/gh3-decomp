@@ -7,6 +7,7 @@ extern s32 D_003AC7C0[];
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_BeginProcessBlock);
 
+GP_DATA(D_00371EF8);
 extern "C" s32 CFunc_LightShow_EndProcessBlock(void) {
     D_00371EF8 = 0;
     D_003AC7C0[0] = 0;

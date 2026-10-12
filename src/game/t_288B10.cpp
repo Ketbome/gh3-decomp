@@ -227,6 +227,7 @@ extern "C" void func_002896E0(S288_Val *p) {
     }
 }
 
+GP_DATA(D_0037141C);
 extern "C" void func_00289710(S288_Val *p) {
     if (p->unk4) {
         p->unk4--;

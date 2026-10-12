@@ -43,6 +43,7 @@ extern char D_00372188[];
 u32 func_001150E0(u32, char *);
 }
 
+GP_DATA(D_00372180);
 extern "C" int CFunc_SetLastGuitarVolume(int params) {
     int i;
     if (func_0027D1F8(params, 0x67E6859A, &i, 0)) {

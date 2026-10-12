@@ -58,6 +58,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD288);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD308);
 
+GP_DATA(D_0037236C);
+GP_DATA(D_00372370);
+GP_DATA(D_00372374);
 extern "C" void func_002DD3C0(s32 arg0, f32 fparg0, f32 fparg1, f32 fparg2) {
     D_0037236C = arg0;
     D_00372370 = fparg0;
@@ -147,6 +150,8 @@ extern "C" void func_002DE1A0(void) {
     func_00276D68(D_00372DC8[0], D_0038EE10, 0x10);
 }
 
+GP_DATA(D_00372580);
+GP_DATA(D_00372584);
 extern "C" s32 func_002DE1D0(s32 arg0) {
     if ((D_00372580 == 0) && (arg0 != 0)) {
         D_00372580 = func_002DE280(func_00113DF0(0x10F00, 0, 1));

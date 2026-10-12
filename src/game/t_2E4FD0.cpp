@@ -78,6 +78,7 @@ extern "C" s32 func_002E6340(void) {
     return var_3;
 }
 
+GP_DATA(D_0037291C);
 extern "C" void func_002E6370(s32 arg0) {
     s32 var_4;
 
@@ -95,6 +96,7 @@ extern "C" void func_002E6370(s32 arg0) {
     func_002E2FB0(0, 0x17);
 }
 
+GP_DATA(D_00372920);
 extern "C" void func_002E63C8(s32 arg0) {
     s32 var_4;
 

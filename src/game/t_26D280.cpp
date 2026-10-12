@@ -36,6 +36,7 @@ extern "C" void func_0026D660(u64* a, u64* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D680);
 
+GP_DATA(D_00370C18);
 extern "C" void func_0026D688(void) {
     if (D_00370C18 == 1) {
         func_00273070();
@@ -122,6 +123,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E5C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E638);
 
+GP_DATA(D_00370CB8);
 extern "C" void func_0026E890(int a) {
     D_00370CB8 = func_0026E5C8(D_00370CB8, a);
 }

@@ -126,6 +126,7 @@ extern "C" int CFunc_InitNetMiscHeap(void) {
     return 1;
 }
 
+GP_DATA(D_003705D8);
 extern "C" void func_0025DF98(void) {
     D_003705D8 = func_00264B70();
 }

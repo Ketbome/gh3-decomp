@@ -88,6 +88,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA900);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA9E0);
 
+GP_DATA(D_003729B0);
 extern "C" void func_002EAB08(S2EAB08_0 *arg0) {
     arg0->unk14 = (void *) D_003729B0;
     D_003729B0 = arg0;

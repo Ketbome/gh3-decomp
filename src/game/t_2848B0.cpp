@@ -36,6 +36,7 @@ extern "C" u8* func_002859B0(u8* p, u16 v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_002859D0);
 
+GP_DATA(D_0037134C);
 extern "C" S00285A10* func_00285A10(S00285A10* p) {
     p->unk5C = 0;
     p->unk60 = 0;

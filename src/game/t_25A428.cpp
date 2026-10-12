@@ -21,6 +21,7 @@ extern "C" int CFunc_StopAllScripts(void) {
     return 1;
 }
 
+GP_DATA(D_00370540);
 extern "C" int CFunc_FirstTimeThisIsCalled(void) {
     if (D_00370540 != 0) {
         D_00370540 = 0;

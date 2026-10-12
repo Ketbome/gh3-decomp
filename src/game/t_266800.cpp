@@ -33,6 +33,8 @@ int func_00113DF0(int, int, int);
 int func_00266E90(int);
 }
 
+GP_DATA(D_00370AE0);
+GP_DATA(D_00370AE4);
 extern "C" int func_00266800(int a) {
     if (D_00370AE0 == 0 && a != 0) {
         D_00370AE0 = func_00266E90(func_00113DF0(0xC, 0, 1));

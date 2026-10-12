@@ -120,6 +120,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3EA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A48C0);
 
+GP_DATA(D_00372EF8);
+GP_DATA(D_00372F00);
+GP_DATA(D_00372F08);
+GP_DATA(D_00372F10);
 extern "C" void func_002A48D0(s32 arg0, s32 arg1) {
     if ((arg1 == 0xFFFF) && (arg0 != 0)) {
         D_00372EF8 = 0x91C1EC93 /* create_model_from_appearance */;

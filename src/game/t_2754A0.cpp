@@ -103,11 +103,14 @@ extern "C" void func_00275510(f32 f) {
     func_0011ED28(f);
 }
 
+GP_DATA(D_00370F40);
+GP_DATA(D_00370F44);
 extern "C" void func_00275540(void) {
     D_00370F40 += func_00275570();
     D_00370F44 = func_0011EF10();
 }
 
+GP_DATA(D_00370F48);
 extern "C" int func_00275570(void) {
     u32 start = D_00370F44;
     return func_003174C0(D_00370F48 * (f32)(u32)(func_0011EF10() - start));
@@ -203,6 +206,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275898);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275978);
 
+GP_DATA(D_003710A4);
 extern "C" void func_00275988(S2754A0_B *p) {
     S2754A0_B **t = D_003710A4;
     int i = p->unk4 & 0x7FFF;

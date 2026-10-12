@@ -127,6 +127,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291FC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00292078);
 
+GP_DATA(D_003715D0);
+GP_DATA(D_003715C0);
 extern "C" int func_002920F0(void) {
     return D_003715C0[D_003715D0]->unk10;
 }

@@ -81,6 +81,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273A80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273B18);
 
+GP_DATA(D_00370DB8);
 extern "C" void func_00273B20(void) {
     if (D_00370DB8 != 0) {
         func_002729C0(D_00370DB8);
@@ -194,6 +195,7 @@ extern "C" void func_00274AB8(void) {
     func_002EE510(1);
 }
 
+GP_DATA(D_00370E38);
 extern "C" int func_00274AD8(void) {
     if (D_00370E38 == 0) {
         return 1;
@@ -217,6 +219,8 @@ extern "C" void func_00275080(void) {
     func_00274350();
 }
 
+GP_DATA(D_00370EE0);
+GP_DATA(D_00370EE4);
 extern "C" int func_002750A0(int a) {
     if (D_00370EE0 == 0 && a != 0) {
         D_00370EE0 = func_00275138(func_00113DF0(0x100, 0, 1));

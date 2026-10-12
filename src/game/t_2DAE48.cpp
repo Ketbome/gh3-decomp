@@ -333,6 +333,8 @@ extern "C" s32 func_002DB9B8(S2DAE48_B *p) {
     return p->unk1C(p);
 }
 
+GP_DATA(D_003722B0);
+GP_DATA(D_003722B4);
 extern "C" s32 func_002DB9D8(s32 arg0) {
     if ((D_003722B0 == 0) && (arg0 != 0)) {
         D_003722B0 = func_002DC5B8(func_00113DF0(0x48, 0, 1));
@@ -461,6 +463,8 @@ extern "C" s32 func_002DCAD0(S2DAE48_B *p) {
     return p->unk1C(p);
 }
 
+GP_DATA(D_00372318);
+GP_DATA(D_0037231C);
 extern "C" s32 func_002DCAF0(s32 arg0) {
     if ((D_00372318 == 0) && (arg0 != 0)) {
         D_00372318 = func_002DCB98(func_00113DF0(0x24, 0, 1));
