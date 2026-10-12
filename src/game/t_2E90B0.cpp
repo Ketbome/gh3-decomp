@@ -5,6 +5,17 @@ struct S2EAB08_0 {
     void *unk14;
 };
 
+struct S2E90B0_A {
+    char pad0[0x14];
+    S2E90B0_A *unk14;
+};
+
+struct S2E90B0_L {
+    char pad0[0xC];
+    S2E90B0_A *unkC;
+    S2E90B0_A *unk10;
+};
+
 extern "C" {
 extern s32 D_003728F0;
 extern s32 D_003728F4;
@@ -88,7 +99,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAC68);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAE00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAE58);
+extern "C" void func_002EAE58(S2E90B0_L *l, S2E90B0_A *n) {
+    if (l->unkC != 0) {
+        l->unk10->unk14 = n;
+    } else {
+        l->unkC = n;
+    }
+    l->unk10 = n;
+    n->unk14 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAE78);
 

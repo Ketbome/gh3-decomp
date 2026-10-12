@@ -135,3 +135,21 @@ Given up:
   explicit split uses `$v1`.
 - func_00261C98 (static init of an intrusive list head at D_0039A3C8): original builds the address with an
   unfolded `la` then `+4`; 3 forms tried.
+
+### Small batch across files (+10)
+- t_2A12B0: CFunc_OverwriteCorruptMemcardContent
+- t_26AEF8: func_0026C9E0, func_0026CA70
+- t_29F288: func_0029F9F8
+- t_2D4468: func_002D5BC0, func_002D5CB0
+- t_2A74C0: func_002A7638
+- t_2AD528: func_002AED50
+- t_2DEE90: func_002DF4A0
+- t_2E90B0: func_002EAE58
+Given up:
+- t_2C9AC0 CFunc_HideStencilShadow/CFunc_ClearMasterBloom/CFunc_HideDOF: store through `lui $at` while the Show*
+  twins in the same file use `$gp` for the same globals.
+- t_292928 func_002931F0: original leaves the `jr` delay slot empty after two stores (modern gas fills it even
+  with volatile stores).
+- t_29F288 func_0029F578: dead stack store of 4 kept; ours turns `(x & 4) == 0` into a shift.
+- t_2E7010 func_002E8C08: register allocation (base $v0, constant $v1).
+- t_26D280 func_0026E138: one-entry table scan; looks like an unrolled loop (`-funroll-loops`).
