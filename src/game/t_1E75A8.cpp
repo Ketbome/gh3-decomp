@@ -108,9 +108,9 @@ void func_001E8AB0(void* p);
 extern S1E7948 D_0038ED70;
 void func_0027D1F8(void* p, u32 key, s32* out, s32 d);
 void func_0027C160(void* p, u32 key, s32 v);
-void func_001E9500(s32 v);
-void func_001E94F8(s32 v);
-s32 func_001E9508(void);
+void SetProgressionDifficulty(s32 v);
+void SetProgressionMaxDifficulty(s32 v);
+s32 GetProgressionDifficulty(void);
 extern char D_0034D928[];
 void func_001E99A0(void* p);
 extern char D_0034DBD0[];
@@ -302,39 +302,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9010);
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E92B0);
 
 extern "C" s32 func_001E9360(S1E9360* p) {
-    return p->unk4 < 2 ? 0 : func_001E9508();
+    return p->unk4 < 2 ? 0 : GetProgressionDifficulty();
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9390);
 
-extern "C" void func_001E94F8(s32 v) {
+extern "C" void SetProgressionMaxDifficulty(s32 v) {
     D_0036DD70 = v;
 }
 
-extern "C" void func_001E9500(s32 v) {
+extern "C" void SetProgressionDifficulty(s32 v) {
     D_0036DD74 = v;
 }
 
-extern "C" s32 func_001E9508(void) {
+extern "C" s32 GetProgressionDifficulty(void) {
     return D_0036DD74;
 }
 
 extern "C" int CFunc_SetProgressionDifficulty(void* params) {
     s32 v;
     func_0027D1F8(params, 0x44949010, &v, 1);
-    func_001E9500(v);
+    SetProgressionDifficulty(v);
     return 1;
 }
 
 extern "C" int CFunc_GetProgressionDifficulty(void* params, S1E75A8_SC* script) {
     void* x = script->unk20;
-    func_0027C160(x, 0x44949010, func_001E9508());
+    func_0027C160(x, 0x44949010, GetProgressionDifficulty());
     return 1;
 }
 
 extern "C" int CFunc_SetProgressionMaxDifficulty(void* params) {
     s32 v;
     func_0027D1F8(params, 0x44949010, &v, 1);
-    func_001E94F8(v);
+    SetProgressionMaxDifficulty(v);
     return 1;
 }
