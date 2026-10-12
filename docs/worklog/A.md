@@ -138,3 +138,15 @@ Given up:
 - func_001224F8: final `lw` not in the jr delay slot (branch-target label); 1 try
 - func_00122F88, func_00122DE0: same .sdata symbol both lui/%lo and %gp_rel
 - func_00122FF8: div.s with hazard nops, not attempted
+
+## t_1230D0
+
+Matched 16: func_00123138 func_001232E8 func_00123540 func_00123678 func_00123690 func_001236D0 func_00123720
+func_001238F8 func_00123920 func_00123948 func_00123EB8 func_00123F18 func_001244C8 func_00124510 func_00124630
+func_00124688
+
+Given up:
+- func_00123568: float constant 57.2957763671875 built with lui/ori/mtc1 in the original; our li.s goes to .lit4
+- func_00123778: `li a2,512` / `sw` order swapped; 1 try
+- func_00123E68: delay loop with nops, not attempted
+- func_00123B68, func_00123BB0, func_00123C00, func_00123C60: list iterator kept on the stack, not attempted
