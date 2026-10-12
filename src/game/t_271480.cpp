@@ -28,13 +28,17 @@ struct S002724F8_4 {
 
 extern "C" {
 extern int D_00370DBC;
+void func_002715B8(void *);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271480);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271570);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271590);
+extern "C" void *func_00271590(void *p) {
+    func_002715B8(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_002715B8);
 
