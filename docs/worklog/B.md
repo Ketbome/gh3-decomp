@@ -54,3 +54,10 @@ Given up:
 ## t_1C1A30
 
 Matched 5: func_001C2C30 func_001C2C88 func_001C2CD8 func_001C2D08 func_001C3278
+
+## t_1C3A40
+
+Matched 3: func_001C50B8 func_001C56E0 func_001C5730
+
+Given up:
+- func_001C4460: original reloads q->unk4 at a merge point (no CSE); 4 tries (plain, inline helper, volatile)

@@ -36,6 +36,30 @@ struct F2C {
     s32 unk44;
 };
 
+struct VEnt {
+    s16 delta;
+    s16 index;
+    void (*fn)(void*);
+};
+
+struct S001C50B8 {
+    char pad0[0x24];
+    VEnt* unk24;
+    char pad28[0x4];
+    s32 unk2C;
+    s32 unk30;
+    s32 unk34;
+    s32 unk38;
+};
+
+extern "C" {
+void func_001C5828(void* p, s32 a);
+void* func_00113DF0(s32 size, s32 a, s32 b);
+void* func_001C5778(void* p);
+extern u32 D_0036CD60;
+extern void* D_0036CD5C;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C3A40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C3DF0);
@@ -112,7 +136,13 @@ extern "C" s32 func_001C4638(S001C4460* a, S001C4460* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C46B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C50B8);
+extern "C" void func_001C50B8(S001C50B8* p, s32 a, s32 b, s32 c, s32 d) {
+    p->unk34 = b;
+    p->unk38 = c;
+    p->unk30 = d;
+    p->unk2C = a;
+    p->unk24[9].fn((char*)p + p->unk24[9].delta);
+}
 
 extern "C" void func_001C50F0(F2C* p, s32 i, f32 x, f32 y, f32 z) {
     s32 j = i * 3;
@@ -293,9 +323,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5610);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5680);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C56E0);
+extern "C" void* func_001C56E0(s32 a) {
+    if (D_0036CD5C == 0 && a != 0) {
+        D_0036CD5C = func_001C5778(func_00113DF0(0x24, 0, 1));
+    }
+    D_0036CD60++;
+    return D_0036CD5C;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5730);
+extern "C" void func_001C5730(void) {
+    if (D_0036CD60 > 1) {
+        D_0036CD60--;
+    } else {
+        if (D_0036CD5C != 0) {
+            func_001C5828(D_0036CD5C, 3);
+        }
+        D_0036CD5C = 0;
+        D_0036CD60 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5778);
 
