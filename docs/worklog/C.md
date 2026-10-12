@@ -118,3 +118,11 @@ func_0026AC30, func_0026AE70, func_00269FE0, func_0026ABB8, func_00269F08
 Given up:
 - func_00269888: needs `-funroll-loops` (see notes).
 - func_0026A368 (and the identical t_266800 func_00266E08): hash-chain lookup, not tried yet.
+
+### t_260658 (+6)
+CFunc_OnServer, CFunc_ResetTimer, CFunc_IncrementSongTimer, func_00260AC8, func_00260D50, CFunc_ResetSongTimer
+Given up:
+- CFunc_NotCD: D_00368748 read through macro `lui $v0` here but `$gp` in CFunc_CD/SetConfig of the same file;
+  explicit split uses `$v1`.
+- func_00261C98 (static init of an intrusive list head at D_0039A3C8): original builds the address with an
+  unfolded `la` then `+4`; 3 forms tried.

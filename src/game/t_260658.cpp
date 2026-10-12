@@ -43,6 +43,15 @@ void func_001CA9B0(int);
 u64 func_00317588(void);
 extern u64 D_003706D0;
 extern S00261C98 D_0039A3C8;
+int func_001C94D8(int);
+extern int D_003706DC;
+int func_0011EF10(void);
+int func_0027D268(int, u32, void *, int);
+void func_00260D50(f32);
+void func_00260D28_f(f32) asm("func_00260D28");
+f32 func_00260D08_f(void) asm("func_00260D08");
+s64 func_00316A40(s64, s64);
+s64 func_00317588_f(f32) asm("func_00317588");
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AllowAssetLoading);
@@ -64,7 +73,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260778);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_Randomize);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_ResetTimer);
+extern "C" int CFunc_ResetTimer(void) {
+    D_003706DC = func_0011EF10();
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeGreaterThan);
 
@@ -76,15 +88,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetTrueStartTime);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetMicroseconds);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_ResetSongTimer);
+extern "C" int CFunc_ResetSongTimer(int a) {
+    f32 f = 0.0f;
+    func_0027D268(a, 0xD16B61E6 /* starttime */, &f, 0);
+    func_00260D28_f(f);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_IncrementSongTimer);
+extern "C" int CFunc_IncrementSongTimer(int a) {
+    f32 f;
+    func_0027D268(a, 0x7AD57518 /* delta_time */, &f, 1);
+    func_00260D50(f);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetSongTime);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetSongTimeMs);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260AC8);
+extern "C" f32 func_00260AC8(f32 f) {
+    return func_00260D08_f() * 1000.0f + f;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_GetLocalSystemTime);
 
@@ -107,7 +131,11 @@ extern "C" void func_00260D28(void) {
     D_003706D0 = r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00260D50);
+extern "C" void func_00260D50(f32 f) {
+    if (D_003706D8 == 0) {
+        D_003706C8 = func_00316A40(D_003706C8, func_00317588_f(f));
+    }
+}
 
 extern "C" void func_00260D88(void) {
     D_003706D8 = 1;
@@ -126,7 +154,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeMarkerReached);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261090);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_OnServer);
+extern "C" int CFunc_OnServer(void) {
+    return func_001C94D8(D_00372580[0]);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002610C0);
 
