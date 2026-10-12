@@ -409,7 +409,7 @@ Matched 1 (gp retry, solved): func_0016E070
 Given up:
 - func_0016C878: element address must be `(i*4 + self) + 0x154` unfolded; 5 address forms tried
 - func_0016CD28: dtor clearing the same list (self+4) twice; ours keeps self+4 in a saved register across both
-  loops (CSE), the original recomputes it (v1/v0 + copy); 3 tries (see t_15D2E0 func_0016CD28 helper)
+  loops (CSE), the original recomputes it (v1/v0 + copy); 3 tries (helper as in t_15D2E0 func_0015DDE8)
 - func_0016CDF0: not attempted yet (0x154, stack list node copy); func_0016CCB0: pextlw
 - func_0016D070 (inside func_0016D060), func_0016D370 and other 0x4..0x10 fragments: split tails
 
@@ -418,6 +418,8 @@ Given up:
 Matched 23: func_0018A078 func_0018A510 func_0018B398 func_0018B028 func_0018B3C0 func_0018A350 func_0018A388
 func_0018A430 func_0018A860 func_00189AA8 func_0018ACD8 func_00189E90 func_0018AFD8 func_00189AE8 func_00189E38
 func_0018A3D8 func_0018AD18 func_0018A7A0 func_0018A800 func_0018A468 func_0018A898 func_0018A5A0 func_0018AF58
+Matched 3 (gp retry, solved): func_0018AC50 func_0018B128 func_0018AEA0 (bit 1 of a 64-bit load spanning two
+int fields: `(int)(*(long*)&self->unkC8 >> 1) & 1` gives dsll 31/dsra32/andi)
 
 - Stack iterators that match (func_0018A7A0, func_0018A800): class {int; Node* cur;} with ctor `cur(n)`,
   `operator!=(const It&) const` and `operator++`; declare `end(head)` first (lower stack slot), then
@@ -426,7 +428,7 @@ func_0018A3D8 func_0018AD18 func_0018A7A0 func_0018A800 func_0018A468 func_0018A
   element pointer, to get `(i*8) + base` in the loop.
 
 Given up:
-- func_0018AC50, func_0018B128, func_0018AEA0: D_00368A38 %gp_rel (file uses lui); func_0018B070: 128-bit consts
+- func_0018B070: 128-bit consts
 - func_0018A4D0: color returned through a hidden pointer; func_0018A538, func_0018B058: split tails
 
 ## t_1816C0
