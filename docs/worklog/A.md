@@ -285,3 +285,16 @@ Matched 7: func_00139CE8 func_00139EB0 func_00139EE0 func_00139FC0 func_0013A010
 
 Given up:
 - func_00139F98: has assembler load-delay nops (`lw; nop; beqz`), not gcc -O2 output
+
+## t_13BE78
+
+Matched 10: func_0013C1B0 func_0013CAA0 func_0013CC28 func_0013CC70 func_0013CC98 func_0013CFC8 func_0013D000
+func_0013D2D0 func_0013D360 func_0013D6E8
+
+- Constructors: declare the base-class ctor as returning the pointer (`S* func(S*)`), not void; otherwise the
+  vtable address lands in v0 instead of v1 (func_0013CC28). This also explains func_00134700 / func_0012D298.
+
+Given up:
+- func_0013C678, func_0013C5F8: short loops with an assembler-inserted nop before the back branch (R5900 fix)
+- func_0013CE58, func_0013CF78: recursive bool check; our gcc either tail-converts or adds `move v1,v0`; 5 tries
+- func_0013C1F0: parent walk with a ref temp; loop variable copied (move a0,s0) and rotated; 3 tries
