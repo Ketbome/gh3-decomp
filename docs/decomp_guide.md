@@ -45,9 +45,12 @@ Decompiling a function means replacing its INCLUDE_ASM line with C++ that compil
   (`ld`/`sd` on values that are not saved registers mean a 64-bit type or a `u_long128` copy).
 - **Compiler habits** (SN ee-gcc 2.95.3, `-O2 -G8`): register moves are `daddu rd, rs, $0`; constructors return
   `this`; no tail calls; `bool` is one byte; `new` is `func_00113D20(size)` and `delete` is `func_00297CF0(p)`.
-- Neversoft names things by CRC32 checksums (`0x0A015E17`): keep them as hex constants.
+- Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
+  with the name in a comment, `0x0A015E17 /* Motion */`. `config/qbkeys.txt` lists the known ones;
+  `scripts/qbkeys.py key <name>` computes one.
 
 ## Useful facts
 
 - `docs/toolchain.md`: compiler, flags, sections.
 - `docs/text_map.md`: what is game code and what is library code.
+- `config/symbols/cfuncs.txt`: the 941 script commands (`CFunc_<name>`), named from the game's own command table.

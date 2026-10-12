@@ -18,6 +18,7 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
 - `.venv/bin/python scripts/fcheck.py <file.cpp> <func...|--all>`: check functions without linking (safe in parallel)
 - `.venv/bin/python scripts/candidates.py <files...>`: functions still in INCLUDE_ASM, smallest first
 - `.venv/bin/m2c -t mipsee-gcc-c <func.s>`: first C draft of a function
+- `scripts/qbkeys.py key <name>` / `build <qb script dirs>`: Neversoft checksums -> `config/qbkeys.txt`
 
 ## Conventions
 
