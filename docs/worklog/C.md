@@ -18,6 +18,8 @@
 - Short loops cannot match yet: the original pads loops shorter than 6 instructions with nops before the closing
   branch (R5900 short-loop erratum, done by the original assembler). gcc puts the branch in `.set noreorder`, so
   modern gas `-mfix-r5900` does not help either. Toolchain question; skip functions with tiny loops.
+- Division cannot match yet: the game has 292 `div`/`divu` and no `break 7`, so it was built without the
+  divide-by-zero trap (`-mno-check-zero-division`); our flags emit `bnez`/`break 7`. Skip functions with `/` or `%`.
 - Masks like `and` with `-0x101`/`-0x201` then `sb` at +2: bitfields in a u32 (clear bit 8, bit 9, byte field at 16).
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
@@ -75,9 +77,19 @@ Given up:
 ### t_273498 (+12)
 func_00273910, func_00274AD8, func_00273CB8, func_00273B48, func_00274310, func_00274178, func_002741F8,
 func_002750F0, func_002750A0, func_00273F08, func_00274688, func_00273D88
+(func_00274688 shows DIFFERS in scripts/fcheck.py only because of the `nop` parsing bug; it matches.)
 Given up:
 - func_002741B8: gcc schedules `lui` before `move a1,a0`; the macro-form load of D_00368748 is costed as one insn
   by our sdata-attr trick (original compiler counted two).
 - func_002738C0: original keeps `& 0xFF000000 & 0x08000000` as two `and`s; ours folds to a bit test.
 - func_00273EB0: delay-slot stealing differs (`li v0,2` from the branch target), 4 forms tried.
 - func_00275010: has an `alabel`.
+
+### t_2949F0 (+9)
+func_00295068, func_00296920, func_002969B0, func_002969E0, func_002965E8, func_00296948, func_00295E08,
+func_00295DB8, func_002961C8
+Given up:
+- func_00295098, func_002950D8: modulo (div-by-zero trap, see notes).
+- func_00295118: min() register allocation (copy in $a2, slt in $v1), 8 forms tried.
+- func_00296550: original reloads p->unk1C after the first test; ours folds the redundant test.
+- func_00295CF8: handwritten (`ei`).
