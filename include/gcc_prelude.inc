@@ -24,3 +24,28 @@
     .endm
 .endm
 __gp_lid
+
+# Hazard nops. For the R5900 (MIPS III) the modern gas keeps one instruction between mfc1 and the next use of its
+# register, inserting a nop where the compiler left none; SN's assembler did not. It did keep the nop after mtc1 and
+# between an FPU compare and bc1t/bc1f, so only mfc1 is wrapped (measured over ~3,900 matched functions). gas decides the nop while assembling the next
+# instruction, from what it remembers of the previous one; an empty data directive under `.set mips64` makes it settle
+# early on "no nop". (Approach from the BT3-Decompiled project's gcc_prelude.inc, CC0.)
+.macro __gp_forget
+    .set push
+    .set mips64
+    .fill 0
+    .set pop
+.endm
+
+.macro __gp_hazard mnem
+    .macro \mnem operands:vararg
+        .purgem \mnem
+        \mnem \operands
+        __gp_forget
+        __gp_hazard \mnem
+    .endm
+.endm
+
+.irp mnem, mfc1
+    __gp_hazard \mnem
+.endr
