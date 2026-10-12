@@ -160,8 +160,7 @@ Given up:
 - t_2DEE90: func_002DF4A0
 - t_2E90B0: func_002EAE58
 Given up:
-- t_2C9AC0 CFunc_HideStencilShadow/CFunc_ClearMasterBloom/CFunc_HideDOF: store through `lui $at` while the Show*
-  twins in the same file use `$gp` for the same globals.
+- t_2C9AC0 CFunc_HideStencilShadow/CFunc_ClearMasterBloom/CFunc_HideDOF: matched in round 3 with the `.set` alias.
 - t_292928 func_002931F0: original leaves the `jr` delay slot empty after two stores (modern gas fills it even
   with volatile stores).
 - t_29F288 func_0029F578: dead stack store of 4 kept; ours turns `(x & 4) == 0` into a shift.
@@ -190,3 +189,12 @@ Given up:
 - CFunc_GetLightColor: matches except the `mfc1` hazard nops (see notes).
 - func_00250A18 (dead stores at sp+0xA0/0xA4), CFunc_HackAddLight (pextlw vector build), CFunc_UpdateAnimCache,
   func_00251CA0 (ldl/ldr struct copy): not tried yet.
+
+### t_2C9AC0 (+10)
+CFunc_HideStencilShadow, CFunc_ClearMasterBloom, CFunc_HideDOF (`.set` alias), CFunc_fretbar_iterator_CFunc_Setup,
+CFunc_fretbar_update_tempo_CFunc_Setup, CFunc_fretbar_update_hammer_on_tolerance_CFunc_Setup, CFunc_Increment,
+CFunc_StarPowerFastTest_Initialise, CFunc_handle_hit_note_CFunc, CFunc_SetLastGuitarVolume
+Given up:
+- CFunc_UpdateNixie: -1 built as 64-bit `lui/ori 0xffff` and scheduled before the index; 4 forms tried.
+- func_002CA818: original loads the call result into a0 last (jal delay slot), same as t_250010
+  CFunc_SetLightVolumeParams; member-call form tried too.
