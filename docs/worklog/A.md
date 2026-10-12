@@ -2,15 +2,16 @@
 
 Notes:
 - 0x4 candidates and functions starting with `addiu $sp, +N` are split tails: skipped.
-- Functions that save `$s` registers only match with `-fopt-stack` (official flags give `sq`): skipped until the
-  flag is adopted (they are listed per file as "opt-stack").
+- Functions that save `$s` registers needed `-fopt-stack` ("opt-stack"); configure.py now has it (85ecf94), so the
+  "opt-stack" entries below are worth a retry.
 - Old-assembler artifact: `.sdata` globals read/written outside a delay slot appear as `lui`+`%lo` (macro
   expansion, `$at` for stores); declare them `extern T D[] __attribute__((section(".sdata")))`. Inside a delay slot
   they are `%gp_rel`: declare them as scalars. A symbol used both ways in one file can't be matched with one declaration.
 - Divisions: the original has no divide-by-zero `break` checks; ours needs `-mno-check-zero-division` ("nozdiv").
 - `cvt.w.s` (float->int, `.word 0x46..` in the asm) is rejected by the assembler for r5900: skipped ("cvt.w.s").
-- scripts/fcheck.py drops the relocation of an instruction that follows a `nop` (regex `\s+` eats the newline), so
-  a `jal`/`%lo` right after a `nop` reports DIFFERS: skipped ("fcheck nop bug").
+- fcheck nop bug (false DIFFERS after an operand-less nop) fixed in 85ecf94: retry those entries.
+- Virtual calls whose result is returned (`return fn(...)`) allocate vt/delta/fn registers differently from void
+  calls: if the registers are off, try returning the result.
 
 ## t_187930
 
@@ -102,3 +103,16 @@ Matched 6: func_0011AF30 func_0011AF90 func_0011AFF0 func_0011C2A8 func_0011C3A8
 
 Given up:
 - func_0011C408: needs D_00368A38 as %gp_rel, the rest of the file uses lui/%lo
+
+## t_11D000
+
+Matched 16: func_0011D348 func_0011D4F8 func_0011DA60 func_0011DB08 func_0011DB88 func_0011DBB8 func_0011DBE8
+func_0011DC18 func_0011DD68 func_0011E130 func_0011E730 func_0011E780 func_0011E8D0 func_0011E918 func_0011E960
+func_0011ED30
+
+Given up:
+- func_0011ED00, func_0011ECF0: `ld`/`lw` %gp_rel kept out of the jr delay slot (old assembler macro); ours fills it
+- func_0011E4E8: 2D array push, two extra instructions; 4 tries
+- func_0011D9E0: init store scheduling; 1 try
+- func_0011D830: unrolled loops
+- func_0011EE38, func_0011ED68: not attempted (unsigned->float, D_0036876C lui)
