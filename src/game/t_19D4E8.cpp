@@ -1,5 +1,9 @@
 #include "common.h"
 
+extern "C" {
+extern int D_003732E8;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019D4E8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019D9B0);
@@ -53,7 +57,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ECE8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ED10);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ED80);
+extern "C" int func_0019ED80(void) {
+    return D_003732E8;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ED88);
 

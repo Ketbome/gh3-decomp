@@ -1,5 +1,14 @@
 #include "common.h"
 
+struct S0019FA18 {
+    char pad[0x10];
+    void* unk10;
+};
+
+extern "C" {
+extern void* D_0036C430;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F538);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F5A0);
@@ -20,7 +29,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F928);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F9F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FA18);
+extern "C" void* func_0019FA18(S0019FA18* self) {
+    void* t1 = D_0036C430;
+    self->unk10 = t1;
+    D_0036C430 = self;
+    return t1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FA28);
 

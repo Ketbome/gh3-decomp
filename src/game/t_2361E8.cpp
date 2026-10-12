@@ -1,6 +1,26 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002361E8);
+struct Node236 {
+    Node236* next;
+    Node236* prev;
+};
+
+struct List236 {
+    int unk0;
+    Node236 unk4;
+};
+
+extern "C" {
+extern void* D_0036FD64;
+extern void (*D_0036FD28)(void);
+void func_002367E0(int, int);
+extern List236 D_003979F0;
+}
+
+extern "C" int func_002361E8(void) {
+    D_0036FD28();
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236210);
 
@@ -9,7 +29,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236520);
 extern "C" void func_002366C8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002366D0);
+extern "C" void func_002366D0(void* v) {
+    D_0036FD64 = v;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002366D8);
 

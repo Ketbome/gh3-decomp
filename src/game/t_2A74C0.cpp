@@ -1,5 +1,11 @@
 #include "common.h"
 
+extern "C" {
+extern s32 D_00371EF4;
+extern s32 D_00372F30[] __attribute__((section(".sdata")));
+extern s32 D_00372F38;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A74C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7540);
@@ -16,7 +22,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A79A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7A40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7D40);
+extern "C" void func_002A7D40(void) {
+    D_00371EF4 = 0;
+    D_00372F30[0] = 0;
+    D_00372F38 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7D58);
 

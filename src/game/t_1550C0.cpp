@@ -1,5 +1,17 @@
 #include "common.h"
 
+struct S_001563B0 { char pad0[0x60]; int unk60; };
+
+extern "C" {
+void func_001551A8(void);
+void func_001561C8(int);
+void func_00156878(int, int);
+void* func_00113D20(u32 size);
+void* func_00154670(void*);
+}
+
+struct S_00156FA8 { char pad0[0x160]; };
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001550C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155128);
@@ -14,11 +26,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155290);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001552E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001552F0);
+extern "C" void func_001552F0(void) {
+    func_001551A8();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155310);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155640);
+extern "C" void* func_00155640(void) {
+    return func_00154670(func_00113D20(0x90));
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155668);
 
@@ -32,7 +48,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155D40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001561C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001563B0);
+extern "C" void func_001563B0(S_001563B0* self) {
+    func_001561C8(self->unk60);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001563D0);
 
@@ -56,7 +74,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156978);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156AB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156B40);
+extern "C" void func_00156B40(void) {
+    func_00156878(1, 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156B60);
 
@@ -72,7 +92,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156ED0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156F80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156FA8);
+extern "C" S_00156FA8* func_00156FA8(S_00156FA8* p, int n) {
+    n--;
+    return &p[n];
+}
+TEXT_PAD(12);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156FC8);
 

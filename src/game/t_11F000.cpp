@@ -1,6 +1,18 @@
 #include "common.h"
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F000);
+struct S_00120C60 { char pad0[0x10]; int unk10; };
+
+extern "C" {
+S_00120C60* func_001208C0(void);
+extern int D_00368D78;
+int func_00120F78(void*, int);
+}
+
+struct S_0011FB38 { char pad0[0x48]; int unk48; char pad1[0x100]; int unk14C; int unk150; int unk154; int unk158; };
+
+extern "C" int func_0011F000(void* self) {
+    return func_00120F78(self, D_00368D78) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F028);
 
@@ -36,13 +48,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F9A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FA98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FB38);
+extern "C" void func_0011FB38(S_0011FB38* self) {
+    self->unk48 = -1;
+    self->unk14C = 0;
+    self->unk150 = 0;
+    self->unk154 = 0;
+    self->unk158 = 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FB58);
+extern "C" int func_0011FB58(void) {
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FB60);
+extern "C" int func_0011FB60(void) {
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FB68);
+extern "C" int func_0011FB68(void) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FB70);
 
@@ -61,7 +85,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FDC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FF58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120008);
+extern "C" int func_00120008(void) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120010);
 
@@ -97,11 +123,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C60);
+extern "C" int func_00120C60(void) {
+    return func_001208C0()->unk10;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120DF0);
+extern "C" int func_00120DF0(void) {
+    return 1;
+}
 
 extern "C" void func_00120DF8(void) {
 }

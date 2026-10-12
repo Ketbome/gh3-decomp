@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct S202 {
+    char pad0[0x1C];
+    int unk1C;
+    char pad20[0x1E0];
+    int unk200;
+};
+
+extern "C" {
+void func_00201BF8(S202*, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_202258", func_00202258);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_202258", func_00202400);

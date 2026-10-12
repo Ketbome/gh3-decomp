@@ -1,13 +1,35 @@
 #include "common.h"
 
+struct S00183828 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+
+struct S00183728 {
+    char pad[0x18];
+    void* unk18;
+};
+
+extern "C" {
+extern u8 D_00343A98[];
+void func_00152B88(void*);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001836E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183728);
+extern "C" void func_00183728(S00183728* self) {
+    self->unk18 = D_00343A98;
+    func_00152B88(self);
+}
 
 extern "C" void func_00183750(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183758);
+extern "C" int func_00183758(void) {
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183760);
 
@@ -18,7 +40,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183798);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183820);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183828);
+extern "C" S00183828* func_00183828(S00183828* self) {
+    self->unk0 = 0;
+    self->unk4 = 0;
+    self->unk8 = 0;
+    self->unkC = 0;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183840);
 

@@ -1,5 +1,13 @@
 #include "common.h"
 
+extern "C" {
+int func_002E3248(int);
+int func_002E5788(int, int);
+int func_002E5860(int, int);
+int func_002E59A0(int, int);
+int func_002E5A78(int, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7010);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E70B0);
@@ -8,13 +16,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E71A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7B60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7BC8);
+extern "C" void func_002E7BC8(void) {
+    func_002E5860(0x10, 0x2F);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7BE8);
+extern "C" void func_002E7BE8(void) {
+    func_002E5A78(0x10, 0x2F);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7C08);
+extern "C" void func_002E7C08(void) {
+    func_002E5788(0, 0x2F);
+    func_002E3248(1);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7C30);
+extern "C" void func_002E7C30(void) {
+    func_002E59A0(0, 0x2F);
+    func_002E3248(1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7C58);
 

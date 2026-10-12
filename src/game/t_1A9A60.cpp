@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct S001A9D98 {
+    char pad[0x1C];
+    int unk1C;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9A60);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9A98);
@@ -16,7 +21,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9D28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9D68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9D98);
+extern "C" int func_001A9D98(S001A9D98* self) {
+    return ((self->unk1C >> 26) & 1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9DA8);
 

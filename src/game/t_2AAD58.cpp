@@ -1,8 +1,17 @@
 #include "common.h"
 
+extern "C" {
+extern s32 D_00371EF8;
+extern s32 D_003AC7C0[];
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002AAD58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002AAE88);
+extern "C" s32 func_002AAE88(void) {
+    D_00371EF8 = 0;
+    D_003AC7C0[0] = 0;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002AAEA0);
 

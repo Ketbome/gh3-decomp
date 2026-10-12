@@ -1,10 +1,16 @@
 #include "common.h"
 
+extern "C" {
+void func_001443D8(int, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_001443D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_001443D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00144428);
+extern "C" void func_00144428(void) {
+    func_001443D8(1, 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00144448);
 
@@ -41,7 +47,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145EF8);
 extern "C" void func_00146070(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00146078);
+extern "C" char* func_00146078(char* p) {
+    return p + 0x4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00146080);
 

@@ -1,10 +1,36 @@
 #include "common.h"
 
+struct VEntry {
+    s16 delta;
+    s16 unk2;
+    void* fn;
+};
+
+struct S00199370 {
+    char pad[0x14];
+    VEntry* unk14;
+};
+
+struct S00199BF0 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    s8 unk18;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001992F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199368);
+extern "C" int func_00199368(void) {
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199370);
+extern "C" int func_00199370(S00199370* self) {
+    VEntry* e = &self->unk14[5];
+    return ((int (*)(void*))e->fn)((char*)self + e->delta);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199398);
 
@@ -14,29 +40,53 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001994A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199960);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001999C8);
+extern "C" int func_001999C8(S00199370* self) {
+    VEntry* e = &self->unk14[5];
+    return ((int (*)(void*))e->fn)((char*)self + e->delta);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001999F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199A30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199A98);
+extern "C" int func_00199A98(void) {
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199AA0);
+extern "C" int func_00199AA0(S00199370* self) {
+    VEntry* e = &self->unk14[5];
+    return ((int (*)(void*))e->fn)((char*)self + e->delta);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199AC8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199B08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199B78);
+extern "C" int func_00199B78(void) {
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199B80);
+extern "C" int func_00199B80(void) {
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199B88);
+extern "C" int func_00199B88(S00199370* self) {
+    VEntry* e = &self->unk14[5];
+    return ((int (*)(void*))e->fn)((char*)self + e->delta);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199BB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199BF0);
+extern "C" S00199BF0* func_00199BF0(S00199BF0* self) {
+    self->unk18 = 0;
+    self->unk0 = 0;
+    self->unk4 = 0;
+    self->unk8 = 0;
+    self->unkC = 0;
+    self->unk10 = 0;
+    self->unk14 = 0;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199C18);
 

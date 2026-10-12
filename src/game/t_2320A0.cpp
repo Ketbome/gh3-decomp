@@ -1,5 +1,26 @@
 #include "common.h"
 
+struct S232 {
+    int unk0;
+    char pad4[0x8C];
+    char* unk90;
+};
+
+struct List232 {
+    int unk0;
+    void* unk4;
+    void* unk8;
+};
+
+extern "C" {
+void func_0011E050(int);
+void func_0011E130(void);
+extern int D_0036FBE8;
+bool func_00230230(int, int);
+void func_001519B0(int, int);
+extern List232 D_00396F60;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A8);
@@ -10,11 +31,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232668);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232670);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002327A8);
+extern "C" void func_002327A8(void) {
+    func_0011E050(1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002327C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232908);
+extern "C" void func_00232908(int a, int b, int c) {
+    if (!a && b) {
+        func_001519B0(b, c);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00232930);
 
@@ -33,7 +60,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233728);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233810);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002338E0);
+extern "C" bool func_002338E0(S232* self) {
+    return !func_00230230(self->unk0, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233908);
 
@@ -55,7 +84,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233C28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233C50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233CA8);
+extern "C" char* func_00233CA8(S232* self, int i) {
+    return self->unk90 + i * 0xF58;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233CC0);
 

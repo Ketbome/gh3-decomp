@@ -1,10 +1,15 @@
 #include "common.h"
 
+struct S_00139E98 { char pad0[0xC]; int unkC; char pad1[0x1EC]; float unk1FC; };
+
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139CE8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139D50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139E98);
+extern "C" void func_00139E98(S_00139E98* self, float v) {
+    self->unk1FC = v;
+    self->unkC |= 0x9000;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139EB0);
 

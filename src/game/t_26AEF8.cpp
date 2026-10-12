@@ -1,5 +1,11 @@
 #include "common.h"
 
+extern "C" {
+extern int D_00370C34;
+extern int D_00370C28;
+extern int D_00370C50;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AEF8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AF28);
@@ -26,7 +32,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BBA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BC98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BCA0);
+extern "C" int func_0026BCA0(void) {
+    return D_00370C50 >= 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BCB0);
 
@@ -56,7 +64,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C738);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C7A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C870);
+extern "C" int func_0026C870(void) {
+    return D_00370C34;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C878);
 
@@ -76,7 +86,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CC48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CC80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CCD8);
+extern "C" void func_0026CCD8(int v) {
+    D_00370C28 = v;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CCE0);
 

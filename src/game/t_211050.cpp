@@ -1,16 +1,39 @@
 #include "common.h"
 
+typedef unsigned int u128_211 __attribute__((mode(TI)));
+
+struct S211 {
+    char pad0[0x24];
+    u128_211* unk24;
+    int unk28;
+    char pad2C[0xC];
+    f32* unk38;
+    int unk3C;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211050);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211BE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211DE8);
+extern "C" int func_00211DE8(S211* self) {
+    return self->unk28;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211DF0);
+extern "C" u128_211 func_00211DF0(S211* self, int i) {
+    u128_211* p = self->unk24;
+    p += i;
+    return *p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211E08);
+extern "C" int func_00211E08(S211* self) {
+    return self->unk3C;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211E10);
+extern "C" f32 func_00211E10(S211* self, int i) {
+    f32* p = self->unk38;
+    p += i;
+    return *p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211E28);
 
@@ -22,7 +45,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00212628);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00212700);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00212770);
+extern "C" S211* func_00212770(S211* self) {
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00212778);
 

@@ -1,10 +1,36 @@
 #include "common.h"
 
+struct S22B {
+    char pad0[0x10];
+    int unk10;
+    char pad14[0x8];
+    int unk1C;
+    u32 unk20_0 : 24;
+    u32 unk20_24 : 7;
+    u32 unk20_31 : 1;
+};
+
+extern "C" {
+extern u8 D_00352CB8[];
+extern u8 D_00352F78[];
+extern u8 D_0036F838[];
+extern u8 D_003532D0[];
+void func_0022C4F0(int, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BD90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BDE8);
+extern "C" void func_0022BDE8(S22B* self) {
+    self->unk20_24 = 5;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BE08);
+inline int type_0022BE08(S22B* self) {
+    return self->unk20_24;
+}
+
+extern "C" int func_0022BE08(S22B* self) {
+    return type_0022BE08(self) == 4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BE20);
 
@@ -18,21 +44,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C030);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C068);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C0B0);
+extern "C" int func_0022C0B0(void) {
+    return 0x90;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C0B8);
+extern "C" void* func_0022C0B8(void) {
+    return D_00352CB8;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C0C8);
+extern "C" int func_0022C0C8(S22B* self) {
+    return self->unk10;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C0D0);
+extern "C" void func_0022C0D0(S22B* self, int v) {
+    self->unk10 = v;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C0D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C110);
+extern "C" int func_0022C110(S22B* self) {
+    return self->unk1C;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C118);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C120);
+extern "C" int func_0022C120(S22B* self) {
+    return self->unk20_24;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C130);
 
@@ -50,7 +88,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C4E8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C4F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C538);
+extern "C" void func_0022C538(void) {
+    func_0022C4F0(1, 0xFFFF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C558);
 
@@ -82,9 +122,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D048);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D0C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D118);
+extern "C" void* func_0022D118(void) {
+    return D_00352F78;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D128);
+extern "C" int func_0022D128(void) {
+    return 6;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D130);
 
@@ -98,13 +142,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D360);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D538);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5A0);
+extern "C" void* func_0022D5A0(void) {
+    return D_0036F838;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5B0);
+extern "C" int func_0022D5B0(void) {
+    return 3;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5E0);
+extern "C" int func_0022D5E0(void) {
+    return 0xA4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5E8);
 
@@ -116,13 +166,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D7E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D940);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D9A8);
+extern "C" void* func_0022D9A8(void) {
+    return D_003532D0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D9B8);
+extern "C" int func_0022D9B8(void) {
+    return 5;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D9C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D9E8);
+extern "C" int func_0022D9E8(void) {
+    return 0x98;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D9F0);
 

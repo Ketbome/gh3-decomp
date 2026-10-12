@@ -1,5 +1,15 @@
 #include "common.h"
 
+struct S001874D0 {
+    char pad[0xC];
+    u16 unkC;
+};
+
+struct S001874D8 {
+    char pad[0xE];
+    u16 unkE;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00185918);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00185B98);
@@ -34,15 +44,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001871D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001873D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187428);
+extern "C" int func_00187428(void) {
+    return 96;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187430);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187480);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001874D0);
+extern "C" u16 func_001874D0(S001874D0* self) {
+    return self->unkC;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001874D8);
+extern "C" u16 func_001874D8(S001874D8* self) {
+    return self->unkE;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001874E0);
 
