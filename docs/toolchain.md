@@ -48,7 +48,10 @@ as in the game. Adding it changed none of the 721 functions matched at the time.
 The compiler is a Windows executable, run with [wibo](https://github.com/decompals/wibo). Its output is assembled
 with the modern binutils (`mips-ps2-decompals`), as o64 so that 32-bit address arithmetic stays `addiu`/`addu`;
 `include/gcc_prelude.inc` makes `move` encode as `daddu`, and `scripts/asm_filter.py` rewrites `li.s` as the
-inline `lui`/`ori`/`mtc1` SN's assembler produced (the modern gas would use `.lit4`). `scripts/set_eabi64.py` then sets the object's ABI flags
+inline `lui`/`ori`/`mtc1` SN's assembler produced (the modern gas would use `.lit4`), and expands global
+loads/stores the way SN's one-pass assembler did: ee-gcc writes the `.extern sym,size` at the end of the file, so
+outside delay slots the size was not known yet (`lui`+`%lo`), while in a delay slot (`nomacro`) it used `%gp_rel`.
+Data the object defined itself was known small (`GP_DATA` in the source). Verified on 1,471 matched functions. `scripts/set_eabi64.py` then sets the object's ABI flags
 back to EABI64 so the linker accepts it next to the assembly.
 
 ## C++ names

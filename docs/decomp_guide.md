@@ -14,7 +14,7 @@ Decompiling a function means replacing its INCLUDE_ASM line with C++ that compil
    compares that function only; several checks can run at once. Repeat until `MATCH`.
 5. If it does not match after a reasonable effort, put the INCLUDE_ASM line back
    (`scripts/revert_func.py <file> <func>`). Never leave a non-matching function in C++.
-6. `scripts/fix_padding.py <file>`: a function the original follows with 8+ bytes of padding (the end of one of
+6. `scripts/fix_gp_data.py <file>` (see Globals below) and `scripts/fix_padding.py <file>`: a function the original follows with 8+ bytes of padding (the end of one of
    its object files) needs `TEXT_PAD(n);` after it; the script adds it.
 7. `ninja -j4` (one at a time) confirms the whole executable is still byte-identical.
 
@@ -57,10 +57,11 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   less) live in `.sdata` and are reached through `$gp` (`%gp_rel`); larger ones through `%hi`/`%lo`.
   Float constants built inline (`lui`/`ori`/`mtc1 $at`) are plain literals (`57.29578f`): the build rewrites
   `li.s` like SN's assembler did. Constants loaded with `lwc1` from a `D_` symbol are variables: declare them.
-- **Globals reached with `lui`/`lw`** (not `%gp_rel`) while being 8 bytes or less: declare them as an array
-  of unknown size (`extern int D_XXXXXXXX[];`, used as `D_XXXXXXXX[0]`) so the compiler does not assume `$gp`;
-  if the load must use the destination register, `extern T D[] __attribute__((section(".sdata")));`.
-  A symbol used both ways in one file cannot be matched yet: leave those functions.
+- **Globals: `$gp` or `lui`.** Declare globals plainly (`extern int D_X;`). The build reproduces SN's one-pass
+  assembler (`scripts/asm_filter.py`): a global is reached with `lui`+`%lo` outside delay slots and with `%gp_rel`
+  inside them, unless the original object defined the symbol itself; then the original uses `%gp_rel` everywhere
+  after that point, and the file needs `GP_DATA(D_X);` before the first function using it.
+  `scripts/fix_gp_data.py <file>` adds those lines from the original assembly: run it before judging a DIFFERS.
 - **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
   `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
   configure.py and fcheck.py both read it. It applies to the whole file, so only use it when every C++ function

@@ -33,11 +33,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00135A98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00135D20);
 
+GP_DATA(D_00369428);
 extern "C" int func_00135DD0(void) {
     func_0027ACF8(&D_00369428->unk6C);
     return 1;
 }
 
+GP_DATA(D_00369420);
 extern "C" int func_00135DF8(void) {
     func_00161AC8(D_00369420);
     return 1;
@@ -90,6 +92,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00137470);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00137558);
 
+GP_DATA(D_00372AF8);
+GP_DATA(D_00372B00);
+GP_DATA(D_00372B08);
+GP_DATA(D_00372B10);
 extern "C" void func_00137618(int a, int b) {
     if (b == 0xFFFF && a) {
         D_00372AF8 = 0x91C1EC93;

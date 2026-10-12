@@ -92,6 +92,8 @@ extern "C" int func_0012F9B0(S12F_C* self, S12F_Q* dst) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_0012F9E0);
 
+GP_DATA(D_003692B0);
+GP_DATA(D_003692A0);
 extern "C" void func_0012F9E8(void* p) {
     S12F_Pool* pool = D_003692A0[D_003692B0];
     if ((pool && pool->Has((u32)p)) || ((pool = D_003692A0[D_003692B0 ^ 1]) && pool->Has((u32)p))) {

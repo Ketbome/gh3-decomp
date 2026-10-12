@@ -156,6 +156,7 @@ extern "C" int func_0015D2E8(int a, int) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015D318);
 
+GP_DATA(D_00369E68);
 extern "C" void func_0015D3F0(int m) {
     D_00369E68 &= ~m;
 }
@@ -793,6 +794,7 @@ extern "C" void func_0015ED38(void) {
 extern "C" void func_0015ED40(void) {
 }
 
+GP_DATA(D_00372B98);
 extern "C" M2_15D* func_0015ED48(void) {
     if (!D_00372B98) {
         func_0010F690(&D_0037DB00.a);
@@ -808,6 +810,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015EDA0);
 extern "C" void func_0015EDC8(void) {
 }
 
+GP_DATA(D_00372B9C);
 extern "C" void* func_0015EDD0(void) {
     if (!D_00372B9C) D_00372B9C = 1;
     return D_0037DB20;

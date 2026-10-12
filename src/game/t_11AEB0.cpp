@@ -50,6 +50,7 @@ extern int D_0032A4A0[];
 
 struct S_0011AF08 { char pad0[0xC]; int unkC; };
 
+GP_DATA(D_00368A94);
 extern "C" void func_0011AEB0(void) {
     D_00368A94--;
 }
@@ -194,6 +195,7 @@ extern "C" void func_0011C308(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011C310);
 
+GP_DATA(D_00368B40);
 extern "C" void* func_0011C3A8(int i) {
     SA11A_P* q = (SA11A_P*)D_00368B40[i];
     if (q) {

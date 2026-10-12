@@ -29,6 +29,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F928);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F9F8);
 
+GP_DATA(D_0036C430);
 extern "C" void* func_0019FA18(S0019FA18* self) {
     void* t1 = D_0036C430;
     self->unk10 = t1;

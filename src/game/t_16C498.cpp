@@ -272,6 +272,8 @@ extern "C" void func_0016D350(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016D370);
 
+GP_DATA(D_00372BA8);
+GP_DATA(D_00372BB0);
 extern "C" void func_0016D3E8(int init, int prio) {
     if (prio == 0xFFFF && init) {
         D_00372BA8 = 0x60;
@@ -289,6 +291,7 @@ extern "C" void func_0016D448(void) {
     func_0016D3E8(1, 65535);
 }
 
+GP_DATA(D_0036A6F4);
 extern "C" void func_0016D468(void) {
     if (!D_0036A6F4) D_0036A6F4 = func_0016DDD8(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 4, 0);
 }
@@ -316,6 +319,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016DFB8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016E070);
 
+GP_DATA(D_0036A740);
 extern "C" void func_0016E120(void) {
     if (!D_0036A740) D_0036A740 = func_0016E490(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 4, 0);
 }

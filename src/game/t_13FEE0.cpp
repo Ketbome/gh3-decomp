@@ -120,6 +120,7 @@ extern "C" void func_00140930(void) {
     func_001194B8(D_00368A38[0]);
 }
 
+GP_DATA(D_003696B8);
 extern "C" void func_001409B8(void) {
     func_0011C2A8(D_003696B8, 1);
 }

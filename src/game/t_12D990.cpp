@@ -144,6 +144,8 @@ extern "C" void func_0012E228(S12D_E* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012E290);
 
+GP_DATA(D_00369208);
+GP_DATA(D_003691F8);
 extern "C" void* func_0012E3B8(int size) {
     int heap = D_003691F8[D_00369208];
     if (heap) {
@@ -234,6 +236,8 @@ extern "C" void func_0012E790(S12D_E* self, int flags) {
     }
 }
 
+GP_DATA(D_003692B0);
+GP_DATA(D_003692A0);
 extern "C" void* func_0012E818(int size) {
     int heap = D_003692A0[D_003692B0];
     if (heap) {

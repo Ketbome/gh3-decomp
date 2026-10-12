@@ -180,6 +180,7 @@ extern "C" int func_0018BCA8(S_18B9C0* self) {
     return 0;
 }
 
+GP_DATA(D_00372BC4);
 extern "C" void* func_0018BCD0(S_0018BCD0* self) {
     M2_18B* r;
     if (self->unk24) {

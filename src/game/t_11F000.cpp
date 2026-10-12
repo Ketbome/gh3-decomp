@@ -38,6 +38,7 @@ int func_00120F78(void*, int);
 
 struct S_0011FB38 { char pad0[0x48]; int unk48; char pad1[0x100]; int unk14C; int unk150; int unk154; int unk158; };
 
+GP_DATA(D_00368D78);
 extern "C" int func_0011F000(void* self) {
     return func_00120F78(self, D_00368D78) != 0;
 }

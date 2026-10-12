@@ -26,6 +26,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8520);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8560);
 
+GP_DATA(D_0036C65C);
 extern "C" void func_001A85A8(void) {
     func_0030CAA8(D_0038C450, D_0036C65C, 112, func_001A8560);
 }
@@ -42,6 +43,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8A60);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8B10);
 
+GP_DATA(D_0036C660);
 extern "C" int func_001A90D0(void) {
     int r0 = func_001A46E0(0);
     D_0036C660 = r0;

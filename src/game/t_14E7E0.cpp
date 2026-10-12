@@ -175,6 +175,7 @@ extern "C" void func_0014F150(void* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F170);
 
+GP_DATA(D_00369A6C);
 extern "C" void func_0014F1A0(void) {
     D_00369A6C ^= 1;
 }

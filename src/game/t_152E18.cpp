@@ -174,6 +174,7 @@ extern "C" int func_00153400(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153408);
 
+GP_DATA(D_00369B88);
 extern "C" void func_00153430(S_00153430* self, int flag) {
     self->unk8 = D_0033C840;
     if (D_00369B88 == self) D_00369B88 = 0;
@@ -416,6 +417,7 @@ extern "C" void func_00154160(void) {
     func_00189540();
 }
 
+GP_DATA(D_00369B8C);
 extern "C" S_00154180* func_00154180(void) {
     S_00154180* p = D_00369B8C;
     if (p) D_00369B8C = p->unk58;

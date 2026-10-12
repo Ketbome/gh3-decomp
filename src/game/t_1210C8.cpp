@@ -74,6 +74,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_001210C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121240);
 
+GP_DATA(D_00368E48);
+GP_DATA(D_00368E4C);
 extern "C" void* func_00121618(int a) {
     if (D_00368E48 == 0 && a) {
         D_00368E48 = func_001216B0(func_00113DF0(0x54, 0, 1));

@@ -258,6 +258,7 @@ extern "C" int func_0011DE78(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DE80);
 
+GP_DATA(D_00368C00);
 extern "C" void func_0011DEE0(void) {
     D_00368C00 = 0;
     func_00120C80();
@@ -271,6 +272,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E008);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E050);
 
+GP_DATA(D_00368C1C);
 extern "C" void func_0011E130(void) {
     D_00368C1C = 0;
     func_0011E540();
@@ -278,6 +280,7 @@ extern "C" void func_0011E130(void) {
     D_00368C1C = 1;
 }
 
+GP_DATA(D_00368C04);
 extern "C" int func_0011E160(void) {
     return D_00368C04 > 0;
 }
@@ -298,6 +301,8 @@ extern "C" void func_0011E540(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E560);
 
+GP_DATA(D_00368C24);
+GP_DATA(D_00368C28);
 extern "C" SA11D_V* func_0011E730(int a) {
     if (D_00368C24 == 0 && a) {
         D_00368C24 = func_0011E7D8(func_00113DF0(0x1C, 0, 1));
@@ -397,6 +402,7 @@ extern "C" void func_0011ED28(float v) {
     D_00368CEC = v;
 }
 
+GP_DATA(D_00368D04);
 extern "C" void func_0011ED30(float f) {
     float old = D_00368D04;
     D_00368D04 = f;

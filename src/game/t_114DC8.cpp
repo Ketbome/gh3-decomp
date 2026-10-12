@@ -97,6 +97,7 @@ extern "C" void func_00116260(void) {
 extern "C" void func_00116280(void) {
 }
 
+GP_DATA(D_00368534);
 extern "C" void func_00116288(void) {
     if (D_00368534 == 0) {
         func_002F3B80();
@@ -185,6 +186,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116660);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116748);
 
+GP_DATA(D_00368768);
 extern "C" void func_001167C8(int a) {
     if ((D_00368768 ^ 1) == 0) {
         D_00368770 = a;

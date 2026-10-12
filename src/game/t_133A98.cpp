@@ -240,6 +240,10 @@ extern "C" void func_00134D28(S133_S* self) {
     self->unk74 = func_00138908(func_00113D20(0x45A0));
 }
 
+GP_DATA(D_00372AD8);
+GP_DATA(D_00372AE0);
+GP_DATA(D_00372AE8);
+GP_DATA(D_00372AF0);
 extern "C" void func_00134D60(int a, int b) {
     if (b == 0xFFFF && a) {
         D_00372AD8 = 0x91C1EC93;
@@ -270,6 +274,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134E40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134FB0);
 
+GP_DATA(D_00369420);
 extern "C" void func_00135048(void) {
     func_00160A90(D_00369420);
 }

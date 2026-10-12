@@ -89,11 +89,13 @@ extern "C" void func_00116E48(int a) {
     func_0030A970(D_00375308, a);
 }
 
+GP_DATA(D_00368750);
 extern "C" u8* func_00116E70(void) {
     if (D_00368750) return D_003687C0;
     return D_003686F0;
 }
 
+GP_DATA(D_00368738);
 extern "C" u8* func_00116E90(void) {
     switch (D_00368738) {
     case 0x4C9908C7:
@@ -141,6 +143,8 @@ extern "C" int CFunc_CreatePlatformMessageBox(void) {
     return 0;
 }
 
+GP_DATA(D_003688E8);
+GP_DATA(D_003688EC);
 extern "C" SA116_V* func_00117118(int a) {
     if (D_003688E8 == 0 && a) {
         D_003688E8 = func_00117520(func_00113DF0(0x24, 0, 1));
@@ -304,6 +308,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118798);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001187D0);
 
+GP_DATA(D_003689E0);
 extern "C" void func_001187F8(void) {
     if (D_003689E0) func_002EE6A0(D_00373248);
 }

@@ -419,6 +419,7 @@ extern "C" void func_0011AD78(S_0011AD78* self, int v) {
     self->unk5C = v;
 }
 
+GP_DATA(D_00368A94);
 extern "C" void func_0011AD80(int unused, int flag) {
     int i = ++D_00368A94;
     switch (flag) {
