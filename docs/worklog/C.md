@@ -476,3 +476,13 @@ Given up:
   assembler hazard nops before sqrt.s, like the `div.s` nops of t_24DDB8 CFunc_LinearMap). Toolchain.
 - func_0024D068, func_0024D128: pool alloc (same as t_286A60 func_00288000).
 - CFunc_GetVectorComponents (TImode vector), CFunc_StringRemove, CFunc_IsInArray, ...: not tried.
+
+### t_29D230 (+10, object list iterators)
+func_0029D238, func_0029D530, func_0029D5C8, func_0029D600, func_0029D630, func_0029D688, func_0029D838,
+func_0029D898, func_0029D9A8, func_0029EC08
+(Iterator object on the stack {?, cur, vptr at 8}: the inline ctor/dtor are explicit `it.vptr = D_0034ACA8`
+stores, the dtor store at every exit. `n->unk4 == -1 ? 0 : n` as an inline function gives the extra
+`move v0,v1`. `delete obj` on a class whose vptr is at 0x3160.)
+Given up:
+- func_0029D8F8: second list walk with inline begin/next; original keeps separate exits; 1 form.
+- func_0029E388/func_0029E548 etc.: fragments with the real function after a stack-fix prefix (no label).
