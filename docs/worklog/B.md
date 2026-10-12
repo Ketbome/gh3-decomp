@@ -478,3 +478,5 @@ Given up:
   func_001B1AB8 still DIFFERS: which of count/table pointer gets the copy (`move t2,a3`); 10 forms tried.
 - t_1E4E10: func_001E65C0 func_001E6668 func_001E6710 func_001E67B8 func_001E6830 MATCH (arrays declared
   `__attribute__((section(".sdata")))` so gcc emits `la`; the matched readers of the same arrays still match)
+- t_1E95C0: func_001EB2B0 (`c = n; do c = c->next; while (c);`), func_001EB338, func_001EA060, func_001EB218
+  (`bool missing = !f(); if (missing)` + `if (!prev) head = next; else prev->next = next;`) MATCH
