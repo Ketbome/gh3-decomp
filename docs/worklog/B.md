@@ -22,6 +22,12 @@ into the SAME register) are gcc treating the symbol as small data (`lw $x, sym` 
 section .sdata = gcc does not split). For another type on the same symbol use `__asm__("D_X")` on a second declaration.
 The original assembler used gp_rel for such a symbol only when the load sits in a branch delay slot; our gas
 expands the macro there (warning), so those functions cannot match. A symbol is either gp or macro per file.
+Session 2 stopped after t_1E75A8 (~150 functions); t_1E95C0 .. t_249620 are still untouched, and the files before
+t_1D4540 only had their old give-ups retried.
+Habits: `if (!c) return 0; return f();` needs `return c ? f() : 0;` (shared epilogue); list heads/iterators kept on
+the stack match with two local `{s32; Node*}` structs (current and end, end re-stored each iteration); store order
+of an init block usually comes out with the last store first, so write fields in the order that gives the target;
+a 3-case `switch` (no jtbl) gives the `==6 / <6 / <=8` compare tree.
 Virtual calls: vptr after the data members (`char pad[off]; virtual ...`), entry n of the vtable at 8*n (lh delta, lw pfn).
 
 Compiler habits that helped: single-bit tests `andi+sltu` need an inline member `bool Test(m) { return (f & m) != 0; }`
