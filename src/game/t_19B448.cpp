@@ -1,6 +1,20 @@
 #include "common.h"
 
+struct S_0019B668 { int unk0; int unk4; int unk8; };
+struct E_0019CFE8 { int unk0; int unk4; u64 unk8; };
+
 extern "C" {
+void func_0030A2F4(void*, void*, int);
+void func_0019B550(S_0019B668*, int, int);
+void func_0011A470(int);
+extern int D_0036C0C4;
+extern int D_0036C118;
+extern E_0019CFE8 D_00415D00[];
+extern char* D_00373270;
+extern int D_003732A0;
+extern char* D_003732A4;
+extern int D_0037328C;
+extern int D_00373284;
 void func_0019C3F0(int, int, int);
 }
 
@@ -8,7 +22,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B448);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B550);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B668);
+GP_DATA(D_0036C0C4);
+extern "C" void func_0019B668(S_0019B668* self) {
+    func_0019B550(self, self->unk8, 5);
+    self->unk8 = 0;
+    func_0011A470(self->unk4);
+    func_0011A470(self->unk0);
+    func_0011A470(D_0036C0C4);
+    D_0036C0C4 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B6B8);
 
@@ -36,7 +58,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BF20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BFC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019C208);
+extern "C" void func_0019C208(u16* src, void* dst) {
+    func_0030A2F4(dst, src, (*src + 1) << 4);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019C238);
 
@@ -58,7 +82,18 @@ extern "C" void func_0019CD18(int a0, int a1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019CD38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019CFE8);
+extern "C" int func_0019CFE8(int a, int b, u64 c) {
+    int n = D_0036C118;
+    if (n >= 40) {
+        return 0;
+    }
+    E_0019CFE8* e = &D_00415D00[n];
+    e->unk0 = a;
+    e->unk4 = b;
+    D_00415D00[n].unk8 = c;
+    D_0036C118 = n + 1;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019D038);
 

@@ -572,3 +572,13 @@ D_00373304, prev at 0x4C; func_0019F7E0 = the unlink inline with first == last)
 Given up:
 - func_001A01F0, func_001A0468: u64 bitfield at 0x10; `move v0,a0` / v0-v1 order differs; 2 tries each
 - func_0019F790, func_0019FEB0, func_001A1330: short loops with nops; func_001A1318: split fragment
+
+## t_19B448
+
+Matched 3 (+ func_0019BF10 earlier): func_0019C208 func_0019B668 func_0019CFE8 (`E* e = &D[n]` for two stores,
+`D[n].unk8` for the third; early `return 0` first)
+
+Given up:
+- func_0019B778: pad-to-16 byte loop; ours increments in place, original copies `p+1` through another register; 4 tries
+- func_0019B978: unaligned u64 store order (`sdr; sdl`), as t_19D4E8 func_0019E318
+- func_0019D248: split head (alabel func_0019D258)
