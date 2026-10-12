@@ -305,3 +305,19 @@ Given up:
 - func_002A2E68, func_002A2FB0: inlined hash-table lookup inside a `movn` list walk (same walk as t_24DDB8
   CFunc_CompressVC, which does not match); not tried further.
 - func_002A1830/func_002A3218 etc.: split fragments.
+
+### t_260658 round 2 (+21)
+CFunc_GetSongTime, CFunc_GetTrueStartTime, CFunc_GetStartTime, CFunc_SetMovementVelocity, CFunc_SetRotateVelocity,
+CFunc_SetServerMode, CFunc_AllowAssetLoading, CFunc_SetSearchAllAssetContexts, CFunc_GetMicroseconds,
+CFunc_PushAssetContext, CFunc_SetDeltaTime, CFunc_Randomize, CFunc_GetSongTimeMs, CFunc_GetDeltaTime,
+CFunc_LoadNetworkDrivers, CFunc_GetTerritory, CFunc_SetNetworkMode, CFunc_TimeMarkerReached_SetParams,
+CFunc_LaunchViewer, CFunc_GetLocalSystemTime, CFunc_TimeMarkerReached
+(GetTerritory: case tree rooted at 1 = `case 2/1/3` plus `case 0: default:` (cases 1..3 alone root at 2).
+PushAssetContext: `int i = n + 1; u32 *p = &a[i]; n = i; *p = v;` fixes register choice. TimeMarkerReached: script
+array accessor `size == 1 ? data : ((int *)data)[i]` as an inline member.)
+Given up:
+- func_00260D98: matches except the double constant 0.001f: gcc emits `li.d $5,...` which SN's assembler expanded
+  to `li 0xfd41; dsll; ori; dsll; ori; dsll 14` (asm_filter only rewrites li.s; toolchain question).
+- CFunc_TimeGreaterThan: u32->float conversion; original leaves the `b` delay slot empty after cvt.s.w.
+- CFunc_CenterCamera, CFunc_SkatersAreReady: `movn`/`movz` list walks (see t_24DDB8 CompressVC).
+- Cutscene destroy-list functions, PlayCutscene (ldl/ldr struct copy), TestNetSetup, SetConfig: not tried.
