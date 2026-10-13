@@ -1,6 +1,12 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+struct B7_1B1C {
+    u32 a;
+    u16 b;
+    u8 c;
+};
+
 struct S001B08F0_44 {
     char pad0[0xA];
     u16 unkA;
@@ -73,6 +79,12 @@ extern s32 D_00370F40;
 s32 func_00275570(void);
 void func_001B1E38(void* p, s32 a, s32 b, s32 c);
 void func_001B1EB0(char* p);
+void func_0030A554(char* d, const char* s);
+extern u8 D_0036C7F8[];
+extern char D_00349070[];
+s32 func_0011D530(char* b, s32* n, s32 a, s32 c);
+void* func_001B1D18_3(s32 a, s32 b, s32 c) __asm__("func_001B1D18");
+s32 func_0028DAB8(char* p);
 }
 
 struct S1B13 {
@@ -303,7 +315,20 @@ extern "C" void func_001B1C60(S001B1818* p) {
     func_001BD6E0(p->unk7C);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1C80);
+extern "C" void func_001B1C80(char* name) {
+    char buf[0x100];
+    s32 n;
+    B7_1B1C* g = (B7_1B1C*)D_0036C7F8;
+    B7_1B1C* h = (B7_1B1C*)buf;
+    h->a = g->a;
+    h->b = g->b;
+    h->c = g->c;
+    func_0030A554(buf, name);
+    func_0030A554(buf, D_00349070);
+    s32 k = func_0011D530(buf, &n, 0, 0);
+    char* r = (char*)func_001B1D18_3(func_0028DAB8(name), k, n);
+    *(s32*)(r + 8) = k;
+}
 
 extern "C" N1B1D* func_001B1D18(void* unused, N1B1D* p) {
     func_001B1DD8_1(p);

@@ -39,6 +39,13 @@ void func_0027C448(int, u32, int);
 int func_002366E0(int, void*, int);
 void func_0027C028(int, u32, void*);
 extern u8 D_0036FD78[];
+s32 CrcFromPathLowercase(void* p);
+s32 func_001150E0(s32 a, u8* b);
+void func_00223318(s32 a);
+void func_002333F8(s32 a, s32 b, s32 c, void (*f)(void), s32 d);
+void func_00234190(s32 a, void* b);
+void func_002348A0(void);
+extern u8 D_00354700[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234190);
@@ -52,7 +59,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234668);
 extern "C" void func_00234808(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234810);
+extern "C" void func_00234810(char* a, char* b) {
+    func_00223318(func_001150E0(*(s32*)(b + 0x80), D_00354700));
+    *(u8*)(b + 0x12A) = 0;
+    *(u8*)(b + 0x128) = 1;
+    *(u8*)(b + 0x12C) = 0;
+    func_00234190(**(s32**)(a + 0x40), b);
+    func_002333F8(CrcFromPathLowercase(b + 0xB0), *(s32*)(b + 0x134), *(s32*)b, func_00234808, 0);
+    func_002348A0();
+}
 
 GP_DATA(D_0036FD64);
 extern "C" void func_002348A0(void) {

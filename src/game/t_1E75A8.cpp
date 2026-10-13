@@ -128,6 +128,7 @@ void func_001E92B0(void* p, int a);
 s32 func_0027DF00(s32 p, u32 key);
 extern s32 D_00368748;
 extern char D_0034D7E8[];
+void func_001E7F18(s32 a, s32 b);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E75A8);

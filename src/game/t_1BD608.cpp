@@ -30,6 +30,8 @@ void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 void func_001BF298(S001BF1D0* p);
 void func_001BF2B8(S001BF1D0* p);
+void* Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
+void func_001BE088(void* p, s32 a, s32 b, s32 c, s32 d, s32 e, s32 f);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD608);
@@ -72,7 +74,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDB28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDC30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDCF8);
+extern "C" void func_001BDCF8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f) {
+    func_001BE088(Heap_Alloc(D_00368A38, 0x60, 1, 0), a, b, c, d, e, f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDD90);
 

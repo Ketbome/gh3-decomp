@@ -56,6 +56,9 @@ void func_0027C448(int, int, int);
 void func_0028C9D0(int, int, int, int, int, int);
 void func_0027AC90(int);
 void func_00113250(int);
+s32 func_001CB558(char* p);
+s32 func_0011EF10(void);
+void func_00113FB8(s32 a);
 }
 
 extern "C" void func_001C7AA0(S001C8470* p) {
@@ -186,7 +189,16 @@ extern "C" void func_001C91D8(S001C8470* p) {
     o->unkEE00[69].fn((char*)o + o->unkEE00[69].delta, p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9210);
+extern "C" void func_001C9210(char* p) {
+    char* q = *(char**)(p + 0x20);
+    if (func_001CB558(q) != 7) {
+        if ((u32)(func_0011EF10() - *(s32*)(q + 0xD0)) > 0xEA60) {
+            *(s32*)(q + 0xD0) = func_0011EF10();
+            func_00113FB8(*(s32*)(q + 0x20));
+            func_0028C9D0(0x3F7009B4, 0, 0, 0, 0, 0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9298);
 

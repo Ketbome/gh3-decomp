@@ -78,6 +78,7 @@ struct N1C56 {
     N1C56* unk10;
     void* unk14;
 };
+void func_001C5AE0(void);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C3A40);
@@ -419,6 +420,23 @@ extern "C" void func_001C5730(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5828);
+extern "C" void func_001C5828(void* q, s32 flags) {
+    char* p = (char*)q;
+    func_001C5AE0();
+    register char* t asm("$6") = *(char**)(p + 4);
+    if (t != 0) {
+        VEntX* e = (VEntX*)(*(char**)(t + 0x18) + 0x10);
+        ((void (*)(char*, s32, char*))e->fn)(t + e->delta, 3, t);
+    }
+    N1C56* n = (N1C56*)(p + 8);
+    n->unk14 = D_0034A640;
+    n->unk10->unkC = n->unkC;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    if (flags & 1) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C58C0);
