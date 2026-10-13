@@ -238,7 +238,24 @@ extern "C" void func_001193F0(void) {
 extern "C" void func_001193F8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", Heap_Free);
+extern "C" int D_00375600[];
+extern "C" SA118_V* func_0011A988(int);
+void func_0011C2E8_i(int, void*) __asm__("func_0011C2E8");
+
+extern "C" void Heap_Free(int heap, void* p) {
+    char loc[0x10];
+    func_001187F8(loc);
+    if (p) {
+        int i = func_00118BD8(heap, (int)p);
+        if (i >= 0) {
+            func_0011C2E8_i(D_00375600[i], p);
+            func_00118820(loc);
+            return;
+        }
+        func_0011A988((int)p);
+    }
+    func_00118820(loc);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119488);
 
