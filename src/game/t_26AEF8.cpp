@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+extern int D_00370C24;
+extern char D_003A66F0[];
 void func_0026AEA8(int);
 extern int D_00368748;
 extern int D_00370C30;
@@ -118,7 +120,15 @@ extern "C" void func_0026CC48(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CC80);
+GP_DATA(D_00370C24);
+extern "C" void func_0026CC80(int a) {
+    if (func_0026ABA8() == 0) {
+        D_00370C24 = a != 0;
+        char *p = D_003A66F0 + D_00370C18 * 0xCB0;
+        *(u64 *)(p + 0xC98) = 0;
+        *(u64 *)(p + 0xCA0) = 0;
+    }
+}
 
 extern "C" void func_0026CCD8(int v) {
     D_00370C28 = v;

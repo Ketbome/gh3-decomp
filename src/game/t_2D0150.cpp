@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+int func_00289E08(void *);
+int func_002D0F08(int);
 int func_002D0E08(void);
 void func_0027C448(int, int, int);
 s32 func_00289C88(s32, s32);
@@ -62,7 +64,13 @@ extern "C" s32 CFunc_get_anim_speed_for_tempo_cfunc(int arg0, SGAS *arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0F08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_hero_get_skill_level_cfunc);
+extern "C" s32 CFunc_hero_get_skill_level_cfunc(int arg0, SGAS *arg1) {
+    int a = func_00289E08(arg1);
+    int t = arg1->unk20;
+    int b = func_002D0F08(a);
+    func_0027C448(t, 0xA1C21B88, b);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D1190);
 

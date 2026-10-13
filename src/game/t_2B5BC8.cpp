@@ -1,12 +1,22 @@
 #include "common.h"
 
+extern "C" {
+void func_002B4B98(int, int, int);
+extern int D_00371F90[2];
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5BC8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5C08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5CA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5DA0);
+GP_DATA(D_00371F90);
+extern "C" void func_002B5DA0(int i) {
+    int *p = &D_00371F90[i];
+    func_002B4B98(*p, 0x907542B6, 0);
+    func_002B4B98(*p, 0xE59AA425, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5DF0);
 

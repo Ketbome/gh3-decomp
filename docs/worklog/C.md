@@ -579,3 +579,14 @@ wrong order, a permutation search over the source order finds it (func_00283020:
 `r = out; if (!call) { ...; return 0; }` style needs `r` loaded before the test.)
 Given up: func_002AEB48 (virtual call: original copies `this` into a2 at entry, ours a3 + moves), func_0026E0E8
 (movz bracket, return-0 delay slot).
+
+Round 6 part 4 (+19): t_2DEE90 func_002DF9B8; t_268EB8 func_002691B0, func_0026AC60, func_0026AEA8; t_2774B8 func_00277810;
+t_2B5BC8 func_002B5DA0; t_29F288 func_002A1170/11C0/1210/1260 (deleting dtors, vptr at 0xC), func_0029FD40, func_0029FE00;
+t_2D0150 CFunc_hero_get_skill_level_cfunc; t_25C450 func_0025E170 (func_0025DFE0 now takes a pointer); t_266800
+func_00266F50 (func_00266FA8 takes an int); t_26AEF8 func_0026CC80; t_296A10 func_00296D88, func_00296EC0;
+t_2DCE78 func_002DD108.
+(Quirks: `extern int D_X[2]` (8 bytes, small data) makes `&D_X[i]` an `addiu v0,gp,off` -- larger arrays use lui.
+Two u64 stores come out in reverse source order. Check which arg registers a call leaves untouched: func_0027B300(p, 0)
+had `a0` passed through, the wrapper has only (p, n).)
+Given up: CFunc_LightShow_GetParams (the original loads D_00371EE8 straight into a1 after `move s0,a1`; ours loads
+v0 first, 3 forms).

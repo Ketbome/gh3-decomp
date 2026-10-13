@@ -16,6 +16,9 @@ struct S2DCE78_V {
 };
 
 extern "C" {
+int func_00225F80(void);
+int func_002297A8(int);
+extern int D_0036F608;
 void func_001CA898(void);
 int func_002DD108(void);
 int func_002DD288(void);
@@ -58,7 +61,17 @@ extern "C" void func_002DD0D0(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD108);
+extern "C" int func_002DD108(void) {
+    int r = 0;
+    if (D_0036F608 != 0) {
+        r = func_002297A8(D_0036F608);
+    }
+    int x = 0;
+    if (r != 0 || func_00225F80() != 0) {
+        x = 1;
+    }
+    return x;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD160);
 

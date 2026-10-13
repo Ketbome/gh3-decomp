@@ -148,11 +148,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296B28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296CB8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296D88);
+struct Sfunc_00296D88 {
+    char pad0[4];
+    void *unk4;
+};
+extern "C" void func_00296D88(Sfunc_00296D88 *p, int b) {
+    if (p->unk4 != 0) {
+        func_00119400(D_00368A38[0], p->unk4);
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296DE0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296EC0);
+struct Sfunc_00296EC0 {
+    char pad0[4];
+    void *unk4;
+};
+extern "C" void func_00296EC0(Sfunc_00296EC0 *p, int b) {
+    if (p->unk4 != 0) {
+        func_00119400(D_00368A38[0], p->unk4);
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296F18);
 

@@ -9,6 +9,8 @@ struct S0025D4E0 {
 };
 
 extern "C" {
+extern char D_00356E88[];
+extern char D_003705F0[];
 void func_0011A550(int);
 void func_0027D188(int, int, int *, int);
 void func_0011A560(int, int, int);
@@ -161,13 +163,18 @@ extern "C" void func_0025DFB8(void) {
     }
 }
 
-extern "C" void func_0025DFE0(void) {
+extern "C" void func_0025DFE0(void *) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025DFE8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025E168);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025E170);
+extern "C" void func_0025E170(void) {
+    func_0025DFE0(D_003705F0);
+    func_0025DFE0(D_00356E88);
+    func_0025DFE0(D_00356E88);
+    func_0025DFE0(D_003705F0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025E1C8);
