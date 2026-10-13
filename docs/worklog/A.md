@@ -1068,3 +1068,6 @@ Matched (A12) t_11F000: func_0011F3E8 (sprintf into a 0x80 buf, then `do {} whil
 - func_0019B448 (32-entry bit-spread table + 3 pool allocs): body matches except the original keeps the constant 1 in a register (`li a2,1` before the loop, `sll a0,a2,16`, `or a0,a0,a2`) and uses branches, ours folds 1<<n into constants and if-converts (movn); `int one = 1`, register, u32/u8/s16/long variants all fold; 6 tries
 - func_00113420: split head (3 junk `addiu sp` + nop before alabel func_00113438), skipped
 - func_001137E8 (escape-sequence tokenizer: `\_` -> space, `\n`, `^`, newline, NUL; compare chain on the char): both a switch and a goto form reproduce the structure, but the original uses two registers for 0x20 (one for the `== ' '` compare, `li t3,32` for the `\_` store) while ours CSEs them, and some blocks land in a different order; 3 tries
+
+## A12 VU0 pass
+Matched (A12) t_10EBD8: func_0010F6D8 (vadd) func_0010F6F0 (vsub) func_0010F708 (vector * scalar; `mfc1` temp is the same register as the 128-bit result: one `"=&r"(r)` operand) func_0010F720 (dot3 returning float: `"=f"` output + `"=&r"` temp for qmfc2/mtc1)

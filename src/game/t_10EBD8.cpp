@@ -72,13 +72,34 @@ INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F6A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F6C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F6D8);
+extern "C" u128_10E func_0010F6D8(const u128_10E* a, const u128_10E* b) {
+    u128_10E r;
+    asm("lqc2 $vf2, 0(%1)\n\tlqc2 $vf1, 0(%2)\n\tvadd.xyzw $vf3, $vf2, $vf1\n\tqmfc2.ni %0, $vf3"
+        : "=r"(r) : "r"(a), "r"(b));
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F6F0);
+extern "C" u128_10E func_0010F6F0(const u128_10E* a, const u128_10E* b) {
+    u128_10E r;
+    asm("lqc2 $vf2, 0(%1)\n\tlqc2 $vf1, 0(%2)\n\tvsub.xyzw $vf3, $vf2, $vf1\n\tqmfc2.ni %0, $vf3"
+        : "=r"(r) : "r"(a), "r"(b));
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F708);
+extern "C" u128_10E func_0010F708(const u128_10E* a, float s) {
+    u128_10E r;
+    asm("mfc1 %0, %2\n\tqmtc2.ni %0, $vf2\n\tlqc2 $vf1, 0(%1)\n\tvmulx.xyzw $vf3, $vf1, $vf2x\n\tqmfc2.ni %0, $vf3"
+        : "=&r"(r) : "r"(a), "f"(s));
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010F720);
+extern "C" float func_0010F720(const u128_10E* a, const u128_10E* b) {
+    float r;
+    int t;
+    asm("lqc2 $vf1, 0(%2)\n\tlqc2 $vf3, 0(%3)\n\tvmul.xyzw $vf1, $vf1, $vf3\n\tvaddy.x $vf2, $vf1, $vf1y\n\tvaddz.x $vf2, $vf2, $vf1z\n\tqmfc2.ni %1, $vf2\n\tmtc1 %1, %0"
+        : "=f"(r), "=&r"(t) : "r"(a), "r"(b));
+    return r;
+}
 
 extern "C" void* func_0010F748(void* p) {
     return p;
