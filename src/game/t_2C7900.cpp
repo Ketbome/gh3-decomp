@@ -1,14 +1,86 @@
+// cflags: -funroll-loops
 #include "common.h"
+
+struct S2C79_Arr {
+    int unk0;
+    int size;
+    int data;
+    int Get(int i) {
+        if (size == 1) {
+            return data;
+        }
+        return ((int *)data)[i];
+    }
+};
+
+struct S2C79_Scr {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" {
+void func_0027C160(int, int, int);
+int func_002B4848(int);
+bool func_0027D1F8_b(int, int, int *, int) asm("func_0027D1F8");
+bool func_0027D870_b(int, int, int *, int) asm("func_0027D870");
+void func_002C7900(int, int, int);
+S2C79_Arr *func_002764E8(int, int);
+int func_002763E0(int, int);
+int func_0027D1F8(int, int, int *, int);
+int func_0027D870(int, int, int *, int);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", func_002C7900);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_WhammyFXOn);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_WhammyFXOff);
+extern "C" int CFunc_WhammyFXOff(int arg0) {
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int i;
+    int mask;
+    S2C79_Arr *x;
+    S2C79_Arr *t;
+    func_0027D870(arg0, 0xCC12115E, &a, 1);
+    func_0027D1F8(arg0, 0x5CA15C8F, &b, 1);
+    t = func_002764E8(a, 1);
+    x = (S2C79_Arr *)t->Get(b);
+    mask = 0x10000;
+    func_0027D870(arg0, 0x1BFF0C3D, &c, 1);
+    func_0027D1F8(func_002763E0(c, 1), 0x67E6859A, &d, 1);
+    d -= 1;
+    func_0027D1F8(arg0, 0x5C430371, &e, 1);
+    for (i = 0; i < 5; i++) {
+        if (e & mask) {
+            if (x->Get(i + 1) > 0) {
+                func_002C7900(d, i, 1);
+            }
+        }
+        mask >>= 4;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_WhammyFXOffAll);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_GetStrumPattern);
+extern "C" int CFunc_GetStrumPattern(int arg0, S2C79_Scr *script) {
+    int a;
+    int b;
+    bool missing = !func_0027D870_b(arg0, 0xCC12115E, &a, 0);
+    if (!missing) {
+        S2C79_Arr *t = func_002764E8(a, 1);
+        missing = !func_0027D1F8_b(arg0, 0xD4DE628F, &b, 0);
+        if (!missing) {
+            int v = t->Get(b);
+            func_0027C160(script->unk20, 0x55CC895E, func_002B4848(v));
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_CheckNoteHoldInit);
 

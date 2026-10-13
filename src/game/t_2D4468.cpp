@@ -40,7 +40,15 @@ struct S2D5878_0 {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", CFunc_select_guitar_build_finish_array);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D4B38);
+extern "C" int func_002D4B38(int k, int *keys, int *vals, int n) {
+    int i;
+    for (i = 0; i < n; i++) {
+        if (k == keys[i]) {
+            return vals[i];
+        }
+    }
+    return 0x0C3AA5D7;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", CFunc_store_prune_guitar_finishes);
 

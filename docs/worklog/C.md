@@ -703,3 +703,9 @@ the one whose address is taken first, take its address first (`int *pa = &a;` an
 Given up: CFunc_PreLoadStream / CFunc_PreLoadSoundStream (`flag = (x == K)` becomes xor+sltiu, original is a branch),
 func_002E70B0 / func_002E7D80 (two compare blocks: alignment nop + an extra saved register), func_002E8FF0 (address register
 allocation for the 0x1C-stride globals).
+Round 8 part 7 (+4): t_2D4468 func_002D4B38 (key search `for (i = 0; i < n; i++) if (k == keys[i]) return vals[i]; return 0x0C3AA5D7;`
+unrolled 4x by `-funroll-loops`); t_2C7900 CFunc_WhammyFXOff (file now `-funroll-loops`; script array `Get(i)` inline),
+CFunc_GetStrumPattern (`bool` aliases for the two getters, `missing` flags); t_2AAD58 CFunc_LightShow_Update (`if (!flag) return 0;`
+first gives the original block order; with an `r` variable gcc adds an extra register).
+Given up: CFunc_WhammyFXOffAll (prologue: original has `move a2,sp` before `sd ra` and the nested-call argument first; 6 forms),
+func_00289D30 (0x30-stride key search is not unrolled in our source forms), func_00269420-style hash remove (see above).

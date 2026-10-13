@@ -1,6 +1,20 @@
 #include "common.h"
 
+struct S2AAD58_L {
+    char pad0[8];
+    int unk8;
+    char padC[4];
+    int unk10;
+    f32 unk14;
+    char pad18[0x10];
+    f32 unk28;
+};
+
 extern "C" {
+int func_001E2968(S2AAD58_L *, int);
+f32 func_001E2850(S2AAD58_L *, int);
+extern S2AAD58_L D_003AC770;
+extern int D_00371EF0;
 void func_0027AC90(int);
 void func_0027ABB0(int, int);
 int func_0027DF00(int, int);
@@ -48,6 +62,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetParams);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_GetParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_Update);
+GP_DATA(D_00371EF0);
+extern "C" int CFunc_LightShow_Update(void) {
+    if (!D_00371EF0) {
+        return 0;
+    }
+    int t = func_001E2968(&D_003AC770, D_003AC770.unk8);
+    f32 f = func_001E2850(&D_003AC770, t);
+    f32 d = f - func_001E2850(&D_003AC770, D_003AC770.unk10);
+    D_003AC770.unk28 = f;
+    D_003AC770.unk10 = t;
+    D_003AC770.unk14 = d;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ACA48);
