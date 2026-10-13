@@ -13,6 +13,7 @@ struct S001874D8 {
 struct S_001873D8 { int unk0; int unk4; char pad8[8]; int* unk10; };
 
 extern "C" {
+void func_0030A2F4(int, int, int);
 int func_001BF4A0(int, void*);
 int func_001C3578(int, void*);
 extern int D_0036B594;
