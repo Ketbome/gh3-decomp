@@ -44,7 +44,6 @@ s32 func_001E6538(void);
 void func_001E6560(void);
 void func_001E6578(void);
 void func_001E6590(void);
-extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void* Heap_Alloc(s32, s32, s32, s32);
 void* func_0011C130(void*, int, s32, s32, int, int);
 void func_0011C248(void*, int);
@@ -54,6 +53,7 @@ extern void* D_00371228[] __attribute__((section(".sdata")));
 extern s32 D_00371230[] __attribute__((section(".sdata")));
 extern void* D_00370FA8[] __attribute__((section(".sdata")));
 extern s32 D_00370FB0[] __attribute__((section(".sdata")));
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E4E10);
