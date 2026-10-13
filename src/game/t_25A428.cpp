@@ -125,7 +125,36 @@ extern "C" int CFunc_SetScriptWarningLevel(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", func_0025AA28);
+extern "C" int func_0025AA28(int params, int sc, int flag) {
+    S25AA28 *s = (S25AA28 *)sc;
+    int a = 0;
+    func_0027D870(params, 0, &a, 0);
+    int b = 0;
+    func_0027D400(params, 0x7031F10C, &b, 0);
+    int c = 0;
+    func_0027D870(params, 0x40C698AF, &c, 0);
+    int d = 0;
+    func_0027D870(params, 0x86068BD9, &d, 0);
+    int e = 0;
+    func_0027D400(params, 0x0DD85BDA, &e, 0);
+    int f = 0;
+    int g = 0;
+    func_0027D1F8(params, 0x20209C31, &f, 0);
+    func_0027D1F8(params, 0x23627FD7, &g, 0);
+    int h = 0;
+    func_0027D1F8(params, 0x2EBFF4BC, &h, 0);
+    int u = s->unkC4;
+    int r = func_0028D1D8(a, b, d, e, u, c, f != 0, g != 0, h != 0, 0);
+    if (r) {
+        if (!func_0027DF00(params, 0x01917DF2)) {
+            func_00289ED8(r, s);
+        }
+        if (flag && !func_0028C200(r)) {
+            func_00289B40(r, 3);
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_SpawnScript(int params, int script) {
     int f = 0;

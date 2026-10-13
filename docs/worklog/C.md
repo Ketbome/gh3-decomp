@@ -826,4 +826,4 @@ Quirk: gcc 2.95 balances case trees at index (n + ranges + 1)/2 (cost table only
 Matched other: t_28AB28 func_0028AE28 (bytecode operand reader: types 0x2C/0x2D/0x16; `p->unk14 = q; v = bytes...; p->unk14 = s + N;` keeps the second pointer store after the loads).
 Matched other (+2): t_2A53A8 func_002A5510, func_002A5638 (checksum switch compare trees: the original tree has one more node than the visible cases; adding a dummy `case 0xFFFFFFFF: break;` above the highest case reproduces it exactly (no compare is emitted for it). Case bodies in the order of the body addresses so the last `bne` falls through).
 Matched other: t_2AAD58 func_002ABB00 (call with 10 args: reading the first register argument into a local first (`int q = p->unk4;`) makes the scheduler issue that load before the stack-arg stores of the zeros, like the original).
-Given up: t_25A428 func_0025AA28 (same stack-arg ordering, `sw zero,8(sp)` goes in the jal slot in the original; locals for the bools did not help).
+Matched other: t_25A428 func_0025AA28 (same trick: `int u = s->unkC4;` before the 10-arg call, passed as the 5th arg).
