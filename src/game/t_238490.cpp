@@ -13,6 +13,7 @@ struct S23A248 {
 };
 
 extern "C" {
+s32 func_001150B8(s32 a);
 void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 }
@@ -74,4 +75,21 @@ extern "C" void func_0023A248(S23A248* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_238490", func_0023A350);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_238490", func_0023A458);
+extern "C" s32 func_0023A458(char* p0, s32 key0) {
+    register s32 off asm("$17") = 0;
+    char* p = p0;
+    s32 i = 0;
+    s32 r = 0;
+    s32 key = key0;
+    while (i < *(s32*)(p + 0xC)) {
+        s32 cur = off;
+        asm("" : "+r"(cur));
+        if (func_001150B8(*(s32*)(p + 8) + off + 0xB0) == key) {
+            r = *(s32*)(p + 8) + off;
+            break;
+        }
+        off = cur + 0x13C;
+        i++;
+    }
+    return r;
+}

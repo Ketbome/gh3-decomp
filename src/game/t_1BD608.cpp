@@ -23,6 +23,7 @@ struct S001BF1D0 {
 };
 
 extern "C" {
+s32 func_0019CD38(s32 a, s32 b);
 extern S001BD998* D_0036CB74;
 void func_001BB068(void);
 void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
@@ -36,7 +37,20 @@ void func_001BE088(void* p, s32 a, s32 b, s32 c, s32 d, s32 e, s32 f);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD608);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD6E0);
+extern "C" void func_001BD6E0(char* p, s32 a, s32 b, s32 c) {
+    s32 i = 0;
+    register char* pp asm("$18") = p;
+    char* e = *(char**)(pp + 0x30);
+    if (*(s32*)(pp + 0x28) > 0) {
+        do {
+            if (*(s32*)(e + 0x48) == a && *(s32*)(e + 0x44) == b) {
+                func_0019CD38(*(s32*)(e + 0xC), c);
+            }
+            i++;
+            e += 0x50;
+        } while (i < *(s32*)(pp + 0x28));
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD780);
 
