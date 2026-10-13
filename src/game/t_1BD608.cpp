@@ -30,6 +30,11 @@ void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
 void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 void func_001BF298(S001BF1D0* p);
+void* func_0011A380(s32 size);
+void func_0030A2F4(void* d, void* s, s32 n);
+void func_001BE3A0(void* p, s32 a);
+void func_001BF0B8(void* p);
+extern void* D_0036CBC0;
 void func_001BF2B8(S001BF1D0* p);
 void* Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
 void func_001BE088(void* p, s32 a, s32 b, s32 c, s32 d, s32 e, s32 f);
@@ -84,7 +89,46 @@ extern "C" void func_001BD9C8(S001BD998* p, s32 flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDA28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDB28);
+struct S1BDB {
+    char pad0[8];
+    u32 unk8;
+    char padC[4];
+    S1BDB* unk10;
+    char pad14[0x18];
+    void* unk2C;
+};
+
+GP_DATA(D_0036CBC0);
+extern "C" S1BDB* func_001BDB28(S1BDB* a, s32 size, s32 f2, s32 f3, s32 f4, s32 f5) {
+    S1BDB* p;
+    if (f5 != 0) {
+        p = (S1BDB*)func_0011A380(size);
+        func_0030A2F4(p, a, size);
+    } else {
+        p = a;
+        p->unk8 |= 0x80;
+    }
+    p->unk10 = p;
+    if (f4 != 0) {
+        p->unk8 |= 1;
+    }
+    if (f2 != 0) {
+        u32 t = p->unk8;
+        p->unk8 = t | 8;
+        if (f3 != 0 && f4 == 0) {
+            p->unk8 = t | 0xA;
+        }
+    }
+    func_001BE3A0(p, 0);
+    if (f2 != 0 && f4 == 0) {
+        p->unk2C = D_0036CBC0;
+        D_0036CBC0 = p;
+    }
+    if (f4 != 0) {
+        func_001BF0B8(p);
+    }
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDC30);
 
