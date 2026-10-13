@@ -1,5 +1,16 @@
 #include "common.h"
 
+typedef int TI128 __attribute__((mode(TI)));
+
+struct S2454 {
+    char pad0[0xB];
+    u8 unkB;
+    char padC[0x4];
+    TI128 unk10;
+    char pad20[0x10];
+    s16* unk30;
+};
+
 extern "C" {
 extern u8 D_00370044;
 void func_0010F690(void*);
@@ -9,14 +20,35 @@ extern u8 D_00354B58[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void Heap_Free(int, void*);
 void func_0011A470(int);
-void func_002454D0(void*, int, int);
+void func_002454D0(S2454*, int, f32*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00245220);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_002454C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_002454D0);
+extern "C" void func_002454D0(S2454* o, int i, f32* v) {
+    if (o->unkB) {
+        TI128 t;
+        asm volatile("lqc2 $vf2, %0" : : "m"(o->unk10));
+        int six = 6;
+        asm volatile("lqc2 $vf1, %0" : : "m"(*(TI128*)v));
+        int k = i * six;
+        asm volatile("vsub.xyzw $vf1, $vf1, $vf2");
+        f32 sc = 4096.0f;
+        asm volatile("sqc2 $vf1, %0" : "=m"(t) : "f"(sc));
+        f32* tf = (f32*)&t;
+        register s32 x0 asm("$2") = (int)(tf[0] * sc);
+        *(s16*)(k + (int)o->unk30) = x0;
+        *(s16*)(k + (int)o->unk30 + 2) = (s16)(int)(tf[1] * sc);
+        *(s16*)(k + (int)o->unk30 + 4) = (s16)(int)(tf[2] * sc);
+    } else {
+        int k = i * 12;
+        *(f32*)(k + (int)o->unk30) = v[0];
+        *(f32*)(k + (int)o->unk30 + 4) = v[1];
+        *(f32*)(k + (int)o->unk30 + 8) = v[2];
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00245598);
 
