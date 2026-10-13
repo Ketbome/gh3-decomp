@@ -61,6 +61,7 @@ void func_0011BDA8(void*, int);
 void func_00207D70(char*);
 int func_0027DF00(int p, u32 k);
 void func_002078A8_3(S206* s, int a, int b) __asm__("func_002078A8");
+void func_0027C448(int, u32, int);
 }
 
 struct VE206 {
@@ -298,7 +299,31 @@ extern "C" int func_002077E0(void* p) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_002078A8);
+extern "C" int func_002078A8(S206* self, int params) {
+    void* m = D_0036D410;
+    if (func_001D5B60(m, 0)) {
+        *(int*)(func_001D5B60(m, 1) + 0x9C) = 0;
+        func_001D5B60(m, 1);
+    }
+    int sp0 = 0;
+    if ((func_0027D870(params, 0x9AC24B18, &sp0, 0) ^ 1) != 0) {
+        func_0027C448(params, 0x9AC24B18, 0x3E84C2FD);
+    }
+    VEntry206* e = &self->unk18[3];
+    ((void (*)(void*, int))e->fn)((char*)self + e->delta, params);
+    if (self->unk1C != 0 && *(int*)((char*)self->unk1C + 4) == 1) {
+        f32 sp4 = 0.2f;
+        func_0027D268_f(params, 0xA6F5352F, &sp4, 0);
+        *(f32*)((char*)self->unk1C + 0x14) = sp4;
+    }
+    if (func_001D5B60(m, 0)) {
+        char* o = func_001D5B60(m, 1);
+        func_0011BDA8(o, *(int*)(func_001D5BA0(m, 0x69B05E2C, 1) + 0x2C));
+        func_001D5B60(m, 1);
+        *(int*)(func_001D5B60(m, 1) + 0x9C) = 1;
+    }
+    return 1;
+}
 
 extern "C" int func_00207A18(S206* self) {
     VEntry206* e = &self->unk18[4];

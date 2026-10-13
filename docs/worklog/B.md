@@ -816,3 +816,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - Given up (B13): func_001DE9C8 (t_1DE968, 24 element initialisers func_001DE9B8(p+4+0x24*i, key) in shuffled order): the original precomputes a dozen element addresses into s1-s8 and spills five to the stack before the calls; plain call chain compiles to 0x1b4 bytes; not found how to make gcc hoist them (1 form).
 - t_234190 func_00234190 MATCH (sibling of func_00234080 plus the trailing `if (b->unk84) func_0028D720(..)`).
 - t_1CE0A8 func_001CEBE0 MATCH (virtual call at vptr+0x40 and null-checked virtual delete (flag 3) through a VE struct; `func_001D5BA0`/`func_001D7710` through __asm__ aliases returning pointers).
+- t_2062E8 func_002078A8 MATCH (sibling of func_00207A48/func_002077E0; vcall slot 3, 0.2f local passed by address).
