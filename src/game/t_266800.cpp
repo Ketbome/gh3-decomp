@@ -71,7 +71,14 @@ struct S266E90_E {
     char pad4C[0xC];
 };
 
+struct S267A80 {
+    char pad0[8];
+    f32 unk8;
+    f32 unkC;
+};
+
 extern "C" {
+void func_00266928(f32 *, f32);
 extern S266E90_E D_003A1900E[44] asm("D_003A1900");
 void func_00266C08(void);
 void func_00270BD0(void *);
@@ -162,7 +169,13 @@ extern "C" void func_002668F8(void *p, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266928);
+extern "C" void func_00266928(f32 *a, f32 f) {
+    int n = (((int *)a)[5] == 2) ? 5 : 2;
+    u32 i;
+    for (i = 0; i < (u32)n; i++) {
+        a[i] = a[i] * f * 0.01f;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266A20);
 
@@ -359,7 +372,18 @@ extern "C" void func_00267A00(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267A60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267A80);
+extern "C" void func_00267A80(int a, int b, f32 *p, S267A80 *q) {
+    if (func_00266778() != 0) {
+        return;
+    }
+    func_00266928((f32 *)b, 50.0f);
+    if (q->unkC != 100.0f) {
+        func_00266928((f32 *)b, q->unkC);
+    }
+    if (q->unk8 != 100.0f) {
+        *p = *p * q->unk8 * 0.01f;
+    }
+}
 
 extern "C" void func_00267B30(int unused, S2668_Out *out, S2668_Ctx *ctx, S2668_Src *src) {
     if (src) {
