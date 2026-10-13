@@ -21,6 +21,8 @@ extern u8 D_00352F88[];
 void* func_0022BA90(void*);
 extern u8 D_00353480[];
 int func_001162E8(void*);
+void func_00116320(void*);
+void func_00116340(void*);
 extern u8 D_00372E50;
 extern u8 D_00393AD8[];
 void* func_0022C3C8(void);
@@ -41,6 +43,15 @@ int func_0014F130(void);
 void func_0030B550(int, void*, int, int);
 extern u8 D_0036F8D8[];
 void func_0022BBB0(void*, int, int, int, int, int);
+struct LI22C {
+    s32 unk0;
+    s32* unk4;
+};
+struct LN22C {
+    char pad0[4];
+    LN22C* unk4;
+    s32* unk8;
+};
 int func_0030E720(int, void*);
 int func_0030B550_3(int, void*, int) __asm__("func_0030B550");
 extern u8 D_0036F8E0[];
@@ -180,7 +191,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C130);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C210);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C308);
+extern "C" void func_0022C308(char* p) {
+    LI22C it;
+    LI22C end;
+    func_00116320(&D_00372E50);
+    it.unk4 = *(s32**)(p + 0x30);
+    end.unk4 = (s32*)(p + 0x2C);
+    if (it.unk4 != end.unk4) {
+        do {
+            *((LN22C*)it.unk4)->unk8 = 0;
+            it.unk4 = (s32*)((LN22C*)it.unk4)->unk4;
+            end.unk4 = (s32*)(p + 0x2C);
+        } while (it.unk4 != end.unk4);
+    }
+    func_00116340(&D_00372E50);
+}
 
 extern "C" int func_0022C380(char* p) {
     int r = 0;

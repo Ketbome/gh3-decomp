@@ -39,6 +39,14 @@ struct S001CB6D8 {
     s32 unk28;
 };
 
+struct B1CA3 {
+    u8 unk0;
+    char pad1[0xB];
+    s32 unkC;
+    u8 unk10;
+    char pad11[0x1F];
+};
+
 extern "C" {
 void func_00113FB8(void* p);
 s32 func_0011EF10(void);
@@ -48,6 +56,9 @@ void func_0029D2A0(s32 a, s32 b, s32 c, void* d, s32 e, s32 f, s32 g);
 int func_0027D000(void* params, s32 name, s32* out, s32 d);
 void func_001C93B0(s32 p, s32 v);
 void func_001C93C0(s32 p, s32 v);
+void func_00296AF0(void* p);
+s32 func_001CC0B0(void* p);
+void func_0029D238(s32 a, void* b);
 extern char* D_00370EE0;
 extern s32 D_00372D6C;
 extern s32 D_003717E0;
@@ -109,7 +120,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA120);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA210);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA3E8);
+extern "C" void func_001CA3E8(char* p) {
+    B1CA3 b;
+    func_00296AF0(&b);
+    if (func_001CC0B0(func_001CA768((s32)p)) == 0) {
+        b.unk0 = 0x4E;
+        b.unkC = 2;
+        b.unk10 = 8;
+        func_0029D238(*(s32*)(p + 0x81AC), &b);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA458);
 

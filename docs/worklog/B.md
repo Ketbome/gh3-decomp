@@ -724,3 +724,7 @@ Given up (split tails whose first instructions are the end of the previous funct
 
 ### t_1C3A40 / t_1E0AE8 (more)
 t_1C3A40 matched 4: func_001C4390 func_001C43F8 func_001C55A8 func_001C5610. t_1E0AE8 matched 3: func_001E0FF8 func_001E1308 (stack list iterators: `S1E0AE8_I it, end;` two {s32; Node*} locals, do/while on it.unk4 != end.unk4, as in the session 3 note) func_001E0E70.
+
+### late session 8
+t_1E0AE8 +func_001E0BC8 func_001E0C40 (ctor/dtor); t_1C9B30 func_001CA3E8 (stack struct `B1CA3` padded to 0x30 so the frame is 0x40); t_2361E8 func_00236760 func_002366E0 (`if (q != 0 && (q + 0xB0) != 0 && *(s8*)(q + 0xB0) != 0)` keeps the redundant pointer test); t_22BD90 func_0022C308 (stack list iterators `it`/`end`, end re-stored each iteration); t_1E75A8 func_001E7A68 (read D_00368A38 into a local right after the first call).
+Given up: func_001E1220 (empty do-while after a jal gets a padding nop in the original), func_001CB180 (D_00370EE0 macro form vs gp in the same file), func_001CA458/func_00248620 (`~x != 0` pointer tests).

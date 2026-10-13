@@ -19,6 +19,11 @@ extern u8 D_00354A30[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void*);
 void func_0023A350(void*);
+s32 func_00233C50(void);
+char* func_00233CA8_p(s32 a, s32 b) __asm__("func_00233CA8");
+s32 func_00233CA8(s32 a, s32 b);
+char* func_0023A458(s32 a, s32 b);
+void func_00233CC0(char* q, char* buf);
 }
 
 GP_DATA(D_0036FD28);
@@ -40,9 +45,33 @@ extern "C" void func_002366D0(void* v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002366D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002366E0);
+extern "C" s32 func_002366E0(s32 unused, char* buf, s32 k) {
+    s32 t = func_00233C50();
+    if (t != 0) {
+        char* o = func_00233CA8_p(t, k);
+        if (o != 0) {
+            char* q = *(char**)(o + 4);
+            if (q != 0 && (q + 0xB0) != 0 && *(s8*)(q + 0xB0) != 0) {
+                func_00233CC0(q, buf);
+                return 1;
+            }
+        }
+    }
+    *buf = 0;
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236760);
+extern "C" s32 func_00236760(s32 unused, s32 a, s32 b, s32 c) {
+    s32 t = func_00233C50();
+    if (t != 0) {
+        char* o = func_0023A458(func_00233CA8(t, c) + 8, a);
+        if (o != 0) {
+            o[0x12B] = b;
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002367D0);
 
