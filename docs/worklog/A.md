@@ -985,3 +985,9 @@ v0/v1 and a0/a1 of the mask expression swapped, 6 variants), func_00187650 (thre
 A9 pass, part 6: no new matches. func_00122940 (5-entry compare ladder): everything matches except the final
 `sw %gp_rel` not landing in the `b` delay slot (ours fills it with the epilogue `ld s0`); `asm("" : "+r"(s))`
 on the first call result fixed the s0/s1 roles. GP_DATA(D_00368738) is needed for the gp store.
+
+## A10 pass (mid-size 0x100-0x400)
+
+Given up (A10): func_00117E10 (inner `switch (u16)` with case 0xFFFF/0xFFF9 folds to one compare; store order of F8/1C/24 differs; 3 tries)
+- func_0012C0B0: all matches except v0/v1 of the two li (2, 0x45) feeding the sh/sb of a stack message struct; 11 tries
+Matched (A10) t_174C20: func_00174E68 (0x100, float wrap loop)

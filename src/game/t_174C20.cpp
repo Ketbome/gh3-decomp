@@ -89,7 +89,34 @@ extern "C" void func_00174E38(S174E38* self) {
     self->unk58 = 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174E68);
+struct S174E68 { char pad0[0x18]; float unk18; float unk1C; char pad20[8]; float unk28; char pad2C[4]; int unk30; char unk34[0x24]; int unk58; };
+
+extern "C" void func_00174E68(S174E68* self, float* p) {
+    if (self->unk58 == 0) {
+        *p = -*p;
+    }
+    func_00174C20((S174C20*)self, p);
+    while (1) {
+        if (self->unk18 < 0.0f) {
+            func_0017E068(self->unk34, self->unk1C, 0.0f);
+            self->unk1C = 0.0f;
+            self->unk30 = 1;
+            self->unk58 ^= 1;
+            self->unk18 = -self->unk18;
+            continue;
+        }
+        if (self->unk28 < self->unk18) {
+            func_0017E068(self->unk34, self->unk1C, self->unk28);
+            self->unk1C = self->unk28;
+            self->unk30 = 1;
+            self->unk58 ^= 1;
+            self->unk18 = 2.0f * self->unk28 - self->unk18;
+            continue;
+        }
+        break;
+    }
+    func_0017E068(self->unk34, self->unk1C, self->unk18);
+}
 
 extern "C" void func_00174F68(void) {
 }
