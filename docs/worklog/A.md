@@ -748,3 +748,19 @@ Given up (A7, part 2):
 - func_00120C08: original has an extra nop between `lw` and `beqz` in the wait loop; 3 tries
 - func_001A42E0: bitfield word updates, register order; func_001822F0 (alloc arg order a2,a3,a1)
 - func_0011DDA8, func_0011E9E0 (handwritten), func_001708F8 (pcpyud), func_00154030 (unaligned struct), func_00174C48
+
+A7 pass, part 3. Matched 20: func_00127AB0 func_0011C030 func_00128160 func_001281C0 func_00157318 func_0016AFE0
+func_00119D40 func_0011C248 func_00197398 func_0011F478 func_00157100 func_00157190 func_0016C0F8 func_0017E4B8
+func_001A2868 func_001A3178 func_0011AD10 func_0011E868 func_001279F8 func_001283F8
+
+- Base-ctor calls (`jal; move s0,a0` in the delay slot) pass `this`: `func_001CE7A8(self)`. Without the argument the
+  constant load lands in v0 instead of v1 (func_0016C0F8).
+- Two vcalls through the same `self->vt` reload it after the first call: write `self->unk20->...` twice, not a
+  shared local (func_00157100).
+- `*(int*)((i * 4 + (char*)D) + j * 0x28)` (table + two indexes) gives the original `s0 += ...` chain
+  (func_001A2868); `D[i + j*10]` and the `(int)D` forms do not.
+- if/else on a global: `if (!(b & 3)) { G = 1; } else { G = 0; }` gives the bnezl + gp store layout (func_00157318).
+
+Given up (A7, part 3): func_00127948 (return-0 branch order), func_0011DE80 (wait loop nops), func_0017D580
+(andi scheduled into the beqz slot), func_00181BD8 (constant lands in v0), func_001A0D38 (unrolled 4x loop in a
+file without -funroll-loops), func_00113D20/func_00113D88 (alloc arg order).

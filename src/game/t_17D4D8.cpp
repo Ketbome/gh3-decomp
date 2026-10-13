@@ -11,6 +11,9 @@ struct S0017D658 {
 };
 
 extern "C" {
+void func_0017D580(void*, int);
+void func_00119400(int, void*);
+extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_0017E658(void*, float);
 void func_0017D658_2(void*, void*) __asm__("func_0017D658");
 void func_0017E4B8(void*, int);
@@ -89,7 +92,18 @@ extern "C" void func_0017E468(S17E468* self, int a) {
     func_00172A00(self, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E4B8);
+struct O17E4B8 { char pad0[0x58]; int unk58; };
+struct S17E4B8 { char pad0[0x1C]; O17E4B8* unk1C; };
+
+extern "C" void func_0017E4B8(void* p, int flags) {
+    S17E4B8* self = (S17E4B8*)p;
+    O17E4B8* o = self->unk1C;
+    if (o) o->unk58 = o->unk58 - 1;
+    func_0017D580(self, 2);
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 typedef unsigned int u128_17D __attribute__((mode(TI)));
 struct O17E518 { char pad0[0x58]; int unk58; };

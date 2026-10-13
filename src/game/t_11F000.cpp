@@ -18,6 +18,7 @@ struct SA11F_W {
 };
 
 extern "C" {
+int func_002FF920(void*, int);
 void func_0011DCD8(int, int);
 void* func_0011D9A8(void*);
 int func_002EEA00(int);
@@ -57,7 +58,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F3A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F3E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F478);
+extern "C" unsigned int func_0011F478(int a, int* out) {
+    int buf[10];
+    if (D_00368748[0] && func_002FF920(buf, a)) {
+        if (out) *out = buf[1];
+        return buf[0];
+    }
+    return 0xFFFFFFFF;
+}
 
 extern "C" int func_0011F4D8(void* self) {
     if (D_00368748[0]) {

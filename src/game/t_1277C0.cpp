@@ -56,6 +56,13 @@ struct SA127_Z {
 };
 
 extern "C" {
+int func_002763C0(int, int);
+void func_001234B0(void*);
+int func_0027AA70(int);
+int func_001287F0(int, int);
+void func_0027ABB0(int, int);
+void func_002765E0(int, int);
+void func_0028C9D0(int, int, int, int, int, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00339800[];
 extern u8 D_00339878[];
@@ -121,7 +128,15 @@ extern "C" SA127_F* func_001279A8(SA127_F* self, int a, float f) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001279F8);
+struct S1279F8 { char pad0[0x10]; float unk10; };
+struct T1279F8 { char pad0[0xD0]; float unkD0; };
+
+extern "C" int func_001279F8(S1279F8* self, T1279F8* o) {
+    func_002765E0(0x2F510F45, 0);
+    o->unkD0 = self->unk10 * 57.295776f;
+    func_001234B0(o);
+    return 1;
+}
 
 extern "C" SA127_K* func_00127A60(SA127_K* self, int a, int b) {
     func_00127838(&self->unk0, 4, a);
@@ -130,7 +145,13 @@ extern "C" SA127_K* func_00127A60(SA127_K* self, int a, int b) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00127AB0);
+struct S127AB0 { char pad0[0x10]; int unk10; };
+
+extern "C" int func_00127AB0(S127AB0* self, int a) {
+    func_002765E0(0x2F510F45, 0);
+    func_0028C9D0(self->unk10, 0, a, 0, 0, 0);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00127B10);
 
@@ -150,9 +171,25 @@ extern "C" int func_001280D8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001280E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128160);
+struct S128160 { char pad0[4]; int unk4; int unk8; char padC[4]; int unk10; int unk14; int unk18; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001281C0);
+extern "C" void func_00128160(S128160* self, int a, int b, int c) {
+    self->unk4 = a;
+    self->unk8 = 0;
+    self->unk10 = b;
+    int t = func_0027AA70(func_001287F0(8, 1));
+    self->unk18 = t;
+    if (c) func_0027ABB0(t, c);
+}
+
+extern "C" void func_001281C0(S128160* self, int a, int b, int c) {
+    self->unk4 = a;
+    self->unk8 = 0;
+    self->unk14 = b;
+    int t = func_0027AA70(func_001287F0(8, 1));
+    self->unk18 = t;
+    if (c) func_0027ABB0(t, c);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128220);
 
@@ -165,7 +202,14 @@ extern "C" SA127_K* func_001283A8(SA127_K* self, int a, int b) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001283F8);
+struct S1283F8 { char pad0[0x10]; int unk10; };
+
+extern "C" int func_001283F8(S1283F8* self) {
+    func_002765E0(0x2F510F45, 0);
+    int t = func_002763C0(self->unk10, 1);
+    if (t) func_0028C9D0(0xBDF7F843, t, 0, 0, 0, 0);
+    return 1;
+}
 
 extern "C" SA127_K* func_00128460(SA127_K* self, int a, int b) {
     func_00127838(&self->unk0, 6, a);

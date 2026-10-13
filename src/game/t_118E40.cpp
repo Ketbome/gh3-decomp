@@ -79,6 +79,9 @@ struct SA118_C {
 };
 
 extern "C" {
+u32 func_0030AA88(char*);
+void func_0030ADA0(char*, char*, u32);
+void func_00119990(void*, int);
 void* func_00113D20(u32);
 extern char D_00338690[];
 void func_0030B550(char*, const char*, ...);
@@ -209,7 +212,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119B38);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119CC0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119D40);
+struct VE_119D40 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V_119D40 { char pad0[8]; VE_119D40 unk8; };
+struct O_119D40 { char pad0[0x20]; V_119D40* unk20; };
+struct S_119D40 { char pad0[0x220]; O_119D40* unk220; int unk224; };
+
+extern "C" void func_00119D40(S_119D40* self) {
+    if (self->unk220) {
+        func_00119990(self, self->unk224);
+        O_119D40* o = self->unk220;
+        self->unk224 = 0;
+        if (o) {
+            V_119D40* v = o->unk20;
+            v->unk8.unk4((char*)o + v->unk8.unk0, 3);
+        }
+        self->unk220 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119DA0);
 
@@ -472,7 +491,13 @@ extern "C" int func_0011AD08(S_0011AD08* self) {
     return self->unk8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AD10);
+extern "C" void func_0011AD10(char* self, char* s) {
+    u32 n = func_0030AA88(s);
+    char* d = self + 0x44;
+    u32 m = (n < 0x18U) ? n : 0x17U;
+    func_0030ADA0(d, s, m);
+    d[m] = 0;
+}
 
 extern "C" void func_0011AD78(S_0011AD78* self, int v) {
     self->unk5C = v;

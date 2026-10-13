@@ -48,6 +48,8 @@ struct SA11D_E {
 };
 
 extern "C" {
+void func_001C5610(void*, int);
+extern u8 D_00338C20[];
 void func_002F4CD0(int);
 void func_002F4AB0(int);
 void func_002EE360(int, int);
@@ -270,6 +272,7 @@ extern "C" int func_0011DE78(void) {
     return 0;
 }
 
+GP_DATA(D_00368BF8);
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DE80);
 
 GP_DATA(D_00368C00);
@@ -341,7 +344,20 @@ extern "C" void func_0011E780(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E7D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E868);
+struct VE_11E868 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V_11E868 { char pad0[0x10]; VE_11E868 unk10; };
+struct O_11E868 { char pad0[0x18]; V_11E868* unk18; };
+struct S_11E868 { char pad0[0x14]; void* unk14; O_11E868* unk18; };
+
+extern "C" void func_0011E868(S_11E868* self, int flags) {
+    self->unk14 = D_00338C20;
+    O_11E868* o = self->unk18;
+    if (o) {
+        V_11E868* v = o->unk18;
+        v->unk10.unk4((char*)o + v->unk10.unk0, 3);
+    }
+    func_001C5610(self, flags);
+}
 
 extern "C" void func_0011E8D0(S_0011E8F8* self) {
     int a = self->unk18;
