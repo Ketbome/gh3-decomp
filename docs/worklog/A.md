@@ -1025,3 +1025,6 @@ Matched (A10) t_14C740: func_0014E290 (0x1dc; init sequence with profiler marker
 
 Matched (A11) t_112D48: func_001135A0 (jtbl, toupper with accents: explicit negative case values, c - 0x20 group first)
 Matched (A11) t_118E40: func_00119610 (jtbl 63 entries, every default index its own case; callees via int-returning asm aliases so v0 passes through)
+- func_0019E978 (jtbl, 0x128): everything matches except `dsrl` of the flag byte for the 0x60 branch (ours `srl`; u64 variants add dsll32/dsra32 or daddiu); ~25 tries. Needed: `if (dc >= d8) {simple} else {div}` order, `dc` reused as the movz target, `dc * q`, case 74 `tail:` label with goto from 80/81
+- func_0011F5C0 (jtbl, 0x150): switch layout fine but the original keeps nops in many branch delay slots and a dead volatile-less `lw 0x40` in case 6 (dropped by gcc); 3 tries
+Matched (A11) t_12B970: func_0012BF38 (jtbl float-compare table; the original has the c.eq.s hazard nop AFTER the shared tail label, gas puts it before: shared tail via goto with `asm volatile("nop")` at the label; float literals must be exact shortest, 0.0022f)

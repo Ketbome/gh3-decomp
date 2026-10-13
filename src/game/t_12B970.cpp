@@ -193,7 +193,53 @@ extern "C" void func_0012BDD0(SB12_Self* self, int anim, float blend) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012BE38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012BF38);
+extern "C" int func_0012BF38(int op, float x) {
+    int r = 0;
+    float k;
+    switch (op) {
+    case 0:
+        if (x == 0.05f) {
+            r = 0;
+        } else if (x == 0.1f) {
+            r = 1;
+        } else if (x == 10.1f) {
+            r = 2;
+        }
+        break;
+    case 1:
+        if (x == 0.04f) {
+            r = 0;
+            break;
+        }
+        k = 10.1f;
+        goto tail;
+    case 2:
+        if (x == 0.0022f) {
+            r = 0;
+            break;
+        }
+        k = 20.0f;
+        goto tail;
+    case 3:
+        if (x == 0.0017f) {
+            r = 0;
+            break;
+        }
+        k = 10.0f;
+        goto tail;
+    case 4:
+        if (x == 1.5f) {
+            r = 0;
+            break;
+        }
+        k = 1.0f;
+    tail:
+        asm volatile("nop");
+        if (x == k) r = 1;
+        break;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012C0B0);
 
