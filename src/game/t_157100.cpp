@@ -303,7 +303,39 @@ extern "C" int func_001577B8(S_001577B8* a, S_001577B8* b, int c) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157908);
+struct S_00157908 { char pad0[8]; char* unk8; };
+extern "C" {
+void func_00119490(int, int);
+void func_001194B8(int);
+int func_00119610(int, int);
+void func_00159E08(int, int, int, int, int, float, float);
+void func_0030A2F4(int, int, int);
+void* memset(void*, int, unsigned int);
+void* Heap_Alloc(int, int, int, int);
+void Heap_Free(int, void*);
+}
+static inline int VC0_00157908(S_00157908* o, int off) {
+    char* vt = o->unk8;
+    short d = *(short*)(vt + off);
+    int (*f)(void*) = *(int (**)(void*))(vt + off + 4);
+    return f((char*)o + d);
+}
+extern "C" int func_00157908(S_00157908* self, float a, float b) {
+    int w = VC0_00157908(self, 0xD0);
+    int h = VC0_00157908(self, 0xD8);
+    int heap = D_00368A38[0];
+    func_00119490(heap, func_00119610(heap, 0));
+    int size = w * h * 4;
+    void* buf = Heap_Alloc(D_00368A38[0], size, 1, 0);
+    memset(buf, 0, size);
+    func_001194B8(D_00368A38[0]);
+    func_00159E08(VC0_00157908(self, 0x18), w, h, (int)buf, 0x20, a, b);
+    func_0030A2F4(VC0_00157908(self, 0x18), (int)buf, size);
+    if (buf) {
+        Heap_Free(D_00368A38[0], buf);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157A58);
 

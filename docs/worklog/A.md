@@ -1005,3 +1005,4 @@ Matched (A10) t_116E38: func_00117030 func_00117D40 (jtbl; explicit 'case 0: ret
 - func_001881A0: alloc+ctor then inline flag getters; matches except the tail (original shares 'move v0,v1; sw' and reloads the flag word); 11 variants incl. int t reuse, goto, inline Get
 - func_00189938 (5x unrolled alloc+ctor+list push, 2 iterations): original puts 'sw D_00369DB4' in the Heap_Alloc jal delay slot after the D_00368A38 lui/lw; ours puts the gp load of D_00368A38 there; volatile on either, reorder, comma args tried; 7 tries
 Matched (A10) t_157100: func_001577B8 (0x150; 8 vcalls via an inline helper; last vcall declared int-returning)
+Matched (A10) t_157100: func_00157908 (0x150; texture-ish buffer alloc with two vcalls)
