@@ -76,6 +76,13 @@ void func_00221DE8_p(void*) __asm__("func_00221DE8");
 void func_002227F0(char*, int);
 void func_0027D268(int, u32, void*, int);
 void func_002226E8_f(void*, int, f32, f32) __asm__("func_002226E8");
+void func_002982B8(s32 a, s32 b, int (*c)(void), s32 d, void* e, s32 f);
+int func_00221A00(void);
+int func_00221A08(void);
+int func_00221A10(void);
+int func_00221A18(void);
+int func_00221A20(void);
+int func_00221A28(void);
 }
 
 struct V221 {
@@ -100,7 +107,17 @@ struct A221 {
     s32 (V221::*unk8)(int, int);
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221BC8);
+extern "C" void func_00221BC8(char* p, s32 q) {
+    *(s32*)(p + 0x28) = q;
+    if (q != 0) {
+        func_002982B8(q + 4, 0x25, func_00221A00, 3, p, 0x80);
+        func_002982B8(*(s32*)(p + 0x28) + 4, 0x26, func_00221A08, 3, p, 0x80);
+        func_002982B8(*(s32*)(p + 0x28) + 4, 0x27, func_00221A10, 3, p, 0x80);
+        func_002982B8(*(s32*)(p + 0x28) + 4, 0x28, func_00221A18, 3, p, 0x80);
+        func_002982B8(*(s32*)(p + 0x28) + 4, 0x29, func_00221A28, 3, p, 0x80);
+        func_002982B8(*(s32*)(p + 0x28) + 4, 0x2C, func_00221A20, 3, p, 0x80);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221CC8);
 
