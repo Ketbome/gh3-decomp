@@ -5,6 +5,14 @@ struct S_0014C7C0 { int unk0; int unk4; int unk8; };
 struct N_14C { char pad0[0x4]; int unk4; char pad8[0x4]; N_14C* unkC; };
 
 extern "C" {
+void func_00119490(int, int);
+void func_001194B8(int);
+int func_00119500(int);
+int func_00119610(int, int);
+int func_0011A380(int);
+void func_0011AD80(int, int);
+void func_0011AEB0(int);
+extern int D_00368A38;
 void func_0030B550_v(char*, const char*, ...) __asm__("func_0030B550");
 int func_0014F130(void);
 extern char D_0033C360[];
@@ -65,7 +73,14 @@ extern "C" S_0014C7C0* func_0014C7C0(S_0014C7C0* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014C7D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014C7E0);
+extern "C" void func_0014C7E0(S_0014C7C0* self, int a) {
+    int h = D_00368A38;
+    func_00119490(h, func_00119610(h, 1));
+    func_0011AD80(func_00119500(D_00368A38), 0x20);
+    self->unk4 = func_0011A380(a);
+    func_0011AEB0(func_00119500(D_00368A38));
+    func_001194B8(D_00368A38);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014C870);
 

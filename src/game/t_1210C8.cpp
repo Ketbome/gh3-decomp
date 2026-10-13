@@ -361,4 +361,24 @@ extern "C" int func_00123018(S_00123018* self, int v) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00123040);
+struct VE_123040 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V_123040 { char pad0[8]; VE_123040 unk8; };
+struct O_123040 { char pad0[8]; V_123040* unk8; };
+struct S_123040 { char pad0[0x2C]; unsigned int unk2C; char pad30[4]; O_123040* unk34; };
+
+extern "C" void func_00123040(S_123040* self) {
+    if (self->unk2C & 1) {
+        O_123040** pc = &self->unk34;
+        O_123040* o = self->unk34;
+        if (o) {
+            V_123040* v = o->unk8;
+            v->unk8.unk4((char*)o + v->unk8.unk0, 3);
+        }
+        if (self->unk34) {
+            func_001CE888(self->unk34, pc);
+            self->unk34 = 0;
+        }
+        self->unk34 = 0;
+        self->unk2C = self->unk2C & 0xFFFFFFFE;
+    }
+}

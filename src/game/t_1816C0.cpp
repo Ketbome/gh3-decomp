@@ -11,6 +11,8 @@ struct S_00182338 { char pad0[0x10]; VE_181* unk10; };
 struct S_001823A8 { char pad0[0x1C]; VE_181* unk1C; };
 
 extern "C" {
+void func_0018AD80(void*, int, int, int, int, int, int);
+void* func_00113D20(u32);
 void func_0014E988(int);
 extern void* D_00372BB8;
 extern int D_00372BBC;
@@ -119,7 +121,9 @@ extern "C" void func_001821E0(S_001821E0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182218);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182220);
+extern "C" void func_00182220(int u, int a, int b, int c, int d, int e, int g) {
+    func_0018AD80(func_00113D20(0xE0), a, b, c, d, e, g);
+}
 
 extern "C" int func_001822A8(S_001822A8* p) {
     if (p) {

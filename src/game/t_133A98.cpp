@@ -27,6 +27,9 @@ struct VE_00134E18 { s16 unk0; s16 unk2; void (*unk4)(void*, int, int, int, int,
 struct S_00134E18 { char pad0[0x8]; VE_00134E18* unk8; };
 
 extern "C" {
+int CrcFromPathLowercase(const char*);
+int func_00160170(int, int, int, int, int, int);
+void func_0015F4B8(int, int);
 int func_0027D400(char*, int, int*, int);
 int func_00134278(void*);
 int func_001317D0(void*, int);
@@ -272,7 +275,21 @@ extern "C" void func_00134E18(S_00134E18* self, int a1, int a2, int a3, int a4, 
 
 INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134E40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134FB0);
+struct S134FB0 { char pad0[0x70]; int unk70; };
+
+GP_DATA(D_00369420);
+extern "C" void func_00134FB0(S134FB0* self, int a, const char* b, const char* c) {
+    int h = CrcFromPathLowercase(b);
+    int h2;
+    if (c) {
+        h2 = CrcFromPathLowercase(c);
+    } else {
+        h2 = 0;
+    }
+    int r = func_00160170(D_00369420, h, a, h2, 0, 1);
+    int t = self->unk70;
+    if (t) func_0015F4B8(r, t);
+}
 
 GP_DATA(D_00369420);
 extern "C" void func_00135048(void) {

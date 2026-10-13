@@ -799,3 +799,16 @@ Given up (A7, part 5): func_0019EAA0 (DMA packet builder: p lands in a2 not v1),
 unlink and walk, equivalence copy-prop and loop nop), func_001198F0 (result copied to a1 before the array store),
 func_00157420 (byte stores scheduled differently), func_00175F40/func_00118308/func_00161CC8/func_00161FF8
 (address-taken locals on the stack), func_0016BE38/func_0016BEB0 (128-bit lanes).
+
+A7 pass, part 6. Matched 12: func_00182220 func_001292D0 func_0011A498 func_0011EF78 func_0011DF78 func_00120598
+func_00123040 func_0014C7E0 func_00134FB0 func_00152F78 func_0011AB60 (+ func_0011EF78's file declarations)
+
+- vcall with the entry address kept in a register: `VE* e = &v->unkC8; e->unk4((char*)o + e->unk0, ...)` (func_00152F78).
+- `if (!A || !B || !(o = f(...))) return 0;` reproduces the shared `return 0` block (func_0011EF78).
+- Lock/unlock pairs (`func_002F3B80`/`BD0`) around `--G` and `--self->f` (func_0011DCD8): the original re-reads the
+  volatile outside the delay slot and uses `lui at; sw` for the global; not reproduced (GP_DATA is file-wide).
+
+Given up (A7, part 6): func_00123310 (struct copy: a3/t0 register assignment), func_0019EB70 (64-byte word copy,
+ours uses ldl/ldr for every struct form), func_00120710 (the pointer to the 2-entry table is kept in s regs from the
+prologue), func_0011DC48 (`li 1` after the `lw` of the flags), func_0017D4F0/func_00178880 (end-of-list address
+hoisted before the base-class call), func_001A9C68 (float stores scheduled 2 slots earlier in ours).

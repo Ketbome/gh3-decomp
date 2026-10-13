@@ -56,6 +56,11 @@ struct SA127_Z {
 };
 
 extern "C" {
+void func_0011A230(int, int, int, void*, int);
+void* func_00113D20(u32);
+int func_00129148(void*);
+void func_00129F70(int, int, int);
+extern u8 D_00339900[];
 void func_0027AC90(int);
 void func_00113250(int);
 extern u8 D_003398A0[];
@@ -362,7 +367,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00129148);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001291E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001292D0);
+GP_DATA(D_003690EC);
+extern "C" void func_001292D0(int a, int b, int c) {
+    if (D_003690EC == 0) {
+        func_0011A230(D_00368A38[0], 0x8F21A798, a, D_00339900, 0);
+        int t = func_00129148(func_00113D20(0x1B8));
+        D_003690EC = t;
+        func_00129F70(t, b, c);
+    }
+}
 
 GP_DATA(D_003690EC);
 extern "C" void func_00129350(void) {

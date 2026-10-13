@@ -48,6 +48,13 @@ struct SA11D_E {
 };
 
 extern "C" {
+int func_0011E190(void);
+int func_0011DD68_5(int, int, int, int, int) __asm__("func_0011DD68");
+void func_0011E3B8(int);
+void* func_0011DF78(int, int, int, int);
+extern int D_00368748[] __attribute__((section(".sdata")));
+extern int D_00368D74;
+int func_0011E008(void*);
 void func_0011EA30(void);
 int func_002EE340(int, void*, int);
 void func_002EECA0(int);
@@ -289,7 +296,17 @@ extern "C" void func_0011DEE0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DF00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DF78);
+extern "C" void* func_0011DF78(int a, int b, int c, int d) {
+    int t = func_0011E190();
+    if (t) {
+        if (func_0011DD68_5(t, a, b, c, d) == 0) {
+            func_0011E3B8(t);
+            return 0;
+        }
+        return (void*)t;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E008);
 
@@ -485,4 +502,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF78);
+struct VE_11EF78 { s16 unk0; s16 unk2; void (*unk4)(void*); };
+struct V_11EF78 { char pad0[8]; VE_11EF78 unk8; };
+struct O_11EF78 { char pad0[0x44]; V_11EF78* unk44; };
+
+GP_DATA(D_00368D74);
+extern "C" int func_0011EF78(int a, int b) {
+    O_11EF78* o;
+    if (!D_00368748[0] || !D_00368D74 || !(o = (O_11EF78*)func_0011DF78(a, 0, 0x64, 0))) return 0;
+    func_0011DB88((SA11D_O*)o, b);
+    V_11EF78* v = o->unk44;
+    v->unk8.unk4((char*)o + v->unk8.unk0);
+    func_0011E008(o);
+    return 1;
+}
