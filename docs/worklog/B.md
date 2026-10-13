@@ -695,3 +695,7 @@ Given up: func_001CEFA8, func_001CEED8: junk prefix from a split tail; func_001C
 Matched 9: func_001D1F58 func_001D1DD8 func_001D1F08 func_001D0F90 func_001D0130 func_001D03D8 func_001D0228 func_001D02A0 func_001D0330
 Habits: a float stack local passed by value to a float parameter is declared `f32 v = 0` (lwc1 f12); the 7th float argument of a call goes in f12 (`-1.0f`); `0xFFFFFFFF` argument needs a `u32` parameter (lui/ori, not li -1); a macro-form global read after a call and stored into the jal delay slot: read it into a local before the store (func_001D0228).
 Given up: func_001D0548/F40/0518: split tails; func_001D1438/14C0: original loads the list head after the flag store and has a nop in the loop (4 tries); func_001D1910: g/t register allocation (a2/a3), 4 tries; func_001D1598: short loop with nops.
+
+### t_1B00D0 (session 8)
+Matched 6: func_001B1D18 func_001B0850 func_001B1428 func_001B1380 func_001B0898 func_001B1EB0
+Given up: func_001B1DD8 (passes a1..a3 straight from the loaded values with `a1` reused as the sum; ours copies the parameter to v0, register variables pinning $5/$6/$7 tried, 7 forms); func_001B1968, func_001B1910: junk / vector.
