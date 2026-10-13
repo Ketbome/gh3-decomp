@@ -776,3 +776,8 @@ two-span getter: read `p->unk0` in both branches, no local; `%` is fine now), t_
 extern).
 Given up: t_2949F0 func_002952D8 / t_292928 func_00293A88 (identical ring-buffer copy; the original re-issues `move a0,s3` before the first memcpy, ours keeps a0), t_2797A8
 func_0027AAD8 (list copy: saved registers s2/s3 swapped and the loop-top nop), t_29D230 func_0029D2A0 (u16 spilled and re-read as two lb).
+Part 7 (+3, 45 total): t_2C0FC8 CFunc_FillInputArray (`(f_b(..) ^ 1) == 0 && ...` with bool-returning asm aliases of the getters; the float-taking callee declared
+float-first `f(float, int, int, int, int)` fixes the arg load order); t_254248 CFunc_SetSfxReverb, CFunc_SetGlobalPitchModulation (callee declared `(int h, f32 x, int w, int r)`:
+float in the second slot gives `move a0` / `mov.s f12` / delay-slot `move a1`; locals xx/yy/hh read in that order, global read just before the last call).
+General rule: when `mov.s f12` order is wrong, try float first, float second, float last in the prototype.
+Given up: t_2CDCC0 CFunc_GuitarEvent_Note_Window_Open_CFunc (`for(;;) switch` state machine; return value reuses the state register, 6 forms).

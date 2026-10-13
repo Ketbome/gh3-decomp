@@ -8,6 +8,8 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_002682B8_f(int, f32, int, int) asm("func_002682B8");
+void func_00268330_f(int, f32, int, int) asm("func_00268330");
 int func_0027D470(int, int, int **, int);
 int func_0011A5B8(int *, int);
 void func_002678F0(int, int);
@@ -451,7 +453,21 @@ extern "C" int CFunc_SetDefaultSoundPriority(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSfxReverb);
+extern "C" int CFunc_SetSfxReverb(int a) {
+    f32 x = 0.0f;
+    int y = 0;
+    func_0027D268(a, 0, &x, 0);
+    if (100.0f < x) {
+        x = 100.0f;
+    }
+    func_0027D1F8(a, 0x6835B854, &y, 0);
+    f32 xx = x;
+    int yy = y;
+    int hh = D_00370AE0[0];
+    int r = func_0027DF00(a, 0xF16FB852);
+    func_00268330_f(hh, xx, yy, r);
+    return 1;
+}
 
 extern "C" int CFunc_SetSfxDropoff(int a) {
     f32 x = 25.0f;
@@ -470,7 +486,16 @@ extern "C" int CFunc_SetSfxVolume(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetGlobalPitchModulation);
+extern "C" int CFunc_SetGlobalPitchModulation(int a) {
+    f32 x = 1.0f;
+    func_0027D268(a, 0, &x, 0);
+    f32 xx = x;
+    int hh = D_00370AE0[0];
+    int y = func_0027DF00(a, 0xC406CE6F);
+    int r = func_0027DF00(a, 0x6A3BD54B);
+    func_002682B8_f(hh, xx, y, r);
+    return 1;
+}
 
 extern "C" int CFunc_SetMusicVolume(int a) {
     f32 x = 100.0f;
