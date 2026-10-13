@@ -1060,3 +1060,5 @@ Matched (A12) t_17B448 (now `// cflags: -funroll-loops`): func_0017B678 (empty b
 Matched (A12) t_11D000: func_0011DAB0 (`do { f(); g(); } while (h(self)); return *(volatile int*)self;` -- the volatile load keeps gcc from filling the bnez slot with the epilogue `ld ra`, which is the original's `nop`)
 Matched (A12) t_11D000: func_0011DE80 (wait loop `while (((volatile S*)self)->unk30 < 0) {...}` + `return` of the volatile field: this is what leaves the original's `nop` in every delay slot of a wait loop; D_00368BF8 is a plain u64)
 - QUIRK: nops in delay slots of a polling/wait loop = the polled field is volatile (cast the whole struct pointer to `volatile S*`; a `volatile int*` local changes the loop shape).
+Matched (A12) t_11F000: func_0011F3E8 (sprintf into a 0x80 buf, then `do {} while (!f(out, buf))` polling with a 0x30-byte out struct declared first (`int out[12]`); the two nops are the short-loop padding)
+- func_00120C08 (wait loop on a volatile field): matches except a `nop` between the loop's `lw` and `beqz` in the original (SN assembler load-delay nop in a reorder-mode region after a volatile load); no source form found, 3 tries

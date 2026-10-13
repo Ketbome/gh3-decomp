@@ -29,6 +29,11 @@ struct S11F768 { char pad0[0xC]; int unkC; char pad10[0x14]; s16 unk24; s16 unk2
 E11F768* func_0011F9A8_2(void*, int) __asm__("func_0011F9A8");
 void func_0030A2F4(char*, char*, int);
 int func_002FF920(void*, int);
+int func_00116E70(void);
+int func_0030B550(char*, char*, ...);
+extern char D_00338EB8[];
+extern int D_00368D74;
+extern int D_00368D70;
 void func_0011DCD8(int, int);
 void* func_0011D9A8(void*);
 int func_002EEA00(int);
@@ -71,7 +76,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F238);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F3A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F3E8);
+GP_DATA(D_00368D74);
+GP_DATA(D_00368D70);
+extern "C" void func_0011F3E8(int a) {
+    int out[12];
+    char buf[0x80];
+    func_0030B550(buf, D_00338EB8, func_00116E70(), a);
+    do {
+    } while (!func_002FF920(out, (int)buf));
+    D_00368D74 = 1;
+    D_00368D70 = out[0];
+}
 
 extern "C" unsigned int func_0011F478(int a, int* out) {
     int buf[10];
