@@ -50,7 +50,7 @@ def fix(path):
 
 
 def main():
-    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.cpp"))
+    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.c*"))
     print(f"{sum(fix(p) for p in files)} GP_DATA added")
 
 

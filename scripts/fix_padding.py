@@ -55,7 +55,7 @@ def fix(path):
 
 
 def main():
-    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.cpp"))
+    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.c*"))
     total = sum(fix(p) for p in files)
     print(f"{total} TEXT_PAD added")
 

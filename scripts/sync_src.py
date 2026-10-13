@@ -43,7 +43,7 @@ def end_of(lines, name):
 
 def main():
     added = 0
-    for src in sorted((ROOT / "src" / "game").glob("*.cpp")):
+    for src in sorted((ROOT / "src" / "game").glob("*.c*")):
         funcs = functions(src.stem)
         if not funcs:
             continue

@@ -1,6 +1,10 @@
 // cflags: -O0 -fno-opt-stack
 #include "common.h"
 
+void func_002DFF28(int);
+void func_002E00C8(int);
+void func_002DFF78(void);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFB70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFBF8);
@@ -165,7 +169,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5718);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5758);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5788);
+int func_002E5788(int a, int b) {
+    if ((unsigned)a >= 0x30) {
+        return -1;
+    } else if ((unsigned)b >= 0x30) {
+        return -2;
+    } else if ((unsigned)a > (unsigned)b) {
+        return -3;
+    }
+    func_002DFF28(0x65);
+    func_002E00C8((short)a);
+    func_002E00C8((short)b);
+    func_002DFF78();
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5860);
 

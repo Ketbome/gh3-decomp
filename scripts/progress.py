@@ -24,7 +24,7 @@ def main():
         print("no asm/nonmatchings, run configure.py first")
         return
     asm_bytes = asm_funcs = c_funcs = 0
-    for src in (ROOT / "src").rglob("*.cpp"):
+    for src in (ROOT / "src").rglob("*.c*"):
         text = src.read_text()
         for name in re.findall(r"^INCLUDE_ASM\([^,]+,\s*(\w+)\);", text, re.M):
             asm_bytes += sizes.get(name, 0)

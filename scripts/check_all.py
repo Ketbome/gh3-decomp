@@ -19,7 +19,7 @@ ROOT = fcheck.ROOT
 
 
 def main():
-    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.cpp"))
+    files = [Path(p) for p in sys.argv[1:]] or sorted((ROOT / "src" / "game").glob("*.c*"))
     rom = fcheck.ROM.read_bytes()
     ok, bad, broken = 0, [], []
     for src in files:
