@@ -807,3 +807,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - Given up (B13): func_00221A88 (t_21FB88, ctor with two dead colour structs + registered task): D_0036D020 macro load lands in the operator_new jal slot in ours (original: lui/lw before the jal, sb zero in the slot) and the original keeps 0xB0 and 0xFF in s5/s4; 6 forms.
 - t_241040 func_002414B8 MATCH (box-overlap test: six compare pairs with early `return 0`, f32 helpers F698/F6C0/F6A8 take s32 addresses).
 - t_23EFF8 func_0023F9C8 MATCH (same box test with the boxes at o->unk8 + 0x10/0x20).
+- t_1C3A40 func_001C44C8 MATCH (vertex buffer carve-up; `s32 cur = Heap_Alloc(..); o->unk2C = cur; cur += n*0xC;` gives the move; last test written `if (f4 != 0) {cur} else {0}` flips bnezl to beqzl).

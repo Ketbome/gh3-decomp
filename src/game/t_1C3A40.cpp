@@ -59,6 +59,7 @@ void* func_001C5778(void* p);
 extern u32 D_0036CD60;
 extern void* D_0036CD5C;
 void Heap_Free(s32 heap, void* p);
+s32 Heap_Alloc(s32 heap, s32 size, s32 a, s32 b);
 void func_0016ED28(void* p);
 void* operator_new(u32 size);
 void func_0016ED90(void* p, s32 a);
@@ -134,7 +135,47 @@ extern "C" void func_001C44C0(S001C4460* p, s32 v) {
     p->unk4C = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C44C8);
+extern "C" void func_001C44C8(char* o, s32 flags, s32 a2, s32 n) {
+    if (*(s32*)(o + 0xC) == 1) {
+        s32 f1 = flags & 1;
+        s32 size = n * 0xC;
+        if (f1 != 0) {
+            size += n * 4;
+        }
+        s32 f2 = flags & 2;
+        if (f2 != 0) {
+            size += n * 8;
+        }
+        s32 f4 = flags & 4;
+        if (f4 != 0) {
+            size += n * 0xC;
+        }
+        s32 cur = Heap_Alloc(D_00368A38[0], size, 1, 0);
+        *(s32*)(o + 0x2C) = cur;
+        cur += n * 0xC;
+        if (f1 != 0) {
+            *(s32*)(o + 0x34) = cur;
+            cur += n * 4;
+        } else {
+            *(s32*)(o + 0x34) = 0;
+        }
+        if (f2 != 0) {
+            *(s32*)(o + 0x38) = cur;
+            cur += n * 8;
+        } else {
+            *(s32*)(o + 0x38) = 0;
+        }
+        if (f4 != 0) {
+            *(s32*)(o + 0x30) = cur;
+        } else {
+            *(s32*)(o + 0x30) = 0;
+        }
+    }
+    *(s32*)(o + 0x3C) = flags;
+    *(s32*)(o + 0x40) = a2;
+    *(s32*)(o + 0x44) = n;
+    *(s32*)(o + 4) = (*(s32*)(o + 4) & ~1) | 2;
+}
 
 extern "C" void func_001C45F0(S001C4460* p) {
     if (p->unk38 == 0 || p->unk48 != 0) {
