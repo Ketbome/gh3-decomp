@@ -824,3 +824,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 
 ## Session 12 (worker B14, VU0 functions)
 Matched: t_20AD10 func_0020C5A0 (vmove + sqc2 as two `asm volatile`; `if (a == 0) ok = true; else ok = !(x < a)` gives the branch layout).
+Matched: t_1D2508 func_001D3450 (VU0 distance test: lqc2 vf2 / lqc2+vsub+sqc2 to a "=m" TI128 as two asm volatile; call-arg `register` pins $4/$5/$6/$7 declared between them place the arg moves like the original, `asm("" : "+f"(t))` before the float multiply puts mul.s after li a2; `register s32 s asm("$17")` for the saved param).

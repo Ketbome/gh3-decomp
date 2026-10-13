@@ -70,6 +70,9 @@ extern s32 D_00372DA8;
 extern G1D44* D_0036F658[] __attribute__((section(".sdata")));
 void func_001D1998(void* o, s32 b);
 void func_001D17B0(void* o, s32 a, s32 b, s32 t);
+char* func_001D36E8(void* p, u32 key);
+s32 func_0027D268(s32 a, u32 b, void* v, s32 c);
+f32 func_0010D5C8(void* a, void* v, s32 b, s32 c);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2508);
@@ -152,7 +155,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3360);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D33D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3450);
+extern "C" s32 func_001D3450(char* self, s32 s0) {
+    register s32 s asm("$17") = s0;
+    char* o = func_001D36E8(self, 0xBAF9B341);
+    f32 sp0;
+    TI128 v;
+    register f32* b2 asm("$6") = &sp0;
+    if (o) {
+        register s32 p0 asm("$4") = s;
+        register s32 z asm("$5") = 0;
+        func_0027D268(p0, z, b2, 1);
+        f32 t = sp0;
+        f32 k = 0.017453294f;
+        register char* a0 asm("$4") = self + 0xA0;
+        register TI128* a1 asm("$5") = &v;
+        asm volatile("lqc2 $vf2, 0x80(%0)" : : "r"(self) : "memory");
+        register s32 a2 asm("$6") = 2;
+        asm("" : "+f"(t));
+        register s32 a3 asm("$7") = 1;
+        f32 u = t * k;
+        sp0 = u;
+        asm volatile("lqc2 $vf1, 0x80(%1)\n\tvsub.xyzw $vf1, $vf1, $vf2\n\tsqc2 $vf1, %0" : "=m"(v) : "r"(o));
+        f32 d = func_0010D5C8(a0, a1, a2, a3);
+        if (sp0 < __builtin_fabsf(d)) return 1;
+    }
+    return 0;
+}
 
 extern "C" int func_001D3508(S001D2B08* a, void* b, S001D2B08* c) {
     s32 v = a->unk20;
