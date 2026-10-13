@@ -449,6 +449,7 @@ struct SA187_Z {
 struct S_001891A0 { char pad0[0xC]; int unkC; };
 
 extern "C" {
+void func_00188060(void*, int, int, int, int, int, int, int);
 void func_0015E0F8(void*);
 void func_0015E128(void*, int);
 void func_0015EA78(void*);
@@ -480,7 +481,7 @@ void func_00119400(int, void*);
 void func_0019ECE8(void*);
 void func_00153410(void*);
 void func_0015A7F8(void*, int);
-void func_0015A7B8(void*, int, int);
+void* func_0015A7B8(void*, int, int);
 void func_0015B0B8(void*, int);
 void func_001891A0(void*);
 void func_001B1D60(int);
@@ -510,7 +511,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00187930);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00187E08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00187E58);
+struct S187E58 { char pad0[0x10]; void* unk10; };
+
+extern "C" S187E58* func_00187E58(S187E58* self, int a1, int a2, int a3, int a4, int a5, int a6, int a7) {
+    func_0015A7B8(self, a1, a7);
+    self->unk10 = D_00343BF8;
+    func_00188060(self, 0, a2, a3, a4, a5, a6, a7);
+    return self;
+}
 
 extern "C" void func_00187F00(SA187_7* self, int a) {
     self->unk10 = D_00343BF8;
@@ -586,7 +594,9 @@ extern "C" int func_00188448(SA187_3* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00188470);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00188478);
+extern "C" void func_00188478(int a, int b, int c, int d, int e, int f, int g) {
+    func_00187E58((S187E58*)func_00118F20(D_00368A38[0], 0x18, 1, 0), a, b, c, d, e, f, g);
+}
 
 extern "C" void* func_00188520(int a) {
     return func_00187E08((SA187_7*)func_00118F20(D_00368A38[0], 0x18, 1, 0), a, 1);

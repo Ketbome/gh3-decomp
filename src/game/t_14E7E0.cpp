@@ -19,6 +19,10 @@ struct S14E_V {
 };
 
 extern "C" {
+int func_00153290(int, int, int, void*);
+void func_0014FF20(void*, int);
+void func_00152C58(int, int);
+int func_00152C50(int);
 char* func_0030E720(int, void*);
 void func_0030A970(int, int);
 extern u8 D_00369A88[];
@@ -333,7 +337,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FFF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_00150190);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_00150358);
+struct S150358 { char padC[0xC]; unsigned int unkC; };
+
+extern "C" int func_00150358(S150358* a, int b, S150358* c, int d, int e, int g) {
+    S150358* t = c ? c : a;
+    int r = func_00153290(b, d, e, t);
+    if (r) {
+        if (g) func_00152C58(r, g);
+        func_0014FF20(t, r);
+        if (e) t->unkC |= 8;
+        return func_00152C50(r);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_00150400);
 

@@ -45,14 +45,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186788);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186CF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186E40);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186EE8);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186F90);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187038);
-
 static inline int S_001873D8_Get(S_001873D8* self) {
     if ((self->unk4 >> 2) & 1) {
         return *self->unk10;
@@ -62,6 +54,14 @@ static inline int S_001873D8_Get(S_001873D8* self) {
     }
     return 0;
 }
+
+INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186E40);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186EE8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186F90);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187038);
 
 extern "C" int func_001870E0(S_001873D8* self) {
     if (S_001873D8_Get(self)) {

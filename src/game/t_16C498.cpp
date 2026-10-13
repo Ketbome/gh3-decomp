@@ -197,7 +197,23 @@ extern "C" void func_0016C8C8(S0016C8C8* self, float f0) {
     ((void (*)(void*, float))e->fn)((char*)self + e->delta, f0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016C8F8);
+struct VE_16C8F8 { s16 unk0; s16 unk2; void (*unk4)(void*); };
+struct V_16C8F8 { char pad0[0x30]; VE_16C8F8 unk30; };
+struct S_16C8F8 { char pad0[8]; V_16C8F8* unk8; char padC[0x44]; float unk50; float unk54; float unk58; float unk5C; char pad60[0x144]; int unk1A4; };
+
+extern "C" void func_0016C8F8(S_16C8F8* self, u8* c) {
+    if (!c) {
+        V_16C8F8* v = self->unk8;
+        v->unk30.unk4((char*)self + v->unk30.unk0);
+    } else if (self->unk1A4) {
+        V_16C8F8* v = self->unk8;
+        self->unk50 = c[0] * 0.003921569f;
+        self->unk54 = c[1] * 0.003921569f;
+        self->unk58 = c[2] * 0.003921569f;
+        self->unk5C = c[3] * 0.003921569f;
+        v->unk30.unk4((char*)self + v->unk30.unk0);
+    }
+}
 
 extern "C" void func_0016C9C0(S_16C* s, float* v) {
     if (s->unk1A4) {

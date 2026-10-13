@@ -23,6 +23,8 @@ struct S0016A2F0 {
 };
 
 extern "C" {
+extern u8 D_0033F688[];
+void func_0016AFE0_v(void*) __asm__("func_0016AFE0");
 void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
 extern u8 D_0033F4E8[];
 extern u8 D_0033F500[];
@@ -118,7 +120,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AD20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016ADD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AF18);
+struct VE_16AF18 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V1_16AF18 { char pad0[8]; VE_16AF18 unk8; };
+struct O1_16AF18 { char pad0[0x14]; V1_16AF18* unk14; };
+struct O2_16AF18 { char pad0[0x20]; V1_16AF18* unk20; };
+struct S_16AF18 { O2_16AF18* unk0; int unk4; char pad8[8]; O1_16AF18* unk10; char pad14[0x24]; void* unk38; };
+
+extern "C" void func_0016AF18(S_16AF18* self, int flags) {
+    self->unk38 = D_0033F688;
+    O1_16AF18* o = self->unk10;
+    if (o) {
+        V1_16AF18* v = o->unk14;
+        v->unk8.unk4((char*)o + v->unk8.unk0, 3);
+    }
+    func_0016AFE0_v(self);
+    func_00119990(D_00368A38[0], self->unk4);
+    O2_16AF18* p = self->unk0;
+    if (p) {
+        V1_16AF18* v = p->unk20;
+        v->unk8.unk4((char*)p + v->unk8.unk0, 3);
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 struct S16AFC0 { char pad0[4]; int unk4; char pad8[4]; int unkC; };
 

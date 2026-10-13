@@ -812,3 +812,20 @@ Given up (A7, part 6): func_00123310 (struct copy: a3/t0 register assignment), f
 ours uses ldl/ldr for every struct form), func_00120710 (the pointer to the 2-entry table is kept in s regs from the
 prologue), func_0011DC48 (`li 1` after the `lw` of the flags), func_0017D4F0/func_00178880 (end-of-list address
 hoisted before the base-class call), func_001A9C68 (float stores scheduled 2 slots earlier in ours).
+
+A7 pass, part 7. Matched 14: func_0016AF18 func_00150358 func_0013C550 func_00187E58 func_00188478 func_0015AD38
+func_0012EE88 func_0016C8F8 func_001841F8 func_00122558 func_0015A5A0 func_0012EB68 func_0012E9E0 func_001A9DA8
+
+- A base-ctor/callee declared `void` -> `void*` (result ignored) moves the following constant load from v0 to v1
+  (func_00187E58); same effect as passing `this` in func_0016C0F8.
+- When a branch result is stored through the same field in both arms (`self->f = a(); ... else self->f = b();`) the
+  original keeps both stores and reloads the field afterwards (func_0012EB68, func_0012E9E0); the arm that tests
+  `!= 0` goes first.
+- Float arguments evaluated before the integer ones: declare the callee with the floats first and pass them first
+  (func_0012EE88, `func_001277C0(float, float, int...)`).
+- `if (call() != 0) { ...store... } else { vcall }` order matters for the `beqzl` layout (func_0015A5A0).
+
+Given up (A7, part 7): func_00143BC0 (s1/s2 swap of loop counter and self), func_0014C870 (`-1 < x` compare kept in
+a register), func_00129710 (returns not merged in the original), func_00112DB0 (hi part of a symbol reused),
+func_00186E40/func_00187898 (second bit-test of the flags is re-evaluated in the original), func_0015B168
+(`move a1,zero` vs `move a0,s0` delay-slot choice).

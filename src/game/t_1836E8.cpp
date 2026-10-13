@@ -13,6 +13,9 @@ struct S00183728 {
 };
 
 extern "C" {
+int func_001BDB28(int, int, int, int, int);
+void func_001BF200(int, int);
+void func_001BB068(void);
 int func_001BDCF8(int, int, int, int, int, int);
 int func_001BDA28(int, int, int, int);
 s16 func_001BF348(int);
@@ -97,7 +100,20 @@ extern "C" int func_00184188(S184188* self, int a, int b, int c) {
     return self->unk10 != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001841F8);
+extern "C" int func_001841F8(S184188* self, int a, int b, int c, int d) {
+    int t = func_001BDB28(a, b, c, d, ((int)self->unk4 >> 3) & 1);
+    self->unk10 = t;
+    if (t) {
+        self->unk4 = self->unk4 | 1;
+        self->unkC = func_001BF348(t);
+        self->unkE = func_001BF350(self->unk10);
+        if (c == 1 && d == c) {
+            func_001BF200(self->unk10, 1);
+            func_001BB068();
+        }
+    }
+    return self->unk10 != 0;
+}
 
 extern "C" int func_001842B0(S184188* self, int a1, int a2, int a3, int a4, int a5, int a6) {
     int t = func_001BDCF8(a2, a3, a4, a5, 1, a6);

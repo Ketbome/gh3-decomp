@@ -50,6 +50,7 @@ struct S_0013DA60 { char pad0[0x24C]; S_0013DA60_b* unk24C; };
 struct S_0013CEA0 { char pad0[0x208]; u32 unk208; };
 
 extern "C" {
+void func_00139510(void*, float*, float*);
 int func_0027D470(void*, int, void**, int);
 float func_0027EFA0(void*, int);
 extern u8 D_0033AE18[];
@@ -94,7 +95,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C1F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C280);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C550);
+struct A13C550 { char pad0[0x1E0]; float unk1E0; float unk1E4; char pad1E8[8]; float unk1F0; float unk1F4; };
+struct B13C550 { char pad0[0x20]; float unk20; float unk24; float unk28; float unk2C; char pad30[4]; float unk34; float unk38; };
+
+extern "C" void func_0013C550(A13C550* a, B13C550* b) {
+    float x, y;
+    x = b->unk34 * a->unk1F0 * (a->unk1E0 + 1.0f) * 0.5f;
+    y = b->unk38 * a->unk1F4 * (a->unk1E4 + 1.0f) * 0.5f;
+    func_00139510(b, &x, &y);
+    b->unk28 = b->unk20 - x;
+    b->unk2C = b->unk24 - y;
+}
 
 extern "C" void func_0013C5F8(S13B_X* self, float f) {
     if (!(self->unkC & 0x8000)) {

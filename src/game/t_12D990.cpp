@@ -51,6 +51,14 @@ struct S12D_R { char pad0[0x1C]; int unk1C; };
 struct S_0012E600 { char pad0[0x4]; int unk4; int unk8; int unkC; int unk10; void* unk14; };
 
 extern "C" {
+float func_0012A1B0(void*);
+void func_0012E290(void*, float, float);
+void func_0012A590_i(int) __asm__("func_0012A590");
+int func_00124630(int);
+int func_0012FA98_i(void*, int) __asm__("func_0012FA98");
+void func_0012FAC8(void*, int, int);
+void func_001277C0(float, float, int, int, int, int, int, int);
+int func_0012F228_p(void*) __asm__("func_0012F228");
 void func_00124688(int, int);
 void func_0012F9E8(S12D_E*);
 int func_0014EBA8(void);
@@ -252,11 +260,40 @@ extern "C" void func_0012E870(S12D_E* self, void* params) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012E890);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012E9E0);
+struct O12E9E0 { char pad0[4]; char unk4[1]; char pad5[0x1B]; float unk20; char pad24[0x14]; int unk38; };
+struct S12E9E0 { char pad0[4]; O12E9E0* unk4; char pad8[0x14]; int unk1C; int unk20; int unk24; };
+
+extern "C" void func_0012E9E0(S12E9E0* self) {
+    float old = self->unk4->unk20;
+    self->unk4->unk20 = func_0012A1B0(self->unk4->unk4);
+    func_0012E290(self->unk4, old, self->unk4->unk20);
+    if (self->unk4->unk20 < old) {
+        if (self->unk20 != 0) {
+            self->unk1C = func_0016E7A8(self->unk20, 0);
+        } else {
+            int t = self->unk4->unk38;
+            self->unk1C = func_0015FAA0(self->unk24 + t, 1, t != 0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EA80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EB68);
+struct S12EB68 { char pad0[4]; int unk4; char pad8[0x14]; int unk1C; int unk20; int unk24; int unk28; };
+
+extern "C" void func_0012EB68(S12EB68* self, int a) {
+    func_0012A590_i(self->unk4 + 4);
+    int t = self->unk20;
+    if (t != 0) {
+        self->unk1C = func_0016E810(t, self->unk24 + a, a);
+    } else {
+        self->unk1C = func_0015FAA0(self->unk24 + a, 1, a != 0);
+    }
+    char* p = (char*)self + 0x2C;
+    self->unk28 = func_00124630(self->unk1C);
+    func_0012FA98_i(p, func_0012E6D0((S12D_E*)self));
+    func_0012FAC8(p, a, func_0012E6D0((S12D_E*)self));
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EC20);
 
@@ -288,7 +325,20 @@ extern "C" void func_0012EE68(S12D_E* self, void* params) {
     func_0012E668(self, params);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EE88);
+struct S12EE88 { char pad0[0x18]; int unk18; int unk1C; char pad20[4]; float unk24; };
+
+extern "C" int func_0012EE88(S12EE88* self, int a) {
+    if (self->unk18) {
+        int t = self->unk1C;
+        if (t && !(self->unk24 <= 0.0f)) {
+            self->unk18 = func_0016E7A8(t, 0);
+            func_001277C0(self->unk24, 1.0f, self->unk18, a, a + 0x800, func_0012F228_p(self) + 0xC, 0, self->unk1C);
+            func_0016E7A8(self->unk1C, 1);
+            return 1;
+        }
+    }
+    return 0;
+}
 
 extern "C" void func_0012EF48(void) {
 }

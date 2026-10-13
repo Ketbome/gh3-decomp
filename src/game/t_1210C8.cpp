@@ -53,6 +53,7 @@ struct SA121_L {
 };
 
 extern "C" {
+int func_002F7970(int, void*, int, int, int);
 int func_002F82B8(int, int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern void* D_00368E48;
@@ -267,7 +268,21 @@ extern "C" int func_00122550(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122558);
+struct T122558 { char pad0[4]; int unk4; char pad8[0x1C]; int unk24; };
+struct S122558 { char pad0[0x18]; char unk18[1]; char pad19[0x2F]; int unk48; char pad4C[4]; int unk50; char pad54[4]; T122558* unk58; };
+
+extern "C" int func_00122558(S122558* self, int a, int b) {
+    func_00121B18((SA121_S*)self->unk58);
+    if (func_002F7970(self->unk58->unk4, self->unk18, a, self->unk50, b)) {
+        self->unk58->unk24 = 8;
+        return 0;
+    }
+    int t = func_00121B18((SA121_S*)self->unk58);
+    if (t > 0) self->unk50 = self->unk50 + t;
+    int u = self->unk50;
+    if (self->unk48 < u) self->unk48 = u;
+    return t;
+}
 
 extern "C" int func_00122608(SA121_C* self, int a, int b) {
     int r;

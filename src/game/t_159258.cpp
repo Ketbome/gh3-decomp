@@ -10,6 +10,9 @@ struct VE_00159768 { s16 unk0; s16 unk2; int (*unk4)(void*, int, int); };
 struct S_00159768 { char pad0[0x8]; VE_00159768* unk8; };
 
 extern "C" {
+void func_0011A558(int, int, int);
+int func_001881A0(int, int, int, int, int, int);
+void func_0011A568(void);
 void func_0014F150(void);
 int func_0015AE68_r(int) __asm__("func_0015AE68");
 void func_0015B4B0(int, void*);
@@ -72,7 +75,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A3A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A598);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A5A0);
+struct VG_15A5A0 { s16 unk0; s16 unk2; int (*unk4)(void*); };
+struct VH_15A5A0 { s16 unk0; s16 unk2; void (*unk4)(void*, int, int, int); };
+struct V_15A5A0 {
+    char pad0[0x18]; VG_15A5A0 unk18;
+    char pad20[0xB0]; VG_15A5A0 unkD0;
+    char padD8[0x70]; VH_15A5A0 unk148;
+};
+struct S_15A5A0 { char pad0[8]; V_15A5A0* unk8; };
+
+extern "C" void func_0015A5A0(S_15A5A0* self, int v, int a, int b) {
+    int ua = a & 0xFFFF;
+    int ub = b & 0xFFFF;
+    if (self->unk8->unk18.unk4((char*)self + self->unk8->unk18.unk0) != 0) {
+        int* p = (int*)self->unk8->unk18.unk4((char*)self + self->unk8->unk18.unk0);
+        p[ub * self->unk8->unkD0.unk4((char*)self + self->unk8->unkD0.unk0) + ua] = v;
+    } else {
+        self->unk8->unk148.unk4((char*)self + self->unk8->unk148.unk0, v, ua, ub);
+    }
+}
 
 extern "C" int func_0015A668(void) {
     return 0;
@@ -247,7 +268,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AAA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015ABD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AD38);
+extern "C" int func_0015AD38(int a, int b, int c, int d, int e, int f, int g) {
+    func_0011A558(0xC66876F6, 0, 0);
+    int r = func_001881A0(a, b, c, d, e, g);
+    if (r) func_00159738((S159738*)r, f);
+    func_0011A568();
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015ADF0);
 
