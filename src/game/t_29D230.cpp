@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct S29D730 {
+    char pad0[0x2418];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual int v5();
+    virtual void v6(int);
+    virtual void v7(int);
+};
+
 struct S29D8C8_0 {
     char pad0[0x2294];
     s32 unk2294;
@@ -81,6 +92,8 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 int func_00113F38(void);
 int Heap_Free(s32, void *);
 int memset(s32, int, int);
+void func_0029F638(int, int);
+int func_0029D8C8(S29D8C8_0 *);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029D230);
@@ -158,7 +171,33 @@ extern "C" void func_0029D688(S29D_Self *p) {
     it.vptr = D_0034ACA8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029D730);
+extern "C" void func_0029D730(S29D730 *obj, int a) {
+    S29D_It it;
+    it.vptr = D_0034ACA8;
+    it.cur = 0;
+    if (!a) {
+        ((int *)obj)[0]++;
+        int x = func_0029D5C8((char *)obj, &it);
+        if (x) {
+            do {
+                func_0029F638(x, 1);
+                x = func_0029D600((int)obj, &it);
+            } while (x);
+        }
+    }
+    if (!func_0029D8C8((S29D8C8_0 *)obj)) {
+        if (obj->v5()) {
+            obj->v6(0);
+        }
+    }
+    func_0029D688((S29D_Self *)obj);
+    if (!func_0029D8C8((S29D8C8_0 *)obj)) {
+        if (obj->v5()) {
+            obj->v7(0);
+        }
+    }
+    it.vptr = D_0034ACA8;
+}
 
 extern "C" int func_0029D838(u32 *p, char *q) {
     u32 d = *p - *(u32 *)(q + 0x3154);

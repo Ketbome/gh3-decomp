@@ -1,5 +1,13 @@
 #include "common.h"
 
+struct S258_Arr {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    int unk4;
+    int unk8;
+};
+
 struct S2584_Range {
     u8 unk0;
     u8 unk1;
@@ -55,6 +63,24 @@ int func_0027DF00(int, u32);
 extern int D_00368428[] __attribute__((section(".sdata")));
 void func_002592E0(void*, int, int, int);
 int func_0027D470(int, int, void*, int);
+void func_0027ACF8(int, u32);
+S258_Arr *func_00256848(int, S00259228 *, int);
+int func_0010C050(int);
+void func_0027C160(int, u32, int);
+void func_0027C7D0(int, u32, int);
+void func_0027C678(int, u32, int);
+f32 func_0027EFA0(S258_Arr *, int);
+void func_0027C1F8(int, u32, f32);
+}
+
+static inline int Elem258(S258_Arr *e, int i) {
+    int r;
+    if (e->unk4 == 1) {
+        r = e->unk8;
+    } else {
+        r = ((int *)e->unk8)[i];
+    }
+    return r;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_258420", CFunc_GetRandomArrayElement);

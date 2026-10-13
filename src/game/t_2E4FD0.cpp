@@ -1,11 +1,27 @@
 #include "common.h"
 
+struct S2E6F10 {
+    s32 unk0;
+    s16 unk4;
+    s16 unk6;
+    char pad8[0x44];
+};
+
 extern "C" {
 extern s32 D_00368748[] __attribute__((section(".sdata")));
 extern s32 D_0036874C[] __attribute__((section(".sdata")));
 extern s32 D_0037291C;
 extern s32 D_00372920;
 int func_002E2FB0(int, int);
+extern S2E6F10 D_003EB000[2];
+extern s32 D_003728E4;
+extern s32 D_003728E8;
+extern s32 D_00372910;
+void func_002E3248(int);
+void func_002E3E50(u32);
+void func_002E6108(s16, s16);
+void func_002E6160(s16, s16);
+void func_002E62C0(int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E4FD0", func_002E4FD0);
@@ -120,4 +136,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E4FD0", func_002E6C80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E4FD0", func_002E6D40);
 
+GP_DATA(D_00372910);
+GP_DATA(D_003728E4);
 INCLUDE_ASM("asm/nonmatchings/game/t_2E4FD0", func_002E6F10);

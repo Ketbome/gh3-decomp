@@ -815,3 +815,7 @@ Matched jtbl: t_2A12B0 func_002A1918 (dispatcher; `int junk`/register tricks are
 Given up: t_282268 func_00282838 (compare by type; original puts the label of the `c.lt.s` hazard nop BEFORE the nop, ours after: toolchain, 1 insn off),
 t_2848B0 func_00285400 (types 14/22.. share a tail; original runs `lw t->0` before the `move s1,v0` of the call result; cases 3/5 with `break` match, goto-tail form leaves
 only that order: 12 forms).
+Matched other: t_29D230 func_0029D730 (iterator local `S29D_It` + two virtual calls through the 0x2418 object: slot k has delta at 8*(k+1); own struct with `virtual int v5()`).
+Given up: t_258420 CFunc_GetRandomArrayElement (original loads p->unk20 and the key into a0/a1 BEFORE the element-size branch; locals/ternary/inline/two calls all keep them after, 6 forms),
+t_2E4FD0 func_002E6F10 (all but the second block's `addiu v1,s0,76` placement and the `li a0,1` delay slot; `int one = 1` for the store constant fixed the saved-register layout),
+t_2774B8 func_002775E8 (nested jump tables, serializer).
