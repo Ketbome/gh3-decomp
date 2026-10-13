@@ -1,37 +1,419 @@
 // cflags: -O0 -fno-opt-stack
 #include "common.h"
 
-void func_002DFF28(int);
-void func_002E00C8(int);
+void func_002DFF28(short);
+
 void func_002DFF78(void);
+void func_002E1BB0();
+extern int D_00372808;
+extern int *D_0037280C;
+extern int D_00372814;
+extern int D_0037281C;
+int func_002F1550();
+extern char D_003EAD40[];
+extern char D_003E9900[];
+void func_002DFE78(int);
+extern int D_003727F0;
+extern int D_003727F4;
+int func_002E5758();
+int func_002E3248();
+extern int D_003726D8;
+extern short *D_003726E0;
+extern char D_003727A8;
+extern short D_003727D0;
+extern int D_003727F8;
+void func_002F0D28();
+int func_002F1370();
+extern char D_00330BD8[];
+extern char D_00330C08[];
+extern short D_00330C38[];
+extern short D_00330C98[];
+extern int D_00330CF8[];
+extern int D_00372720;
+extern int D_00372730;
+extern short D_003727E0[];
+extern short D_003727E8[];
+extern char D_00372818;
+extern int D_003731F0;
+extern int D_003EA400;
+extern char D_003EA600[];
+extern char D_003EA660[];
+extern char D_003EA6C0[];
+extern int D_003EACC0;
+extern int D_003EAD64;
+extern int D_00428794;
+extern int D_00428798;
+int func_002E0CD0();
+int func_002E0DA8();
+void func_002E4DD8();
+void func_002E4EF8();
+extern unsigned short D_00330820[];
+extern unsigned char D_00330880[];
+extern int D_003727A4;
+extern int D_0037320C;
+extern int D_00373210;
+extern int D_003EAB20[];
+extern int D_003EABE0[];
+void func_002E46F0();
+void func_002E4750();
+void func_002E1B50();
+char *strcpy(char *, const char *);
+unsigned int strlen(const char *);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFB70);
+GP_DATA(D_0037281C);
+GP_DATA(D_0037280C);
+GP_DATA(D_00372808);
+GP_DATA(D_00372814);
+void func_002DFB70(void) {
+    int i;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFBF8);
+    for (i = 0; i < D_0037281C; i++) {
+        D_0037280C[i] = 0;
+    }
+    D_00372808 = 1;
+    D_00372814 = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFE78);
+GP_DATA(D_00372720);
+GP_DATA(D_00372818);
+GP_DATA(D_00372730);
+GP_DATA(D_003727E0);
+GP_DATA(D_003727E8);
+int func_002DFBF8(void) {
+    int i;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFEB0);
+    D_003EACC0 = 0;
+    D_003EA400 = 0;
+    D_003731F0 = 0;
+    D_00372720 = 0x28;
+    D_00428794 = 0;
+    D_00428798 = 0;
+    D_00372808 = 1;
+    D_00372818 = 0;
+    D_00372730 = 0x5010;
+    i = 0;
+    while (i < 0x30) {
+        D_003EA600[i] = 0;
+        D_003EA6C0[i] = 0;
+        D_003EA660[i] = 0;
+        D_00330BD8[i] = 0;
+        D_00330C38[i] = 0;
+        D_00330C98[i] = 0;
+        D_00330CF8[i] = 0;
+        D_00330C08[i] = -1;
+        i++;
+    }
+    i = 0;
+    while (i < 4) {
+        D_003727E0[i] = 0x1000;
+        D_003727E8[i] = 0x1000;
+        i++;
+    }
+    func_002F0D28(0);
+    while (1) {
+        if (func_002F1370(D_003EAD40, 0x12345, 0) < 0) {
+            while (1) {
+            }
+        }
+        i = 0x2710;
+        while (--i != -1) {
+        }
+        if (D_003EAD64 != 0) {
+            break;
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFF28);
+void func_002DFE78(int a) {
+    func_002E1BB0();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002DFF78);
+int func_002DFEB0(int a, int b, int c) {
+    func_002F1550(D_003EAD40, a, c, b, 0x400, D_003E9900, 0x800, func_002DFE78, 0);
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E00C8);
+GP_DATA(D_003727F4);
+GP_DATA(D_003727F0);
+void func_002DFF28(short a) {
+    if (D_003727F4 != -1) {
+        return;
+    }
+    D_003727F0 = 0;
+    D_003727F4 = a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0140);
+GP_DATA(D_003726D8);
+GP_DATA(D_003727A8);
+GP_DATA(D_003727D0);
+GP_DATA(D_003726E0);
+GP_DATA(D_003727F8);
+void func_002DFF78(void) {
+    int i;
+    int r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E01E8);
+    if (D_003727F4 == -1) {
+        return;
+    }
+    if ((unsigned)(D_003726D8 + D_003727F0 + 3) >= 0x200) {
+        D_003727A8 = 1;
+        r = func_002E5758();
+        while (r == 1) {
+            r = func_002E5758();
+        }
+        i = func_002E3248(0);
+        D_003727A8 = 0;
+        if (i == -1) {
+            D_003727D0 = 1;
+            return;
+        } else {
+        }
+    }
+    D_003727D0 = 0;
+    D_003726E0[D_003726D8 + 2] = (unsigned short)D_003727F4;
+    D_003726E0[D_003726D8 + 3] = (unsigned short)D_003727F0;
+    D_003726D8 += 2;
+    D_003726D8 += D_003727F0;
+    D_003727F8++;
+    D_003727F0 = 0;
+    D_003727F4 = -1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E02D8);
+void func_002E00C8(a)
+unsigned short a;
+{
+    if (D_003727D0 == 1) {
+        return;
+    }
+    D_003726E0[D_003727F0++ + D_003726D8 + 4] = a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0718);
+void func_002E0140(unsigned int a) {
+    if (D_003727D0 == 1) {
+        return;
+    }
+    D_003726E0[D_003727F0++ + D_003726D8 + 4] = (short)(a >> 16);
+    D_003726E0[D_003727F0++ + D_003726D8 + 4] = (unsigned short)a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0B60);
+int func_002E01E8(char *s) {
+    int len;
+    char *p;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0CD0);
+    if (D_003727D0 == 1) {
+        return 0;
+    }
+    p = (char *)D_003726E0;
+    p = p + (D_003727F0 + (4 + D_003726D8)) * 2;
+    strcpy(p, s);
+    len = strlen(s);
+    p = p + len;
+    *p = 0;
+    len += 2;
+    len = len / 2;
+    D_003727F0 += len;
+    return len;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0DA8);
+GP_DATA(D_003727A4);
+int func_002E02D8(int a, int b, int c, int d, int e, int f, int g, int h, int i) {
+    int v20;
+    int v24;
+    int v28;
+
+    v28 = 1;
+    if (b == 0x80) {
+        b = func_002E0CD0();
+    } else if (b == 0x81) {
+        while (1) {
+            b = func_002E0DA8(v28, D_003727A4 - 1);
+            if (b != -1 && D_00330880[b] == 1) {
+                break;
+            }
+            v28 = b + 1;
+            if (v28 == D_003727A4) {
+                v28 = -1;
+                break;
+            }
+        }
+    } else if (b == 0x82) {
+        while (1) {
+            b = func_002E0DA8(v28, D_003727A4 - 1);
+            if (b != -1 && D_00330880[b] == 0) {
+                break;
+            }
+            v28 = b + 1;
+            if (v28 == D_003727A4) {
+                v28 = -1;
+                break;
+            }
+        }
+    }
+    if (b < 0) {
+        return -1;
+    }
+    if (b >= D_003727A4) {
+        return -1;
+    }
+    D_003EA600[b] = 2;
+    D_00330820[b] = 0x8080;
+    D_003EA6C0[b] = 0;
+    v24 = c & 0xFFFF0000;
+    c = c & 0xFFFF;
+    if (c < 0 || c >= 0x30) {
+        return -1;
+    }
+    if (g == 1 || g == 0) {
+        D_00330BD8[c] = 3;
+        func_002E4DD8(c, v24);
+        func_002E4EF8(c, (short)d, (short)e);
+        d = D_0037320C;
+        e = D_00373210;
+    }
+    D_00330C08[c] = (unsigned char)b;
+    v20 = h;
+    v20 += i << 8;
+    c += b << 8;
+    if (g == 0x7E) {
+        D_003EAB20[b] = 0;
+    }
+    D_003EABE0[b] = 0;
+    func_002DFF28(1);
+    func_002E0140(a);
+    func_002E00C8((short)c);
+    func_002E00C8((short)d);
+    func_002E00C8((short)e);
+    func_002E00C8((short)f);
+    func_002E00C8((short)g);
+    func_002E00C8((short)v20);
+    func_002DFF78();
+    return b;
+}
+
+int func_002E0718(int a, int b, int c, int d, int e, int f, int g, int h, int i, int j, int k, int l) {
+    int v20;
+    int v24;
+    int v28;
+
+    v28 = 1;
+    if (b == 0x80) {
+        b = func_002E0CD0();
+    } else if (b == 0x81) {
+        while (1) {
+            b = func_002E0DA8(v28, D_003727A4 - 1);
+            if (b != -1 && D_00330880[b] == 1) {
+                break;
+            }
+            v28 = b + 1;
+            if (v28 == D_003727A4) {
+                v28 = -1;
+                break;
+            }
+        }
+    } else if (b == 0x82) {
+        while (1) {
+            b = func_002E0DA8(v28, D_003727A4 - 1);
+            if (b != -1 && D_00330880[b] == 0) {
+                break;
+            }
+            v28 = b + 1;
+            if (v28 == D_003727A4) {
+                v28 = -1;
+                break;
+            }
+        }
+    }
+    if (b < 0) {
+        return -1;
+    }
+    if (b >= D_003727A4) {
+        return -1;
+    }
+    D_003EA600[b] = 2;
+    D_00330820[b] = 0x8080;
+    D_003EA6C0[b] = 0;
+    v24 = c & 0xFFFF0000;
+    c = c & 0xFFFF;
+    if (c < 0 || c >= 0x30) {
+        return -1;
+    }
+    if (g == 1 || g == 0) {
+        D_00330BD8[c] = 3;
+        func_002E4DD8(c, v24);
+        func_002E4EF8(c, (short)d, (short)e);
+        d = D_0037320C;
+        e = D_00373210;
+    }
+    D_00330C08[c] = (unsigned char)b;
+    v20 = h;
+    v20 += i << 8;
+    c += b << 8;
+    if (g == 0x7E) {
+        D_003EAB20[b] = 0;
+    }
+    func_002DFF28(0x74);
+    func_002E0140(a);
+    func_002E0140(j);
+    func_002E0140(k);
+    func_002E0140(l);
+    func_002E00C8((short)c);
+    func_002E00C8((short)d);
+    func_002E00C8((short)e);
+    func_002E00C8((short)f);
+    func_002E00C8((short)g);
+    func_002E00C8((short)v20);
+    func_002DFF78();
+    return b;
+}
+
+int func_002E0B60(int a, int b, int c, int d) {
+    int r;
+
+    if (a != 0x7E && a != 0x7B && a != 0x7D && a != 0x7F && a != 0x7F) {
+        return -2;
+    }
+    if (d != 0) {
+        if (a == 0x7E) {
+            func_002E46F0(d);
+        } else if (a == 0x7F || a == 0x7F) {
+            func_002E1B50(d);
+        } else if (a == 0x7D) {
+            func_002E4750(d);
+        }
+    }
+    r = func_002E02D8(c, b, 0, 0, 0, 0, a, 0, 0);
+    return r;
+}
+TEXT_PAD(20);
+
+int func_002E0CD0(void) {
+    int i;
+
+    for (i = 0; i < D_003727A4; i++) {
+        if (D_003EA600[i] == 0 || D_003EA600[i] == 3) {
+            D_003EA600[i] = 7;
+            return i;
+        }
+    }
+    return -1;
+}
+
+int func_002E0DA8(int a, int b) {
+    int i = 0;
+
+    if (b >= D_003727A4) {
+        return -1;
+    }
+    i = a;
+    while (i <= b) {
+        if (D_003EA600[i] == 0 || D_003EA600[i] == 3) {
+            return i;
+        }
+        i++;
+    }
+    return -1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0E90);
 
