@@ -157,6 +157,81 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00279118);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00279150);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_002791E0);
+struct S2791E0 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+};
+extern "C" {
+void S2791E0_f1(int) asm("func_00275730");
+void S2791E0_f2(int) asm("func_0025C478");
+void S2791E0_f3(int) asm("func_0025C530");
+void S2791E0_f4(int) asm("func_0027AC90");
+void S2791E0_f5(int) asm("func_00113250");
+void S2791E0_f6(int) asm("func_002798B8");
+void S2791E0_f7(int, int) asm("func_0027E6B0");
+void S2791E0_f8(int) asm("func_0011A470");
+void S2791E0_f9(int, int) asm("func_0027E410");
+}
+extern "C" void func_002791E0(S2791E0 *p) {
+    if (p->unk8 == 0) {
+        p->unk0 &= 0xFFFF01FF;
+    } else {
+        switch ((p->unk0 >> 9) & 0x7F) {
+        case 3:
+            if (p->unk8) {
+                S2791E0_f1(p->unk8);
+            }
+            break;
+        case 5:
+            if (p->unk8) {
+                S2791E0_f2(p->unk8);
+            }
+            break;
+        case 6:
+            if (p->unk8) {
+                S2791E0_f3(p->unk8);
+            }
+            break;
+        case 10: {
+            int o = p->unk8;
+            if (o) {
+                S2791E0_f4(o);
+                S2791E0_f5(o);
+            }
+            break;
+        }
+        case 12: {
+            int o = p->unk8;
+            if (o) {
+                S2791E0_f6(o);
+                S2791E0_f7(o, 3);
+            }
+            break;
+        }
+        case 7:
+            if (p->unk8) {
+                S2791E0_f8(p->unk8);
+            }
+            ((u16 *)p)[1] = 0;
+            break;
+        case 23:
+            if (p->unk8) {
+                S2791E0_f8(p->unk8);
+            }
+            break;
+        case 27:
+            if (p->unk8) {
+                S2791E0_f9(p->unk8, 3);
+            }
+            break;
+        case 4:
+        case 26:
+            break;
+        }
+        p->unk8 = 0;
+        p->unk0 &= 0xFFFF01FF;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00279358);

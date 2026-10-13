@@ -788,8 +788,10 @@ Given up: t_2A53A8 func_002A53E0 (quotient gets a new saved register), t_2848B0 
 Round 9 total: 48 functions (earlier part headers in this round over-count by 5: the real per-part counts are 16, 9, 6, 4, 4, 3, 3, 3 plus part 8 = see git log).
 
 ### Round 10 (agent C10): jtbl switches first
-Matched jtbl (7): t_27D828 func_0027E1E8; t_288B10 func_00289630; t_286A60 func_002873A0; t_2A12B0 func_002A2108;
-t_2797A8 func_002797A8; t_2908A0 func_00292808; t_2774B8 func_002787F0.
+Matched jtbl (14): t_27D828 func_0027E1E8, func_0027E9D8, func_0027F008; t_288B10 func_00289630; t_286A60 func_002873A0;
+t_2A12B0 func_002A2108; t_2797A8 func_002797A8; t_2908A0 func_00292808; t_2774B8 func_002787F0, func_002791E0;
+t_282268 func_00283DB8 (movz bracket skip loop = `do { p = f(p); if (*p == 3) n++; else if (*p == 4) n--; } while (n)`),
+func_00283A08 (block-local `int a` per case; `p = (p+4)&~3` then `p += ...` as two statements); t_25A428 func_0025B238.
 (Quirks: the table range is fixed by the lowest/highest case value: add empty `case MIN:`/`case MAX:` when the table
 has default entries at both ends; cases are written in the order of their labels in the .s; an `int`-returning
 prototype for a void callee fixes a v0/v1 swap; `a*4 + t; size += 3 + n; size &= ~3u` as separate statements fixes
@@ -799,3 +801,5 @@ Given up:
 - t_2774B8 func_00277860 (original copies both args into new pseudos, move t0,a0 / move a3,a1), func_00278C50 (n/e saved
   registers s1/s2 swapped), t_27F8C8 func_0027FCD8 (original copies the 3rd arg to a3 first), t_292928 func_002929F0
   (sibling of func_00292808 but register order of the size expression differs, 10 forms).
+- t_27D828 func_0027F410 (original copies the unused first arg to a2), t_282268 func_00282CC8 / func_002826C0 (hash lookup
+  + alias chase / u32->float compare), t_25A428 func_0025BC10 (vector compare).

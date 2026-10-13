@@ -249,10 +249,70 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E760);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E820);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E9D8);
-
-extern "C" void func_0027EB70(S0027EB70* p, u8 v) {
-    p->unk2 = v;
+struct S27E9D8_A {
+    u32 unk0;
+    int unk4;
+    int unk8;
+    int *Data() {
+        if (unk4 == 1) {
+            return &unk8;
+        }
+        return (int *)unk8;
+    }
+};
+struct S27E9D8_E {
+    u32 unk0;
+    S27E9D8_A *unk4;
+    int unk8;
+};
+extern "C" {
+void func_0027EB78(S27E9D8_A *, int);
+void func_0027E760(S27E9D8_A *, int, int);
+void func_00279F10(int *, int *, int, int, int);
+void func_0027A9B8(S27E9D8_A *, S27E9D8_A *, int);
+void S27E9D8_set(S27E9D8_A *, int, char *) asm("func_0027EDB8");
+char *StrDupHeap5(char *);
+}
+extern "C" void func_0027E9D8(S27E9D8_A *a, S27E9D8_E *e) {
+    switch ((e->unk0 >> 9) & 0x7F) {
+    case 12:
+    case 21: {
+        S27E9D8_A *s = (S27E9D8_A *)e->unk8;
+        int n2 = s->unk4;
+        if (n2 != 0) {
+            int n = a->unk4;
+            if (n == 0) {
+                func_0027A9B8(a, s, 0);
+            } else {
+                func_0027EB78(a, n + n2);
+                func_00279F10(a->Data() + n, s->Data(), n2, ((u8 *)s)[2], 0);
+            }
+        }
+        break;
+    }
+    case 3: {
+        if (a->unk4 != 0) {
+            func_0027EB78(a, a->unk4 + 1);
+        } else {
+            func_0027E760(a, 1, 3);
+        }
+        int n = a->unk4;
+        S27E9D8_set(a, n - 1, StrDupHeap5((char *)e->unk8));
+        break;
+    }
+    case 1:
+    case 2:
+    case 13: {
+        if (a->unk4 != 0) {
+            func_0027EB78(a, a->unk4 + 1);
+        } else {
+            func_0027E760(a, 1, (e->unk0 >> 9) & 0x7F);
+        }
+        int n = a->unk4;
+        a->Data()[n - 1] = e->unk8;
+        break;
+    }
+    }
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EB78);
@@ -351,7 +411,72 @@ extern "C" int func_0027EF60(S27EF20 *p, int i) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EFA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F008);
+struct S27F008 {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    u32 unk4;
+    int unk8;
+    int *Data() {
+        if (unk4 == 1) {
+            return &unk8;
+        }
+        return (int *)unk8;
+    }
+};
+extern "C" void func_0027F008(int q, int n) {
+    S27F008 *p = (S27F008 *)q;
+    if (p->unk4 == 1) {
+        switch (p->unk2) {
+        case 3:
+        case 5:
+        case 6:
+        case 7:
+            p->unk8 += n;
+            break;
+        case 10:
+            p->unk8 += n;
+            func_0027E180((S27E180 *)p->unk8, n);
+            break;
+        case 12:
+            p->unk8 += n;
+            func_0027F008(p->unk8, n);
+            break;
+        }
+    } else {
+        p->unk8 += n;
+        switch (p->unk2) {
+        case 3:
+        case 5:
+        case 6:
+        case 7: {
+            int *d = p->Data();
+            for (u32 i = 0; i < p->unk4; i++) {
+                *d++ += n;
+            }
+            break;
+        }
+        case 10: {
+            int *d = p->Data();
+            for (u32 i = 0; i < p->unk4; i++) {
+                *d += n;
+                func_0027E180((S27E180 *)*d, n);
+                d++;
+            }
+            break;
+        }
+        case 12: {
+            int *d = p->Data();
+            for (u32 i = 0; i < p->unk4; i++) {
+                *d += n;
+                func_0027F008(*d, n);
+                d++;
+            }
+            break;
+        }
+        }
+    }
+}
 
 extern "C" void func_0027F1E0(int, int, int) {
 }

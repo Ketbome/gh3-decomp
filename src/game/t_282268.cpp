@@ -207,11 +207,184 @@ extern "C" int func_002839C0(S2838E8 *p) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283A08);
+extern "C" u8 *func_00283A08(u8 *p) {
+    switch (*p) {
+    case 2:
+    case 22:
+    case 23:
+    case 24:
+    case 26:
+    case 39:
+    case 46:
+    case 67:
+    case 68:
+    case 70:
+        p += 5;
+        break;
+    case 30:
+        p += 0xD;
+        break;
+    case 31:
+        p += 9;
+        break;
+    case 27: {
+        int a = *++p;
+        a += *++p << 8;
+        a += *++p << 16;
+        a += *++p << 24;
+        p++;
+        p += a;
+        break;
+    }
+    case 43:
+        p += 5;
+        while (*p != 0) {
+            p++;
+        }
+    case 1:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 40:
+    case 41:
+    case 44:
+    case 45:
+    case 48:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
+    case 60:
+    case 61:
+    case 62:
+    case 63:
+    case 66:
+    case 69:
+    case 75:
+    case 76:
+        p++;
+        break;
+    case 47:
+    case 55:
+    case 64:
+    case 65: {
+        int a = *++p;
+        a += *++p << 8;
+        a += *++p << 16;
+        a += *++p << 24;
+        p++;
+        p += a * 6;
+        break;
+    }
+    case 71:
+    case 72:
+    case 73:
+        p += 3;
+        break;
+    case 74: {
+        p++;
+        int a = *p;
+        p++;
+        int b = *p;
+        p = (u8 *)(((u32)(p + 4)) & ~3u);
+        p += a + (b << 8);
+        break;
+    }
+    case 0:
+    case 16:
+    case 25:
+    case 28:
+    case 29:
+    case 42:
+    case 49:
+        break;
+    }
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283B48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283DB8);
+extern "C" {
+u8 *func_00283A08(u8 *);
+}
+extern "C" u8 *func_00283DB8(u8 *p) {
+    int n;
+    switch (*p) {
+    case 22:
+    case 23:
+    case 24:
+    case 26:
+        p += 5;
+        break;
+    case 31:
+        p += 9;
+        break;
+    case 30:
+        p += 0xD;
+        break;
+    case 27: {
+        u8 *q = p + 1;
+        int v = p[1] | (q[1] << 8) | (q[2] << 16) | (q[3] << 24);
+        p += v + 5;
+        break;
+    }
+    case 3:
+        n = 1;
+        do {
+            p = func_00283A08(p);
+            if (*p == 3) {
+                n++;
+            } else if (*p == 4) {
+                n--;
+            }
+        } while (n != 0);
+        p += 1;
+        break;
+    case 5:
+        n = 1;
+        do {
+            p = func_00283A08(p);
+            if (*p == 5) {
+                n++;
+            } else if (*p == 6) {
+                n--;
+            }
+        } while (n != 0);
+        p += 1;
+        break;
+    case 75:
+        p += 6;
+        break;
+    }
+    return p;
+}
 
 extern "C" int func_00283EE8(S00283EE8* p) {
     return p->unk0 < 3;

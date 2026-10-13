@@ -189,7 +189,52 @@ extern "C" int CFunc_DumpProximTriggers(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", func_0025B238);
+struct S25B238 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+};
+extern "C" {
+void func_0027EDE0(int, u32, int);
+void func_0027EE08(int, u32, float);
+void func_0027EE30(int, u32, int);
+char *StrDupHeap5(char *);
+void func_0027EDB8(int, u32, char *);
+int func_001287F0(int, int);
+int func_0027AA98(int, int);
+void func_0027EED0(int, u32, int);
+int func_00138790(int, int);
+int func_0027E698(int);
+int func_0027A9B8(int, int, int);
+void func_0027EEF8(int, u32, int);
+}
+extern "C" void func_0025B238(int a, u32 k, S25B238 *c) {
+    switch ((c->unk0 >> 9) & 0x7F) {
+    case 1:
+        func_0027EDE0(a, k, c->unk8);
+        break;
+    case 2:
+        func_0027EE08(a, k, *(float *)&c->unk8);
+        break;
+    case 13:
+        func_0027EE30(a, k, c->unk8);
+        break;
+    case 3:
+        func_0027EDB8(a, k, StrDupHeap5((char *)c->unk8));
+        break;
+    case 10: {
+        int v = func_0027AA98(func_001287F0(8, 1), c->unk8);
+        func_0027EED0(a, k, v);
+        break;
+    }
+    case 12: {
+        int w = func_0027E698(func_00138790(0xC, 1));
+        func_0027A9B8(w, c->unk8, 0);
+        func_0027EEF8(a, k, w);
+        break;
+    }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Push);
 
