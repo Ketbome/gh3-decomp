@@ -43,6 +43,11 @@ extern u8 D_0034B838[];
 void func_0027D2D8(void* a, s32 key, void* v, s32 req);
 s32 func_0027D870(void* a, s32 key, void* v, s32 req);
 s32 func_001D1CF8(void* a, s32 b);
+void* operator_new(u32);
+s32 func_001D10A8(void* p);
+void func_001CED20(s32 a, s32 b);
+void func_001CEDE0(s32 a, u32 b);
+extern s32 D_00372DA8;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2508);
@@ -220,6 +225,14 @@ extern "C" void func_001D4380(char* p, s32 flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D43F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D4400);
+extern "C" s32 func_001D4400(S0036D3B0* o) {
+    s32 g = D_00372DA8;
+    s32 n = func_001D10A8(operator_new(0x160));
+    func_001CED20(n, g);
+    func_001CEDE0(n, 0xCDEB9229);
+    VEnt* v = o->unk2C + 2;
+    v->fn((char*)o + v->delta, n);
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D4480);

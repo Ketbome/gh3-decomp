@@ -728,3 +728,8 @@ t_1C3A40 matched 4: func_001C4390 func_001C43F8 func_001C55A8 func_001C5610. t_1
 ### late session 8
 t_1E0AE8 +func_001E0BC8 func_001E0C40 (ctor/dtor); t_1C9B30 func_001CA3E8 (stack struct `B1CA3` padded to 0x30 so the frame is 0x40); t_2361E8 func_00236760 func_002366E0 (`if (q != 0 && (q + 0xB0) != 0 && *(s8*)(q + 0xB0) != 0)` keeps the redundant pointer test); t_22BD90 func_0022C308 (stack list iterators `it`/`end`, end re-stored each iteration); t_1E75A8 func_001E7A68 (read D_00368A38 into a local right after the first call).
 Given up: func_001E1220 (empty do-while after a jal gets a padding nop in the original), func_001CB180 (D_00370EE0 macro form vs gp in the same file), func_001CA458/func_00248620 (`~x != 0` pointer tests).
+
+## Session 9 (worker B11)
+Matched: func_001C8258 func_001C1468 func_001C82F0 CFunc_SetMenuAutoRepeatTimes func_001E8C00 func_00225C28 func_001D4400 func_001D00B0 func_001C1DE8 func_001E2968 func_001BFC58 func_001E7CE0
+Habits: virtual calls through a vtable struct (`VEnt`) put the fn pointer in $v0; a class with real `virtual void vN()` members puts it in $v1 (entry n at 8*n+8 here: v2 -> 0x18); binary search `while (step) { i = best + step; ...}` keeps `addu` unfolded; sorted-insert with `best`-style `while (c->next && !(k <= c->next->k))` loops matches except for the advance reload.
+Given up: func_001CC100 (two dead `sw` to a stack slot, register v0/v1 order; volatile local, 3 forms); func_001BB100 (short loop with a jal: original has `lw s0; nop; bnez; nop`, ours no padding nop); func_001BFD58 (sorted insert: original reloads `c->next` in the bc1fl delay slot, ours `move v1,v0`; 6 forms incl. volatile/asm memory); func_00243398/func_002434E8/func_001C41C8 split tails.

@@ -1,6 +1,10 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+struct V4_1C77 {
+    f32 a, b, c, d;
+};
+
 struct L10 {
     char pad0[0xC];
     L10* unkC;
@@ -62,6 +66,9 @@ void func_00119490(s32 a, s32 b);
 void func_001194B8(s32 a);
 s32 func_00119610(s32 a, s32 b);
 void func_001C6188(void* p, s32 a);
+void func_00275648(void* p);
+void func_0027DD38(void* p, s32 a, void* v, s32 b);
+s32 func_003174C0(f32 f);
 }
 
 struct N1C79 {
@@ -227,7 +234,16 @@ extern "C" s32 func_001C7760(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuAutoRepeatTimes);
+extern "C" int CFunc_SetMenuAutoRepeatTimes(void* params) {
+    V4_1C77 v;
+    func_00275648(&v);
+    func_0027DD38(params, 0, &v, 1);
+    char* p = (char*)D_0036CDB4;
+    s32 x = func_003174C0(v.b * 1000.0f);
+    *(s32*)(p + 0xC0) = func_003174C0(v.c * 1000.0f);
+    *(s32*)(p + 0xBC) = x;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuPadMappings);
 

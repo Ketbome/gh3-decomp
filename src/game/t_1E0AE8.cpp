@@ -77,6 +77,9 @@ s32 func_0028D1D8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i,
 void* operator_new(u32 size);
 void* func_001E0768(void* p, void* q);
 void func_001E0F18(struct S1E0AE8* p);
+s32 func_0011EF10(void);
+s32 func_00275570(void);
+extern s32 D_00370F40;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0AE8);
@@ -315,6 +318,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2848);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2850);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2968);
+extern "C" s32 func_001E2968(s32* p, s32 k) {
+    if (k != 0) {
+        if (*p != 0) {
+            return func_0011EF10() - k;
+        }
+        return D_00370F40 + func_00275570() - k;
+    }
+    if (*p != 0) {
+        return func_0011EF10();
+    }
+    return D_00370F40 + func_00275570();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E29F0);

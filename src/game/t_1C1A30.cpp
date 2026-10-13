@@ -48,11 +48,32 @@ extern u8 D_00349E28[];
 s32 func_0011D530(s32 a, s32 b, s32 c, s32 d);
 S001C2C88* func_001C2D28_1(s32 a) __asm__("func_001C2D28");
 
+extern s32 D_0036CBFC;
+extern f32 D_00419240[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C1A30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C1DE8);
+GP_DATA(D_0036CBFC);
+extern "C" s32 func_001C1DE8(f32 x) {
+    if (x <= D_00419240[0]) {
+        return 0;
+    }
+    s32 last = D_0036CBFC - 1;
+    if (D_00419240[last] <= x) {
+        return last;
+    }
+    s32 step = D_0036CBFC >> 1;
+    s32 best = 0;
+    while (step != 0) {
+        s32 i = best + step;
+        if (D_00419240[i] < x) {
+            best = i;
+        }
+        step >>= 1;
+    }
+    return best;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C1E70);
 

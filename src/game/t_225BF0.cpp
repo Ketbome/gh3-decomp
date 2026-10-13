@@ -1,5 +1,11 @@
 #include "common.h"
 
+struct E225C {
+    s32 key;
+    s32 on;
+    char pad8[0x18];
+};
+
 struct VEntry225 {
     s16 delta;
     s16 unk2;
@@ -53,7 +59,19 @@ extern "C" void func_00225BF0(void* a, int b) {
     func_00225A78(a, func_00225E20(b));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225C28);
+extern "C" s32 func_00225C28(char* a, s32 k) {
+    E225C* e = (E225C*)(a + 4);
+    u32 i = 0;
+    do {
+        if (e[0].on != 0 && k == e[0].key) return 1;
+        if (e[1].on != 0 && k == e[1].key) return 1;
+        if (e[2].on != 0 && k == e[2].key) return 1;
+        i += 4;
+        if (e[3].on != 0 && k == e[3].key) return 1;
+        e += 4;
+    } while (i < 0x100);
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225CA8);
 

@@ -1,5 +1,11 @@
 #include "common.h"
 
+struct G1D00 {
+    void* o;
+    s32 a;
+    s32 b;
+};
+
 struct VEnt {
     s16 delta;
     s16 index;
@@ -58,6 +64,9 @@ void func_0028A2D0(s32 a, void* b, s32 c, void* d);
 void func_0028A000(s32 a);
 void func_001D1998(void* p, s32 a);
 void func_001D4560(s32 a, void* b, s32 c, s32 d);
+void func_001CE868(void* p, void* g);
+void func_001CE888(void* p, void* g);
+void func_0028E010(s32 a, s32 b);
 }
 
 struct S1D1F {
@@ -89,7 +98,25 @@ struct S1D14P {
     }
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D00B0);
+extern "C" s32 func_001D00B0(char* p, s32 k) {
+    if (*(s32*)(p + 0x14) == 0) {
+        return 1;
+    }
+    G1D00 g;
+    g.a = 0;
+    g.b = 0;
+    g.o = p;
+    if (p != 0) {
+        func_001CE868(p, &g);
+    }
+    func_0028E010(*(s32*)(p + 0x14), k);
+    bool r = g.o != 0;
+    if (g.o != 0) {
+        func_001CE888(g.o, &g);
+        g.o = 0;
+    }
+    return r;
+}
 
 extern "C" void func_001D0130(char* p, s32 a, s32 b) {
     s32 t = *(s32*)(p + 0x2C);

@@ -1,5 +1,25 @@
 #include "common.h"
 
+struct N1BFC {
+    s32 unk0;
+    char pad4[0x18];
+    N1BFC* unk1C;
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+
+struct S001C1468 {
+    char pad0[0x80];
+    s32 unk80;
+    s32 unk84;
+    f32 unk88;
+    u32 unk8C;
+};
+
 struct N1C {
     char pad0[0xC];
     f32 unkC;
@@ -46,6 +66,7 @@ extern u8 D_00349E68[];
 void func_001BFFE8(void* p, s32 v);
 void func_001BF960(void* p);
 void func_001BF2E8(s32 a, s32 b);
+extern int D_00369A64;
 }
 
 GP_DATA(D_0036CBDC);
@@ -125,7 +146,20 @@ extern "C" void func_001BF9C8(char* p, void* x) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF9E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFC58);
+extern "C" void func_001BFC58(N1BFC* p) {
+    if (p != 0) {
+        do {
+            if (p->unk0 == 0) {
+                p->v3();
+                p->v4();
+                p->v5();
+            } else {
+                p->v2();
+            }
+            p = p->unk1C;
+        } while (p != 0);
+    }
+}
 
 GP_DATA(D_0036CBCC);
 GP_DATA(D_0036CBC8);
@@ -219,7 +253,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001C0408);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001C1318);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001C1468);
+extern "C" void func_001C1468(S001C1468* p, f32 dt) {
+    if ((p->unk8C & 1) && D_00369A64 == 0 && dt > 0.0f) {
+        s32 n = p->unk84;
+        s32 v = p->unk80 + (s32)((f32)n * p->unk88 * dt);
+        p->unk80 = v;
+        if (n < v) {
+            p->unk80 = v - n;
+        }
+    }
+}
 
 extern "C" void func_001C14E0(S001C14E0* p, f32 dt) {
     if (p->unk60 != 0 && D_00369A64 == 0 && 0.0f < dt) {
