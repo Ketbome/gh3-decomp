@@ -66,6 +66,12 @@ void func_0028D1B0(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i
 void func_0027AC90(s32 a);
 void func_00113250(s32 a);
 void func_002305C0(void);
+extern u8 D_003546D8[];
+s32 func_0028D578(s32 a);
+void func_0027C028(s32 a, u32 k, void* v);
+s32 func_002763E0(s32 a, s32 b);
+void func_0027C7D0(s32 a, u32 k, s32 v);
+void func_0028C9F0(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
@@ -241,4 +247,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233E10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233F08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00234080);
+extern "C" void func_00234080(s32 a, char* b) {
+    char buf[0x40];
+    func_00233CC0((int)b, (int)buf);
+    u32 crc = CrcFromPathLowercase(buf);
+    s32 h = func_001150E0(a, D_003546D8);
+    if (func_0028D578(h) != 0) {
+        s32 t = func_0027AA70(func_001287F0(8, 1));
+        func_0027C448(t, 0xBC5BF0CE, crc);
+        func_0027C028(t, 0x1AB858E2, buf);
+        s32 r = func_002763E0(*(s32*)(b + 0x88), 0);
+        if (r != 0) {
+            func_0027C7D0(t, 0x7031F10C, r);
+        }
+        func_0028C9F0(h, t, 0, 0, 0, 0);
+        if (t != 0) {
+            func_0027AC90(t);
+            func_00113250(t);
+        }
+    }
+}
