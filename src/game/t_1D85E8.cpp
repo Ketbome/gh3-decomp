@@ -1,5 +1,27 @@
 #include "common.h"
 
+struct E1DA5 {
+    u32 unk0;
+    char pad4[0x10];
+    s32 unk14;
+};
+
+struct N1DA5 {
+    char pad0[4];
+    N1DA5* unk4;
+    E1DA5* unk8;
+};
+
+struct I1DA5 {
+    s32 unk0;
+    N1DA5* unk4;
+};
+
+struct L1DA5 {
+    char pad0[0x1C];
+    N1DA5* unk1C;
+};
+
 struct S1D85E8_N {
     char pad0[0xC];
     S1D85E8_N* unkC;
@@ -97,6 +119,7 @@ extern u32 D_0036D558;
 void func_001DB708(s32 a, void* p, void* q);
 void* func_00113DF0(u32, int, int);
 s32 func_001DA7B8(void*);
+void func_001D8BC8_3(void* p, s32 a, f32 t) __asm__("func_001D8BC8");
 }
 
 extern "C" void func_001D85E8(char* p, char* q) {
@@ -342,6 +365,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA368);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA448);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA500);
+extern "C" void func_001DA500(L1DA5* l, s32 a, f32 t) {
+    I1DA5 end;
+    I1DA5 it;
+    it.unk4 = l->unk1C;
+    end.unk4 = (N1DA5*)((char*)l + 0x18);
+    if (it.unk4 != end.unk4) {
+        do {
+            E1DA5* e = it.unk4->unk8;
+            if (e->unk0 & 2) {
+                e->unk14++;
+                func_001D8BC8_3(it.unk4->unk8, a, t);
+                it.unk4->unk8->unk14--;
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA5A0);

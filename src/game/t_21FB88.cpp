@@ -1,5 +1,28 @@
 #include "common.h"
 
+struct G2202 {
+    char pad0[0x18];
+    s32 unk18;
+    s32 unk1C[1];
+};
+
+struct R2202 {
+    char pad0[8];
+    f32 unk8;
+};
+
+struct Q2202 {
+    char pad0[0xC];
+    R2202* unkC;
+};
+
+struct P2202 {
+    char pad0[0xC];
+    char* unkC;
+    char pad10[0x5C];
+    s32 unk6C;
+};
+
 struct VEntry21F {
     s16 delta;
     s16 unk2;
@@ -40,6 +63,8 @@ extern u8 D_00351D18[];
 void func_0012FA98(void*, int);
 void func_0012FAC8(void*, int, int);
 int func_00205B48(int, int);
+extern G2202* D_0036F658[] __attribute__((section(".sdata")));
+void* func_0015FAA0(s32 a, s32 b, s32 c);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FB88);
@@ -63,7 +88,20 @@ extern "C" void func_00220118(S21F* self, void* a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220148);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220270);
+extern "C" f32 func_00220270(P2202* p, s32 k) {
+    G2202* g = D_0036F658[0];
+    s32 t = *(s32*)(p->unkC + 0x54);
+    f32 r = 1.0f;
+    s32 n = g->unk18 + 1;
+    g->unk18 = n;
+    *(s32*)(n * 4 + (s32)g + 0x1C) = t;
+    Q2202* q = (Q2202*)func_0015FAA0(k, 0, 1);
+    if (q != 0 || (q = (Q2202*)func_0015FAA0(p->unk6C, 0, 1), q != 0)) {
+        r = q->unkC->unk8;
+    }
+    g->unk18 = g->unk18 - 1;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220318);
 

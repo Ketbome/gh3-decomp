@@ -247,9 +247,33 @@ extern "C" int func_00210678(char* p, int a, int x) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210720);
+extern "C" s32 func_00210720(char* o, s32 pad, s32 a) {
+    u8 tmp[0x10];
+    func_0027AA98(tmp);
+    func_0027C160(tmp, 0x7AF07905, 0);
+    register E20E* e asm("$7") = (E20E*)(o + 0x490);
+    if (e->unk0 == 0 || (e = (E20E*)(o + 0x4E0), e->unk0 == 0) || (e = (E20E*)(o + 0x530), e->unk0 == 0)) {
+        ((void (*)(void*, void*, int, void*))e->unk44[2].fn)((char*)e + e->unk44[2].delta, tmp, a, e);
+        func_0027AC90(tmp);
+        return 1;
+    }
+    func_0027AC90(tmp);
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_002107C8);
+extern "C" s32 func_002107C8(char* o, s32 pad, s32 a) {
+    u8 tmp[0x10];
+    func_0027AA98(tmp);
+    func_0027C160(tmp, 0x7AF07905, 1);
+    register E20E* e asm("$7") = (E20E*)(o + 0x490);
+    if (e->unk0 == 0 || (e = (E20E*)(o + 0x4E0), e->unk0 == 0) || (e = (E20E*)(o + 0x530), e->unk0 == 0)) {
+        ((void (*)(void*, void*, int, void*))e->unk44[2].fn)((char*)e + e->unk44[2].delta, tmp, a, e);
+        func_0027AC90(tmp);
+        return 1;
+    }
+    func_0027AC90(tmp);
+    return 0;
+}
 
 extern "C" int func_00210870(char* p, int x, int y) {
     for (int i = 0; i < 3; i++) {

@@ -1,5 +1,33 @@
 #include "common.h"
 
+struct E1E8AB {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x1C];
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+};
+
+struct N1E8AB {
+    N1E8AB* unk0;
+    N1E8AB* unk4;
+    E1E8AB* unk8;
+};
+
+struct I1E8AB {
+    s32 unk0;
+    N1E8AB* unk4;
+};
+
+struct L1E8AB {
+    char pad0[0x24];
+    N1E8AB unk24;
+};
+
 struct S1E89F8 {
     char pad0[0xC];
     u32 unkC;
@@ -287,7 +315,21 @@ extern "C" void func_001E8A88(S1E89F8* p) {
     func_001E8B50(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8AB0);
+extern "C" void func_001E8AB0(void* pv) {
+    L1E8AB* p = (L1E8AB*)pv;
+    I1E8AB it;
+    I1E8AB e;
+    it.unk4 = p->unk24.unk4;
+    e.unk4 = &p->unk24;
+    while (it.unk4 != e.unk4) {
+        if (it.unk4->unk8->unkC != 0xBD982FDC) {
+            it.unk4->unk8->unkC = 0x7B01911C;
+            it.unk4->unk8->v5();
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk24;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8B50);
 

@@ -1,5 +1,21 @@
 #include "common.h"
 
+extern "C" {
+s32 func_0019BF20(void* p);
+void func_0019CCF8(void* p, s32 d);
+s32 func_001ACD28(void* p);
+extern s32 D_00372C1C;
+void func_0019CD18(void* p, s32 d);
+extern s32 D_00372C20;
+}
+
+struct T1AEF {
+    char pad0[0x20];
+    T1AEF* unk20;
+    char pad24[4];
+    T1AEF* unk28;
+};
+
 struct S001AFAC8 {
     char pad0[0x1C];
     u32 unk1C;
@@ -21,9 +37,45 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AE7A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AEB80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AEFF0);
+GP_DATA(D_00372C1C);
+extern "C" void func_001AEFF0(T1AEF* p, s32 dst, s32 first) {
+    if (first != 0) {
+        D_00372C1C = 0;
+    }
+    if (func_001ACD28(p) != 0) {
+        s32 n = func_0019BF20(p->unk20);
+        func_0019CCF8(p->unk20, dst + D_00372C1C * 4);
+        D_00372C1C += n;
+    } else {
+        T1AEF* c = p->unk20;
+        if (c != 0) {
+            do {
+                func_001AEFF0(c, dst, 0);
+                c = c->unk28;
+            } while (c != 0);
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AF090);
+GP_DATA(D_00372C20);
+extern "C" void func_001AF090(T1AEF* p, s32 dst, s32 first) {
+    if (first != 0) {
+        D_00372C20 = 0;
+    }
+    if (func_001ACD28(p) != 0) {
+        s32 n = func_0019BF20(p->unk20);
+        func_0019CD18(p->unk20, dst + D_00372C20 * 4);
+        D_00372C20 += n;
+    } else {
+        T1AEF* c = p->unk20;
+        if (c != 0) {
+            do {
+                func_001AF090(c, dst, 0);
+                c = c->unk28;
+            } while (c != 0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AF130);
 

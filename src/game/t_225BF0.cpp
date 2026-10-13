@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct A2270 {
+    char pad0[0xC];
+    s32 unkC;
+    s32 unk10;
+};
+
+struct O2270 {
+    virtual void v0();
+    virtual void v1(s32 a, A2270* b);
+};
+
 struct E225C {
     s32 key;
     s32 on;
@@ -53,6 +64,20 @@ int func_0027D1F8(int, int, int*, int);
 extern void* D_00368A38;
 void Heap_Free(void*, void*);
 void func_00226730(int, int, int);
+void func_0011A558(u32 a, s32 b, s32 c);
+void func_0011A568(void);
+s32 func_001C7760(s32 a);
+s32 func_001C8258(s32 a);
+extern s32 D_0036CDB4;
+extern s32 D_00372580;
+s32 func_00223C28(s32 a, void* b);
+s32 func_001287F0(s32 a, s32 b);
+s32 func_0027AA98(s32 a, s32 b);
+void func_0027ABB0(s32 a, s32 b);
+void func_001E0428(s32 a);
+void func_0027AC90(s32 a);
+void func_00113250(s32 a);
+void func_001DF900(s32 a);
 }
 
 extern "C" void func_00225BF0(void* a, int b) {
@@ -198,7 +223,22 @@ extern "C" void func_00226F60(S225* self, int a, S225b* b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226FA0);
+extern "C" void func_00226FA0(s32 self, s32 a) {
+    s32 buf;
+    s32 r = 0;
+    if (func_00223C28(a, &buf) != 0) {
+        r = func_0027AA98(func_001287F0(8, 1), buf);
+        func_0027ABB0(r, a);
+        a = r;
+    }
+    func_0011A558(0xAD57CF1F, 0, 0);
+    func_001E0428(a);
+    func_0011A568();
+    if (r != 0) {
+        func_0027AC90(r);
+        func_00113250(r);
+    }
+}
 
 extern "C" void func_00227048(int a, int b, int c, int d) {
     int v[2];
@@ -208,7 +248,17 @@ extern "C" void func_00227048(int a, int b, int c, int d) {
     func_001D83D0(D_0036D3B0[0], func_00228820, v);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002270A0);
+extern "C" void func_002270A0(O2270* o, s32 a, A2270* b) {
+    if (b->unk10 == 0) {
+        if (func_001C7760(D_0036CDB4) == 0 || func_001C8258(D_00372580) != 0) {
+            func_0011A558(0xBDF8E6F2, 0, 0);
+            func_0011A568();
+        }
+        if (b->unkC != 0) {
+            o->v1(a, b);
+        }
+    }
+}
 
 extern "C" void func_00227140(void* self, int a, int* b) {
     func_001EABC0(*b, 1);
@@ -225,7 +275,22 @@ extern "C" void func_00227180(S225* self, int a, S225b* b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002271C0);
+extern "C" void func_002271C0(s32 self, s32 a) {
+    s32 buf;
+    s32 r = 0;
+    if (func_00223C28(a, &buf) != 0) {
+        r = func_0027AA98(func_001287F0(8, 1), buf);
+        func_0027ABB0(r, a);
+        a = r;
+    }
+    func_0011A558(0xAD57CF1F, 0, 0);
+    func_001DF900(a);
+    func_0011A568();
+    if (r != 0) {
+        func_0027AC90(r);
+        func_00113250(r);
+    }
+}
 
 extern "C" void func_00227268(int a, int b, int c, int d) {
     int v[2];
