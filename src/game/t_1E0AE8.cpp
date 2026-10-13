@@ -15,6 +15,12 @@ struct S1E0AE8_N {
     void* unk8;
 };
 
+struct S1E0E70V {
+    s16 delta;
+    s16 index;
+    void* fn;
+};
+
 struct S1E0AE8_I {
     s32 unk0;
     S1E0AE8_N* unk4;
@@ -57,6 +63,7 @@ s32 func_001E0FF8(void* p, s32 v);
 void func_002763E0(u32 key, s32 v);
 s32 func_002763E0_i(u32 key, s32 v) __asm__("func_002763E0");
 void func_001E1B28(void* p, s32 a);
+void func_0027C160(s32 a, s32 b, s32 c);
 s32 func_0028D1D8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i, s32 j);
 void* func_00113D20(u32 size);
 void* func_001E0768(void* p, void* q);
@@ -90,7 +97,12 @@ extern "C" s32 func_001E0E10(char* p) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0E70);
+extern "C" void func_001E0E70(char* p, s32 a) {
+    func_0027C160(a, 0x8DDE72C0, *(s32*)(p + 0x70));
+    func_0027C160(a, 0xB8CA12C5, *(s32*)(p + 0x74));
+    S1E0E70V* e = (S1E0E70V*)(*(char**)(p + 8) + 0x80);
+    ((void (*)(char*, s32))e->fn)(p + e->delta, a);
+}
 
 extern "C" void func_001E0EE0(S1E0AE8* p, s32 v) {
     p->unk80 = v;
@@ -139,7 +151,22 @@ extern "C" void* func_001E0FA8(void* p, s32 a, u32 key) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0FF8);
+extern "C" s32 func_001E0FF8(void* pv, s32 v) {
+    S1E0AE8* p = (S1E0AE8*)pv;
+    S1E0AE8_I it;
+    S1E0AE8_I end;
+    it.unk4 = (S1E0AE8_N*)p->unk70.unk4;
+    end.unk4 = (S1E0AE8_N*)&p->unk70;
+    if (it.unk4 != end.unk4) {
+        do {
+            if (func_001E0F00((S1E0AE8*)it.unk4->unk8) == v) {
+                return (s32)it.unk4->unk8;
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1068);
 
@@ -162,7 +189,21 @@ extern "C" s32 func_001E12E8(void* p, s32* q) {
     return func_001E0FF8(p, *q) == 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1308);
+extern "C" s32 func_001E1308(S1E0AE8* p, s32 v) {
+    S1E0AE8_I it;
+    S1E0AE8_I end;
+    it.unk4 = (S1E0AE8_N*)p->unk70.unk4;
+    end.unk4 = (S1E0AE8_N*)&p->unk70;
+    if (it.unk4 != end.unk4) {
+        do {
+            if (func_001E0F00((S1E0AE8*)it.unk4->unk8) == v) {
+                func_001E0EE0((S1E0AE8*)it.unk4->unk8, 1);
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1378);
 

@@ -721,3 +721,6 @@ t_1F9A48 (nothing matched this time): func_001FB450 (last compare becomes movz/x
 ### misc (session 8)
 t_1C3A40 func_001C5680; t_241040 func_002415E0; t_1E0AE8 func_001E1AD0 func_001E0E10 (a callee used as `int` through a `__asm__` alias).
 Given up (split tails whose first instructions are the end of the previous function): func_001D8898, func_001DD488, func_001C1A30's func_001C1A8-like prefix cases; func_00223590/func_00222F10/func_0021DED8 need pextlw/ldl-sdl.
+
+### t_1C3A40 / t_1E0AE8 (more)
+t_1C3A40 matched 4: func_001C4390 func_001C43F8 func_001C55A8 func_001C5610. t_1E0AE8 matched 3: func_001E0FF8 func_001E1308 (stack list iterators: `S1E0AE8_I it, end;` two {s32; Node*} locals, do/while on it.unk4 != end.unk4, as in the session 3 note) func_001E0E70.

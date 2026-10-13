@@ -59,8 +59,19 @@ void* func_001C5778(void* p);
 extern u32 D_0036CD60;
 extern void* D_0036CD5C;
 void func_00119400(s32 heap, void* p);
+void func_0016ED28(void* p);
+void* func_00113D20(u32 size);
+void func_0016ED90(void* p, s32 a);
+extern u8 D_0034A4E8[];
+extern u8 D_0034A658[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0034A640[];
+struct VEntX {
+    s16 delta;
+    s16 index;
+    void* fn;
+};
+
 struct N1C56 {
     char pad0[0xC];
     N1C56* unkC;
@@ -91,9 +102,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C4200);
 extern "C" void func_001C4388(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C4390);
+extern "C" void* func_001C4390(char* p) {
+    func_0016ED28(p);
+    *(void**)(p + 0x24) = D_0034A4E8;
+    *(s32*)(p + 0x4C) = 0x80808080;
+    *(s32*)(p + 4) = *(s32*)(p + 4) | 1;
+    *(s32*)(p + 0x2C) = 0;
+    *(s32*)(p + 0x30) = 0;
+    *(s32*)(p + 0x34) = 0;
+    *(s32*)(p + 0x38) = 0;
+    *(s32*)(p + 0x44) = 0;
+    *(s32*)(p + 0x48) = 0;
+    return p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C43F8);
+extern "C" void func_001C43F8(char* p, s32 a) {
+    *(void**)(p + 0x24) = D_0034A4E8;
+    if (*(s32*)(p + 0xC) == 1) {
+        s32 t = *(s32*)(p + 0x2C);
+        if (t != 0) {
+            func_00119400(D_00368A38[0], (void*)t);
+        }
+    }
+    func_0016ED90(p, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C4460);
 
@@ -326,9 +358,31 @@ extern "C" void func_001C5558(F2C* p, f32 v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C55A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C55A8);
+extern "C" void* func_001C55A8(char* p) {
+    *(s32*)(p + 4) = 0;
+    *(s32*)(p + 0xC) = 0;
+    *(void**)(p + 0x14) = D_0034A658;
+    char* t = (char*)func_00113D20(0x18);
+    *(void**)(t + 4) = p;
+    *(void**)(t + 0x14) = D_0034A640;
+    *(s32*)(t + 8) = 0;
+    *(void**)(t + 0xC) = t;
+    *(void**)(t + 0x10) = t;
+    *(void**)(p + 0x10) = t;
+    return p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5610);
+extern "C" void func_001C5610(char* p, s32 flags) {
+    *(void**)(p + 0x14) = D_0034A658;
+    char* t = *(char**)(p + 0x10);
+    if (t != 0) {
+        VEntX* e = (VEntX*)(*(char**)(t + 0x14) + 8);
+        ((void (*)(char*, s32))e->fn)(t + e->delta, 3);
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" void func_001C5680(N1C56* n, s32 flags) {
     n->unk14 = D_0034A640;
