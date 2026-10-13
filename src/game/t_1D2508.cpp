@@ -1,5 +1,7 @@
 #include "common.h"
 
+typedef int TI128 __attribute__((mode(TI)));
+
 struct VEnt {
     s16 delta;
     s16 index;
@@ -32,6 +34,12 @@ void* func_00113DF0(s32 size, s32 a, s32 b);
 S0036D3B0* func_001D4260(void* p);
 extern S0036D3B0* D_0036D3B0;
 extern u32 D_0036D3B4;
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_0034B838[];
+void func_0027D2D8(void* a, s32 key, void* v, s32 req);
+s32 func_0027D870(void* a, s32 key, void* v, s32 req);
+s32 func_001D1CF8(void* a, s32 b);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2508);
@@ -43,7 +51,12 @@ extern "C" int func_001D29C8(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D29E8);
+extern "C" s32 func_001D29E8(char* p, void* a) {
+    TI128 v;
+    func_0027D2D8(a, 0x0C4C809E, &v, 1);
+    *(TI128*)(p + 0xE0) = v;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2A30);
 
@@ -118,7 +131,11 @@ extern "C" int func_001D3508(S001D2B08* a, void* b, S001D2B08* c) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3538);
+extern "C" s32 func_001D3538(void* p, void* a) {
+    s32 v;
+    func_0027D870(a, 0, &v, 1);
+    return func_001D1CF8(p, v) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3580);
 
@@ -140,9 +157,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D40F8);
 extern "C" void func_001D4110(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D4118);
+extern "C" void func_001D4118(char* p, s32 flags) {
+    *(void**)(p + 8) = D_0034B838;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D4158);
+extern "C" void func_001D4158(char* p, s32 flags) {
+    *(void**)(p + 8) = D_0034B838;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" void func_001D4198(void) {
     func_001D3818(1, 0xFFFF);

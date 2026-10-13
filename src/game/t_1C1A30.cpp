@@ -38,6 +38,15 @@ void func_0015EA08(void* p);
 void func_001A0D38(void* p);
 extern char D_00349DF8[];
 extern char D_0038D080[];
+void func_001BF628(void* p, s32 a);
+void func_001BF6A0(void* p, s32 a);
+void func_001C25A0(void* p, s32 v);
+void func_001BF960(void* p);
+void func_001BF2E8(s32 a, s32 b);
+extern u8 D_00349E28[];
+s32 func_0011D530(s32 a, s32 b, s32 c, s32 d);
+S001C2C88* func_001C2D28_1(s32 a) __asm__("func_001C2D28");
+
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C1A30);
@@ -48,9 +57,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C1E70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C2508);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C2550);
+extern "C" void func_001C2550(char* p, s32 a) {
+    *(void**)(p + 0x20) = D_00349E28;
+    func_001C25A0(p, 1);
+    func_001BF6A0(p, a);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C25A0);
+extern "C" void func_001C25A0(void* pv, s32 v0) {
+    register s32 v asm("$17") = v0;
+    register char* p asm("$16") = (char*)pv;
+    register s32 old asm("$18") = *(s32*)p;
+    func_001BF960(p);
+    s32 t = *(s32*)(p + 0x30);
+    if (t != 0 && old != v) {
+        func_001BF2E8(t, v ^ 1);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C25F8);
 
@@ -121,7 +143,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C2D28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3150);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3240);
+extern "C" void func_001C3240(s32 a, s32 b) {
+    s32 r = func_0011D530(a, b, 0, 0);
+    func_001C2D28_1(r)->unk8 = r;
+}
 
 extern "C" S001C2C88* func_001C3278(void) {
     S001C2C88* r = func_001C2D28();

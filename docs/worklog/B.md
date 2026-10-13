@@ -707,3 +707,8 @@ Matched 5: func_001CBBB0 func_001CBE48 func_001CBEA8 func_001CBF08 func_001CC1F8
 Matched 6: func_001C63B8 func_001C5C78 func_001C79E0 func_001C7A40 func_001C63F0 func_001C7668
 Habit: a stack object whose address is used for a field store after a call: declare `L* q = (L*)((char*)&l + 4)` AFTER the call so gcc recomputes `addiu v1,sp,4` instead of keeping a saved register (func_001C7668).
 Given up: func_001C74F8 (`f1() || f2()` returning 1/0: original uses bnez with li in the delay slot, ours bnezl/sltu or movz; 5 forms).
+
+### t_1D2508 / t_1C1A30 (session 8)
+t_1D2508 matched 4: func_001D4118 func_001D4158 func_001D29E8 (128-bit local `TI128 v` read by a callee and copied with lq/sq) func_001D3538.
+t_1C1A30 matched 3: func_001C2550 func_001C25A0 (`register s32 v asm("$17") = v0; register char* p asm("$16")` pins the callee-saved order) func_001C3240 (callee takes a0/a1 straight from the incoming args: declare the parameters).
+Given up: func_001C2508 (constructor: `li 0x44` before the lui in the original; all store orders tried).
