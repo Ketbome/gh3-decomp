@@ -355,7 +355,20 @@ extern "C" void func_0016EE18(S16E_B* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016EE58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016EEC0);
+extern "C" int func_0016EEC0(int x) {
+    switch (x) {
+    case 0:
+        return 2;
+    case 1:
+    case 3:
+        return 1;
+    case 2:
+        return 3;
+    case 4:
+        return 5;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016EF10);
 
