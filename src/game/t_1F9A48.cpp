@@ -1,5 +1,15 @@
 #include "common.h"
 
+struct F1FB6 {
+    char pad0[0x10];
+    f32 unk10;
+    f32 unk14;
+    f32 unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+};
+
 struct S1F9D_N {
     s32 unk0;
     S1F9D_N* unk4;
@@ -27,7 +37,7 @@ s32 func_001F9AA8(void);
 s32 func_001F9B80(void);
 void func_001FA348(int, int);
 void func_001FB028(void*);
-void func_001FB6C0(void*);
+void func_001FB6C0(s32 self, s32 params);
 void* operator_new(u32);
 void* func_001FAC90(void*);
 extern char D_0038F5B0[];
@@ -42,6 +52,9 @@ extern u8 D_0034F6F0[];
 extern s32 D_00370AE0;
 void func_0027D1F8(s32 p, u32 key, s32* v, s32 req);
 void func_001FAF90(char* self, s32 params);
+void* func_00268EB8(s32 a, s32 b, s32 c, s32 d);
+void* func_001FB450_o(s32 a, s32 b) __asm__("func_001FB450");
+s32 func_0027D268(s32 p, u32 key, f32* v, s32 d);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A48);
@@ -154,8 +167,8 @@ extern "C" s32 func_001FAE10(void* p) {
     return 1;
 }
 
-extern "C" s32 func_001FAE30(void* p) {
-    func_001FB6C0(p);
+extern "C" s32 func_001FAE30(void* p, s32 q) {
+    func_001FB6C0((s32)p, q);
     return 1;
 }
 
@@ -204,7 +217,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB480);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB618);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB6C0);
+extern "C" void func_001FB6C0(s32 self, s32 params) {
+    f32 a = 100.0f;
+    f32 b = 100.0f;
+    s32 id;
+    func_0027DC58(params, 0, &id, 0);
+    F1FB6* o = (F1FB6*)func_00268EB8(D_00370AE0, self, id, 1);
+    if (o != 0 || (o = (F1FB6*)func_001FB450_o(self, id), o != 0)) {
+        if (func_0027D268(params, 0x330F3415, &a, 0) != 0) {
+            o->unk24 = o->unk1C * a * 0.01f;
+            if ((func_0027D268(params, 0xDAA9A3C2, (f32*)((char*)o + 0x2C), 0) ^ 1) != 0) {
+                o->unk14 = o->unk24;
+            }
+        }
+        if (func_0027D268(params, 0xEE616C13, &b, 0) != 0) {
+            o->unk20 = o->unk18 * b * 0.01f;
+            if ((func_0027D268(params, 0x7B090774, (f32*)((char*)o + 0x28), 0) ^ 1) != 0) {
+                o->unk10 = o->unk20;
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB820);
 
