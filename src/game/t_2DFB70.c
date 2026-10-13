@@ -1,6 +1,21 @@
 // cflags: -O0 -fno-opt-stack
 #include "common.h"
 
+struct S3F50 {
+    int unk0;
+    unsigned char unk4, unk5, unk6, unk7, unk8, unk9;
+    char pad0[2];
+    int unkC;
+    unsigned char unk10, unk11, unk12, unk13, unk14;
+    char pad1;
+    unsigned short unk16;
+    int unk18, unk1C, unk20, unk24, unk28, unk2C, unk30, unk34, unk38, unk3C;
+    unsigned short unk40;
+    char unk42, unk43, unk44;
+    char pad2[3];
+    int unk48;
+};
+
 void func_002DFF28(short);
 
 void func_002DFF78(void);
@@ -37,8 +52,8 @@ extern char D_00372818;
 extern int D_003731F0;
 extern int D_003EA400;
 extern char D_003EA600[];
-extern char D_003EA660[];
-extern char D_003EA6C0[];
+
+
 extern int D_003EACC0;
 extern int D_003EAD64;
 extern int D_00428794;
@@ -78,6 +93,35 @@ extern int D_00330BB0[];
 extern int D_00372760;
 extern int D_00372764;
 extern int D_00372768[];
+extern int D_0037279C;
+extern unsigned char D_00372740;
+extern unsigned char D_0037273C;
+extern unsigned char D_00372780;
+extern unsigned char D_00372781;
+extern unsigned char D_00372782;
+extern int D_003727AC;
+extern int D_003727B0;
+extern int D_003727C8;
+extern short D_003307C0[];
+extern unsigned int D_003EA540[];
+extern int D_003EA8E0[];
+extern int D_003EA9A0[];
+extern unsigned char D_003EA660[];
+extern unsigned char D_003EA6C0[];
+extern unsigned char D_003EA690[];
+extern int D_003EA480[];
+extern int D_003EA780[];
+extern unsigned char D_003EA6F0[];
+extern unsigned short D_003EA720[];
+extern int D_003EAA60[];
+void func_002EE8E0();
+int func_002EEA00();
+int func_002EEA20();
+extern int D_00372840;
+extern unsigned int D_003733D4;
+int func_002E4590();
+unsigned char func_002E4548();
+void func_002E5E28();
 extern int D_00372770[];
 extern int D_00372778[];
 int *func_002E5F38();
@@ -813,35 +857,234 @@ void func_002E36B0(int a) {
     func_002DFF78();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3700);
+void func_002E3700(int a, int b) {
+    func_002DFF28(0x1C);
+    func_002E0140(a);
+    func_002E0140(b);
+    func_002DFF78();
+    func_002E5E28(a, b);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3770);
+unsigned int func_002E3770(int a) {
+    return (unsigned)(a * 4096) / 48000;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E37B8);
+unsigned char func_002E37B8(char *a) {
+    unsigned char r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3830);
+    r = func_002E4548();
+    func_002DFF28(0x1D);
+    func_002E00C8(r);
+    func_002E01E8(a);
+    func_002DFF78();
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3908);
+int func_002E3830(int a, int b, int c, int d, int e) {
+    if (a == -1) {
+        a = func_002E4590();
+    }
+    if (a < 0) {
+        return a;
+    }
+    func_002DFF28(0x1E);
+    func_002E0140(a);
+    func_002E0140(b);
+    func_002E0140(c);
+    func_002E00C8((short)d);
+    func_002E0140(e);
+    func_002DFF78();
+    return a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E39C8);
+int func_002E3908(int a, char *b, int c) {
+    if (a == -1) {
+        a = func_002E4590();
+    }
+    if (a < 0) {
+        return a;
+    }
+    func_002DFF28(0x1F);
+    func_002E0140(a);
+    func_002E0140(c);
+    func_002E01E8(b);
+    func_002DFF78();
+    return a;
+}
+TEXT_PAD(12);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3AC0);
+int func_002E39C8(int a) {
+    if (a < 0 || a >= D_0037281C) {
+        return -1;
+    }
+    if (D_0037280C[a] != 1) {
+        return -2;
+    }
+    D_0037280C[a] = 0;
+    D_00372814 -= 1;
+    func_002DFF28(0x20);
+    func_002E0140(a);
+    func_002DFF78();
+    return 0;
+}
+TEXT_PAD(24);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3B08);
+void func_002E3AC0(void) {
+    func_002DFF28(0x27);
+    func_002DFF78();
+}
+TEXT_PAD(12);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3B78);
+void func_002E3B08(int a, int b, int c) {
+    func_002DFF28(0x29);
+    func_002E0140(a);
+    func_002E0140(b);
+    func_002E0140(c);
+    func_002DFF78();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3BC8);
+void func_002E3B78(int a) {
+    func_002DFF28(0x2A);
+    func_002E00C8((short)a);
+    func_002DFF78();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3C28);
+void func_002E3BC8(void) {
+    func_002DFF28(0x2A);
+    func_002E00C8(6);
+    func_002DFF78();
+}
+TEXT_PAD(24);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3CD8);
+int func_002E3C28(unsigned int a) {
+    int r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3E50);
+    if (a >= 0x30) {
+        return -2;
+    }
+    r = D_00330C08[a];
+    if (r == 0xFF) {
+        r = -1;
+    }
+    return r;
+}
+TEXT_PAD(48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3ED0);
+GP_DATA(D_00372840);
+int func_002E3CD8(int a, int b, unsigned int c, int d) {
+    int v[4];
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3F50);
+    if (d != 1 && d != 0) {
+        return -1;
+    }
+    if (c > 0xFFFFF) {
+        return -1;
+    }
+    func_002EE8E0(0);
+    if (D_00372840 != 0) {
+        while (func_002EEA00(D_003733D4) >= 0) {
+        }
+    }
+    D_00372840 = 1;
+    func_002EE8E0(0);
+    v[0] = a;
+    v[1] = b;
+    v[2] = c;
+    v[3] = 0;
+    if ((D_003733D4 = func_002EEA20(v, 1)) == 0) {
+        D_00372840 = 0;
+        return -1;
+    }
+    if (d == 1) {
+        while (func_002EEA00(D_003733D4) >= 0) {
+        }
+    }
+    return 0;
+}
+
+int func_002E3E50(int a) {
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    func_002DFF28(0x2e);
+    func_002E00C8((short)a);
+    func_002DFF78();
+    return 0;
+}
+
+int func_002E3ED0(int a) {
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    func_002DFF28(0x2f);
+    func_002E00C8((short)a);
+    func_002DFF78();
+    return 0;
+}
+
+GP_DATA(D_0037279C);
+GP_DATA(D_00372740);
+GP_DATA(D_0037273C);
+GP_DATA(D_00372780);
+GP_DATA(D_00372782);
+GP_DATA(D_00372781);
+GP_DATA(D_003727AC);
+GP_DATA(D_003727B0);
+GP_DATA(D_003727C8);
+int func_002E3F50(int a, struct S3F50 *s) {
+    unsigned int t;
+
+    s->unk0 = D_0037279C;
+    s->unk9 = D_00372740;
+    s->unk7 = D_0037273C;
+    s->unk8 = D_0037272C;
+    s->unk4 = D_00372780;
+    s->unk5 = D_00372782;
+    s->unk6 = D_00372781;
+    s->unk2C = D_003727AC;
+    s->unk30 = D_003727B0;
+    s->unk3C = D_003727C8;
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    if (D_003EA600[a] == 0 || D_003EA600[a] == 3) {
+        s->unk11 = 0;
+        s->unk20 = 0;
+        s->unk42 = 0;
+        s->unk43 = 0;
+        s->unk44 = 0;
+        s->unk48 = 0;
+    } else if (D_003EA600[a] == 2 || D_003EA600[a] == 5) {
+        s->unk11 = 6;
+        s->unk20 = 0;
+        s->unk42 = 0;
+        s->unk43 = 0;
+        s->unk44 = 0;
+        s->unk48 = 0;
+    } else {
+        s->unk11 = 1;
+        s->unk20 = D_003307C0[a];
+        t = D_003EA540[a];
+        s->unk42 = t % 60;
+        s->unk43 = (t / 60) % 60;
+        s->unk44 = (t / 3600) % 60;
+        s->unk48 = (t / 216000) & 0xFF;
+    }
+    s->unk40 = D_00330820[a] & 0x7FFF;
+    s->unk38 = D_003EA8E0[a];
+    s->unkC = D_003EA9A0[a];
+    s->unk10 = D_003EA660[a];
+    s->unk12 = D_003EA6C0[a];
+    s->unk13 = D_003EA690[a];
+    s->unk18 = D_003EA480[a];
+    s->unk1C = D_003EA780[a];
+    s->unk24 = D_003EA780[a];
+    s->unk14 = D_003EA6F0[a];
+    s->unk16 = D_003EA720[a];
+    s->unk34 = D_003EAA60[a];
+    s->unk28 = D_003EAB20[a];
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E43A8);
 
