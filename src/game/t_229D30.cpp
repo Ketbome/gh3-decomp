@@ -37,6 +37,23 @@ void func_0022AE78(int, void*, int);
 void* func_0022B040(char*, int);
 void* func_0022C768(int, int, int);
 void* func_0022C850(int, int);
+void* Heap_Alloc(void*, int, int, int);
+void* func_0022CD30(char*);
+void* func_0022BA90(void*);
+int func_0022BA90_i(void*) __asm__("func_0022BA90");
+void* func_0022FE90(char*);
+void* func_0022D9F0(char*);
+void func_0022F3A0(void*);
+extern char D_00353630[];
+extern char D_003537E0[];
+extern char D_00353990[];
+extern char D_00353B40[];
+extern char D_00353130[];
+extern char D_003532E0[];
+extern char D_00353E80[];
+extern char D_00353CE0[];
+extern char D_00354058[];
+extern char D_003542A8[];
 extern void* D_0036F658;
 extern u32 D_0036F65C;
 void func_0022C0D8(void*, int);
@@ -97,7 +114,131 @@ extern "C" void func_0022A2D8(void) {
     D_0036F65C = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A330);
+extern "C" void* func_0022A330(void* unused, s32 type) {
+    char* o;
+    switch (type) {
+    case 6:
+        o = (char*)func_0022CD30((char*)Heap_Alloc(D_00368A38, 0x3C, 1, 0));
+        break;
+    case 7: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_00353630;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 8: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_003537E0;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 9: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_00353990;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 10: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_00353B40;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 3: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x3C, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        *(s32*)(p + 0x38) = 0;
+        register char* vt asm("$3") = D_00353130;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 5: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_003532E0;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 2: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_00353E80;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 4: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_00353CE0;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 12: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x44, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        *(s32*)(p + 0x40) = 0;
+        register char* vt asm("$3") = D_00354058;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 13: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x44, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        *(s32*)(p + 0x40) = 0;
+        register char* vt asm("$3") = D_00354058;
+        *(char**)(p + 0x34) =  vt;
+        func_0022F3A0(o);
+        return o;
+    }
+    case 18: {
+        char* p = (char*)Heap_Alloc(D_00368A38, 0x38, 1, 0);
+        func_0022BA90_i(p);
+        o = p;
+        asm("" : "+r"(o));
+        register char* vt asm("$3") = D_003542A8;
+        *(char**)(p + 0x34) =  vt;
+        break;
+    }
+    case 19:
+        o = (char*)func_0022FE90((char*)Heap_Alloc(D_00368A38, 0xEC, 1, 0));
+        break;
+    case 14:
+        o = (char*)func_0022D9F0((char*)Heap_Alloc(D_00368A38, 0x3C, 1, 0));
+        break;
+    case 11:
+    case 15:
+    case 16:
+    case 17:
+    default:
+        o = 0;
+        break;
+    }
+    return o;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A680);
 

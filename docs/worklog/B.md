@@ -796,3 +796,7 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - func_001BB078 (t_1B93E8) gave up: structure matches with `-funroll-loops` (`.p2align 3` gives the nop); only diff is the pad `nop` between `lw s0,0x19C(s0)` and `bnez`: asm_filter's short-loop pad is put right before a reorder-mode `bne` and gas swallows it into the delay slot (original `lw; nop; bnez; nop`). Toolchain (asm_filter), same class as func_001BB100.
 - func_001CD500 (t_1CBB50) gave up: 2x2 nested unrolled clamp loop; original keeps the pair pointer biased in s0 (`-8(v1)`/`0(v1)`) and the element in s1, ours folds the first pair against the base register; outer loop with call is not unrolled by ours unless written twice (macro). 7 forms.
 - t_1C7AA0 func_001C84A8: asm("li") removed; `u32 now = f(); u32 start = q->unkD4; u32 lim = 5000; d = now - start; if (lim < d)` gives the li after the lw.
+
+### Mid-size (B13)
+- t_1BD608 func_001BDB28 MATCH (plain: `p = f5 ? alloc+copy : a|0x80`, flags tested in source order, gp global list push).
+- t_229D30 func_0022A330 MATCH (jtbl factory switch: cases in block-address order 6,7,8,9,10,3,5,2,4,12,13,18,19,14 then explicit `case 11/15/16/17:` + default; the vtable address in v1 needs `register char* vt asm("$3") = D_X;`, the result copy `o = p; asm("" : "+r"(o));` and the ignored callee declared `int` via an `__asm__` alias).
