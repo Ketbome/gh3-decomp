@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_00146E68 { char pad0[0x5B4]; int unk5B4; };
@@ -42,6 +43,7 @@ extern int D_00372DA8;
 void func_00144BC0(R_146*, int, int, int, void*);
 extern int D_00368A38;
 void func_00145310(R_146*, Sys_146*, int, int);
+u32 func_0013CFC0(void*);
 void func_001CE868(void*, R_146*);
 void* func_00138F20(void*);
 bool func_0027DF00(void*, u32);
@@ -73,7 +75,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00146778);
 extern "C" void func_001468A0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_001468A8);
+struct S_1468A8 { char pad0[0x6A8]; int unk6A8[1]; char pad6AC[0xBC]; int unk768; };
+
+extern "C" int func_001468A8(S_1468A8* self, int v) {
+    int i;
+    for (i = 0; i < self->unk768; i++) {
+        if (v == self->unk6A8[i]) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00146970);
 
@@ -102,7 +114,28 @@ extern "C" int func_00146E68(S_00146E68* self) {
     return self->unk5B4 > 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_146580", func_00146E78);
+struct E_146E78 { u32 unk0; int unk4; char pad8[0x10]; };
+struct S_146E78 { char pad0[0x5C8]; E_146E78 unk5C8[10]; };
+
+extern "C" int func_00146E78(S_146E78* self, int id) {
+    int i;
+    u32 m = 0;
+    R_146 r;
+    func_00145310(&r, (Sys_146*)self, id, 1);
+    u32 v = func_0013CFC0(r.p);
+    for (i = 0; i < 10; i++) {
+        if (self->unk5C8[i].unk4 != 0) {
+            u32 t = self->unk5C8[i].unk0;
+            m = m < t ? t : m;
+        }
+    }
+    int eq = v == m;
+    if (r.p) {
+        func_001CE888(r.p, &r);
+        r.p = 0;
+    }
+    return eq;
+}
 
 GP_DATA(D_00369798);
 extern "C" int CFunc_CreateScreenElement(void* params, P_146* script) {
