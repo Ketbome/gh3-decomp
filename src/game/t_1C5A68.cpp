@@ -89,6 +89,9 @@ void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0034A6A0[];
 extern u8 D_0034A968[];
+extern u8 D_0034A8E8[];
+void func_00265680(void);
+void func_001C5610(void* p, s32 a);
 s32 func_00117F10(s32 a);
 void func_00119490(s32 a, s32 b);
 void func_001194B8(s32 a);
@@ -195,7 +198,48 @@ extern "C" void func_001C5D28(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C5D80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C6058);
+struct VE1C60 {
+    s16 delta;
+    s16 pad;
+    void* fn;
+};
+
+static inline void Del1C60(char* o, s32 vp, s32 off) {
+    VE1C60* e = (VE1C60*)(*(char**)(o + vp) + off);
+    ((void (*)(char*, s32))e->fn)(o + e->delta, 3);
+}
+
+extern "C" void func_001C6058(char* p, s32 flags) {
+    *(void**)(p + 0x14) = D_0034A8E8;
+    char* o = *(char**)(p + 0x18);
+    if (o != 0) {
+        Del1C60(o, 0x18, 0x10);
+    }
+    N1C79* n = (N1C79*)(p + 0x310);
+    char** a = (char**)(p + 0x28);
+    for (s32 i = 0; i < 2; i++) {
+        o = a[i];
+        if (o != 0) {
+            Del1C60(o, 0x18, 0x10);
+        }
+        a[i] = 0;
+    }
+    o = *(char**)(p + 0x308);
+    if (o != 0) {
+        Del1C60(o, 8, 8);
+    }
+    o = *(char**)(p + 0x30C);
+    if (o != 0) {
+        Del1C60(o, 8, 8);
+    }
+    func_00265680();
+    n->unk14 = D_0034A968;
+    n->unk10->unkC = n->unkC;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    func_001C5610(p, flags);
+}
 
 GP_DATA(D_0036CDB0);
 extern "C" void func_001C6188(void* self, s32 flag) {
