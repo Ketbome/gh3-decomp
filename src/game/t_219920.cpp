@@ -1,5 +1,7 @@
 #include "common.h"
 
+typedef int TI128 __attribute__((mode(TI)));
+
 struct VEntry219 {
     s16 delta;
     s16 unk2;
@@ -47,6 +49,7 @@ void func_00205B00(void*);
 int func_0027D268(int, int, void*, int);
 int func_0027D470(int, int, void*, int);
 void func_0021B368(void*, int);
+int func_0027D2D8(int, u32, void*, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_00219920);
@@ -167,7 +170,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021AFD8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B058);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B0A0);
+extern "C" int func_0021B0A0(char** p, int a) {
+    TI128 v;
+    func_0027D2D8(a, 0xC4C809E, &v, 1);
+    *(TI128*)(p[3] + 0xE0) = v;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B0E8);
 

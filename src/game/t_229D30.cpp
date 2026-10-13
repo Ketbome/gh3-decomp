@@ -29,6 +29,8 @@ void func_0022B700(S229*);
 extern int D_00370EE0[] __attribute__((section(".sdata")));
 void func_00114958(int, int);
 int func_0022B1B8(void*);
+void func_001342E8(void*, int);
+void func_0022AE78(int, void*, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229D30);
@@ -69,7 +71,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A9C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022ABE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022ADD0);
+extern "C" void func_0022ADD0(int a, int** b) {
+    int* t = *b;
+    func_001342E8(b, 0);
+    func_0022AE78(a, t, t[1]);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022AE18);
 

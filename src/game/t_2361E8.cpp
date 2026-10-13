@@ -15,6 +15,7 @@ extern void* D_0036FD64;
 extern void (*D_0036FD28)(void);
 void func_002367E0(int, int);
 extern List236 D_003979F0;
+extern u8 D_00354A30[];
 }
 
 GP_DATA(D_0036FD28);
@@ -57,7 +58,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002368D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002368F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236900);
+extern "C" void* func_00236900(int* p) {
+    p[0xD] = (int)D_00354A30;
+    p[0xC] = 1;
+    p[2] = 0;
+    p[3] = 0;
+    p[5] = 0;
+    p[7] = 0;
+    p[8] = 0;
+    p[6] = 0;
+    p[0] = 0;
+    p[1] = 0;
+    p[9] = 0;
+    p[10] = 0;
+    p[11] = 0;
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236948);
 

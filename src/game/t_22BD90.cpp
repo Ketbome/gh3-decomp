@@ -23,6 +23,8 @@ extern u8 D_00353480[];
 int func_001162E8(void*);
 extern u8 D_00372E50;
 extern u8 D_00393AD8[];
+void* func_0022C3C8(void);
+void func_0030A2F4(void*, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BD90);
@@ -63,7 +65,13 @@ extern "C" void func_0022C030(int* p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C068);
+extern "C" void func_0022C068(char* p, int a) {
+    void* r = func_0022C3C8();
+    *(void**)(p + 0x18) = r;
+    if (a) {
+        func_0030A2F4(r, a, 0x80);
+    }
+}
 
 extern "C" int func_0022C0B0(void) {
     return 0x90;

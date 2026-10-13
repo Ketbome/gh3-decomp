@@ -30,11 +30,16 @@ extern "C" void func_00246B10(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246B18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246B30);
-
 extern "C" {
 int func_00246BD8(int*);
 int func_00246BC0(int*);
+}
+
+extern "C" int func_00246B30(int* p) {
+    if (func_00246BD8(p)) {
+        return func_00246BC0(p) + 8;
+    }
+    return func_00246BC0(p);
 }
 
 extern "C" int func_00246B78(int* p) {
