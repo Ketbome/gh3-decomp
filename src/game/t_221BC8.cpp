@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct Big221 {
@@ -60,7 +61,44 @@ S222* func_00222DE0(S222*);
 void func_002230B8(S221*, int);
 void* func_00223488(void*, void*);
 void func_00223520(void*, void*);
+void func_00119400(void*, void*);
+extern void* D_00368A38;
+void func_001D03D8(int, int, int, int, int);
+int func_0030AA88(char*);
+int func_0030A970(char*, char*);
+void func_00223360(int, int, int);
+u32 CrcFromPathLowercase(const char*);
+int func_001D1CF8(void*, u32);
+void func_002220B0(void*);
+int func_00162070(int);
+void func_0028C9D0(u32, int, int, int, int, int);
+void func_00221DE8_p(void*) __asm__("func_00221DE8");
+void func_002227F0(char*, int);
+void func_0027D268(int, u32, void*, int);
+void func_002226E8_f(void*, int, f32, f32) __asm__("func_002226E8");
 }
+
+struct V221 {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int);
+};
+
+struct A221 {
+    s32 unk0;
+    s32 unk4;
+    s32 (V221::*unk8)(int, int);
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221BC8);
 
@@ -90,7 +128,14 @@ extern "C" void func_00221DE0(void) {
 extern "C" void func_00221DE8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221DF0);
+extern "C" void func_00221DF0(S222* p) {
+    func_002220B0(p);
+    if (func_001D1CF8((void*)p->unkC, 0x8536DBA5)) {
+        if (*(int*)((char*)p + 0x3C)) func_0028C9D0(0xED9C1839, 0, p->unkC, 0, 0, 0);
+    }
+    char* t = (char*)func_001D1CF8((void*)p->unkC, 0x286A8D26);
+    if (t && func_00162070(*(int*)(t + 0x210))) func_00221DE8_p(p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221E88);
 
@@ -104,7 +149,12 @@ extern "C" void func_00222390(S222* self, int a) {
     ((void (*)(void*, int))e->fn)((char*)self + e->delta, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002223B8);
+extern "C" s32 func_002223B8(V221* p, A221* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" int func_00222458(void) {
     return 2;
@@ -139,7 +189,23 @@ extern "C" int func_002226E8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002226F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002226F8);
+extern "C" void func_002226F8(void* self) {
+    int* p = (int*)self;
+    if (p[0]) {
+        u32 i = 0;
+        if (p[4]) {
+            do {
+                void* e = ((void**)p[5])[i];
+                if (e) func_00119400(D_00368A38, e);
+                i++;
+            } while (i < (u32)p[4]);
+        }
+        if (p[5]) func_00119400(D_00368A38, (void*)p[5]);
+        if (p[6]) func_00119400(D_00368A38, (void*)p[6]);
+        if (p[0x67]) func_002227F0((char*)p[0x67], 3);
+        p[0] = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002227B0);
 
@@ -150,11 +216,25 @@ extern "C" f32 func_002227B8(S222* self) {
     return ((f32*)self->unk18)[self->unkC];
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002227F0);
+extern "C" void func_002227F0(char* p, int flags) {
+    if (*(void**)(p + 8)) {
+        func_00119400(D_00368A38, *(void**)(p + 8));
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222848);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222920);
+extern "C" int func_00222920(S222* p) {
+    if (p->unk1C == 1) {
+        int v = *(int*)((char*)p + 0x360);
+        if (v) func_001D03D8(p->unkC, v, 0, 0, 0);
+        p->unk1C = 0;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222978);
 
@@ -209,7 +289,12 @@ extern "C" void func_00222E50(void) {
 extern "C" void func_00222E58(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222E60);
+extern "C" s32 func_00222E60(V221* p, A221* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" int func_00222F00(void) {
     return 2;
@@ -234,7 +319,13 @@ extern "C" int func_00222FC0(S221* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222FD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223050);
+extern "C" S221* func_00223050(S221* p) {
+    int* q = p->unk4;
+    int i = 0x3B;
+    do { *q++ = 0; } while (--i != -1);
+    p->unkF4 = 0;
+    return p;
+}
 
 extern "C" void func_002230B8(S221* self, int v) {
     int n = self->unkF4;
@@ -266,7 +357,16 @@ extern "C" void func_00223340(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223360);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223388);
+extern "C" void func_00223388(char* path, int a, int b) {
+    char buf[0x70];
+    int n = func_0030AA88(path);
+    if (n && path[n - 1] == '_') {
+        func_0030A970(buf, path);
+        buf[n - 1] = 0;
+        path = buf;
+    }
+    func_00223360(CrcFromPathLowercase(path), a, b);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223418);
 

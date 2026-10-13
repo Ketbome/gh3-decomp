@@ -590,3 +590,30 @@ func_0021B058: TI128 lane extraction; func_0021B8E8: unrolled + MakeVec; not att
 
 ### t_21BA08
 Matched: func_0021CDB0 func_0021C250 func_0021C318
+
+### t_21DA40
+Matched 12: func_0021DDB8 func_0021EFC8 func_0021E140 func_0021E658 func_0021E6E8 func_0021E0C8 func_0021F248 func_0021EB20 func_0021ED28 func_0021EF30 func_0021DBA0 func_0021E300
+Given up: func_0021E848 (the key `ori` lands in the jal delay slot in the original, ours earlier); func_0021DFB0 (dead u8[4] colour stores interleaved with the sw group, constants li v1/a0 swapped; 6 tries); func_0021E038 (list-walk dtor: `h` in a0 / `e` in v1 in the original, ours swapped; the `asm("" : "+r"(end))` copy trick works, see below).
+Pointer-to-member trampolines (`if (a->pm) return (p->*a->pm)(x, y); return p->v12(a->unk0);`, struct V with 11 dummy virtuals then `virtual s32 v12(int)`) match; the variant with `a->unk0` as first arg also needs the unused x,y parameters so a2/a3 stay live (func_0021A198).
+
+### t_219920 (continued)
+Matched also func_0021A198 (see above).
+
+### t_221BC8 (now `// cflags: -funroll-loops`, needed by func_00223050)
+Matched 8: func_002223B8 func_00222E60 func_002227F0 func_00222920 func_00223050 func_00223388 func_00221DF0 func_002226F8
+func_00223050 clear loop: `int* q = p->unk4; int i = 0x3B; do { *q++ = 0; } while (--i != -1);`. func_00223388: strcpy callee declared returning int (ignored result changes v0/v1).
+Given up: func_00222FD0 (binary search; the original keeps a second copy of the key in t5, ours does not); func_00222978 (float arg loads f13 before f12 in the original delay slots); func_002230D8 (saved register order i/p/q); func_00222A68 (min via pointer select; not attempted).
+
+### t_223BE8
+Matched 3: func_00225058 func_002244B0 func_002243A0 (empty counted loop `i = 0x3E7; do i -= 0x19; while (i != -1)` keeps its nops).
+Given up: func_00224F78 (the original recomputes `key & 0xFF` after the call, ours CSEs it; 3 forms).
+
+### t_225BF0
+Matched 6: func_00226918 func_00227048 func_00227268 CFunc_CreateNodeFlag CFunc_ChangeNodeFlag func_00226030
+Habit (verified): a loop bound that the original copies into a new register (`move s1,v1` before the loop) is `char* end = e; asm("" : "+r"(end));` inside the `if`, then compare with `end` (func_00226030).
+`D_0036D3B0` macro form: `extern void* D_0036D3B0[] __attribute__((section(".sdata")))` and `D_0036D3B0[0]`.
+
+### t_227C68
+Matched 9: func_00227CC8 func_00227EA8 func_00228050 func_00229718 func_002280A8 func_00228368 func_00227E00 func_00227FA8 func_00227D20
+Habit: `func_f(s, obj); obj = s;` (reassign after the call) puts the `move` in the jal delay slot; a switch whose cases `break` and a trailing `return r` reproduces a shared `move v0,s1` tail; byte stores `p[0x2C] = 1; p[0x2D] = 1;` are emitted in swapped order of source.
+Given up: func_002297D0 (alabel entry in the middle), func_00228278 (MakeVec stack vectors, not attempted).

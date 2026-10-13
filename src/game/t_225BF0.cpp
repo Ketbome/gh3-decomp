@@ -30,13 +30,23 @@ void func_002A1918(int, int, int, int, int);
 void func_00226CD0(int, int);
 void func_00226E30(int, int);
 void func_0027D870(int, int, int*, int);
-void func_00226918(int);
+int func_00226918(int);
 int func_00225E20(int);
 void func_00225A78(void*, int);
 void func_0030A49C(void*, int, int);
 void func_00225CA8(int, void*);
 extern u8 D_00352470[];
 u32 CrcFromPathLowercase(const char*);
+extern int D_003918C8[];
+int func_00289E08(int);
+int func_001D83D0(void*, void*, void*);
+extern void* D_0036D3B0[] __attribute__((section(".sdata")));
+extern u8 func_00228820[];
+void func_00226178(int, int);
+int func_0027D1F8(int, int, int*, int);
+extern void* D_00368A38;
+void func_00119400(void*, void*);
+void func_00226730(int, int, int);
 }
 
 extern "C" void func_00225BF0(void* a, int b) {
@@ -69,7 +79,22 @@ extern "C" int func_00225F80(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225FA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226030);
+extern "C" void func_00226030(void) {
+    List225* d = &D_003938C8;
+    char* e = (char*)d + 4;
+    char* c = (char*)d->unk8;
+    d->unk8 = e;
+    d->unk4 = (int)e;
+    if (c != e) {
+        char* end = e;
+        asm("" : "+r"(end));
+        do {
+            char* nx = *(char**)(c + 4);
+            func_00119400(D_00368A38, c);
+            c = nx;
+        } while (c != end);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226098);
 
@@ -87,13 +112,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226730);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226888);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226918);
+extern "C" int func_00226918(int key) {
+    int i = key & 0x1FF;
+    if (D_003918C8[i]) {
+        do {
+            if (D_003918C8[i] == key) return 1;
+            i = (i + 1) & 0x1FF;
+        } while (D_003918C8[i]);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226970);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_CreateNodeFlag);
+extern "C" int CFunc_CreateNodeFlag(int s) {
+    int a = 0;
+    func_0027D870(s, 0, &a, 1);
+    int b = 0;
+    func_0027D1F8(s, 0, &b, 0);
+    func_00226178(a, b != 0);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_ChangeNodeFlag);
+extern "C" int CFunc_ChangeNodeFlag(int s) {
+    int a = 0;
+    func_0027D870(s, 0, &a, 1);
+    int b = 0;
+    func_0027D1F8(s, 0, &b, 1);
+    int c = 0;
+    func_0027D1F8(s, 0x8002809C, &c, 0);
+    func_00226730(a, b != 0, c);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", CFunc_GetNodeFlag);
 
@@ -132,7 +182,13 @@ extern "C" void func_00226F60(S225* self, int a, S225b* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226FA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00227048);
+extern "C" void func_00227048(int a, int b, int c, int d) {
+    int v[2];
+    if (d) v[1] = func_00289E08(d);
+    else v[1] = 0;
+    v[0] = c;
+    func_001D83D0(D_0036D3B0[0], func_00228820, v);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002270A0);
 
@@ -153,7 +209,13 @@ extern "C" void func_00227180(S225* self, int a, S225b* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002271C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00227268);
+extern "C" void func_00227268(int a, int b, int c, int d) {
+    int v[2];
+    if (d) v[1] = func_00289E08(d);
+    else v[1] = 0;
+    v[0] = c;
+    func_001D83D0(D_0036D3B0[0], func_00228820, v);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002272C0);
 

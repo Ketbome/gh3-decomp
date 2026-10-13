@@ -52,9 +52,59 @@ int func_0027DF00(int, u32);
 int func_002204D8(void*);
 void func_0027C448(int, u32, int);
 void func_00289C88(int, int);
+void func_0021EBB0(int, int, int, f32);
+void func_0021EDB8(int, int, int, f32);
+f32 func_00275DE0(u32, int);
 int* func_00289C80(int);
 int func_0027D870(int, u32, int*, int);
+void* func_001D0F68(void*);
+extern u8 D_00351D28[];
+int func_001D1CF8(void*, u32);
+void func_002207F0(void*);
+void func_00119400(void*, void*);
+extern void* D_00368A38;
+int func_0027D400(int, u32, void*, int);
+int func_0027D268(int, u32, void*, int);
+int func_0027D1F8(int, u32, void*, int);
+void func_0021FEF0(int, void*);
+void func_0021E9A8(int, int, int, f32);
+int func_001D8618(void*, int);
+extern void* D_0036D3B0;
+void func_0021EDB8(int, int, int, f32);
+f32 func_00275DE0(u32, int);
 }
+
+struct V21D {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int);
+};
+
+struct A21D {
+    s32 unk0;
+    s32 unk4;
+    s32 (V21D::*unk8)(int, int);
+};
+
+struct C21D {
+    u8 r, g, b, a;
+    C21D(u8 r_, u8 g_, u8 b_, u8 a_) {
+        r = r_;
+        g = g_;
+        b = b_;
+        a = a_;
+    }
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DA40);
 
@@ -67,7 +117,12 @@ extern "C" int func_0021DB98(void) {
     return 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DBA0);
+extern "C" s32 func_0021DBA0(V21D* p, A21D* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" void func_0021DC40(void) {
 }
@@ -84,7 +139,14 @@ extern "C" void* func_0021DD90(void) {
     return func_0021DDB8(func_00113D20(0x1C));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DDB8);
+extern "C" void* func_0021DDB8(void* self) {
+    char* p = (char*)self;
+    func_001D0F68(p);
+    *(void**)(p + 0x18) = D_00351A30;
+    *(u32*)(p + 4) = 0x1BBF844D;
+    C21D c(0xFF, 0, 0, 0xFF);
+    return p;
+}
 
 extern "C" void func_0021DE10(S21D* self, int flag) {
     self->unk18 = (VEntry21D*)D_00351A30;
@@ -139,9 +201,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DFB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E038);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E0C8);
+extern "C" void func_0021E0C8(char* p, int s) {
+    int v;
+    func_0027D870(s, 0x5B8C6DC2, (int*)(p + 0x30), 0);
+    func_0027D870(s, 0xD88DEEAF, (int*)(p + 0x2C), 0);
+    func_0027D1F8(s, 0x1DC13EB1, &v, 0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E140);
+extern "C" void func_0021E140(char* p) {
+    *(int*)(p + 0x3C) = func_001D1CF8(*(void**)(p + 0xC), 0x222756D5);
+    *(int*)(p + 0x40) = func_001D1CF8(*(void**)(p + 0xC), 0x286A8D26);
+    *(int*)(p + 0x44) = func_001D1CF8(*(void**)(p + 0xC), 0xCE0CA665);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E1A0);
 
@@ -154,7 +225,12 @@ extern "C" void func_0021E2E0(S21D* self) {
     self->unk60 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E300);
+extern "C" s32 func_0021E300(V21D* p, A21D* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" int func_0021E3A0(void) {
     return 2;
@@ -177,7 +253,12 @@ extern "C" void func_0021E4C8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E4E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E658);
+extern "C" int func_0021E658(int* p, int s) {
+    int v = 1;
+    if (func_0027DF00(s, 0xFF22F197)) v = p[8] ^ 1;
+    if (v) func_002207F0(p);
+    return v != 0;
+}
 
 extern "C" int func_0021E6B8(S21D* self) {
     VEntry21D* e = &self->unk18[2];
@@ -185,7 +266,14 @@ extern "C" int func_0021E6B8(S21D* self) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E6E8);
+extern "C" int func_0021E6E8(S21D* p, int s) {
+    int h;
+    func_0027D870(s, 0x57525413, &h, 1);
+    ((int*)p)[0x19] = func_001D8618(D_0036D3B0, h);
+    VEntry21D* e = (VEntry21D*)((char*)p->unk18 + 0x40);
+    ((void (*)(void*, int))e->fn)((char*)p + e->delta, 0);
+    return 1;
+}
 
 extern "C" int func_0021E750(int* p, int a) {
     p[8] = func_0027DF00(a, 0xD443A2BC) ^ 1;
@@ -227,21 +315,54 @@ extern "C" int func_0021E970(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E9A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021EB20);
+extern "C" int func_0021EB20(int p, int s, int c) {
+    f32 f = 0.2f;
+    int v;
+    func_0027D268(s, 0xBF237659, &f, 0);
+    func_0027D870(s, 0x98549BA4, &v, 1);
+    func_0021E9A8(p, v, c, f);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021EBB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021ED28);
+extern "C" int func_0021ED28(int p, int s, int c) {
+    f32 f = 0.2f;
+    int v;
+    func_0027D268(s, 0xBF237659, &f, 0);
+    func_0027D870(s, 0x98549BA4, &v, 1);
+    func_0021EBB0(p, v, c, f);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021EDB8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021EF30);
+extern "C" int func_0021EF30(int p, int s, int c) {
+    f32 f = func_00275DE0(0xD70E8D50, 1);
+    int v;
+    func_0027D268(s, 0xBF237659, &f, 0);
+    func_0027D870(s, 0x98549BA4, &v, 1);
+    func_0021EDB8(p, v, c, f);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021EFC8);
+extern "C" int func_0021EFC8(void* p, int s) {
+    int v = 0x9D8EED9C;
+    func_0027D870(s, 0x952F21E5, &v, 0);
+    return func_0021E970((int)p, v) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F020);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F248);
+extern "C" int func_0021F248(int p, int a, int s) {
+    if (func_0021E970(p, 0xE4F96729)) {
+        int v;
+        func_0027D870(*func_00289C80(s), 0x1DCC8FF2, &v, 1);
+        func_0021E9A8(p, v, s, 0.2f);
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" int func_0021F2C8(void* self, int a, int b) {
     func_00289CF8(b);

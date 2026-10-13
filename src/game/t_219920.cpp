@@ -69,6 +69,28 @@ void func_0027AC90(void*);
 void func_00113250(void*);
 }
 
+struct V219P {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int, int, int);
+};
+
+struct A219P {
+    s32 unk0;
+    s32 unk4;
+    s32 (V219P::*unk8)(int, int, int);
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_00219920);
 
 extern "C" void func_00219C50(S219* self, int a) {
@@ -132,7 +154,12 @@ extern "C" int func_0021A100(S219* self, u32 key) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021A198);
+extern "C" s32 func_0021A198(V219P* p, A219P* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(a->unk0, x, y);
+    }
+    return p->v12(a->unk0, x, y);
+}
 
 extern "C" void func_0021A230(void) {
 }
