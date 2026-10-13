@@ -1019,3 +1019,4 @@ Matched (A10) t_11AEB0: func_0011BB28 (0x110; error path kept out of line with g
 Matched (A10) t_152E18: func_00153C28 (0x154; 12x unrolled by hand do-while, cvt.w.s via (s16) cast)
 Matched (A10) t_152E18: func_00153AB0 (0x178; sibling of func_00153C28 with two s16 stores)
 - func_00139D50: 4-byte color compare + copies through one stack temp; original does lbu/sb pairs (no load grouping) so the temp is probably a class with copy ctor/operator= (not tried); plain struct copies group the loads; 5 tries
+Matched (A10) t_14C740: func_0014E290 (0x1dc; init sequence with profiler markers func_0011A558/568; 1.3333334f literal inline)

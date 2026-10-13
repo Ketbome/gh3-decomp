@@ -223,7 +223,60 @@ extern "C" void func_0014E198(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014E1B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014E290);
+struct O_0014E290 { char pad0[8]; int unk8; };
+extern "C" {
+O_0014E290* func_0014E178_r(void) __asm__("func_0014E178");
+void func_00154160(int);
+void func_0015BA90(void);
+void func_0015DCB0(float);
+float func_00275DC0(u32, int);
+void func_0015DCC0(float);
+void func_0015DCD0(float);
+void func_0015C200(void);
+void func_0015D7F8(u32);
+int func_0016ADD8(void*);
+int func_00156E00(void*);
+int func_0016E900(void*);
+void func_0016E120(void);
+void func_0016D468(void);
+void func_00181BD8(void);
+void* Heap_Alloc(int, int, int, int);
+extern int D_00369A4C;
+extern int D_00369A54;
+extern int D_00369A48;
+}
+extern "C" void func_0014E290(void) {
+    O_0014E290* o = func_0014E178_r();
+    func_0011A558(0xCDD99786, 0, 0);
+    func_00154160(o->unk8);
+    func_0011A568();
+    func_0011A558(0x81AAA37C, 0, 0);
+    func_0015BA90();
+    func_0011A568();
+    func_0015DCB0(1.3333334f);
+    func_0015DCC0(func_00275DC0(0x99529205, 0));
+    func_0015DCD0(0.0f);
+    func_0011A558(0x0927712E, 0, 0);
+    func_0015C200();
+    func_0015D7F8(0x6F70EA65);
+    func_0011A568();
+    func_0011A558(0x61EDA445, 0, 0);
+    D_00369A4C = func_0016ADD8(Heap_Alloc(D_00368A38, 0x40, 1, 0));
+    func_0011A568();
+    func_0011A558(0xE696A0AC, 0, 0);
+    D_00369A54 = func_00156E00(Heap_Alloc(D_00368A38, 0x2940, 1, 0));
+    func_0011A568();
+    func_0011A558(0xEB3F160D, 0, 0);
+    D_00369A48 = func_0016E900(Heap_Alloc(D_00368A38, 8, 1, 0));
+    func_0011A568();
+    func_0011A558(0x8A3DF55C, 0, 0);
+    func_0016E120();
+    func_0016D468();
+    func_0011A568();
+    func_0011A558(0x19A70240, 0, 0);
+    func_00181BD8();
+    func_0011A568();
+}
 
 extern "C" void func_0014E470(void) {
     func_00181C38();
