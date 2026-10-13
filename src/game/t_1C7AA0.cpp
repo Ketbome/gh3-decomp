@@ -37,7 +37,16 @@ struct S001C8470 {
     void (*unk28)(void);
 };
 
+struct S1C97E0_L {
+    char pad0[4];
+    s32 unk4;
+    s32* unk8;
+};
+
 extern "C" {
+S1C97E0_L* func_002764C8(u32 key, s32 b);
+s32 func_0027D870_k(s32 a, u32 key, s32* v, s32 req) __asm__("func_0027D870");
+s32 func_0027D188(s32 a, u32 key, s32* v, s32 req);
 s32 func_00122718(char* p);
 s32 CFunc_ObjectExists(s32 a, s32 b);
 void func_00122770(void);
@@ -334,7 +343,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9658);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C97E0);
+extern "C" s32 func_001C97E0(char* o) {
+    s32 sp0;
+    s32 sp4;
+    s32 i = 0;
+    S1C97E0_L* l = func_002764C8(0xCA5F7FFB, 0);
+    if (l->unk4 > 0) {
+        do {
+            s32 h;
+            if (l->unk4 == 1) {
+                h = (s32)l->unk8;
+            } else {
+                h = l->unk8[i];
+            }
+            VEnt* e = (VEnt*)(*(char**)(o + 0xEE00) + 0x138);
+            s32 r = ((s32 (*)(char*))e->fn)(o + e->delta);
+            sp0 = 0;
+            func_0027D870_k(h, 0x21902065, &sp0, 0);
+            if (r == sp0) {
+                func_0027D188(h, 0xA1DC81F9, &sp4, 1);
+                return sp4;
+            }
+            i++;
+        } while (i < l->unk4);
+    }
+    return 0;
+}
 
 extern "C" void func_001C98F0(char* p) {
     func_002981A0_c(*(s32*)(p + 0x81A8) + 4, 3, func_001CC748, 3, p, 0);

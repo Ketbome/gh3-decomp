@@ -30,7 +30,14 @@ struct S21D {
     S21D* unk60;
 };
 
+struct S21F748_V {
+    char pad0[8];
+    int unk8;
+};
+
 extern "C" {
+void* func_0027AF38(int, u32, int);
+void func_0021FB88(int, int, int, int, int, int, int, int, f32, f32);
 void func_001D10A0(void*);
 void func_0021DC50(int, int);
 void func_0021DED8(int, int);
@@ -459,7 +466,34 @@ extern "C" int func_0021F328(void* self, int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F348);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F748);
+extern "C" int func_0021F748(char* p, int s, int d) {
+    int sp0;
+    int sp4;
+    f32 sp8;
+    f32 spC;
+    int sp10;
+    int sp14;
+    sp0 = 0x2457F44D;
+    int k = 0x01DFE901;
+    func_0027D870(s, 0xB990D003, &sp0, 0);
+    sp4 = 0x9D8EED9C;
+    func_0027D870(s, 0x9180F777, &sp4, 0);
+    S21F748_V* v = (S21F748_V*)func_0027AF38(s, 0x48C1A123, 0);
+    if (v) {
+        k = v->unk8;
+    }
+    sp8 = 0.2f;
+    func_0027D268(s, 0xBF237659, &sp8, 0);
+    spC = 1.0f;
+    func_0027D268(s, 0xF0D90109, &spC, 0);
+    sp10 = 1;
+    func_0027D1F8(s, 0x1A3CDE1B, &sp10, 0);
+    sp14 = 0;
+    func_0027D870(s, 0x98549BA4, &sp14, 0);
+    int c = *(int*)(p + 0xC);
+    func_0021FB88(d, c, sp14, sp10 != 0, func_0027DF00(s, 0x4F792E6C), sp4, sp0, k, sp8, spC);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F8D8);
 
