@@ -3,6 +3,9 @@
 typedef int TI128 __attribute__((mode(TI)));
 
 extern "C" {
+f32 func_0010F698(s32 a);
+f32 func_0010F6A8(s32 a);
+f32 func_0010F6C0(s32 a);
 void func_00244C40(void*);
 void func_0023F240_2(void*, int) __asm__("func_0023F240");
 void func_0023F0D0_2(void*, int) __asm__("func_0023F0D0");
@@ -165,7 +168,37 @@ extern "C" void func_0023F9A8(void** p) {
     func_00245220(p[2]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F9C8);
+extern "C" s32 func_0023F9C8(char* o, s32 b) {
+    s32 q = *(s32*)(o + 8);
+    s32 p18 = q + 0x20;
+    s32 p19 = q + 0x10;
+    f32 t = func_0010F698(b);
+    if (func_0010F698(p18) < t) {
+        return 0;
+    }
+    s32 p17 = b + 0x10;
+    t = func_0010F698(p19);
+    if (func_0010F698(p17) < t) {
+        return 0;
+    }
+    t = func_0010F6C0(b);
+    if (func_0010F6C0(p18) < t) {
+        return 0;
+    }
+    t = func_0010F6C0(p19);
+    if (func_0010F6C0(p17) < t) {
+        return 0;
+    }
+    t = func_0010F6A8(b);
+    if (func_0010F6A8(p18) < t) {
+        return 0;
+    }
+    t = func_0010F6A8(p19);
+    if (func_0010F6A8(p17) < t) {
+        return 0;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023FAF8);
 

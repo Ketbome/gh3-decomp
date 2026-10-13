@@ -806,3 +806,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - Given up (B13): func_00239000 (t_238490): everything matches (stack buffer, `off`/`max` pinned $19/$18, callee with no args) except register choice of the three `off + *(o+8)` sums (original reuses the base register: v1, a0, v1; ours a0/a0/v0); 8 forms. func_001E2D40, func_001D6490, func_001F9D70 (dtors/erase loops with 5-7 stack iterator copies): not attempted.
 - Given up (B13): func_00221A88 (t_21FB88, ctor with two dead colour structs + registered task): D_0036D020 macro load lands in the operator_new jal slot in ours (original: lui/lw before the jal, sb zero in the slot) and the original keeps 0xB0 and 0xFF in s5/s4; 6 forms.
 - t_241040 func_002414B8 MATCH (box-overlap test: six compare pairs with early `return 0`, f32 helpers F698/F6C0/F6A8 take s32 addresses).
+- t_23EFF8 func_0023F9C8 MATCH (same box test with the boxes at o->unk8 + 0x10/0x20).
