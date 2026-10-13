@@ -104,6 +104,12 @@ struct S1CFBC8_N {
 
 extern "C" {
 void* func_0027B300_n(s32 a, s32 b) __asm__("func_0027B300");
+void* func_001D5BA0_p(s32 a, s32 b, s32 c) __asm__("func_001D5BA0");
+char* func_001D7710_p(void* p) __asm__("func_001D7710");
+s32 func_0011C030(void* p);
+void func_0011BF98(void* p, s32 a);
+void func_001D6450(void* p, s32 a, s32 b);
+extern s32 D_0036D410;
 s32 func_0028DA08(s32 a);
 s32 func_0027D870_n(s32 a, s32 key, s32* v, s32 req) __asm__("func_0027D870");
 s32 func_0027D400_n(s32 a, s32 key, s32* v, s32 req) __asm__("func_0027D400");
@@ -370,7 +376,46 @@ extern "C" void func_001CEBA8(S001CE0A8* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEBD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEBE0);
+struct VE1CEB {
+    s16 delta;
+    s16 pad;
+    void* fn;
+};
+
+static inline void Call1CEB(char* o, s32 vp, s32 off) {
+    VE1CEB* e = (VE1CEB*)(*(char**)(o + vp) + off);
+    ((void (*)(char*))e->fn)(o + e->delta);
+}
+
+static inline void Del1CEB(char* o) {
+    VE1CEB* e = (VE1CEB*)(*(char**)(o + 8) + 8);
+    ((void (*)(char*, s32))e->fn)(o + e->delta, 3);
+}
+
+extern "C" void func_001CEBE0(S001CE0A8* pp) {
+    char* p = (char*)pp;
+    if (((*(u32*)(p + 0xC) ^ 1) & 1) != 0) {
+        Call1CEB(p, 8, 0x40);
+    }
+    if ((*(u32*)(p + 0xC) & 0x10) != 0) {
+        s32 t = *(s32*)(p + 0x2C);
+        char* o = (char*)func_001D5BA0_p(D_0036D410, *(s32*)(p + 0x50), 1);
+        *(s32*)(func_001D7710_p(o) + 0x9C) = 0;
+        if (p != 0) {
+            Del1CEB(p);
+        }
+        s32 a = func_0011C030(func_001D7710_p(o));
+        func_0011BF98(func_001D7710_p(o), *(s32*)(o + 0x2C));
+        s32 b = func_0011C030(func_001D7710_p(o));
+        func_001D7710_p(o);
+        *(s32*)(func_001D7710_p(o) + 0x9C) = 1;
+        func_001D6450(o, b - a, t);
+    } else {
+        if (p != 0) {
+            Del1CEB(p);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CED18);
 
