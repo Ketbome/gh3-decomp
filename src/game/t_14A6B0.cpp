@@ -17,6 +17,8 @@ struct HI_14A { u32 key; void* value; HI_14A* next; };
 struct HT_14A { int bits; HI_14A* items; int count; char padC[9]; u8 unk15; };
 
 extern "C" {
+void* func_0011C3A8_i(int) __asm__("func_0011C3A8");
+HI_14A* func_0014C480_h(HI_14A*) __asm__("func_0014C480");
 void func_00275648(void*);
 int func_0027DD38(int, int, void*, int);
 int func_0027D268(int, int, void*, int);
@@ -225,7 +227,28 @@ extern "C" S7_14A* func_0014B1F8(S7_14A* self, int n) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014B260);
+extern "C" void func_0014B260(S7_14A* self, int n) {
+    self->unk4 = n;
+    self->unk0 = 0;
+    if (n) {
+        self->unk0 = Heap_Alloc(D_00368A38, n * 4, 1, 0);
+        memset(self->unk0, 0, self->unk4 * 4);
+    }
+    HT_14A* t = (HT_14A*)D_00377FC0;
+    HI_14A* e = &t->items[n & ((1 << t->bits) - 1)];
+    if (e->value != 0 || e->key != 0) {
+        HI_14A* x = (HI_14A*)func_0011C3A8_i(0);
+        if (x) x = func_0014C480_h(x);
+        x->key = n;
+        x->value = self;
+        x->next = e->next;
+        e->next = x;
+    } else {
+        e->key = n;
+        e->value = self;
+    }
+    t->count++;
+}
 
 extern "C" void func_0014B368(void* p) {
     S7_14A* self = (S7_14A*)p;
