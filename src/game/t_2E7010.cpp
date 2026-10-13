@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -11,7 +12,8 @@ extern int D_003728B0;
 void func_002E3AC0(void);
 void func_002E1B50(int);
 int func_002E5CA8(int, int, int);
-void func_002E1488(int);
+int func_002E1488(int);
+int func_002E5BB8(int, int);
 int func_002E3248(int);
 int func_002E5788(int, int);
 int func_002E5860(int, int);
@@ -90,29 +92,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7F90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E81B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E8318);
+extern "C" int func_002E8318(void) {
+    for (int i = 0x10; i < 0x30; i++) {
+        func_002E5BB8(i, 0xD);
+        func_002E1488(i);
+    }
+    return 1;
+}
 
 extern "C" void func_002E8440(void) {
-    int i = 0x10;
-    do {
+    for (int i = 0x10; i < 0x30; i++) {
         func_002E1488(i);
-        func_002E1488(i + 1);
-        func_002E1488(i + 2);
-        func_002E1488(i + 3);
-        func_002E1488(i + 4);
-        func_002E1488(i + 5);
-        func_002E1488(i + 6);
-        func_002E1488(i + 7);
-        func_002E1488(i + 8);
-        func_002E1488(i + 9);
-        func_002E1488(i + 10);
-        func_002E1488(i + 11);
-        func_002E1488(i + 12);
-        func_002E1488(i + 13);
-        func_002E1488(i + 14);
-        func_002E1488(i + 15);
-        i += 0x10;
-    } while (i < 0x30);
+    }
     func_002E3248(0);
     func_002E1B50(0x25010);
     func_002E3AC0();
@@ -140,26 +131,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E8610);
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E8960);
 
 extern "C" void func_002E8968(void) {
-    int i = 0x10;
-    do {
+    for (int i = 0x10; i < 0x30; i++) {
         func_002E1488(i);
-        func_002E1488(i + 1);
-        func_002E1488(i + 2);
-        func_002E1488(i + 3);
-        func_002E1488(i + 4);
-        func_002E1488(i + 5);
-        func_002E1488(i + 6);
-        func_002E1488(i + 7);
-        func_002E1488(i + 8);
-        func_002E1488(i + 9);
-        func_002E1488(i + 10);
-        func_002E1488(i + 11);
-        func_002E1488(i + 12);
-        func_002E1488(i + 13);
-        func_002E1488(i + 14);
-        func_002E1488(i + 15);
-        i += 0x10;
-    } while (i < 0x30);
+    }
 }
 
 extern "C" int func_002E8A18(int a) {

@@ -827,3 +827,8 @@ Matched other: t_28AB28 func_0028AE28 (bytecode operand reader: types 0x2C/0x2D/
 Matched other (+2): t_2A53A8 func_002A5510, func_002A5638 (checksum switch compare trees: the original tree has one more node than the visible cases; adding a dummy `case 0xFFFFFFFF: break;` above the highest case reproduces it exactly (no compare is emitted for it). Case bodies in the order of the body addresses so the last `bne` falls through).
 Matched other: t_2AAD58 func_002ABB00 (call with 10 args: reading the first register argument into a local first (`int q = p->unk4;`) makes the scheduler issue that load before the stack-arg stores of the zeros, like the original).
 Matched other: t_25A428 func_0025AA28 (same trick: `int u = s->unkC4;` before the 10-arg call, passed as the 5th arg).
+
+### Round 12 (agent C12)
+t_2E7010 (+1, file now `-funroll-loops`): func_002E8318 (`for (i = 0x10; i < 0x30; i++) { f(i, 0xD); g(i); }` unrolled 8x; both callees
+declared `int`); func_002E8440 and func_002E8968 rewritten as the plain `for (i = 0x10; i < 0x30; i++) g(i)` (unrolled 16x by the flag,
+the explicit 16-call bodies broke under it).
