@@ -1,5 +1,24 @@
 #include "common.h"
 
+struct G1D44 {
+    char pad0[0x18];
+    s32 unk18;
+};
+
+struct O1D44 {
+    char pad0[8];
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+};
+
 typedef int TI128 __attribute__((mode(TI)));
 
 struct VEnt {
@@ -48,6 +67,9 @@ s32 func_001D10A8(void* p);
 void func_001CED20(s32 a, s32 b);
 void func_001CEDE0(s32 a, u32 b);
 extern s32 D_00372DA8;
+extern G1D44* D_0036F658[] __attribute__((section(".sdata")));
+void func_001D1998(void* o, s32 b);
+void func_001D17B0(void* o, s32 a, s32 b, s32 t);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2508);
@@ -235,4 +257,20 @@ extern "C" s32 func_001D4400(S0036D3B0* o) {
     return n;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D4480);
+extern "C" O1D44* func_001D4480(S0036D3B0* self, s32 a, s32 b, s32 c) {
+    O1D44* o = (O1D44*)func_001D4400(self);
+    if (b != 0) {
+        func_001D1998(o, b);
+    }
+    register G1D44* g asm("$17") = D_0036F658[0];
+    register s32 t asm("$7") = *(s32*)((char*)o + 0x54);
+    s32 n = g->unk18 + 1;
+    g->unk18 = n;
+    *(s32*)(n * 4 + (s32)g + 0x1C) = t;
+    func_001D17B0(o, a, b, t);
+    if (c != 0) {
+        o->v9();
+    }
+    g->unk18 = g->unk18 - 1;
+    return o;
+}

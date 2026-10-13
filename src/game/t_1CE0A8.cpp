@@ -424,7 +424,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CF148);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CF218);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CF470);
+extern "C" void func_001CF470(S001CEDE8* o, void* params) {
+    s32 a;
+    s32 b;
+    s32 c;
+    s32 f = func_0027DF00_2((s32)params, 0x3F93A1EF);
+    if (func_0027D470_2(params, 0x475BF03C, &a, 0) != 0) {
+        func_001CEDE8(o, a, f);
+    }
+    if (func_0027D400(params, 0x90436BD9, &b, 0) != 0) {
+        func_001CF000_2(o, b);
+    }
+    if (func_0027D470_2(params, 0x8225D629, &c, 0) != 0) {
+        func_001CF040(o, c);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CF538);
 

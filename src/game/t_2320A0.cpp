@@ -51,6 +51,13 @@ void func_002333F8(int, int, int, int, void*);
 extern int D_0036FBE4;
 extern u8 D_00396AEC[];
 extern u8 D_003544D8[];
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_003544E8[];
+void func_00119490(s32 h, s32 v);
+s32 func_00119610(s32 h, s32 v);
+void func_001194B8(s32 h);
+void* Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
+void func_00289F70(s32 a, s32 b, void* c, s32 d);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
@@ -97,7 +104,21 @@ extern "C" bool func_002338E0(S232* self) {
     return !func_00230230(self->unk0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_WaitUnloadPak);
+extern "C" s32 CFunc_WaitUnloadPak(s32 self, s32 params) {
+    s32 f = func_00233728();
+    if (func_00230230(f, 0)) {
+        s32 h = D_00368A38[0];
+        void* fn = (void*)func_002338E0;
+        func_00119490(h, func_00119610(h, 5));
+        void** m = (void**)Heap_Alloc(D_00368A38[0], 0xC, 1, 0);
+        m[0] = D_003544E8;
+        m[1] = fn;
+        m[2] = (void*)f;
+        func_00289F70(params, 7, m, 0);
+        func_001194B8(D_00368A38[0]);
+    }
+    return 1;
+}
 
 GP_DATA(D_0036FBE8);
 extern "C" int CFunc_AsyncLoadPakInProgress(void) {

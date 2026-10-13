@@ -1,5 +1,18 @@
 #include "common.h"
 
+struct O1CAF {
+    char pad0[0xEE00];
+    virtual void a0(); virtual void a1(); virtual void a2(); virtual void a3();
+    virtual void a4(); virtual void a5(); virtual void a6(); virtual void a7();
+    virtual s32 b0(); virtual void b1(s32 x); virtual void b2(); virtual void b3();
+    virtual void b4(); virtual void b5(); virtual void b6(); virtual void b7();
+    virtual void c0(s32 x); virtual void c1(); virtual void c2(); virtual void c3();
+    virtual void c4(); virtual void c5(); virtual void c6(); virtual void c7();
+    virtual void d0(); virtual void d1(); virtual void d2(); virtual void d3();
+    virtual void d4(); virtual void d5(); virtual void d6(); virtual void d7();
+    virtual void e0(); virtual void e1(); virtual void e2(); virtual void e3(u32 k, s32 x);
+};
+
 struct S001C9FB0 {
     char pad0[0x3C];
     s32 unk3C;
@@ -71,6 +84,7 @@ s32 func_001C9458(s32 g);
 void* func_001CA768(s32 g);
 u64 func_001CC0A0(void* p);
 s32 func_00114030(s32 v);
+void func_001CB478(void* p);
 }
 
 extern "C" void func_001C9B30(S001C9B30* p) {
@@ -159,7 +173,15 @@ extern "C" void* func_001CA998(S001C9FB0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA9A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CAFB0);
+extern "C" void func_001CAFB0(O1CAF* o) {
+    s32 r = o->b0();
+    o->e3(0x1C471C60, 1);
+    o->b1(r);
+    o->c0(0);
+    o->a7();
+    func_001CB478(o);
+    *(s32*)((char*)o + 0xD4) = func_0011EF10();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB078);
 

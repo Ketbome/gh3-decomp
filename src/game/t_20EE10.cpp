@@ -1,6 +1,22 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+struct E2105 {
+    char pad0[4];
+    s32 unk4;
+};
+
+struct N2105 {
+    N2105* unk0;
+    N2105* unk4;
+    E2105* unk8;
+};
+
+struct I2105 {
+    s32 unk0;
+    N2105* unk4;
+};
+
 typedef unsigned int u128_20E __attribute__((mode(TI)));
 
 struct S20Eb {
@@ -56,6 +72,8 @@ void func_0027AA98(void*);
 void func_0027C160(void*, u32, int);
 void func_0027AC90(void*);
 int func_0027D870(int, u32, int*, int);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+void Heap_Free(s32 h, void* p);
 }
 
 struct N20E {
@@ -229,7 +247,44 @@ extern "C" int func_00210558(void* self) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_002105A8);
+extern "C" s32 func_002105A8(char* o) {
+    I2105 it;
+    I2105 end;
+    char* s = o + 0x290;
+    *(s32*)(s + 8) = func_001E2968(s, 0);
+    *(s32*)(s + 0x10) = 0;
+    char* b = o + 0x2A8;
+    *(s32*)(s + 0x14) = 0;
+    N2105* h = (N2105*)(o + 0x2B0);
+    end.unk4 = h;
+    it.unk4 = *(N2105**)(o + 0x2B4);
+    if (it.unk4 != end.unk4) {
+        N2105* h2 = h;
+        asm("" : "+r"(h2));
+        do {
+            it.unk4->unk8->unk4 = 0;
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = h2;
+        } while (it.unk4 != end.unk4);
+    }
+    char* l = b + 4;
+    char* e = b + 8;
+    char* c = *(char**)(l + 8);
+    *(char**)(l + 8) = e;
+    *(char**)(l + 4) = e;
+    if (c != e) {
+        char* ee = e;
+        asm("" : "+r"(ee));
+        char* x = c;
+        do {
+            c = *(char**)(c + 4);
+            Heap_Free(D_00368A38[0], x);
+            x = c;
+        } while (c != ee);
+    }
+    *(s32*)(o + 0x384) = 1;
+    return 1;
+}
 
 extern "C" int func_00210678(char* p, int a, int x) {
     char tmp[0x10];
