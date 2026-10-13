@@ -1008,3 +1008,4 @@ Matched (A10) t_157100: func_001577B8 (0x150; 8 vcalls via an inline helper; las
 Matched (A10) t_157100: func_00157908 (0x150; texture-ish buffer alloc with two vcalls)
 - func_00119B38: chain of operator_new+ctor+attach; original frame is 0x30 (0x20 bytes of unused locals) and the two-way size branch shares one call with a nop delay slot; ours has frame 0x10; 5 tries
 Matched (A10) t_116E38: func_00118168 (0x128; ctor with list head node + three memsets; ctor declared returning void*)
+Matched (A10) t_1816C0: func_001825E0 (0x1b8; script struct builder, list walk with nor/movz next)
