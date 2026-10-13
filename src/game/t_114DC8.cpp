@@ -122,7 +122,10 @@ extern "C" void func_001162B8(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001162E8);
+extern "C" void* func_001162E8(void* self) {
+    func_00116280();
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116310);
 

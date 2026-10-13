@@ -18,6 +18,8 @@ struct SA11F_W {
 };
 
 extern "C" {
+int func_002EEA00(int);
+void func_002EA460(void);
 extern int D_00368748[] __attribute__((section(".sdata")));
 extern int D_00368D80;
 extern int D_00368C18[] __attribute__((section(".sdata")));
@@ -159,7 +161,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120938);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120A40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120BC0);
+struct S120BC0 { char pad0[8]; int unk8; };
+
+extern "C" void func_00120BC0(void) {
+    S120BC0* p = (S120BC0*)func_001208C0();
+    while (func_002EEA00(p->unk8) >= 0) {
+        func_002EA460();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C08);
 

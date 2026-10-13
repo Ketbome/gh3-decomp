@@ -11,6 +11,10 @@ struct S00175D48 {
 };
 
 extern "C" {
+void func_00119400(int, void*);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_00340F78[];
+void func_00174058(void*);
 void func_0017D6D0(void*);
 void func_00172810(int);
 extern u8 D_00341218[];
@@ -19,24 +23,46 @@ extern u8 D_003415B8[];
 extern u8 D_00341558[];
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174C20);
+struct S174C20 { char pad0[0x18]; float unk18; float unk1C; float unk20; };
+
+extern "C" void func_00174C20(S174C20* self, float* p) {
+    self->unk1C = self->unk18;
+    float v = *p * self->unk20;
+    *p = v;
+    self->unk18 = self->unk18 + v;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174C48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174C90);
+struct S174C90 { char pad0[0x30]; int unk30; char pad34[0x20]; int unk54; };
+
+extern "C" int func_00174C90(S174C90* self) {
+    int r = 0;
+    if (self->unk30 != 0 || self->unk54 != 0) r = 1;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174CB8);
 
 extern "C" void func_00174CD8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174CE0);
+extern "C" int func_00174CE0(S174C90* self) {
+    int r = 0;
+    if (self->unk30 != 0 || self->unk54 != 0) r = 1;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174D08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174DC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174E38);
+struct S174E38 { char pad0[0x58]; int unk58; };
+
+extern "C" void func_00174E38(S174E38* self) {
+    func_00174058(self);
+    self->unk58 = 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174E68);
 
@@ -73,7 +99,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175650);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175750);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_001757F0);
+extern "C" void func_001757F0(void** self, int flags) {
+    *self = D_00340F78;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175830);
 

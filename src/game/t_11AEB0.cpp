@@ -35,6 +35,7 @@ struct SA11A_L {
 };
 
 extern "C" {
+int func_0030AA88();
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00338968[];
 extern u8 D_003388C0[];
@@ -235,7 +236,9 @@ extern "C" u8* func_0011C480(SA11A_B* self, int align) {
     return p + size;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011C4C0);
+extern "C" int func_0011C4C0(int base) {
+    return base + ((func_0030AA88() + 0x10) & ~0xF);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011C4F8);
 

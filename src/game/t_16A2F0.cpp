@@ -86,7 +86,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016ADD8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AF18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AFC0);
+struct S16AFC0 { char pad0[4]; int unk4; char pad8[4]; int unkC; };
+
+extern "C" int func_0016AFC0(S16AFC0* self) {
+    int r = self->unkC;
+    if (r == 0) r = self->unk4;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AFD8);
 
@@ -98,7 +104,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016B1B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016B238);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BAF0);
+struct N16BAF0 { char pad0[0xC]; N16BAF0* unkC; N16BAF0* unk10; };
+
+extern "C" void func_0016BAF0(int unused, char* p) {
+    if (p) {
+        N16BAF0* n = (N16BAF0*)(p + 0xC);
+        n->unk10->unkC = n->unkC;
+        n->unkC->unk10 = n->unk10;
+        n->unkC = n;
+        n->unk10 = n;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BB20);
 

@@ -48,6 +48,8 @@ struct SA11D_E {
 };
 
 extern "C" {
+void func_00317588(float);
+extern float D_00376528[];
 extern volatile long D_00368CE0;
 extern volatile u32 D_00368CD4;
 extern float D_00368D00;
@@ -117,7 +119,14 @@ extern "C" void func_0011D988(void) {
     func_002EA460();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D9A8);
+struct S11D9A8 { char pad0[0x44]; void* unk44; };
+extern "C" void func_0011D9E0(void*);
+
+extern "C" S11D9A8* func_0011D9A8(S11D9A8* self) {
+    self->unk44 = D_00338C68;
+    func_0011D9E0(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D9E0);
 
@@ -415,7 +424,9 @@ extern "C" void func_0011ED30(float f) {
     D_00368D00 = old;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011ED40);
+extern "C" void func_0011ED40(void) {
+    func_00317588(D_00376528[0]);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011ED68);
 

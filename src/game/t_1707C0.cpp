@@ -36,7 +36,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171BD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171E60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171F08);
+struct S171F08 { char pad0[0x18]; int unk18; char pad1C[8]; float unk24; };
+
+extern "C" int func_00171F08(S171F08* self) {
+    int r = 0;
+    if (self->unk18 != 0 && self->unk24 > 0.0f) r = 1;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171F38);
 

@@ -704,3 +704,27 @@ Given up:
 - func_00199CB8: `sra` on lbu values (ours srl; `/ 8` also srl); 2 tries
 - func_001993D8: body matches, but the original keeps an empty trailing loop (`li -3; addiu 1; slti 4`) that
   our -funroll-loops build deletes, and hoists two constants; 3 tries
+
+## A7 pass (small functions, smallest first; tails without `jr` and `alabel` splits skipped)
+
+Matched 36: func_0016AFC0 func_00179110 func_00157280 func_001572D0 func_0017B528 func_00172940 func_00174C90
+func_00174CE0 func_0011ED40 func_001162E8 func_001573D8 func_00174C20 func_00174E38 func_0011AA28 func_00159738
+func_0016BAF0 func_00171F08 func_0017D680 func_0011A788 func_0011C4C0 func_0011D9A8 func_00117F18 func_00117DD0
+func_00118388 func_00157580 func_0015A7B8 func_0015B218 func_0011A9E8 func_001576A8 func_001757F0 func_00177838
+func_00177890 func_001834E0 func_00157378 func_00182828 func_00120BC0
+
+- `int one = 1; self->unk6 = one;` stops gcc sharing the `li 1` register of an earlier store (func_0015A7B8).
+- `if (r) return f(r); return 0;` gives the `bnez` call-first layout (func_0015B218); `return f() > 1.7f;` gives
+  the bc1t + delay-slot `li 1` (func_00182828).
+- A float global read as `extern float D_X[]; D_X[0]` gives `lui`+`lwc1 %lo` outside the delay slot (func_0011ED40).
+- A call whose result is used by the caller's expression (`(t - f(t))->x`) must be written that way (func_0011A9E8).
+- When the callee is already defined with another signature, declare an alias:
+  `void f_1(void*) __asm__("func_0011A620");`.
+
+Given up (A7):
+- func_00174CB8: div.s with two hazard nops before it (assembler); func_0017F7F0: lq/addu scheduling; 2 tries
+- func_0017E658: `mov.s f0,f12` copy + `move v0,a0`; 3 tries
+- func_001576E0, func_00183760: vcall delta/this register (t3 / a1 vs a0); 3 tries each
+- func_001820D0: `move a2,a0` self copy for the 3rd arg lands in a3; 1 try
+- func_001A4730: lui placed before the sll in ours; func_0011E008: s0/s1 swap; func_0011DAB0: loop-tail nop
+- func_00178860, func_00179B90, func_0011EF00, func_00157298 (pextlw), func_001170D8, func_00172CC8 (stack temp): not matchable / fragments

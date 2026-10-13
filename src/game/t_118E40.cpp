@@ -79,6 +79,8 @@ struct SA118_C {
 };
 
 extern "C" {
+int func_0011AF08(int);
+extern int D_00368A98;
 extern int D_00368A94;
 extern int D_0032A4A0[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -334,7 +336,14 @@ extern "C" void func_0011A680(S_0011A680* self, S_0011A680_b* o) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A6A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A788);
+struct S11A788 { char pad0[0x20]; void* unk20; };
+extern "C" void func_0011A620_1(void*) __asm__("func_0011A620");
+
+extern "C" S11A788* func_0011A788(S11A788* self) {
+    self->unk20 = D_00338898;
+    func_0011A620_1(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A7C0);
 
@@ -397,9 +406,19 @@ extern "C" void func_0011A928(SA118_C* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A988);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A9E8);
+struct S11A9E8 { char pad0[4]; unsigned int unk4; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AA28);
+GP_DATA(D_00368A98);
+extern "C" void func_0011A9E8(int v) {
+    int t = v - D_00368A98;
+    ((S11A9E8*)(t - func_0011AF08(t)))->unk4 = 0xCF801FE1;
+}
+
+GP_DATA(D_00368A98);
+extern "C" int func_0011AA28(int v) {
+    int t = v - D_00368A98;
+    return t - func_0011AF08(t);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AA58);
 

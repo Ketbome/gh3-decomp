@@ -1,6 +1,9 @@
 #include "common.h"
 
 extern "C" {
+void func_00119400(int, void*);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_003417B0[];
 void func_00172CC8(void);
 }
 
@@ -19,7 +22,12 @@ extern "C" u32 func_00177828(void) {
     return 0xF221474C /* linear */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_176C78", func_00177838);
+extern "C" void func_00177838(void** self, int flags) {
+    *self = D_003417B0;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 extern "C" float func_00177878(float v) {
     return v;
@@ -29,7 +37,12 @@ extern "C" u32 func_00177880(void) {
     return 0xF1B82F5A /* degenerateblend */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_176C78", func_00177890);
+extern "C" void func_00177890(void** self, int flags) {
+    *self = D_003417B0;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_176C78", func_001778D0);
 

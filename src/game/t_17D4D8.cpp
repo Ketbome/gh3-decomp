@@ -11,6 +11,8 @@ struct S0017D658 {
 };
 
 extern "C" {
+int func_00124630(int);
+void func_0017DC80(void);
 extern int D_0036AA90;
 void func_0017DC80(void);
 void func_0017E570(void*);
@@ -36,7 +38,12 @@ extern "C" void func_0017D658(S0017D658* self, int a1, int a2) {
     func_0017D5E0(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017D680);
+struct S17D680 { char pad0[0xC]; int unkC; char pad10[8]; int unk18; };
+
+extern "C" void func_0017D680(S17D680* self) {
+    func_0017DC80();
+    self->unk18 = func_00124630(self->unkC);
+}
 
 extern "C" void func_0017D6B0(void) {
     func_0017DC80();

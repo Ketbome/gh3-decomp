@@ -41,7 +41,11 @@ extern "C" void func_00178FE8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00178FF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179110);
+struct S179110 { char pad0[0x18]; float unk18; };
+
+extern "C" void func_00179110(S179110* self, float* p) {
+    *p *= self->unk18;
+}
 
 extern "C" void func_00179128(void) {
 }
