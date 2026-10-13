@@ -756,6 +756,6 @@ Toolchain classes skipped (not fixable from source): functions whose saves use `
 Given up: func_0022CBC0/func_0022CC78 (hash chain unlink; loop head duplicated into the bnel delay in the original), func_001D2918.
 
 ### jtbl functions (B11, after the integrator enabled switch support)
-Matched: func_001BF568 func_001BF4A0 func_001C3578 func_0021E1A0 func_001CB0A0 func_00213770 func_001CCC00 (plus non-jtbl: func_001D9588 func_001E2770 etc. above).
+Matched: func_001BF568 func_001BF4A0 func_001C3578 func_0021E1A0 func_001CB0A0 func_00213770 func_001CCC00 func_001C8718 (plus non-jtbl: func_001D9588 func_001E2770 etc. above).
 Habits: read the table with a script (index -> label); case blocks are emitted in SOURCE order, so list the cases in the order of the block addresses in the original (func_001BF568: 32,24,16,8,4); indices that point at the default label must be listed as explicit `case N:` sharing the default body, otherwise gcc emits a compare chain instead of a table (func_00213770 needs cases 1,2,3,8,9; func_0021E1A0 needs `case 0:`); `goto` into the middle of a switch body reproduces a case that falls into another (func_001CB0A0); `if (a(o)==4 || a(o)==3)` shares one block.
 Not attempted/given up: func_001D55F8 and func_001D5688 start with `move v0,a0; nop` (8 junk bytes before the real body); func_001B4828/func_001B48D8 (128-bit vector locals).

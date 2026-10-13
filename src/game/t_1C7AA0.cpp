@@ -67,6 +67,8 @@ void func_001CCA58(void);
 void func_001CCA20(void);
 void func_001CC330(void);
 void func_001CCDC8(void);
+int func_001CA020(char* p, int i);
+void func_001CB550(char* p, int v);
 }
 
 extern "C" void func_001C7AA0(S001C8470* p) {
@@ -171,7 +173,47 @@ extern "C" void func_001C86C8(char* p) {
     func_00116400();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C8718);
+extern "C" void func_001C8718(char* self) {
+    switch (func_001CB558(self)) {
+    case 1:
+        func_0028C9D0(0xA107181A, 0, 0, 0, 0, 0);
+        goto l;
+    case 2:
+        if (func_0029D8C8(func_001CA020(self, 0)) == 0) {
+            func_0028C9D0(0xB0637172, 0, 0, 0, 0, 0);
+        }
+    l:
+        func_001CB550(self, 0);
+        break;
+    case 3:
+        func_0028C9D0(0x4E2ED110, 0, 0, 0, 0, 0);
+        func_001CB550(self, 4);
+        break;
+    case 8: {
+        int m = func_0027AA70(func_001287F0(8, 1));
+        func_0027C448(m, 0xC44777F3, *(int*)(self + 0xB0));
+        func_00113FB8(*(int*)(self + 0x20));
+        func_00113FB8(*(int*)(self + 0x1C));
+        func_0028C9D0(0x92528E98, m, 0, 0, 0, 0);
+        if (m != 0) {
+            func_0027AC90(m);
+            func_00113250(m);
+        }
+        break;
+    }
+    case 7:
+        func_0028C9D0(0x666B6A9D, 0, 0, 0, 0, 0);
+        func_00113FB8(*(int*)(self + 0x1C));
+    case 9:
+        func_00113FB8(*(int*)(self + 0x20));
+        break;
+    case 0:
+    case 4:
+    case 5:
+    case 6:
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C88C8);
 
