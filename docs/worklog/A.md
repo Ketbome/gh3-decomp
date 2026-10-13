@@ -1085,3 +1085,4 @@ Matched (A13) t_118E40: Heap_Free (lock pair func_001187F8/func_00118820 around 
 Matched (A13) t_1A37A8: func_001A4258 (highest set bit of the byte at +1 via `for (v = 8; v; v >>= 1) if (v & b) break;`, then `switch ((int)v)` with explicit case 1: gives slti)
 Matched (A13) t_1277C0 (now `// cflags: -funroll-loops`, whole file still matches): func_00129148 (`for (i<50) a[i] = 0; b[i] = 0xFFFFFFFF;` unrolled 10x; b is u32 for lui/ori)
 - Lesson: a hand-unrolled-looking loop with count li N-1 / bgez / addiu -K is -funroll-loops output; test the plain loop with the flag in a scratch copy of the file before fighting the prologue order.
+Matched (A13) t_159258 (now `// cflags: -funroll-loops`, whole file still matches): func_00159858 (strided copy of one word `*dst = *src; dst += stride`, unrolled 4x with the Duff-style remainder)

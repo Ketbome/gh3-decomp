@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct VE_001596E8 { s16 unk0; s16 unk2; int (*unk4)(void*); };
@@ -67,7 +68,12 @@ struct S_00159790 { int unk0; int unk4; int unk8; int unkC; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159790);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159858);
+extern "C" void func_00159858(int* dst, int stride, int* src, int n) {
+    for (int i = 0; i < n; i++) {
+        *dst = *src;
+        dst += stride;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_001598E8);
 
