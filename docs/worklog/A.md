@@ -844,7 +844,7 @@ reuse of the first subtraction), func_00182870/func_001287F0 (prologue `sd` befo
 func_00163938 (delay-slot `lw` hoist), func_0011F7E0 (assembler nops), func_001681E0 family (6 functions: random
 float table fill; floats match, ours swaps s0/s1 and the order of the two argument loads).
 
-A8 pass, part 1. Matched 17: func_0011A988 func_0011EF20 func_0017A6D8 func_0014F750 func_001A1118 func_001574C0
+A8 pass, part 1. Matched 12: func_0011A988 func_0011EF20 func_0017A6D8 func_0014F750 func_001A1118 func_001574C0
 func_001284B0 func_0011A7C0 func_00119CC0 func_00119DD8 func_00113EA8 func_0014E9E8
 
 - vcall where m2c shows extra trailing operands (`fn(this+delta, p, fn)`): they are register residue; call with the
@@ -863,3 +863,17 @@ matches except a nop in the delay slot of the second compare), func_00164AA0 (u6
 func_00183798 (copy ctor: pointer moved to a1 after alloc), func_0011FD38 (move s3,a1 scheduled before the load),
 func_001A41D0 (n and r share a1 in the original), func_00179360 (stack slot store before vcall), func_0017B678
 (unrolled busy loop), func_00179518 (min.s).
+
+A8 pass, part 2. Matched 6: func_0010CBA0 func_0010CC30 func_0010CCC0 func_0011E7D8 func_00163380 (+ part 1 total 12)
+
+- Rows of float/zero stores: the compiler reorders the last stores of a row; brute-force the source order of the
+  row (all permutations of 3 lines) instead of reasoning (`agentA8s/perm.py` style: compile each, look for MATCH).
+- sin/cos callees `float f()` called with the caller's untouched `f12`: declare them without parameters.
+- Compute `d = D + x; f = a & ~1; g = b & ~M;` into temporaries and store afterwards to get loads before stores
+  (func_00163380).
+- A void callee whose result the original ignores: declaring it `void*` moves a following constant load v0 -> v1
+  (func_0011E7D8).
+
+Given up (A8, part 2): func_001180D8 (switch: case 0 returns the leftover slti value, tried 6 layouts),
+func_001234B0 (div.s before jal with nop in the slot), func_00162920 (6-byte struct copy: src/dst register choice),
+func_0011F3E8 (do-while with two nops), func_0010C... none else.

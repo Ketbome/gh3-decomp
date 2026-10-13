@@ -66,6 +66,10 @@ void func_00118168(void*, int, int, int);
 void func_002ED120(int);
 u32 func_001180D8();
 void func_00117F50(void*);
+int func_002ED320(int);
+void func_00118308(void*);
+struct S118388;
+void func_00118388(S118388*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern SA116_V* D_003688E8;
 extern u32 D_003688EC;
@@ -267,6 +271,8 @@ extern "C" void func_00117F18(void* self) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117F50);
+
+struct S1180D8 { char pad0[0x18]; int unk18; char pad1C[0xDC]; int unkF8; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001180D8);
 

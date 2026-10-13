@@ -7,7 +7,11 @@ struct SA10C {
     int unkC;
 };
 
+struct M10C { float m[16]; };
+
 extern "C" {
+float func_002EC100();
+float func_002EC124();
 extern int D_00372A80;
 extern int D_00372A84;
 extern int D_00372A88;
@@ -77,11 +81,80 @@ INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CA50);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CB90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CBA0);
+extern "C" M10C* func_0010CBA0(M10C* self) {
+    float s = func_002EC100();
+    float c = func_002EC124();
+    float* r1 = self->m + 4;
+    float* r2 = self->m + 8;
+    float* r3 = self->m + 12;
+    self->m[1] = 0;
+    self->m[0] = 1.0f;
+    self->m[2] = 0;
+    self->m[3] = 0;
+    self->m[4] = 0;
+    r1[2] = s;
+    r1[1] = c;
+    r1[3] = 0;
+    self->m[8] = 0;
+    r2[1] = -s;
+    r2[2] = c;
+    r2[3] = 0;
+    self->m[12] = 0;
+    r3[3] = 1.0f;
+    r3[2] = 0;
+    r3[1] = 0;
+    return self;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CC30);
+extern "C" M10C* func_0010CC30(M10C* self) {
+    float s = func_002EC100();
+    float c = func_002EC124();
+    float* r1 = self->m + 4;
+    float* r2 = self->m + 8;
+    float* r3 = self->m + 12;
+    self->m[0] = c;
+    self->m[1] = 0;
+    self->m[2] = -s;
+    self->m[3] = 0;
+    self->m[4] = 0;
+    r1[1] = 1.0f;
+    r1[2] = 0;
+    r1[3] = 0;
+    self->m[8] = s;
+    r2[2] = c;
+    r2[1] = 0;
+    r2[3] = 0;
+    self->m[12] = 0;
+    r3[3] = 1.0f;
+    r3[2] = 0;
+    r3[1] = 0;
+    return self;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CCC0);
+extern "C" M10C* func_0010CCC0(M10C* self) {
+    float s = func_002EC100();
+    float c = func_002EC124();
+    float* r1 = self->m + 4;
+    float* r2 = self->m + 8;
+    float* r3 = self->m + 12;
+    self->m[0] = c;
+    self->m[1] = s;
+    self->m[2] = 0;
+    self->m[4] = -s;
+    self->m[3] = 0;
+    r1[1] = c;
+    r1[2] = 0;
+    r1[3] = 0;
+    self->m[8] = 0;
+    r2[1] = 0;
+    r2[2] = 1.0f;
+    r2[3] = 0;
+    self->m[12] = 0;
+    r3[3] = 1.0f;
+    r3[2] = 0;
+    r3[1] = 0;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CD50);
 

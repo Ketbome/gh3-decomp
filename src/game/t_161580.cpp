@@ -64,7 +64,15 @@ struct N2_161 { int unk0; N2_161* unk4; D8_161* unk8; };
 struct L54_161 { char pad0[0x18]; N2_161* unk18; char pad1C[0x38]; s16 unk54; };
 struct S40_161 { char pad0[0xC]; int unkC; char pad10[0x30]; u128_161 unk40; B50_161 unk50; VEntry* unk58; };
 
+struct B6_162920 { char c[6]; };
+
 extern "C" {
+void func_0030A970(int);
+B6_162920* func_0030E720(int, void*);
+void func_0030A554(int, void*);
+void* func_0014F130(void);
+extern u8 D_0036A048[];
+extern B6_162920 D_0036A050;
 void func_0030A49C(void*, int, int);
 void func_0030A2F4(void*, void*, int);
 int func_0015F2D0(int);
@@ -301,6 +309,21 @@ extern "C" void func_00163328(S1E0_161* self) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00163380);
+struct VE_00163380 { char pad0[0x28]; s16 unk28; s16 unk2A; void (*unk2C)(void*); };
+struct S_00163380 { char pad0[0x8]; VE_00163380* unk8; char pad0C[0xB4]; int unkC0; char padC4[0x214]; int unk2D8; char pad2DC[4]; u64 unk2E0; };
+extern int D_00372D3C[] __attribute__((section(".sdata")));
+
+extern "C" void func_00163380(S_00163380* self, int a) {
+    if ((self->unk2E0 & 0xC0000) == 0xC0000 || a) {
+        VE_00163380* e = self->unk8;
+        e->unk2C((char*)self + e->unk28);
+        int d = D_00372D3C[0] + self->unkC0;
+        int f = self->unk2D8 & ~1;
+        u64 g = self->unk2E0 & ~0x40000;
+        D_00372D3C[0] = d;
+        self->unk2D8 = f;
+        self->unk2E0 = g;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00163410);
