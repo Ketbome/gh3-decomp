@@ -115,6 +115,12 @@ struct S2DAE48_M {
 };
 
 extern "C" {
+void func_00221DB0(int, int);
+int func_002764E8(int, int);
+void func_00221BC8(int, int);
+int func_001D4480(int, int, int, int);
+extern int D_0036D3B0;
+extern int D_00368744;
 extern int D_00342398[];
 extern s32 D_0037222C;
 extern s32 D_00372230;
@@ -246,7 +252,38 @@ extern "C" int func_002DB078(int **pp) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DB110);
+struct S2DB110 {
+    char pad0[0x60];
+    int unk60;
+    int unk64;
+};
+extern "C" void func_002DB110(int a, int b) {
+    S2DB110 *p = (S2DB110 *)a;
+    int h;
+    int o;
+    int g;
+    if (D_00368744 != 0) {
+        h = D_00368A38_lui[0];
+        func_00119490(h, func_00119610(h, 0x3B));
+    } else {
+        h = D_00368A38_lui[0];
+        func_00119490(h, func_00119610(h, 1));
+    }
+    if (p->unk64 != 0) {
+        func_002DB268((int)p);
+    }
+    o = func_0027AA70(func_001287F0(8, 1));
+    func_0027C448(o, 0xA1DC81F9, 0xC85B842A);
+    g = D_0036D3B0;
+    p->unk64 = func_001D4480(g, func_002764E8(0x34D6E197, 0), o, 0);
+    if (o) {
+        func_0027AC90(o);
+        func_00113250(o);
+    }
+    func_00221BC8(func_001D1CF8((S2DAE48_V8 *)p->unk64, 0xB38129F1), p->unk60);
+    func_00221DB0(func_001D1CF8((S2DAE48_V8 *)p->unk64, 0xB38129F1), b);
+    func_001194B8(D_00368A38);
+}
 
 extern "C" void func_002DB268(s32 a) {
     S2DAE48_E *p = (S2DAE48_E *)a;
