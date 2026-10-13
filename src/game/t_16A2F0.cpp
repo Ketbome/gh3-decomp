@@ -197,7 +197,31 @@ extern "C" void func_0016AFE0(S_16AFE0* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016B040);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016B1B8);
+struct M_0016B1B8 { char pad0[4]; u32 unk4; };
+struct O_0016B1B8 { char pad0[0x18]; M_0016B1B8* unk18; char pad1C[0x1B8]; int unk1D4; };
+struct H_0016B1B8 { char pad0[0xC]; M_0016B1B8* unkC; };
+struct S_0016B1B8 { char pad0[0x10]; H_0016B1B8* unk10; };
+
+inline M_0016B1B8* Get_0016B1B8(M_0016B1B8* m) {
+    if (~m->unk4 == 0) return 0;
+    return m;
+}
+
+inline O_0016B1B8* Cast_0016B1B8(M_0016B1B8* m) {
+    if (m) return (O_0016B1B8*)((char*)m - 0xC);
+    return 0;
+}
+
+extern "C" O_0016B1B8* func_0016B1B8(S_0016B1B8* self, int key) {
+    if (self->unk10) {
+        O_0016B1B8* o = Cast_0016B1B8(Get_0016B1B8(self->unk10->unkC));
+        while (o) {
+            if (o->unk1D4 == key) return o;
+            o = Cast_0016B1B8(Get_0016B1B8(o->unk18));
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016B238);
 
