@@ -625,3 +625,10 @@ Given up: CFunc_PrintMemInfo (original hoists `addiu a2,sp,0x40` above the globa
 reload of `out`), func_002E99D0 (`move v0,s0` one slot off), func_002E7B60 (`movz` result with the constant 1 kept in s1),
 CFunc_LoadMusicHeader (D_00368A38 read by both `$gp` and `lui` in one function, not tried), func_0027E700, func_00267048,
 func_0026EAA0, func_00286330 (loops with goto-shaped control flow, not tried).
+
+Round 6 part 8 (+7): t_2BEEE0 CFunc_MakeDeadWhammy/MakeNormalWhammy/MakeStarWhammy; t_254248 CFunc_AddStream, CFunc_RemoveStream;
+t_2D0150 CFunc_get_song_rhythm_track_cfunc; t_2C0FC8 CFunc_LaunchGemEvent.
+(`if (a(x) && b(x)) return c(...); return 0;` with two out locals is the shape of most script-command getters; the first
+helper call takes the incoming first argument unchanged.)
+Round 6 total (agent C7): 151 functions. Not yet tried in this range: func_0026E5C8, func_00289ED8 (hash search + loop),
+the t_2E2FB0/t_2E4FD0/t_2E0E90 -O0 frame-pointer functions, ~600 larger candidates (> 0x60 bytes).

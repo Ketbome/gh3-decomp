@@ -1,6 +1,14 @@
 #include "common.h"
 
+struct SGAS {
+    char pad0[0x20];
+    int unk20;
+};
+
 extern "C" {
+int func_002D0150(int);
+void func_0027C160(int, int, int);
+int func_0027D870(int, int, int *, int);
 void func_0027AA70(void *);
 void func_0027AC90(void *);
 void CFunc_SoundEventFast(void *, int);
@@ -15,7 +23,13 @@ int func_00289CF8(s32);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0150);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_get_song_rhythm_track_cfunc);
+extern "C" s32 CFunc_get_song_rhythm_track_cfunc(int arg0, SGAS *arg1) {
+    int out = 0x0466857F;
+    func_0027D870(arg0, 0xCC12115E, &out, 0);
+    int t = arg1->unk20;
+    func_0027C160(t, 0x05294EBF, func_002D0150(out));
+    return 1;
+}
 
 extern "C" void func_002D0240(int a, int b) {
     char buf[0x10];
@@ -61,10 +75,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_get_song_tempo_cfunc);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0E08);
 
-struct SGAS {
-    char pad0[0x20];
-    int unk20;
-};
 extern "C" s32 CFunc_get_anim_speed_for_tempo_cfunc(int arg0, SGAS *arg1) {
     int t = arg1->unk20;
     func_0027C448(t, 0xA7E8878D, func_002D0E08());

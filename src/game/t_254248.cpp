@@ -8,6 +8,8 @@ struct S254248_A {
 };
 
 extern "C" {
+int func_0026C250(int, int, int);
+int func_0026C120(int, int, int);
 void func_002E7D80(int);
 void func_0026D6D0(int, int, int);
 int func_0026DCA0(int);
@@ -144,9 +146,29 @@ extern "C" int CFunc_StreamExists(int arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddStream);
+extern "C" int CFunc_AddStream(int arg0) {
+    int a = 0;
+    int b;
+    if (func_0027D870(arg0, 0, &a, 0) != 0) {
+        b = 0;
+        if (func_0027D870(arg0, 0x02E58C18, &b, 0) != 0) {
+            return func_0026C120(a, b, 0);
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_RemoveStream);
+extern "C" int CFunc_RemoveStream(int arg0) {
+    int a = 0;
+    int b;
+    if (func_0027D870(arg0, 0, &a, 0) != 0) {
+        b = 0;
+        if (func_0027D870(arg0, 0x02E58C18, &b, 0) != 0) {
+            return func_0026C250(a, b, 0);
+        }
+    }
+    return 0;
+}
 
 extern "C" int CFunc_StopSoundStream(int a) {
     int x = 0;
