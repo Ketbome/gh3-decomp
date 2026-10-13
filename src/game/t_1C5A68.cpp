@@ -40,6 +40,8 @@ struct S0036CDB4 {
 };
 
 extern "C" {
+void func_001C6F60(S0036CDB4* p, void* params);
+bool func_0027DF00(void* p, u32 key);
 void* func_00113DF0(s32 size, s32 a, s32 b);
 S0036CDB4* func_001C5D80(void* p);
 void func_0027D1F8(void* p, s32 key, s32* v, s32 req);
@@ -229,7 +231,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuAutoRepeatTimes);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetMenuPadMappings);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", CFunc_SetButtonEventMappings);
+extern "C" int CFunc_SetButtonEventMappings(void* params) {
+    S0036CDB4* p = D_0036CDB4;
+    func_001C6F60(p, params);
+    if (func_0027DF00(params, 0xDB96E524)) {
+        *(s32*)((char*)p + 0xF0) = 1;
+    } else if (func_0027DF00(params, 0x4F653B0B)) {
+        *(s32*)((char*)p + 0xF0) = 0;
+    }
+    return 1;
+}
 
 extern "C" int CFunc_SetAnalogStickActiveForMenus(void* params) {
     s32 v = 1;

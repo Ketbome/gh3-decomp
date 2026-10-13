@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct S233C_N {
+    s32 unk0;
+    S233C_N* unk4;
+    s32* unk8;
+};
+
+struct S233C_I {
+    s32 unk0;
+    S233C_N* unk4;
+};
+
 struct S232 {
     int unk0;
     char pad4[0x8C];
@@ -13,6 +24,7 @@ struct List232 {
 };
 
 extern "C" {
+extern List232 D_003979F0;
 void func_0011E050(int);
 void func_0011E130(void);
 extern int D_0036FBE8;
@@ -144,7 +156,21 @@ extern "C" void func_00233BE8(char* p, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233C28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233C50);
+extern "C" s32* func_00233C50(s32 v) {
+    S233C_I end;
+    S233C_I it;
+    it.unk4 = (S233C_N*)D_003979F0.unk8;
+    end.unk4 = (S233C_N*)&D_003979F0.unk4;
+    if (it.unk4 != end.unk4) {
+        do {
+            if (*it.unk4->unk8 == v) {
+                return it.unk4->unk8;
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    return 0;
+}
 
 extern "C" char* func_00233CA8(S232* self, int i) {
     return self->unk90 + i * 0xF58;

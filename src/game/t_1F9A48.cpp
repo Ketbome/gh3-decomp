@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct S1F9D_N {
+    s32 unk0;
+    S1F9D_N* unk4;
+    char* unk8;
+};
+
+struct S1F9D_I {
+    s32 unk0;
+    S1F9D_N* unk4;
+};
+
 typedef int TI128 __attribute__((mode(TI)));
 
 struct S1FADE8 {
@@ -9,6 +20,11 @@ struct S1FADE8 {
 };
 
 extern "C" {
+s32 func_0012CEE8(void* a, s32 b);
+void func_0027DC58(s32 a, s32 b, s32* c, s32 d);
+void func_00267760(s32 a, void* b, s32 c);
+s32 func_001F9AA8(void);
+s32 func_001F9B80(void);
 void func_001FA348(int, int);
 void func_001FB028(void*);
 void func_001FB6C0(void*);
@@ -29,7 +45,17 @@ extern s32 D_00370AE0;
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A50);
+extern "C" s32 func_001F9A50(s32 a, u32 k) {
+    s32 r = 0;
+    if (k != 0x26205DB6) {
+        if (k == 0x7E1940A1) {
+            r = func_001F9AA8();
+        }
+    } else {
+        r = func_001F9B80();
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9AA8);
 
@@ -37,7 +63,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9B80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9C58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9D18);
+extern "C" s32 func_001F9D18(char* p, s32 v) {
+    S1F9D_I it;
+    S1F9D_I end;
+    it.unk4 = *(S1F9D_N**)(p + 0x4C);
+    end.unk4 = (S1F9D_N*)(p + 0x48);
+    if (it.unk4 != end.unk4) {
+        do {
+            if (*(s32*)(it.unk4->unk8 + 0x10) == v) {
+                return 1;
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (S1F9D_N*)(p + 0x48);
+        } while (it.unk4 != end.unk4);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9D68);
 
@@ -49,7 +90,26 @@ extern "C" s32 func_001F9EC0(char* p) {
     return *(s32*)(p + 0x2C);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9EC8);
+extern "C" s32 func_001F9EC8(char* p, s32 k) {
+    S1F9D_I it;
+    S1F9D_I end;
+    s32 r;
+    it.unk4 = *(S1F9D_N**)(p + 0x40);
+    end.unk4 = (S1F9D_N*)(p + 0x3C);
+    if (it.unk4 != end.unk4) {
+        do {
+            r = func_0012CEE8((char*)it.unk4 + 8, k);
+            if (r != 0) {
+                goto done;
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (S1F9D_N*)(p + 0x3C);
+        } while (it.unk4 != end.unk4);
+    }
+    r = 0;
+done:
+    return r != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9F40);
 

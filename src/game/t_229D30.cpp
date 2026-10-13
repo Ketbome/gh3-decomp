@@ -18,6 +18,9 @@ struct S229 {
 };
 
 extern "C" {
+char* func_0014E948(void);
+void func_001510F0(s32 a, s32 b);
+void func_00236760(u32 a, s32 b, s32 c, s32 d);
 void func_0022B2E8(void*);
 void func_00113FB8(void*);
 void func_0022B320(void*);
@@ -57,7 +60,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229EB8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229F38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A1D8);
+extern "C" void func_0022A1D8(char* p) {
+    char* n = func_0014E948();
+    if (n != 0) {
+        do {
+            char* c = *(char**)(n + 0xC);
+            char* nx = (*(s32*)(c + 4) == -1) ? 0 : c;
+            func_001510F0(*(s32*)(n + 4), 0);
+            n = nx;
+        } while (n != 0);
+    }
+    func_00236760(0x7A354E97, *(s32*)(p + 0x3BC), 1, 0);
+}
 
 GP_DATA(D_0036F608);
 extern "C" void CFunc_ParseNodeArray(int a) {

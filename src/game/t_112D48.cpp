@@ -79,7 +79,25 @@ extern "C" void func_00112D48(S112D48* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112DB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112E60);
+struct Arr_00112E60 { void* p; int n; int unk8; void* vp; };
+struct S_00112E60 { Arr_00112E60 a0; Arr_00112E60 a10; char pad20[4]; Arr_00112E60 a24; char pad34[4]; Arr_00112E60 a38; };
+
+static inline void Dtor_00112E60(Arr_00112E60* a) {
+    a->vp = D_003378C8;
+    if (a->p) {
+        a->n = 0;
+        if (a->p) func_00119400(D_00368A38[0], a->p);
+        a->p = 0;
+    }
+}
+
+extern "C" void func_00112E60(S_00112E60* self, int flags) {
+    Dtor_00112E60(&self->a38);
+    Dtor_00112E60(&self->a24);
+    Dtor_00112E60(&self->a10);
+    Dtor_00112E60(&self->a0);
+    if (flags & 1) func_00119400(D_00368A38[0], self);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112F68);
 

@@ -37,6 +37,8 @@ void func_001561C8(int);
 void func_00156878(int, int);
 void* func_00113D20(u32 size);
 void* func_00154670(void*);
+int func_00154830(void*, int);
+void func_001548F8(void*);
 }
 
 struct S_00156FA8 { char pad0[0x160]; };
@@ -107,6 +109,10 @@ extern "C" void func_001563B0(S_001563B0* self) {
     func_001561C8(self->unk60);
 }
 
+struct T_001563D0 { char pad0[0x40]; float unk40; char pad44[0x1C]; int unk60; };
+struct S_001563D0 { char pad0[0x90]; int unk90; float unk94; };
+
+GP_DATA(D_00369BE8);
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001563D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156470);

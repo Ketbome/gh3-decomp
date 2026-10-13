@@ -105,6 +105,7 @@ void func_00119DD8(int);
 void func_00119F60(int);
 void func_001194B8(int);
 void func_00118E40(int, int);
+void WaitSemaphore(void);
 SA118_K* func_0011A170(void*, u32);
 void func_00119400(int, void*);
 void* func_00118F20(int, int, int, int);
@@ -120,7 +121,30 @@ void func_001198F0(void);
 int func_0011A208(void*, u32, int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00118E40);
+extern "C" void func_0011A470(void*);
+struct O98_00118E40 { char pad0[0x98]; VEntry* unk98; };
+struct O20_00118E40 { char pad0[0x20]; VEntry* unk20; };
+struct S_00118E40 { char pad0[0x1D8]; O20_00118E40* unk1D8; O98_00118E40* unk1DC; O98_00118E40* unk1E0; char pad1E4[0xA74]; int unkC58; int unkC5C; };
+
+extern "C" void func_00118E40(int a, int flags) {
+    S_00118E40* self = (S_00118E40*)a;
+    if (self->unkC58) {
+        func_0011A470((void*)self->unkC58);
+        self->unkC58 = 0;
+        self->unkC5C = 0;
+    }
+    O98_00118E40* o = self->unk1DC;
+    VEntry* e = &o->unk98[3];
+    ((void (*)(void*, int))e->fn)((char*)o + e->delta, 2);
+    o = self->unk1E0;
+    e = &o->unk98[3];
+    ((void (*)(void*, int))e->fn)((char*)o + e->delta, 2);
+    O20_00118E40* p = self->unk1D8;
+    e = &p->unk20[1];
+    ((void (*)(void*, int))e->fn)((char*)p + e->delta, 2);
+    WaitSemaphore();
+    if (flags & 1) func_00119400(D_00368A38[0], (void*)a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00118EF8);
 

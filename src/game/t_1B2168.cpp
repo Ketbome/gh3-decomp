@@ -6,6 +6,7 @@ struct S001B2230 {
 };
 
 extern "C" {
+void func_001BF628(void* p, s32 a);
 void func_001BF6A0(void* p);
 void func_001B3D28(s32 a, s32 b);
 extern char D_00349220[];
@@ -37,7 +38,14 @@ extern "C" void func_001B2168(char* p, s8 i, f32 f) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B2168", func_001B21A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B2168", func_001B21E0);
+extern "C" void* func_001B21E0(char* p) {
+    func_001BF628(p, 1);
+    *(s32*)(p + 0x54) = 0x54628ED7;
+    *(char**)(p + 0x20) = D_00349220;
+    *(s32*)(p + 0x30) = -1;
+    *(s32*)(p + 0x28) = 0;
+    return p;
+}
 
 extern "C" void func_001B2230(S001B2230* p) {
     p->unk20 = D_00349220;

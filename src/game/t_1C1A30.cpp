@@ -32,6 +32,7 @@ struct S001C2C88 {
 };
 
 extern "C" {
+void func_001BF288(s32 a);
 void func_001C2CD8(s32 a, s32 b);
 S001C2C88* func_001C2D28(void);
 void func_0015EA08(void* p);
@@ -74,7 +75,19 @@ extern "C" void func_001C25A0(void* pv, s32 v0) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C25F8);
+extern "C" void func_001C25F8(char* p, s32 v) {
+    if (v != 0 && *(s32*)(p + 0x30) != v) {
+        func_001BF288(v);
+        if (*(s32*)p == 0) {
+            func_001BF2E8(v, 1);
+            s32 t = *(s32*)(p + 0x30);
+            if (t != 0) {
+                func_001BF2E8(t, 0);
+            }
+        }
+    }
+    *(s32*)(p + 0x30) = v;
+}
 
 extern "C" void func_001C2670(S001C2670* p) {
     p->unk34 = 0;

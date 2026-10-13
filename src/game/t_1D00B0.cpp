@@ -6,6 +6,13 @@ struct VEnt {
     void* fn;
 };
 
+struct N1548 {
+    char pad0[0x10];
+    N1548* next;
+    char pad14[4];
+    char* vt;
+};
+
 struct S001D0F68 {
     char pad0[0x4];
     s32 unk4;
@@ -235,7 +242,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D10A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D11B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1270);
+extern "C" void func_001D1270(void* q) {
+    S1D14P* p = (S1D14P*)q;
+    if ((*(s32*)((char*)p + 0xC) & 1) == 0) {
+        N1548* n = (N1548*)p->unk150;
+        if (n != 0) {
+            do {
+                VEnt* e = (VEnt*)(n->vt + 0x28);
+                ((void (*)(char*))e->fn)((char*)n + e->delta);
+                n = n->next;
+            } while (n != 0);
+        }
+        func_001D0170(p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D12E0);
 
@@ -247,7 +267,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1438);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D14C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1548);
+extern "C" void func_001D1548(void* q) {
+    S1D14P* p = (S1D14P*)q;
+    N1548* n = (N1548*)p->unk150;
+    if (n != 0) {
+        do {
+            VEnt* e = (VEnt*)(n->vt + 0x50);
+            ((void (*)(char*))e->fn)((char*)n + e->delta);
+            n = n->next;
+        } while (n != 0);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1598);
 

@@ -200,7 +200,16 @@ extern "C" void func_001E6830(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E68A8);
+extern "C" void func_001E68A8(void) {
+    s32 i = D_00370FB8;
+    void* p = D_00370FA8[i];
+    if (p != 0) {
+        if (D_00370FB0[i] != 0) {
+            func_0011C248(p, 3);
+        }
+        D_00370FA8[D_00370FB8] = 0;
+    }
+}
 
 extern "C" void func_001E6920(s32 a, s32 b) {
     if (b == 0xFFFF && a != 0) {

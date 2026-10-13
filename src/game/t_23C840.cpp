@@ -9,6 +9,9 @@ struct S23D {
 };
 
 extern "C" {
+void func_002435D8(S23D* p, s32 a);
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38;
 extern u8 D_00354F08[];
 extern int D_0036FE9C;
 extern int D_0036FEA0;
@@ -34,7 +37,17 @@ extern "C" void* func_0023DC68(void* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23C840", func_0023DC88);
+extern "C" void func_0023DC88(S23D* p, s32 flags) {
+    p->unkC = D_00354F08;
+    if (p->unk8 != 0) {
+        if ((*(s32*)((char*)p + 4) & 0xC000) == 0x8000) {
+            func_002435D8(p->unk8, 3);
+        }
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 extern "C" void func_0023DCF8(int* p, int v) {
     int* q = (int*)p[2];

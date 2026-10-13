@@ -106,6 +106,9 @@ extern "C" void func_00133FA0(S_00133F80* self, int flags) {
     }
 }
 
+struct S_00133FE0 { char pad0[4]; int* unk4; };
+extern "C" int func_00134288(void*);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00133FE0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134128);

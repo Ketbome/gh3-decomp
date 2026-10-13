@@ -383,7 +383,11 @@ extern "C" int func_00223460(void* a) {
     return func_00223420(func_00224220(a, 1));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223488);
+extern "C" void* func_00223488(void* a, void* i) {
+    char* p = 0;
+    func_0027D470(a, 0x2E7D5EE7, &p, 0);
+    return *(int*)(p + 4) == 1 ? *(void**)(p + 8) : (void*)(*(int**)(p + 8))[(int)i];
+}
 
 extern "C" void func_002234E8(void* a, void* b) {
     func_00223488(func_00224220(a, 1), b);

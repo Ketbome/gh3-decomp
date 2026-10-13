@@ -59,6 +59,7 @@ struct S1E0AE8 {
 };
 
 extern "C" {
+s32 func_0028C200(s32 a, s32 b);
 s32 func_001E0FF8(void* p, s32 v);
 void func_002763E0(u32 key, s32 v);
 s32 func_002763E0_i(u32 key, s32 v) __asm__("func_002763E0");
@@ -246,7 +247,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1698);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E18A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1978);
+extern "C" s32 func_001E1978(S1E0AE8* p, s32 a, s32 b) {
+    s32 v;
+    if (a == 0) {
+        S1E0AE8_I it;
+        S1E0AE8_N* h = (S1E0AE8_N*)p->unk70.unk4;
+        if (h != (S1E0AE8_N*)&p->unk70) {
+            it.unk4 = h;
+            char* q = (char*)it.unk4->unk8;
+            if (q == 0) {
+                return 0;
+            }
+            func_001E0E70(q, b);
+            return 1;
+        }
+    }
+    v = func_001E0FF8(p, a);
+    if (v == 0) {
+        return 0;
+    }
+    func_001E0E70((char*)v, b);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E19F0);
 
