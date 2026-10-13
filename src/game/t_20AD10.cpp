@@ -169,7 +169,20 @@ extern "C" void func_0020C540(char* p, int s) {
     *(int*)(p + 0x40) = !func_0027DF00(s, 0x57EDECCA);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C5A0);
+extern "C" void func_0020C5A0(char* p, char* q) {
+    char* t = p + 4;
+    u32 a = *(u32*)(t + 0xC);
+    bool ok;
+    if (a == 0) {
+        ok = true;
+    } else {
+        ok = !(*(u32*)(t + 0x10) < a);
+    }
+    if (ok) *(int*)p = 0;
+    asm volatile("vmove.xyzw $vf1, $vf0");
+    *(int*)(q + 0x1C) = 0;
+    asm volatile("sqc2 $vf1, 0x60(%0)" : : "r"(q) : "memory");
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C5D8);
 

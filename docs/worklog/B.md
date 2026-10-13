@@ -821,3 +821,6 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - t_204298 func_00205DF0 MATCH (VU0 squared distance returned as float: one asm for lqc2/vsub/vmul/vadd/qmfc2.ni, a second `mtc1` asm with "=f"; pins $3 for the callee result and $2 for the qmfc2 target; the vector block is the if-body, `return 0.0f` after it).
 - Given up (B13): func_00201130 (t_2001E0, VU0 qmtc2/lqc2/vmulx/vadd, qmfc2 in the jal slot): asm split into three `asm volatile` with pins reproduces the order, but saved registers (self/params/c = s0/s1/s2 in the original) cannot be pinned without extra copies; 6 forms.
 - Given up (B13): func_00206668 (t_2062E8, VU0 vadd into a member): asm split (lqc2 vf2 after the call so gas puts it in the beqz slot; "+m" operand for the member) matches all of the second half; the first half schedules lwc1 4C(s0) before the sw 0x94 store in ours, after it in the original (permutations of the three stores, volatile: no change).
+
+## Session 12 (worker B14, VU0 functions)
+Matched: t_20AD10 func_0020C5A0 (vmove + sqc2 as two `asm volatile`; `if (a == 0) ok = true; else ok = !(x < a)` gives the branch layout).
