@@ -11,6 +11,10 @@ struct S_00182338 { char pad0[0x10]; VE_181* unk10; };
 struct S_001823A8 { char pad0[0x1C]; VE_181* unk1C; };
 
 extern "C" {
+int func_0010C050(int);
+int func_00116660(void*);
+int func_003000E0(void*);
+void func_00320A78(void*);
 void func_0030A49C(void*, int, int);
 void func_0030B550(char*, const char*, ...);
 char* func_00116E90();
@@ -196,7 +200,32 @@ extern "C" u8 BcdToInt(u32 v) {
     return (v >> 4) * 10 + (v & 0xF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_001824D8);
+struct S_001824D8 { int unk0; int unk4; int unk8; int unkC; int unk10; int unk14; int unk18; int unk1C; };
+
+extern "C" void func_001824D8(S_001824D8* self) {
+    u8 b[8];
+    func_003000E0(b);
+    int ok = b[0];
+    if (ok) {
+        self->unk14 = func_0010C050(0x1C) & 0xFF;
+        self->unkC = func_0010C050(0xC) & 0xFF;
+        self->unk4 = 0x802;
+        self->unk18 = func_0010C050(0x18) & 0xFF;
+        self->unk0 = func_0010C050(0x3C) & 0xFF;
+        self->unk8 = func_0010C050(0x3C) & 0xFF;
+        self->unk1C = func_0010C050(0x3E8);
+    } else {
+        func_00320A78(b);
+        self->unk14 = BcdToInt(b[5]);
+        self->unkC = BcdToInt(b[6]);
+        self->unk4 = BcdToInt(b[7]) + 0x7D0;
+        self->unk18 = BcdToInt(b[3]);
+        self->unk0 = BcdToInt(b[2]);
+        self->unk8 = BcdToInt(b[1]);
+        self->unk1C = func_0010C050(0x3E8);
+    }
+    self->unk10 = func_00116660(self);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_001825E0);
 

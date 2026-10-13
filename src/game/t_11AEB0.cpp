@@ -51,6 +51,11 @@ extern u8 D_00338A78[];
 extern int D_00368A94;
 extern int D_00368B40[2];
 void func_0011AB60(void);
+void* func_0011AA28(int);
+void func_0011A580(void*);
+void func_0011A578(void*);
+S_0011C0B8* func_0011C0B8(S_0011C0B8*, int);
+extern int D_00368AA4;
 extern int D_0032A4A0[];
 }
 
@@ -156,7 +161,27 @@ extern "C" void func_0011BA28(void) {
     func_0011B468_v();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011BA48);
+struct VE_0011BA48 { char pad0[0x20]; s16 unk20; s16 unk22; int (*unk24)(void*, int, int); };
+struct S_0011BA48 { char pad0[4]; int unk4; char pad8[0x90]; VE_0011BA48* unk98; };
+struct O_0011BA48 { char pad0[8]; int unk8; int unkC; };
+
+GP_DATA(D_00368AA4);
+extern "C" void* func_0011BA48(S_0011BA48* self, int n, int p) {
+    D_00368AA4 = 1;
+    O_0011BA48* a = (O_0011BA48*)func_0011AA28(p);
+    VE_0011BA48* e = self->unk98;
+    int sz = (n + 3) & 0xFFFFFFFCu;
+    O_0011BA48* b = (O_0011BA48*)func_0011AA28(e->unk24((char*)self + e->unk20, sz - a->unk8, 1));
+    func_0011A580(a);
+    func_0011A580(b);
+    n = sz + a->unkC;
+    func_0011C0B8((S_0011C0B8*)((char*)self + 4), 1);
+    int d = D_00368A98;
+    b->unk8 = n + d;
+    func_0011A578(b);
+    D_00368AA4 = 0;
+    return (char*)b + d + b->unkC;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011BB28);
 

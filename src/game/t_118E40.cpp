@@ -130,6 +130,7 @@ extern "C" int func_00119500(S_00119500*);
 extern "C" void func_0011A9E8(int);
 extern "C" void func_001187F8(void*);
 extern "C" void func_00118820(void*);
+extern "C" int func_00118BD8(int, int);
 
 extern "C" int func_00119098(int self, int a, int b, SA118_V* o) {
     char loc[0x10];
@@ -154,11 +155,53 @@ extern "C" void func_00119180(SA118_H* self) {
     ((void (*)(void*))e->fn)((char*)o + e->delta);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_001191B0);
+extern "C" void* func_001191B0(int self, int a, int b, int obj) {
+    SA118_V* o = (SA118_V*)obj;
+    char loc[0x10];
+    func_001187F8(loc);
+    if (!o) o = (SA118_V*)func_00119500((S_00119500*)self);
+    if (func_00118BD8(self, b) >= 0) {
+        func_00118820(loc);
+        return (void*)0;
+    }
+    VEntry* e = &o->unk98[6];
+    int r = ((int (*)(void*, int, int))e->fn)((char*)o + e->delta, a, b);
+    if (r) func_0011A9E8(r);
+    func_00118820(loc);
+    return (void*)r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119270);
+extern "C" void* func_00119270(int self, int a, int b, int obj) {
+    SA118_V* o = (SA118_V*)obj;
+    char loc[0x10];
+    func_001187F8(loc);
+    if (!o) o = (SA118_V*)func_00119500((S_00119500*)self);
+    if (func_00118BD8(self, b) >= 0) {
+        func_00118820(loc);
+        return (void*)0;
+    }
+    VEntry* e = &o->unk98[7];
+    int r = ((int (*)(void*, int, int))e->fn)((char*)o + e->delta, a, b);
+    if (r) func_0011A9E8(r);
+    func_00118820(loc);
+    return (void*)r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119330);
+extern "C" void* func_00119330(int self, int a, int b, int obj) {
+    SA118_V* o = (SA118_V*)obj;
+    char loc[0x10];
+    func_001187F8(loc);
+    if (!o) o = (SA118_V*)func_00119500((S_00119500*)self);
+    if (func_00118BD8(self, b) >= 0) {
+        func_00118820(loc);
+        return (void*)b;
+    }
+    VEntry* e = &o->unk98[8];
+    int r = ((int (*)(void*, int, int))e->fn)((char*)o + e->delta, a, b);
+    if (r) func_0011A9E8(r);
+    func_00118820(loc);
+    return (void*)r;
+}
 
 extern "C" void func_001193F0(void) {
 }
@@ -281,6 +324,8 @@ extern "C" void func_00119DD8(int a) {
     self->unk250 = func_001198F0_4(self, o, 1, D_00368A30);
     func_0011A8E8(self->unk24C, 0);
 }
+
+extern "C" void func_0011A300_3(int, u32, int) __asm__("func_0011A300");
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119E60);
 

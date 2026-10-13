@@ -60,6 +60,9 @@ extern "C" int func_00159768(S_00159768* self, int a1, int a2) {
     return e->unk4((char*)self + e->unk0, a1, a2);
 }
 
+struct B4_159790 { char c[4]; };
+struct S_00159790 { int unk0; int unk4; int unk8; int unkC; };
+
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159790);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159858);

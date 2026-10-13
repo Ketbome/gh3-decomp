@@ -913,3 +913,19 @@ A8 pass, part 5. Matched 3: func_001184C0 func_00156ED0 func_0016BBC0
 Given up (A8, part 5): func_00117AA0 / func_001171C0 / func_00117B50 (stack iterator with vptr reset: the original
 stores `it.cur` through a register copy of &it), func_0015B0B8 (loop without rotation, entry jump with the hoisted
 global load in its delay slot), func_001200D0 (volatile counters: reread register v0/v1 swapped).
+
+A8 pass, part 6. Matched 8: func_0019B6B8 func_001191B0 func_00119270 func_00119330 func_0012FAC8 func_00188060
+func_001824D8 func_0011BA48
+
+- `if (cmp >= 0) { f(loc); return 0; } vcall...; f(loc); return r;` (early-return form) gives `bltzl` like the
+  original (func_001191B0 family); the vcall index is `o->unk98[n]` with n = 6/7/8.
+- Reuse a parameter for a later temporary (`n = sz + a->unkC;`) to keep the original saved-register count
+  (func_0011BA48); `& 0xFFFFFFFCu` for the lui/ori mask.
+- Swap the arms of `if (a != 0) {...} else {...}` to match which side is the fall-through (func_00188060).
+- Callee `int f(void*)` instead of `void` (result unused) moves a byte load v0 -> v1 (func_001824D8); duplicated
+  trailing call in both arms is cross-jumped by gcc.
+
+Given up (A8, part 6): func_00159790 (scheduling of a 4-lane texel fetch), func_00136C48 (arg setup scheduling),
+func_00119E60 (hi/lo hoisting of the format symbols), func_00197EE8 (address CSE across the loop),
+func_00113308/func_0013D048/func_0014D7C8/func_0016DFB8 (hash remove: key copied into a3 first), func_00174D08
+(0.0f arg not CSE'd with the compare constant), func_0019E1E8 (0x34000000 built through mtc1/mfc1).

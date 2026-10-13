@@ -63,6 +63,8 @@ extern "C" int func_00174CE0(S174C90* self) {
     return r;
 }
 
+struct S_00174D08 { char pad0[0x18]; float unk18; float unk1C; char pad20[4]; float unk24; float unk28; char pad2C[4]; int unk30; };
+
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174D08);
 
 struct S174DC8 { char pad0[0x18]; float unk18; float unk1C; char pad20[8]; float unk28; char pad2C[4]; int unk30; char unk34[1]; };

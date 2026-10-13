@@ -85,6 +85,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112F68);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113228);
 
+struct E_func_00113308 { int key; int val; E_func_00113308* next; };
+struct T_func_00113308 { int bits; E_func_00113308* buckets; int count; };
+
+extern "C" void func_0011C408(int, E_func_00113308*);
+
+static inline E_func_00113308* Slot_00113308(T_func_00113308* t, int k) {
+    return &t->buckets[k & ((1 << t->bits) - 1)];
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113308);
 
 extern "C" void func_001133C0(int p) {

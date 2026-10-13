@@ -452,7 +452,7 @@ extern "C" {
 int func_00317588(float);
 int func_0031B650(int, u64);
 float func_00317298(int);
-void func_00188060(void*, int, int, int, int, int, int, int);
+int func_00188060(void*, int, int, int, int, int, int, int);
 void func_0015E0F8(void*);
 void func_0015E128(void*, int);
 void func_0015EA78(void*);
@@ -486,6 +486,8 @@ void func_00153410(void*);
 void func_0015A7F8(void*, int);
 void* func_0015A7B8(void*, int, int);
 void func_0015B0B8(void*, int);
+void* func_001C3240(int, void*);
+void* func_001C3278(int, int);
 void func_001891A0(void*);
 void func_001B1D60(int);
 void func_00153430(void*, int);
@@ -535,7 +537,27 @@ extern "C" int func_00187F48(S00187F48* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00187F50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00188060);
+struct O_00188060 { char pad0[4]; int unk4; };
+struct S_00188060 { char pad0[6]; u16 unk6; char pad8[4]; int unkC; char pad10[4]; O_00188060* unk14; };
+extern "C" void func_00187F50(S_00188060*);
+
+extern "C" int func_00188060(void* p, int a, int b, int c, int d, int e, int g, int h) {
+    S_00188060* self = (S_00188060*)p;
+    int fl = h;
+    if (g) {
+        fl = 1;
+        self->unk6 |= 1;
+    }
+    if (a != 0) {
+        self->unk14 = (O_00188060*)func_001C3240(a, &self->unkC);
+    } else {
+        self->unkC = c;
+        self->unk14 = (O_00188060*)func_001C3278(b, c);
+    }
+    if (self->unk6 & 1) func_0015B0B8(self, self->unk14->unk4);
+    if (fl) func_00187F50(self);
+    return 0;
+}
 
 extern "C" int func_00188100(S00187F48* self) {
     func_001C32A0(self->unk14);

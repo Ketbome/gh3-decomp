@@ -8,6 +8,8 @@ struct S_00135DD0 { char pad0[0x6C]; char unk6C; };
 
 extern "C" {
 int func_0027D870(void*, u32, int*, int);
+int func_0027D870_i(int, int, int*, int) __asm__("func_0027D870");
+int func_0027D188(int, int, int*, int);
 int func_0027D400(char*, u32, int*, int);
 extern int D_00369424;
 int func_00132070(int, int);
@@ -76,6 +78,9 @@ extern "C" int func_00136740(void) {
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00136768);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00136A28);
+
+struct VE_00136C48 { char pad0[0x68]; s16 unk68; s16 unk6A; int (*unk6C)(void*, int, int, int); };
+struct S_00136C48 { char pad0[8]; VE_00136C48* unk8; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00136C48);
 
