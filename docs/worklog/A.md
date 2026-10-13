@@ -1020,3 +1020,7 @@ Matched (A10) t_152E18: func_00153C28 (0x154; 12x unrolled by hand do-while, cvt
 Matched (A10) t_152E18: func_00153AB0 (0x178; sibling of func_00153C28 with two s16 stores)
 - func_00139D50: 4-byte color compare + copies through one stack temp; original does lbu/sb pairs (no load grouping) so the temp is probably a class with copy ctor/operator= (not tried); plain struct copies group the loads; 5 tries
 Matched (A10) t_14C740: func_0014E290 (0x1dc; init sequence with profiler markers func_0011A558/568; 1.3333334f literal inline)
+
+## A11 pass (jtbl / u128 / mid-size)
+
+Matched (A11) t_112D48: func_001135A0 (jtbl, toupper with accents: explicit negative case values, c - 0x20 group first)

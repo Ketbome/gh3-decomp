@@ -152,7 +152,54 @@ extern "C" void func_00113528(char* s) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_001135A0);
+extern "C" void func_001135A0(char* s) {
+    while (*s) {
+        char c = *s;
+        if (c >= 'a' && c <= 'z') {
+            c -= 0x20;
+        } else {
+            switch (c) {
+            case -100:
+            case -32:
+            case -31:
+            case -28:
+            case -25:
+            case -24:
+            case -23:
+            case -20:
+            case -19:
+            case -15:
+            case -14:
+            case -13:
+            case -10:
+            case -7:
+            case -6:
+            case -4:
+                c -= 0x20;
+                break;
+            case -30:
+                c = 'A';
+                break;
+            case -22:
+            case -21:
+                c = 'E';
+                break;
+            case -18:
+            case -17:
+                c = 'I';
+                break;
+            case -12:
+                c = 'O';
+                break;
+            case -5:
+                c = 'U';
+                break;
+            }
+        }
+        *s = c;
+        s++;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113640);
 
