@@ -200,7 +200,33 @@ extern "C" int func_001A1180(int a0, int a, int b, int c) {
     return -1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A11D8);
+extern "C" void func_001A11D8(int a0, int* pa, int* pb, int v, int sel) {
+    int yi = -1;
+    int yj = -1;
+    for (int i = 0; i < 4; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (*(int*)((char*)D_00348790 + (i * 32 + j * 4)) == v) {
+                yi = i;
+                yj = j;
+                break;
+            }
+        }
+    }
+    S1A1118* e = &D_00348740[func_001A1028(sel)];
+    switch (sel) {
+    case 0:
+    case 1:
+    case 19:
+        *pa = yj * e->unk8;
+        *pb = yi * e->unkC;
+        break;
+    case 2:
+    case 20:
+        *pa = yi * e->unk8;
+        *pb = yj * e->unkC;
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1318);
 
