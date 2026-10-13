@@ -101,7 +101,7 @@ extern float *D_00370D48;
 extern float D_0032E0D8[];
 extern float D_0032E158[];
 extern u8 D_0032E1D8[];
-int func_00272058(void *, int, int);
+void func_00272058(void *, int, int);
 int func_0011DAA0(int);
 void func_00271C10(int, int, int);
 extern u32 D_00370D30[2];
@@ -293,7 +293,21 @@ extern "C" void func_00272020(S272020 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272058);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272160);
+extern "C" int func_00272160(int *p) {
+    int r = 0;
+    u8 *q = S271Flags(*p);
+    u8 c = *q;
+    if (c & 1) {
+        func_00272058(p, 0, 0);
+        r = 1;
+        *q = *q & 0xFE;
+    } else if (c & 2) {
+        func_00272058(p, 1, 0);
+        r = 2;
+        *q = *q & 0xFD;
+    }
+    return r;
+}
 
 extern "C" int func_002721F8(int *p, int *out, int flag) {
     u8 *f = S271Flags(p[0]);

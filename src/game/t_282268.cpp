@@ -13,7 +13,16 @@ struct S282ED0 {
     int unk24;
 };
 
+struct S283498 {
+    int unk0;
+    char pad4[0x14];
+    int unk18;
+    char pad1C[4];
+    int unk20;
+};
+
 extern "C" {
+int func_00283098(S283498 *, u32);
 S282ED0 *func_00118F20(int, int, int, int);
 int func_00119610(int, int);
 void func_00119490(int, int);
@@ -123,7 +132,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283070);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283098);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283498);
+extern "C" u32 func_00283498(S283498 *p, u32 n) {
+    u32 tot = 0;
+    int t;
+    do {
+        t = func_00283098(p, n);
+        tot += t;
+        p->unk20 += t;
+        p->unk18 += t;
+    } while ((u32)(p->unk0 - 9) >= 2 && tot < n);
+    return tot;
+}
 
 extern "C" int func_00283520(S00283520* p) {
     return (u32)(p->unk0 - 9) < 2;
