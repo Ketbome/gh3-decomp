@@ -55,7 +55,7 @@ int func_0011DBB8_v(void*, int, int, int) __asm__("func_0011DBB8");
 void func_0011DB50_v(void*, int, int, int) __asm__("func_0011DB50");
 int func_0011E190(void);
 int func_0011DD68_5(int, int, int, int, int) __asm__("func_0011DD68");
-void func_0011E3B8(int);
+int func_0011E3B8(int);
 void* func_0011DF78(int, int, int, int);
 extern int D_00368748[] __attribute__((section(".sdata")));
 extern int D_00368D74;
@@ -113,8 +113,9 @@ void func_00120DF8(void);
 void func_00113FB8(int);
 void func_00113F38(void);
 void func_0011D830(int, int);
-extern int D_00368C00;
+extern volatile int D_00368C00;
 void func_00120C80(void);
+extern int D_00414FB0[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D000);
@@ -361,7 +362,38 @@ extern "C" void func_0011E170(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E190);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E3B8);
+extern "C" int func_0011E3B8(int a) {
+    int* p = D_00414FB0;
+    int* base = p;
+    int i;
+    for (i = 0; i < 16; i += 4, p += 4) {
+        if (a == p[0]) {
+            D_00368C00 -= 1;
+            p[0] = base[D_00368C00];
+            base[D_00368C00] = a;
+            return 1;
+        }
+        if (a == p[1]) {
+            D_00368C00 -= 1;
+            p[1] = base[D_00368C00];
+            base[D_00368C00] = a;
+            return 1;
+        }
+        if (a == p[2]) {
+            D_00368C00 -= 1;
+            p[2] = base[D_00368C00];
+            base[D_00368C00] = a;
+            return 1;
+        }
+        if (a == p[3]) {
+            D_00368C00 -= 1;
+            p[3] = base[D_00368C00];
+            base[D_00368C00] = a;
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E4E8);
 
