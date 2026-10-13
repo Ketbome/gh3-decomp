@@ -55,6 +55,9 @@ struct S1E0AE8 {
 extern "C" {
 s32 func_001E0FF8(void* p, s32 v);
 void func_002763E0(u32 key, s32 v);
+s32 func_002763E0_i(u32 key, s32 v) __asm__("func_002763E0");
+void func_001E1B28(void* p, s32 a);
+s32 func_0028D1D8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i, s32 j);
 void* func_00113D20(u32 size);
 void* func_001E0768(void* p, void* q);
 void func_001E0F18(struct S1E0AE8* p);
@@ -76,7 +79,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0C40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0CB8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0E10);
+extern "C" s32 func_001E0E10(char* p) {
+    if (*(s32*)(p + 0x80) != 0) {
+        s32 t = *(s32*)(p + 0x84);
+        if (t != 0) {
+            return func_0028D1D8(t, *(s32*)(p + 0x88), 0, 0, 0, 0, 0, 0, 0, 0);
+        }
+        return 0;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0E70);
 
@@ -170,7 +182,14 @@ extern "C" s32 func_001E1A28(S1E0AE8* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1A40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1AD0);
+extern "C" void* func_001E1AD0(char* p) {
+    *(s32*)p = 0;
+    *(s32*)(p + 4) = 0;
+    *(s32*)(p + 8) = 0;
+    *(f32*)(p + 0xC) = 1.0f;
+    func_001E1B28(p, func_002763E0_i(0x99DD8474, 0));
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1B28);
 

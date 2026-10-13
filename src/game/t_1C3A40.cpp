@@ -58,6 +58,15 @@ void* func_00113DF0(s32 size, s32 a, s32 b);
 void* func_001C5778(void* p);
 extern u32 D_0036CD60;
 extern void* D_0036CD5C;
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_0034A640[];
+struct N1C56 {
+    char pad0[0xC];
+    N1C56* unkC;
+    N1C56* unk10;
+    void* unk14;
+};
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C3A40);
@@ -321,7 +330,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C55A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5610);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C3A40", func_001C5680);
+extern "C" void func_001C5680(N1C56* n, s32 flags) {
+    n->unk14 = D_0034A640;
+    n->unk10->unkC = n->unkC;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], n);
+    }
+}
 
 GP_DATA(D_0036CD5C);
 GP_DATA(D_0036CD60);

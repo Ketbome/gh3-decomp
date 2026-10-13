@@ -717,3 +717,7 @@ Given up: func_001C2508 (constructor: `li 0x44` before the lui in the original; 
 t_1BF628 matched 3: func_001BF6A0 func_001BFF98 func_001BFFE8 (register-pinned setter, see func_001C25A0).
 t_1BD608 matched 3: func_001BF408 func_001BD9C8 func_001BF2E8. t_1C7AA0 matched 2: func_001C7AC8 func_001C86C8.
 t_1F9A48 (nothing matched this time): func_001FB450 (last compare becomes movz/xor, 3 forms), func_001FB390 (TI128 return; original copies a0 to v0), func_001FAD10 (D_00370AE0 load order), func_001FAD68 (branch-likely vs plain beqz).
+
+### misc (session 8)
+t_1C3A40 func_001C5680; t_241040 func_002415E0; t_1E0AE8 func_001E1AD0 func_001E0E10 (a callee used as `int` through a `__asm__` alias).
+Given up (split tails whose first instructions are the end of the previous function): func_001D8898, func_001DD488, func_001C1A30's func_001C1A8-like prefix cases; func_00223590/func_00222F10/func_0021DED8 need pextlw/ldl-sdl.

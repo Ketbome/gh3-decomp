@@ -5,6 +5,10 @@ void func_0023F270(void*);
 void func_002411D0(void*);
 void func_0023F2A0(void*);
 void func_0023F2E0(void*);
+s32 func_00118F20(s32 a, s32 b, s32 c, s32 d);
+s32 func_002433A8(s32 a, void* b);
+void func_00241640(char* p, char* q);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
 }
 
 typedef int TI128 __attribute__((mode(TI)));
@@ -37,7 +41,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002411D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002414B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002415E0);
+extern "C" s32 func_002415E0(char* p) {
+    s32 t = func_002433A8(func_00118F20(D_00368A38[0], 0xD0, 1, 0), p);
+    func_00241640((char*)t, *(char**)(p + 8));
+    return t;
+}
 
 extern "C" void func_00241640(char* p, char* q) {
     *(int*)(p + 8) = (int)q;
