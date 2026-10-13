@@ -62,6 +62,10 @@ int func_0022BE60_3(char*, int, int) __asm__("func_0022BE60");
 int func_0014E560(int, int, int, int, int, int, int);
 void func_00150EB8(int, int, int);
 int func_001510D8(int, int);
+void* operator_new(u32 size);
+void* func_001244C8(void* p);
+int func_001246F0(void* p, int a, int b, int c);
+void func_00275F08(u32 a, int b);
 }
 
 struct VE22B {
@@ -278,7 +282,20 @@ extern "C" void func_0022CEF8(char* p, int a, int b, int c, int d, int e) {
     func_0022BCE0(p, v, rb, rc, d, e);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CF80);
+extern "C" void func_0022CF80(char* p, int a1, int a2) {
+    char* o = (char*)func_001244C8(operator_new(0x24));
+    if (func_001246F0(o, a1, a2, 1) == 0) {
+        func_00275F08(0x25DC7904, 0);
+        if (o != 0) {
+            VE22B* d = (VE22B*)(*(char**)(o + 8) + 8);
+            ((void (*)(char*, int))d->fn)(o + d->delta, 3);
+        }
+        o = 0;
+    }
+    VE22B* f = (VE22B*)(*(char**)(p + 0x34) + 0x58);
+    ((void (*)(char*, char*))f->fn)(p + f->delta, o);
+    func_0022BE60_3(p, a1, a2);
+}
 
 extern "C" void func_0022D048(char* p) {
     VE22B* e = (VE22B*)(*(char**)(p + 0x34) + 0x10);

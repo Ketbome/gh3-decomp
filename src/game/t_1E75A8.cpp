@@ -1,5 +1,15 @@
 #include "common.h"
 
+struct O1E8D {
+    u32 unk0;
+    s32* unk4;
+    char pad8[4];
+    virtual void v0();
+    virtual void v1();
+    virtual s32 v2();
+    virtual void v3();
+};
+
 struct E1E8AB {
     char pad0[0xC];
     u32 unkC;
@@ -417,7 +427,26 @@ extern "C" void func_001E8CA0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8CA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8D88);
+extern "C" void func_001E8D88(O1E8D* p) {
+    if (p->v2() != 0) {
+        register s32 f asm("$3");
+        if (p->unk4 != 0) {
+            s32 i = GetProgressionDifficulty();
+            register s32* a asm("$3") = p->unk4;
+            s32 d = a[i];
+            f = 1;
+            if (d != 0) {
+                f = p->unk0 == 0x4E29E602;
+            }
+        } else {
+            f = p->unk0 == 0x4E29E602;
+        }
+        if (f != 0) {
+            return;
+        }
+    }
+    p->v3();
+}
 
 extern "C" void func_001E8E20(S1E8E20* p, s32 f) {
     p->unk0 = f ? 0x4E29E602 : 0x0F636D0D;

@@ -140,6 +140,9 @@ void func_001D6840(void* p, s32 a, s32 b, s32 c, s32 d, s32 e);
 extern char D_0034BD98[];
 void func_001D10A8(void* p);
 void func_001D69D0(void* a, void* b);
+s32 func_0011C030(s32 a);
+void func_0011BDA8(s32 a, s32 b);
+void func_001D6460_3(void* p, s32 a, s32 b) __asm__("func_001D6460");
 }
 
 extern "C" void func_001D4540(void* p, void* q) {
@@ -293,7 +296,13 @@ extern "C" void func_001D54A0(S1D54A0* p) {
     p->unk154 &= ~0x40;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D54D8);
+extern "C" void func_001D54D8(char* p) {
+    char* t = (char*)func_001D5BA0(D_0036D410, *(u32*)(p + 0x50), (void*)1);
+    s32 a = func_0011C030(func_001D7710(t));
+    func_0011BDA8(func_001D7710(t), *(s32*)(t + 0x2C));
+    func_001D6460_3(t, a - func_0011C030(func_001D7710(t)), *(s32*)(p + 0x2C));
+    *(s32*)(p + 0x154) |= 0x40;
+}
 
 extern "C" S1D5570* func_001D5570(S1D5570* p, s32 v) {
     p->unk4 = v;
