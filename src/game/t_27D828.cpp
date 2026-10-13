@@ -1,5 +1,10 @@
 #include "common.h"
 
+extern "C" {
+void func_002798B8(int);
+void func_0013D100(int);
+}
+
 struct S0027EB70 {
     char pad[0x2];
     u8 unk2;
@@ -29,6 +34,14 @@ struct S0027EDB8 {
         float f;
         float* fa;
     } unk8;
+};
+
+struct S27EF20 {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    int unk4;
+    int *unk8;
 };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027D828);
@@ -84,7 +97,12 @@ extern "C" S0027E698* func_0027E698(S0027E698* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E6B0);
+extern "C" void func_0027E6B0(int a, int b) {
+    func_002798B8(a);
+    if (b & 1) {
+        func_0013D100(a);
+    }
+}
 
 extern "C" int func_0027E6F8(void) {
     return 0;
@@ -176,9 +194,25 @@ extern "C" void func_0027EEF8(S0027EDB8* p, int i, int v) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EF20);
+extern "C" int func_0027EF20(S27EF20 *p, int i) {
+    if (p->unk2 == 3) {
+        if (p->unk4 == 1) {
+            return (int)p->unk8;
+        }
+        return p->unk8[i];
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EF60);
+extern "C" int func_0027EF60(S27EF20 *p, int i) {
+    if (p->unk2 == 3) {
+        if (p->unk4 == 1) {
+            return (int)p->unk8;
+        }
+        return p->unk8[i];
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EFA0);
 

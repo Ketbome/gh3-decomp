@@ -53,6 +53,7 @@ struct S268EB8_B {
 };
 
 extern "C" {
+int func_0026ACB0(int);
 extern int D_00372E88;
 int func_0026AB60(int, int);
 int func_0026ABA8(void);
@@ -230,7 +231,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026ACB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026AD48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026AE30);
+extern "C" int func_0026AE30(int a) {
+    while (func_0026ACB0(a) == 0) {
+        a++;
+    }
+    return a;
+}
 
 GP_DATA(D_00370C40);
 GP_DATA(D_00370C2C);

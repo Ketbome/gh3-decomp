@@ -6,6 +6,11 @@ struct S2A74C0_A {
 };
 
 extern "C" {
+int func_002A7D58(void *, int);
+extern int D_00372F28;
+extern char D_003AB260[];
+extern char D_003AB4B0[];
+int func_002A7A40(int);
 extern s32 D_00371EF4;
 extern s32 D_00372F30[] __attribute__((section(".sdata")));
 extern s32 D_00372F38;
@@ -15,7 +20,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A74C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7540);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A75F0);
+struct S2A75F0 {
+    char pad0[4];
+    int *unk4;
+};
+extern "C" void func_002A75F0(S2A75F0 *p, int i, int v) {
+    p->unk4[i] = func_002A7A40(v);
+}
 
 extern "C" int func_002A7638(S2A74C0_A *p, int i) {
     return p->unk4[i];

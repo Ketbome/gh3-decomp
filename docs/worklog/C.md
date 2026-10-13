@@ -549,3 +549,22 @@ Given up:
 - func_002B4CB0, func_002CDCC0, func_002CDCF8: hash-chain search; original keeps the node in v0 and loads into v1 with
   an empty `beqz` delay slot (while/for/goto forms), same v0/v1 swap as above.
 - func_00279118: gcc reassociates `q + i*8` / `q + unk0*8 + i` (4 forms).
+
+Round 6 part 2 (+31): t_266800 func_00266CE0; t_26D280 func_0026DC20, func_0026DAB0 (struct S0026D660 now has the
+full 0xCB0 stride), func_0026DBD8; t_273498 func_00275038; t_27D828 func_0027EF20/EF60, func_0027E6B0;
+t_2848B0 func_00285A90; t_29F288 func_0029F550 (`volatile int v = 4;` for the dead stack store), func_0029FE60,
+func_0029F500; t_2B3AC8 func_002B49D8, func_002B4B50; t_268EB8 func_0026AE30; t_26AEF8 func_0026C5A8;
+t_26F3B8 func_00270060; t_2797A8 func_0027AA98; t_2DCE78 func_002DE5B8 (virtual call, vtable index 72);
+t_2DEE90 func_002DF1A0, func_002DF7E8; t_25C450 CFunc_SetMemThreadSafe; t_271480 func_002733E0;
+t_282268 func_00282F00, func_002838E8, func_00283930, func_00283978, func_002839C0; t_2A74C0 func_002A75F0;
+t_2E90B0 func_002E90B0.
+Quirks: (1) a run of constant stores `x->a=0; ... x->z=0;` comes out last-source-first (the delay slot gets the
+second to last): write the stores in the original's order shifted -- for `40,0,4,...,3C` write ascending 0..40 (matched: t_2CDCC0 func_002CDD30). (2) `if (t == A) return x; if (t == B) return f(); return 0;`
+gives the shared-epilogue layout of the `switch`-like accessors; an `r` variable or `r = 0; if..` gives v1 moves.
+(3) Early `return 0` inside the inner `if` gives the second `daddu v0,zero` delay-slot layout (func_0026C5A8).
+(4) Invert the test to get the original's branch layout (`if (a == K) return X; return f();`).
+Given up:
+- func_002A7EA8: `lui` for D_003AB260 scheduled before `addiu sp` in the original, after here.
+- func_0029FFB8: `li a1,0x4480` goes in the jal delay slot in the original; ours hoists it (3 forms).
+- CFunc_ResetPulseEvents: store order solved (ascending), registers differ (lui in a0/a1 in the original).
+- func_002859D0, func_0027E300: short loops with nop padding.

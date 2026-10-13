@@ -31,6 +31,8 @@ struct S26F_Pair {
 };
 
 extern "C" {
+int func_00270E40(void);
+void func_0026F930(int, int);
 void func_002700A0(void);
 void func_00292FB0(int);
 void func_0026F828(int, int, f32);
@@ -155,7 +157,11 @@ extern "C" void func_00270020(int a, int b, int c, f32 *v, int d, f32 f) {
     func_002705A0(c, a, b, d, v[0], v[1], f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270060);
+extern "C" void func_00270060(int a, int b) {
+    if (func_00270E40() != 0) {
+        func_0026F930(a, b);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002700A0);
 

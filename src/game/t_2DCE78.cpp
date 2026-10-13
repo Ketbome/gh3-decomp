@@ -16,6 +16,7 @@ struct S2DCE78_V {
 };
 
 extern "C" {
+void func_001CA898(void);
 int func_002DD108(void);
 int func_002DD288(void);
 extern s32 D_0037236C;
@@ -202,7 +203,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE5A8);
 extern "C" void func_002DE5B0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE5B8);
+struct S2DE5B8_V {
+    s16 delta;
+    s16 index;
+    void (*fn)(void *);
+};
+struct S2DE5B8 {
+    char pad0[0xEE00];
+    S2DE5B8_V *unkEE00;
+};
+extern "C" void func_002DE5B8(S2DE5B8 *p) {
+    func_001CA898();
+    p->unkEE00[72].fn((char *)p + p->unkEE00[72].delta);
+}
 
 extern "C" void func_002DE5F8(void) {
 }

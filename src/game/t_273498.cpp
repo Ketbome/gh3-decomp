@@ -22,6 +22,8 @@ struct S273498_D {
 };
 
 extern "C" {
+int func_002E91E8(void);
+void func_002EA5F0(void);
 void func_002EE510(int);
 void func_00274350(void);
 extern int D_00370DB8;
@@ -211,7 +213,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00274F08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00275010);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00275038);
+extern "C" int func_00275038(void) {
+    int r = 0;
+    if (D_00370E38 != 0) {
+        r = func_002E91E8();
+        func_002EA5F0();
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00275078);
 

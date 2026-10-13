@@ -9,6 +9,12 @@ struct S00283520 {
 };
 
 extern "C" {
+int func_002763E0(int, int);
+int func_002764E8(int, int);
+int func_00276200(int, int);
+int func_002762F0(int, int);
+void func_00119400(int, int);
+extern int D_00368A38;
 void func_00282F48(void *);
 bool func_00282398(void);
 }
@@ -39,7 +45,12 @@ extern "C" S282ED0 *func_00282ED0(S282ED0 *p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282F00);
+extern "C" void func_00282F00(int a, int b) {
+    func_00282F48((void *)a);
+    if (b & 1) {
+        func_00119400(D_00368A38, a);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282F48);
 
@@ -67,13 +78,54 @@ INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283698);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002837C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002838E8);
+struct S2838E8 {
+    int unk0;
+    int pad4;
+    int unk8;
+};
+extern "C" int func_002838E8(S2838E8 *p) {
+    int t = p->unk0 & 0xFE00;
+    if (t == 0xA00) {
+        return p->unk8;
+    }
+    if (t == 0x3400) {
+        return func_002762F0(p->unk8, 0);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283930);
+extern "C" int func_00283930(S2838E8 *p) {
+    int t = p->unk0 & 0xFE00;
+    if (t == 0xC00) {
+        return p->unk8;
+    }
+    if (t == 0x3400) {
+        return func_00276200(p->unk8, 0);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283978);
+extern "C" int func_00283978(S2838E8 *p) {
+    int t = p->unk0 & 0xFE00;
+    if (t == 0x1800) {
+        return p->unk8;
+    }
+    if (t == 0x3400) {
+        return func_002764E8(p->unk8, 0);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002839C0);
+extern "C" int func_002839C0(S2838E8 *p) {
+    int t = p->unk0 & 0xFE00;
+    if (t == 0x1400) {
+        return p->unk8;
+    }
+    if (t == 0x3400) {
+        return func_002763E0(p->unk8, 0);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283A08);
 

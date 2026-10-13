@@ -405,6 +405,10 @@ extern "C" int func_00273298(int x) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00273308);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_002733E0);
+extern "C" int func_002733E0(int a) {
+    int r = func_002730D0(a);
+    func_00271A98(a | 0x100, r, 0, 0, 0, 0);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00273428);

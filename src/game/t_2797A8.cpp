@@ -15,6 +15,7 @@ struct S0027B300 {
 };
 
 extern "C" {
+void func_0027AAD8(int, int);
 extern u8 D_003711D8;
 void func_0027AA58(S0027AA58 *);
 }
@@ -41,7 +42,11 @@ extern "C" S0027AA58 *func_0027AA70(S0027AA58 *p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027AA98);
+extern "C" S0027AA58 *func_0027AA98(S0027AA58 *a, int b) {
+    func_0027AA58(a);
+    func_0027AAD8((int)a, b);
+    return a;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027AAD8);
 

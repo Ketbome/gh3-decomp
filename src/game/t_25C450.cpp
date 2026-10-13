@@ -9,6 +9,7 @@ struct S0025D4E0 {
 };
 
 extern "C" {
+void func_0011A550(int);
 void func_0027D188(int, int, int *, int);
 void func_0011A560(int, int, int);
 int func_0027DF00(int, int);
@@ -73,7 +74,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemInitHeap);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemDeleteHeap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_SetMemThreadSafe);
+extern "C" int CFunc_SetMemThreadSafe(int arg0) {
+    if (func_0027DF00(arg0, 0xD443A2BC) != 0) {
+        func_0011A550(0);
+    } else {
+        func_0011A550(1);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_AnalyzeHeap);
 

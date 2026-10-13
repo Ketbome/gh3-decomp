@@ -81,7 +81,21 @@ extern "C" void func_00285A60(int a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00285A90);
+struct S285A90 {
+    char pad0[0xC];
+    u16 unkC;
+    char pad0E[8];
+    u8 unk16[1];
+};
+extern "C" void func_00285A90(S285A90 *p) {
+    u8 i = 0;
+    if (p->unkC != 0) {
+        do {
+            p->unk16[i] = i;
+            i++;
+        } while (i < p->unkC);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00285AD0);
 

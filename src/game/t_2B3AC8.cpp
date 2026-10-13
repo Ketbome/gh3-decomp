@@ -31,7 +31,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B4848);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B48F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B49D8);
+extern "C" int func_002B49D8(int a) {
+    if (a == 0x10000 || a == 0x1000 || a == 0x100) {
+        return 1;
+    }
+    if (a == 0x10) {
+        return 1;
+    }
+    return a == 1;
+}
 
 extern "C" void func_002B4A18(s32 arg0, s32 arg1) {
     func_001DAC78(D_0036D554[0], arg0, 0x640E830A /* broadcast */, 0x36B2EE74 /* system */, arg1, 1, -1.0f);
@@ -39,7 +47,15 @@ extern "C" void func_002B4A18(s32 arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B4A60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B4B50);
+extern "C" int func_002B4B50(int arg0, int arg1, int arg2) {
+    int p = func_0027AF38(arg0, arg1, 0);
+    int r = arg2;
+    if (p != 0) {
+        r = *(int *)(p + 8) + arg2;
+        *(int *)(p + 8) = r;
+    }
+    return r;
+}
 
 extern "C" void func_002B4B98(int arg0, int arg1, s32 arg2) {
     int p = func_0027AF38(arg0, arg1, 0);

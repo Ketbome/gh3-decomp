@@ -1,7 +1,26 @@
 #include "common.h"
 
+struct S2CDD30 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    u8 unk10;
+    char pad11[0xB];
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+    int unk30;
+    int unk34;
+    int unk38;
+    int unk3C;
+    int unk40;
+};
+
 extern "C" {
-void func_002CDD30(char *);
+void func_002CDD30(S2CDD30 *);
 s32 func_00289C88(s32, s32);
 char *func_00289C80(s32);
 int func_00289CF8(s32);
@@ -11,11 +30,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDCC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDCF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDD30);
+extern "C" void func_002CDD30(S2CDD30 *p) {
+    p->unk0 = 0;
+    p->unk4 = 0;
+    p->unk8 = 0;
+    p->unkC = 0;
+    p->unk10 = 0;
+    p->unk1C = 0;
+    p->unk20 = 0;
+    p->unk24 = 0;
+    p->unk28 = 0;
+    p->unk2C = 0;
+    p->unk30 = 0;
+    p->unk34 = 0;
+    p->unk38 = 0;
+    p->unk3C = 0;
+    p->unk40 = 0;
+}
 
 extern "C" s32 CFunc_check_for_star_power_CFunc_Setup(int arg0, s32 arg1) {
     func_00289C88(arg1, 0x44);
-    func_002CDD30(func_00289C80(arg1));
+    func_002CDD30((S2CDD30 *)func_00289C80(arg1));
     return 1;
 }
 
