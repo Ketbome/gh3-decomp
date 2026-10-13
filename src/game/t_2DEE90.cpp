@@ -648,30 +648,16 @@ extern "C" s32 func_002DFB68(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFB70);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFBF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFE78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFEB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFF28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DFF78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E00C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E0140);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E01E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E02D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E0718);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E0B60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E0CD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002E0DA8);

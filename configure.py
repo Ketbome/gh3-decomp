@@ -149,7 +149,7 @@ def write_ninja():
         "rule cc",
         f"  command = {CC} {CC_FLAGS} $cflags -S $in -o $out.s && "
         f"{sys.executable} scripts/asm_filter.py $out.s $stem && "
-        f"$as {CC_AS_FLAGS} include/gcc_prelude.inc $out.s -o $out && "
+        f"$as {CC_AS_FLAGS} $asflags include/gcc_prelude.inc $out.s -o $out && "
         f"{sys.executable} scripts/set_eabi64.py $out",
         "  description = CC $in",
         "",
@@ -182,6 +182,9 @@ def write_ninja():
         flags = extra_cflags(src)
         if flags:
             out.append(f"  cflags = {flags}")
+            if "-O0" in flags.split():
+                # unoptimised objects: the assembler was not run with -O either and left delay slots empty
+                out.append("  asflags = -O0")
     out += [
         f"build build/SLUS_216.72.elf: ld | {' '.join(map(str, objs))} {' '.join(LD_SCRIPTS)}",
         f"  scripts = {' '.join('-T ' + s for s in LD_SCRIPTS)}",

@@ -38,7 +38,8 @@ def compile_object(src, out_dir):
     flags = configure.CC_FLAGS.split() + configure.extra_cflags(src).split()
     subprocess.run(cc + flags + ["-S", str(src), "-o", str(asm)], cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / "scripts" / "asm_filter.py"), str(asm), Path(src).stem], check=True)
-    subprocess.run([f"{BINUTILS}as"] + configure.CC_AS_FLAGS.split()
+    asflags = ["-O0"] if "-O0" in configure.extra_cflags(src).split() else []
+    subprocess.run([f"{BINUTILS}as"] + configure.CC_AS_FLAGS.split() + asflags
                    + ["include/gcc_prelude.inc", str(asm), "-o", str(obj)], cwd=ROOT, check=True)
     return obj
 

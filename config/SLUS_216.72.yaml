@@ -292,9 +292,8 @@ segments:
       - [0x1DAE48, cpp, game/t_2DAE48]
       - [0x1DCE78, cpp, game/t_2DCE78]
       - [0x1DEE90, cpp, game/t_2DEE90]
-      - [0x1E0E90, cpp, game/t_2E0E90]
-      - [0x1E2FB0, cpp, game/t_2E2FB0]
-      - [0x1E4FD0, cpp, game/t_2E4FD0]
+      - [0x1DFB70, cpp, game/t_2DFB70] # unoptimised C library (-O0), see its // cflags line
+      - [0x1E62C0, cpp, game/t_2E62C0]
       - [0x1E7010, cpp, game/t_2E7010]
       - [0x1E90B0, cpp, game/t_2E90B0]
       - [0x1EB1C0, cpp, game/t_2EB1C0]

@@ -75,7 +75,8 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
 - **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
   `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
   configure.py and fcheck.py both read it. Seen so far: `-funroll-loops`, `-ffast-math`
-  (`min.s`/`max.s`), and `-O0` for a few library-like objects (later flags win over the default `-O2`). It applies to the whole file, so only use it when every C++ function
+  (`min.s`/`max.s`), and `-O0 -fno-opt-stack` for the unoptimised C library in `t_2DFB70.cpp`
+  (0x2DFB70-0x2E62C0: frame pointer, empty delay slots; the assembler then also runs with `-O0`). It applies to the whole file, so only use it when every C++ function
   of the file still matches.
 - **Structs.** Use a struct with the fields the function touches, named by offset (`unk18`), padded with
   `char pad[...]`. Define it at the top of the file. Do not edit shared headers.
