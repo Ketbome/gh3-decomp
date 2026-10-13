@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct T1D95 {
+    char* unk0;
+    s32 unk4;
+};
+
 struct E1DA5 {
     u32 unk0;
     char pad4[0x10];
@@ -271,7 +276,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D8CD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D9180);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D9588);
+extern "C" void func_001D9588(T1D95* t, s32 key) {
+    s32 i = 0;
+    if (t->unk4 > 0) {
+        register u32 c asm("$20") = 0xC377C572;
+        s32 off = 0;
+        do {
+            if (*(s32*)(off + (s32)t->unk0) == key) {
+                *(s32*)(off + (s32)t->unk0) = 0;
+                *(u32*)(off + (s32)t->unk0 + 4) = c;
+                s32 o = *(s32*)(off + (s32)t->unk0 + 0xC);
+                if (o != 0) {
+                    func_0027AC90((void*)o);
+                    func_00113250((void*)o);
+                    *(s32*)(off + (s32)t->unk0 + 0xC) = 0;
+                }
+            }
+            i++;
+            off += 0x14;
+        } while (i < t->unk4);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D9658);
 
