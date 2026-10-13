@@ -72,7 +72,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112A70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CC8);
+extern "C" void func_00112CC8(void* dst, const void* src) {
+    asm volatile("lqc2 $vf2, 0(%1)\n\tlqc2 $vf1, 0(%0)\n\tvmove.xyz $vf1, $vf2\n\tsqc2 $vf1, 0(%0)"
+        : : "r"(dst), "r"(src) : "memory");
+}
 
 struct S112CE0 { void* unk0; int unk4; char pad8[4]; void* unkC; };
 

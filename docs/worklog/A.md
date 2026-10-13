@@ -1071,3 +1071,4 @@ Matched (A12) t_11F000: func_0011F3E8 (sprintf into a 0x80 buf, then `do {} whil
 
 ## A12 VU0 pass
 Matched (A12) t_10EBD8: func_0010F6D8 (vadd) func_0010F6F0 (vsub) func_0010F708 (vector * scalar; `mfc1` temp is the same register as the 128-bit result: one `"=&r"(r)` operand) func_0010F720 (dot3 returning float: `"=f"` output + `"=&r"` temp for qmfc2/mtc1)
+Matched (A12) t_110D00: func_00112CC8 (xyz copy via vmove; asm volatile with memory clobber, void). func_00179130/func_0017B448/func_0017F268/func_00131008 are split tails (start at sqc2 / addiu sp), skipped.
