@@ -47,6 +47,14 @@ struct S001D0F68 {
 };
 
 extern "C" {
+void func_001CED20(void* p, s32 v);
+void func_001CED98(void* p, s32 v);
+void func_001CEDE0(void* p, s32 v);
+s32 func_00222F90(s32 a);
+void func_00223590(s32 a, void* b);
+void func_00223628(s32 a, void* b);
+s32 func_00224250(s32 a, s32 b);
+s32 func_0027DF00_k(s32 a, u32 key) __asm__("func_0027DF00");
 void func_001D0330_0(void) __asm__("func_001D0330");
 void func_001CE7C0(void);
 void func_001D12E0(void);
@@ -354,7 +362,46 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D17B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1910);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1998);
+extern "C" void func_001D1998(void* self, s32 a) {
+    char* p = (char*)self;
+    s32 sp0;
+    s32 sp4;
+    s32 sp8;
+    s32 spC;
+    sp0 = 0;
+    if (func_0027D870((void*)a, 0xA1DC81F9, &sp0, 0) != 0) {
+        func_001CED20(p, sp0);
+    }
+    sp4 = 0;
+    if ((func_0027D870((void*)a, 0xA7F6519E, &sp4, 0) ^ 1) != 0 && sp0 != 0 && func_00222F90(sp0) != 0) {
+        sp4 = sp0;
+    }
+    sp8 = 0;
+    if (func_0027D870((void*)a, 0xEE3494C5, &sp8, 0) != 0) {
+        func_001CEDE0(p, sp8);
+    }
+    func_001CED98(p, sp4);
+    if ((func_0027D870((void*)a, 0x0CBC121F, p + 0x54, 0) ^ 1) != 0) {
+        s32 t = *(s32*)(p + 0x1C);
+        if (t != 0) {
+            *(s32*)(p + 0x54) = func_00224250(t, 1);
+        } else {
+            s32 u = *(s32*)(p + 0x28);
+            s32* q = &spC;
+            spC = 0;
+            if (u != 0 && func_0027D870((void*)u, 0x63E613ED, q, 0) != 0) {
+                *(s32*)(p + 0x54) = func_00224250(spC, 0);
+            } else {
+                *(s32*)(p + 0x54) = func_001D0788();
+            }
+        }
+    }
+    func_00223590(a, p + 0x80);
+    func_00223628(a, p + 0xA0);
+    if (func_0027DF00_k(a, 0x23627FD7) != 0) {
+        *(s32*)(p + 0xC) |= 2;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1B28);
 

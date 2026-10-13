@@ -54,6 +54,14 @@ struct S1C6188 {
 };
 
 extern "C" {
+s32 func_00122718(char* p);
+s32 func_001287F0(s32 a, s32 b);
+s32 func_0027AA70(s32 a);
+void func_0027C448(s32 a, s32 b, u32 c);
+void func_0027C028(s32 a, u32 key, char* s);
+void func_0027C160(s32 a, u32 key, s32 v);
+void func_0027AC90(s32 a);
+void func_00113250(s32 a);
 extern s32 D_0036CDB0;
 s32 func_00114030(s32 a);
 void func_00122770(void);
@@ -233,7 +241,46 @@ extern "C" void func_001C63F0(char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C6450);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C6650);
+extern "C" void func_001C6650(char* self) {
+    char buf[0x100];
+    char t[2];
+    s32 o = *(s32*)(self + 0x20);
+    s32 r = func_00122718(buf);
+    s32 n;
+    char* p;
+    if (r > 0) {
+        n = r;
+        asm("" : "+r"(n));
+        s32 k19 = 0x19;
+        s32 k18 = 0x18;
+        p = buf;
+        do {
+            u8 c = *p;
+            if ((u32)(c - 0x20) < 0x5F || (s8)c == k19 || (s8)c == k18) {
+                s32 h = func_0027AA70(func_001287F0(8, 1));
+                s8 c2 = *p;
+                if (c2 == k19) {
+                    func_0027C448(h, 0, 0xB292CC42);
+                } else if (c2 == k18) {
+                    func_0027C448(h, 0, 0x86C0FC77);
+                } else {
+                    t[0] = *p;
+                    t[1] = 0;
+                    func_0027C028(h, 0xC4745838, t);
+                }
+                func_0027C160(h, 0x69E3A1C4, *(s32*)(o + 0xC4));
+                func_0028C9D0(0xA6ED4911, h, 0, 0, 0, 0);
+                if (h != 0) {
+                    func_0027AC90(h);
+                    func_00113250(h);
+                }
+            }
+            n--;
+            p++;
+        } while (n != 0);
+    }
+    func_00122770();
+}
 
 extern "C" s32 func_001C67C0(char* p, s32 key, s32 idx) {
     for (int i = 0; i < 32; i++) {

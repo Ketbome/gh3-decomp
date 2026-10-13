@@ -21,7 +21,42 @@ struct S1E2E40 : S1E2E40_V {
     void* unk4;
 };
 
+struct S1E4780_O {
+    char pad0[0x20];
+    s32 unk20;
+};
+
+struct S1E4780_L {
+    char pad0[4];
+    u32 unk4;
+    s32 unk8;
+    S1E4780_L* unkC;
+    S1E4780_L* unk10;
+    void* unk14;
+};
+
+struct S1E4780 {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    S1E4780_L unk18;
+    char pad30[0x50];
+    S1E4780_O* unk80;
+};
+
 extern "C" {
+void func_00289FB0(void* p, s32 a);
+void func_0027ACF8(s32 a, u32 key);
+s32 func_0027DF00(s32 a, u32 key);
+s32 func_0027D870(s32 a, u32 key, s32* v, s32 req);
+s32 func_001218A0(s32 a, s32 b, s32 c);
+void func_00121F70(s32 a, void* b, void* c);
+extern s32 D_00368E48[] __attribute__((section(".sdata")));
+extern u8 D_0036DA78[];
+extern u8 D_0034D2D0[];
 void func_001E75A8(S1E32D8* out, void* p);
 void func_00289F90(void* q);
 extern s32 D_00372DB8[] __attribute__((section(".sdata")));
@@ -139,6 +174,36 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E45C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E46B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E4780);
+extern "C" S1E4780* func_001E4780(S1E4780* p, s32 a, S1E4780_O* o) {
+    S1E4780_L* l = &p->unk18;
+    p->unk4 = 0;
+    p->unk8 = 0;
+    p->unk14 = 0;
+    l->unk4 = 0xFFFFFFFF;
+    l->unk14 = D_0034D2D0;
+    l->unk8 = 0;
+    l->unkC = l;
+    l->unk10 = l;
+    p->unk80 = o;
+    func_00289FB0(o, 0);
+    func_0027ACF8(p->unk80->unk20, 0xD8580FB5);
+    func_0027ACF8(p->unk80->unk20, 0x4EEC27B5);
+    func_0027ACF8(p->unk80->unk20, 0x56B7A7F6);
+    p->unk10 = func_0027DF00(a, 0xEAB375BF);
+    s32 sp0;
+    func_0027D870(a, 0x11093FB5, &sp0, 1);
+    p->unk14 = sp0;
+    s32 r = func_0027DF00(a, 0x712B3542);
+    s32 h = D_00368E48[0];
+    p->unkC = r;
+    s32 t = func_001218A0(h, 0, 0);
+    if (t != 0) {
+        func_00121F70(t, D_0036DA78, l);
+        p->unk0 = 0;
+    } else {
+        p->unk0 = 1;
+    }
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E48C0);

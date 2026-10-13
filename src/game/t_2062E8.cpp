@@ -20,7 +20,16 @@ struct S206 {
     u128_206 unk20;
 };
 
+struct S206BD0_L {
+    char pad0[4];
+    u32 unk4;
+    s32* unk8;
+};
+
 extern "C" {
+int func_0027D268_f(int, u32, f32*, int) __asm__("func_0027D268");
+int func_0027D470_l(int, u32, S206BD0_L**, int) __asm__("func_0027D470");
+int func_002069F8(void*, int, int, int, int, int, f32);
 void func_00207DD8(void*, int);
 int func_00206728(void*, int, int);
 void func_00207E58(int, int);
@@ -134,7 +143,41 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206788);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_002069F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206BD0);
+extern "C" int func_00206BD0(void* self, int s, int b, int c, int d) {
+    f32 sp0 = 0.0f;
+    int sp4;
+    S206BD0_L* l;
+    if (c == 0) {
+        if ((func_0027D268_f(s, 0xC48391A5, &sp0, 0) ^ 1) != 0) {
+            return 0;
+        }
+        sp0 = sp0 * sp0;
+    }
+    l = 0;
+    if (func_0027D870(s, 0x7321A8D6, &sp4, 0) != 0) {
+        return func_002069F8(self, s, b, c, sp4, d, sp0);
+    }
+    if (func_0027D470_l(s, 0x7321A8D6, &l, 1) != 0) {
+        u32 i = 0;
+        if (l->unk4 != 0) {
+            do {
+                int h;
+                f32 f = sp0;
+                if (l->unk4 == 1) {
+                    h = (int)l->unk8;
+                } else {
+                    h = l->unk8[i];
+                }
+                if (func_002069F8(self, s, b, c, h, d, f) != 0) {
+                    return 1;
+                }
+                i++;
+            } while (i < l->unk4);
+            return 0;
+        }
+    }
+    return 0;
+}
 
 extern "C" int func_00206D58(void* self, int a, int b) {
     return func_00206BD0(self, a, b, 0, 0) != 0;
