@@ -170,7 +170,8 @@ void func_0029FEF0(void);
 extern int D_00371784;
 extern int D_00372ED0;
 void func_0029FF10(void);
-int func_00296798(void*);
+int func_00296798_1(void*) asm("func_00296798");
+void func_002965C0_3(void *, int, int *) asm("func_002965C0");
 char* func_00296920(void*, int);
 void strcpy(void*);
 extern char D_00371798[];
@@ -374,7 +375,7 @@ extern "C" void func_002965E8(S2949F0_B *p, int v) {
 }
 
 extern "C" void func_00296618(char* a) {
-    func_00296798(a + 0x24);
+    func_00296798_1(a + 0x24);
 }
 
 extern "C" int func_00296638(S00296638* p) {
@@ -416,7 +417,28 @@ extern "C" void func_00296738(S296738 *p, char *a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296798);
+extern "C" void func_00296798(int *p, int v) {
+    int old = *p;
+    if (old != v) {
+        S2949F0_B *o = (S2949F0_B *)D_003717E0;
+        if (old != 0) {
+            o->unk1C->unk8 = 1;
+        }
+        *p = v;
+        switch (v) {
+        case 1:
+            func_002965C0_3(o, 0x1068, p);
+            break;
+        case 2:
+        case 4:
+            func_002965C0_3(o, 0x61A80, p);
+            break;
+        case 3:
+            func_002965C0_3(o, 0x493E0, p);
+            break;
+        }
+    }
+}
 
 extern "C" void func_00296848(S00296848* p, int v) {
     if (p->unk1A8 != v) {

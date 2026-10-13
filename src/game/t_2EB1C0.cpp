@@ -58,6 +58,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB550);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB568);
 
+GP_DATA(D_003729D8);
+GP_DATA(D_003729D4);
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB680);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB738);

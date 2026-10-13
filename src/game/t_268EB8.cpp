@@ -147,7 +147,24 @@ extern "C" void func_002694D8(S27E358 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00269590);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_002696C8);
+extern "C" int func_002696C8(void) {
+    int n = 0;
+    for (int i = 0; i < 2; i++) {
+        D_003A3480[i].unk0 = 0;
+        D_003A3480[i].unk4 = 0;
+        D_003A3480[i].unk8 = 2;
+    }
+    for (int i = 0; i < 4; i++) {
+        if (D_003A3420[i].unk0 != 0) {
+            n++;
+        }
+        D_003A3420[i].unk0 = 0;
+        D_003A3420[i].unk4 = 0;
+        D_003A3420[i].unk8 = 1.0f;
+        D_003A3420[i].unkC = 1.0f;
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00269780);
 

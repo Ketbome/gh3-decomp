@@ -746,3 +746,14 @@ t_2E90B0 func_002EA758; t_273498 func_00273B80 (`int live = ((x >> 1) & 1) ^ 1; 
 func_00273B48 with its second argument through an asm alias).
 Given up: func_0027A9B8 (s0/s1 save order swapped), func_0026A5D0 (original lays out `return 0` first with bnezl, 5 forms),
 func_0027E288 (loop shorter than 6 instrs).
+Part 3 (+9): t_2797A8 func_0027ACF8 (list remove: `while (next != 0)` condition on the loaded next, `if (prev != 0) prev->next = ..; else head = ..`);
+t_26D280 func_0026E008; t_2D0150 func_002D0CF0 (assign the float to a local in both branches, then store); t_268EB8 func_002696C8 (clear loops
+`for (i < 2)` and `for (i < 4)` with a running `n++`, unrolled by -funroll-loops); t_292928 func_00293360 (callbacks passed as `(void *)func`; callee
+args a1/a2 skipped = unused parameters); t_2949F0 func_00296798 (load the global object pointer into a local right after the `old != v` test; callee
+func_002965C0 reached by an asm alias with 3 args, func_00296798 itself aliased as `_1` for the 1-arg caller).
+Toolchain notes: functions that save s0..s5 + ra (7 registers) use `sq` in the original while we emit `sd` (44 functions in the asm have `sq $17`,
+e.g. t_2AF598 func_002AFE38, t_26AEF8 func_0026B3C8): skipped. Short `flag = (x == K)` as 0/1 stays xor+sltiu (t_2AD528 CFunc_LightShow_SetTime).
+Given up: t_2AD528 CFunc_LightShow_SetTime (see above), t_2EB1C0 func_002EB680 (list node pointer in a2 instead of a1, 4 forms), t_2C7900 func_002C7900
+(extra saved register caching the address of an stack array), t_26AEF8 func_0026BE00 (saved register for the result), func_0026BCB0 (the original keeps
+three copies of the entry pointer), t_268EB8 func_002698C8 (first two clears address the data through D_003A3484), func_0026A5D0 (return 0 first),
+t_2DEE90 func_002DF1F0 (iterator object with vptr store at the end), t_292928 func_002936C0 (volatile busy loop), t_2E90B0 func_002EA898 (empty loop).

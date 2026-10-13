@@ -19,7 +19,21 @@ struct S26D_Ent {
     int key;
 };
 
+struct S26E008 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    char unk10[1];
+};
+
 extern "C" {
+void func_0030B550(char *, const char *, ...);
+extern char D_00358958[];
+void *func_0011DF78(char *, int, int, int);
+int func_0011DB60(void *);
+int func_0011DBB8(void *, void *, int, int);
+int func_0011E008(void *);
 int func_001150B8(void);
 int func_0026DCA0(int);
 void func_00277378_i(int, int) asm("func_00277378");
@@ -140,7 +154,25 @@ extern "C" void func_0026DFE8(S0026DFE8* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DFF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E008);
+extern "C" int func_0026E008(void *vp, int key) {
+    S26E008 *p = (S26E008 *)vp;
+    char buf[256];
+    func_0030B550(buf, D_00358958, key);
+    void *h = func_0011DF78(buf, 1, 0x64, 0);
+    if (h != 0) {
+        int n = func_0011DB60(h);
+        p->unk4 = n;
+        if (n >= 0x1000) {
+            func_0011E008(h);
+            return 0;
+        }
+        func_0011DBB8(h, p->unk10, 1, n);
+        func_0011E008(h);
+        p->unk0 = key;
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" int func_0026E0B8(int *p) {
     if (*p) {

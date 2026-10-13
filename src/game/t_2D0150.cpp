@@ -87,7 +87,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_GuitarEvent_UnnecessaryNote_
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_event_spawner_cfunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0CF0);
+extern "C" void func_002D0CF0(f32 *out, int *tempo) {
+    int h = func_002763E0(0xD95930AC, 1);
+    int out2;
+    int v;
+    if (func_0027CC30(h, 0x8C309373, 1, &out2) == 0) {
+        func_0027F1E0(h, 0, 1);
+        v = 0;
+    } else {
+        v = out2;
+    }
+    f32 r;
+    if (v == 0) {
+        r = 100.0f;
+    } else {
+        r = 1000.0f / (f32)v * 60.0f;
+    }
+    *out = r;
+    *tempo = v;
+}
 
 extern "C" s32 CFunc_get_song_tempo_cfunc(int arg0, SGAS *arg1) {
     f32 a;

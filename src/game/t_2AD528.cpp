@@ -1,9 +1,10 @@
 // cflags: -funroll-loops
+#include "common.h"
+
 struct S2AED18 {
     char pad0[0x20];
     int unk20;
 };
-#include "common.h"
 
 struct S2ADFD8_0 {
     s32 unk0;
@@ -55,6 +56,8 @@ extern "C" s32 CFunc_LightShow_AppendSnapshotParams(int arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_OverrideColor);
 
+GP_DATA(D_00371EE4);
+GP_DATA(D_00371EE0);
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_SetTime);
 
 struct SGPS {

@@ -73,12 +73,14 @@ extern "C" int func_0026BCA0(void) {
     return D_00370C50 >= 0;
 }
 
+GP_DATA(D_00370C58);
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BCB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BD80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BDF8);
 
+GP_DATA(D_00370C10);
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BE00);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BEA8);

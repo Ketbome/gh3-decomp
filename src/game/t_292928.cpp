@@ -57,6 +57,15 @@ struct S00293340 {
 };
 
 extern "C" {
+void func_00300270(void);
+void func_00300ED0(int, int, void *, int);
+int func_00293998(void);
+int func_002939A0(void);
+int func_002939D8(void);
+int func_00293A08(void);
+int func_00293A38(int, S293_Out *);
+void func_00293D08(int, int, int, int, int, int);
+void func_002934C8(S002934C8 *);
 extern int D_003733C4;
 extern int D_003733C8;
 extern int D_003733BC;
@@ -191,7 +200,17 @@ extern "C" void func_00293340(S00293340* p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293360);
+extern "C" int func_00293360(int a, int, int, int b, int c, int d, int e, int f) {
+    func_00300270();
+    func_00300ED0(a, 0, (void *)func_00293998, 0);
+    func_00300ED0(a, 1, (void *)func_002939A0, 0);
+    func_00300ED0(a, 2, (void *)func_002939D8, 0);
+    func_00300ED0(a, 3, (void *)func_00293A08, 0);
+    func_00300ED0(a, 5, (void *)func_00293A38, 0);
+    func_002934C8((S002934C8 *)a);
+    func_00293D08(a + 0x48, b, c, d, e, f);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293460);
 

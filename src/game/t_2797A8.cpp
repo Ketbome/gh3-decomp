@@ -57,7 +57,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027ABB0);
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027AC80);
 
 struct S27AC90_N {
-    char pad0[0xC];
+    char pad0[4];
+    int unk4;
+    char pad8[4];
     S27AC90_N *unkC;
 };
 struct S27AC90 {
@@ -79,7 +81,31 @@ extern "C" void func_0027AC90(S27AC90 *p) {
     p->unk3 = D_003711D8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027ACF8);
+extern "C" void func_0027ACF8(S27AC90 *p, int key) {
+    S27AC90_N *prev = 0;
+    S27AC90_N *n = p->unk4;
+    S27AC90_N *next;
+    if (n != 0) {
+        do {
+            next = n->unkC;
+            if (n->unk4 == key) {
+                if (prev != 0) {
+                    prev->unkC = next;
+                } else {
+                    p->unk4 = next;
+                }
+                func_002791E0(n);
+                func_0025C5E8(n);
+            } else {
+                prev = n;
+            }
+            n = next;
+        } while (next != 0);
+    }
+    if (p->unk4 == 0) {
+        p->unk3 = D_003711D8;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027ADA0);
 
