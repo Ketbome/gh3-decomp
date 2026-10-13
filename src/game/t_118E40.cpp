@@ -269,7 +269,99 @@ extern "C" void func_001195C0(void* a, char* b) {
     func_0011A208(a, func_001150B8(buf), 1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119610);
+int func_00119548_r(void*) __asm__("func_00119548");
+int func_00119520_r(void*) __asm__("func_00119520");
+int func_00119570_r(void*, char*) __asm__("func_00119570");
+int func_001195C0_r(void*, char*) __asm__("func_001195C0");
+
+extern "C" int func_00119610(char* self, int n) {
+    switch (n) {
+    case 0:
+        return *(int*)(self + 0x1DC);
+    case 1:
+        return *(int*)(self + 0x1E0);
+    case 2:
+        return *(int*)(self + 0x1F8);
+    case 3:
+        return *(int*)(self + 0x200);
+    case 4:
+        return *(int*)(self + 0x224);
+    case 5:
+        return *(int*)(self + 0x1F0);
+    case 6:
+        return *(int*)(self + 0x23C);
+    case 7:
+        return *(int*)(self + 0x238);
+    case 8:
+        return *(int*)(self + 0x230);
+    case 9:
+        return *(int*)(self + 0x22C);
+    case 10:
+        return *(int*)(self + 0x244);
+    case 11:
+        return *(int*)(self + 0x248);
+    case 12:
+        return func_00119548_r(self);
+    case 13:
+        return func_00119520_r(self);
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+        return func_00119570_r(self, (char*)(n - 0x12));
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+        return func_001195C0_r(self, (char*)(n - 0x1A));
+    case 44:
+        return *(int*)(self + 0x21C);
+    case 58:
+        return *(int*)(self + 0x1E8);
+    case 59:
+        return *(int*)(self + 0x250);
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 34:
+    case 35:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 41:
+    case 42:
+    case 43:
+    case 45:
+    case 46:
+    case 47:
+    case 48:
+    case 49:
+    case 50:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 55:
+    case 56:
+    case 57:
+    case 60:
+    case 61:
+    case 62:
+    default:
+        return 0;
+    }
+}
 
 extern "C" void func_00119710(void) {
     func_00119730();

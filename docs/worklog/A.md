@@ -1024,3 +1024,4 @@ Matched (A10) t_14C740: func_0014E290 (0x1dc; init sequence with profiler marker
 ## A11 pass (jtbl / u128 / mid-size)
 
 Matched (A11) t_112D48: func_001135A0 (jtbl, toupper with accents: explicit negative case values, c - 0x20 group first)
+Matched (A11) t_118E40: func_00119610 (jtbl 63 entries, every default index its own case; callees via int-returning asm aliases so v0 passes through)
