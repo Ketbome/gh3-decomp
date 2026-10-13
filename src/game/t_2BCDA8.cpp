@@ -1,6 +1,40 @@
 #include "common.h"
 
+struct SHT_N {
+    int key;
+    int val;
+    SHT_N *next;
+};
+struct SHT {
+    int bits;
+    SHT_N *tab;
+    char pad8[0xD];
+    u8 unk15;
+};
+static inline int SHT_Find(SHT *t, const int &k) {
+    SHT_N *n;
+    if (t->tab == 0) {
+        return 0;
+    }
+    n = &t->tab[k & ((1 << t->bits) - 1)];
+    if (n == 0) {
+        return 0;
+    }
+    do {
+        if (n->key == k) {
+            int v = n->val;
+            if (t->unk15 != 0 || v != 0) {
+                return v;
+            }
+        }
+        n = n->next;
+    } while (n);
+    return 0;
+}
+
 extern "C" {
+int func_0027D870(int, int, int *, int);
+extern SHT D_003AD040;
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern s32 D_00371FF0;
 extern s32 D_003720D0;
@@ -44,13 +78,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_PushGlobalTags);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_PopGlobalTags);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_GlobalTagExists);
+extern "C" int CFunc_GlobalTagExists(int arg0) {
+    int out;
+    int k;
+    func_0027D870(arg0, 0, &out, 1);
+    k = out;
+    return SHT_Find(&D_003AD040, k) != 0;
+}
 
 extern "C" s32 CFunc_OutputGlobalTags(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", func_002BDC48);
+extern "C" int func_002BDC48(int arg0) {
+    int k = arg0;
+    return SHT_Find(&D_003AD040, k);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", func_002BDCD0);
 

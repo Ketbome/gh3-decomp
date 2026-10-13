@@ -1,5 +1,41 @@
 #include "common.h"
 
+struct SHT_N {
+    int key;
+    int val;
+    SHT_N *next;
+};
+struct SHT {
+    int bits;
+    SHT_N *tab;
+    char pad8[0xD];
+    u8 unk15;
+};
+static inline int SHT_Find(SHT *t, const int &k) {
+    SHT_N *n;
+    if (t->tab == 0) {
+        return 0;
+    }
+    n = &t->tab[k & ((1 << t->bits) - 1)];
+    if (n == 0) {
+        return 0;
+    }
+    do {
+        if (n->key == k) {
+            int v = n->val;
+            if (t->unk15 != 0 || v != 0) {
+                return v;
+            }
+        }
+        n = n->next;
+    } while (n);
+    return 0;
+}
+
+extern "C" {
+extern struct SHT *D_003729D0;
+}
+
 struct S2EBDE0_0 {
     s32 unk0;
     s32 unk4;
@@ -12,7 +48,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB1C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB280);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB4C8);
+GP_DATA(D_003729D0);
+extern "C" int func_002EB4C8(int arg0) {
+    int k = arg0;
+    return SHT_Find(D_003729D0, k);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB550);
 
