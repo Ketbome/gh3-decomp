@@ -68,3 +68,10 @@ real class and signature are known, decompiled code uses `extern "C"` with the s
 
 Sony libraries 3.0.0 (`PsIIlibgraph3000`, `PsIIlibmc2 3010`, ...), GameSpy SDK (built as `.cpp`), libstdc++
 (`bad_alloc`). None of their ranges are mapped yet.
+
+## Open questions
+
+- `div.s` is preceded by two nops in most of the game (418 of ~700), regardless of how far back its operands were
+  written, and by none in some places. ee-gcc does not emit them; the assembler shipped with the compiler
+  (`as.exe`, GNU as 2.9-ee-991111b) does not insert them either, nor does it pad short loops, so the game was
+  assembled with a later SN assembler whose rule for these nops is not known yet.
