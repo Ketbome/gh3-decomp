@@ -25,6 +25,28 @@ void func_0016C6A8(int, f32);
 void func_0016C6B0(int, f32);
 }
 
+struct VP215 {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int);
+};
+
+struct AP215 {
+    s32 unk0;
+    s32 unk4;
+    s32 (VP215::*unk8)(int, int);
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_002151A8);
 
 extern "C" void func_002167D8(void) {
@@ -50,9 +72,29 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_00216868);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_00216BD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_00216D78);
+extern "C" s32 func_00216D78(VP215* p, AP215* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_00216E18);
+struct VE215 {
+    s16 delta;
+    s16 unk2;
+    void* fn;
+};
+
+extern "C" int func_00216E18(S215* self, int a) {
+    char* o = (char*)self->unkC;
+    if (*(u32*)(o + 0xC) & 1) return 0;
+    char* p = (char*)self->unk20;
+    if (!p) return 0;
+    if (*(int*)(p + 0x1C) != a) return 0;
+    VE215* e = (VE215*)(*(char**)(o + 8) + 0x40);
+    ((void (*)(void*, int))e->fn)(o + e->delta, a);
+    return 1;
+}
 
 extern "C" void func_00216E70(void) {
 }

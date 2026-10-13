@@ -12,10 +12,15 @@ void func_001D48D0(int, int);
 extern u8 D_00399A68[];
 extern u8 D_00399A88[];
 void func_00249FB8(void*);
+void func_0011C408(int, void*);
+void func_00249F48(int*);
+void func_00249F80(int*);
 void func_0024A070(void*);
 void func_0027C448(int, u32, int);
 void func_0024A128(void*, int, int);
 void func_0024A308(void*, int, int);
+int func_0027D870(int, u32, int*, int);
+int func_001D0680(int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_00249620);
@@ -65,9 +70,57 @@ extern "C" int* func_00249F90(int* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_00249FB8);
+extern "C" void func_00249FB8(void* self) {
+    int* p = (int*)self;
+    char* t = (char*)p[1];
+    if (t) {
+        char* q = t;
+        u32 n = 1 << p[0];
+        u32 i = 0;
+        if (n) {
+            do {
+                char* c = *(char**)(q + 8);
+                if (c) {
+                    do {
+                        char* nx = *(char**)(c + 8);
+                        func_0011C408(0, c);
+                        c = nx;
+                    } while (c);
+                }
+                func_00249F48((int*)q);
+                i++;
+                q += 12;
+            } while (i < n);
+        }
+        p[2] = 0;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A070);
+extern "C" void func_0024A070(void* self) {
+    int* p = (int*)self;
+    char* t = (char*)p[1];
+    if (t) {
+        char* q = t;
+        u32 n = 1 << p[0];
+        u32 i = 0;
+        if (n) {
+            do {
+                char* c = *(char**)(q + 8);
+                if (c) {
+                    do {
+                        char* nx = *(char**)(c + 8);
+                        func_0011C408(0, c);
+                        c = nx;
+                    } while (c);
+                }
+                func_00249F80((int*)q);
+                i++;
+                q += 12;
+            } while (i < n);
+        }
+        p[2] = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_0024A128);
 
@@ -138,7 +191,11 @@ extern "C" int CFunc_FlushDeadObjects(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CompositeObjectExists);
+extern "C" int CFunc_CompositeObjectExists(int s) {
+    int v;
+    if ((func_0027D870(s, 0xA1DC81F9, &v, 0) ^ 1) != 0) func_0027D870(s, 0, &v, 1);
+    return func_001D0680(v) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_Orient);
 

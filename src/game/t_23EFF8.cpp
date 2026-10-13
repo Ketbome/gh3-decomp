@@ -4,6 +4,8 @@ typedef int TI128 __attribute__((mode(TI)));
 
 extern "C" {
 void func_00244C40(void*);
+void func_0023F240_2(void*, int) __asm__("func_0023F240");
+void func_0023F0D0_2(void*, int) __asm__("func_0023F0D0");
 void func_00245220(void*);
 void func_00244930(void*);
 void func_00246B08(void*);
@@ -17,6 +19,11 @@ void func_0023DC88(void*);
 extern u8 D_00354D48[];
 void* func_0023DC68(void*);
 extern u8 D_00354C70[];
+void func_0011A470(int);
+extern u8 D_00354B88[];
+void* func_0023F1A0(void*);
+void func_0010F690(void*);
+void func_001342B0(void*);
 }
 
 GP_DATA(D_0036FE9C);
@@ -106,7 +113,17 @@ extern "C" void* func_0023F628(char* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F668);
+extern "C" void func_0023F668(char* p, int flags) {
+    *(void**)(p + 0xC) = D_00354C70;
+    if (*(u16*)(p + 4) & 0x8000) {
+        int t = *(int*)(p + 0x10);
+        if (t) {
+            func_0011A470(t);
+            *(int*)(p + 0x10) = 0;
+        }
+    }
+    func_0023F0D0_2(p, flags);
+}
 
 extern "C" int func_0023F6D0(char* p, int a, char* q) {
     *(f32*)(p + 0x14) = *(f32*)(q + 0x3C);
@@ -170,6 +187,27 @@ extern "C" void func_00240F58(void** p) {
     func_002456B0(p[2]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_00240F78);
+extern "C" void* func_00240F78(void* self) {
+    char* p = (char*)self;
+    func_0023F1A0(p);
+    char* t = p + 0xA0;
+    *(void**)(p + 0xC) = D_00354B88;
+    func_0010F690(t);
+    func_0010F690(p + 0xB0);
+    func_001342B0(t);
+    *(int*)(p + 0xC0) = 0;
+    *(int*)(p + 0xC4) = 0;
+    return p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_00240FD8);
+extern "C" void func_00240FD8(char* p, int flags) {
+    *(void**)(p + 0xC) = D_00354B88;
+    if (*(u16*)(p + 4) & 0x8000) {
+        int t = *(int*)(p + 0xC0);
+        if (t) {
+            func_0011A470(t);
+            *(int*)(p + 0xC0) = 0;
+        }
+    }
+    func_0023F240_2(p, flags);
+}

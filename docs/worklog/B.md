@@ -652,3 +652,13 @@ Habit: `for (i = 0; i < t->count; i++) f(...)` (count reloaded each iteration) m
 ### t_2320A0
 Matched 2: CFunc_LinkRawAsset CFunc_UnlinkRawAsset (`(f() ^ 1) != 0` keeps the xori+bnezl).
 Given up: CFunc_UnloadPak (three induction variables: pointer, offset, hoisted base in a2; ours merges them).
+
+### t_2131A8 / t_2151A8 / t_23EFF8 / t_243208 / t_249620
+Matched: t_2131A8 func_00213E10 func_00213650 func_002150A8 func_00215128 func_00213CF0 func_002143F8 func_00214350 func_00213908;
+t_2151A8 func_00216D78 func_00216E18; t_23EFF8 func_00240FD8 func_0023F668 func_00240F78; t_243208 func_00243558 func_00243B08 func_00243A98 func_00243B70;
+t_249620 func_00249FB8 func_0024A070 CFunc_CompositeObjectExists.
+Habits (verified): `if ((f() ^ 1) != 0) return 1;` early return puts `li v0,1` in the bnez delay slot (func_00213908) and keeps xori+beqz in a CFunc (CFunc_CompositeObjectExists);
+`if (flags & 1) return;` early return gives `andi; bnez` where `if (!(flags & 1)) {..}` gave xori+beqz (func_002143F8);
+recursive tree walkers: if/else with one result variable gives the recursion-first layout, `register u8* c asm("$16")` + `register int a asm("$17")` pins the saved registers, `asm("" : "+r"(b))` stops gcc from folding `a + (b + 1)` into `(a + 1) + b` (func_00243A98), min of two as `b = f(); if (a < b) b = a;` (func_00243B70);
+a second `if (*r)` after a first `if (*r) call()` is jump-threaded by gcc: read it as `int t = *(volatile int*)r;` (func_00215128); a field `u16` test needs `*(u16*)(p + 4) & 0x8000` (lhu).
+Given up: func_00243678 (t-register assignment of the add chain, 3 forms), func_00245648 (loop compare reload lands in v1 not v0; 5 forms with register variables), func_00246D48 (remove-by-value: j must reuse the dead a1, count reload in t0; register variables got within the last v0/v1 pair of the inner loop), CFunc_GetUniqueCompositeObjectID (D_0036D3B0 macro form vs gp in the rest of the file), func_002435D8 and similar (D_00368A38 macro).

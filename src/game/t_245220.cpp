@@ -9,6 +9,7 @@ extern u8 D_00354B58[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void*);
 void func_0011A470(int);
+void func_002454D0(void*, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00245220);

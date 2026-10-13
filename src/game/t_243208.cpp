@@ -8,6 +8,11 @@ void func_002432F8(int, int);
 void func_00119400(int, void*);
 extern int D_0036FF08;
 int func_002443C0(void*, int, int, int);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_00354B70[];
+u8* func_00246B30(u8*);
+u8* func_00246B78(u8*);
+void func_00243FA8(int, int, int, int, int);
 }
 
 extern "C" void func_00243208(void** p) {
@@ -60,7 +65,22 @@ extern "C" char* func_002434D8(char** p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002434E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243558);
+struct N243 {
+    char pad0[0xC];
+    N243* prev;
+    N243* next;
+    void* vt;
+};
+
+extern "C" void func_00243558(N243* p, int flags) {
+    N243* t = p->next;
+    p->vt = D_00354B70;
+    t->prev = p->prev;
+    p->prev->next = p->next;
+    p->prev = p;
+    p->next = p;
+    if (flags & 1) func_00119400(D_00368A38[0], p);
+}
 
 extern "C" void func_002435B8(void) {
     func_002432F8(1, 0xFFFF);
@@ -92,11 +112,44 @@ extern "C" void func_00243720(int* p, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243740);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243A98);
+extern "C" int func_00243A98(u8* n) {
+    register u8* c asm("$16") = n + 4;
+    int r;
+    if (((*n & 3) ^ 3) != 0) {
+        int a = func_00243A98(func_00246B30(c));
+        int b = func_00243A98(func_00246B78(c)) + 1;
+        asm("" : "+r"(b));
+        r = a + b;
+    } else {
+        r = 1;
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243B08);
+extern "C" int func_00243B08(u8* n) {
+    register u8* c asm("$16") = n + 4;
+    int r;
+    if (((*n & 3) ^ 3) != 0) {
+        register int a asm("$17") = func_00243B08(func_00246B30(c));
+        r = a + func_00243B08(func_00246B78(c));
+    } else {
+        r = *(u16*)(n + 2);
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243B70);
+extern "C" u32 func_00243B70(u8* n) {
+    register u8* c asm("$16") = n + 4;
+    u32 b;
+    if (((*n & 3) ^ 3) != 0) {
+        register u32 a asm("$17") = func_00243B70(func_00246B30(c));
+        b = func_00243B70(func_00246B78(c));
+        if (a < b) b = a;
+    } else {
+        b = *(u32*)(n + 4);
+    }
+    return b;
+}
 
 extern "C" void func_00243BE0(u32* p, int v) {
     if (v) {
