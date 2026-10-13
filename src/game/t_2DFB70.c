@@ -51,7 +51,7 @@ extern int D_00372814;
 extern int D_0037281C;
 int func_002F1550();
 extern char D_003EAD40[];
-extern char D_003E9900[];
+extern unsigned int D_003E9900[];
 void func_002DFE78(int);
 extern int D_003727F0;
 extern int D_003727F4;
@@ -77,6 +77,30 @@ extern unsigned char D_00372818;
 extern int D_003731F0;
 extern int D_003EA400;
 extern char D_003EA600[];
+extern int D_0037283C;
+extern int D_00372748;
+extern int D_003727D4;
+extern char D_003EA630[];
+extern int D_00372728;
+extern int D_00372718;
+extern int D_0037271C;
+extern int D_0037274C;
+extern int D_003726E8;
+extern unsigned char D_00372750;
+extern int D_003727B4;
+extern int D_003727B8;
+extern int D_003727BC;
+extern int D_003727C0;
+extern int D_003727C4;
+extern int D_00330DB8[];
+extern int D_003307A0[];
+struct S12 {
+    int unk0;
+    int pad[2];
+};
+extern struct S12 D_003EA100[];
+extern struct S12 D_003EA104[];
+extern struct S12 D_003EA108[];
 
 
 extern int D_003EACC0;
@@ -125,9 +149,9 @@ extern int D_00372744;
 extern unsigned int D_00330970[];
 extern unsigned int D_00330A30[];
 extern int D_00372734;
-extern char D_003727DA;
+extern unsigned char D_003727DA;
 extern int D_00372738;
-extern char D_003727D9;
+extern unsigned char D_003727D9;
 extern int D_00372784;
 extern int D_00372788;
 extern int D_0037278C;
@@ -136,18 +160,18 @@ extern int D_00372794;
 extern int D_00372798;
 extern int D_00372810;
 extern int D_00372754;
-extern unsigned char D_003727A0;
+extern int D_003727A0;
 extern int D_003731F4;
 extern int D_00373204;
-extern unsigned char D_003731FC;
-extern unsigned char D_003731F8;
+extern int D_003731FC;
+extern int D_003731F8;
 extern int D_00373200;
 extern int D_003EA8B8[];
 extern int D_003EA890[];
 extern int D_003EA868[];
 extern int D_003EA840[];
 extern unsigned int D_00330AF0[];
-extern char D_003727D8;
+extern unsigned char D_003727D8;
 extern unsigned int D_00372820;
 extern unsigned int D_00372824;
 int func_002F1750();
@@ -162,8 +186,8 @@ extern int D_00372760;
 extern int D_00372764;
 extern int D_00372768[];
 extern int D_0037279C;
-extern unsigned char D_00372740;
-extern unsigned char D_0037273C;
+extern int D_00372740;
+extern int D_0037273C;
 extern unsigned char D_00372780;
 extern unsigned char D_00372781;
 extern unsigned char D_00372782;
@@ -174,7 +198,7 @@ extern short D_003307C0[];
 extern unsigned int D_003EA540[];
 extern int D_003EA8E0[];
 extern int D_003EA9A0[];
-extern unsigned char D_003EA660[];
+extern char D_003EA660[];
 extern unsigned char D_003EA6C0[];
 extern unsigned char D_003EA690[];
 extern int D_003EA480[];
@@ -792,7 +816,251 @@ void func_002E1B50(int a) {
     func_002DFF78();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1BB0);
+GP_DATA(D_00372700);
+GP_DATA(D_00372838);
+GP_DATA(D_0037283C);
+GP_DATA(D_0037273C);
+GP_DATA(D_00372748);
+GP_DATA(D_003727D4);
+GP_DATA(D_00372740);
+GP_DATA(D_00372728);
+GP_DATA(D_00372754);
+GP_DATA(D_00372758);
+GP_DATA(D_0037279C);
+GP_DATA(D_00372790);
+GP_DATA(D_0037278C);
+GP_DATA(D_00372788);
+GP_DATA(D_00372784);
+GP_DATA(D_003727D9);
+GP_DATA(D_00372738);
+GP_DATA(D_003727DA);
+GP_DATA(D_00372734);
+GP_DATA(D_00372780);
+GP_DATA(D_00372781);
+GP_DATA(D_00372782);
+GP_DATA(D_003727A0);
+GP_DATA(D_003727B4);
+GP_DATA(D_003727AC);
+GP_DATA(D_003727B0);
+GP_DATA(D_003727B8);
+GP_DATA(D_003727BC);
+GP_DATA(D_003727C0);
+GP_DATA(D_003727C4);
+GP_DATA(D_003727C8);
+GP_DATA(D_00372718);
+GP_DATA(D_0037274C);
+GP_DATA(D_003726E8);
+GP_DATA(D_00372750);
+GP_DATA(D_003726F4);
+GP_DATA(D_003726F8);
+GP_DATA(D_00372794);
+GP_DATA(D_00372798);
+void func_002E1BB0(void) {
+    int i;
+    int w;
+    int a;
+    int b;
+    unsigned char q;
+    int cnt;
+    unsigned char p;
+    int off;
+
+    D_00372700 = 0;
+    if (D_00372838 == 2) {
+        D_00372838 = 0;
+        D_0037283C = 0;
+    }
+    D_0037273C = 0;
+    cnt = D_003E9900[0] & 0xFF;
+    off = cnt * 9;
+    D_00372748 = D_003E9900[off + 1];
+    if (D_00372748 == D_003727D4) {
+        return;
+    }
+    D_003727D4 = D_00372748;
+    for (i = 0; i < 0x30; i++) {
+        if (D_003EA600[i] == 5) {
+            D_003EA630[i]--;
+            if (D_003EA630[i] == 0) {
+                D_003EA600[i] = 0;
+            }
+        }
+        if (D_003EA600[i] == 1) {
+            D_003EA630[i] = 3;
+            D_003EA600[i] = 0;
+        } else if (D_003EA600[i] == 2) {
+            D_003EA600[i] = 5;
+        }
+        D_00330C08[i] = -1;
+    }
+    off = 0;
+    i = 0;
+    while (i < cnt) {
+        w = D_003E9900[off + 1];
+        p = (w >> 4) & 0x3F;
+        if (D_003EA600[p] != 3) {
+            D_003EA600[p] = 1;
+        } else {
+            D_003EA600[p] = 4;
+        }
+        q = (w >> 10) & 0x3F;
+        D_003EA6F0[p] = (w >> 2) & 3;
+        if (w & 3) {
+            D_0037273C = w & 3;
+            D_00372740 = p;
+        }
+        D_003EA720[p] = (w >> 16) & 0xFFFFFFFFL;
+        D_003EA780[p] = D_003E9900[off + 2] & 0xFFFFFF;
+        D_003EA480[p] = D_003E9900[off + 3];
+        D_003EA660[p] = D_003E9900[off + 4];
+        D_003EA6C0[p] = (D_003E9900[off + 4] >> 31) & 1;
+        if (D_003EA660[p] == 0) {
+            D_00330C08[D_003EA690[p]] = p;
+        }
+        D_003EA690[p] = q;
+        D_003EA9A0[p] = D_003E9900[off + 5];
+        D_003EAA60[p] = D_003E9900[off + 6];
+        if (D_003EA600[p] == 1) {
+            D_003EAB20[p] = D_003E9900[off + 7];
+        } else {
+            D_003EAB20[p] = 0;
+        }
+        a = (short)D_003E9900[off + 8];
+        D_003307C0[p] = (a & 0xFFFF) & 0xFFFFFFFFL;
+        a = D_003E9900[off + 8];
+        a = a >> 16;
+        a &= 0xFFFF;
+        if (((D_00330820[p] & 0x8000) & 0xFFFF) == 0) {
+            D_00330820[p] = a;
+        } else {
+            D_00330820[p] = D_00330820[p] & 0x7FFF;
+        }
+        D_003EABE0[p] = D_003E9900[off + 9];
+        off += 9;
+        i++;
+    }
+    i = 0;
+    while (i < 0x30) {
+        if (D_003EA600[i] == 4) {
+            D_003EA600[i] = 3;
+        } else if (D_003EA600[i] == 3) {
+            D_003EA600[i] = 0;
+        }
+        i++;
+    }
+    D_00372744 = D_003E9900[off + 2];
+    D_0037272C = D_003E9900[off + 3];
+    if (D_003727D8 == 0) {
+        D_00372730 = D_003E9900[off + 4];
+    } else {
+        D_003727D8 = 0;
+    }
+    D_00372728 = D_003E9900[off + 5];
+    i = 0;
+    while (i < 3) {
+        a = 0;
+        while (a < 0x10) {
+            b = D_003E9900[i + (6 + off)];
+            b = b >> (0x1E - a * 2);
+            b = b & 3;
+            if (b == 0 && D_00330BD8[i * 16 + a] == 3) {
+                D_00330BD8[i * 16 + a] = 4;
+            } else if (b == 0 && D_00330BD8[i * 16 + a] == 4) {
+                D_00330BD8[i * 16 + a] = 0;
+            } else {
+                D_00330BD8[i * 16 + a] = b;
+            }
+            a++;
+        }
+        i++;
+    }
+    D_00372754 = D_003E9900[off + 9];
+    D_003731F4 = D_003E9900[off + 0xA];
+    D_00372758 = D_003E9900[off + 0xB];
+    w = off + 0xC;
+    i = 0;
+    while (i < 9) {
+        D_003EA840[i] = D_003E9900[w + i];
+        D_003EA868[i] = D_003E9900[w + i + 9];
+        D_003EA8B8[i] = D_003E9900[w + i + 0x12];
+        D_003EA890[i] = D_003E9900[w + i + 0x1B];
+        i++;
+    }
+    w = w + 0x24;
+    D_003731F8 = D_003E9900[w];
+    D_003731FC = D_003E9900[w + 1];
+    D_0037279C = D_003E9900[w + 2];
+    D_00372790 = (int)D_003E9900[w + 3] >> 8;
+    D_0037278C = D_003E9900[w + 3] & 0xFF;
+    D_00372788 = D_003E9900[w + 4];
+    D_00372784 = D_003E9900[w + 5];
+    D_00373200 = D_003E9900[w + 6];
+    D_00373204 = D_003E9900[w + 7];
+    if (D_003727D9 == 0) {
+        D_00372738 = D_003E9900[w + 8];
+    } else {
+        D_003727D9 = 0;
+    }
+    if (D_003727DA == 0) {
+        D_00372734 = D_003E9900[w + 9];
+    } else {
+        D_003727DA = 0;
+    }
+    D_00372780 = D_003E9900[w + 0xA] & 1;
+    D_00372781 = (D_003E9900[w + 0xA] >> 1) & 1;
+    D_00372782 = (D_003E9900[w + 0xA] >> 2) & 1;
+    D_003727A0 = D_003E9900[w + 0xB];
+    D_003727B4 = D_003E9900[w + 0xC];
+    D_003727AC = D_003E9900[w + 0xD];
+    D_003727B0 = D_003E9900[w + 0xE];
+    D_003727B8 = D_003E9900[w + 0xF];
+    D_003727BC = D_003E9900[w + 0x10];
+    D_003727C0 = D_003E9900[w + 0x11];
+    D_003727C4 = D_003E9900[w + 0x12];
+    a = D_003E9900[w + 0x13];
+    i = 0;
+    while (i < a) {
+        D_003EA8E0[i] = D_003E9900[i + (0x14 + w)];
+        i++;
+    }
+    w = w + i;
+    D_003727C8 = D_003E9900[w + 0x15];
+    i = 0;
+    while (i < 0x30) {
+        D_00330DB8[i] = D_003E9900[i + (0x16 + w)];
+        i++;
+    }
+    w = w + i;
+    D_00372718 = D_003E9900[w + 0x17];
+    D_0037271C = D_003E9900[w + 0x18];
+    i = 0;
+    while (i < 8) {
+        D_003307A0[i] = D_003E9900[i + (0x19 + w)];
+        i++;
+    }
+    D_0037274C = D_003E9900[w + 0x21];
+    w = w + 0x22;
+    b = 0;
+    a = 0;
+    D_003726E8 = D_003E9900[w];
+    i = 0;
+    while (i < D_003726E8) {
+        if (a == 0) {
+            D_003EA108[b].unk0 = D_003EA108[b].unk0 | 0x8000;
+            D_003EA108[b].unk0 = D_003E9900[i * 3 + (1 + w)];
+            D_003EA100[b].unk0 = D_003E9900[i * 3 + (2 + w)];
+            D_003EA104[b].unk0 = D_003E9900[i * 3 + (3 + w)];
+            b++;
+        }
+        i++;
+    }
+    w = w + (1 + i * 3);
+    D_00372750 = D_003E9900[w];
+    D_003726F4 = D_003E9900[w + 1];
+    D_003726F8 = w + 1;
+    D_00372794 = D_003E9900[w + 2];
+    D_00372798 = D_003E9900[w + 3];
+}
 
 GP_DATA(D_00372820);
 int func_002E2FB0(int a, int b) {
