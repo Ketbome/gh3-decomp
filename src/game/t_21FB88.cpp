@@ -85,6 +85,8 @@ extern G2202* D_0036F658[] __attribute__((section(".sdata")));
 void* func_0015FAA0(s32 a, s32 b, s32 c);
 f32 func_0011ED10(void);
 void func_00220A80(char* p);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+void Heap_Free(s32 h, void* p);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FB88);
@@ -217,7 +219,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220B10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220FE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002210B8);
+extern "C" void func_002210B8(char* p) {
+    register char* t asm("$6") = *(char**)(p + 0x1C);
+    if (t != 0) {
+        VEntry21F* e = (VEntry21F*)(*(char**)(t + 0x14) + 0x10);
+        ((void (*)(char*, s32, char*))e->fn)(t + e->delta, 3, t);
+        *(char**)(p + 0x1C) = 0;
+    }
+    void* q = *(void**)(p + 0x24);
+    if (q != 0) {
+        Heap_Free(D_00368A38[0], q);
+        *(void**)(p + 0x24) = 0;
+    }
+    if (*(int*)(p + 0x38)) {
+        func_0012FA98(p + 0x34, *(int*)(p + 0xC));
+        *(int*)(p + 0x38) = 0;
+    }
+    char* l = p + 0x48;
+    char* e2 = p + 0x4C;
+    char* c = *(char**)(l + 8);
+    *(char**)(l + 8) = e2;
+    *(char**)(l + 4) = e2;
+    if (c != e2) {
+        char* end = e2;
+        asm("" : "+r"(end));
+        char* x = c;
+        do {
+            c = *(char**)(c + 4);
+            Heap_Free(D_00368A38[0], x);
+            x = c;
+        } while (c != end);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00221178);
 

@@ -28,7 +28,6 @@ s32 func_001F9B80(void);
 void func_001FA348(int, int);
 void func_001FB028(void*);
 void func_001FB6C0(void*);
-void func_001FAF90(void*);
 void* operator_new(u32);
 void* func_001FAC90(void*);
 extern char D_0038F5B0[];
@@ -41,6 +40,8 @@ void func_002676F0(s32 a, void* b);
 void func_001D0F90(void* a, s32 b);
 extern u8 D_0034F6F0[];
 extern s32 D_00370AE0;
+void func_0027D1F8(s32 p, u32 key, s32* v, s32 req);
+void func_001FAF90(char* self, s32 params);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A48);
@@ -160,8 +161,8 @@ extern "C" s32 func_001FAE30(void* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAE50);
 
-extern "C" s32 func_001FAEC0(void* p) {
-    func_001FAF90(p);
+extern "C" s32 func_001FAEC0(void* p, s32 q) {
+    func_001FAF90((char*)p, q);
     return 1;
 }
 
@@ -174,7 +175,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEE8);
 extern "C" void func_001FAF88(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAF90);
+struct A1FAF {
+    char pad0[0x1C];
+    s32 unk1C[9];
+};
+
+extern "C" void func_001FAF90(char* self, s32 params) {
+    s32 a = -1;
+    s32 b = 0;
+    func_0027D1F8(params, 0x7321A8D6, &a, 0);
+    func_0027DC58(params, 0, &b, 0);
+    if (a != -1 && b != 0) {
+        if (a < 9 && a != -1) {
+            ((A1FAF*)self)->unk1C[a] = b;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB028);
 

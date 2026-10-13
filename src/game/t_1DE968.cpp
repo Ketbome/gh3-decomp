@@ -16,6 +16,11 @@ void* func_001D5BA0(s32 p, u32 key, s32 q);
 s32 func_002764E8(u32 key, s32 v);
 void func_001D5CB0(s32 p, s32 a, void* b, s32 c, u32 key, s32 d, s32 e);
 void func_001D4480(s32 p, s32 a, void* b, s32 c);
+s32 func_0027DF00(s32 p, u32 key);
+s32 func_0027D870(s32 p, u32 key, s32* out, s32 d);
+void func_001DFFB0(s32 p);
+void func_001E0198(u32 a, s32 p);
+void func_001E02F8(s32 p);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DE968);
@@ -52,7 +57,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF718);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF890);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF900);
+extern "C" void func_001DF900(s32 p) {
+    u32 v = 0;
+    u32 t;
+    if (func_0027DF00(p, 0x69C257E9) != 0) {
+        t = 0x9EBA4BA8;
+        goto set;
+    }
+    if ((func_0027D870(p, 0xCE05BD37, (s32*)&v, 0) ^ 1) != 0) {
+        t = 0xAD1C652B;
+set:
+        v = t;
+    }
+    if (v == 0x9EBA4BA8) goto ca;
+    if (v != 0xAD1C652B) goto cc;
+    func_001DFFB0(p);
+    return;
+ca:
+    func_001E02F8(p);
+    return;
+cc:
+    func_001E0198(v, p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF9C0);
 

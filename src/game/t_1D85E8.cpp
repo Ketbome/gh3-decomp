@@ -120,6 +120,7 @@ void func_001DB708(s32 a, void* p, void* q);
 void* func_00113DF0(u32, int, int);
 s32 func_001DA7B8(void*);
 void func_001D8BC8_3(void* p, s32 a, f32 t) __asm__("func_001D8BC8");
+void func_001D8BA0_2(void* p, s32 a) __asm__("func_001D8BA0");
 }
 
 extern "C" void func_001D85E8(char* p, char* q) {
@@ -363,7 +364,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA1F8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA368);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001DA448);
+extern "C" void func_001DA448(L1DA5* l, s32 a, s32 k) {
+    I1DA5 end;
+    I1DA5 it;
+    it.unk4 = l->unk1C;
+    end.unk4 = (N1DA5*)((char*)l + 0x18);
+    if (it.unk4 != end.unk4) {
+        do {
+            E1DA5* e = it.unk4->unk8;
+            if (e->unk0 & 1) {
+                e->unk14++;
+                if (k == 0 || *(s32*)((char*)it.unk4->unk8 + 4) == k) {
+                    func_001D8BA0_2(it.unk4->unk8, a);
+                }
+                it.unk4->unk8->unk14--;
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+}
 
 extern "C" void func_001DA500(L1DA5* l, s32 a, f32 t) {
     I1DA5 end;
