@@ -152,7 +152,37 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156DF8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156E00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156ED0);
+struct B_00156ED0 { u64 f0 : 1; u64 f1 : 63; };
+
+extern "C" int func_00156ED0(char* p) {
+    int n = 0;
+    for (;;) {
+        if (!((B_00156ED0*)(p + 0x0))->f0) {
+            ((B_00156ED0*)(p + 0x0))->f0 = 1;
+            return n + 1;
+        }
+        if (!((B_00156ED0*)(p + 0x160))->f0) {
+            ((B_00156ED0*)(p + 0x160))->f0 = 1;
+            return n + 2;
+        }
+        if (!((B_00156ED0*)(p + 0x2c0))->f0) {
+            ((B_00156ED0*)(p + 0x2c0))->f0 = 1;
+            return n + 3;
+        }
+        if (!((B_00156ED0*)(p + 0x420))->f0) {
+            ((B_00156ED0*)(p + 0x420))->f0 = 1;
+            return n + 4;
+        }
+        if (((B_00156ED0*)(p + 0x580))->f0) {
+            n += 5;
+            p += 0x6E0;
+            if (n >= 0x1E) return 0;
+            continue;
+        }
+        ((B_00156ED0*)(p + 0x580))->f0 = 1;
+        return n + 5;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156F80);
 

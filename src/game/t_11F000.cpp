@@ -18,6 +18,8 @@ struct SA11F_W {
 };
 
 extern "C" {
+extern volatile int D_00368C04;
+int func_00120A40(void*, void*, int, int);
 int func_0011E190(void);
 int func_001203A8(int, int, int, int, int);
 void func_0011E3B8(int);
@@ -185,6 +187,10 @@ extern "C" int func_00120008(void) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120010);
+
+struct L_001200D0 { char pad0[0x10]; int unk10; char pad14[0x58]; int unk6C; };
+struct VE_001200D0 { char pad0[8]; s16 unk8; s16 unkA; void (*unkC)(void*); };
+struct S_001200D0 { char pad0[0x20]; int unk20; char pad24[0x1C]; volatile int unk40; VE_001200D0* unk44; int unk48; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_001200D0);
 

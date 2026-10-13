@@ -1,5 +1,6 @@
 #include "common.h"
 
+struct S_001184C0 { char pad0[0x18]; int unk18; char pad1C[0x48]; char unk64[0x70]; int unkD4; int unkD8; char padDC[8]; int unkE4; char padE8[4]; int unkEC; };
 struct S_00117F10 { char pad0[0xF8]; int unkF8; };
 struct S_00118570 { char pad0[0xD4]; int unkD4; };
 
@@ -205,6 +206,24 @@ INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117940);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001179F8);
 
+struct N_00117AA0 { char pad0[4]; N_00117AA0* unk4; char pad8[4]; N_00117AA0* unkC; };
+
+struct It_00117AA0 {
+    int unk0;
+    N_00117AA0* cur;
+    u8* vp;
+    It_00117AA0(N_00117AA0* h) : cur(h), vp(D_00338448) {}
+    ~It_00117AA0() { vp = D_00338448; }
+    N_00117AA0* next() {
+        N_00117AA0* n = cur->unkC;
+        if (~(u32)n->unk4 == 0) n = 0;
+        cur = n;
+        return n ? n->unk4 : 0;
+    }
+};
+
+extern "C" void func_00118580(N_00117AA0*);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117AA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117B50);
@@ -309,7 +328,28 @@ extern "C" void func_00118388(S118388* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001183C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001184C0);
+extern "C" void func_001184C0(S_001184C0* self) {
+    if (self->unkD4 == 0) {
+        if (self->unkEC == 2) {
+            if (self->unkD8 & 2) {
+                int i = 0;
+                if (self->unkE4 > 0) {
+                    char* p = self->unk64;
+                    do {
+                        p[i] = 0;
+                        i++;
+                    } while (i < self->unkE4);
+                }
+                char c;
+                int x;
+                x = 0;
+                c = (1 << self->unkE4) - 1;
+                func_002ED798(self->unk18, 1, &c, 2, &x);
+            }
+        }
+        self->unkD4 = 1;
+    }
+}
 
 extern "C" void func_00118570(S_00118570* self) {
     self->unkD4 = 0;

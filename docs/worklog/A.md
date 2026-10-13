@@ -902,3 +902,14 @@ A8 pass, part 4. Matched 6: func_00161DD8 func_0013DCA8 func_0013CED0 func_0014E
 Given up (A8, part 4): func_00120628 (partly unrolled 2-entry search), func_0019ED90 (call argument order + xori),
 func_001A1078 (entry pointer copied to the saved register), func_00186EE8/F90/87038 family (second flag load
 register), func_0017A630 (case order matched; `move a0,a2` hoisted into the first delay slot).
+
+A8 pass, part 5. Matched 3: func_001184C0 func_00156ED0 func_0016BBC0
+
+- 64-bit flag word tests must be a `u64` bitfield (`struct { u64 f0:1; u64 f1:63; }`): `(long & 1)` adds dsll32/dsra32.
+  Last test of an unrolled-by-hand chain is the positive form `if (f0) { n += 5; p += 0x6E0; if (n >= 0x1E) return 0; continue; }`.
+- Intrusive list walk with `-0xC`: loop variable copy (`cur = o; ...; o = nx;`) and the vcall without the m2c extra
+  third operand (func_0016BBC0).
+
+Given up (A8, part 5): func_00117AA0 / func_001171C0 / func_00117B50 (stack iterator with vptr reset: the original
+stores `it.cur` through a register copy of &it), func_0015B0B8 (loop without rotation, entry jump with the hoisted
+global load in its delay slot), func_001200D0 (volatile counters: reread register v0/v1 swapped).
