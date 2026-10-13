@@ -738,3 +738,11 @@ Given up: func_002B4C38 / func_002B4C70 (hash chain walk, v0/v1 swapped; 4 forms
 ints from a2; our ABI numbers ints from a0), func_002B7108 (original has 2 nops before div.s), func_0027DD38 (f0/f1 swapped, 4 forms),
 func_0027EFA0 (nop in the jr delay slot after cvt.s.w), func_0026BD80 (original computes `off + base` twice), func_002DFF28 and
 t_2E2FB0 family (-O0).
+Part 2 (+11): t_26AEF8 func_0026C9E8, func_0026C940; t_2C3468 CFunc_ATan2; t_254248 CFunc_AddSoundBanks (`i = 0; h = global;` assigned before the
+`if (arr[1] != 0)` test gives the original order); t_2CDCC0 CFunc_wait_for_correct_frame_cfunc (m2c's goto form `goto no; ... r = 1; if (t) { no: r = 0; }`
+beats every if/else form: those if-convert to movz/movn); t_25A428 CFunc_SetScriptWarningLevel (switch where cases 2 and 3 share a store:
+`case B: lvl=1; goto store; case C: lvl=2; store: D=lvl; break;`; the arg0 is passed through to func_0027D870); t_2A74C0 func_002A7EF0;
+t_2E90B0 func_002EA758; t_273498 func_00273B80 (`int live = ((x >> 1) & 1) ^ 1; if (live)` keeps andi before xori; call
+func_00273B48 with its second argument through an asm alias).
+Given up: func_0027A9B8 (s0/s1 save order swapped), func_0026A5D0 (original lays out `return 0` first with bnezl, 5 forms),
+func_0027E288 (loop shorter than 6 instrs).

@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct S2CF4F0 {
+    char pad0[0x20];
+    int unk20;
+};
+
 struct S2CDD30 {
     int unk0;
     int unk4;
@@ -20,6 +25,9 @@ struct S2CDD30 {
 };
 
 extern "C" {
+int func_00275F08(u32, int);
+int func_0027CC30(int, u32, int, int *);
+void func_0027F1E0(int, int, int);
 void func_002CDD30(S2CDD30 *);
 s32 func_00289C88(s32, s32);
 char *func_00289C80(s32);
@@ -91,7 +99,31 @@ extern "C" s32 CFunc_strum_iterator_CFunc_Cleanup(int arg0, s32 arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", CFunc_strum_iterator_CFunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", CFunc_wait_for_correct_frame_cfunc);
+extern "C" s32 CFunc_wait_for_correct_frame_cfunc(int arg0, S2CF4F0 *arg1) {
+    int out;
+    int t = func_00275F08(0x500D9785, 1);
+    int h = arg1->unk20;
+    int v;
+    int r;
+    if (func_0027CC30(h, 0x67E6859A, 1, &out) == 0) {
+        func_0027F1E0(h, 0, 1);
+        v = 0;
+    } else {
+        v = out;
+    }
+    if (v == 1) {
+        if (t == v) {
+            return 1;
+        }
+        goto no;
+    }
+    r = 1;
+    if (t != 0) {
+no:
+        r = 0;
+    }
+    return r;
+}
 
 extern "C" s32 CFunc_rock_meter_star_power_on_CFunc_Setup(int arg0, s32 arg1) {
     func_00289C88(arg1, 0x20);

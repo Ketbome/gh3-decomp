@@ -8,6 +8,9 @@ struct S254248_A {
 };
 
 extern "C" {
+int func_0027D470(int, int, int **, int);
+int func_0011A5B8(int *, int);
+void func_002678F0(int, int);
 void func_0027C448(int, int, int);
 int func_0026F3B8(int, int);
 void func_00113250(int);
@@ -395,7 +398,22 @@ extern "C" int CFunc_IsSoundPlayingByID(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddSoundBanks);
+extern "C" int CFunc_AddSoundBanks(int a) {
+    int *arr;
+    u32 i;
+    int h;
+    if (func_0027D470(a, 0, &arr, 0)) {
+        i = 0;
+        h = D_00370AE0[0];
+        if (arr[1] != 0) {
+            do {
+                func_002678F0(h, func_0011A5B8(arr, i) << 10);
+                i++;
+            } while (i < (u32)arr[1]);
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_ClearSoundBank(int a) {
     int x;

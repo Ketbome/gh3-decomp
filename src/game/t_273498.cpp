@@ -21,7 +21,15 @@ struct S273498_D {
     int unk8;
 };
 
+struct S273B80 {
+    char pad0[0xC];
+    int unkC;
+    char pad10[0x24];
+    int unk34;
+};
+
 extern "C" {
+void func_00273B48_2(int, int) asm("func_00273B48");
 int func_002727E8(int, int, int, int, int);
 int func_0026DC68(int);
 extern int D_00370DA0;
@@ -137,7 +145,20 @@ extern "C" void func_00273B48(int i) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273B80);
+extern "C" void func_00273B80(int a) {
+    int i;
+    for (i = 0; i < D_00370DA0; i++) {
+        S273B80 *o = (S273B80 *)D_003A9490[i];
+        if (o != 0) {
+            int live = ((o->unkC >> 1) & 1) ^ 1;
+            if (live) {
+                if (a == 0 || o->unk34 == 0) {
+                    func_00273B48_2(i, 1);
+                }
+            }
+        }
+    }
+}
 
 extern "C" void func_00273C20(int a, int) {
     if (func_00273EB0() != 1) {

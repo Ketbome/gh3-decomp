@@ -6,6 +6,7 @@ struct S25A_Script {
 };
 
 extern "C" {
+extern int D_00371488;
 bool func_0027D870(int, u32, void *, int);
 bool func_0027D400(int, u32, void *, int);
 bool func_0027D470(int, u32, void *, int);
@@ -95,7 +96,25 @@ extern "C" int CFunc_Toggle2d(int params) {
     return old;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_SetScriptWarningLevel);
+extern "C" int CFunc_SetScriptWarningLevel(int a) {
+    u32 v = 0x806FFF30;
+    int lvl;
+    func_0027D870(a, 0x651533EC, &v, 0);
+    switch (v) {
+    case 0x806FFF30:
+        D_00371488 = 0;
+        break;
+    case 0xD6454EFA:
+        lvl = 1;
+        goto store;
+    case 0x4E10B054:
+        lvl = 2;
+    store:
+        D_00371488 = lvl;
+        break;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", func_0025AA28);
 

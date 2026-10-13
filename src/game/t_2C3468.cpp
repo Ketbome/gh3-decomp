@@ -1,6 +1,9 @@
 #include "common.h"
 
 extern "C" {
+int func_0027D268(int, int, f32 *, int);
+void func_0027C1F8(int, int, f32);
+f32 func_0031B970(f32, f32);
 void func_0010C170(int, int, int, int, int, int);
 void func_0010C120(int *, int *, int *, int *, int *, int *);
 int func_0027D1F8(int, int, int *, int);
@@ -68,7 +71,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetAllWhammyValues);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetButtonData);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_ATan2);
+extern "C" s32 CFunc_ATan2(int arg0, SCCGCI *arg1) {
+    f32 x;
+    f32 y;
+    func_0027D268(arg0, 0x0424D9EA, &x, 1);
+    func_0027D268(arg0, 0x7323E97C, &y, 1);
+    func_0027C1F8(arg1->unk20, 0xD83566B0, func_0031B970(x, y) * 57.295776f);
+    return 1;
+}
 
 extern "C" s32 CFunc_Init2DParticles(void) {
     return 1;
