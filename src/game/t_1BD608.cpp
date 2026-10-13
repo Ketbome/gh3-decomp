@@ -34,6 +34,7 @@ void* func_0011A380(s32 size);
 void func_0030A2F4(void* d, void* s, s32 n);
 void func_001BE3A0(void* p, s32 a);
 void func_001BF0B8(void* p);
+s32 func_001BF4A0(char* p);
 extern void* D_0036CBC0;
 void func_001BF2B8(S001BF1D0* p);
 void* Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
@@ -150,7 +151,37 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BE498);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BE558);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF0B8);
+struct S1BF0 {
+    char pad0[0x14];
+    char* unk14;
+    char pad18[0x30];
+    u16 unk48;
+    u16 unk4A;
+};
+
+extern "C" void func_001BF0B8(void* pv) {
+    S1BF0* p = (S1BF0*)pv;
+    s32 i = 0;
+    s32 n = p->unk4A - 1;
+    s32 w = p->unk48 * func_001BF4A0((char*)p);
+    s32 sz = w / 8;
+    char* tmp = (char*)Heap_Alloc(D_00368A38, sz, 1, 0);
+    if (n > 0) {
+        s32 hi = n * sz;
+        s32 lo = 0;
+        s32 neg = -sz;
+        do {
+            i++;
+            n--;
+            func_0030A2F4(tmp, p->unk14 + lo, sz);
+            func_0030A2F4(p->unk14 + lo, p->unk14 + hi, sz);
+            lo += sz;
+            func_0030A2F4(p->unk14 + hi, tmp, sz);
+            hi += neg;
+        } while (i < n);
+    }
+    Heap_Free(D_00368A38, tmp);
+}
 
 extern "C" void func_001BF1D0(S001BF1D0* p, s32 v) {
     if (v) {
