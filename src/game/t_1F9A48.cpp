@@ -18,6 +18,13 @@ void* func_001FAC90(void*);
 extern char D_0038F5B0[];
 void func_00276D68(u32, void*, int);
 void func_001FB480(void*, TI128);
+TI128 func_001EAEA0(s32 a, s32 b);
+s32 func_0027D870(s32 a, s32 key, s32* v, s32 req);
+s32 func_001EB300(s32 a);
+void func_002676F0(s32 a, void* b);
+void func_001D0F90(void* a, s32 b);
+extern u8 D_0034F6F0[];
+extern s32 D_00370AE0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9A48);

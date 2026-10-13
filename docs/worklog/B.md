@@ -712,3 +712,8 @@ Given up: func_001C74F8 (`f1() || f2()` returning 1/0: original uses bnez with l
 t_1D2508 matched 4: func_001D4118 func_001D4158 func_001D29E8 (128-bit local `TI128 v` read by a callee and copied with lq/sq) func_001D3538.
 t_1C1A30 matched 3: func_001C2550 func_001C25A0 (`register s32 v asm("$17") = v0; register char* p asm("$16")` pins the callee-saved order) func_001C3240 (callee takes a0/a1 straight from the incoming args: declare the parameters).
 Given up: func_001C2508 (constructor: `li 0x44` before the lui in the original; all store orders tried).
+
+### t_1BF628 / t_1BD608 / t_1C7AA0 (session 8)
+t_1BF628 matched 3: func_001BF6A0 func_001BFF98 func_001BFFE8 (register-pinned setter, see func_001C25A0).
+t_1BD608 matched 3: func_001BF408 func_001BD9C8 func_001BF2E8. t_1C7AA0 matched 2: func_001C7AC8 func_001C86C8.
+t_1F9A48 (nothing matched this time): func_001FB450 (last compare becomes movz/xor, 3 forms), func_001FB390 (TI128 return; original copies a0 to v0), func_001FAD10 (D_00370AE0 load order), func_001FAD68 (branch-likely vs plain beqz).

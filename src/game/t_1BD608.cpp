@@ -25,6 +25,11 @@ struct S001BF1D0 {
 extern "C" {
 extern S001BD998* D_0036CB74;
 void func_001BB068(void);
+void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38;
+void func_001BF298(S001BF1D0* p);
+void func_001BF2B8(S001BF1D0* p);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD608);
@@ -50,7 +55,16 @@ extern "C" void func_001BD9B8(S001BD998* p) {
     D_0036CB74 = p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD9C8);
+extern "C" void func_001BD9C8(S001BD998* p, s32 flags) {
+    u32 f = *(u32*)((char*)p + 8);
+    if (f & 2) {
+        *(u32*)((char*)p + 8) = f & 0xFFFFFFFD;
+        func_001BB068();
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDA28);
 
@@ -119,7 +133,17 @@ extern "C" void func_001BF2B8(S001BF1D0* p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF2E8);
+extern "C" void func_001BF2E8(char* p, s32 v) {
+    s32 old = ((s32)*(u32*)(p + 8) >> 1) & 1;
+    if (v != 0) {
+        func_001BF298((S001BF1D0*)p);
+    } else {
+        func_001BF2B8((S001BF1D0*)p);
+    }
+    if (old != v) {
+        func_001BB068();
+    }
+}
 
 extern "C" u16 func_001BF348(S001BF1D0* p) {
     return p->unk48;
@@ -131,7 +155,13 @@ extern "C" u16 func_001BF350(S001BF1D0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF358);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF408);
+extern "C" void func_001BF408(char* p) {
+    func_0019E380(0x50, *(s32*)(p + 0x40), *(s16*)(p + 0x50), -1, -1);
+    s32 t = *(s32*)(p + 0x44);
+    if (t != 0) {
+        func_0019E380(0x50, t, *(s16*)(p + 0x52), -1, -1);
+    }
+}
 
 extern "C" u16 func_001BF460(S001BF1D0* p) {
     return 1 << (u16)p->unk30_26;

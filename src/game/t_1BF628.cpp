@@ -25,11 +25,25 @@ extern N1C* D_0036CBDC;
 extern N1C* D_0036CBE0;
 extern s32 D_00369A64;
 extern u8 D_00372D58[] __attribute__((section(".sdata")));
+void func_001BFE40(N1C* p);
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38;
+extern u8 D_00349EA8[];
+extern u8 D_00349E68[];
+void func_001BFFE8(void* p, s32 v);
+void func_001BF960(void* p);
+void func_001BF2E8(s32 a, s32 b);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF628);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF6A0);
+extern "C" void func_001BF6A0(char* p, s32 flags) {
+    *(void**)(p + 0x20) = D_00349EA8;
+    func_001BFE40((N1C*)p);
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF6F0);
 
@@ -94,9 +108,22 @@ extern "C" void func_001BFE40(N1C* n) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFEA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFF98);
+extern "C" void func_001BFF98(char* p, s32 flags) {
+    *(void**)(p + 0x20) = D_00349E68;
+    func_001BFFE8(p, 1);
+    func_001BF6A0(p, flags);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BFFE8);
+extern "C" void func_001BFFE8(void* pv, s32 v0) {
+    register s32 v asm("$17") = v0;
+    register char* p asm("$16") = (char*)pv;
+    register s32 old asm("$18") = *(s32*)p;
+    func_001BF960(p);
+    s32 t = *(s32*)(p + 0xAC);
+    if (t != 0 && old != v) {
+        func_001BF2E8(t, v ^ 1);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001C0040);
 

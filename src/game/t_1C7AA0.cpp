@@ -41,6 +41,12 @@ extern "C" {
 extern G10 D_00368740;
 void func_00113F38(void* p);
 extern char D_00342398[];
+void func_00119400(s32 heap, void* p);
+extern s32 D_00368A38;
+void func_001CD318(void);
+extern u8 D_0034A8D0[];
+void func_001163F0(void);
+void func_00116400(void);
 }
 
 extern "C" void func_001C7AA0(S001C8470* p) {
@@ -48,7 +54,13 @@ extern "C" void func_001C7AA0(S001C8470* p) {
     func_00113F38(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C7AC8);
+extern "C" void func_001C7AC8(char* p, s32 flags) {
+    *(void**)(p + 0xC) = D_0034A8D0;
+    func_001CD318();
+    if (flags & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 extern "C" void func_001C7B18(S001C8470* p) {
     p->unk28();
@@ -111,7 +123,13 @@ extern "C" void func_001C8568(S001C8470* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C85A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C86C8);
+extern "C" void func_001C86C8(char* p) {
+    func_001163F0();
+    char* o = *(char**)(p + 0x20);
+    VEnt* e = (VEnt*)(*(char**)(o + 0xEE00) + 0x210);
+    ((void (*)(char*, char*))e->fn)(o + e->delta, p);
+    func_00116400();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C8718);
 
