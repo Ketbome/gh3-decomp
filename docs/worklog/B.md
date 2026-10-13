@@ -808,3 +808,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - t_241040 func_002414B8 MATCH (box-overlap test: six compare pairs with early `return 0`, f32 helpers F698/F6C0/F6A8 take s32 addresses).
 - t_23EFF8 func_0023F9C8 MATCH (same box test with the boxes at o->unk8 + 0x10/0x20).
 - t_1C3A40 func_001C44C8 MATCH (vertex buffer carve-up; `s32 cur = Heap_Alloc(..); o->unk2C = cur; cur += n*0xC;` gives the move; last test written `if (f4 != 0) {cur} else {0}` flips bnezl to beqzl).
+- t_1C7AA0 func_001C88C8 MATCH (stack out-param: `register s32* hq asm("$4") = &h;` stops gcse from keeping sp+16 in s0 and keeps the addiu after the lui; `s32 t = h; if (t)` shares a0 with the callee arg; ignored callee through the int alias fixes v0/v1).
