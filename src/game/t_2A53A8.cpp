@@ -111,6 +111,14 @@ int func_002884A8(void);
 void func_002A6C10(void);
 int func_002A6C40_r(void) asm("func_002A6C40");
 void func_002A6C10_a(int) asm("func_002A6C10");
+extern char D_003AAD18[];
+extern char D_00362338[];
+extern char D_00362350[];
+extern char D_00362360[];
+extern char D_00371D88[];
+extern char D_00362370[];
+extern char D_00362380[];
+void func_0030B550(char *, const char *, ...);
 }
 
 extern "C" int func_002A53A8(u32 a) {

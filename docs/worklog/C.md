@@ -819,3 +819,7 @@ Matched other: t_29D230 func_0029D730 (iterator local `S29D_It` + two virtual ca
 Given up: t_258420 CFunc_GetRandomArrayElement (original loads p->unk20 and the key into a0/a1 BEFORE the element-size branch; locals/ternary/inline/two calls all keep them after, 6 forms),
 t_2E4FD0 func_002E6F10 (all but the second block's `addiu v1,s0,76` placement and the `li a0,1` delay slot; `int one = 1` for the store constant fixed the saved-register layout),
 t_2774B8 func_002775E8 (nested jump tables, serializer).
+Matched other: t_2E7010 func_002E7E80 (signature `(int, int, int, f32 unused, f32 x)`: floats take f12,f13.. by float index independent of the int slots, the 1st float is passed on unchanged to the first call; params reused as locals for a/c, fresh locals for the call results h/h2 fix the saved-register order).
+Given up: t_273498 func_00274F08 (only v0/v1 of two globals swapped, 8 forms; int-returning prototypes for the void callees fixed the others), t_2A53A8 func_002A5638 (checksum switch: original tree has root = 4th of 6 cases, gcc 2.95 balance gives the 3rd; needs one extra range case, not found),
+t_2E4FD0 func_002E5FF8 (-O0 body with frame pointer).
+Quirk: gcc 2.95 balances case trees at index (n + ranges + 1)/2 (cost table only for values < 128): compare with the original's root to count hidden cases.
