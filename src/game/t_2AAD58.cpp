@@ -1,5 +1,17 @@
 #include "common.h"
 
+struct S2ABB00 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+
+struct S2ABB00_B {
+    char padB4[0xB4];
+    int unkB4;
+};
+
 struct S2AAD58_L {
     char pad0[8];
     int unk8;
@@ -21,6 +33,13 @@ int func_0027DF00(int, int);
 extern int D_00371EEC;
 extern s32 D_00371EF8;
 extern s32 D_003AC7C0[];
+extern int D_00372F28;
+int func_002A7EF0(int);
+S2ABB00 *func_002A7EA8(void);
+int func_0027D870(int, u32, int *, int);
+void func_002AE9F8(S2ABB00 *);
+void func_0028C9F0(int, int, int, int, int, int);
+S2ABB00_B *func_0028D1D8(int, int, int, int, int, u32, int, int, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_BeginProcessBlock);
@@ -40,7 +59,34 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002AB738);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002AB848);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ABB00);
+GP_DATA(D_00371EF0);
+extern "C" void func_002ABB00(void) {
+    if (D_00371EF0) {
+        int v = 0;
+        int h = func_002A7EF0(0);
+        if (h) {
+            int out;
+            func_0027D870(h, 0xD63FB9AF, &out, 1);
+            v = out;
+        }
+        if (v != D_00372F28) {
+            if (D_00372F28) {
+                S2ABB00 *p = func_002A7EA8();
+                if (p->unkC) {
+                    func_002AE9F8(p);
+                    func_0028C9F0(p->unk8, 0, 0, 0, 0, 0);
+                }
+            }
+            D_00372F28 = v;
+            if (v) {
+                S2ABB00 *p = func_002A7EA8();
+                func_0028C9F0(p->unk0, 0, 0, 0, 0, 0);
+                int q = p->unk4;
+                p->unkC = func_0028D1D8(q, 0, 0, 0, 0, 0xD9AB9D3F, 0, 0, 0, 0)->unkB4;
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ABC18);
 

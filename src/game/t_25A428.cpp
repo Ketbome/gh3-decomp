@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct S25AA28 {
+    char padC4[0xC4];
+    int unkC4;
+};
+
 struct S25A_Script {
     char pad0[0x20];
     int unk20;
@@ -37,6 +42,10 @@ int func_001EB2B0(void);
 void func_0014F750(int, u32);
 extern int D_003715D4[] __attribute__((section(".sdata")));
 void func_00291900(int);
+int func_0028D1D8(int, int, int, int, int, int, int, int, int, int);
+void func_00289ED8(int, void *);
+int func_0028C200(int);
+void func_00289B40(int, int);
 }
 
 extern "C" int CFunc_OnExitRun(int params, void *script) {
