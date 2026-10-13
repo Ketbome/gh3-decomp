@@ -122,6 +122,7 @@ void func_0028C9F0(void);
 int func_00288C48(void*);
 int func_00288C00(void*);
 int func_00289630(void*, void*);
+int func_0027D870(int, u32, int *, int);
 }
 
 extern "C" int func_0028AB28(S0028AB28* p) {
@@ -154,7 +155,32 @@ extern "C" void func_0028ADE8(S28AB_Scr *p, void (*fn)(int, S28AB_Scr *)) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028AE28);
+extern "C" int func_0028AE28(S28AB_Scr *p) {
+    int out = 0;
+    u8 *s = p->unk14;
+    switch (*s) {
+    case 0x2C:
+        p->unk14 = s + 1;
+        func_0027D870(p->unk20, 0, &out, 0);
+        break;
+    case 0x2D: {
+        u8 *q = s + 2;
+        p->unk14 = q;
+        int v = s[2] | (q[1] << 8) | (q[2] << 16) | (q[3] << 24);
+        p->unk14 = s + 6;
+        func_0027D870(p->unk20, v, &out, 0);
+        break;
+    }
+    case 0x16: {
+        u8 *q = s + 1;
+        p->unk14 = q;
+        out = s[1] | (q[1] << 8) | (q[2] << 16) | (q[3] << 24);
+        p->unk14 = s + 5;
+        break;
+    }
+    }
+    return out;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028AF38);
 
