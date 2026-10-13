@@ -59,6 +59,9 @@ struct VE_001284B0 { char pad0[0x40]; s16 unk40; s16 unk42; void (*unk44)(void*)
 struct SA127_VO { char pad0[0x8]; VE_001284B0* unk8; };
 
 extern "C" {
+void* Heap_Alloc(int, int, int, int);
+void* func_0030A2F4(char*, char*, int);
+void* func_00127B10(void*, int, void*, void*, int);
 int func_0027D1F8(int, int, void*, int);
 int func_0027D268(int, int, void*, int);
 int func_0027D400(int, int, void*, int);
@@ -297,7 +300,64 @@ extern "C" int func_001284B0(SA127_Z* self) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128528);
+struct H128528 { int a; int type; int size; };
+typedef unsigned int u128_128528 __attribute__((mode(TI)));
+
+extern "C" void* func_00128528(char** pp) {
+    H128528 h;
+    float f;
+    int i4;
+    u128_128528 a1, a2;
+    u128_128528 b1, b2;
+    int i5;
+    int i6;
+    func_0030A2F4((char*)&h, *pp, 12);
+    char* p = *pp + 12;
+    *pp = p;
+    switch (h.type) {
+    case 1: {
+            func_0030A2F4((char*)&f, *pp, 4);
+        *pp += 4;
+        return func_001279A8((SA127_F*)Heap_Alloc(D_00368A38[0], 0x14, 1, 0), h.a, f);
+    }
+    case 4: {
+        func_0030A2F4((char*)&i4, *pp, 4);
+        *pp += 4;
+        return func_00127A60((SA127_K*)Heap_Alloc(D_00368A38[0], 0x14, 1, 0), h.a, i4);
+    }
+    case 2: {
+        func_0030A2F4((char*)&a1, *pp, 16);
+        *pp += 16;
+        func_0030A2F4((char*)&a2, *pp, 16);
+        *pp += 16;
+        return func_00127B10(Heap_Alloc(D_00368A38[0], 0x40, 1, 0), h.a, &a2, &a1, 0);
+    }
+    case 7: {
+        func_0030A2F4((char*)&b1, *pp, 16);
+        *pp += 16;
+        func_0030A2F4((char*)&b2, *pp, 16);
+        *pp += 16;
+        return func_00127B10(Heap_Alloc(D_00368A38[0], 0x40, 1, 0), h.a, &b2, &b1, 1);
+    }
+    case 3: {
+        *pp += 0x20;
+        return func_00128098((S_00127838*)Heap_Alloc(D_00368A38[0], 0x10, 1, 0), h.a);
+    }
+    case 5: {
+        func_0030A2F4((char*)&i5, *pp, 4);
+        *pp += 4;
+        return func_001283A8((SA127_K*)Heap_Alloc(D_00368A38[0], 0x14, 1, 0), h.a, i5);
+    }
+    case 6: {
+        func_0030A2F4((char*)&i6, *pp, 4);
+        *pp += 4;
+        return func_00128460((SA127_K*)Heap_Alloc(D_00368A38[0], 0x14, 1, 0), h.a, i6);
+    }
+    default:
+        *pp = p + h.size;
+        return 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001287F0);
 

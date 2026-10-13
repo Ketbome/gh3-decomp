@@ -1029,3 +1029,4 @@ Matched (A11) t_118E40: func_00119610 (jtbl 63 entries, every default index its 
 - func_0011F5C0 (jtbl, 0x150): switch layout fine but the original keeps nops in many branch delay slots and a dead volatile-less `lw 0x40` in case 6 (dropped by gcc); 3 tries
 Matched (A11) t_12B970: func_0012BF38 (jtbl float-compare table; the original has the c.eq.s hazard nop AFTER the shared tail label, gas puts it before: shared tail via goto with `asm volatile("nop")` at the label; float literals must be exact shortest, 0.0022f)
 Matched (A11) t_1210C8: func_00122778 (jtbl, key-code to byte encoder; u16 value masked once before the sign test; unused jtbl indexes as explicit cases + default continue)
+Matched (A11) t_1277C0: func_00128528 (jtbl stream deserializer: memcpy func_0030A2F4 declared returning void* moves the *pp temp to v1; locals declared at function scope in order f,i4,u128 a1,a2,b1,b2,i5,i6 give the distinct stack slots; 16-byte locals as TI typedef)
