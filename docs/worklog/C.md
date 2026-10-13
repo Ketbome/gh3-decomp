@@ -832,3 +832,9 @@ Matched other: t_25A428 func_0025AA28 (same trick: `int u = s->unkC4;` before th
 t_2E7010 (+1, file now `-funroll-loops`): func_002E8318 (`for (i = 0x10; i < 0x30; i++) { f(i, 0xD); g(i); }` unrolled 8x; both callees
 declared `int`); func_002E8440 and func_002E8968 rewritten as the plain `for (i = 0x10; i < 0x30; i++) g(i)` (unrolled 16x by the flag,
 the explicit 16-call bodies broke under it).
+Round 12 matches: t_2A32E0 CFunc_DestroyZoneEntities (first call passes the incoming a0; `a = 0` right before it); t_292928 func_002943A0
+(DMA register snapshot: volatile `*(volatile int *)0x1000B410` reads, `while (reg & 0xF0) {}` busy loop; the busy-loop short-loop padding now matches;
+prototype changed to `int func_002943A0(int)`).
+Round 12 given up: t_2E7010 func_002E7C58 (the two-entry unrolled compare matches as straight-line blocks except the alignment nop before the
+second block; loop forms (index, pointer, do-while) give a different base register, 6 forms), t_26F3B8 func_0026F930 (only v0/v1 of the last
+global `|=` differ, int/void callee variants tried), t_2754A0 func_00275F08 (hash lookup + alias chase, as func_00276008).

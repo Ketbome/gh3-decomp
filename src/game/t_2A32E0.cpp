@@ -66,6 +66,12 @@ int func_0027D188(int, int, int, int);
 int func_0027D268(int, int, int, int);
 void func_002A48D0(s32 arg0, s32 arg1);
 int func_002A5638(void);
+int func_001150E0(int, char *);
+void func_001D5C38(int, u32, int);
+extern char D_00371D18[];
+extern char D_00371D20[];
+extern char D_00371D28[];
+extern int D_0036D410;
 int strcpy(void *, s32);
 }
 
@@ -128,7 +134,22 @@ extern "C" s32 CFunc_GetSaveZoneName(int arg0, S2A34F0_1 *arg1) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_DestroyZoneEntities);
+extern "C" int CFunc_DestroyZoneEntities(int params) {
+    int a;
+    int b;
+    a = 0;
+    func_0027D870(params, 0x3324405C, &a, 1);
+    func_0027D188(params, 0xB69DFDF1, (int)&b, 1);
+    int x = func_001150E0(a, D_00371D18);
+    int y = func_001150E0(a, D_00371D20);
+    int z = func_001150E0(a, D_00371D28);
+    int h = D_0036D410;
+    func_001D5C38(h, 0xCD340D6C, a);
+    func_001D5C38(h, 0xCD340D6C, x);
+    func_001D5C38(h, 0xCD340D6C, y);
+    func_001D5C38(h, 0xCD340D6C, z);
+    return 1;
+}
 
 extern "C" s32 CFunc_PrintInteractNodeUsers(void) {
     return 0;

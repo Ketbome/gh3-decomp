@@ -19,9 +19,18 @@ struct S293_Buf {
     int unkC;
     int unk10;
     int unk14;
-    char pad18[0x28];
+    char pad18[0x4];
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+    int unk30;
+    int unk34;
+    int unk38;
+    int unk3C;
     int unk40;
-    char pad44[0x4];
+    int unk44;
     u64 unk48;
 };
 
@@ -97,7 +106,7 @@ extern S00293098 D_00427EB0[];
 extern int D_00370E44_lui[] asm("D_00370E44_lui") __attribute__((section(".sdata")));
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern int D_003716C0;
-void func_002943A0(int);
+int func_002943A0(int);
 void func_002944B0(int);
 void func_00294028(int);
 void func_00274AB8(void);
@@ -110,6 +119,7 @@ void func_002EE680(int);
 void func_002EE670(int);
 void func_00294AF8(int, S293_Q *);
 void func_00293C70(u32);
+void func_00293C00(int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
 }
@@ -366,7 +376,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293FD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00294028);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_002943A0);
+extern "C" int func_002943A0(int v) {
+    S293_Buf *p = (S293_Buf *)v;
+    func_002EE6A0(p->unk40);
+    p->unk44 = 0;
+    func_00293C70(5);
+    p->unk1C = *(volatile int *)0x1000B410;
+    p->unk20 = *(volatile int *)0x1000B430;
+    p->unk24 = *(volatile int *)0x1000B420;
+    p->unk28 = *(volatile int *)0x1000B400;
+    while (*(volatile int *)0x10002010 & 0xF0) {
+    }
+    func_00293C00(0);
+    p->unk2C = *(volatile int *)0x1000B010;
+    p->unk30 = *(volatile int *)0x1000B020;
+    p->unk34 = *(volatile int *)0x1000B000;
+    p->unk38 = *(volatile int *)0x10002020;
+    p->unk3C = *(volatile int *)0x10002010;
+    func_002EE680(p->unk40);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_002944B0);
 
