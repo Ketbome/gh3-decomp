@@ -39,7 +39,36 @@ extern "C" void func_002C34C8(int a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_CameraCut_SwapLookAts);
+struct SCSLA {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" {
+int func_002763E0(u32, int);
+int func_0027D870(int, u32, int *, int);
+int func_0027D400(int, u32, int *, int);
+}
+extern "C" s32 CFunc_CameraCut_SwapLookAts(int arg0, SCSLA *arg1) {
+    int type;
+    int a;
+    int b;
+    int c;
+    func_0027D870(func_002763E0(0xD95930AC, 1), 0x765E3856, &type, 1);
+    if (type == 0x6E965B60) {
+        func_0027D400(arg1->unk20, 0xB4347460, &a, 1);
+        func_002C34C8(a);
+        if (func_0027D400(a, 0x7031F10C, &b, 0)) {
+            func_002C34C8(b);
+            if (func_0027D400(b, 0x3FB0CCC9, &c, 0)) {
+                func_002C34C8(c);
+            }
+            if (func_0027D400(b, 0xA6B99D73, &c, 0)) {
+                func_002C34C8(c);
+            }
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_GetRandomSeeds(int arg0, SCCGCI *script) {
     int v[6];

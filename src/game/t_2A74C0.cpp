@@ -22,7 +22,29 @@ extern s32 D_00372F38;
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A74C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A7540);
+struct S2A7540_V {
+    char pad0[0x14];
+    virtual ~S2A7540_V();
+};
+struct S2A7540 {
+    u32 unk0;
+    S2A7540_V **unk4;
+};
+extern "C" {
+extern int D_00368A38;
+void Heap_Free(int, void *);
+}
+extern "C" void func_002A7540(S2A7540 *p, int flags) {
+    for (u32 i = 0; i < p->unk0; i++) {
+        delete p->unk4[i];
+    }
+    if (p->unk4) {
+        Heap_Free(D_00368A38, p->unk4);
+    }
+    if (flags & 1) {
+        Heap_Free(D_00368A38, p);
+    }
+}
 
 struct S2A75F0 {
     char pad0[4];

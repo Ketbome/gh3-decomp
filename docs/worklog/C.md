@@ -803,3 +803,9 @@ Given up:
   (sibling of func_00292808 but register order of the size expression differs, 10 forms).
 - t_27D828 func_0027F410 (original copies the unused first arg to a2), t_282268 func_00282CC8 / func_002826C0 (hash lookup
   + alias chase / u32->float compare), t_25A428 func_0025BC10 (vector compare).
+Round 10 other matches (+7): t_27D828 func_0027F410 (callee func_0027F1E8 takes the incoming first arg as 3rd param), t_268EB8 func_00268EB8,
+t_2A74C0 func_002A7540 (delete through vptr at 0x14, dtor first virtual), t_25C450 func_0025CAE8, t_2C3468 CFunc_CameraCut_SwapLookAts.
+Given up: t_2B5BC8 func_002B5C08 (call not tail-merged), t_25E580 func_0025EB48 (two arg moves swapped, 12 forms), t_288B10 func_00288F90
+(s0/s1 swapped), t_27F8C8 func_0027FA40 (saved register order), all `sq $31` functions (func_002AFE38, func_0026B3C8, ...: ra saved with sq
+cannot be produced by u128 locals/args; only s-regs go sq), CFunc_GetWaypointPos/Dir (TImode lane extraction not reproducible).
+Lesson: when replacing a function with a python slice up to the next INCLUDE_ASM, never swallow neighbours (func_0027EB70 was lost once and restored).

@@ -315,6 +315,10 @@ extern "C" void func_0027E9D8(S27E9D8_A *a, S27E9D8_E *e) {
     }
 }
 
+extern "C" void func_0027EB70(S0027EB70* p, u8 v) {
+    p->unk2 = v;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EB78);
 
 extern "C" void func_0027EDB8(S0027EDB8* p, int i, int v) {
@@ -483,7 +487,56 @@ extern "C" void func_0027F1E0(int, int, int) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F1E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F410);
+extern "C" {
+u8 *func_0027F1E8(u8 *, u8, int);
+u8 *func_00285948(u8 *, u32);
+u8 *func_002859B0(u8 *, u16);
+}
+extern "C" int func_0027F410(int ctx, u32 v, u8 *out, u32 cap) {
+    u8 buf[0x20];
+    u8 *p;
+    u8 *start = out;
+    int t = 1;
+    if (v == 0) {
+        t = 0x12;
+    } else if (v < 0x100) {
+        t = 0x10;
+    } else if (v <= 0xFFFF) {
+        t = 0x11;
+    } else if (v + 0x80 < 0x100) {
+        t = 0xE;
+    } else if (!(0xFFFF < v + 0x8000)) {
+        t = 0xF;
+    }
+    p = buf;
+    switch (t) {
+    case 1:
+        p = func_00285948(func_0027F1E8(buf, t, ctx), v);
+        break;
+    case 14:
+    case 16:
+        p = func_0027F1E8(buf, t, ctx);
+        *p = v;
+        p++;
+        break;
+    case 15:
+    case 17:
+        p = func_002859B0(func_0027F1E8(buf, t, ctx), v);
+        break;
+    case 18:
+        p = func_0027F1E8(buf, t, ctx);
+        break;
+    }
+    u32 len = p - buf;
+    if (len > cap) {
+        return 0;
+    }
+    u8 *src = buf;
+    for (u32 i = 0; i < len; i++) {
+        *out++ = *src++;
+    }
+    return out - start;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F610);
 

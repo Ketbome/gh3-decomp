@@ -90,7 +90,44 @@ void func_002E7F90(int, f32, f32);
 int func_0026AC08(S0026AC08 *);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00268EB8);
+struct S268EB8_N {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    S268EB8_N *unk10;
+};
+struct S268EB8_Q {
+    char pad[0x58];
+};
+extern "C" {
+extern int D_00370AF0;
+extern S268EB8_Q D_003A1910[];
+int func_00268388(int, int, int *);
+}
+GP_DATA(D_00370AF0);
+extern "C" S268EB8_Q *func_00268EB8(int a, int k1, int k2, int flag) {
+    S268EB8_N *n = (S268EB8_N *)D_00370AF0;
+    if (n) {
+        do {
+            int v;
+            if (flag != 0) {
+                v = n->unk4;
+            } else {
+                v = n->unk0;
+            }
+            if (n->unkC == k1 && v == k2) {
+                int out;
+                if (func_00268388(a, n->unk0, &out)) {
+                    return &D_003A1910[out];
+                }
+                break;
+            }
+            n = n->unk10;
+        } while (n);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_00268F40);
 

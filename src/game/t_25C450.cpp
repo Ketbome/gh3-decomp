@@ -214,7 +214,28 @@ extern "C" s32 CFunc_AnalyzeHeap(int arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_PrintMemInfo);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CAE8);
+extern "C" {
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027C448(int, int, int);
+void func_0027C028(int, int, char *);
+void func_0028C9D0(int, int, int, int, int, int);
+void func_0027AC90(int);
+void func_00113250(int);
+}
+extern "C" void func_0025CAE8(char *a, int b, int c, int d) {
+    int t = func_0027AA70(func_001287F0(8, 1));
+    func_0027C448(t, 0x40C698AF, CrcFromPathLowercase((int)a));
+    func_0027C028(t, 0xA6A2FFCC, a);
+    func_0027C160(t, 0xB2D13E37, b);
+    func_0027C160(t, 0x3DD01EA1, c);
+    func_0027C160(t, 0x5E84E22F, d);
+    func_0028C9D0(0xF1E14224, t, 0, 0, 0, 0);
+    if (t) {
+        func_0027AC90(t);
+        func_00113250(t);
+    }
+}
 
 extern "C" int CFunc_DisplayFreeMem(void) {
     int h = D_00368A38[0];
