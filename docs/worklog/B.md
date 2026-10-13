@@ -680,3 +680,8 @@ Given up:
 - func_001CC1A8, func_001CD1F8: start with junk from a split tail (sw/nop/addiu sp)
 - func_001CC388: dead stack stores of a pointer and zero before the call; func_001CD470: D_00368A38 gp_rel here but macro in the rest of the file
 - func_001CD5C0: unrolled x6 scan, layout differs without -funroll-loops (1 try)
+
+### t_1ABAA0
+Matched 16: func_001AD128 func_001AD090 func_001AD7B8 func_001AD048 func_001AD0C8 func_001ACEA8 func_001AD168 func_001AD230 func_001AD2B8 func_001AD360 func_001AD400 func_001AD4C8 func_001AD8F8 func_001AD9D0 func_001AD588 func_001ADA68
+Habits: tree walkers `sum = 0; if (f(p)) {..sum = g..} else { c = p->head; if (c) do { sum += rec(c); c = c->next } while (c) } return sum;` (single result, zero cases fall into the same `move v0,s1`); if the original has the `f(p) != 0` block first, write it first. Relative-offset pointers `a + *a` are byte offsets (cast to char*). A byte parameter stored with `sb` directly is declared `s32`.
+Given up: func_001AD7F8: 64-bit mask built with the `li; dsll; ori; dsll` macro chain (ours lui/ori/dsll32; bitfield form too); func_001ACE18/E50/E80/F58/F90: tails reading an unset $v1.
