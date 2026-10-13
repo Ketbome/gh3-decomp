@@ -67,8 +67,11 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
 - **A lone `nop` that 8-aligns a label** (often after a `beql` slot, with no loop in sight) is the head of a loop
   that `-funroll-loops` unrolled completely: write the original loop (e.g. two fields 0x38 apart are
   `for (i = 0; i < 2; i++)` over an array of 0x38-byte elements) and give the file `// cflags: -funroll-loops`.
-- **No instructions in inline asm.** `asm("" : "+r"(x))` barriers and `register T x asm("$N")` pins are
-  accepted as a last resort; asm that emits instructions (`asm("li ...")`) is not: it is not source code.
+- **Inline asm.** PS2 instructions the compiler cannot emit (MMI such as `pextlw`/`pcpyld`/`pcpyud`, COP2/VU0)
+  were written as inline asm in the original too: fine. Empty `asm("" : "+r"(x))` barriers and
+  `register T x asm("$N")` pins are a last resort. Ordinary instructions in asm only to force the compiler's hand
+  (`asm("li ...")`, `asm("nop")`) are not source code: don't (two old cases, t_1C7AA0 and t_12B970, wait to be
+  rewritten).
 - **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
   `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
   configure.py and fcheck.py both read it. Seen so far: `-funroll-loops`, `-ffast-math`
