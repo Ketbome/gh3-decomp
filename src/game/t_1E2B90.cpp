@@ -48,6 +48,9 @@ struct S1E4780 {
 };
 
 extern "C" {
+s32 func_00121DD0(s32 a, s32 b);
+s32 func_001E3220(s32 a, s32 b);
+s32 func_001E5D98(s32 a);
 void func_00289FB0(void* p, s32 a);
 void func_0027ACF8(s32 a, u32 key);
 s32 func_0027DF00(s32 a, u32 key);
@@ -172,7 +175,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E45C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E45C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E46B0);
+extern "C" s32 func_001E46B0(s32 a) {
+    char buf[0x10];
+    S1E32D8 r;
+    s32 res;
+    func_001E2FF0(buf);
+    s32 h = func_001218A0(D_00368E48[0], 0, 0);
+    if (h == 0) {
+        func_001E3048(buf, 2);
+        return 0;
+    }
+    func_001E75A8(&r, (void*)a);
+    res = 1;
+    if (D_00368740[0] < 9) {
+        if (D_00368740[0] > 0) {
+            if ((func_00121DD0(h, func_001E3220(a, func_001E5D98(a))) ^ 1) != 0) {
+                res = 0;
+            }
+        } else {
+            res = 0;
+        }
+    } else {
+        res = 0;
+    }
+    func_001E3048(buf, 2);
+    return res;
+}
 
 extern "C" S1E4780* func_001E4780(S1E4780* p, s32 a, S1E4780_O* o) {
     S1E4780_L* l = &p->unk18;

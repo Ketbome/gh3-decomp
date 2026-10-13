@@ -35,7 +35,14 @@ struct S21F748_V {
     int unk8;
 };
 
+struct S21E208 {
+    char pad0[0x5C];
+    s32 unk5C;
+    S21E208* unk60;
+};
+
 extern "C" {
+void func_00220898(void* p);
 void* func_0027AF38(int, u32, int);
 void func_0021FB88(int, int, int, int, int, int, int, int, f32, f32);
 void func_001D10A0(void*);
@@ -246,7 +253,30 @@ extern "C" void func_0021E1A0(char* p) {
     func_002210B8(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E208);
+extern "C" void func_0021E208(S21E208* p) {
+    if (p->unk5C == 1) {
+        p->unk5C = 2;
+    }
+    if (p->unk5C == 3) {
+        p->unk5C = 4;
+    }
+    switch (p->unk5C) {
+    case 0:
+        func_00220898(p);
+        break;
+    case 2:
+        func_00220898(p);
+        if (p->unk60->unk5C == 4) {
+            func_00220898(p->unk60);
+        }
+        break;
+    case 4:
+        if (p->unk60->unk5C != 2) {
+            func_00220898(p);
+        }
+        break;
+    }
+}
 
 extern "C" void func_0021E2E0(S21D* self) {
     self->unk60->unk5C = 0;

@@ -80,7 +80,18 @@ struct VE1E0C {
     void (*fn)(char*, s32);
 };
 
+struct VE1E18 {
+    s16 delta;
+    s16 pad;
+    s32 (*fn)(char*);
+};
+
 extern "C" {
+s32 func_001E1650_x(char* a, s32 b) __asm__("func_001E1650");
+char* func_0015D2E8(s32 a, s32 b);
+void func_00123040(char* p);
+void func_001CE868(s32 a, char* b);
+void func_001CE888(s32 a, char* b);
 s32 func_001287F0(s32 a, s32 b);
 s32 func_0027AA70(s32 a);
 void func_0027ABB0(s32 a, s32 b);
@@ -311,7 +322,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1650);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1698);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E18A8);
+extern "C" void func_001E18A8(char* a, char* b) {
+    VE1E18* e = (VE1E18*)(*(char**)(b + 8) + 0x58);
+    if (e->fn(b + e->delta) != 0 && (func_001E1650_x(a, *(s32*)(b + 0x7C)) ^ 1) != 0) {
+        char* t = func_0015D2E8(*(s32*)(b + 0x7C), 0);
+        if (t != 0) {
+            char* o = t + 0x34;
+            s32 x = *(s32*)(t + 0x30);
+            *(s32*)(a + 0x78) = *(s32*)(a + 0x78) | x;
+            s32 h = *(s32*)(b + 0x6C);
+            func_00123040(t);
+            s32 q = *(s32*)(t + 0x34);
+            if (q != 0) {
+                func_001CE888(q, o);
+                *(s32*)(t + 0x34) = 0;
+            }
+            *(s32*)(t + 0x34) = h;
+            if (h != 0) {
+                func_001CE868(h, o);
+            }
+        }
+    }
+}
 
 extern "C" s32 func_001E1978(S1E0AE8* p, s32 a, s32 b) {
     s32 v;
