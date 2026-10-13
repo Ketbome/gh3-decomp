@@ -48,6 +48,10 @@ int func_00182468(void*, float);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void*);
 extern int D_00369A70;
+void func_001827D0(int);
+void func_0022B0D0(void*, void*, int, int);
+void func_00134340(void*);
+extern int D_00369A74;
 extern int D_00369A78;
 extern u8 D_004159F0[];
 extern int D_00369A6C;
@@ -83,6 +87,11 @@ extern "C" int func_0014E850(void) {
     return func_0014E7E8(func_0028DAB8());
 }
 
+struct S14E_O {
+    char pad0[0xC];
+    int unkC;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014E878);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014E8E0);
@@ -113,7 +122,26 @@ extern "C" void func_0014E9C8(void) {
     func_001823A8();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014E9E8);
+struct VE_0014E9E8 { char pad0[0x10]; s16 unk10; s16 unk12; int (*unk14)(void*); };
+struct S_0014E9E8_b { char pad0[0x34]; VE_0014E9E8* unk34; };
+struct S_0014E9E8 { char pad0[0xC8]; int unkC8; };
+extern S_0014E9E8* D_0036F658;
+
+extern "C" int func_0014E9E8(int a) {
+    S_0014E9E8_b* loc;
+    S_0014E9E8* g = D_0036F658;
+    int saved = g->unkC8;
+    g->unkC8 = 1;
+    func_0022B0D0(&loc, g, a, 0);
+    int r = 0;
+    if (loc) {
+        VE_0014E9E8* e = loc->unk34;
+        r = e->unk14((char*)loc + e->unk10);
+    }
+    func_00134340(&loc);
+    D_0036F658->unkC8 = saved;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014EA70);
 
@@ -241,7 +269,18 @@ extern "C" int func_0014F748(void) {
     return D_00369A78;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F750);
+GP_DATA(D_00369A74);
+extern "C" void func_0014F750(int a, int b) {
+    if (D_00369A74) {
+        if (b == D_00369A74) {
+            func_001827D0(a);
+            if (a) D_00369A74 = 0;
+        }
+    } else {
+        func_001827D0(a);
+        if (!a) D_00369A74 = b;
+    }
+}
 
 extern "C" void func_0014F7B8(void) {
     func_001827F0();

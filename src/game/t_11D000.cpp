@@ -525,7 +525,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF00);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF20);
+struct S_0011EF20 { int unk0; unsigned int unk4; };
+
+extern "C" S_0011EF20* func_00120F78(int, int);
+extern "C" int D_00368D78;
+
+GP_DATA(D_00368D74);
+extern "C" unsigned int func_0011EF20(int a) {
+    S_0011EF20* p;
+    if (!D_00368748[0] || !D_00368D74) return 0;
+    if (!D_00368D78 || !(p = func_00120F78(a, D_00368D78))) return 0;
+    return p->unk4 & 0x7FFFFFFF;
+}
 
 struct VE_11EF78 { s16 unk0; s16 unk2; void (*unk4)(void*); };
 struct V_11EF78 { char pad0[8]; VE_11EF78 unk8; };

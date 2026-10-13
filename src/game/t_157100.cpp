@@ -23,6 +23,8 @@ struct VE_00157788 { s16 unk0; s16 unk2; int (*unk4)(void*); };
 struct S_00157788 { char pad0[0x8]; VE_00157788* unk8; };
 
 extern "C" {
+int func_0030AA88(char*);
+u32 CrcFromPathLowercase(char*);
 void func_00182E50(int, int);
 extern int D_00369CDC;
 void func_00183460(float);
@@ -187,7 +189,14 @@ extern "C" void func_001574A0(void) {
     func_00157420(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_001574C0);
+extern "C" u32 func_001574C0(char* s) {
+    int n = func_0030AA88(s);
+    if (n > 0 && s[n - 1] != '\\' && s[n - 1] != '/') {
+        while (--n > 0 && s[n - 1] != '\\' && s[n - 1] != '/') {
+        }
+    }
+    return CrcFromPathLowercase(s + n);
+}
 
 extern "C" S_00157538* func_00157538(S_00157538* self) {
     self->unk8 = D_0033CE40;

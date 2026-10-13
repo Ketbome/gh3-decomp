@@ -24,6 +24,9 @@ extern u8 D_00340F78[];
 void func_00174058(void*);
 void func_0017D6D0(void*);
 void func_00172810(int);
+int func_00172CC0(void*);
+int func_00175A90(void*, int);
+void func_0027C448(int, int, int);
 extern u8 D_00341218[];
 void func_00172A00(void*);
 extern u8 D_003415B8[];
@@ -138,6 +141,9 @@ extern "C" void func_001757F0(void** self, int flags) {
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175830);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175930);
+
+struct S001759F8 { char pad0[0x18]; int unk18; };
+struct S001759F8_b { char pad0[0x20]; int unk20; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_001759F8);
 

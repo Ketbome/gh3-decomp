@@ -46,6 +46,8 @@ void func_002F3BD0(void);
 S_00120C60* func_001208C0(void);
 extern int D_00368D78;
 int func_00120F78(void*, int);
+void func_0011DBE8(void*, int, int);
+int func_0011DB60(void*);
 }
 
 struct S_0011FB38 { char pad0[0x48]; int unk48; char pad1[0x100]; int unk14C; int unk150; int unk154; int unk158; };
@@ -167,6 +169,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FCC0);
 
 extern "C" void func_0011FD30(void) {
 }
+
+struct VE_0011FD38 { s16 unk0; s16 unk2; void (*unk4)(void*, int, int, int); };
+struct V_0011FD38 { char pad0[0x88]; VE_0011FD38 unk88; };
+struct S_0011FD38 { char pad0[0x14]; int unk14; char pad18[0x1C]; int unk34; char pad38[0xC]; V_0011FD38* unk44; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FD38);
 

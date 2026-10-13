@@ -55,6 +55,9 @@ struct SA127_Z {
     int unk480;
 };
 
+struct VE_001284B0 { char pad0[0x40]; s16 unk40; s16 unk42; void (*unk44)(void*); };
+struct SA127_VO { char pad0[0x8]; VE_001284B0* unk8; };
+
 extern "C" {
 void func_0011A230(int, int, int, void*, int);
 void* func_00113D20(u32);
@@ -86,6 +89,8 @@ int func_00128F48(void*);
 extern int D_003690EC;
 extern u8 D_003398C8[];
 void func_0012A048(void*);
+void func_0027D870(int, int, int*, int);
+SA127_VO* func_001D0680(int);
 }
 
 extern "C" int func_001277C0(SA127_Q* self, int a, int b, int c, int d, int e) {
@@ -240,7 +245,18 @@ extern "C" SA127_K* func_00128460(SA127_K* self, int a, int b) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001284B0);
+extern "C" int func_001284B0(SA127_Z* self) {
+    func_002765E0(0x2F510F45, 0);
+    int h = func_002763C0(self->unk10, 1);
+    if (h) {
+        int loc;
+        func_0027D870(h, 0xA1DC81F9, &loc, 1);
+        SA127_VO* o = func_001D0680(loc);
+        VE_001284B0* e = o->unk8;
+        e->unk44((char*)o + e->unk40);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128528);
 

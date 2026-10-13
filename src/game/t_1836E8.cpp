@@ -26,6 +26,8 @@ s16 func_001BF350(int);
 void func_00157538(void*);
 extern u8 D_00343C50[];
 extern u8 D_00343A98[];
+extern u8 D_0033C6B8[];
+void* func_00118F20(int, int, int, int);
 void func_00152B88(void*);
 }
 
@@ -55,6 +57,27 @@ extern "C" int func_00183760(S_183760* self) {
 }
 
 extern "C" void func_00183790(void) {
+}
+
+struct S00183798 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    void* unk18;
+};
+
+static inline void init_00183798(S00183798* p, S00183798* o) {
+    p->unk18 = D_0033C6B8;
+    p->unk0 = o->unk0;
+    p->unk4 = o->unk4;
+    p->unk8 = o->unk8;
+    p->unkC = o->unkC;
+    p->unk10 = o->unk10;
+    p->unk18 = D_00343A98;
+    p->unk14 = o->unk14;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183798);

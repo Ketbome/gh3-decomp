@@ -213,7 +213,29 @@ extern "C" void func_00113E48(int p0, int p1, int p2) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113E68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113EA8);
+struct S_00113EA8 { char pad0[0x4]; int unk4; void* unk8; int unkC; int unk10; int unk14; void* unk18; };
+struct C_00113EA8 { u8 r, g, b, a; };
+
+extern "C" S_00113EA8* func_00113EA8(S_00113EA8* self, int v) {
+    self->unk18 = D_00337D80;
+    self->unk4 = 0;
+    self->unkC = 0;
+    self->unk10 = 0;
+    self->unk14 = 0;
+    C_00113EA8 c;
+    c.r = 0xFF;
+    c.g = 0xFF;
+    c.b = 0xFF;
+    c.a = 0xFF;
+    SA112_L* n = (SA112_L*)func_00113D20(0x18);
+    ((int*)n)[2] = v;
+    ((S_00113EA8**)n)[1] = self;
+    n->unk14 = D_00337DA0;
+    n->unkC = n;
+    n->unk10 = n;
+    self->unk8 = n;
+    return self;
+}
 
 struct VE_113F38 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
 struct V_113F38 { char pad0[8]; VE_113F38 unk8; };

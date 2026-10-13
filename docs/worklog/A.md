@@ -843,3 +843,23 @@ Given up (A7, part 8): func_0018AD80 (store order / mask register, bitfield vari
 reuse of the first subtraction), func_00182870/func_001287F0 (prologue `sd` before `lui`), func_00163868/
 func_00163938 (delay-slot `lw` hoist), func_0011F7E0 (assembler nops), func_001681E0 family (6 functions: random
 float table fill; floats match, ours swaps s0/s1 and the order of the two argument loads).
+
+A8 pass, part 1. Matched 17: func_0011A988 func_0011EF20 func_0017A6D8 func_0014F750 func_001A1118 func_001574C0
+func_001284B0 func_0011A7C0 func_00119CC0 func_00119DD8 func_00113EA8 func_0014E9E8
+
+- vcall where m2c shows extra trailing operands (`fn(this+delta, p, fn)`): they are register residue; call with the
+  real arguments only (func_0011A988, func_0014E9E8).
+- `if (x) return 0; if (!y || !(p = f(..))) return 0;` merges the zero returns (func_0011EF20); a callee that
+  receives an untouched `a0` needs the caller to keep that argument as a parameter (`f(int a)`, `g(a, x)`).
+- Global load before a store keeps the store in the call's delay slot: `int g = D[0]; self->f = r; call(g);`
+  gives lui/lw before `jal` and `sw` in the slot (func_00119CC0).
+- Masks written as `0xFFFFFFF0u` (not `~0xF`) give `lui/ori`; `(u32)D_X & 0xFFFFFFF0u` on a symbol address
+  (func_00119DD8).
+- Dead local struct stores: write them in memory order [0,1,2,3] to get the original [3,0,1,2] (func_00113EA8).
+- Scalar `extern T* D;` re-reads with lui+lw after a call; `extern T* D[]` hoists the lui into an s-register.
+
+Given up (A8, part 1): func_0014E878/func_0014E8E0 (inlined list-first with branch form), func_001759F8 (switch
+matches except a nop in the delay slot of the second compare), func_00164AA0 (u64 flag lands in a1 not a2),
+func_00183798 (copy ctor: pointer moved to a1 after alloc), func_0011FD38 (move s3,a1 scheduled before the load),
+func_001A41D0 (n and r share a1 in the original), func_00179360 (stack slot store before vcall), func_0017B678
+(unrolled busy loop), func_00179518 (min.s).

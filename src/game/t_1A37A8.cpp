@@ -8,6 +8,9 @@ extern int D_0037334C;
 extern int D_00373348;
 extern int D_0036C58C;
 void func_001A41D0(int, int, int);
+extern int D_00373270;
+u8 func_001A4258(void*, int, int);
+void func_001A42E0(void*, u8);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A37A8);
@@ -25,6 +28,8 @@ extern "C" void func_001A4190(int a0, int a1) {
 extern "C" void func_001A41B0(int a0, int a1) {
     func_001A41D0(a0, 0, (a1 & 255));
 }
+
+struct S001A41D0 { u8 unk0; u8 unk1; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A41D0);
 

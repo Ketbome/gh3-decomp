@@ -188,7 +188,19 @@ extern "C" int func_0017A620(S0017A620* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A630);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A6D8);
+extern "C" void func_0017A6D8(S0017A620* self, float* out) {
+    switch (self->unk1C) {
+    case 1:
+        *out = 0.016666668f;
+        self->unk1C = 2;
+        break;
+    case 2:
+        *out = 0.0f;
+        self->unk18 = 1;
+        break;
+    }
+    if (self->unk18 == 0) *out = -*out;
+}
 
 extern "C" u32 func_0017A738(void) {
     return 0x48D89FC1 /* modelviewer */;

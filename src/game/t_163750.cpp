@@ -5,7 +5,11 @@ struct B2E0_163 { u64 f0 : 13; u64 f13 : 1; u64 f14 : 50; };
 struct L_163 { char pad0[0xC]; L_163* unkC; L_163* unk10; void* unk14; };
 struct S_00163AD8 { char pad0[0x90]; u128_163 unk90; char padA0[0x238]; int unk2D8; char pad2DC[4]; B2E0_163 unk2E0; };
 
+struct B2E0_164 { u64 f0 : 25; u64 f25 : 1; u64 f26 : 38; };
+struct S_00164AA0 { char pad0[0x12C]; float unk12C; float unk130; float unk134; char pad138[0x8]; char unk140[0x1A0]; B2E0_164 unk2E0; };
+
 extern "C" {
+void func_001650A0(S_00164AA0*, void*, u64);
 extern u8 D_0033E068[];
 extern int D_00368A38;
 void func_00119400(int, void*);

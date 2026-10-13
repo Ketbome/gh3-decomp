@@ -15,6 +15,8 @@ struct B10_19F {
 struct S1A0_19F { int unk0; int unk4; char pad8[8]; B10_19F unk10; };
 struct N_19F { N_19F* next; char pad4[0x48]; N_19F* prev; };
 
+struct S1A1118 { int unk0; int unk4; int unk8; int unkC; int unk10; };
+
 extern "C" {
 void func_002F3B80(void);
 void func_002F3BD0(void);
@@ -25,6 +27,8 @@ extern int* D_00373320;
 extern N_19F* D_00373300;
 extern N_19F* D_00373304;
 extern void* D_0036C430;
+int func_001A1028(int);
+extern struct S1A1118 D_00348740[];
 }
 
 struct N19F538 { N19F538* unk0; char pad4[0x34]; int unk38; };
@@ -161,7 +165,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1028);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1078);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1118);
+extern "C" int func_001A1118(int a0, int a, int b, int c) {
+    S1A1118* e = &D_00348740[func_001A1028(c)];
+    return (a / e->unk8) * (b / e->unkC);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1180);
 
