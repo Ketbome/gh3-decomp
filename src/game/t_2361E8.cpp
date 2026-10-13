@@ -16,6 +16,9 @@ extern void (*D_0036FD28)(void);
 void func_002367E0(int, int);
 extern List236 D_003979F0;
 extern u8 D_00354A30[];
+extern int D_00368A38[] __attribute__((section(".sdata")));
+void func_00119400(int, void*);
+void func_0023A350(void*);
 }
 
 GP_DATA(D_0036FD28);
@@ -75,7 +78,13 @@ extern "C" void* func_00236900(int* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236948);
+extern "C" void func_00236948(char* p, int f) {
+    *(u8**)(p + 0x34) = D_00354A30;
+    func_0023A350(p);
+    if (f & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236998);
 

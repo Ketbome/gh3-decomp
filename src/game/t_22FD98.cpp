@@ -27,9 +27,24 @@ extern int D_0036FBD0;
 extern char* D_0036FBD4;
 extern char* D_0036FBD8;
 extern int D_0036FBDC;
+void func_0014CC88(int);
+extern u8 D_00354218[];
+void* func_0022BA90(void*);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_0022FD98);
+extern "C" void func_0022FD98(char* p) {
+    struct VT {
+        char pad[0x10];
+        s16 delta;
+        s16 pad12;
+        int (*fn)(char*);
+    };
+    VT* v = *(VT**)(p + 0x34);
+    if (v->fn(p + v->delta)) {
+        func_0014CC88(*(int*)p);
+    }
+    func_0022BD90(p);
+}
 
 extern "C" void* func_0022FDE8(void) {
     return D_0036FB78;
@@ -62,7 +77,16 @@ extern "C" void func_0022FE70(S22F* self) {
     func_0022FE28(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_0022FE90);
+extern "C" void* func_0022FE90(char* p) {
+    func_0022BA90(p);
+    *(u8**)(p + 0x34) = D_00354218;
+    func_0022FE40((S22F*)(p + 0x38));
+    *(int*)(p + 0xE0) = 0;
+    *(int*)(p + 0xE4) = 0;
+    *(int*)(p + 0xDC) = 0;
+    *(int*)(p + 0xE8) = 0;
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_0022FEE0);
 

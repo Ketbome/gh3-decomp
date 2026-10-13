@@ -25,6 +25,8 @@ extern u8 D_00372E50;
 extern u8 D_00393AD8[];
 void* func_0022C3C8(void);
 void func_0030A2F4(void*, int, int);
+extern int D_0036F748;
+extern u8 D_0041ACB0[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022BD90);

@@ -114,7 +114,17 @@ extern "C" int func_0021A320(S219* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021A338);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021A3F8);
+extern "C" int func_0021A3F8(char* p) {
+    char* t = *(char**)(p + 0x1C);
+    if (t) {
+        int r = 0;
+        if ((*(u64*)(t + 0x2E0) & 0x4000) || *(f32*)(t + 0xA8) > 0.0f) {
+            r = 1;
+        }
+        return r;
+    }
+    return 0;
+}
 
 inline void set_0021A448(S219c* p, int v) {
     p->unk2E0_14 = v;

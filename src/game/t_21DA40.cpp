@@ -53,6 +53,7 @@ int func_002204D8(void*);
 void func_0027C448(int, u32, int);
 void func_00289C88(int, int);
 int* func_00289C80(int);
+int func_0027D870(int, u32, int*, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DA40);
@@ -206,7 +207,11 @@ extern "C" int func_0021E7F0(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E7F8);
+extern "C" int func_0021E7F8(int a, int b) {
+    int v;
+    func_0027D870(b, 0x40C698AF, &v, 1);
+    return func_00220FE8(a, v, 1) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E848);
 

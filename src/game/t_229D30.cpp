@@ -31,6 +31,7 @@ void func_00114958(int, int);
 int func_0022B1B8(void*);
 void func_001342E8(void*, int);
 void func_0022AE78(int, void*, int);
+char* func_0022B040(void);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229D30);

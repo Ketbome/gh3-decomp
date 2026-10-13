@@ -33,6 +33,10 @@ void func_0027D870(int, int, int*, int);
 void func_00226918(int);
 int func_00225E20(int);
 void func_00225A78(void*, int);
+void func_0030A49C(void*, int, int);
+void func_00225CA8(int, void*);
+extern u8 D_00352470[];
+u32 CrcFromPathLowercase(const char*);
 }
 
 extern "C" void func_00225BF0(void* a, int b) {
@@ -45,7 +49,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225CA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225D78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225E20);
+extern "C" int func_00225E20(int a) {
+    char buf[0x100];
+    buf[0] = D_00352470[0];
+    func_0030A49C(buf + 1, 0, 0xFF);
+    func_00225CA8(a, buf);
+    return CrcFromPathLowercase(buf);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225E70);
 
