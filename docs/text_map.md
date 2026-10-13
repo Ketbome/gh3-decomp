@@ -8,7 +8,7 @@ link order, then the libraries; nothing above `0x2EC0B0` calls back into the gam
 |---|---|---|
 | `0x100000`-`0x103E88` | crt0 (`.temp_init`) | `crt0.s detected ProView` |
 | `0x10C000`-`0x2EC0B0` | Game: Neversoft nxcommon engine (THUG2 lineage) and GH3 code | Neversoft class names, `THUG2 Viewer`, GH3 HUD/gem/whammy strings |
-| `0x2DFB70`-`0x2E62C0` | Unoptimised C library inside the game range (`-O0 -fno-opt-stack`, `src/game/t_2DFB70.c`, written in C) | frame pointer `$fp`, empty delay slots |
+| `0x2DFB70`-`0x2E62C0` | Sound driver (EE side): builds 16-bit command blocks for an IOP thread, 48 voices, 2 music channels; unoptimised C library (`-O0 -fno-opt-stack`, `src/game/t_2DFB70.c`, written in C) | frame pointer `$fp`, empty delay slots |
 | `0x2EC0B0`-`0x2ED018` | GameSpy SDK (what survived of it: query/reporting) | `%s.master.gamespy.com`, `final\\queryid\\1.1` |
 | `0x2ED018`-`0x30C6C8` | Sony SDK 3.0: libpad2, libdma, libkernl, sifrpc, stdio, libdbc, libmc2, SN socket, libcdvd, libipu/libmpeg | `libpad2:`, `SceSifrpcBind`, `libmc2:`, `SNSOCKET.C`, `Libcdvd`, `sceMpegGetPicture` |
 | `0x30C6C8`-`0x30E9E8` | Sony libccc (character code conversion) | `C-SJIS`, `C-EUCJP` |
