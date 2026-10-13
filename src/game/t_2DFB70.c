@@ -25,6 +25,7 @@ struct S43A8 {
     char pad1[2];
     int unk14;
     int a18[9], a3C[9], a60[9], a84[9];
+    int unkA8, unkAC;
 };
 
 struct S4670 {
@@ -78,6 +79,13 @@ int func_002E0DA8();
 void func_002E4DD8();
 void func_002E4EF8();
 extern unsigned short D_00330820[];
+extern int D_00372758;
+extern int D_003727CC;
+extern int D_00373208;
+int func_002E56E8();
+void func_002E53B8();
+extern int D_003726F0;
+int func_002E4FD0();
 int func_002F2170();
 void func_002F2400();
 extern char D_00372844;
@@ -1299,6 +1307,7 @@ int func_002E4AC0(int a) {
     func_002DFF78();
     return 0;
 }
+TEXT_PAD(12);
 
 int func_002E4B58(int a, int b, int c, int d) {
     int e;
@@ -1337,40 +1346,201 @@ int func_002E4CB8(int a, int b) {
     func_002DFF78();
     return 0;
 }
+TEXT_PAD(84);
 
 void func_002E4DD8(int a, int b) {
     D_00330CF8[a] = b;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E4E20);
+void func_002E4E20(int a, int b) {
+    a = a >> 16;
+    a -= 1;
+    D_0037320C = func_002E4FD0(D_003727E0[a], D_00330C38[b]);
+    D_00373210 = func_002E4FD0(D_003727E8[a], D_00330C98[b]);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E4EF8);
+void func_002E4EF8(a, b, c)
+int a;
+unsigned short b;
+unsigned short c;
+{
+    int r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E4FD0);
+    D_00330C38[a] = b;
+    D_00330C98[a] = c;
+    r = D_00330CF8[a];
+    if (r == 0) {
+        D_0037320C = (short)b;
+        D_00373210 = (short)c;
+    } else {
+        func_002E4E20(r, a);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5088);
+int func_002E4FD0(int a, int b) {
+    int c = 0;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E50C8);
+    if (b >= 0x4000) {
+        b = 0x7FFF - b;
+        c = 1;
+    }
+    b = (b * a) / 4096;
+    if (c == 1) {
+        b = 0x7FFF - b;
+    }
+    return b;
+}
+TEXT_PAD(16);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5138);
+GP_DATA(D_003726F0);
+void func_002E5088(void) {
+    int *p;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5188);
+    p = (int *)((int)&D_003EACC0 | 0x20000000);
+    D_003726F0 = *p;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E53B8);
+int func_002E50C8(void) {
+    int *p;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5408);
+    p = (int *)((int)&D_003EACC0 | 0x20000000);
+    if (*p != D_003726F0) {
+        D_003726F0 = *p;
+        return 1;
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E54D8);
+void func_002E5138(void) {
+    func_002DFF28(0x49);
+    func_002E0140((unsigned int)&D_003EACC0);
+    func_002DFF78();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5598);
+int func_002E5188(int a, int b) {
+    struct S3F50 s;
+    struct S3F50 *p;
+    int r;
+    unsigned int c;
+    struct S43A8 t;
+    struct S43A8 *q;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5610);
+    c = (unsigned)(a & 0xFF00) >> 8;
+    a &= 0xFF;
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    p = &s;
+    r = func_002E5758();
+    while (r == 1) {
+        r = func_002E5758();
+    }
+    if (b == 0) {
+        func_002E5138();
+    }
+    func_002E1518(-1, 0);
+    r = func_002E3248(0);
+    func_002E5088();
+    func_002E3F50(a, p);
+    q = &t;
+    while (p->unk11 != 0) {
+        if (func_002E50C8() == 1) {
+            r = func_002E56E8();
+            if (r != -1 && (c == 0 || r == a)) {
+                func_002E43A8(q);
+                if (q->unk4 != 0x7C) {
+                    if (b == 0) {
+                        func_002E53B8();
+                        func_002E3248(0);
+                    }
+                    return r + 1;
+                }
+                func_002E1518(r, 0);
+            }
+            func_002E3248(0);
+            func_002E4850();
+        }
+        func_002E3F50(a, p);
+    }
+    if (b == 0) {
+        func_002E53B8();
+        func_002E3248(0);
+    }
+    return 0;
+}
+TEXT_PAD(8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5660);
+void func_002E53B8(void) {
+    func_002DFF28(0x49);
+    func_002E0140(0);
+    func_002DFF78();
+}
+TEXT_PAD(8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E56E8);
+GP_DATA(D_00372758);
+GP_DATA(D_003727CC);
+int func_002E5408(void) {
+    struct S43A8 s;
+    struct S43A8 *p;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5718);
+    if (D_00372744 == -1) {
+        D_00373208 = -1;
+        return -1;
+    }
+    p = &s;
+    func_002E43A8(p);
+    if (p->unk4 == 0x7C) {
+        D_00373208 = D_00372744;
+        D_003727CC = D_00372758;
+        return 0;
+    }
+    if (D_003727CC == D_00372758) {
+        return -1;
+    }
+    D_00373208 = D_00372744;
+    D_003727CC = D_00372758;
+    return 1;
+}
+
+int func_002E54D8(struct S43A8 *s) {
+    func_002E43A8(s);
+    if (D_00372744 == D_00373208 && D_00372758 == D_003727CC) {
+        s->unkA8 = D_00373208;
+        s->unkAC = D_003727CC;
+        return 0;
+    }
+    return -1;
+}
+TEXT_PAD(48);
+
+void func_002E5598(int a) {
+    func_002DFF28(0x55);
+    func_002E00C8((short)a);
+    func_002DFF78();
+}
+TEXT_PAD(40);
+
+void func_002E5610(int a, int b) {
+    func_002E1518(a, b);
+}
+TEXT_PAD(16);
+
+void func_002E5660(short a, short b) {
+    func_002DFF28(0x5C);
+    func_002E00C8(a);
+    func_002E00C8(b);
+    func_002DFF78();
+}
+TEXT_PAD(28);
+
+int func_002E56E8(void) {
+    return D_00372744;
+}
+
+int func_002E5718(void) {
+    return D_00372730;
+}
+TEXT_PAD(16);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E5758);
 
