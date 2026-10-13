@@ -1045,3 +1045,5 @@ Matched (A11) t_118E40: func_0011AA58 (ctor, counterpart of dtor func_0011AB60; 
 Matched (A12) t_112D48 (now `// cflags: -funroll-loops`, whole file still matches): func_00113BF8 (strncpy: `while (n != 0) { if (*s) *d++ = *s++; else *d++ = 0; n--; }`, unrolled 4x)
 - func_00114C70 (CRC32 table loop, unrolled 4x): structure/unroll matches but ours copies the args into t1/t3/t0 at entry (original uses a0-a2 in place), 6 forms tried (for/while/do-while/end pointer)
 Matched (A12) t_11D000 (now `// cflags: -funroll-loops`, whole file still matches): func_0011D830 (zero fill: `for (i<100) int[i]=0; for (i<200) 16-byte entry fields = 0`, unrolled 10x)
+Matched (A12) t_118E40 (now `// cflags: -funroll-loops`): func_0011A170 (32 entries of 0x50 at +0x254; key at +8, flag at +0x4C; returns the entry)
+- func_00119A60 (search `a[i]==key` returns a[i+1], unrolled 4x): all but the second `blez t0` zero-iteration guard (original has it on a copy t0 of n; ours elides it); 6 forms tried
