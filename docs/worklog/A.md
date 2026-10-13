@@ -1006,3 +1006,5 @@ Matched (A10) t_116E38: func_00117030 func_00117D40 (jtbl; explicit 'case 0: ret
 - func_00189938 (5x unrolled alloc+ctor+list push, 2 iterations): original puts 'sw D_00369DB4' in the Heap_Alloc jal delay slot after the D_00368A38 lui/lw; ours puts the gp load of D_00368A38 there; volatile on either, reorder, comma args tried; 7 tries
 Matched (A10) t_157100: func_001577B8 (0x150; 8 vcalls via an inline helper; last vcall declared int-returning)
 Matched (A10) t_157100: func_00157908 (0x150; texture-ish buffer alloc with two vcalls)
+- func_00119B38: chain of operator_new+ctor+attach; original frame is 0x30 (0x20 bytes of unused locals) and the two-way size branch shares one call with a nop delay slot; ours has frame 0x10; 5 tries
+Matched (A10) t_116E38: func_00118168 (0x128; ctor with list head node + three memsets; ctor declared returning void*)
