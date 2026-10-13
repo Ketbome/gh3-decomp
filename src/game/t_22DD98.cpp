@@ -18,6 +18,7 @@ extern u8 D_00353B30[];
 extern u8 D_0036FA88[];
 extern u8 D_0036FAD8[];
 extern u8 D_00354030[];
+void func_002253A8(int, void*);
 }
 
 extern "C" void* func_0022DD98(void) {
@@ -36,7 +37,12 @@ extern "C" void func_0022DDB0(int v) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022DDC8);
+extern "C" void func_0022DDF0(void);
+
+extern "C" void* func_0022DDC8(void* p) {
+    func_0022DDF0();
+    return p;
+}
 
 extern "C" void func_0022DDF0(void) {
 }
@@ -83,7 +89,12 @@ extern "C" int func_0022E4A0(void) {
     return 8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022E4A8);
+extern "C" void func_0022E4D0(S22D*);
+
+extern "C" S22D* func_0022E4A8(S22D* p) {
+    func_0022E4D0(p);
+    return p;
+}
 
 extern "C" void func_0022E4D0(S22D* self) {
     self->unk90 = 0;

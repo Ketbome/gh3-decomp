@@ -42,7 +42,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236760);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002367D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_002367E0);
+extern "C" void func_002367E0(int a, int b) {
+    if (b == 0xFFFF && a) {
+        int* d = (int*)&D_003979F0;
+        int* n = d + 1;
+        d[1] = (int)n;
+        n[1] = (int)n;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236810);
 

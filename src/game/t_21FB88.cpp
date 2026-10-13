@@ -77,9 +77,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002205B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002206C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002207F0);
+extern "C" void func_002207F0(S21F* p) {
+    func_001F62D0(p->unk3C);
+    func_00220948(p, 0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220828);
+extern "C" void func_00220828(S21F* p) {
+    func_001F6440(p->unk3C);
+    func_00220948(p, 1);
+}
 
 extern "C" void* func_00220860(S21F* self) {
     if (!self->unk64) {

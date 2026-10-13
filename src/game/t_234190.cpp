@@ -100,7 +100,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManNumFreeSlots);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236100);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_EnablePakManStreaming);
+extern "C" int CFunc_EnablePakManStreaming(void) {
+    D_0036FD2C = 1;
+    return 1;
+}
 
 GP_DATA(D_0036FD2C);
 extern "C" int CFunc_DisablePakManStreaming(void) {

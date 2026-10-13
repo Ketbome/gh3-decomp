@@ -20,7 +20,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_002151A8);
 extern "C" void func_002167D8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2151A8", func_002167E0);
+extern "C" void func_002167E0(S215* p) {
+    p->unk2C = func_001D1CF8(p->unkC, 0xCE0CA665);
+}
 
 extern "C" void func_00216818(S215* self) {
     if (self->unk20) {

@@ -2,7 +2,9 @@
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A4F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A4F8);
+extern "C" char* func_0023A4F8(char** p, int i) {
+    return p[2] + i * 0x13C;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A510);
 

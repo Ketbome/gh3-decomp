@@ -1,14 +1,32 @@
 #include "common.h"
 
+extern "C" {
+void func_0023F270(void*);
+void func_002411D0(void*);
+void func_0023F2A0(void*);
+void func_0023F2E0(void*);
+}
+
+typedef int TI128 __attribute__((mode(TI)));
+
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241040);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241078);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002410B0);
+extern "C" void func_002410B0(void* p) {
+    func_0023F270(p);
+    func_002411D0(p);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002410E0);
+extern "C" void func_002410E0(void* p) {
+    func_0023F2A0(p);
+    func_002411D0(p);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241110);
+extern "C" void func_00241110(void* p) {
+    func_0023F2E0(p);
+    func_002411D0(p);
+}
 
 extern "C" void func_00241140(void) {
 }
@@ -21,7 +39,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002414B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002415E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241640);
+extern "C" void func_00241640(char* p, char* q) {
+    *(int*)(p + 8) = (int)q;
+    *(u16*)(p + 4) |= 0xC000;
+    *(TI128*)(p + 0xA0) = *(TI128*)(q + 0x10);
+    *(TI128*)(p + 0xB0) = *(TI128*)(q + 0x20);
+    *(int*)(p + 0xC0) = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241668);
 

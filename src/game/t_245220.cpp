@@ -1,5 +1,9 @@
 #include "common.h"
 
+extern "C" {
+extern u8 D_00370044;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00245220);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_002454C8);
@@ -26,9 +30,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246B30);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246B78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246BC0);
+extern "C" int func_00246BC0(int* p) {
+    return *p & 0xFFFFFFFC;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246BD8);
+extern "C" int func_00246BD8(int* p) {
+    return *p & 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246BE8);
 
@@ -46,7 +54,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246DE0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246E30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246EF0);
+GP_DATA(D_00370044);
+extern "C" int func_00246EF0(void) {
+    int v = D_00370044 + 1;
+    D_00370044 = v;
+    return v & 0xFF;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246F08);
 

@@ -26,7 +26,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248D98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248E20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248E60);
+extern "C" void func_00248E60(char* p) {
+    struct O { char pad[0x20]; void (*f)(O*); };
+    O* o = *(O**)(p + 0x4C);
+    o->f(o);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248E88);
 

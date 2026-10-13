@@ -66,7 +66,11 @@ extern "C" bool func_002338E0(S232* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_WaitUnloadPak);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_AsyncLoadPakInProgress);
+GP_DATA(D_0036FBE8);
+extern "C" int CFunc_AsyncLoadPakInProgress(void) {
+    func_0011E130();
+    return D_0036FBE8;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_LinkRawAsset);
 

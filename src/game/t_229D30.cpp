@@ -26,6 +26,8 @@ extern int D_0036F608;
 void func_00229538(int, int);
 void func_0022B3B8(S229*);
 void func_0022B700(S229*);
+extern int D_00370EE0[] __attribute__((section(".sdata")));
+void func_00114958(int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_00229D30);
@@ -94,7 +96,10 @@ extern "C" void func_0022B320(void* self) {
     func_0022B2E8(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B340);
+extern "C" void func_0022B340(char* p) {
+    int v = *(int*)(p + 0xCC);
+    func_00114958(D_00370EE0[0] + 8, v);
+}
 
 extern "C" void func_0022B368(S229* self) {
     func_00113FB8(self->unkCC);
@@ -112,7 +117,10 @@ extern "C" void func_0022B3B8(S229* self) {
     self->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B3C8);
+extern "C" S229* func_0022B3C8(S229* p) {
+    func_0022B3B8(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B3F0);
 
@@ -126,7 +134,10 @@ extern "C" void func_0022B700(S229* self) {
     self->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B710);
+extern "C" S229* func_0022B710(S229* p) {
+    func_0022B700(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B738);
 

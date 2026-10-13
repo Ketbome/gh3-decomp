@@ -28,7 +28,7 @@ struct S223 {
 };
 
 extern "C" {
-extern Big223 D_0036F520;
+extern Big223 D_0036F520[] __attribute__((section(".sdata")));
 void func_002243A0(int, int);
 void func_002250F8(S223*);
 void func_002251B8(S223*);
@@ -57,23 +57,41 @@ INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00223C28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00223C78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224220);
+extern "C" void* func_00224220(void* a, int b) {
+    return func_00224F78(D_0036F520->unk0, a, b);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224250);
+extern "C" void func_00224250(void* a, int b) {
+    func_00225058(D_0036F520->unk0, a, b);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224280);
+extern "C" void func_00224280(int a) {
+    func_002250C8(D_0036F520->unk0, a);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_002242A8);
+extern "C" void func_002242A8(void) {
+    func_002250F8(D_0036F520->unk0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_002242D0);
+extern "C" void func_002242D0(void) {
+    func_002251B8(D_0036F520->unk0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_002242F8);
+extern "C" void func_002242F8(void) {
+    func_002251C8(D_0036F520->unk0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224320);
+extern "C" void func_00224320(void) {
+    func_002251E8(D_0036F520->unk0);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224348);
+extern "C" void func_00224348(int a) {
+    func_002251F8(D_0036F520->unk0, a);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224370);
+extern "C" void func_00224370(int a) {
+    func_002252C0(D_0036F520->unk0, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_223BE8", func_00224398);
 
