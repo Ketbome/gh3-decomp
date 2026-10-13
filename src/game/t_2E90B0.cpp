@@ -17,6 +17,7 @@ struct S2E90B0_L {
 };
 
 extern "C" {
+void func_002EA268(void);
 extern s32 D_003728F0;
 extern s32 D_003728F4;
 extern s32 D_00372900;
@@ -62,7 +63,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA460);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA5E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA5F0);
+extern "C" void func_002EA5F0(void) {
+    func_002E3248(0);
+    func_002EA268();
+    func_002E3248(0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA620);
 

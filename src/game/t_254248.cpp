@@ -8,6 +8,8 @@ struct S254248_A {
 };
 
 extern "C" {
+int func_0026DE20(void);
+void func_0027C160(int, int, int);
 void func_0026C870(void);
 int func_0026A030(void);
 int func_0026E8B8(void);
@@ -386,7 +388,14 @@ extern "C" int CFunc_SetMusicLooping(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetCurrentTrack);
+struct SGCT {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" s32 CFunc_GetCurrentTrack(int arg0, SGCT *arg1) {
+    func_0027C160(arg1->unk20, 0x8D02705D, func_0026DE20());
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetValueFromVolume);
 

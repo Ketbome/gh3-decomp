@@ -9,6 +9,9 @@ struct S0025D4E0 {
 };
 
 extern "C" {
+void func_0027D188(int, int, int *, int);
+void func_0011A560(int, int, int);
+int func_0027DF00(int, int);
 extern int D_00368744[] __attribute__((section(".sdata")));
 int func_00277208(void);
 int func_0025C6A0(int, int);
@@ -43,7 +46,12 @@ extern "C" void func_0025C790(void) {
     func_0025C6A0(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_PushMemProfile);
+extern "C" int CFunc_PushMemProfile(int arg0) {
+    int out;
+    func_0027D188(arg0, 0, &out, 1);
+    func_0011A560(out, 0, 0);
+    return 1;
+}
 
 extern "C" int CFunc_PopMemProfile(void) {
     func_0011A568();
@@ -85,7 +93,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CDC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D458);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DumpHeaps);
+extern "C" int CFunc_DumpHeaps(int arg0, int arg1) {
+    if (arg0 != 0) {
+        if (func_0027DF00(arg0, 0xE0858748) != 0) {
+            return 1;
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_DumpFragments(void) {
     return 1;

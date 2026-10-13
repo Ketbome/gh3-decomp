@@ -1,6 +1,11 @@
 #include "common.h"
 
 extern "C" {
+int func_0026ABA8(void);
+void func_0026AE70(void);
+extern int D_00370C18;
+void func_00273B80(int);
+int func_0026ABB0(void);
 extern int D_00370C34;
 extern int D_00370C28;
 extern int D_00370C50;
@@ -8,7 +13,11 @@ extern f32 D_00370C1C;
 extern f32 D_00370C20;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AEF8);
+extern "C" void func_0026AEF8(void) {
+    if (func_0026ABB0() == 0) {
+        func_00273B80(1);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AF28);
 
@@ -89,7 +98,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CA78);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CBE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CC48);
+GP_DATA(D_00370C18);
+extern "C" void func_0026CC48(void) {
+    if (func_0026ABA8() == 0 && D_00370C18 == 0) {
+        func_0026AE70();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CC80);
 

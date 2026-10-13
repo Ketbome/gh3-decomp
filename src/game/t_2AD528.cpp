@@ -7,6 +7,7 @@ struct S2ADFD8_0 {
 };
 
 extern "C" {
+void func_0028D720(int);
 int func_002AE2A8(int, int);
 extern f32 D_00373130[] __attribute__((section(".sdata")));
 }
@@ -37,7 +38,10 @@ extern "C" void func_002ADFD8(S2ADFD8_0 *arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADFE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE0A0);
+extern "C" S2ADFD8_0 *func_002AE0A0(S2ADFD8_0 *self) {
+    func_002ADFD8(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE0C8);
 
@@ -57,7 +61,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE6C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE870);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE9F8);
+struct S2AE9F8 {
+    char pad0[0xC];
+    int unkC;
+};
+extern "C" void func_002AE9F8(S2AE9F8 *p) {
+    if (p->unkC != 0) {
+        func_0028D720(p->unkC);
+        p->unkC = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEA30);
 
@@ -145,7 +158,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_SetInput);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_EnableInput);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF438);
+struct S2AF438 {
+    char pad0[0x20];
+    struct { char pad0[0xC]; int unkC; } *unk20;
+};
+extern "C" int func_002AF438(S2AF438 *p, int n) {
+    if (n >= 2) {
+        return 1;
+    }
+    return p->unk20->unkC == 8;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_IsGuitarController);
 

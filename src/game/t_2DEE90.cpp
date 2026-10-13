@@ -43,6 +43,10 @@ struct S2DEE90_A {
 };
 
 extern "C" {
+void func_001C9EB8(void *);
+void func_00113FB8(int);
+int func_0011EF10(void);
+void func_001CC0D0(void *);
 extern int D_00363DB8[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 int func_00119400(s32, void *);
@@ -99,7 +103,14 @@ extern "C" void func_002DF140(void) {
 extern "C" void func_002DF148(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF150);
+struct S2DF150 {
+    char pad0[0xEF04];
+    int unkEF04;
+};
+extern "C" void func_002DF150(S2DF150 *p) {
+    func_001C9EB8(p);
+    func_00113FB8(p->unkEF04);
+}
 
 extern "C" s32 func_002DF188(void) {
     return 4;
@@ -386,7 +397,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF620);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF630);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF718);
+struct S2DF718 {
+    char pad0[0x228];
+    int unk228;
+};
+extern "C" void func_002DF718(S2DF718 *p) {
+    p->unk228 = func_0011EF10();
+    func_001CC0D0(p);
+}
 
 extern "C" s32 func_002DF748(void) {
     return 0;

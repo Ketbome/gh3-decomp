@@ -525,3 +525,27 @@ Given up:
   filling differs. t_2E4FD0 also has -O2 functions (func_002E6340..).
 - Volatile struct-field stores are still moved into `jr`/`jal` delay slots by gas (t_292928 func_002931F0,
   func_00293218).
+
+### Round 6 (agent C7), small functions across the range
+Matched (46): t_2CBC10 func_002CC540, func_002CC570, CFunc_Drum/FretFingers_iterator_CFunc_Setup, gem_array_stepper,
+kill_object_later Setup; t_2CDCC0 Note_Window_Open, rock_meter_star_power_on, strum_iterator, check_for_star_power Setup;
+t_2D0150 AnimatedTextureLoop, MissedNote, UnnecessaryNote Setup, CFunc_get_anim_speed_for_tempo_cfunc;
+t_2AD528 func_002AE0A0, func_002AF438, func_002AE9F8; t_2D4468 func_002D5888/5C88/5CC0; t_2EB1C0 func_002EBDF0;
+t_282268 func_00282ED0; t_2E90B0 func_002EA5F0; t_26AEF8 func_0026AEF8, func_0026CC48; t_2774B8 func_002777E0;
+t_26D280 func_0026DC68, func_0026E0B8 (+ func_0026E190 now takes the pointer); t_2848B0 func_00285948/85A30/85A60;
+t_2B3AC8 func_002B47E0, func_002B4810, func_002B4B98; t_2DEE90 func_002DF718, func_002DF150; t_25C450 CFunc_DumpHeaps,
+CFunc_PushMemProfile; t_271480 func_00272020; t_29F288 func_0029FD08, func_0029FF20; t_252068 CFunc_CreateBussSystem;
+t_254248 CFunc_GetCurrentTrack.
+(Notes: `if (c) {...; return 1;} return 0;` and `if (a == K) return X; return f();` fix swapped branch layouts. A callee
+declared `int` instead of `void` changed scheduling in func_00272020. CFuncs take (script?, args) and pass $a0 through
+untouched: call the helpers with the incoming first argument. A movz/movn chain `r = b; if (a&0x1000) r = ...;` is
+written bottom-up. A function returning `call(...) + 0xC` looks like a copy of `this`; check m2c.
+The -O0 `sq $30` frame-pointer functions of t_2E4FD0 (func_002E56E8, func_002E5718, func_002E5758) and t_2DEE90
+func_002DFE78 were skipped.)
+Given up:
+- func_0026E1B0: original has a `nop` after the jal (3 forms); func_0026E158: only the `lui` is scheduled before
+  `addiu sp` here (6 forms).
+- func_0028D1B0: 10-arg forwarder, original saves ra with `sq`.
+- func_002B4CB0, func_002CDCC0, func_002CDCF8: hash-chain search; original keeps the node in v0 and loads into v1 with
+  an empty `beqz` delay slot (while/for/goto forms), same v0/v1 swap as above.
+- func_00279118: gcc reassociates `q + i*8` / `q + unk0*8 + i` (4 forms).

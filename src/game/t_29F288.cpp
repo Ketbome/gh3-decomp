@@ -31,6 +31,10 @@ struct S29F288_A {
 };
 
 extern "C" {
+void func_0029ABB8(void *, int);
+extern char D_0035C858[];
+void func_0027AA70(void *);
+extern char D_0035C830[];
 int func_0011A128(void);
 int func_0027D400(int, int, int, int);
 int func_0029AFF0(void);
@@ -126,7 +130,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FC80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FCE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FD08);
+struct S29FD08 {
+    char pad0[4];
+    char unk4[8];
+    void *unkC;
+};
+extern "C" S29FD08 *func_0029FD08(S29FD08 *p) {
+    p->unkC = D_0035C830;
+    func_0027AA70(p->unk4);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FD40);
 
@@ -176,7 +189,15 @@ extern "C" s32 func_0029FF18(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FF20);
+struct S29FF20 {
+    char pad0[0x2418];
+    void *unk2418;
+};
+extern "C" S29FF20 *func_0029FF20(S29FF20 *p) {
+    func_0029ABB8(p, 0);
+    p->unk2418 = D_0035C858;
+    return p;
+}
 
 extern "C" s32 func_0029FF58(void) {
     return 0;

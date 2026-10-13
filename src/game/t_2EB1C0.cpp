@@ -40,7 +40,10 @@ extern "C" void func_002EBDE0(S2EBDE0_0 *arg0) {
     arg0->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBDF0);
+extern "C" S2EBDE0_0 *func_002EBDF0(S2EBDE0_0 *self) {
+    func_002EBDE0(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBE18);
 

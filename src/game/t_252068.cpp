@@ -6,6 +6,8 @@ struct S00252EC8 {
 };
 
 extern "C" {
+int func_0027D400(int, int, int *, int);
+void func_002532C8(int, int);
 void func_00269B70(void);
 int func_00251F68(void);
 extern S00252EC8* D_0036CDB4[] __attribute__((section(".sdata")));
@@ -69,7 +71,13 @@ extern "C" void func_002532C0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002532C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_CreateBussSystem);
+extern "C" int CFunc_CreateBussSystem(int arg0) {
+    int out;
+    if (func_0027D400(arg0, 0, &out, 1) != 0) {
+        func_002532C8(0, out);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_SoundBussLock(void) {
     return 0;

@@ -9,6 +9,7 @@ struct S00283520 {
 };
 
 extern "C" {
+void func_00282F48(void *);
 bool func_00282398(void);
 }
 
@@ -28,7 +29,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002829B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282CC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282ED0);
+struct S282ED0 {
+    char pad0[0x24];
+    int unk24;
+};
+extern "C" S282ED0 *func_00282ED0(S282ED0 *p) {
+    p->unk24 = 0;
+    func_00282F48(p);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282F00);
 

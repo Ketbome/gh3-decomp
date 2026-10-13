@@ -28,7 +28,10 @@ extern "C" void func_002D5878(S2D5878_0 *arg0) {
     arg0->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5888);
+extern "C" S2D5878_0 *func_002D5888(S2D5878_0 *self) {
+    func_002D5878(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D58B0);
 
@@ -44,7 +47,10 @@ extern "C" void func_002D5BC0(S2D4468_A *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5BD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5C88);
+extern "C" S2D4468_A *func_002D5C88(S2D4468_A *self) {
+    func_002D5BC0(self);
+    return self;
+}
 
 extern "C" void func_002D5CB0(S2D4468_A *p) {
     p->unk0 = 0;
@@ -52,7 +58,10 @@ extern "C" void func_002D5CB0(S2D4468_A *p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5CC0);
+extern "C" S2D4468_A *func_002D5CC0(S2D4468_A *self) {
+    func_002D5CB0(self);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5CE8);
 

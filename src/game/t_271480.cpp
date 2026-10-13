@@ -84,7 +84,7 @@ extern u8 D_0032E1D9[];
 extern float D_0032D898[];
 int func_00271910(float *, int, float);
 int func_002730D0(int);
-void func_00271A98(int, int, int, int, int, int);
+int func_00271A98(int, int, int, int, int, int);
 extern void *D_003A9490[];
 extern char D_0032E210[];
 extern volatile u8 D_00370DD0;
@@ -280,7 +280,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271E88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271F28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272020);
+struct S272020 {
+    int unk0;
+    char pad4[0x18];
+    int unk1C;
+    char pad20[0x14];
+    int unk34;
+};
+extern "C" void func_00272020(S272020 *p) {
+    func_00271A98((p->unk0 - 1) | 0x1D0, p->unk1C, p->unk34, 0, 0, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272058);
 
