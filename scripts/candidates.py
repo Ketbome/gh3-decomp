@@ -3,8 +3,8 @@
 
 Usage: .venv/bin/python scripts/candidates.py src/game/t_10C000.cpp [more files...] [--max-size 0x200]
 
-Flags: jtbl = has a jump table (a switch: supported, see decomp_guide.md), vu0 = VU0 macro instructions (inline asm in
-the original: supported, see decomp_guide.md), lit = loads float constants from memory (declare the existing constant as an extern).
+Flags: jtbl = has a jump table (a switch: supported, see decomp_guide.md), vu0:N% = VU0 instructions, N% of the function
+(inline asm in the original: supported, see decomp_guide.md; start with low N), lit = loads float constants from memory (declare the existing constant as an extern).
 """
 
 import re
@@ -32,8 +32,10 @@ def main():
             flags = []
             if "jtbl_" in asm:
                 flags.append("jtbl")
-            if re.search(r"\*/\s+(v[a-z]+\.|vcallms|qmtc2|qmfc2|lqc2|sqc2)", asm):
-                flags.append("vu0")
+            vu = len(re.findall(r"\*/\s+(v[a-z]+(\.\w+)?|vcallms\w*|qmtc2\S*|qmfc2\S*|lqc2|sqc2)\s", asm))
+            if vu:
+                total = max(1, len(re.findall(r"^\s+/\* [0-9A-F]+ [0-9A-F]{8} [0-9A-F]{8} \*/", asm, re.M)))
+                flags.append(f"vu0:{100 * vu // total}%")
             if re.search(r"lwc1\s+\$f\d+, %(gp_rel|lo)\(", asm):
                 flags.append("lit")
             rows.append((size, name, src, ",".join(flags)))
