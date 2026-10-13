@@ -20,6 +20,7 @@ struct S26D_Ent {
 };
 
 extern "C" {
+int func_0026E008(void *, int);
 void func_0026AE70(void);
 int func_0026ABA8(void);
 int func_002741B8(int);

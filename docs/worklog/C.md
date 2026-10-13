@@ -568,3 +568,14 @@ Given up:
 - func_0029FFB8: `li a1,0x4480` goes in the jal delay slot in the original; ours hoists it (3 forms).
 - CFunc_ResetPulseEvents: store order solved (ascending), registers differ (lui in a0/a1 in the original).
 - func_002859D0, func_0027E300: short loops with nop padding.
+
+Round 6 part 3 (+17): t_2AD528 CFunc_IsGuitarController; t_26F3B8 func_00270E40, func_00270E88; t_273498 func_00273C20
+(now takes two args), func_00275138, func_00273C68; t_27D828 func_0027D828; t_29AA58 func_0029AA58; t_29F288
+func_0029FEA8; t_2C57B8 CFunc_CrowdDecrease/Increase; t_254248 CFunc_LoadFSB, CFunc_StreamExists; t_266800
+func_00266898, func_002672C0; t_282268 func_00283020; t_2C3468 func_002C34C8.
+(Quirks: a1 that is never written before a call is an incoming argument: pass it through. `if (x == K) A else B`
+with different constants stores gives the `bnel` + store-in-delay-slot form. When a run of stores comes out in the
+wrong order, a permutation search over the source order finds it (func_00283020: 20,14,18,1C,4).
+`r = out; if (!call) { ...; return 0; }` style needs `r` loaded before the test.)
+Given up: func_002AEB48 (virtual call: original copies `this` into a2 at entry, ours a3 + moves), func_0026E0E8
+(movz bracket, return-0 delay slot).

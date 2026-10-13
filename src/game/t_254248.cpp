@@ -8,6 +8,9 @@ struct S254248_A {
 };
 
 extern "C" {
+int func_0026DCA0(int);
+int func_0027D828(int, int);
+int func_002E6C80(int);
 int func_0026DE20(void);
 void func_0027C160(int, int, int);
 void func_0026C870(void);
@@ -101,7 +104,14 @@ extern "C" int CFunc_ResetBCSND(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadFSB);
+struct SLoadFSB {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" s32 CFunc_LoadFSB(int arg0, SLoadFSB *arg1) {
+    func_0027C160(arg1->unk20, 0xB3F0F2FE, func_002E6C80(func_0027D828(arg0, 0xC3F4169A)));
+    return 1;
+}
 
 extern "C" int CFunc_UnLoadFSB(int a) {
     int x = 0;
@@ -123,7 +133,14 @@ extern "C" int CFunc_PlayStream(int a) {
     return func_0027D870(a, 0, &x, 0) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StreamExists);
+extern "C" int CFunc_StreamExists(int arg0) {
+    int out = 0;
+    int r = 0;
+    if (func_0027D870(arg0, 0, &out, 0) != 0) {
+        r = func_0026DCA0(out) != 0;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddStream);
 

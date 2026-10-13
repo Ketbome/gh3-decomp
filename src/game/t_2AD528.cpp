@@ -7,6 +7,9 @@ struct S2ADFD8_0 {
 };
 
 extern "C" {
+void func_00289F90(int, int, void *);
+int func_0027D1F8(int, int, int *, int);
+int func_002DCA08(int);
 void func_0028D720(int);
 int func_002AE2A8(int, int);
 extern f32 D_00373130[] __attribute__((section(".sdata")));
@@ -74,6 +77,16 @@ extern "C" void func_002AE9F8(S2AE9F8 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEA30);
 
+struct S2AEB48_V {
+    char pad0[0x18];
+    s16 delta;
+    s16 index;
+    void (*fn)(void *, int, void *);
+};
+struct S2AEB48 {
+    S2AEB48_V *unk0;
+    int unk4;
+};
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEB48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEB98);
@@ -169,7 +182,13 @@ extern "C" int func_002AF438(S2AF438 *p, int n) {
     return p->unk20->unkC == 8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_IsGuitarController);
+extern "C" int CFunc_IsGuitarController(int arg0) {
+    int out = 0;
+    if (func_0027D1F8(arg0, 0xB30D9965, &out, 0) != 0) {
+        return func_002AF438((S2AF438 *)func_002DCA08(out), out);
+    }
+    return 0;
+}
 
 extern "C" s32 CFunc_UnBindGuitarControllerStatus(void) {
     return 1;

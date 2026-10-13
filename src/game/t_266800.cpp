@@ -53,6 +53,7 @@ struct S2668_Out {
 };
 
 extern "C" {
+int func_00267048(int, int);
 void func_00269420(int, void *);
 extern int D_00370B10;
 extern void *D_00370B0C;
@@ -108,7 +109,19 @@ extern "C" void func_00266850(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266898);
+struct S266898_O {
+    char pad0[0x14];
+    int unk14;
+};
+extern "C" S266898_O *func_00266898(S266898_O *p) {
+    if (D_00370AE0 != 0) {
+        p->unk14 = ((int *)D_00370AE0)[2];
+    } else {
+        p->unk14 = 0;
+    }
+    func_0030A49C((int)p, 0, 0x14);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002668E8);
 
@@ -182,7 +195,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267048);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002670B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002672C0);
+extern "C" int func_002672C0(int a, int b) {
+    while (func_00267048(a, b) == 0) {
+        b++;
+    }
+    return b;
+}
 
 extern "C" void func_00267310(float v) {
     if (func_00266778() == 0) {

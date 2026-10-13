@@ -31,6 +31,9 @@ struct S29F288_A {
 };
 
 extern "C" {
+void *func_00118F20(int, int, int, int);
+int func_00297458(void *);
+extern int D_00368A38;
 int func_0011EF10(void);
 int func_002763E0(int, int);
 void func_0027ABB0(int, int);
@@ -188,7 +191,14 @@ extern "C" int func_0029FE60(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FEA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FEA8);
+struct S29FEA8 {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" int func_0029FEA8(S29FEA8 *p) {
+    p->unk20 = func_00297458(func_00118F20(D_00368A38, 0x98, 1, 0));
+    return 1;
+}
 
 extern "C" s32 func_0029FEF0(void) {
     return 1;

@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+int func_0027CC30(int, int, int, int *);
+void func_0027F1E0(int, int, int);
 void func_002798B8(int);
 void func_0013D100(int);
 }
@@ -44,7 +46,17 @@ struct S27EF20 {
     int *unk8;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027D828);
+extern "C" int func_0027D828(int a, int b) {
+    int out;
+    int r;
+    if (func_0027CC30(a, b, 3, &out) != 0) {
+        r = out;
+    } else {
+        func_0027F1E0(a, 0, 1);
+        r = 0;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027D870);
 
@@ -218,7 +230,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EFA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F008);
 
-extern "C" void func_0027F1E0(void) {
+extern "C" void func_0027F1E0(int, int, int) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F1E8);

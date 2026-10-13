@@ -1,12 +1,30 @@
 #include "common.h"
 
+extern "C" {
+void *func_0030A49C(void *, int, int);
+}
+
 struct S0029BDA0 {
     char pad[0x3138];
     u32 unk3138;
     u32 unk313C;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029AA58);
+struct S29AA58 {
+    int unk0;
+    char unk4[0x28];
+    int unk2C;
+    int unk30;
+    int unk34;
+};
+extern "C" S29AA58 *func_0029AA58(S29AA58 *p) {
+    func_0030A49C(p->unk4, 0, 0x28);
+    p->unk0 = 0x3E8;
+    p->unk2C = 0;
+    p->unk30 = 0;
+    p->unk34 = 0;
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029AAA0);
 

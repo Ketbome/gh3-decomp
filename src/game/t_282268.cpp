@@ -9,6 +9,7 @@ struct S00283520 {
 };
 
 extern "C" {
+int func_0027B300(int, int);
 int func_002763E0(int, int);
 int func_002764E8(int, int);
 int func_00276200(int, int);
@@ -56,7 +57,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282F48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282FA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283020);
+struct S283020 {
+    int unk0;
+    int unk4;
+    int unk8;
+    char padC[8];
+    int unk14;
+    int unk18;
+    int unk1C;
+    int unk20;
+};
+extern "C" void func_00283020(S283020 *p, int a, int b, int c) {
+    p->unk20 = 0;
+    p->unk14 = b;
+    p->unk18 = b;
+    p->unk1C = c;
+    p->unk4 = a;
+    p->unk8 = func_0027B300(a, 0);
+    p->unk0 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00283070);
 

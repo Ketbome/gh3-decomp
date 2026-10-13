@@ -1,12 +1,26 @@
 #include "common.h"
 
 extern "C" {
+void *func_0027AF38(int, int, int);
 int func_00289CF8(s32);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_CameraCut_GetCameraIndex);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", func_002C34C8);
+struct S2C34C8 {
+    char pad0[8];
+    u32 unk8;
+};
+extern "C" void func_002C34C8(int a) {
+    S2C34C8 *p = (S2C34C8 *)func_0027AF38(a, 0x26205DB6, 0);
+    if (p != 0) {
+        if (p->unk8 == 0x3AC1877C) {
+            p->unk8 = 0x6E965B60;
+        } else {
+            p->unk8 = 0x3AC1877C;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_CameraCut_SwapLookAts);
 
