@@ -73,6 +73,10 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   `char pad[...]`. Define it at the top of the file. Do not edit shared headers.
 - **Types.** `s8 u8 s16 u16 s32 u32 f32` (`include/common.h`). `int`/pointers are 32 bits; `long` is 64 bits
   (`ld`/`sd` on values that are not saved registers mean a 64-bit type or a `u_long128` copy).
+- **`sq` saves of `$s` registers** (ascending offsets) mean those registers hold 128-bit values in the function:
+  with `-fopt-stack` each register is saved at the width it is used. Declare the values as
+  `typedef unsigned int u128 __attribute__((mode(TI)));` (arguments in `$a3`/`$t0`.. moved with `daddu` are often
+  such values). It is not a toolchain gap.
 - **Compiler habits** (SN ee-gcc 2.95.3, `-O2 -G8`): register moves are `daddu rd, rs, $0`; constructors return
   `this`; no tail calls; `bool` is one byte; `new` is `func_00113D20(size)` and `delete` is `func_00297CF0(p)`.
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
