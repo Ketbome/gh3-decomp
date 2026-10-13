@@ -29,6 +29,16 @@ void func_0027D870(int, u32, int*, int);
 int func_00233C50(int);
 int func_00232A58(int, void*, void*);
 int func_0023A458(void*, int);
+int func_00233E10(int, int*, int);
+void func_0027C160(int, u32, int);
+char* func_00233CA8(char*, int);
+int func_00239000(char*, char*, void*);
+extern u8 D_0036FCE0[];
+int func_0027D1F8(int, u32, int*, int);
+void func_0027C448(int, u32, int);
+int func_002366E0(int, void*, int);
+void func_0027C028(int, u32, void*);
+extern u8 D_0036FD78[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234190);
@@ -123,11 +133,47 @@ extern "C" int CFunc_ExistsPakManMap(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_SetPakManCurrent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManCurrent);
+extern "C" int CFunc_GetPakManCurrent(int s, char* c) {
+    int a = 0;
+    int b = 0;
+    func_0027D870(s, 0x6C525544, &a, 1);
+    func_0027D1F8(s, 0x53F1DF98, &b, 0);
+    char* o = *(char**)(func_00233CA8((char*)func_00233C50(a), b) + 4);
+    int v = 0x806FFF30;
+    if (o) v = *(int*)(o + 0x80);
+    func_0027C448(*(int*)(c + 0x20), 0xF2C9AC8B, v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManCurrentName);
+extern "C" int CFunc_GetPakManCurrentName(int s, char* c) {
+    char buf[0x80];
+    int a = 0;
+    int b = 0;
+    func_0027D870(s, 0x6C525544, &a, 1);
+    func_0027D1F8(s, 0x53F1DF98, &b, 0);
+    int r;
+    if (func_002366E0(a, buf, 0) == 0) {
+        func_0027C028(*(int*)(c + 0x20), 0xDCD6CB13, D_0036FD78);
+        r = 0;
+    } else {
+        func_0027C028(*(int*)(c + 0x20), 0xDCD6CB13, buf);
+        r = 1;
+    }
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_GetPakManNumFreeSlots);
+extern "C" int CFunc_GetPakManNumFreeSlots(int s, char* c) {
+    int a = 0;
+    func_0027D870(s, 0x6C525544, &a, 1);
+    int b = -1;
+    int r = func_00233E10(a, &b, 0);
+    func_0027C160(*(int*)(c + 0x20), 0xA0C8A652, r);
+    if (r) {
+        func_0027C160(*(int*)(c + 0x20), 0x14CB5C86, b);
+        return 1;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00236100);
 
@@ -142,4 +188,12 @@ extern "C" int CFunc_DisablePakManStreaming(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_RefreshPakManSizes);
+extern "C" int CFunc_RefreshPakManSizes(int s) {
+    int a = 0;
+    func_0027D870(s, 0x6C525544, &a, 1);
+    char* t = (char*)func_00233C50(a);
+    for (int i = 0; i < *(int*)(t + 0x88); i++) {
+        func_00239000(func_00233CA8(t, i) + 8, t + 8, D_0036FCE0);
+    }
+    return 1;
+}

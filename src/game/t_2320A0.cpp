@@ -24,6 +24,21 @@ void func_0030A970(int, int);
 void func_00113528(int);
 char* func_0030E720(int, void*);
 extern u8 D_0036FD68[];
+int func_0027D188(int, u32, char**, int);
+int func_0027D1F8(int, u32, int*, int);
+void func_002316D0(int, int);
+int func_002320A8(int, int);
+int func_00232670(int, int);
+u32 CrcFromPathLowercase(const char*);
+extern u8 D_003544A8[];
+int func_00233728(void);
+int func_001150E0(int, void*);
+void func_00223318(int);
+void func_002335F0(int, int);
+void func_002333F8(int, int, int, int, void*);
+extern int D_0036FBE4;
+extern u8 D_00396AEC[];
+extern u8 D_003544D8[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
@@ -63,6 +78,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002335F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233728);
 
+GP_DATA(D_0036FBE4);
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_UnloadPak);
 
 extern "C" bool func_002338E0(S232* self) {
@@ -77,9 +93,42 @@ extern "C" int CFunc_AsyncLoadPakInProgress(void) {
     return D_0036FBE8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_LinkRawAsset);
+extern "C" int CFunc_LinkRawAsset(int s) {
+    char* p = 0;
+    int x;
+    char* q = (char*)D_003544A8;
+    int v;
+    func_0027D188(s, 0, &p, 0);
+    if (p) {
+        v = CrcFromPathLowercase(p);
+    } else {
+        x = 0;
+        func_0027D1F8(s, 0x21902065, &x, 1);
+        v = x;
+    }
+    func_0027D188(s, 0xF2C9AC8B, &q, 0);
+    func_002316D0(CrcFromPathLowercase(q), v);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", CFunc_UnlinkRawAsset);
+extern "C" int CFunc_UnlinkRawAsset(int s) {
+    char* p = 0;
+    int x;
+    char* q = (char*)D_003544A8;
+    int v;
+    func_0027D188(s, 0, &p, 0);
+    if (p) {
+        v = CrcFromPathLowercase(p);
+    } else {
+        x = 0;
+        func_0027D1F8(s, 0x21902065, &x, 1);
+        v = x;
+    }
+    func_0027D188(s, 0xF2C9AC8B, &q, 0);
+    int c = CrcFromPathLowercase(q);
+    if ((func_002320A8(c, v) ^ 1) != 0) return 0;
+    return (func_00232670(c, v) ^ 1) == 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233B68);
 

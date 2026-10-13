@@ -628,3 +628,27 @@ Given up: func_0022B0D0 (p/o saved registers swapped: o in s0 ours, s1 original)
 Matched 11: func_0022BD90 func_0022D538 func_0022DD30 func_0022D940 func_0022D048 func_0022BE60 func_0022BEE0 func_0022D0C0 func_0022DA28 func_0022DAF0 func_0022D2C8
 Virtual-call helper used here: `VE22B* e = (VE22B*)(*(char**)(p + 0x34) + off); ((int (*)(char*))e->fn)(p + e->delta)` (vptr at 0x34, entry = delta s16 + fn). A callee whose result is ignored but declared `int` fixes v0/v1 (func_0011E008, func_0030B550). Call with args taken straight from incoming registers: alias with `__asm__("name")` and the extra parameters.
 Given up: func_0022CEF8 func_0022D240 func_0022D6A0 func_0022DBB0 (identical wrappers `if (c) v = vcall(); BCE0(p,v,b,c,d,e)`: b/c saved registers s1/s2 swapped in ours), func_0022D728 (r/f saved registers swapped).
+
+### Register variables (verified): local register variables pin saved registers
+`register int rb asm("$17") = b; register int rc asm("$18") = c;` (then use rb/rc) reproduces the original's saved-register
+assignment of passed-through arguments when ours gets them in the other order. Fixed the eight-way family
+`if (c) v = vcall(); BCE0(p, v, b, c, d, e)` (t_22BD90 CEF8/D240/D6A0/DBB0, t_22DD98 DEE8/E270/E5C0/E9E8/ECC8/F098/F650/FBB8) and func_0022E980.
+It only works for parameters that are used directly (binding a computed value or p to another register changed the frame).
+
+### t_22DD98
+Matched 22: func_0022EB68 func_0022EF38 func_0022F2F8 func_0022F9A8 func_0022E428 func_0022E810 func_0022E020 func_0022ED50 func_0022F120
+func_0022DEE8 func_0022E270 func_0022E5C0 func_0022E9E8 func_0022ECC8 func_0022F098 func_0022F650 func_0022FBB8 func_0022E980 func_0022E648 func_0022FB30 func_0022DF70 func_0022F588
+Habits: `int w = f(...); vcall(p + delta, w);` (result first, then the vptr load) when the original loads the vtable after the call; `if (!c) return 0; ...; return g();` gave the original branch layout in func_0022DF70; a virtual call whose result is unused but typed int fixes v0/v1 (func_0022E648).
+Given up: func_0022E510 func_0022EC18 (and likely func_0022E8C0 func_0022EFE0 func_0022DE28): stack buffer passed as `func(buf, a1)` has `move a1,s1` before `move a0,sp` in ours, the other way in the original (4 forms); func_0022E1D0 (`li a3,0` scheduled before a2, prologue order); func_0022EA70 func_0022F6D8 (ldl/sdl struct copies); func_0022F3A0 (macro lw after sw).
+
+### t_22FD98 (now `// cflags: -funroll-loops`, needed by func_002303D0)
+Matched 3: func_002303D0 func_00230148 func_00231478
+Given up: func_002317B0 (touches the 0x10000800 hardware register), func_00230428 (slot allocator with 9 args).
+
+### t_234190
+Matched 4: CFunc_GetPakManNumFreeSlots CFunc_RefreshPakManSizes CFunc_GetPakManCurrent CFunc_GetPakManCurrentName
+Habit: `for (i = 0; i < t->count; i++) f(...)` (count reloaded each iteration) matches where a hand-made do/while hoisted `t + 8`; fail-first layout is `if (r == 0) { fail; r = 0; } else { ok; r = 1; } return r;`.
+
+### t_2320A0
+Matched 2: CFunc_LinkRawAsset CFunc_UnlinkRawAsset (`(f() ^ 1) != 0` keeps the xori+bnezl).
+Given up: CFunc_UnloadPak (three induction variables: pointer, offset, hoisted base in a2; ours merges them).

@@ -242,7 +242,16 @@ extern "C" void* func_0022CD30(char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CD68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CEF8);
+extern "C" void func_0022CEF8(char* p, int a, int b, int c, int d, int e) {
+    register int rb asm("$17") = b;
+    register int rc asm("$18") = c;
+    int v = a;
+    if (rc) {
+        VE22B* f = (VE22B*)(*(char**)(p + 0x34) + 0x70);
+        v = ((int (*)(char*))f->fn)(p + f->delta);
+    }
+    func_0022BCE0(p, v, rb, rc, d, e);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CF80);
 
@@ -281,7 +290,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D130);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D160);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D240);
+extern "C" void func_0022D240(char* p, int a, int b, int c, int d, int e) {
+    register int rb asm("$17") = b;
+    register int rc asm("$18") = c;
+    int v = a;
+    if (rc) {
+        VE22B* f = (VE22B*)(*(char**)(p + 0x34) + 0x70);
+        v = ((int (*)(char*))f->fn)(p + f->delta);
+    }
+    func_0022BCE0(p, v, rb, rc, d, e);
+}
 
 extern "C" void func_0022D2C8(char* p, int a1, int a2) {
     char* o = (char*)func_0022C110((S22B*)p);
@@ -321,7 +339,16 @@ extern "C" int func_0022D5E0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D6A0);
+extern "C" void func_0022D6A0(char* p, int a, int b, int c, int d, int e) {
+    register int rb asm("$17") = b;
+    register int rc asm("$18") = c;
+    int v = a;
+    if (rc) {
+        VE22B* f = (VE22B*)(*(char**)(p + 0x34) + 0x70);
+        v = ((int (*)(char*))f->fn)(p + f->delta);
+    }
+    func_0022BCE0(p, v, rb, rc, d, e);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D728);
 
@@ -376,7 +403,16 @@ extern "C" void func_0022DAF0(char* p, int a1, int a2) {
     func_0022BE60_3(p, a1, a2);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022DBB0);
+extern "C" void func_0022DBB0(char* p, int a, int b, int c, int d, int e) {
+    register int rb asm("$17") = b;
+    register int rc asm("$18") = c;
+    int v = a;
+    if (rc) {
+        VE22B* f = (VE22B*)(*(char**)(p + 0x34) + 0x70);
+        v = ((int (*)(char*))f->fn)(p + f->delta);
+    }
+    func_0022BCE0(p, v, rb, rc, d, e);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022DC38);
 

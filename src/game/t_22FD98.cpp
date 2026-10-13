@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S22F {
@@ -30,6 +31,11 @@ extern int D_0036FBDC;
 void func_0014CC88(int);
 extern u8 D_00354218[];
 void* func_0022BA90(void*);
+extern u8 D_00396F70[];
+void func_0030A1C8(int, int);
+void func_00115EE8(int, int, int);
+int* func_0014C870(int, int, int, int, int, int, int, int);
+void func_00230BA8(int, int, void*, int, int, int);
 }
 
 extern "C" void func_0022FD98(char* p) {
@@ -96,7 +102,11 @@ extern "C" void func_00230128(void* self) {
     func_0022BD90(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230148);
+extern "C" void func_00230148(char* p, int a1) {
+    func_0030A1C8(0, 0);
+    func_00115EE8(*(int*)(p + 0xE0), a1, *(int*)(p + 0xE4));
+    *func_0014C870(*(int*)p, a1, *(int*)(p + 0xE8), *(int*)(p + 0xC8), *(int*)(p + 0xCC), *(int*)(p + 0xD0), *(int*)(p + 0xD4), *(int*)(p + 0xD8)) = *(int*)p;
+}
 
 extern "C" void* func_002301C0(void) {
     return D_00354208;
@@ -124,7 +134,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230230);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_002302D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_002303D0);
+struct E22F {
+    int flag;
+    char pad[0x34];
+};
+
+extern "C" void func_002303D0(void) {
+    E22F* d = (E22F*)D_00396F70;
+    for (int i = 0x2F; i >= 0; i--) d[i].flag = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230428);
 
@@ -171,7 +189,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230A70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230BA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00231478);
+typedef void (*CB22F)(int, int, int, int, int);
+
+extern "C" void func_00231478(char* p) {
+    CB22F fn = *(CB22F*)(p + 0x1C);
+    if (fn) fn(1, 0, *(int*)(p + 0x18), *(int*)(p + 0x2C), 0);
+    *(int*)(p + 0x30) = 0;
+    if (*(int*)(p + 4) == 0) func_00230BA8(0, *(int*)(p + 0x14), p + 0x30, *(int*)(p + 0x20), *(int*)(p + 0x2C), *(int*)(p + 0xC));
+    CB22F fn2 = *(CB22F*)(p + 0x1C);
+    if (fn2) fn2(0, *(int*)(p + 0x30), *(int*)(p + 0x18), *(int*)(p + 0x2C), 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00231500);
 
