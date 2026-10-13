@@ -23,14 +23,14 @@ struct VE_00157788 { s16 unk0; s16 unk2; int (*unk4)(void*); };
 struct S_00157788 { char pad0[0x8]; VE_00157788* unk8; };
 
 extern "C" {
-int func_0030AA88(char*);
+int strlen(char*);
 u32 CrcFromPathLowercase(char*);
 void func_00182E50(int, int);
 extern int D_00369CDC;
 void func_00183460(float);
 void func_00183520(void);
 extern float D_00373260;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_001834E0(void);
 void func_00157400(void);
@@ -190,7 +190,7 @@ extern "C" void func_001574A0(void) {
 }
 
 extern "C" u32 func_001574C0(char* s) {
-    int n = func_0030AA88(s);
+    int n = strlen(s);
     if (n > 0 && s[n - 1] != '\\' && s[n - 1] != '/') {
         while (--n > 0 && s[n - 1] != '\\' && s[n - 1] != '/') {
         }
@@ -216,7 +216,7 @@ struct S157580 { char pad0[8]; void* unk8; };
 extern "C" void func_00157580(S157580* self, int flags) {
     self->unk8 = D_0033CE40;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

@@ -13,7 +13,7 @@ struct S00183728 {
 };
 
 extern "C" {
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001BDE38(int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 int func_001BDB28(int, int, int, int, int);
@@ -27,7 +27,7 @@ void func_00157538(void*);
 extern u8 D_00343C50[];
 extern u8 D_00343A98[];
 extern u8 D_0033C6B8[];
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void func_00152B88(void*);
 }
 
@@ -171,10 +171,10 @@ extern "C" int func_00185068(S185068* self) {
         v = 0;
         if (self->unk4 & 1) v = self->unk10;
     }
-    if (self->unk10->unk8) func_00119400(D_00368A38[0], self->unk10->unk8);
-    if (self->unk10->unk4) func_00119400(D_00368A38[0], self->unk10->unk4);
+    if (self->unk10->unk8) Heap_Free(D_00368A38[0], self->unk10->unk8);
+    if (self->unk10->unk4) Heap_Free(D_00368A38[0], self->unk10->unk4);
     if (self->unk10->unkC) func_001BDE38(self->unk10->unkC);
-    func_00119400(D_00368A38[0], self->unk10);
+    Heap_Free(D_00368A38[0], self->unk10);
     self->unk10 = v;
     self->unk4 = self->unk4 & 0xFFFFFFFB;
     return 1;

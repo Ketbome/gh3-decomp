@@ -48,7 +48,7 @@ struct S1FD_A {
 };
 
 extern "C" {
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_001FDDC0(void*);
 void func_00276D68(u32, void*, int);
 extern u8 D_0038F8E8[];
@@ -88,7 +88,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDB08);
 INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDC60);
 
 extern "C" void* func_001FDD68(void) {
-    return func_001FDDC0(func_00113D20(0xF0));
+    return func_001FDDC0(operator_new(0xF0));
 }
 
 extern "C" void func_001FDD90(void) {

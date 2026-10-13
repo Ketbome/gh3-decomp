@@ -33,7 +33,7 @@ extern u8 D_0033F0B0[];
 extern u8 D_0033F0C8[];
 extern u8 D_0033EF48[];
 extern u8 D_0033EF60[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0033E840[];
 extern u8 D_0033E858[];
@@ -69,7 +69,7 @@ extern "C" void func_00168708(S_00168708* self, int flags) {
     self->unk20 = D_0033E840;
     self->unk8 = D_0033E858;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2FC = 0;
     }
     func_00162FC8_2(self, flags);
@@ -162,7 +162,7 @@ extern "C" void func_00169A70(S_00169A70* self, int flags) {
     self->unk20 = D_0033EF48;
     self->unk8 = D_0033EF60;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2F4 = 0;
     }
     func_00162FC8_2(self, flags);
@@ -191,7 +191,7 @@ extern "C" void func_00169E70(S_00169E70* self, int flags) {
     self->unk20 = D_0033F0B0;
     self->unk8 = D_0033F0C8;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2F4 = 0;
     }
     func_00162FC8_2(self, flags);

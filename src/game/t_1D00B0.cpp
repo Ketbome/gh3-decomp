@@ -40,7 +40,7 @@ void func_001D1E20(void* a, f32 b);
 s32 func_0027D268(void* a, s32 key, void* v, s32 req);
 s32 func_0027D870(void* a, s32 key, void* v, s32 req);
 s32 func_001D1CF8(void* a, s32 b);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_0028DBD0(void);
 void func_001D0170(void* p);
@@ -196,7 +196,7 @@ extern "C" void func_001D0F90(char* p, s32 flags) {
         func_0028DBD0();
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

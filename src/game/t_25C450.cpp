@@ -46,7 +46,7 @@ extern int D_00371038P asm("D_00371038");
 extern S25C_Pool *D_00371028P[2] asm("D_00371028");
 extern int D_00370FB8P asm("D_00370FB8");
 extern S25C_Pool *D_00370FA8P[2] asm("D_00370FA8");
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 void func_0011C2E8(S25C_Pool *, void *, int, S25C_Pool **);
 extern int D_00370FD0P asm("D_00370FD0");
 extern S25C_Pool *D_00370FC0P[2] asm("D_00370FC0");
@@ -101,7 +101,7 @@ extern "C" void func_0025C478(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -117,7 +117,7 @@ extern "C" void func_0025C530(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -133,7 +133,7 @@ extern "C" void func_0025C5E8(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

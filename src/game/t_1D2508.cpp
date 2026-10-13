@@ -37,7 +37,7 @@ void* func_00113DF0(s32 size, s32 a, s32 b);
 S0036D3B0* func_001D4260(void* p);
 extern S0036D3B0* D_0036D3B0;
 extern u32 D_0036D3B4;
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0034B838[];
 void func_0027D2D8(void* a, s32 key, void* v, s32 req);
@@ -163,14 +163,14 @@ extern "C" void func_001D4110(void) {
 extern "C" void func_001D4118(char* p, s32 flags) {
     *(void**)(p + 8) = D_0034B838;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D4158(char* p, s32 flags) {
     *(void**)(p + 8) = D_0034B838;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

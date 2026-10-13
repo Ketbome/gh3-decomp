@@ -86,15 +86,15 @@ extern u8 D_003403C0[];
 extern int D_00368A38;
 extern S16E_B* D_0036A88C;
 extern S16E_B* D_0036A888;
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 void func_0016E850(void*);
 int func_0015FAA0(int, int, int);
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_0016E9C8(void*, int, int);
 void func_0016E990(S_0016E990*);
 void func_0016EF20(S16E_B*);
 void func_0016EF40(S16E_B*);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 int func_0011EF10(void);
 void func_0011C408(int, void*);
 extern int D_0036A7A0;
@@ -129,7 +129,7 @@ extern "C" void func_0016E670(HT_16E* t, int* key) {
 
 extern "C" S16E_A* func_0016E728(S16E_A* self) {
     self->unk414 = D_0033FDA0;
-    func_0030A49C(self->padC, 0, 0x408);
+    memset(self->padC, 0, 0x408);
     self->unk410 = 0;
     self->unk40C = 0;
     self->unk4 = 0;
@@ -171,12 +171,12 @@ extern "C" void func_0016E850(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_0036A790[D_0036A7A0 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
 extern "C" S16E_C* func_0016E900(S16E_C* self) {
-    self->unk0 = func_0016E9C8(func_00118F20(D_00368A38, 0x1C, 1, 0), 8, 0);
+    self->unk0 = func_0016E9C8(Heap_Alloc(D_00368A38, 0x1C, 1, 0), 8, 0);
     self->unk4 = 1;
     return self;
 }
@@ -338,7 +338,7 @@ extern "C" void func_0016ED90(S16E_B* self, int flags) {
         func_0016EF40(self);
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -456,7 +456,7 @@ extern "C" int func_0016FE08(void) {
 extern "C" void func_0016FE10(S16E_E* self, int flags) {
     self->unk14 = D_003403C0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

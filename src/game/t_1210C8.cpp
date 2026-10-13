@@ -70,7 +70,7 @@ int func_002F75E0(int);
 int func_002F7DA0(int, int);
 int func_002F7B88(int, int);
 int func_002F7850(int, void*, int, int, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 int func_00113DF0(int, int, int);
 void* func_001216B0(int);
 void func_00121870(void*, int);
@@ -117,7 +117,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_001216B0);
 
 extern "C" void func_00121870(void* self, int flags) {
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -254,7 +254,7 @@ extern "C" void func_00122490(SA121_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -305,7 +305,7 @@ extern "C" void func_001226A0(SA121_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -362,7 +362,7 @@ extern "C" void func_00122F88(SA121_D* self, int flags) {
         *r = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

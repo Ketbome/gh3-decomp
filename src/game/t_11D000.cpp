@@ -93,12 +93,12 @@ void func_0011D370(u32);
 void func_0011E540(void);
 void func_0011E560(void);
 void func_00114958(void*, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 int func_00113DF0(int, int, int);
 SA11D_V* func_0011E7D8(int);
 void* func_001C55A8(int);
 void* func_00113EA8(void*, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 extern u8 D_00338C48[];
 void func_0011E918(void);
 extern long D_00368CF0;
@@ -183,7 +183,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D9E0);
 extern "C" void func_0011DA60(SA11D_O* self, int flags) {
     self->unk44 = (VEntry*)D_00338C68;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -403,7 +403,7 @@ extern "C" SA11D_V* func_0011E7D8(int a) {
     S_0011E7D8_a* self = (S_0011E7D8_a*)a;
     func_001C55A8((int)self);
     self->unk14 = D_00338C20;
-    S_0011E7D8_b* o = (S_0011E7D8_b*)func_00113D20(0x24);
+    S_0011E7D8_b* o = (S_0011E7D8_b*)operator_new(0x24);
     void* fn = (void*)func_0011E918;
     func_00113EA8(o, 0);
     o->unk1C = fn;

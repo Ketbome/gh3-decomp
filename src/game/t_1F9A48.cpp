@@ -29,7 +29,7 @@ void func_001FA348(int, int);
 void func_001FB028(void*);
 void func_001FB6C0(void*);
 void func_001FAF90(void*);
-void* func_00113D20(u32);
+void* operator_new(u32);
 void* func_001FAC90(void*);
 extern char D_0038F5B0[];
 void func_00276D68(u32, void*, int);
@@ -124,7 +124,7 @@ extern "C" void func_001FAC18() {
 }
 
 extern "C" void* func_001FAC38() {
-    return func_001FAC90(func_00113D20(0xE0));
+    return func_001FAC90(operator_new(0xE0));
 }
 
 extern "C" void func_001FAC60() {

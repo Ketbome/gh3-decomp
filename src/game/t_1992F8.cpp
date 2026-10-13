@@ -37,8 +37,8 @@ struct N199 { N199* c[16]; };
 extern "C" {
 extern int D_00368A38;
 extern u8 D_003403C0[];
-void func_00119400(int, void*);
-void* func_00118F20(int, int, int, int);
+void Heap_Free(int, void*);
+void* Heap_Alloc(int, int, int, int);
 S199_A* func_001707C0(void*);
 S199_B* func_00171540(void*);
 S199_C* func_00171E60(void*);
@@ -65,7 +65,7 @@ extern "C" int func_00199370(S00199370* self) {
 extern "C" void func_00199398(S199_V* self, int flags) {
     self->unk14 = D_003403C0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -74,7 +74,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001993D8);
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_001994A0);
 
 extern "C" S199_A* func_00199960(S199_A* self) {
-    S199_A* p = func_001707C0(func_00118F20(D_00368A38, 0x4D20, 1, 0));
+    S199_A* p = func_001707C0(Heap_Alloc(D_00368A38, 0x4D20, 1, 0));
     *p = *self;
     return p;
 }
@@ -87,12 +87,12 @@ extern "C" int func_001999C8(S00199370* self) {
 extern "C" void func_001999F0(S199_V* self, int flags) {
     self->unk14 = D_003403C0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
 extern "C" S199_B* func_00199A30(S199_B* self) {
-    S199_B* p = func_00171540(func_00118F20(D_00368A38, 0x80, 1, 0));
+    S199_B* p = func_00171540(Heap_Alloc(D_00368A38, 0x80, 1, 0));
     *p = *self;
     return p;
 }
@@ -109,12 +109,12 @@ extern "C" int func_00199AA0(S00199370* self) {
 extern "C" void func_00199AC8(S199_V* self, int flags) {
     self->unk14 = D_003403C0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
 extern "C" S199_C* func_00199B08(S199_C* self) {
-    S199_C* p = func_00171E60(func_00118F20(D_00368A38, 0x70, 1, 0));
+    S199_C* p = func_00171E60(Heap_Alloc(D_00368A38, 0x70, 1, 0));
     *p = *self;
     return p;
 }
@@ -135,7 +135,7 @@ extern "C" int func_00199B88(S00199370* self) {
 extern "C" void func_00199BB0(S199_V* self, int flags) {
     self->unk14 = D_003403C0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

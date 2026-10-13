@@ -22,7 +22,7 @@ extern "C" {
 void func_0011C408(int, void *);
 int func_0027D188(int, int, int *, int);
 extern int D_00368A38;
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 void func_0027E358_v(void) asm("func_0027E358");
 void func_0027E358(S27E358 *);
 void func_0027E1E8(void *, int);
@@ -177,13 +177,13 @@ extern "C" void func_0027E410(S0027E410 *p, int b) {
         if (p->unk4) {
             func_0027E358_v();
             if (p->unk4) {
-                func_00119400(D_00368A38, p->unk4);
+                Heap_Free(D_00368A38, p->unk4);
             }
             p->unk4 = 0;
         }
     }
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

@@ -87,14 +87,14 @@ struct S00261C98 {
 };
 
 extern "C" {
-void func_0030A49C(void *, int, int);
+void memset(void *, int, int);
 void func_0014F248(S2606_Time *);
 void func_0027C160_p(void *, u32, int) asm("func_0027C160");
 void func_0027C7D0(int, u32, void *);
 extern int D_00370824;
 extern int D_0036CD5C;
 extern int D_0036D3B0[] __attribute__((section(".sdata")));
-void *func_00113D20(int);
+void *operator_new(int);
 int func_002DB580(void *);
 void func_001C5A68(int, int);
 void func_001C5AB8(int, int);
@@ -278,7 +278,7 @@ extern "C" f32 func_00260AC8(f32 f) {
 
 extern "C" int CFunc_GetLocalSystemTime(int params, S2606_Script *script) {
     S2606_Time t;
-    func_0030A49C(&t, 0, 0x20);
+    memset(&t, 0, 0x20);
     func_0014F248(&t);
     void *st = func_0027AA70(func_001287F0(8, 1));
     func_0027C160_p(st, 0x447D8CC8, t.unk4);
@@ -560,7 +560,7 @@ extern "C" int CFunc_LaunchViewer(void) {
     if (D_00370824) {
         return 1;
     }
-    int v = func_002DB580(func_00113D20(0x70));
+    int v = func_002DB580(operator_new(0x70));
     func_001C5A68(m, v);
     func_001C5AB8(m, v);
     D_00370824 = 1;

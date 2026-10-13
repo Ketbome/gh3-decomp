@@ -52,12 +52,12 @@ void func_0027AA70(char*);
 void func_00138960(int, int);
 int func_002763E0(u32, int);
 void func_0027ABB0(char*, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 int func_00138908(void*);
 extern u8 D_0033A478[];
 extern u8 D_0033A5E0[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00372AD8;
 extern int D_00372AE0;
 extern int D_00372AE8;
@@ -102,7 +102,7 @@ extern "C" void func_00133FA0(S_00133F80* self, int flags) {
     self->unk10 = D_0033A350;
     self->unk4 = 0;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -181,7 +181,7 @@ extern "C" S133_S* func_00134700(S133_S* self) {
 extern "C" void func_00134748(S133_S* self, int flags) {
     self->unk8 = D_0033A478;
     if (self->unk74) {
-        func_00119400(D_00368A38[0], (void*)self->unk74);
+        Heap_Free(D_00368A38[0], (void*)self->unk74);
         self->unk74 = 0;
     }
     func_0027AC90(self->unk6C);
@@ -243,7 +243,7 @@ extern "C" int func_00134D20(S_00134D20* self) {
 }
 
 extern "C" void func_00134D28(S133_S* self) {
-    self->unk74 = func_00138908(func_00113D20(0x45A0));
+    self->unk74 = func_00138908(operator_new(0x45A0));
 }
 
 GP_DATA(D_00372AD8);

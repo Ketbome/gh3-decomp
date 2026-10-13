@@ -103,7 +103,7 @@ void func_002709C8(void);
 extern int D_00370AEC;
 void func_0026FA38(int);
 void func_0026FA78(void);
-int func_0030A49C(int, int, int);
+int memset(int, int, int);
 int func_00266778(void);
 extern float D_00370AE8;
 extern int D_00369CD8;
@@ -117,7 +117,7 @@ void func_0026D688(f32);
 void func_0026F5A8(f32);
 void func_0026D6B0(f32);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 extern int D_00370AE0;
 extern int D_00370AE4;
 void func_00266F50(int, int);
@@ -157,7 +157,7 @@ extern "C" S266898_O *func_00266898(S266898_O *p) {
     } else {
         p->unk14 = 0;
     }
-    func_0030A49C((int)p, 0, 0x14);
+    memset((int)p, 0, 0x14);
     return p;
 }
 
@@ -165,7 +165,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002668E8);
 
 extern "C" void func_002668F8(void *p, int flags) {
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -192,7 +192,7 @@ extern "C" int func_00266B60(S266800_A *p) {
 }
 
 extern "C" void func_00266BE8(int a) {
-    func_0030A49C(a, 0, 20);
+    memset(a, 0, 20);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266C08);
@@ -236,7 +236,7 @@ extern "C" void func_00266F50(int a, int b) {
         func_00266FA8(a);
     }
     if (b & 1) {
-        func_00119400(D_00368A38[0], (void *)a);
+        Heap_Free(D_00368A38[0], (void *)a);
     }
 }
 

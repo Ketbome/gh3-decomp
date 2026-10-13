@@ -15,14 +15,14 @@ int func_0010C050(int);
 int func_00116660(void*);
 int func_003000E0(void*);
 void func_00320A78(void*);
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 void func_0030B550(char*, const char*, ...);
 char* func_00116E90();
 void func_001575C0(int, char*, int, int);
 extern char D_00343970[];
 extern char D_0036B4B8[];
 void func_0018AD80(void*, int, int, int, int, int, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 void func_0014E988(int);
 extern void* D_00372BB8;
 extern int D_00372BBC;
@@ -35,7 +35,7 @@ void func_001A8168(void);
 void func_001A84E0(void);
 void func_0014F750(int, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_00188D00(void*, int);
 extern int D_0036CA4C[] __attribute__((section(".sdata")));
 void func_0019ED90(void);
@@ -132,7 +132,7 @@ extern "C" void func_001821E0(S_001821E0* p) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182218);
 
 extern "C" void func_00182220(int u, int a, int b, int c, int d, int e, int g) {
-    func_0018AD80(func_00113D20(0xE0), a, b, c, d, e, g);
+    func_0018AD80(operator_new(0xE0), a, b, c, d, e, g);
 }
 
 extern "C" int func_001822A8(S_001822A8* p) {
@@ -159,7 +159,7 @@ extern "C" int func_00182338(S_00182338* p) {
 }
 
 extern "C" void* func_00182370(void) {
-    return func_00188D00(func_00118F20(D_00368A38[0], 0x24, 1, 0), 0);
+    return func_00188D00(Heap_Alloc(D_00368A38[0], 0x24, 1, 0), 0);
 }
 
 extern "C" int func_001823A8(S_001823A8* p) {

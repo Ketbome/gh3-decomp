@@ -95,7 +95,7 @@ void func_00271708(void *, float, float, int);
 void func_00271880(u32 *, float, int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
-void func_0030A49C(void *, int, int);
+void memset(void *, int, int);
 extern float *D_00370D44;
 extern float *D_00370D48;
 extern float D_0032E0D8[];
@@ -226,7 +226,7 @@ extern "C" int func_00271A08(S271_Name *name, u8 *out) {
     *name = *(S271_Name *)D_0032E210;
     *out = D_00370DD0;
     r = D_00370DD4;
-    func_0030A49C(D_0032E210, 0, 10);
+    memset(D_0032E210, 0, 10);
     D_00370DD0 = 0;
     D_00370DD4 = 0;
     func_002F3BD0();

@@ -74,7 +74,7 @@ void func_001CE990(void* p, s32 a);
 void func_0027AC90(s32 a);
 s32 func_001E1698(void* p);
 s32 func_0028D1D8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i, s32 j);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_001E0768(void* p, void* q);
 void func_001E0F18(struct S1E0AE8* p);
 }
@@ -92,7 +92,7 @@ extern "C" s32 func_001E0BC0(S1E0AE8* p) {
 extern "C" void* func_001E0BC8(char* p, s32 a) {
     func_001CE8D0(p);
     *(void**)(p + 8) = D_0034CC60;
-    *(s32*)(p + 0x6C) = func_00123200(func_00113D20(0x100));
+    *(s32*)(p + 0x6C) = func_00123200(operator_new(0x100));
     *(s32*)(p + 0x78) = a;
     *(s32*)(p + 0x80) = 1;
     *(s32*)(p + 0x70) = 0;
@@ -180,7 +180,7 @@ extern "C" void func_001E0FA0(void) {
 extern "C" void* func_001E0FA8(void* p, s32 a, u32 key) {
     void* r = 0;
     if (key == 0x03986CD2) {
-        r = func_001E0768(func_00113D20(0xAC), p);
+        r = func_001E0768(operator_new(0xAC), p);
     }
     return r;
 }

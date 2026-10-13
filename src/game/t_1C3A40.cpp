@@ -58,9 +58,9 @@ void* func_00113DF0(s32 size, s32 a, s32 b);
 void* func_001C5778(void* p);
 extern u32 D_0036CD60;
 extern void* D_0036CD5C;
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 void func_0016ED28(void* p);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void func_0016ED90(void* p, s32 a);
 extern u8 D_0034A4E8[];
 extern u8 D_0034A658[];
@@ -121,7 +121,7 @@ extern "C" void func_001C43F8(char* p, s32 a) {
     if (*(s32*)(p + 0xC) == 1) {
         s32 t = *(s32*)(p + 0x2C);
         if (t != 0) {
-            func_00119400(D_00368A38[0], (void*)t);
+            Heap_Free(D_00368A38[0], (void*)t);
         }
     }
     func_0016ED90(p, a);
@@ -362,7 +362,7 @@ extern "C" void* func_001C55A8(char* p) {
     *(s32*)(p + 4) = 0;
     *(s32*)(p + 0xC) = 0;
     *(void**)(p + 0x14) = D_0034A658;
-    char* t = (char*)func_00113D20(0x18);
+    char* t = (char*)operator_new(0x18);
     *(void**)(t + 4) = p;
     *(void**)(t + 0x14) = D_0034A640;
     *(s32*)(t + 8) = 0;
@@ -380,7 +380,7 @@ extern "C" void func_001C5610(char* p, s32 flags) {
         ((void (*)(char*, s32))e->fn)(t + e->delta, 3);
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -391,7 +391,7 @@ extern "C" void func_001C5680(N1C56* n, s32 flags) {
     n->unkC = n;
     n->unk10 = n;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], n);
+        Heap_Free(D_00368A38[0], n);
     }
 }
 

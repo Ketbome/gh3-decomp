@@ -39,7 +39,7 @@ extern int D_00371D84;
 extern int D_00371D80;
 void func_0028C9D0(int, int, int, int, int, int);
 int func_001E40C8(u32);
-void *func_00118F20(int, int, int, int);
+void *Heap_Alloc(int, int, int, int);
 void *func_0011C130(void *, int, int, int, int, int);
 extern void *D_003690D8[] __attribute__((section(".sdata")));
 extern int D_003690E0[] __attribute__((section(".sdata")));
@@ -72,7 +72,7 @@ extern char D_00362400[];
 void func_0027AC90(void *);
 void func_00113250(void *);
 extern int D_00368A38;
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 int func_00121D78(S2A5_Card *);
 int func_00275EE8(u32, int);
 S2A5_Card *func_001218A0_c(s32, int, int) asm("func_001218A0");
@@ -332,7 +332,7 @@ extern "C" void func_002A6730(S2A5_Dtor *p, int flags) {
         func_00113250(q);
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -381,43 +381,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6EA8);
 
 extern "C" void func_002A6EB8(int a, int b) {
     void **slot = &D_003690D8[D_003690E8];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x408, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x408, a, b, 1, 0);
     D_003690E0[D_003690E8] = 1;
 }
 
 extern "C" void func_002A6F60(int a, int b) {
     void **slot = &D_003691F8[D_00369208];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x78, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x78, a, b, 1, 0);
     D_00369200[D_00369208] = 1;
 }
 
 extern "C" void func_002A7008(int a, int b) {
     void **slot = &D_003692A0[D_003692B0];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x30, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x30, a, b, 1, 0);
     D_003692A8[D_003692B0] = 1;
 }
 
 extern "C" void func_002A70B0(int a, int b) {
     void **slot = &D_0036A790[D_0036A7A0];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x418, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x418, a, b, 1, 0);
     D_0036A798[D_0036A7A0] = 1;
 }
 
 extern "C" void func_002A7158(int a, int b) {
     void **slot = &D_0036A6E0[D_0036A6F0];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0xF0, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0xF0, a, b, 1, 0);
     D_0036A6E8[D_0036A6F0] = 1;
 }
 
 extern "C" void func_002A7200(int a, int b) {
     void **slot = &D_0036D540[D_0036D550];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x1C, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x1C, a, b, 1, 0);
     D_0036D548[D_0036D550] = 1;
 }
 
 extern "C" void func_002A72A8(int a, int b) {
     void **slot = &D_0036D0F0[D_0036D100];
-    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0xC, a, b, 1, 0);
+    *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0xC, a, b, 1, 0);
     D_0036D0F8[D_0036D100] = 1;
 }
 

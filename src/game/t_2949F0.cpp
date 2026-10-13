@@ -165,14 +165,14 @@ void func_00297470(void *, void *);
 void func_0029D898(void *);
 extern char D_0035C298[];
 extern int D_00368A38;
-void func_00119400(int, int);
+void Heap_Free(int, int);
 void func_0029FEF0(void);
 extern int D_00371784;
 extern int D_00372ED0;
 void func_0029FF10(void);
 int func_00296798(void*);
 char* func_00296920(void*, int);
-void func_0030A970(void*);
+void strcpy(void*);
 extern char D_00371798[];
 extern char D_0035C318[];
 extern char D_0035C300[];
@@ -183,8 +183,8 @@ int func_00113DF0(int, int, int);
 int func_00296470(int);
 void func_0011DBB8(int, int, int, int);
 void func_0011E008(int);
-int func_0030A824(char *, char *);
-char *func_0030A970_2(char *, char *) asm("func_0030A970");
+int strcmp(char *, char *);
+char *func_0030A970_2(char *, char *) asm("strcpy");
 extern char D_0035C280[];
 void func_00297400(void *);
 void func_0029FEA8(S2949F0_R *);
@@ -319,7 +319,7 @@ extern "C" void func_00296138(char *obj, int b) {
     }
     func_00297E98(l, 2);
     if (b & 1) {
-        func_00119400(D_00368A38, (int)obj);
+        Heap_Free(D_00368A38, (int)obj);
     }
 }
 
@@ -389,7 +389,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296668);
 
 extern "C" void func_00296678(S2949F0_Q *p, char *s) {
     char *q = (char *)p + 0x48;
-    if (func_0030A824(s, q)) {
+    if (strcmp(s, q)) {
         func_0030A970_2(q, s);
         p->unk1B0 = 1;
     }
@@ -397,7 +397,7 @@ extern "C" void func_00296678(S2949F0_Q *p, char *s) {
 
 extern "C" void func_002966D8(S2949F0_Q *p, char *s) {
     char *q = (char *)p + 0x58;
-    if (func_0030A824(s, q)) {
+    if (strcmp(s, q)) {
         func_0030A970_2(q, s);
         p->unk1B0 = 1;
     }
@@ -410,7 +410,7 @@ struct S296738 {
 };
 extern "C" void func_00296738(S296738 *p, char *a) {
     char *s = p->unk4;
-    if (func_0030A824(a, s) != 0) {
+    if (strcmp(a, s) != 0) {
         func_0030A970_2(s, a);
         p->unk1B0 = 1;
     }
@@ -427,7 +427,7 @@ extern "C" void func_00296848(S00296848* p, int v) {
 
 extern "C" void func_00296868(S2949F0_Q *p, int i, char *s) {
     char *q = (char *)p + 0x18 + i * 16;
-    if (func_0030A824(s, q)) {
+    if (strcmp(s, q)) {
         func_0030A970_2(q, s);
         p->unk1B0 = 1;
     }
@@ -437,14 +437,14 @@ extern "C" void func_002968D0(S00296640* p, int b) {
     if (b == 0) {
         p->unk168 = 0;
     }
-    func_0030A970(&p->unk168);
+    strcpy(&p->unk168);
 }
 
 extern "C" void func_002968F8(S00296640* p, int b) {
     if (b == 0) {
         p->unk188 = 0;
     }
-    func_0030A970(&p->unk188);
+    strcpy(&p->unk188);
 }
 
 extern "C" char *func_00296920(void *v, int i) {

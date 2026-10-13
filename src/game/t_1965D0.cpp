@@ -17,7 +17,7 @@ extern u8 D_00346C90[];
 void func_00167D70(void);
 void func_0014F150(int);
 void func_00197EE8(void);
-void func_00119400(int, int);
+void Heap_Free(int, int);
 extern int D_0036BEB0;
 extern int D_0036BEB8;
 extern u8 D_00381C50[];
@@ -64,7 +64,7 @@ extern "C" void func_00197E30(S_00197E30* self) {
         *c = n + 1;
         *(int*)(D_00381C50 + i * 4 + n * 8) = val;
     }
-    if (self->unk1EC) func_00119400(D_00368A38, self->unk1EC);
+    if (self->unk1EC) Heap_Free(D_00368A38, self->unk1EC);
 }
 
 extern "C" int func_00197ED8(S_00197ED8* self) {

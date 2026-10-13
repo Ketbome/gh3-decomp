@@ -153,7 +153,7 @@ extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata
 extern int D_00372580[] __attribute__((section(".sdata")));
 int func_00119610(int, int);
 void func_00119490(int, int);
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 int func_001D8BF0(int);
 void func_001DA0C8(int, void *);
 void func_001D9180(int, int, bool);
@@ -419,7 +419,7 @@ extern "C" void func_0028DC30(S28C_Obj *p, int a, int b) {
     int h = D_00368A38_lui[0];
     func_00119490(h, func_00119610(h, 0x3A));
     if (p->unkF0 == 0) {
-        p->unkF0 = func_001D8BF0(func_00118F20(D_00368A38_lui[0], 0x14, 1, 0));
+        p->unkF0 = func_001D8BF0(Heap_Alloc(D_00368A38_lui[0], 0x14, 1, 0));
     } else {
         func_001DA0C8(p->unkF0, p);
     }

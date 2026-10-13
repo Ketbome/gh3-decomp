@@ -23,7 +23,7 @@ struct S283498 {
 
 extern "C" {
 int func_00283098(S283498 *, u32);
-S282ED0 *func_00118F20(int, int, int, int);
+S282ED0 *Heap_Alloc(int, int, int, int);
 int func_00119610(int, int);
 void func_00119490(int, int);
 void func_001194B8(int);
@@ -32,7 +32,7 @@ int func_002763E0(int, int);
 int func_002764E8(int, int);
 int func_00276200(int, int);
 int func_002762F0(int, int);
-void func_00119400(int, int);
+void Heap_Free(int, int);
 extern int D_00368A38;
 void func_00282F48(void *);
 bool func_00282398(void);
@@ -63,7 +63,7 @@ extern "C" S282ED0 *func_00282ED0(S282ED0 *p) {
 extern "C" void func_00282F00(int a, int b) {
     func_00282F48((void *)a);
     if (b & 1) {
-        func_00119400(D_00368A38, a);
+        Heap_Free(D_00368A38, a);
     }
 }
 
@@ -104,7 +104,7 @@ struct S282FA8 {
 extern "C" void func_00282FA8(S282FA8 *p) {
     int h = D_00368A38;
     func_00119490(h, func_00119610(h, 5));
-    p->unk24 = func_00282ED0(func_00118F20(D_00368A38, 0x28, 1, 0));
+    p->unk24 = func_00282ED0(Heap_Alloc(D_00368A38, 0x28, 1, 0));
     func_001194B8(D_00368A38);
 }
 

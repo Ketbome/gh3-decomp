@@ -63,7 +63,7 @@ void func_00153488(int);
 void func_0013DEB8(S13B_X*);
 void func_0013EB38(S13B_X*, int);
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001CE888(S13B_X*, S13B_R*);
 S13B_R* func_0013C1B0(S13B_R*, S13B_X*);
 void func_0013E870(S13B_X*, int, int);
@@ -274,7 +274,7 @@ extern "C" void func_0013D360(S13B_X* self, int flags) {
     func_0013DEB8(self);
     func_0013EB38(self, 0);
     if (self->unk240) {
-        func_00119400(D_00368A38, (void*)self->unk240);
+        Heap_Free(D_00368A38, (void*)self->unk240);
     }
     func_00139420(self, flags);
 }

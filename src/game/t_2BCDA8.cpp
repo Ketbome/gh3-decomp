@@ -38,7 +38,7 @@ extern SHT D_003AD040;
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern s32 D_00371FF0;
 extern s32 D_003720D0;
-s32 func_00118F20(s32, int, int, int);
+s32 Heap_Alloc(s32, int, int, int);
 s32 func_002D58B0(s32, int, int);
 int func_002D5B48(s32, int);
 }
@@ -50,7 +50,7 @@ extern "C" s32 CFunc_SetNetworkPreference(void) {
 GP_DATA(D_00371FF0);
 extern "C" s32 CFunc_InitAtoms(void) {
     if (D_00371FF0 == 0) {
-        D_00371FF0 = func_002D58B0(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 2, 0);
+        D_00371FF0 = func_002D58B0(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 2, 0);
     }
     return 1;
 }

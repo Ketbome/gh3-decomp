@@ -59,7 +59,7 @@ void func_0015B268(void*, int);
 extern u8 D_0033CE10[];
 extern u8 D_0033D0D0[];
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern char D_00369D90[];
 int func_0014F130(void);
 void func_0030B550(char*, char*, ...);
@@ -150,12 +150,12 @@ extern "C" void func_0015B438(HT_15B* self, int flags) {
     if (!self->unk16 && self->items) {
         func_0015B380(self);
         if (self->items) {
-            func_00119400(D_00368A38, self->items);
+            Heap_Free(D_00368A38, self->items);
         }
         self->items = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -193,7 +193,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15B258", func_0015B590);
 extern "C" void func_0015B770(S15B_A* self, int flags) {
     self->unk8 = D_0033CE10;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -259,7 +259,7 @@ extern "C" S15B_B* func_0015B9C0(S15B_B* self, int a, int b, int c, int d) {
 extern "C" void func_0015B9E8(S15B_B* self, int flags) {
     self->unk14 = D_0033D0D0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

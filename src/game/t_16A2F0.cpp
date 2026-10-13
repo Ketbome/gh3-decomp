@@ -28,7 +28,7 @@ void func_0016AFE0_v(void*) __asm__("func_0016AFE0");
 void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
 extern u8 D_0033F4E8[];
 extern u8 D_0033F500[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern u8 D_0033F380[];
 extern u8 D_0033F398[];
 void* func_001CE7A8(void*);
@@ -67,7 +67,7 @@ extern "C" void func_0016A6A8(S_0016A6A8* self, int flags) {
     self->unk20 = D_0033F380;
     self->unk8 = D_0033F398;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2FC = 0;
     }
     func_00162FC8_2(self, flags);
@@ -96,7 +96,7 @@ extern "C" void func_0016ABA0(S_0016ABA0* self, int flags) {
     self->unk20 = D_0033F4E8;
     self->unk8 = D_0033F500;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2FC = 0;
     }
     func_00162FC8_2(self, flags);
@@ -141,7 +141,7 @@ extern "C" void func_0016AF18(S_16AF18* self, int flags) {
         v->unk8.unk4((char*)p + v->unk8.unk0, 3);
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

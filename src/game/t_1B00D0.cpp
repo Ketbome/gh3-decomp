@@ -61,7 +61,7 @@ void func_001BB068(void);
 void func_001B1DD8_1(void* p) __asm__("func_001B1DD8");
 void func_001B0850(S001B08F0* p);
 void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 void func_001A9288(void);
 extern u8 D_00348E30[];
@@ -193,7 +193,7 @@ extern "C" void func_001B1428(char* p, s32 flags) {
     *(void**)(p + 0xC) = D_00348E30;
     func_001A9288();
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

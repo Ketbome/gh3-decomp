@@ -67,13 +67,13 @@ struct S40_161 { char pad0[0xC]; int unkC; char pad10[0x30]; u128_161 unk40; B50
 struct B6_162920 { char c[6]; };
 
 extern "C" {
-void func_0030A970(int);
+void strcpy(int);
 B6_162920* func_0030E720(int, void*);
 void func_0030A554(int, void*);
 void* func_0014F130(void);
 extern u8 D_0036A048[];
 extern B6_162920 D_0036A050;
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 void func_0030A2F4(void*, void*, int);
 int func_0015F2D0(int);
 void func_0015F2A8(int, int);
@@ -85,7 +85,7 @@ void func_001628B8(S8_161*);
 void func_0015F1A0(int);
 extern u8 D_0033DED0[];
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 int func_0028C200(int);
 void func_00289B40(int, int);
 }
@@ -263,7 +263,7 @@ extern "C" void func_00162420(SBC_161* self, int flags) {
     self->unkBC = D_0033DED0;
     func_001628B8((S8_161*)self);
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -319,7 +319,7 @@ extern "C" void func_00162EE8(S2A4_161* self, void* src, int n) {
         n = 9;
     }
     if (!src) {
-        func_0030A49C(self->unk2A4, 0xFF, n * 4);
+        memset(self->unk2A4, 0xFF, n * 4);
     } else {
         func_0030A2F4(self->unk2A4, src, n * 4);
     }

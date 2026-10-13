@@ -25,7 +25,7 @@ int func_0028DAB8(int);
 void func_00150520(void*, void*);
 void func_0011A558(u32, int, int);
 void func_0011A568(void);
-void* func_00113D20(u32);
+void* operator_new(u32);
 extern char D_0033C388[];
 struct L_0014E5D8 { char pad0[8]; int unk8; char padC[4]; L_0014E5D8* unk10; };
 extern L_0014E5D8 D_003781F8;
@@ -264,7 +264,7 @@ extern "C" void func_0014E5D8(int p, int a, int b, int c, int d) {
     self->unk8 = b;
     if (c == 0) func_00150520(self, buf);
     func_0011A558(0xEC4365D2, 0, 0);
-    N_0014E5D8* n = (N_0014E5D8*)func_00113D20(0x18);
+    N_0014E5D8* n = (N_0014E5D8*)operator_new(0x18);
     n->unk4 = self;
     n->unkC = n;
     n->unk10 = n;

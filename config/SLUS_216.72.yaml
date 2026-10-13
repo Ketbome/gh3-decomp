@@ -29,6 +29,7 @@ options:
     - config/symbol_addrs.txt
     - config/symbols/cfuncs.txt
     - config/symbols/game.txt
+    - config/symbols/lib.txt
   reloc_addrs_path:
     - config/reloc_addrs.txt
 

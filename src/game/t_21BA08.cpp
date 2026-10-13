@@ -18,7 +18,7 @@ struct S21B {
 };
 
 extern "C" {
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_0021C318(void*);
 void func_00276D68(u32, void*, int);
 extern u8 D_00390530[];
@@ -63,7 +63,7 @@ extern "C" void func_0021C250(char* p) {
 }
 
 extern "C" void* func_0021C2C0(void) {
-    return func_0021C318(func_00113D20(0x54));
+    return func_0021C318(operator_new(0x54));
 }
 
 extern "C" void func_0021C2E8(void) {

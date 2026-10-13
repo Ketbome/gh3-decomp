@@ -12,7 +12,7 @@ extern "C" {
 void func_001650A0(S_00164AA0*, void*, u64);
 extern u8 D_0033E068[];
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_163750", func_00163750);
@@ -56,7 +56,7 @@ extern "C" void func_00164E60(L_163* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

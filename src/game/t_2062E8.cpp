@@ -25,7 +25,7 @@ void func_00207DD8(void*, int);
 int func_00206728(void*, int, int);
 void func_00207E58(int, int);
 int func_00206BD0(void*, int, int, int, int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_00206FF8(void*);
 void* func_00208038(void*);
 void func_001D0F90(void*, int);
@@ -157,7 +157,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206E48);
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206F70);
 
 extern "C" void* func_00206FA0(void) {
-    return func_00206FF8(func_00113D20(0x60));
+    return func_00206FF8(operator_new(0x60));
 }
 
 extern "C" void func_00206FC8(void) {
@@ -317,7 +317,7 @@ extern "C" void func_00207FF0(void) {
 }
 
 extern "C" void* func_00208010(void) {
-    return func_00208038(func_00113D20(0x20));
+    return func_00208038(operator_new(0x20));
 }
 
 static inline void SetId206(S206* p, u32 id) {

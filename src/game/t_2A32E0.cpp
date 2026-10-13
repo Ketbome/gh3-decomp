@@ -25,7 +25,7 @@ extern int D_0036D3B0;
 S2A3_Ent *func_001D4AC0(int, u32);
 void func_002140D8(S2A3_Ent *, u32, f32, bool);
 extern int D_00368A38_v asm("D_00368A38");
-S2A49_Obj *func_00118F20(int, int, int, int);
+S2A49_Obj *Heap_Alloc(int, int, int, int);
 void *func_001287F0(int, int);
 int func_0027AA70(void *);
 extern char D_00362400[];
@@ -66,7 +66,7 @@ int func_0027D188(int, int, int, int);
 int func_0027D268(int, int, int, int);
 void func_002A48D0(s32 arg0, s32 arg1);
 int func_002A5638(void);
-int func_0030A970(void *, s32);
+int strcpy(void *, s32);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A32E0);
@@ -185,7 +185,7 @@ extern "C" s32 CFunc_breakpoint(void) {
 extern "C" s32 CFunc_DumpCameraGPU(s32 arg0) {
     s32 sp0;
     func_0027D188(arg0, 0x61414D56 /* STRING */, (s32) &sp0, 0);
-    func_0030A970(D_00330260, sp0);
+    strcpy(D_00330260, sp0);
     return 1;
 }
 
@@ -216,7 +216,7 @@ extern "C" void func_002A4920(void) {
 
 extern "C" S2A49_Obj *func_002A4940(u32 key) {
     if (key == 0xDDFE0DB9) {
-        S2A49_Obj *p = func_00118F20(D_00368A38_v, 0x14, 1, 0);
+        S2A49_Obj *p = Heap_Alloc(D_00368A38_v, 0x14, 1, 0);
         p->vptr = D_00362400;
         p->unk0 = func_0027AA70(func_001287F0(8, 1));
         p->unk4 = func_0027AA70(func_001287F0(8, 1));

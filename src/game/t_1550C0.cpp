@@ -15,7 +15,7 @@ struct S60_155 { char pad0[0x60]; int unk60; };
 extern "C" {
 void func_00156CB8(float, float, float, float);
 extern int D_00368A38;
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_00156FD8(void*);
 void func_00155788(void*);
 void* func_00223BF0(void*);
@@ -30,12 +30,12 @@ extern S60_155* D_0032A558[];
 EB0_155* func_001566B8(const char*);
 extern int D_00369BEC;
 extern u8 D_0033CBF8[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern u128_155 D_00378210;
 void func_001551A8(void);
 void func_001561C8(int);
 void func_00156878(int, int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_00154670(void*);
 int func_00154830(void*, int);
 void func_001548F8(void*);
@@ -63,7 +63,7 @@ extern "C" u128_155 func_00155128(void) {
 }
 
 extern "C" void* func_00155138(void) {
-    return func_00156FD8(func_00118F20(D_00368A38, 0x24, 1, 0));
+    return func_00156FD8(Heap_Alloc(D_00368A38, 0x24, 1, 0));
 }
 
 extern "C" int func_00155170(O_155* obj) {
@@ -87,7 +87,7 @@ extern "C" void func_001552F0(void) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00155310);
 
 extern "C" void* func_00155640(void) {
-    return func_00154670(func_00113D20(0x90));
+    return func_00154670(operator_new(0x90));
 }
 
 extern "C" void* func_00155668(void* self) {
@@ -205,10 +205,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156FD8);
 extern "C" void func_00157098(S20_155* self, int flags) {
     self->unk20 = D_0033CBF8;
     if (self->unk14) {
-        func_00119400(D_00368A38, self->unk14);
+        Heap_Free(D_00368A38, self->unk14);
         self->unk14 = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }

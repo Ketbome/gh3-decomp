@@ -40,8 +40,8 @@ void func_001AD7B8(void*);
 void func_0011D220(int);
 void func_0015F398(void*, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void* func_00118F20(int, int, int, int);
-void func_00119400(int, void*);
+void* Heap_Alloc(int, int, int, int);
+void Heap_Free(int, void*);
 void func_001ACD98(void*, int);
 void func_001B1C38(void*);
 void func_001B05B8(void*);
@@ -120,7 +120,7 @@ extern "C" void* func_00189E30(S00189E30* self) {
 }
 
 extern "C" S_189* func_00189E38(int a, int b) {
-    return func_00189AA8((S_189*)func_00118F20(D_00368A38[0], 0x4C, 1, 0), a, b);
+    return func_00189AA8((S_189*)Heap_Alloc(D_00368A38[0], 0x4C, 1, 0), a, b);
 }
 
 extern "C" S3_189* func_00189E90(S3_189* s) {
@@ -184,7 +184,7 @@ extern "C" int func_0018A3D8(S3_189* s) {
 }
 
 extern "C" void* func_0018A430(void) {
-    return func_001836F0(func_00118F20(D_00368A38[0], 0x1C, 1, 0));
+    return func_001836F0(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0));
 }
 
 extern "C" void func_0018A468(S5_189* s, int* p) {
@@ -263,20 +263,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_189938", func_0018A908);
 extern "C" void func_0018AC50(S_0018AC50* self, int flags) {
     self->unk0 = D_00344C80;
     if (self->unk4) {
-        func_00119400(D_00368A38[0], self->unk4);
+        Heap_Free(D_00368A38[0], self->unk4);
     }
     if (self->unk8) {
-        func_00119400(D_00368A38[0], self->unk8);
+        Heap_Free(D_00368A38[0], self->unk8);
     }
     self->unk0 = D_00344C98;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
 extern "C" void func_0018ACD8(S_189* s, int flag) {
     s->unk0 = D_00344C98;
-    if (flag & 1) func_00119400(D_00368A38[0], s);
+    if (flag & 1) Heap_Free(D_00368A38[0], s);
 }
 
 extern "C" int func_0018AD18(S2_189* s, int* p, int base) {
@@ -306,7 +306,7 @@ extern "C" void func_0018AEA0(S_0018AEA0* self, int flags) {
         func_0011A470(self->unkD0);
     }
     if (self->unkCC) {
-        func_00119400(D_00368A38[0], self->unkCC);
+        Heap_Free(D_00368A38[0], self->unkCC);
     }
     func_00162420(self, flags);
 }
@@ -352,7 +352,7 @@ extern "C" void func_0018B128(S_0018B128* self, int flags) {
         self->unk24 = 0;
     }
     if (self->unk28) {
-        func_00119400(D_00368A38[0], self->unk28);
+        Heap_Free(D_00368A38[0], self->unk28);
     }
     func_0015EFE8(self, flags);
 }

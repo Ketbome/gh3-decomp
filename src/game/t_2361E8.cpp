@@ -17,7 +17,7 @@ void func_002367E0(int, int);
 extern List236 D_003979F0;
 extern u8 D_00354A30[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_0023A350(void*);
 s32 func_00233C50(void);
 char* func_00233CA8_p(s32 a, s32 b) __asm__("func_00233CA8");
@@ -111,7 +111,7 @@ extern "C" void func_00236948(char* p, int f) {
     *(u8**)(p + 0x34) = D_00354A30;
     func_0023A350(p);
     if (f & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

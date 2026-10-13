@@ -94,13 +94,13 @@ extern s32 D_0036C71C;
 extern s32 D_0036C720;
 extern s32 D_0036C724;
 extern s32 D_0036C728;
-void func_00119400(s32 a, void* b);
+void Heap_Free(s32 a, void* b);
 s32 func_0019BF20(void* p);
 s32 func_001A93F8(void* a, s32* b, s32 c, s32 d);
 void func_001A9A60(void* a, void* b);
 void func_001ACDE8_2(void* a, s32 b) __asm__("func_001ACDE8");
 void* func_001A9CF0(s32 a, s32 b);
-s32 func_00118F20(s32 a, s32 b, s32 c, s32 d);
+s32 Heap_Alloc(s32 a, s32 b, s32 c, s32 d);
 extern s32 D_00368A38;
 s32 func_0019BFC8(void* p);
 s32 func_001ACD68(S001ACCC0* p);
@@ -509,7 +509,7 @@ extern "C" void func_001AD7B8(void* p) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1ABAA0", func_001AD7F8);
 
 extern "C" void* func_001AD8F8(s32 a, s32 b, s32 c, H8* d, void* e) {
-    S001ACCC0* o = (S001ACCC0*)func_001A9CF0(func_00118F20(D_00368A38, 0x50, 1, 0), a);
+    S001ACCC0* o = (S001ACCC0*)func_001A9CF0(Heap_Alloc(D_00368A38, 0x50, 1, 0), a);
     o->unk1C = o->unk1C | 0x1800;
     func_001AD020(o, b);
     o->unk40 = c;
@@ -535,12 +535,12 @@ extern "C" void func_001AD9D0(S001ACCC0* p) {
         if (t != 0) {
             func_001A0380(t, 3);
         }
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
 extern "C" void* func_001ADA68(S001ACCC0* a, void* b, s32 c) {
-    S001ACCC0* o = (S001ACCC0*)func_001A9CF0(func_00118F20(D_00368A38, 0x50, 1, 0), (s32)a);
+    S001ACCC0* o = (S001ACCC0*)func_001A9CF0(Heap_Alloc(D_00368A38, 0x50, 1, 0), (s32)a);
     o->unk28 = 0;
     if (c != 0) {
         if (b != 0) {
@@ -551,7 +551,7 @@ extern "C" void* func_001ADA68(S001ACCC0* a, void* b, s32 c) {
     }
     func_001ACD98(o, 1);
     if (func_001ACD28(a) != 0) {
-        s32 t = func_00118F20(D_00368A38, func_0019BF10(a->unk20), 1, 0);
+        s32 t = Heap_Alloc(D_00368A38, func_0019BF10(a->unk20), 1, 0);
         o->unk20 = (S001ACCC0*)t;
         func_0019C208(a->unk20, t);
         if (*(s32*)((char*)a + 0x38) != 0) {

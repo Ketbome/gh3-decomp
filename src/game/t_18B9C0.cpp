@@ -55,7 +55,7 @@ struct S_0018D4B8 { char pad0[4]; void* unk4; char pad8[4]; int unkC; char pad10
 
 extern "C" {
 extern int D_00368A38;
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_0018D6A0_4(void*, int, int, int) __asm__("func_0018D6A0");
 void func_001AFAC8(P_0018D050*, float, float, float, float, float, float, float, float);
 void func_001ACE28(P_0018D050*, int);
@@ -114,7 +114,7 @@ void func_001B1C60(T_18B9C0*);
 void func_0018D5E0(S_18B9C0*);
 void func_001AD020(void*, int);
 u32 func_001AD160(void*);
-void* func_00113D20(u32);
+void* operator_new(u32);
 void* func_0018D350(void*, int);
 void func_0018AF58(T_18B9C0*);
 void func_001B1A40(T_18B9C0*, int, int, int);
@@ -485,7 +485,7 @@ extern "C" void func_0018D5E0(S_18B9C0* p) {
 }
 
 extern "C" void* func_0018D668(int a) {
-    return func_0018D350(func_00113D20(0x18), a);
+    return func_0018D350(operator_new(0x18), a);
 }
 
 extern "C" S_0018D6A0* func_0018D6A0(S_0018D6A0* self, int a, int b) {
@@ -505,7 +505,7 @@ extern "C" int func_0018D710(S0018D710* self) {
 }
 
 extern "C" void* func_0018D718(int a, int b, int c) {
-    return func_0018D6A0_4(func_00118F20(D_00368A38, 0xC, 1, 0), a, b, c);
+    return func_0018D6A0_4(Heap_Alloc(D_00368A38, 0xC, 1, 0), a, b, c);
 }
 
 extern "C" void func_0018D780(S_0018D780* p) {

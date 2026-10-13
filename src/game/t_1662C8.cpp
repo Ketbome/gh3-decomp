@@ -16,7 +16,7 @@ extern "C" {
 void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
 extern u8 D_0033E6D8[];
 extern u8 D_0033E6F0[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0033E570[];
 extern u8 D_0033E588[];
@@ -66,7 +66,7 @@ extern "C" void func_00167D70(S167D70* self, int flags) {
     self->unk20 = D_0033E570;
     self->unk8 = D_0033E588;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk1DC = 0;
     }
     func_00162FC8_2(self, flags);
@@ -89,7 +89,7 @@ extern "C" void func_00168170(S_00168170* self, int flags) {
     self->unk20 = D_0033E6D8;
     self->unk8 = D_0033E6F0;
     if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
         self->unk2FC = 0;
     }
     func_00162FC8_2(self, flags);

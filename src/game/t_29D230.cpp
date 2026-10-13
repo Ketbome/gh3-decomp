@@ -79,8 +79,8 @@ extern int D_0035C720[];
 extern int D_0035C768[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 int func_00113F38(void);
-int func_00119400(s32, void *);
-int func_0030A49C(s32, int, int);
+int Heap_Free(s32, void *);
+int memset(s32, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029D230);
@@ -233,7 +233,7 @@ extern "C" void func_0029E200(S29E200_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -247,7 +247,7 @@ extern "C" void func_0029E260(S29E200_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -261,7 +261,7 @@ extern "C" void func_0029E2C0(S29E200_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -280,7 +280,7 @@ extern "C" void func_0029E350(void) {
 }
 
 extern "C" void func_0029E358(int arg0, s32 arg1) {
-    func_0030A49C(arg1 + 8, 0, 8);
+    memset(arg1 + 8, 0, 8);
 }
 
 extern "C" s32 func_0029E380(void) {
@@ -299,7 +299,7 @@ extern "C" void func_0029E408(S29E200_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -313,21 +313,21 @@ extern "C" void func_0029E468(S29E200_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
 extern "C" void func_0029E4C8(S29E4C8_0 *arg0, s32 arg1) {
     arg0->unk8 = D_0035C5C8;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
 extern "C" void func_0029E508(S29E4C8_0 *arg0, s32 arg1) {
     arg0->unk8 = D_0035C5B0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 

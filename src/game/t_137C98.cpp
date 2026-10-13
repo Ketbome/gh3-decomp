@@ -81,7 +81,7 @@ extern u8 D_0033A928[];
 float func_002EC118(float);
 float func_002EC10C(void);
 extern int D_003694D0;
-void func_0030A970(char*, void*);
+void strcpy(char*, void*);
 extern S137_H* D_00368A38;
 void func_00119490(S137_H*, int);
 void func_001194B8(S137_H*);
@@ -94,7 +94,7 @@ extern int D_00371298;
 extern void* D_00371288[2];
 void* func_0011C2A8(void*);
 int func_00119610(S137_H*, int);
-void* func_00118F20(S137_H*, u32, int, int);
+void* Heap_Alloc(S137_H*, u32, int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137C98);
@@ -141,12 +141,12 @@ extern "C" void* func_00138790(u32 size) {
         if (!r) {
             S137_H* heap = D_00368A38;
             func_00119490(heap, func_00119610(heap, 1));
-            r = func_00118F20(D_00368A38, size, 1, 0);
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
             func_001194B8(D_00368A38);
         }
         return r;
     }
-    return func_00118F20(D_00368A38, size, 1, 0);
+    return Heap_Alloc(D_00368A38, size, 1, 0);
 }
 
 extern "C" void func_00138850(int a, int b) {
@@ -191,7 +191,7 @@ extern "C" S137_B* func_00138978(S137_B* dst, S137_C* src) {
 }
 
 extern "C" void func_001389F0(S_001389F0* self, void* a) {
-    func_0030A970(&self->unk4560, a);
+    strcpy(&self->unk4560, a);
 }
 
 extern "C" char* func_00138A10(char* p) {

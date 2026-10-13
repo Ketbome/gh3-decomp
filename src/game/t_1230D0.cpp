@@ -56,7 +56,7 @@ extern u8 D_00339648[];
 extern u8 D_003396A0[];
 extern u8 D_00376F70[];
 extern u8 D_00377770[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001CE990(void*, int);
 void func_001234B0(void*);
 void func_001CF470(void*, int);
@@ -70,7 +70,7 @@ void func_00124558(void*);
 void func_001CE7C0(void*, int);
 void func_0014EB28(void*);
 void* func_0014EB08(int);
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 void func_0014E098(int, char*);
 u32 CrcFromPathLowercase(const char*);
 void func_00160170(void*, u32, int, int, int, int);
@@ -196,7 +196,7 @@ extern "C" SA123_A* func_00123678(SA123_A* self) {
 extern "C" void func_00123690(SA123_A* self, int flags) {
     self->unk8 = D_003396F8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

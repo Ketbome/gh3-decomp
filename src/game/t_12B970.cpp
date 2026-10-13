@@ -111,12 +111,12 @@ extern int D_00371480;
 extern SB12_Pool* D_00371470[2];
 extern int D_00369208;
 extern SB12_Pool* D_003691F8[2];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_0011C2E8(SB12_Pool*, void*);
 void* func_0011C2A8(SB12_Pool*);
 int func_00119610(int, int);
 void func_00119490(int, int);
-void* func_00118F20(int, u32, int, int);
+void* Heap_Alloc(int, u32, int, int);
 void func_001194B8(int);
 }
 
@@ -253,12 +253,12 @@ extern "C" void* func_0012D028(u32 size) {
         if (!r) {
             int heap = D_00368A38;
             func_00119490(heap, func_00119610(heap, 1));
-            r = func_00118F20(D_00368A38, size, 1, 0);
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
             func_001194B8(D_00368A38);
         }
         return r;
     }
-    return func_00118F20(D_00368A38, size, 1, 0);
+    return Heap_Alloc(D_00368A38, size, 1, 0);
 }
 
 extern "C" void func_0012D0E8(void* p) {
@@ -266,7 +266,7 @@ extern "C" void func_0012D0E8(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_003691F8[D_00369208 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

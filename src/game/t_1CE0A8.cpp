@@ -108,7 +108,7 @@ s32 func_001D0228(void* p);
 s32 func_0027ABB0_2(void* a, s32 b) __asm__("func_0027ABB0");
 void func_001145D8(void* p);
 void* func_001CE6D0(char* p);
-void func_0030A49C(char* a, s32 b, s32 c);
+void memset(char* a, s32 b, s32 c);
 s32 func_00222F90(s32 a);
 void func_001D02A0(void* p);
 void func_001CF000_2(void* p, s32 v) __asm__("func_001CF000");
@@ -138,7 +138,7 @@ extern s32 D_00372DA8[] __attribute__((section(".sdata")));
 void func_0028DC30(s32 a, s32 b, s32 c);
 void func_0027C160(s32 a, s32 b, s32 c);
 void func_0027C1F8(s32 a, s32 b, f32 c);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_00113250(s32 a);
 void func_0027AC90(s32 a);
@@ -184,8 +184,8 @@ extern "C" void func_001CE670(S001CE670* p) {
 }
 
 extern "C" void* func_001CE6D0(char* p) {
-    func_0030A49C(p + 1, 0, 0x24);
-    func_0030A49C(p + 0x26, 0, 8);
+    memset(p + 1, 0, 0x24);
+    memset(p + 0x26, 0, 8);
     *(s32*)(p + 0x4C) = 1;
     *(s32*)(p + 0x30) = 0;
     *(s32*)(p + 0x34) = 0;
@@ -216,7 +216,7 @@ extern "C" void func_001CE7C0(L4* p, s32 flags) {
     p->unk8 = D_0034B4F0;
     func_001CE810(p);
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

@@ -103,7 +103,7 @@ void func_0028EB18(void *, char *);
 void func_0028EBA0(void *);
 int func_0028E868(int, int);
 void func_00279358(void *, int, int, int);
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 void func_001C55A8(void *);
 int func_00291D28(int, int, int);
 
@@ -114,7 +114,7 @@ void func_00291020(S2908_List *, S2908_Node *);
 void func_00290D18(S2908_Node *, int);
 void func_002908A0(S2908_Script *, int);
 void func_0011A470(int);
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 extern char D_0035BBB0[];
 extern char D_0035BBC8[];
 extern char D_0035BF60[];
@@ -220,7 +220,7 @@ extern "C" void func_00290D18(S2908_Node *p, int flags) {
 extern "C" S2908_List *func_00290D68(S2908_List *p) {
     func_001C55A8(p);
     p->vptr = D_0035BF60;
-    p->unk18 = func_00291D28(func_00118F20(D_00368A38, 0x1C, 1, 0), 8, 0);
+    p->unk18 = func_00291D28(Heap_Alloc(D_00368A38, 0x1C, 1, 0), 8, 0);
     p->head = 0;
     p->tail = 0;
     p->unk24 = 0;
@@ -320,7 +320,7 @@ extern "C" void func_00291C40(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -345,12 +345,12 @@ extern "C" void func_00292078(S2908_Buf *p, int flags) {
     if (!p->unk16 && p->unk4) {
         func_00291FC0(p);
         if (p->unk4) {
-            func_00119400(D_00368A38, p->unk4);
+            Heap_Free(D_00368A38, p->unk4);
         }
         p->unk4 = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

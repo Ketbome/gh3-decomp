@@ -49,7 +49,7 @@ void func_00139EE0(void*, int);
 int func_00119610(int, int);
 void func_00119490(int, int);
 void func_001194B8(int);
-void* func_00113D20(int);
+void* operator_new(int);
 void* func_00148258(void*);
 void* func_0013CC28(void*);
 void func_001CED20(void*, u32);
@@ -189,7 +189,7 @@ extern "C" int CFunc_SetScreenElementLock(void* params) {
 extern "C" int CFunc_ScreenElementSystemInit(void) {
     int heap = D_00368A38;
     func_00119490(heap, func_00119610(heap, 0x3A));
-    void* e = func_00148258(func_00113D20(0x260));
+    void* e = func_00148258(operator_new(0x260));
     func_001194B8(D_00368A38);
     func_001CED20(e, 0x56A1EAE3);
     Sys_146* sys = (Sys_146*)D_00369798;

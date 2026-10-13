@@ -96,7 +96,7 @@ struct S1D67C8_Q {
 };
 
 extern "C" {
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void* func_001D8180(void* p);
 extern char D_0034BD78[];
@@ -118,7 +118,7 @@ u32 func_0011C030(void* p);
 void func_001194B8(s32 heap, u32 v);
 s32 func_001D7710(S1D80D8* p);
 void func_00119490(s32 heap, s32 v);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void func_001D5250(void*, void*, s32, int);
 }
 
@@ -132,7 +132,7 @@ extern "C" void func_001D6738(S1D67C8* p, void* a) {
     p->unk3C = func_0011C030((void*)func_001D7710((S1D80D8*)p));
     ((S1D67C8_R*)func_001D7710((S1D80D8*)p))->unk9C = 0;
     func_001D7710((S1D80D8*)p);
-    func_001D5250(func_00113D20(0x180), a, *(s32*)((char*)p + 0x74), 0);
+    func_001D5250(operator_new(0x180), a, *(s32*)((char*)p + 0x74), 0);
 }
 
 extern "C" void func_001D67C8(S1D67C8* p, S1D67C8_Q* q) {
@@ -176,77 +176,77 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D7BD0);
 extern "C" void func_001D7C28(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BD78;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7C68(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BD78;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7CA8(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BD78;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7CE8(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BD78;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7D28(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7D68(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7DA8(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7DE8(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7E28(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7E68(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 extern "C" void func_001D7EA8(S1D7C28* p, s32 flags) {
     p->unk0 = D_0034BCD8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

@@ -85,7 +85,7 @@ void func_001DB568(s32 a, void* p, s32 b, s32 c);
 extern char D_0034BFA8[];
 extern char D_0033B510[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 void func_001CE888(void* p, void* q);
 void func_001CE868(void* p, void* q);
 void func_001DB580(s32 a, void* p);
@@ -136,7 +136,7 @@ extern "C" void func_001D87B8(S1D87B8* p, s32 flags) {
     n->unkC = n;
     n->unk10 = n;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -165,7 +165,7 @@ extern "C" void func_001D88C0(char* p, int flags) {
         }
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

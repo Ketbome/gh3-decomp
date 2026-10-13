@@ -1,0 +1,5 @@
+// Library functions (Sony SDK, libc) named from their behaviour (inferred).
+memset = 0x0030A49C; // type:func
+strcmp = 0x0030A824; // type:func
+strcpy = 0x0030A970; // type:func
+strlen = 0x0030AA88; // type:func

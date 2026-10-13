@@ -81,7 +81,7 @@ void func_0018D668(void);
 void func_0018D718(void);
 void func_0018D780(void);
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_0030A2F4(void*, void*, int);
 extern int D_0036F658;
 void func_0022B0D0(H15F*, int, int, int);
@@ -301,7 +301,7 @@ extern "C" S0015F8E8* func_0015F8E8(S0015F8E8* self) {
 extern "C" void func_0015F900(S15F_B* self, int flags) {
     self->unk8 = D_0033DAC0;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -329,7 +329,7 @@ extern "C" S0015F9B8* func_0015F9B8(S0015F9B8* self, int a1) {
 extern "C" void func_0015F9D0(S15F_C* self, int flags) {
     self->unk4 = D_0033DA98;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

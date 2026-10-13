@@ -78,7 +78,7 @@ void func_0012BDD0(SA129_K*, int, float);
 void func_0012C0B0(SA129_K*, int, int);
 void func_0012C1F8(SA129_K*, int);
 void func_0012C200(SA129_K*, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 void* func_00128B08(void*);
 extern u8 D_00339AA8[];
 extern u8 D_00339AE8[];
@@ -89,7 +89,7 @@ void func_0012A510(SA129_L*);
 extern u8 D_00339920[];
 extern u8 D_00339958[];
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_0012C8A8(void*);
 void func_00289FD8(int);
 void func_0012BE38(void*, u32, int, int, int, float, float, float, float);
@@ -103,7 +103,7 @@ void func_0011C2E8(SA129_Pool*, void*);
 void* func_0011C2A8(SA129_Pool*);
 int func_00119610(int, int);
 void func_00119490(int, int);
-void* func_00118F20(int, u32, int, int);
+void* Heap_Alloc(int, u32, int, int);
 void func_001194B8(int);
 }
 
@@ -125,7 +125,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1298B0", func_00129978);
 extern "C" void func_00129F70(SA129_A* self, int a, int b) {
     int i;
     for (i = 0; i < 50; i++) {
-        self->unk8[i] = func_00128B08(func_00113D20(0x490));
+        self->unk8[i] = func_00128B08(operator_new(0x490));
     }
     self->unk1A8 = a;
     self->unk1AC = b;
@@ -140,7 +140,7 @@ extern "C" void func_0012A048(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_003690D8[D_003690E8 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -151,12 +151,12 @@ extern "C" void* func_0012A0F8(u32 size) {
         if (!r) {
             int heap = D_00368A38;
             func_00119490(heap, func_00119610(heap, 1));
-            r = func_00118F20(D_00368A38, size, 1, 0);
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
             func_001194B8(D_00368A38);
         }
         return r;
     }
-    return func_00118F20(D_00368A38, size, 1, 0);
+    return Heap_Alloc(D_00368A38, size, 1, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1298B0", func_0012A1B0);
@@ -178,7 +178,7 @@ extern "C" void func_0012A3E8(SA129_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -251,7 +251,7 @@ extern "C" void func_0012A5E8(SA129_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -296,7 +296,7 @@ extern "C" void func_0012A6F8(SA129_K* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

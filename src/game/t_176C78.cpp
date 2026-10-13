@@ -1,7 +1,7 @@
 #include "common.h"
 
 extern "C" {
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_003417B0[];
 void func_00172CC8(void);
@@ -25,7 +25,7 @@ extern "C" u32 func_00177828(void) {
 extern "C" void func_00177838(void** self, int flags) {
     *self = D_003417B0;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -40,7 +40,7 @@ extern "C" u32 func_00177880(void) {
 extern "C" void func_00177890(void** self, int flags) {
     *self = D_003417B0;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

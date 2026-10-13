@@ -56,7 +56,7 @@ int func_00154830(S_001547C8*, void*);
 U_001547C8* func_00156790(void*);
 void func_0015F3C0(void*, int);
 void func_0015F410(void*, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38;
 extern char D_0033C840[];
 extern void* D_00369B88;
@@ -80,7 +80,7 @@ extern char D_00372B60[];
 void func_00189540(void);
 extern S_00154180* D_00369B8C;
 void func_00154540_f(void*, void*, float) __asm__("func_00154540");
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void func_00119490(int, int);
 void func_001194B8(int);
 void func_0030ADA0(void*, void*, int);
@@ -206,7 +206,7 @@ GP_DATA(D_00369B88);
 extern "C" void func_00153430(S_00153430* self, int flag) {
     self->unk8 = D_0033C840;
     if (D_00369B88 == self) D_00369B88 = 0;
-    if (flag & 1) func_00119400(D_00368A38, self);
+    if (flag & 1) Heap_Free(D_00368A38, self);
 }
 
 extern "C" void func_00153478(S_00153268* self) {
@@ -306,7 +306,7 @@ extern "C" S_001537C0* func_001537C0(S_001537C0* self) {
 
 extern "C" void func_001537E0(S_001537C0* self, int flags) {
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -361,7 +361,7 @@ extern "C" void func_00153DB0(S_00153D80* self, int v) {
 extern "C" int func_00153DE0(S_00153DE0* self, void* s) {
     if (self->unk8 == 0) {
         func_00119490(D_00368A38, ((H_152*)D_00368A38)->unk1E8);
-        self->unk8 = func_00118F20(D_00368A38, 0x60, 1, 0);
+        self->unk8 = Heap_Alloc(D_00368A38, 0x60, 1, 0);
         func_001194B8(D_00368A38);
     }
     func_0030ADA0(self->unk8, s, 0x5F);
@@ -372,7 +372,7 @@ extern "C" int func_00153DE0(S_00153DE0* self, void* s) {
 extern "C" void func_00153E70(void* p) {
     S_00153E70* self = (S_00153E70*)p;
     if (self->unk8) {
-        func_00119400(D_00368A38, self->unk8);
+        Heap_Free(D_00368A38, self->unk8);
         self->unk8 = 0;
     }
     if (self->unk4) {
@@ -381,7 +381,7 @@ extern "C" void func_00153E70(void* p) {
             --e;
             func_001537E0(e, 0);
         }
-        func_00119400(D_00368A38, (char*)self->unk4 - 0x10);
+        Heap_Free(D_00368A38, (char*)self->unk4 - 0x10);
         self->unk4 = 0;
     }
 }
@@ -498,7 +498,7 @@ extern "C" S_00154420* func_00154420(S_00154420* self) {
 
 extern "C" void* func_00154430(void* p, void* a) {
     S_00154430* self = (S_00154430*)p;
-    N_00154430* n = (N_00154430*)func_00118F20(D_00368A38, 0x10, 1, 0);
+    N_00154430* n = (N_00154430*)Heap_Alloc(D_00368A38, 0x10, 1, 0);
     n->unk4 = a;
     n->unk8 = 0;
     n->unkC = self->unk0;
@@ -516,7 +516,7 @@ extern "C" void func_001544B8(void* l, void* p) {
     if (list->unk0 == n) list->unk0 = n->unkC;
     if (n->unk8) n->unk8->unkC = n->unkC;
     if (n->unkC) n->unkC->unk8 = n->unk8;
-    func_00119400(D_00368A38, n);
+    Heap_Free(D_00368A38, n);
 }
 
 extern "C" void func_00154510(S_00154510* list, N_00154510* prev, N_00154510* b, N_00154510* a, N_00154510* next) {
@@ -557,7 +557,7 @@ extern "C" S_00154670* func_00154670(S_00154670* self) {
 extern "C" void func_001546B8(S_00154608* self, int flag) {
     self->unk88 = D_0033C9C0;
     func_00154708(self);
-    if (flag & 1) func_00119400(D_00368A38, self);
+    if (flag & 1) Heap_Free(D_00368A38, self);
 }
 
 extern "C" void func_00154708(S_00154608* self) {

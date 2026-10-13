@@ -160,7 +160,7 @@ void func_001F1D00(void*, bool);
 void func_001EF6D0(void*);
 void func_00162178(void*);
 void func_001F2468(int, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 char* func_001F3268(char*);
 extern char D_0034ED60[];
 void func_001D0F90(void*);
@@ -466,7 +466,7 @@ extern "C" void func_001F3220() {
 }
 
 extern "C" void* func_001F3240() {
-    return func_001F3268((char*)func_00113D20(0x30));
+    return func_001F3268((char*)operator_new(0x30));
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F1750", func_001F3268);

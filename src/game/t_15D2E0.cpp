@@ -118,10 +118,10 @@ extern char D_0033D480[];
 int func_0015C0F8(int, int**);
 int func_0015C178(int, int**);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_0015EA78(void*, int);
 void func_0011A470(void*);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00369E68;
 extern int D_0036CA30[] __attribute__((section(".sdata")));
 extern float D_00369EC0;
@@ -267,7 +267,7 @@ static inline void L_0015DDB8_Clear(L_0015DDB8* l) {
     l->unk4.unk0 = &l->unk4;
     while (n != &l->unk4) {
         N_0015DDB8* next = n->unk4;
-        func_00119400(D_00368A38[0], n);
+        Heap_Free(D_00368A38[0], n);
         n = next;
     }
 }
@@ -276,7 +276,7 @@ extern "C" void func_0015DDE8(S_0015DDE8* self, int flags) {
     L_0015DDB8_Clear(&self->unk10);
     L_0015DDB8_Clear(&self->unk4);
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -310,7 +310,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015E0F8);
 
 extern "C" void func_0015E128(S_0015E0F8* self, int flag) {
     self->unk10 = D_0033D4B0;
-    if (flag & 1) func_00119400(D_00368A38[0], self);
+    if (flag & 1) Heap_Free(D_00368A38[0], self);
 }
 
 extern "C" void func_0015E168(S0015E168* self, int a1) {
@@ -631,7 +631,7 @@ extern "C" void func_0015EA00(void) {
 
 extern "C" void func_0015EA08(S0015E600* self, int flag) {
     *(void**)((char*)self + 4) = D_0033D480;
-    if (flag & 1) func_00119400(D_00368A38[0], self);
+    if (flag & 1) Heap_Free(D_00368A38[0], self);
 }
 
 extern "C" void func_0015EA48(S0015EA48* self, int a1) {
@@ -659,7 +659,7 @@ extern "C" void* func_0015EA78(void* p, int a) {
 
 extern "C" void func_0015EAC0(S_0015EA78* self, int flag) {
     self->unk1C = D_0033D420;
-    if (flag & 1) func_00119400(D_00368A38[0], self);
+    if (flag & 1) Heap_Free(D_00368A38[0], self);
 }
 
 extern "C" void func_0015EB00(S0015EB00* self, int a1) {
@@ -689,7 +689,7 @@ extern "C" void func_0015EB90(S_0015EB90* self, C_0015E5C0* c) {
 }
 
 extern "C" void* func_0015EBD0(void) {
-    return func_0015EA78(func_00118F20(D_00368A38[0], 0x20, 1, 0), 0);
+    return func_0015EA78(Heap_Alloc(D_00368A38[0], 0x20, 1, 0), 0);
 }
 
 extern "C" void func_0015EC08(void) {
@@ -989,7 +989,7 @@ extern "C" void func_0015EFE8(S0015EFC0* self, int flags) {
     self->unk18 = D_0033D750;
     func_0015F038((S0015E168*)self);
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

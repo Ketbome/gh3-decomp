@@ -33,7 +33,7 @@ void func_0027D870(int, int, int*, int);
 int func_00226918(int);
 int func_00225E20(int);
 void func_00225A78(void*, int);
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 void func_00225CA8(int, void*);
 extern u8 D_00352470[];
 u32 CrcFromPathLowercase(const char*);
@@ -45,7 +45,7 @@ extern u8 func_00228820[];
 void func_00226178(int, int);
 int func_0027D1F8(int, int, int*, int);
 extern void* D_00368A38;
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 void func_00226730(int, int, int);
 }
 
@@ -62,7 +62,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225D78);
 extern "C" int func_00225E20(int a) {
     char buf[0x100];
     buf[0] = D_00352470[0];
-    func_0030A49C(buf + 1, 0, 0xFF);
+    memset(buf + 1, 0, 0xFF);
     func_00225CA8(a, buf);
     return CrcFromPathLowercase(buf);
 }
@@ -90,7 +90,7 @@ extern "C" void func_00226030(void) {
         asm("" : "+r"(end));
         do {
             char* nx = *(char**)(c + 4);
-            func_00119400(D_00368A38, c);
+            Heap_Free(D_00368A38, c);
             c = nx;
         } while (c != end);
     }

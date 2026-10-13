@@ -14,3 +14,7 @@ PoolFree = 0x001DCE20; // type:func  // frees into the pool whose range holds th
 StrDupHeap5 = 0x002756A8; // type:func  // strdup into heap 5
 RbTreeDecrement = 0x00297838; // type:func  // in-order predecessor walk
 RbTreeIncrement = 0x002979D8; // type:func  // in-order successor walk
+operator_new = 0x00113D20; // type:func  // `new X` pattern, size argument
+Heap_Alloc = 0x00118F20; // type:func  // (heap, size, align, 0), new falls back to it on D_00368A38
+Heap_Free = 0x00119400; // type:func  // (heap, p), operator delete calls it with D_00368A38
+operator_delete = 0x00297CF0; // type:func  // called by the libstdc++ type_info destructors

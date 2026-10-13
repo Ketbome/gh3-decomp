@@ -17,7 +17,7 @@ void func_0014EBC8(int);
 extern u8 D_003434A8[];
 extern u8 D_003417B0[];
 void func_0017D580(void*, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_0017E658(void*, float);
 void func_0017D658_2(void*, void*) __asm__("func_0017D658");
@@ -124,7 +124,7 @@ extern "C" void func_0017E4B8(void* p, int flags) {
     if (o) o->unk58 = o->unk58 - 1;
     func_0017D580(self, 2);
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -176,7 +176,7 @@ struct S17F478 { void* unk0; char pad4[4]; void* unk8; };
 extern "C" void func_0017F478(S17F478* self, int flags) {
     self->unk0 = D_003434A8;
     void* p = self->unk8;
-    if (p) func_00119400(D_00368A38[0], p);
+    if (p) Heap_Free(D_00368A38[0], p);
     self->unk0 = D_003417B0;
-    if (flags & 1) func_00119400(D_00368A38[0], self);
+    if (flags & 1) Heap_Free(D_00368A38[0], self);
 }

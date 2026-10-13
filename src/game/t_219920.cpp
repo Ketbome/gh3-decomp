@@ -52,7 +52,7 @@ int func_0027D470(int, int, void*, int);
 void func_0021B368(void*, int);
 int func_0027D2D8(int, u32, void*, int);
 extern void* D_00368A38;
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 void* func_001287F0(int, int);
 void* func_0027AA70(void*);
 void func_0027C1F8(void*, u32, f32);
@@ -370,7 +370,7 @@ extern "C" void func_0021B880(S219* self, int flags) {
         self->unk4C = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

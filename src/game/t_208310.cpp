@@ -22,7 +22,7 @@ struct S208 {
 extern "C" {
 void func_002082B0(int, int);
 void func_00208778(int, int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_00208388(void*);
 void* func_00208910(void*);
 void func_00276D68(u32, void*, int);
@@ -100,7 +100,7 @@ extern "C" void func_00208310(void) {
 }
 
 extern "C" void* func_00208330(void) {
-    return func_00208388(func_00113D20(0x20));
+    return func_00208388(operator_new(0x20));
 }
 
 extern "C" void func_00208358(void) {
@@ -113,7 +113,7 @@ extern "C" void* func_00208388(void* self) {
     C208 c(0x80, 0, 0x80, 0xFF);
     p->unk18 = (VEntry208*)D_00350800;
     *(u32*)((char*)p + 4) = 0xC4E311FA;
-    p->unk1C = func_00123200(func_00113D20(0x100));
+    p->unk1C = func_00123200(operator_new(0x100));
     return p;
 }
 
@@ -189,7 +189,7 @@ extern "C" void func_00208898(void) {
 }
 
 extern "C" void* func_002088B8(void) {
-    return func_00208910(func_00113D20(0x6D0));
+    return func_00208910(operator_new(0x6D0));
 }
 
 extern "C" void func_002088E0(void) {

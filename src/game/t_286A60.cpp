@@ -57,8 +57,8 @@ void *func_0011C2A8(S2867_Pool *);
 int func_00119610(int, int);
 void func_00119490(int, int);
 void func_001194B8(int);
-void *func_00118F20(int, int, int, int);
-void func_00119400(int, void *);
+void *Heap_Alloc(int, int, int, int);
+void Heap_Free(int, void *);
 extern int D_00368A38;
 u32 func_001150B8(char *);
 void func_00287EF0(u32, int *, int);
@@ -78,8 +78,8 @@ void func_002774B8(int, int);
 int func_002875F0(int, int, int, int, int);
 int func_00287578(char *, int, int, int);
 void func_00287EB0(char *, int *, int);
-int func_0030AA88(char *);
-int func_0030A824(char *, char *);
+int strlen(char *);
+int strcmp(char *, char *);
 extern char D_003713C0[];
 void func_00288B10(S2867_Val *);
 void func_00288888(S2867_Val *);
@@ -138,7 +138,7 @@ extern "C" void func_00287F50(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -156,7 +156,7 @@ extern "C" void func_002880B8(void *p) {
         return;
     }
     if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -214,7 +214,7 @@ extern "C" void func_002882E0(void) {
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002882E8);
 
 extern "C" int func_00288410(char *name, int a, int b, int c) {
-    if (func_0030A824(name + func_0030AA88(name) - 3, D_003713C0)) {
+    if (strcmp(name + strlen(name) - 3, D_003713C0)) {
         func_00287EB0(name, (int *)a, b);
     } else {
         func_00287578(name, a, b, c);
@@ -248,7 +248,7 @@ extern "C" void func_002887B0(int a, int b) {
 
 extern "C" void func_002887D8(void *p, int flags) {
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

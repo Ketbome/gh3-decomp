@@ -61,7 +61,7 @@ extern s32 D_0036CA58;
 extern s32 D_0036CA58_lui[] asm("D_0036CA58_lui") __attribute__((section(".sdata")));
 extern char D_003AAC98[];
 extern int D_0036F658[] __attribute__((section(".sdata")));
-void func_0030A970(char *, int);
+void strcpy(char *, int);
 void func_0022ABE8(S2A1_Ref *, int, int, int, int, int, int, int);
 void func_00134340(S2A1_Ref *);
 void func_0011A558(u32, int, int);
@@ -76,7 +76,7 @@ int func_0028DA08(void *);
 int func_001D03D8(int, int, int, int, int);
 void func_00289ED8(int, void *);
 extern int D_00368A38;
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 extern s32 D_00369A64[] __attribute__((section(".sdata")));
 int func_00224220(int, int);
 int func_002299B0(s32, int, int, int);
@@ -132,7 +132,7 @@ extern "C" void func_002A12B0(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CBE0;
     func_0011E780(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -140,7 +140,7 @@ extern "C" void func_002A1300(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CBC8;
     func_0022A2D8(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -148,7 +148,7 @@ extern "C" void func_002A1350(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CBB0;
     func_00290CA0(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -156,7 +156,7 @@ extern "C" void func_002A13A0(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB98;
     func_00266850(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -164,7 +164,7 @@ extern "C" void func_002A13F0(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB80;
     func_00295E08(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -172,7 +172,7 @@ extern "C" void func_002A1440(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB68;
     func_001D4208(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -180,7 +180,7 @@ extern "C" void func_002A1490(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB50;
     func_001D4D48(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -188,7 +188,7 @@ extern "C" void func_002A14E0(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB38;
     func_001C5D28(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -196,7 +196,7 @@ extern "C" void func_002A1530(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB20;
     func_002DBA28(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -204,7 +204,7 @@ extern "C" void func_002A1580(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CB08;
     func_002DCB40(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -212,7 +212,7 @@ extern "C" void func_002A15D0(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CAF0;
     func_002DE220(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -220,7 +220,7 @@ extern "C" void func_002A1620(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CAD8;
     func_00144498(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -228,7 +228,7 @@ extern "C" void func_002A1670(S2A1_Dtor *p, int flags) {
     p->unkC = D_0035CAC0;
     func_00224468(p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -410,7 +410,7 @@ extern "C" int CFunc_LoadNodeArray(int params) {
     func_0028CD90();
     name = 0;
     func_0027D188(params, 0, (int)&name, 0);
-    func_0030A970(D_003AAC98, name);
+    strcpy(D_003AAC98, name);
     func_002A6B70(name, 0, 0x0C7800B0);
     func_002242F8();
     func_0011A568();
@@ -446,7 +446,7 @@ extern "C" int CFunc_NodeArrayManLoad(int params, int script) {
     S2A1_Ref ref;
     int name;
     func_0027D188(params, 0, (int)&name, 1);
-    func_0030A970(D_003AAC98, name);
+    strcpy(D_003AAC98, name);
     func_0022ABE8(&ref, D_0036F658[0], name, 0xD, 0, 0, 0, 0);
     func_00134340(&ref);
     return 1;

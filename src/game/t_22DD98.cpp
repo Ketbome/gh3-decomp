@@ -34,12 +34,12 @@ int func_0015AD38(int, int, int, int, int, int, int);
 int func_0022BCE0(void*, int, int, int, int, int);
 void func_00162478(int, int);
 int func_0014EC58(int, int, int, int, int, int, int);
-int func_0030A970(int, int);
+int strcpy(int, int);
 int func_00162920(void*, int);
 void func_0022BBB0(void*, void*, int, int, int, int);
 void func_0015B7B0(void*, int);
 int* func_0014C870(int, int, int, int, int, int, int, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 int func_00133F80(void*);
 int func_00133FE0(int, int, int, int);
 void func_00134280(int, int);
@@ -103,7 +103,7 @@ extern "C" void func_0022DEE8(char* p, int a, int b, int c, int d, int e) {
 }
 
 extern "C" int func_0022DF70(char* p, int a1, int a2) {
-    int t = func_00133F80(func_00113D20(0x14));
+    int t = func_00133F80(operator_new(0x14));
     if (!func_00133FE0(t, a1, a2, 1)) return 0;
     VE22D* e = (VE22D*)(*(char**)(p + 0x34) + 0x58);
     ((void (*)(char*, int))e->fn)(p + e->delta, t);

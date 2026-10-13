@@ -73,6 +73,8 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   (`ld`/`sd` on values that are not saved registers mean a 64-bit type or a `u_long128` copy).
 - **Compiler habits** (SN ee-gcc 2.95.3, `-O2 -G8`): register moves are `daddu rd, rs, $0`; constructors return
   `this`; no tail calls; `bool` is one byte; `new` is `func_00113D20(size)` and `delete` is `func_00297CF0(p)`.
+- **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
+  standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
   with the name in a comment, `0x0A015E17 /* Motion */`. `config/qbkeys.txt` lists the known ones;
   `scripts/qbkeys.py key <name>` computes one.

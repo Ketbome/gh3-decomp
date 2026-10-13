@@ -92,7 +92,7 @@ int func_0027D870(int, int, int *, int);
 int func_0027CC30(int, int, int, int *);
 extern char D_00362400[];
 extern int D_00368A38;
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 void func_00113250(int);
 void func_0027AC90(int);
 int func_001CB568(void *);
@@ -116,7 +116,7 @@ extern s32 D_00372E10[] __attribute__((section(".sdata")));
 extern int D_0038EE10[];
 extern int D_0038F1F0[];
 extern int D_0038F230[];
-s32 func_00113D20(int);
+s32 operator_new(int);
 s32 func_00113DF0(int, int, int);
 int func_001ECC90(s32);
 int func_001F35D0(s32);
@@ -257,7 +257,7 @@ extern "C" void func_002DD8F8(S2DD8F8 *p, int b) {
         func_00113250(h);
     }
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -298,7 +298,7 @@ extern "C" void func_002DE0F0(void) {
 }
 
 extern "C" void func_002DE120(void) {
-    func_001F35D0(func_00113D20(0xC0));
+    func_001F35D0(operator_new(0xC0));
 }
 
 extern "C" void func_002DE148(void) {
@@ -306,7 +306,7 @@ extern "C" void func_002DE148(void) {
 }
 
 extern "C" void func_002DE178(void) {
-    func_001ECC90(func_00113D20(0xA0));
+    func_001ECC90(operator_new(0xA0));
 }
 
 extern "C" void func_002DE1A0(void) {

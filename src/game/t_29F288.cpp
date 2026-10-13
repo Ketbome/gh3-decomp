@@ -40,8 +40,8 @@ extern char D_0035CC40[];
 void func_001C5730(void);
 extern char D_0035CC58[];
 void func_002750F0(void);
-void func_00119400(int, void *);
-void *func_00118F20(int, int, int, int);
+void Heap_Free(int, void *);
+void *Heap_Alloc(int, int, int, int);
 int func_00297458(void *);
 extern int D_00368A38;
 int func_0011EF10(void);
@@ -177,7 +177,7 @@ extern "C" void func_0029FD40(S29FD08 *p, int b) {
     p->unkC = D_0035C830;
     func_0027AC90(p->unk4);
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -221,7 +221,7 @@ struct S29FEA8 {
     int unk20;
 };
 extern "C" int func_0029FEA8(S29FEA8 *p) {
-    p->unk20 = func_00297458(func_00118F20(D_00368A38, 0x98, 1, 0));
+    p->unk20 = func_00297458(Heap_Alloc(D_00368A38, 0x98, 1, 0));
     return 1;
 }
 
@@ -325,7 +325,7 @@ extern "C" void func_002A1170(Sfunc_002A1170 *p, int b) {
     p->unkC = D_0035CC58;
     func_002750F0();
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -337,7 +337,7 @@ extern "C" void func_002A11C0(Sfunc_002A11C0 *p, int b) {
     p->unkC = D_0035CC40;
     func_001C5730();
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -349,7 +349,7 @@ extern "C" void func_002A1210(Sfunc_002A1210 *p, int b) {
     p->unkC = D_0035CC28;
     func_00117168();
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -361,6 +361,6 @@ extern "C" void func_002A1260(Sfunc_002A1260 *p, int b) {
     p->unkC = D_0035CC10;
     func_00121668();
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }

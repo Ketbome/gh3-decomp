@@ -60,7 +60,7 @@ void* func_002763C0(void*, int);
 void func_001EC0A0(void*);
 void func_001EBCB0();
 void func_001EBAE8(S1EBAE8*);
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 s32 func_0027DD88(void*, u32);
 void func_0027C7D0(void*, void*, void*);
 }
@@ -90,7 +90,7 @@ extern "C" void func_001EBC80(S1EBAE8* p) {
 }
 
 extern "C" void func_001EBCB0() {
-    func_0030A49C(D_0032C550, 0, 0x180);
+    memset(D_0032C550, 0, 0x180);
     D_0036E060 = 0;
 }
 

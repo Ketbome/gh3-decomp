@@ -103,7 +103,7 @@ int func_0011EF10(void);
 void func_001CC0D0(void *);
 extern int D_00363DB8[];
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
-int func_00119400(s32, void *);
+int Heap_Free(s32, void *);
 }
 
 extern "C" s32 CFunc_SendNetMessage(void) {
@@ -311,7 +311,7 @@ extern "C" void func_002DF398(S2DF398_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -325,7 +325,7 @@ extern "C" void func_002DF3F8(S2DF398_0 *arg0, s32 arg1) {
     arg0->unkC = arg0;
     arg0->unk10 = arg0;
     if (arg1 & 1) {
-        func_00119400(D_00368A38[0], arg0);
+        Heap_Free(D_00368A38[0], arg0);
     }
 }
 
@@ -519,13 +519,13 @@ extern "C" void func_002DF630(S2DF630 *p, int b) {
     if (r) {
         func_0027AC90(r + 0x80);
         func_00134748(r + 4, 2);
-        func_00119400(D_00368A38[0], r);
+        Heap_Free(D_00368A38[0], r);
     }
     if (p->unk234) {
         delete p->unk234;
     }
     if (p->unk230) {
-        func_00119400(D_00368A38[0], p->unk230);
+        Heap_Free(D_00368A38[0], p->unk230);
         p->unk230 = 0;
     }
     p->unk14 = D_0034AFE8;
@@ -535,7 +535,7 @@ extern "C" void func_002DF630(S2DF630 *p, int b) {
     p->unkC = p;
     p->unk10 = p;
     if (f) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

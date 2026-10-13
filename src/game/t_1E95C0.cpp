@@ -156,14 +156,14 @@ extern char D_0034E100[];
 extern char D_0034E380[];
 extern HTable* D_0036DFC0;
 extern S1EB190* D_0036E010;
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void func_001E8660(void*);
 void func_001E88F8(void*);
 s32 func_001E8838(void*);
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_001EAF90(void*, int, int);
 extern char D_0034DFD8[];
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void* func_001E9E80(void*, int, int);
 s32 func_0027D870(int, u32, void*, int);
 void func_0011A558(u32, int, int);
@@ -211,14 +211,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001E95F0);
 extern "C" void func_001E97C8(char* p, int flags) {
     *(char**)(p + 0xC) = D_0034DE98;
     if (*(void**)(p + 0x28)) {
-        func_00119400(D_00368A38[0], *(void**)(p + 0x28));
+        Heap_Free(D_00368A38[0], *(void**)(p + 0x28));
     }
     func_001E92B0(p + 0x14, 2);
     int h = D_00368A38[0];
     *(char**)(p + 0xC) = D_0034D6A8;
-    func_00119400(h, *(void**)(p + 4));
+    Heap_Free(h, *(void**)(p + 4));
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -268,7 +268,7 @@ extern "C" void func_001E9A00(char* p, int flags) {
         func_001EA118(*(void**)p, 3);
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -347,13 +347,13 @@ extern "C" void func_001EA118(void* v, int flags) {
         if (*(void**)(p + 4)) {
             func_001EA060(p);
             if (*(void**)(p + 4)) {
-                func_00119400(D_00368A38[0], *(void**)(p + 4));
+                Heap_Free(D_00368A38[0], *(void**)(p + 4));
             }
             *(void**)(p + 4) = 0;
         }
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -383,11 +383,11 @@ extern "C" void func_001EA210(void) {
 extern "C" void* func_001EA218(u32 type, int* a) {
     switch (type) {
     case 0xA6D2D890:
-        return func_001EA510((S1EA510*)func_00118F20(D_00368A38[0], 0x38, 1, 0), a);
+        return func_001EA510((S1EA510*)Heap_Alloc(D_00368A38[0], 0x38, 1, 0), a);
     case 0xF5012F52:
-        return func_001E8E48(func_00118F20(D_00368A38[0], 0x34, 1, 0), a);
+        return func_001E8E48(Heap_Alloc(D_00368A38[0], 0x34, 1, 0), a);
     case 0x1EEA667A: {
-        S1EA510* p = (S1EA510*)func_00118F20(D_00368A38[0], 0x30, 1, 0);
+        S1EA510* p = (S1EA510*)Heap_Alloc(D_00368A38[0], 0x30, 1, 0);
         func_001E82F0(p, a);
         p->unk2C = D_0034E100;
         return p;
@@ -400,13 +400,13 @@ extern "C" s32 func_001EA318(int type, void* v) {
     int* a = (int*)v;
     switch ((u32)type) {
     case 0xDFBF1A84:
-        return (s32)func_001E7B48(func_00118F20(D_00368A38[0], 0x2C, 1, 0), a);
+        return (s32)func_001E7B48(Heap_Alloc(D_00368A38[0], 0x2C, 1, 0), a);
     case 0x032314D1:
-        return (s32)func_001E95F0(func_00118F20(D_00368A38[0], 0x30, 1, 0), a);
+        return (s32)func_001E95F0(Heap_Alloc(D_00368A38[0], 0x30, 1, 0), a);
     case 0xB4BA8031:
-        return (s32)func_001E7998(func_00118F20(D_00368A38[0], 0x24, 1, 0), a);
+        return (s32)func_001E7998(Heap_Alloc(D_00368A38[0], 0x24, 1, 0), a);
     case 0xA6D2D890:
-        return (s32)func_001EA6F0((S1EA6F0*)func_00118F20(D_00368A38[0], 0x28, 1, 0), a);
+        return (s32)func_001EA6F0((S1EA6F0*)Heap_Alloc(D_00368A38[0], 0x28, 1, 0), a);
     }
     return 0;
 }
@@ -509,9 +509,9 @@ extern "C" void func_001EA798(char* p, int flags) {
     func_001E92B0(p + 0x10, 2);
     int h = D_00368A38[0];
     *(char**)(p + 0xC) = D_0034D6A8;
-    func_00119400(h, *(void**)(p + 4));
+    Heap_Free(h, *(void**)(p + 4));
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -526,7 +526,7 @@ extern "C" s32 func_001EA988() {
 GP_DATA(D_0036DFC0);
 extern "C" void func_001EA990() {
     if (!D_0036DFC0) {
-        D_0036DFC0 = (HTable*)func_001EAF90(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 4, 0);
+        D_0036DFC0 = (HTable*)func_001EAF90(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 4, 0);
     }
 }
 
@@ -565,7 +565,7 @@ extern "C" void func_001EB1C0() {
             while (n) {
                 S1EB1C0_N* c = n;
                 n = n->unkB8;
-                func_00119400(D_00368A38[0], c);
+                Heap_Free(D_00368A38[0], c);
             }
         }
         D_0036E010->unk4 = 0;
@@ -581,7 +581,7 @@ extern "C" void func_001EB218() {
             bool missing = !func_00222F90(*(int*)((char*)c + 4));
             if (missing) {
                 func_001EB378(c, 0);
-                func_00119400(D_00368A38[0], c);
+                Heap_Free(D_00368A38[0], c);
                 if (!prev) {
                     D_0036E010->unk4 = (s32)next;
                 } else {

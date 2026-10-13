@@ -18,7 +18,7 @@ void func_0017D580(void*, int);
 void func_00172A00_2(void*, int) __asm__("func_00172A00");
 extern u8 D_003410A8[];
 void func_00289F90(int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00340F78[];
 void func_00174058(void*);
@@ -136,7 +136,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175750);
 extern "C" void func_001757F0(void** self, int flags) {
     *self = D_00340F78;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

@@ -39,7 +39,7 @@ extern N1C* D_0036CBE0;
 extern s32 D_00369A64;
 extern u8 D_00372D58[] __attribute__((section(".sdata")));
 void func_001BFE40(N1C* p);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 extern u8 D_00349EA8[];
 extern u8 D_00349E68[];
@@ -69,7 +69,7 @@ extern "C" void func_001BF6A0(char* p, s32 flags) {
     *(void**)(p + 0x20) = D_00349EA8;
     func_001BFE40((N1C*)p);
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

@@ -32,7 +32,7 @@ int func_002764E8(u32, int);
 void func_0028DE68(void *, int, u32);
 int func_0027CC30(int, u32, int, void *);
 extern char D_003704B8[];
-void func_0030A970(char *, char *);
+void strcpy(char *, char *);
 void func_00113528(char *);
 void func_001135A0(char *);
 int func_0027D1F8(int, u32, int *, int);
@@ -214,7 +214,7 @@ extern "C" int CFunc_GetUpperCaseString(int params, S00259228 *script) {
     if (func_0027CC30(params, 0, 3, &v)) {
         s = D_003704B8;
         if (func_0027D188(params, 0, (int *)&s, 1)) {
-            func_0030A970(buf, s);
+            strcpy(buf, s);
             func_001135A0(buf);
             func_0027C028(script->unk20, 0xFE366B7B, (int)buf);
         }
@@ -229,7 +229,7 @@ extern "C" int CFunc_GetLowerCaseString(int params, S00259228 *script) {
     if (func_0027CC30(params, 0, 3, &v)) {
         s = D_003704B8;
         if (func_0027D188(params, 0, (int *)&s, 1)) {
-            func_0030A970(buf, s);
+            strcpy(buf, s);
             func_00113528(buf);
             func_0027C028(script->unk20, 0x81736D99, (int)buf);
         }

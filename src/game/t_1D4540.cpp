@@ -123,14 +123,14 @@ s32 func_001D51F8(S1D5000* p);
 void* func_001D5BA0(void* p, u32 key, void* q);
 s32 func_001D7710(void* p);
 void func_001D59E8(void* p, s32 v);
-void* func_00118F20(s32 heap, s32 size, s32 a, s32 b);
+void* Heap_Alloc(s32 heap, s32 size, s32 a, s32 b);
 void* func_001D58E0(void* p);
 extern u32 D_0036D414;
 extern void* D_0036D410;
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_0027AC90(void* p);
 void func_00113250(void* p);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern char D_0034BBF0[];
 extern S1D4BB0* D_0041A9B0[];
 S1D51F8* func_001D7EE8(void* p);
@@ -206,7 +206,7 @@ GP_DATA(D_0036D410);
 GP_DATA(D_0036D414);
 extern "C" void* func_001D4CF0(s32 create) {
     if (D_0036D410 == 0 && create != 0) {
-        D_0036D410 = func_001D58E0(func_00118F20(D_00368A38[0], 0xC, 1, 0));
+        D_0036D410 = func_001D58E0(Heap_Alloc(D_00368A38[0], 0xC, 1, 0));
     }
     D_0036D414++;
     return D_0036D410;
@@ -339,7 +339,7 @@ extern "C" void func_001D5870(void** p, int flags) {
         p[0] = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

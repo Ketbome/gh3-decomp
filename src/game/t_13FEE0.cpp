@@ -60,7 +60,7 @@ void func_0015EB30(int, float);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 int func_00119610(int, int);
 void func_00119490(int, int);
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void func_001194B8(int);
 int func_0011C130(void*, int, int, void*, int, int);
 extern u8 D_0033AFA8[];
@@ -125,7 +125,7 @@ extern "C" void func_00140930(void) {
     void* m;
     int heap = D_00368A38[0];
     func_00119490(heap, func_00119610(heap, 0x3A));
-    m = func_00118F20(D_00368A38[0], 0x70, 1, 0);
+    m = Heap_Alloc(D_00368A38[0], 0x70, 1, 0);
     D_003696B8 = func_0011C130(m, 0x250, 0x1F4, D_0033AFA8, 1, 0);
     func_001194B8(D_00368A38[0]);
 }

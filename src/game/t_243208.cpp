@@ -5,7 +5,7 @@ void func_00244930_1(void*) __asm__("func_00244930");
 extern u8 D_00397A40[];
 extern u8 D_00397A00[];
 void func_002432F8(int, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_0036FF08;
 int func_002443C0(void*, int, int, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -79,7 +79,7 @@ extern "C" void func_00243558(N243* p, int flags) {
     p->prev->next = p->next;
     p->prev = p;
     p->next = p;
-    if (flags & 1) func_00119400(D_00368A38[0], p);
+    if (flags & 1) Heap_Free(D_00368A38[0], p);
 }
 
 extern "C" void func_002435B8(void) {
@@ -102,7 +102,7 @@ extern "C" int D_00368A38[] __attribute__((section(".sdata")));
 
 extern "C" void func_002436F0(void* p, int f) {
     if (f & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

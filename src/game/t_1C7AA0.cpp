@@ -41,7 +41,7 @@ extern "C" {
 extern G10 D_00368740;
 void func_00113F38(void* p);
 extern char D_00342398[];
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 void func_001CD318(void);
 extern u8 D_0034A8D0[];
@@ -58,7 +58,7 @@ extern "C" void func_001C7AC8(char* p, s32 flags) {
     *(void**)(p + 0xC) = D_0034A8D0;
     func_001CD318();
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

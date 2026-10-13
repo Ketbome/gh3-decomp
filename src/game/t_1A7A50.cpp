@@ -13,7 +13,7 @@ extern void* D_0036C6B0;
 extern u32 D_0036C6B4;
 void* func_00113DF0(int, int, int);
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001A9128(int, int);
 int func_001A46E0(int);
 extern int D_0036C660;
@@ -109,7 +109,7 @@ extern "C" void func_001A9288(void) {
         return;
     }
     if (D_0036C6B0) {
-        func_00119400(D_00368A38, D_0036C6B0);
+        Heap_Free(D_00368A38, D_0036C6B0);
     }
     D_0036C6B0 = 0;
     D_0036C6B4 = 0;

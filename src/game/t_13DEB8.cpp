@@ -44,7 +44,7 @@ S13D_X* func_00138F20(S13D_X*);
 void func_001CEDE0(S13D_X*, u32);
 void func_001541A0(int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001CE868(S13D_X*, void*);
 void func_001CE888(S13D_X*, void*);
 int func_0013DA80(S13D_X*);
@@ -124,14 +124,14 @@ extern "C" void func_0013EB38(S13D_X* self, int keep) {
         for (i = 0; i < self->unk254; i++) {
             func_001541A0(self->unk250[i]);
         }
-        func_00119400(D_00368A38[0], self->unk250);
+        Heap_Free(D_00368A38[0], self->unk250);
         self->unk250 = 0;
     }
     if (!keep) {
         for (i = 0; i < self->unk254; i++) {
             func_001541A0(self->unk24C[i]);
         }
-        func_00119400(D_00368A38[0], self->unk24C);
+        Heap_Free(D_00368A38[0], self->unk24C);
         self->unk254 = 0;
     }
 }

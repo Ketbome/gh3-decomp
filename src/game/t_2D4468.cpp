@@ -21,7 +21,7 @@ struct S27E358 {
 extern "C" {
 void func_0011C408(int, void *);
 extern int D_00368A38;
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 void func_002D5A90_v(void) asm("func_002D5A90");
 void func_002D5A90(S27E358 *);
 }
@@ -96,13 +96,13 @@ extern "C" void func_002D5B48(S002D5B48 *p, int b) {
         if (p->unk4) {
             func_002D5A90_v();
             if (p->unk4) {
-                func_00119400(D_00368A38, p->unk4);
+                Heap_Free(D_00368A38, p->unk4);
             }
             p->unk4 = 0;
         }
     }
     if (b & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

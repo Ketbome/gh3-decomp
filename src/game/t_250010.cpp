@@ -132,13 +132,13 @@ void func_00123EB8(char *, int);
 bool func_0027DF00(int, u32);
 void func_0027AE70(void *, u32);
 void func_00251F68(int);
-u32 func_0030AA88(char *);
+u32 strlen(char *);
 char *func_0027D828(int, u32);
 extern char D_00355E70[];
 extern char D_00355E78[];
-void func_0030A49C(void *, int, int);
+void memset(void *, int, int);
 char *func_0030A684(char *, int);
-void func_0030A970(char *, char *);
+void strcpy(char *, char *);
 void func_00275080(char *);
 void func_0015DCB0(f32);
 void func_0015DCD0(f32);
@@ -239,14 +239,14 @@ extern "C" int CFunc_PlayMovie(int params) {
     char *name = func_0027D828(params, 0xE2A10D90);
     char buf[32];
     buf[0] = D_00355E70[0];
-    func_0030A49C(buf + 1, 0, 31);
+    memset(buf + 1, 0, 31);
     if (!name) {
         return 0;
     }
-    if (func_0030AA88(name) > 8) {
+    if (strlen(name) > 8) {
         char *u = func_0030A684(name, '_');
         if (u) {
-            func_0030A970(name - (func_0030AA88(u) - 8), u);
+            strcpy(name - (strlen(u) - 8), u);
         } else {
             name[8] = 0;
         }
@@ -282,7 +282,7 @@ extern "C" int CFunc_IsMoviePlaying(void) {
 
 extern "C" char *func_002509A0(char *path) {
     int i;
-    for (i = func_0030AA88(path); i > 0; i--) {
+    for (i = strlen(path); i > 0; i--) {
         if (path[i - 1] == '\\' || path[i - 1] == '/') {
             break;
         }

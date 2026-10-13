@@ -43,12 +43,12 @@ void func_0022C0D8(void*, int);
 extern u8 D_00352CC8[];
 extern u8 D_00393AD8[];
 extern void* D_00368A38;
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 void func_0022B5D0(void*);
 void func_0022B918(void*);
 void func_0011E050(int, void*);
 void func_0011C408(int, void*);
-int func_0030AA88(char*);
+int strlen(char*);
 int func_0030E650(char*, char*);
 }
 
@@ -234,11 +234,11 @@ extern "C" void func_0022B688(char* p, int flags) {
     if (!((u8*)p)[0x16]) {
         if (*(void**)(p + 4)) {
             func_0022B5D0(p);
-            if (*(void**)(p + 4)) func_00119400(D_00368A38, *(void**)(p + 4));
+            if (*(void**)(p + 4)) Heap_Free(D_00368A38, *(void**)(p + 4));
             *(void**)(p + 4) = 0;
         }
     }
-    if (flags & 1) func_00119400(D_00368A38, p);
+    if (flags & 1) Heap_Free(D_00368A38, p);
 }
 
 extern "C" void func_0022B700(S229* self) {
@@ -284,11 +284,11 @@ extern "C" void func_0022B9D0(char* p, int flags) {
     if (!((u8*)p)[0x16]) {
         if (*(void**)(p + 4)) {
             func_0022B918(p);
-            if (*(void**)(p + 4)) func_00119400(D_00368A38, *(void**)(p + 4));
+            if (*(void**)(p + 4)) Heap_Free(D_00368A38, *(void**)(p + 4));
             *(void**)(p + 4) = 0;
         }
     }
-    if (flags & 1) func_00119400(D_00368A38, p);
+    if (flags & 1) Heap_Free(D_00368A38, p);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022BA48);

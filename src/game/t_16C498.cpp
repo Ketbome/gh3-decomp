@@ -69,7 +69,7 @@ int func_001D0578(void*);
 extern int D_00369A50[] __attribute__((section(".sdata")));
 void func_0016CF48(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void* func_00118F20(int, int, int, int);
+void* Heap_Alloc(int, int, int, int);
 void* func_0016DDD8(void*, int, int);
 void* func_0016E490(void*, int, int);
 extern void* D_0036A6F4;
@@ -92,7 +92,7 @@ void func_0016DDA0(Z_0016D0F8*);
 void func_0016E458(Z_0016D0F8*);
 void func_0016D318(int, int);
 void func_0016D3E8(int, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_0036A6F0;
 extern P_16C* D_0036A6E0[2];
 void func_0011C2E8(P_16C*, void*);
@@ -318,7 +318,7 @@ extern "C" void func_0016D448(void) {
 
 GP_DATA(D_0036A6F4);
 extern "C" void func_0016D468(void) {
-    if (!D_0036A6F4) D_0036A6F4 = func_0016DDD8(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 4, 0);
+    if (!D_0036A6F4) D_0036A6F4 = func_0016DDD8(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 4, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016D4B0);
@@ -349,13 +349,13 @@ extern "C" void func_0016E070(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_0036A6E0[D_0036A6F0 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
 GP_DATA(D_0036A740);
 extern "C" void func_0016E120(void) {
-    if (!D_0036A740) D_0036A740 = func_0016E490(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 4, 0);
+    if (!D_0036A740) D_0036A740 = func_0016E490(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 4, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016E168);

@@ -25,7 +25,7 @@ void func_0027ACF8(int, u32);
 void func_0027C898(int, u32, int);
 void func_0027C678(int, u32, int);
 int func_00289E08(void *);
-void func_00119400(int, void *);
+void Heap_Free(int, void *);
 extern int D_00368748;
 extern int D_00368A38;
 extern int D_00372E78;
@@ -192,7 +192,7 @@ extern "C" void func_00264F90(void) {
     while (p != &D_0039ACF0.head) {
         S2647_Node *n = p->unk4;
         func_00266428(p + 2, 2);
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
         p = n;
     }
 }
@@ -214,7 +214,7 @@ extern "C" void func_00265680(void) {
     while (p != &D_0039ACF0.head) {
         S2647_Node *n = p->unk4;
         func_00266428(p + 2, 2);
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
         p = n;
     }
 }

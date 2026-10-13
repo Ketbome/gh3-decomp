@@ -53,7 +53,7 @@ extern u8 D_0034A8D0[];
 extern S0036CDB4* D_0036CDB4;
 extern u32 D_0036CDB8;
 void func_00113FB8(s32 a);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_0034A6A0[];
 extern u8 D_0034A968[];
@@ -125,7 +125,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C5C10);
 extern "C" void func_001C5C78(char* p, s32 flags) {
     *(void**)(p + 8) = D_0034A6A0;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -267,7 +267,7 @@ extern "C" void func_001C79E0(N1C79* n, s32 flags) {
     n->unkC = n;
     n->unk10 = n;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], n);
+        Heap_Free(D_00368A38[0], n);
     }
 }
 
@@ -278,6 +278,6 @@ extern "C" void func_001C7A40(N1C79* n, s32 flags) {
     n->unkC = n;
     n->unk10 = n;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], n);
+        Heap_Free(D_00368A38[0], n);
     }
 }

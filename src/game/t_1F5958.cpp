@@ -78,7 +78,7 @@ extern char D_0034F440[];
 void func_001316B8(void*, int);
 void func_0017B528(void*, s32);
 void func_0013D1B8(void*, int);
-void func_00119400(s32, void*);
+void Heap_Free(s32, void*);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 bool func_0027D870(void*, u32, s32*, int);
 s32 func_0027D1F8(void*, u32, s32*, int);
@@ -86,7 +86,7 @@ void func_00131FC0(void*, s32, bool);
 extern s32 D_0036F658;
 void func_0022B0D0(void*, s32, s32, int);
 void func_001342E8(S1F5F08_T*, s32);
-void* func_00118F20(s32, s32, s32, s32);
+void* Heap_Alloc(s32, s32, s32, s32);
 void* func_00131118(void*, S1F5F08_T*);
 void func_00134340(void*);
 void func_00131728(void*, S1F5F08_T*);
@@ -123,13 +123,13 @@ extern "C" void func_001F5D28(char* p, int flags) {
     func_0013D1B8(p + 0x144, 2);
     char* v = p + 0x14;
     if (*(void**)(v + 4)) {
-        func_00119400(D_00368A38[0], *(void**)(v + 4));
+        Heap_Free(D_00368A38[0], *(void**)(v + 4));
         *(s32*)(v + 0x4) = 0;
         *(s32*)(v + 0x8) = 0;
         *(s32*)(v + 0xC) = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -169,7 +169,7 @@ extern "C" void func_001F5F08(char* p, s32 a) {
     s32 buf[4];
     func_0022B0D0(buf, D_0036F658, a, 1);
     T1F5F08 t(buf[0]);
-    *(void**)(p + 0x1C) = func_00131118(func_00118F20(D_00368A38[0], 0x234, 1, 0), &t);
+    *(void**)(p + 0x1C) = func_00131118(Heap_Alloc(D_00368A38[0], 0x234, 1, 0), &t);
     func_00134340(buf);
 }
 

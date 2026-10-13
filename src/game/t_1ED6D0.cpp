@@ -101,7 +101,7 @@ struct S1EE428_O {
 extern "C" {
 extern char D_0034EA28[];
 extern char D_0038EE40[];
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void func_00161CC8(void*);
 void func_001F1E10(void*);
 TI128 func_001620D8(void*);
@@ -139,7 +139,7 @@ s32 func_00119730(s32, u32, int);
 void func_00119490(s32, s32);
 s32 func_0012D208(void*);
 void* HashTable_GetItem(void*);
-void* func_00118F20(s32, s32, s32, s32);
+void* Heap_Alloc(s32, s32, s32, s32);
 void* func_0014B1F8(void*, int);
 void func_0014B260(void*, void*);
 void func_0014B410(void*, s32);
@@ -197,7 +197,7 @@ extern "C" void func_001ED960(S1EE6F8* p, void* a, s32* b) {
 }
 
 extern "C" void func_001ED9F8() {
-    func_001EDA50(func_00113D20(0x300));
+    func_001EDA50(operator_new(0x300));
 }
 
 extern "C" void func_001EDA20() {
@@ -282,7 +282,7 @@ extern "C" void func_001EEC68(S1EE6F8* p) {
     s32 r = func_0012D208(q);
     void* o = HashTable_GetItem(*(void**)(q + 0x220));
     if (!o) {
-        o = func_0014B1F8(func_00118F20(D_00368A38[0], 0xC, 1, 0), 0);
+        o = func_0014B1F8(Heap_Alloc(D_00368A38[0], 0xC, 1, 0), 0);
         func_0014B260(o, *(void**)(q + 0x220));
         func_0014B410(o, r);
     }

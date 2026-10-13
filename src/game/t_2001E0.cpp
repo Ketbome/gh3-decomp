@@ -119,7 +119,7 @@ struct S200 {
 
 extern "C" {
 void func_002001E8(int, int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_00200380(void* self);
 void func_00276D48(u32 key, void* data, int size);
 extern u8 D_0038F928[];
@@ -166,7 +166,7 @@ S200* func_002042A0(S200*, float);
 void func_0027C448(int, u32, int);
 extern u8 D_0034FDF0[];
 extern void* D_00368A38;
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 void func_001DD118(void*, int);
 void func_001D0F90(void*, int);
 void func_001D0F68(void*);
@@ -185,7 +185,7 @@ void func_00203C58(S200*, int, int);
 int func_0027D400(int, u32, int*, int);
 void func_001D03D8(S200b*, int, int, int, int);
 void func_001D03B8(S200b*, int, int);
-void* func_00118F20(void*, int, int, int);
+void* Heap_Alloc(void*, int, int, int);
 void* func_0010F748(void*);
 void func_0010F750(void*, void*, M200*);
 int func_0027D2D8(int, u32, void*, int);
@@ -212,7 +212,7 @@ extern "C" void func_00200308(void) {
 }
 
 extern "C" void* func_00200328(void) {
-    return func_00200380(func_00113D20(0x2B0));
+    return func_00200380(operator_new(0x2B0));
 }
 
 extern "C" void func_00200350(void) {
@@ -228,7 +228,7 @@ extern "C" void func_00200428(S200* p, int flags) {
         p->unk228 = 0;
     }
     if (p->unk20C) {
-        func_00119400(D_00368A38, p->unk20C);
+        Heap_Free(D_00368A38, p->unk20C);
         p->unk20C = 0;
     }
     if (p->unk22C) {
@@ -642,7 +642,7 @@ extern "C" int func_00201980(S200* p, u32 key, int a, S200* q) {
 }
 
 extern "C" void func_002019E8(S200* p, int a) {
-    if (!p->unk228) p->unk228 = func_001DD8D8(func_00113D20(0x110), a);
+    if (!p->unk228) p->unk228 = func_001DD8D8(operator_new(0x110), a);
 }
 
 extern "C" S200b* func_00201A38(S200* self) {

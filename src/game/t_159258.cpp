@@ -10,7 +10,7 @@ struct VE_00159768 { s16 unk0; s16 unk2; int (*unk4)(void*, int, int); };
 struct S_00159768 { char pad0[0x8]; VE_00159768* unk8; };
 
 extern "C" {
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 int func_0015B590(int, u32, int);
 extern int D_00368A38;
 void func_0011A558(int, int, int);

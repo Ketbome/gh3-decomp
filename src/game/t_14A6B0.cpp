@@ -22,8 +22,8 @@ S5_14A* HashTable_GetItem(u32);
 void HashTable_FlushItem(void*, int*);
 extern u8 D_00377FC0[];
 int func_0011EF10(void);
-void* func_00118F20(int, int, int, int);
-void func_0030A49C(void*, int, int);
+void* Heap_Alloc(int, int, int, int);
+void memset(void*, int, int);
 S9_14A* func_0015D2E8(int, int);
 void func_00123040(void*);
 void func_001CE888(void*, void*);
@@ -34,7 +34,7 @@ void func_00140A60(void*, int);
 void func_0014AE10_p(void*) __asm__("func_0014AE10");
 extern int D_00372B40;
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern u8 D_0033BAD8[];
 extern u8 D_0033BB00[];
 extern u8 D_0033BA38[];
@@ -90,7 +90,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014A7A8);
 
 extern "C" void func_0014A910(void* self, int flags) {
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -184,8 +184,8 @@ extern "C" S7_14A* func_0014B1F8(S7_14A* self, int n) {
     self->unk0 = 0;
     self->unk8 = 0;
     if (n) {
-        self->unk0 = func_00118F20(D_00368A38, n * 4, 1, 0);
-        func_0030A49C(self->unk0, 0, self->unk4 * 4);
+        self->unk0 = Heap_Alloc(D_00368A38, n * 4, 1, 0);
+        memset(self->unk0, 0, self->unk4 * 4);
     }
     return self;
 }
@@ -202,12 +202,12 @@ extern "C" void func_0014B368(void* p) {
     }
     for (u32 i = 0; i < (u32)self->unk4; i++) {
         if (((void**)self->unk0)[i]) {
-            func_00119400(D_00368A38, ((void**)self->unk0)[i]);
+            Heap_Free(D_00368A38, ((void**)self->unk0)[i]);
             ((void**)self->unk0)[i] = 0;
         }
     }
     if (self->unk0) {
-        func_00119400(D_00368A38, self->unk0);
+        Heap_Free(D_00368A38, self->unk0);
     }
     self->unk0 = 0;
 }
@@ -219,7 +219,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014BCB8);
 extern "C" void func_0014C348(void* self, int flags) {
     func_0014B368(self);
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

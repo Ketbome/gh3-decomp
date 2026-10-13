@@ -42,7 +42,7 @@ extern "C" {
 void func_00222470(int, int);
 void func_00222F10(int, int);
 extern u8 D_00390830[];
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void func_002230D8(void*, int);
 void* func_00224220(void*, int);
 int func_00223420(void*);
@@ -61,11 +61,11 @@ S222* func_00222DE0(S222*);
 void func_002230B8(S221*, int);
 void* func_00223488(void*, void*);
 void func_00223520(void*, void*);
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 extern void* D_00368A38;
 void func_001D03D8(int, int, int, int, int);
-int func_0030AA88(char*);
-int func_0030A970(char*, char*);
+int strlen(char*);
+int strcpy(char*, char*);
 void func_00223360(int, int, int);
 u32 CrcFromPathLowercase(const char*);
 int func_001D1CF8(void*, u32);
@@ -196,12 +196,12 @@ extern "C" void func_002226F8(void* self) {
         if (p[4]) {
             do {
                 void* e = ((void**)p[5])[i];
-                if (e) func_00119400(D_00368A38, e);
+                if (e) Heap_Free(D_00368A38, e);
                 i++;
             } while (i < (u32)p[4]);
         }
-        if (p[5]) func_00119400(D_00368A38, (void*)p[5]);
-        if (p[6]) func_00119400(D_00368A38, (void*)p[6]);
+        if (p[5]) Heap_Free(D_00368A38, (void*)p[5]);
+        if (p[6]) Heap_Free(D_00368A38, (void*)p[6]);
         if (p[0x67]) func_002227F0((char*)p[0x67], 3);
         p[0] = 0;
     }
@@ -218,10 +218,10 @@ extern "C" f32 func_002227B8(S222* self) {
 
 extern "C" void func_002227F0(char* p, int flags) {
     if (*(void**)(p + 8)) {
-        func_00119400(D_00368A38, *(void**)(p + 8));
+        Heap_Free(D_00368A38, *(void**)(p + 8));
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -262,7 +262,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222B68);
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222D88);
 
 extern "C" S222* func_00222DB0(void) {
-    return func_00222DE0((S222*)func_00113D20(0x1C));
+    return func_00222DE0((S222*)operator_new(0x1C));
 }
 
 extern "C" void func_00222DD8(void) {
@@ -359,9 +359,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223360);
 
 extern "C" void func_00223388(char* path, int a, int b) {
     char buf[0x70];
-    int n = func_0030AA88(path);
+    int n = strlen(path);
     if (n && path[n - 1] == '_') {
-        func_0030A970(buf, path);
+        strcpy(buf, path);
         buf[n - 1] = 0;
         path = buf;
     }

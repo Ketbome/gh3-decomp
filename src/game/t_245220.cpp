@@ -7,7 +7,7 @@ void func_001342B0(void*);
 extern u8 D_00397A50[];
 extern u8 D_00354B58[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_0011A470(int);
 void func_002454D0(void*, int, int);
 }
@@ -85,7 +85,7 @@ extern "C" void func_00246CF8(char* p, int f) {
         func_0011A470(t);
     }
     if (f & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

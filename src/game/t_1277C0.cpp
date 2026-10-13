@@ -60,7 +60,7 @@ struct SA127_VO { char pad0[0x8]; VE_001284B0* unk8; };
 
 extern "C" {
 void func_0011A230(int, int, int, void*, int);
-void* func_00113D20(u32);
+void* operator_new(u32);
 int func_00129148(void*);
 void func_00129F70(int, int, int);
 extern u8 D_00339900[];
@@ -81,10 +81,10 @@ extern u8 D_00339850[];
 extern u8 D_003397D8[];
 extern u8 D_003397B0[];
 int func_00125740(void*, int, int, int, int, int);
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_001291E0(int, int);
 void func_0011A300(int, u32, int);
-void func_0030A49C(void*, int, int);
+void memset(void*, int, int);
 int func_00128F48(void*);
 extern int D_003690EC;
 extern u8 D_003398C8[];
@@ -194,7 +194,7 @@ extern "C" void func_001280E0(S1280E0* self, int flags) {
     }
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -265,7 +265,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001287F0);
 extern "C" void func_001288B0(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -278,35 +278,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001288F8);
 extern "C" void func_00128940(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
 extern "C" void func_00128980(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
 extern "C" void func_001289C0(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
 extern "C" void func_00128A00(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
 extern "C" void func_00128A40(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 
@@ -322,8 +322,8 @@ extern "C" void func_00128A90(void* self, int flags) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128AB8);
 
 extern "C" void func_00128AC0(SA127_Z* self) {
-    func_0030A49C((char*)self + 4, 0, 0x200);
-    func_0030A49C((char*)self + 0x204, 0, 0x200);
+    memset((char*)self + 4, 0, 0x200);
+    memset((char*)self + 0x204, 0, 0x200);
     self->unk404 = 0;
 }
 
@@ -387,7 +387,7 @@ GP_DATA(D_003690EC);
 extern "C" void func_001292D0(int a, int b, int c) {
     if (D_003690EC == 0) {
         func_0011A230(D_00368A38[0], 0x8F21A798, a, D_00339900, 0);
-        int t = func_00129148(func_00113D20(0x1B8));
+        int t = func_00129148(operator_new(0x1B8));
         D_003690EC = t;
         func_00129F70(t, b, c);
     }

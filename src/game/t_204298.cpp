@@ -65,7 +65,7 @@ extern "C" {
 void func_001D1068(S204*, int);
 void func_00113F38(void*);
 void func_002060A0(int, int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_00205748(void*);
 void func_001D0F90(void*, int);
 extern u8 D_0034FFA0[];
@@ -141,12 +141,12 @@ extern "C" void func_00205680(u128_204* p) {
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_002056B0);
 
 extern "C" void* func_002056D8(void) {
-    return func_00205748(func_00113D20(0x54));
+    return func_00205748(operator_new(0x54));
 }
 
 extern "C" void func_00205700(void) {
     func_00276D68(0xCE0CA665, D_0038FC38, 0x10);
-    D_0036E99C = func_00205F00(func_00113D20(8));
+    D_0036E99C = func_00205F00(operator_new(8));
 }
 
 extern "C" void* func_00205748(void* self) {
@@ -249,7 +249,7 @@ static inline void InitTask204(S204_O* o, void* fn, void* data, int pri) {
 
 extern "C" void* func_00205F00(void* self) {
     S204* p = (S204*)self;
-    S204_O* o = (S204_O*)func_00113D20(0x24);
+    S204_O* o = (S204_O*)operator_new(0x24);
     InitTask204(o, (void*)func_00205F98, p, -0x44C);
     p->unk4 = o;
     C204 c(0xFF, 0, 0, 0xFF);

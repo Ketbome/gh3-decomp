@@ -92,17 +92,17 @@ struct S296CB8 {
 extern "C" {
 int func_00296B28(u8 *, u16 *, int, int);
 void func_0030A2F4(int, int, int);
-void func_00297CF0(void *);
-int func_0030A49C(void *, int, int);
+void operator_delete(void *);
+int memset(void *, int, int);
 extern char D_0035C330[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern char D_0035C4D0[];
 extern char D_0035C2E8[];
 extern char D_0035C2B0[];
 extern char D_0035C390[];
 extern char D_0035C378[];
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 extern char D_0035C298[];
 extern char D_0035C348[];
 extern char D_0035C360[];
@@ -149,11 +149,11 @@ struct S296A90 {
 extern "C" void func_00296A90(S296A90 *p, int b) {
     if (p->unk2C != 0) {
         if (p->unk40 == 0) {
-            func_00119400(D_00368A38[0], p->unk2C);
+            Heap_Free(D_00368A38[0], p->unk2C);
         }
     }
     if (b & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -188,10 +188,10 @@ extern "C" S296CB8 *func_00296CB8(S296CB8 *p, u8 a, u16 len, int src, s8 mode) {
                 src = x;
             }
         }
-        p->unk4 = func_00118F20(D_00368A38[0], sl, 1, 0);
+        p->unk4 = Heap_Alloc(D_00368A38[0], sl, 1, 0);
         func_0030A2F4(p->unk4, src, sl);
         if (x) {
-            func_00119400(D_00368A38[0], (void *)x);
+            Heap_Free(D_00368A38[0], (void *)x);
         }
     }
     p->unk0 = sa;
@@ -205,10 +205,10 @@ struct Sfunc_00296D88 {
 };
 extern "C" void func_00296D88(Sfunc_00296D88 *p, int b) {
     if (p->unk4 != 0) {
-        func_00119400(D_00368A38[0], p->unk4);
+        Heap_Free(D_00368A38[0], p->unk4);
     }
     if (b & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -235,10 +235,10 @@ extern "C" S296DE0 *func_00296DE0(S296DE0 *p, u8 a, u16 len, int src, u8 c, s8 m
                 src = x;
             }
         }
-        p->unk4 = func_00118F20(D_00368A38[0], sl, 1, 0);
+        p->unk4 = Heap_Alloc(D_00368A38[0], sl, 1, 0);
         func_0030A2F4(p->unk4, src, sl);
         if (x) {
-            func_00119400(D_00368A38[0], (void *)x);
+            Heap_Free(D_00368A38[0], (void *)x);
         }
     }
     p->unk8 = c;
@@ -253,10 +253,10 @@ struct Sfunc_00296EC0 {
 };
 extern "C" void func_00296EC0(Sfunc_00296EC0 *p, int b) {
     if (p->unk4 != 0) {
-        func_00119400(D_00368A38[0], p->unk4);
+        Heap_Free(D_00368A38[0], p->unk4);
     }
     if (b & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -283,7 +283,7 @@ extern "C" S296F18 *func_00296F18(S296F18 *p) {
     p->unk1C = 0;
     p->unk220 = 0;
     p->unk224 = 0;
-    func_0030A49C(p->unk20, 0, 0x200);
+    memset(p->unk20, 0, 0x200);
     return p;
 }
 
@@ -294,7 +294,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002972F8);
 extern "C" void func_002973C0(S296A10_C *p, int flags) {
     p->unk18 = D_0035C2B0;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -319,7 +319,7 @@ extern "C" void func_00297470(int a, S297470 *p) {
             func_00297470(a, (S297470 *)p->unkC);
             next = p->unk8;
             if (p != 0) {
-                func_00297CF0(p);
+                operator_delete(p);
             }
             p = next;
         } while (p != 0);
@@ -410,11 +410,11 @@ extern "C" S296A10_N *RbTreeIncrement(S296A10_N *x) {
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297A48);
 
 extern "C" int func_00297CC0(int a) {
-    return func_00118F20(D_00368A38[0], a, 1, 0);
+    return Heap_Alloc(D_00368A38[0], a, 1, 0);
 }
 
-extern "C" void func_00297CF0(void* p) {
-    func_00119400(D_00368A38[0], p);
+extern "C" void operator_delete(void* p) {
+    Heap_Free(D_00368A38[0], p);
 }
 
 extern "C" void func_00297D18(S296A10_L *p, int flags) {
@@ -424,7 +424,7 @@ extern "C" void func_00297D18(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -435,7 +435,7 @@ extern "C" void func_00297D78(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -446,7 +446,7 @@ extern "C" void func_00297DD8(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -457,7 +457,7 @@ extern "C" void func_00297E38(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -475,10 +475,10 @@ extern "C" void func_00297E98(S297E98 *p, int b) {
         p->unk8 = 0;
     }
     if (p->unk4) {
-        func_00297CF0(p->unk4);
+        operator_delete(p->unk4);
     }
     if (b & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -497,7 +497,7 @@ extern "C" void func_00297F30(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -508,7 +508,7 @@ extern "C" void func_00297F90(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -519,7 +519,7 @@ extern "C" void func_00297FF0(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -530,7 +530,7 @@ extern "C" void func_00298050(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -541,7 +541,7 @@ extern "C" void func_002980B0(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 
@@ -552,7 +552,7 @@ extern "C" void func_00298110(S296A10_L *p, int flags) {
     p->unkC = p;
     p->unk10 = p;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], p);
+        Heap_Free(D_00368A38[0], p);
     }
 }
 

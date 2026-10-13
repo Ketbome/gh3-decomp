@@ -24,7 +24,7 @@ void func_0014FF20(void*, int);
 void func_00152C58(int, int);
 int func_00152C50(int);
 char* func_0030E720(int, void*);
-void func_0030A970(int, int);
+void strcpy(int, int);
 extern u8 D_00369A88[];
 extern u8 D_00369A90[];
 void func_0014F910(int, int);
@@ -46,7 +46,7 @@ extern S14E_L D_003781F8;
 int func_0015D6F0(void*);
 int func_00182468(void*, float);
 extern int D_00368A38[] __attribute__((section(".sdata")));
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 extern int D_00369A70;
 void func_001827D0(int);
 void func_0011A558(int, int, int);
@@ -183,7 +183,7 @@ extern "C" void func_0014EBC8(void) {
 }
 
 extern "C" int func_0014EBE8(int a, int b) {
-    func_0030A970(b, a);
+    strcpy(b, a);
     char* p = func_0030E720(b, D_00369A88);
     int r = p != 0;
     if (r) *p = 0;
@@ -357,7 +357,7 @@ extern "C" void func_0014F978(S14E_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38[0], self);
+        Heap_Free(D_00368A38[0], self);
     }
 }
 

@@ -61,7 +61,7 @@ S2562_Comp *func_0027B300(int, S2562_Comp *);
 bool func_0027D470(int, u32, void *, int);
 S2562_Arr *func_002764E8(u32, int);
 S2562_Arr *func_00256848(int, S2562_Script *, int);
-int func_0030AA88(char *);
+int strlen(char *);
 extern char D_003704B8[];
 int func_00249960(u32);
 int func_00249F20(int *, int, u32);
@@ -291,7 +291,7 @@ extern "C" int CFunc_StringToInteger(int params, S2562_Script *script) {
         return 0;
     }
     int v = 0;
-    int len = func_0030AA88(str);
+    int len = strlen(str);
     char *p = str;
     for (int i = 0; i < len; i++) {
         v = v * 10 + *p - '0';

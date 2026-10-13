@@ -7,7 +7,7 @@ void func_00144FC0(int, int, int, int, int);
 int func_00119610(int, int);
 void func_001194B8(int);
 void func_00119490(int, int);
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 extern int D_003720E8;
 extern int D_003720E4;
 extern int D_00368A38;
@@ -29,7 +29,7 @@ extern "C" int CFunc_TextOutputStart(void) {
         int h = D_00368A38;
         func_00119490(h, func_00119610(h, 0x3B));
     }
-    int m = func_00118F20(D_00368A38, 0x200000, 1, 0);
+    int m = Heap_Alloc(D_00368A38, 0x200000, 1, 0);
     D_003720E4 = m;
     D_003720E8 = m;
     if (D_00368744 != 0) {

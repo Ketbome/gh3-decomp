@@ -38,7 +38,7 @@ void func_0027AC90(void*);
 extern int D_00372E28;
 void func_00220110(void*);
 void func_00289CF8(int);
-void* func_00113D20(u32 size);
+void* operator_new(u32 size);
 void* func_0021DDB8(void*);
 void* func_0021DFB0(void*);
 void func_001D0F90(void*, int);
@@ -61,7 +61,7 @@ void* func_001D0F68(void*);
 extern u8 D_00351D28[];
 int func_001D1CF8(void*, u32);
 void func_002207F0(void*);
-void func_00119400(void*, void*);
+void Heap_Free(void*, void*);
 extern void* D_00368A38;
 int func_0027D400(int, u32, void*, int);
 int func_0027D268(int, u32, void*, int);
@@ -136,7 +136,7 @@ extern "C" void func_0021DD70(void) {
 }
 
 extern "C" void* func_0021DD90(void) {
-    return func_0021DDB8(func_00113D20(0x1C));
+    return func_0021DDB8(operator_new(0x1C));
 }
 
 extern "C" void* func_0021DDB8(void* self) {
@@ -190,7 +190,7 @@ extern "C" void func_0021DF38(void) {
 }
 
 extern "C" void* func_0021DF58(void) {
-    return func_0021DFB0(func_00113D20(0x70));
+    return func_0021DFB0(operator_new(0x70));
 }
 
 extern "C" void func_0021DF80(void) {

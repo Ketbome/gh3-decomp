@@ -31,8 +31,8 @@ struct SA114_A {
 };
 
 extern "C" {
-int func_0030AA88(char*);
-char* func_0030A970(char*, char*);
+int strlen(char*);
+char* strcpy(char*, char*);
 int func_0030E650(char*, char*);
 void func_00113FB8(void*);
 extern u8 D_00337FE8[];
@@ -46,7 +46,7 @@ u32 CrcFromPathLowercase(const char*);
 void func_001165C0(void);
 void func_001162B8(void);
 void func_00116178(int, int);
-void func_00119400(int, int);
+void Heap_Free(int, int);
 extern int D_00368A38;
 struct H_00116410 { char pad0[0x1E0]; int unk1E0; };
 extern H_00116410* D_00368A38_p __asm__("D_00368A38");
@@ -55,7 +55,7 @@ void func_00119490(void*, int);
 void func_001194B8(int);
 void func_0011A558(u32, int, int);
 void func_0011A568(void);
-void* func_00113D20(u32);
+void* operator_new(u32);
 void* func_00113EA8(void*, int);
 void func_00114958(char*, void*);
 extern u8 D_00337FC8[];
@@ -99,10 +99,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001150D8);
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115170);
 
 extern "C" void func_001153C8(void) {
-    if (D_00372AAC) func_00119400(D_00368A38, D_00372AAC);
-    if (D_00372AA8) func_00119400(D_00368A38, D_00372AA8);
-    if (D_00372AA4) func_00119400(D_00368A38, D_00372AA4);
-    if (D_00372AA0) func_00119400(D_00368A38, D_00372AA0);
+    if (D_00372AAC) Heap_Free(D_00368A38, D_00372AAC);
+    if (D_00372AA8) Heap_Free(D_00368A38, D_00372AA8);
+    if (D_00372AA4) Heap_Free(D_00368A38, D_00372AA4);
+    if (D_00372AA0) Heap_Free(D_00368A38, D_00372AA0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115438);
@@ -185,7 +185,7 @@ extern "C" S_00116410* func_00116410(S_00116410* self) {
     self->unk4 = 0;
     func_00119490(D_00368A38_p, D_00368A38_p->unk1E0);
     func_0011A558(0xFC26B5B9, 0, 0);
-    N_00116410* o = (N_00116410*)func_00113D20(0x24);
+    N_00116410* o = (N_00116410*)operator_new(0x24);
     void* fn = (void*)func_00116590;
     func_00113EA8(o, 0);
     o->unk1C = fn;
@@ -220,7 +220,7 @@ extern "C" void func_001164F8(S_1164F8* self, int flags) {
         self->unk0 = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, (int)self);
+        Heap_Free(D_00368A38, (int)self);
     }
 }
 
@@ -276,10 +276,10 @@ extern "C" int func_001167E0(char* a, char* b) {
     int la, lb;
     char buf[0x70];
     if (!a || !b) return 0;
-    la = func_0030AA88(a);
-    lb = func_0030AA88(b);
+    la = strlen(a);
+    lb = strlen(b);
     if (la < lb) return 0;
-    func_0030A970(buf, a);
+    strcpy(buf, a);
     buf[lb] = 0;
     return func_0030E650(buf, b) == 0;
 }

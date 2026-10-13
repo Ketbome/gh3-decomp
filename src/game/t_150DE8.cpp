@@ -40,15 +40,15 @@ struct S150_C {
 struct S150_D { char pad0[0x18]; VE_150* unk18; };
 struct S150_E { char pad0[0x10]; S150_D* unk10; };
 
-extern "C" void func_00119400(int, void*);
+extern "C" void Heap_Free(int, void*);
 extern "C" int D_00368A38;
 
 inline void operator delete[](void* p) {
-    func_00119400(D_00368A38, p);
+    Heap_Free(D_00368A38, p);
 }
 
 inline void operator delete(void* p) {
-    func_00119400(D_00368A38, p);
+    Heap_Free(D_00368A38, p);
 }
 
 struct S150_VB { char pad0[0xC]; virtual ~S150_VB(); };
@@ -224,12 +224,12 @@ extern "C" void func_00152908(HT_150* self, int flags) {
     if (!self->unk16 && self->items) {
         func_00152850(self);
         if (self->items) {
-            func_00119400(D_00368A38, self->items);
+            Heap_Free(D_00368A38, self->items);
         }
         self->items = 0;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 TEXT_PAD(20);
@@ -241,7 +241,7 @@ extern "C" void func_00152990(S150_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -252,7 +252,7 @@ extern "C" void func_001529F0(S150_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -263,7 +263,7 @@ extern "C" void func_00152A50(S150_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -274,7 +274,7 @@ extern "C" void func_00152AB0(S150_L* self, int flags) {
     self->unkC = self;
     self->unk10 = self;
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 
@@ -291,7 +291,7 @@ extern "C" void func_00152B88(S150_C* self, int flags) {
         delete (S150_V2*)self->unk10;
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

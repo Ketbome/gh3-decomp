@@ -83,7 +83,7 @@ void func_0027ACF8(int, u32);
 S12F_R* func_001D1CF8(int, u32);
 extern u8 D_0033A1F8[];
 extern int D_00368A38;
-void func_00119400(int, void*);
+void Heap_Free(int, void*);
 void func_00131018(void);
 }
 
@@ -108,7 +108,7 @@ extern "C" void func_0012F9E8(void* p) {
     if ((pool && pool->Has((u32)p)) || ((pool = D_003692A0[D_003692B0 ^ 1]) && pool->Has((u32)p))) {
         func_0011C2E8(pool, p);
     } else if (p) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 
@@ -258,14 +258,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_001315F8);
 
 extern "C" void func_001316B8(S12F_E* self, int flags) {
     if (self->unk224) {
-        func_00119400(D_00368A38, self->unk224);
+        Heap_Free(D_00368A38, self->unk224);
     }
     if (self->unk4) {
-        func_00119400(D_00368A38, self->unk4);
+        Heap_Free(D_00368A38, self->unk4);
     }
     func_00134340((S12F_HP*)self->unk228);
     if (flags & 1) {
-        func_00119400(D_00368A38, self);
+        Heap_Free(D_00368A38, self);
     }
 }
 

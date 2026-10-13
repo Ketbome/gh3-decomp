@@ -26,7 +26,7 @@ extern "C" {
 extern S001BD998* D_0036CB74;
 void func_001BB068(void);
 void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
-void func_00119400(s32 heap, void* p);
+void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
 void func_001BF298(S001BF1D0* p);
 void func_001BF2B8(S001BF1D0* p);
@@ -62,7 +62,7 @@ extern "C" void func_001BD9C8(S001BD998* p, s32 flags) {
         func_001BB068();
     }
     if (flags & 1) {
-        func_00119400(D_00368A38, p);
+        Heap_Free(D_00368A38, p);
     }
 }
 

@@ -80,7 +80,7 @@ void func_002944B0(int);
 void func_00294028(int);
 void func_00274AB8(void);
 void func_00300DC8(void *);
-int func_00118F20(int, int, int, int);
+int Heap_Alloc(int, int, int, int);
 int func_00292D98(int, int, int);
 int func_00300EB8(void *);
 void func_002EE6A0(int);
@@ -102,7 +102,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292BA8);
 
 GP_DATA(D_003716C0);
 extern "C" void func_00292BB0(void) {
-    D_003716C0 = func_00292D98(func_00118F20(D_00368A38[0], 0x1C, 1, 0), 6, 0);
+    D_003716C0 = func_00292D98(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 6, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292BF0);

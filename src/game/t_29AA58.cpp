@@ -36,10 +36,10 @@ void func_001194B8(S29B510_H *);
 void func_00119490(S29B510_H *, int);
 extern S29B510_H *D_00368A38_p asm("D_00368A38");
 extern int D_00368A38;
-int func_00118F20(int, int, int, int);
-int func_00118F20_h(S29B510_H *, int, int, int) asm("func_00118F20");
+int Heap_Alloc(int, int, int, int);
+int func_00118F20_h(S29B510_H *, int, int, int) asm("Heap_Alloc");
 void func_00296DE0(int, int, int, int, int, int);
-void *func_0030A49C(void *, int, int);
+void *memset(void *, int, int);
 }
 
 struct S0029BDA0 {
@@ -56,7 +56,7 @@ struct S29AA58 {
     int unk34;
 };
 extern "C" S29AA58 *func_0029AA58(S29AA58 *p) {
-    func_0030A49C(p->unk4, 0, 0x28);
+    memset(p->unk4, 0, 0x28);
     p->unk0 = 0x3E8;
     p->unk2C = 0;
     p->unk30 = 0;
@@ -98,7 +98,7 @@ extern "C" S29B510_O *func_0029B510(S29B510_P *p, int a, u16 b, int c) {
 }
 
 extern "C" void func_0029B5F8(int a, u8 b, u16 c, int d, u8 e, s8 f) {
-    func_00296DE0(func_00118F20(D_00368A38, 0x14, 1, 0), b, c, d, e, f);
+    func_00296DE0(Heap_Alloc(D_00368A38, 0x14, 1, 0), b, c, d, e, f);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B680);

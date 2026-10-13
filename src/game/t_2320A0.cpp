@@ -32,7 +32,7 @@ bool func_00230230(int, int);
 void func_001519B0(int, int);
 extern List232 D_00396F60;
 void func_00289F90(int);
-void func_0030A970(int, int);
+void strcpy(int, int);
 void func_00113528(int);
 char* func_0030E720(int, void*);
 extern u8 D_0036FD68[];
@@ -177,7 +177,7 @@ extern "C" char* func_00233CA8(S232* self, int i) {
 }
 
 extern "C" void func_00233CC0(int a, int b) {
-    func_0030A970(b, a + 0xB0);
+    strcpy(b, a + 0xB0);
     func_00113528(b);
     char* r = func_0030E720(b, D_0036FD68);
     if (r) {
