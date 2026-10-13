@@ -260,6 +260,17 @@ extern "C" void func_001395C0(S_001395C0* self, float* a, float* b) {
     *b = self->unk1E4;
 }
 
+struct S1395D8 {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x90];
+    S137_M unkA0;
+    char pad_[0x50 - sizeof(S137_M)];
+    S137_M unkF0;
+    char pad__[0x50 - sizeof(S137_M)];
+    S137_M unk140;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_001395D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_001396D0);

@@ -929,3 +929,18 @@ Given up (A8, part 6): func_00159790 (scheduling of a 4-lane texel fetch), func_
 func_00119E60 (hi/lo hoisting of the format symbols), func_00197EE8 (address CSE across the loop),
 func_00113308/func_0013D048/func_0014D7C8/func_0016DFB8 (hash remove: key copied into a3 first), func_00174D08
 (0.0f arg not CSE'd with the compare constant), func_0019E1E8 (0x34000000 built through mtc1/mfc1).
+
+A9 pass, part 1. Matched 4: operator_new func_00189878 func_0017CFB8 func_00176C78
+
+- Argument evaluation order follows the prototype's parameter order: when the original loads the float arg
+  (`lwc1 f12`) before/after the int args, reorder the callee prototype (`f(void*, float, int)`, call with the same
+  order) instead of fighting the scheduler (func_0017CFB8, func_00176C78). Registers are unaffected.
+- Compare chain `switch (key)` on hash constants (no jump table) compiles directly to the beq chain.
+- Four independent float->int casts: brute-force the statement order (func_00189878 needed x,y,w,h).
+- `scripts`-less permutation search (24 perms of 4 lines, 1 s each) is cheap; 720 perms is ~12 min.
+
+Given up (A9): func_001145D8 (store order of two inline list nodes, 5-line perms), func_0014CF50 (hash lookup,
+key kept on the stack + copy in a0, 4 tries), func_001233A8 (div.s before jal, nop in slot), func_0017F4F0 (float
+reg numbering fi/fj/q), func_00188E68 (n/f/g register roles v1/v0/a0, 5 tries), func_00176108 (`li v0,1` vs
+`sw` in the delay slot of the join), func_001395D8 (store/load scheduling, 720 perms), func_00172D00/D80 (stack
+iterator), func_001204D8/func_00120010/func_0011FF58 (scoped lock/trace object on the stack).

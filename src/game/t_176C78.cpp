@@ -1,13 +1,48 @@
 #include "common.h"
 
 extern "C" {
+void func_001773F8(void*, int, int, float, int, int);
+int func_00172CC0(void*, u32, int);
+int func_0027D268(int, u32, void*, int);
+int func_0027D400(int, u32, void*, int);
+int func_0027D470(int, u32, void*, int);
 void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_003417B0[];
 void func_00172CC8(void);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_176C78", func_00176C78);
+
+struct S176C78 { char pad0[0x20]; float unk20; char pad24[0xC]; int unk30; };
+
+extern "C" int func_00176C78(S176C78* self, u32 key, int p) {
+    int a;
+    int b;
+    float f;
+    int c;
+    float g;
+    switch (key) {
+    case 0x167F93A5:
+        func_0027D400(p, 0x48C1A123, &a, 1);
+        b = 0;
+        func_0027D400(p, 0x7031F10C, &b, 0);
+        f = -1.0f;
+        func_0027D268(p, 0xBF237659, &f, 0);
+        c = 0;
+        func_0027D470(p, 0x326C4FF5, &c, 0);
+        func_001773F8(self, a, b, f, c, 0);
+        return 1;
+    case 0x36ADB38E:
+        func_0027D268(p, 0, &g, 1);
+        self->unk20 = g;
+        return 1;
+    case 0x290D266C:
+        self->unk30 = 1;
+        return 1;
+    default:
+        return func_00172CC0(self, key, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_176C78", func_00176DC0);
 

@@ -48,6 +48,8 @@ struct SA123_V {
 };
 
 extern "C" {
+float func_0015DCB8(void);
+float func_0015DCC8(void);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_003396F8[];
 extern u8 D_003394E0[];
@@ -151,6 +153,8 @@ extern "C" void func_001232E8(SA123_A* self, int flags) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123310);
+
+struct S1233A8 { char pad0[0xD4]; float unkD4; float unkD8; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_001233A8);
 

@@ -11,6 +11,7 @@ struct S00175D48 {
 };
 
 extern "C" {
+int func_00172CC0(void*);
 void func_0017E068(void*, float, float);
 void func_00174C20_1(void*) __asm__("func_00174C20");
 extern u8 D_00341388[];
@@ -24,7 +25,6 @@ extern u8 D_00340F78[];
 void func_00174058(void*);
 void func_0017D6D0(void*);
 void func_00172810(int);
-int func_00172CC0(void*);
 int func_00175A90(void*, int);
 void func_0027C448(int, int, int);
 extern u8 D_00341218[];

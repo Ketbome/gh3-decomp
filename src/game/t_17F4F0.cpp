@@ -1,5 +1,7 @@
 #include "common.h"
 
+struct S17F4F0 { char pad0[4]; int unk4; float* unk8; };
+
 INCLUDE_ASM("asm/nonmatchings/game/t_17F4F0", func_0017F4F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17F4F0", func_0017F590);

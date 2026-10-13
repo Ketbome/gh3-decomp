@@ -46,6 +46,8 @@ extern u8 D_003378C8[];
 void func_00114150(void*, int, int);
 void func_001144A0(void*);
 void* operator_new(u32);
+void* Heap_Alloc(int, int, int, int);
+void* memset(void*, int, unsigned int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00337EE0[];
 extern u8 D_00337EC8[];
@@ -58,6 +60,8 @@ void func_00113D88(int, int);
 void func_00114298(int);
 void func_00114340(int);
 void func_00114AD8(void);
+extern u8 D_00337F20[];
+void func_00114770(struct S114770*);
 extern int D_00368388[];
 void func_0030ADA0(int, int, int);
 }
@@ -226,7 +230,11 @@ extern "C" char* func_00113BA0(char* s, char* sub) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113BF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", operator_new);
+extern "C" void* operator_new(u32 size) {
+    void* p = Heap_Alloc(D_00368A38[0], size, 1, 0);
+    if (p) memset(p, 0, size);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113D80);
 
@@ -393,6 +401,9 @@ extern "C" void func_00114580(S_114580* self, int flags) {
     }
     func_001140F0(self, flags);
 }
+
+struct S114770;
+struct S1145D8 { char pad0[4]; int unk4; char pad8[4]; SA112_N unkC; SA112_N unk24; void* unk3C; void* unk40; int unk44; int unk48; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_001145D8);
 
