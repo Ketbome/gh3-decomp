@@ -28,6 +28,7 @@ extern N_19F* D_00373300;
 extern N_19F* D_00373304;
 extern void* D_0036C430;
 int func_001A1028(int);
+int func_001A1330(u32);
 extern struct S1A1118 D_00348740[];
 }
 
@@ -162,6 +163,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0D98);
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0F60);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1028);
+
+struct S_001A1078 { int unk0; int unk4; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A1078);
 

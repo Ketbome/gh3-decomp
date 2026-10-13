@@ -890,3 +890,15 @@ A8 pass, part 3. Matched 6: func_001235E0 func_0011BF98 func_001167E0 func_0011C
 Given up (A8, part 3): func_00188BB8 (the 64-bit constant is kept in s2 in the original; ours rematerializes),
 func_00182DB0 (a3/a0 argument setup order around a branch), func_001144A0 (iterator with vptr reset on the stack;
 x/v share one register in the original, 6 variants), func_00114340/func_0011AC50 same family, not attempted.
+
+A8 pass, part 4. Matched 6: func_00161DD8 func_0013DCA8 func_0013CED0 func_0014EC58 func_00197E30 (+ func_00161D40 listed above)
+
+- `if (a) { if (b) {...; return 1;} } return 0;` (nested, separate temporaries `a`, `n = a + f()`) keeps two compares
+  instead of the merged unsigned range check (func_0013DCA8).
+- One `int v` declared at function top and reused in different branches ties registers like the original
+  (func_0013CED0); `int idx = D; int* c = &base[idx]; ... D_00381C50 + idx * 4 + n * 8` (func_00197E30).
+- A scalar `extern int D_X;` + `int* base = &D_X;` + GP_DATA gives `addiu v,gp,%gp_rel` for a gp array.
+
+Given up (A8, part 4): func_00120628 (partly unrolled 2-entry search), func_0019ED90 (call argument order + xori),
+func_001A1078 (entry pointer copied to the saved register), func_00186EE8/F90/87038 family (second flag load
+register), func_0017A630 (case order matched; `move a0,a2` hoisted into the first delay slot).

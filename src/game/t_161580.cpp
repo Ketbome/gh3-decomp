@@ -158,7 +158,24 @@ extern "C" int func_00161D40(L_161* self, B4_161* a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161DD8);
+extern "C" int func_00161DD8(L_161* self, char r, u8 g, u8 b, u8 a) {
+    B4_161 c;
+    c.c[0] = r;
+    c.c[1] = g;
+    c.c[2] = b;
+    c.c[3] = a;
+    It_161 end(&self->unk14);
+    It_161 it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        O_00161D40** pp = ((N_00161D40*)it.cur)->unk8;
+        B4_161 t1 = c;
+        O_00161D40* o = *pp;
+        B4_161 t2 = t1;
+        VE_00161D40* e = o->unk18;
+        e->unk54((char*)o + e->unk50, &t2);
+    }
+    return 1;
+}
 
 extern "C" int func_00161E78(L_161* self) {
     int r = 0;

@@ -76,7 +76,10 @@ void func_0014ACB8(int, int, int);
 void func_0013B2C8(S13B_X*, int);
 int func_0027D870(void*, u32, int*, int);
 void func_0013A100(S13B_X*, void*);
-void func_00113900(int);
+int func_00113900(int);
+void func_00113960(char*, int, int);
+void func_00113AC8(char*, int, int);
+void func_0013D838(void*, char*);
 void func_00154078(int);
 }
 
@@ -175,7 +178,35 @@ extern "C" bool func_0013CEA0(S_0013CEA0* self, int bit) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013CEC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013CED0);
+struct T_0013CED0 { char pad0[4]; int unk4; int unk8; };
+struct B_0013CED0 { char pad0[0x80]; int unk80; int unk84; T_0013CED0* unk88; };
+struct A_0013CED0 { char pad0[0x208]; int unk208; };
+
+extern "C" void func_0013CED0(A_0013CED0* a, B_0013CED0* b) {
+    int v;
+    if (b->unk80 != 0 || b->unk88 != 0) {
+        a->unk208 = 0;
+        if (b->unk80 != 0) {
+            v = b->unk84;
+            if (v >= 0) a->unk208 = 1 << v;
+        } else {
+            T_0013CED0* t = b->unk88;
+            if (t) {
+                u32 i = 0;
+                if (t->unk4 != 0) {
+                    do {
+                        v = (int)b->unk88;
+                        int k = ((T_0013CED0*)v)->unk4;
+                        v = ((T_0013CED0*)v)->unk8;
+                        if (k != 1) v = ((int*)v)[i];
+                        if (v >= 0) a->unk208 |= 1 << v;
+                        i++;
+                    } while (i < (u32)b->unk88->unk4);
+                }
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013CF78);
 
@@ -298,7 +329,24 @@ extern "C" void func_0013DA80(S_0013DA80* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DAA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DCA8);
+struct S_0013DCA8 { char pad0[0x240]; int unk240; };
+
+extern "C" int func_0013DCA8(S_0013DCA8* self, int s) {
+    int a = 0;
+    if (self->unk240) a = func_00113900(self->unk240);
+    int n = a + func_00113900(s);
+    if (n + 1 < 0x80) {
+        if (n > 0) {
+            char buf[0x80];
+            buf[0] = 0;
+            if (self->unk240) func_00113960(buf, 0x80, self->unk240);
+            func_00113AC8(buf, 0x80, s);
+            func_0013D838(self, buf);
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DD50);
 

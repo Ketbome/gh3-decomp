@@ -186,6 +186,9 @@ extern "C" int func_0017A620(S0017A620* self) {
     return 1;
 }
 
+extern "C" int func_00172CC0(void*);
+extern "C" int func_0027DF00(int, u32);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A630);
 
 extern "C" void func_0017A6D8(S0017A620* self, float* out) {

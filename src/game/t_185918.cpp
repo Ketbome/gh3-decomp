@@ -55,7 +55,24 @@ static inline int S_001873D8_Get(S_001873D8* self) {
     return 0;
 }
 
+static inline int S_001873D8_Get2(S_001873D8* self) {
+    if ((self->unk4 >> 1) & 1) {
+        return (int)self->unk10;
+    }
+    return 0;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186E40);
+
+static inline int S_001873D8_GetF(S_001873D8* self, int f) {
+    if ((f >> 2) & 1) {
+        return *self->unk10;
+    }
+    if (f & 1) {
+        return (int)self->unk10;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186EE8);
 

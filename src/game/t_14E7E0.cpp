@@ -49,6 +49,9 @@ extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void*);
 extern int D_00369A70;
 void func_001827D0(int);
+void func_0011A558(int, int, int);
+void func_0011A568(void);
+int func_00182220(int, int, int, int, int, int, int);
 void func_0022B0D0(void*, void*, int, int);
 void func_00134340(void*);
 extern int D_00369A74;
@@ -189,7 +192,12 @@ extern "C" int func_0014EBE8(int a, int b) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014EC58);
+extern "C" int func_0014EC58(int a, int b, int c, int d, int e, int f, int g) {
+    func_0011A558(0xC05907F8, 0, 0);
+    int r = func_00182220(a, b, c, d, e, f, g);
+    func_0011A568();
+    return r;
+}
 
 extern "C" void func_0014ED00(void) {
     func_001822A8();
