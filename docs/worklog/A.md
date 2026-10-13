@@ -1010,3 +1010,7 @@ Matched (A10) t_157100: func_00157908 (0x150; texture-ish buffer alloc with two 
 Matched (A10) t_116E38: func_00118168 (0x128; ctor with list head node + three memsets; ctor declared returning void*)
 Matched (A10) t_1816C0: func_001825E0 (0x1b8; script struct builder, list walk with nor/movz next)
 Matched (A10) t_17D4D8: func_0017DB68 (0x110; ref-pointer swap + draw call with float args)
+- func_00134E40: globals bookkeeping + vcall; original keeps D_0036F658 in t3 (loaded first) and a3->s0/a4->s3, a store lands in the jal delay slot; ours swaps s0/s3 and the g reg; 4 tries
+- func_00115660: int-array tree unlink via three global arrays (cast int to int*); body matches, differs in the first branch (original keeps y in v0 and r in t0 via bne delay slot 'move t0,v0') and a nop before the do-while; 6 tries
+- func_00156CB8: body matches except the hazard nop before div.s after mul.s (SN assembler; same as func_00122FF8) and bc1fl layout; 4 tries. Note: functions with div.s right after another FP op will always miss that nop
+- func_0018DD68 (family func_0018FD08/001928E0/00192EE0/001935F8/001940C8/00194C18/00198040: ctor = base ctor, lookup via func_0022B0D0 + vcall at +0x34[2], flag-word getter, store to +0x2F8/0x308): same blocker as func_001881A0; the original recomputes (flags>>2)&1 in the second test (no CSE) and keeps the flag copy in v1, shares the final store through 'move v0,v1'; inline getters, goto form, flag local all tried (7); best variant 0x114 vs 0x11c bytes
