@@ -64,6 +64,11 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   inside them, unless the original object defined the symbol itself; then the original uses `%gp_rel` everywhere
   after that point, and the file needs `GP_DATA(D_X);` before the first function using it.
   `scripts/fix_gp_data.py <file>` adds those lines from the original assembly: run it before judging a DIFFERS.
+- **A lone `nop` that 8-aligns a label** (often after a `beql` slot, with no loop in sight) is the head of a loop
+  that `-funroll-loops` unrolled completely: write the original loop (e.g. two fields 0x38 apart are
+  `for (i = 0; i < 2; i++)` over an array of 0x38-byte elements) and give the file `// cflags: -funroll-loops`.
+- **No instructions in inline asm.** `asm("" : "+r"(x))` barriers and `register T x asm("$N")` pins are
+  accepted as a last resort; asm that emits instructions (`asm("li ...")`) is not: it is not source code.
 - **Per-file flags.** Some original objects were built with more than `-O2` (loops unrolled only with
   `-funroll-loops`). A file can ask for flags with a line `// cflags: -funroll-loops` in its first 10 lines;
   configure.py and fcheck.py both read it. Seen so far: `-funroll-loops`, `-ffast-math`
