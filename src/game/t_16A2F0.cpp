@@ -23,6 +23,8 @@ struct S0016A2F0 {
 };
 
 extern "C" {
+void* func_0015D5A0(int);
+extern int D_00369A44;
 extern u8 D_0033F688[];
 void func_0016AFE0_v(void*) __asm__("func_0016AFE0");
 void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
@@ -116,7 +118,27 @@ extern "C" int func_0016AD18(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AD20);
+struct O_16AD20 { char pad0[0x2E0]; u8 unk2E0; };
+
+extern "C" int func_0016AD20(O_16AD20** pa, O_16AD20** pb) {
+    char* cam = (char*)func_0015D5A0(D_00369A44);
+    O_16AD20* a = *pa;
+    O_16AD20* b = *pb;
+    float fa;
+    float fb;
+    int t;
+    asm("lqc2 $vf3, 0x80(%0)\n\tlqc2 $vf1, 0x30(%3)\n\tvsub.xyzw $vf1, $vf1, $vf3\n\tlqc2 $vf2, 0x30(%4)\n\tvsub.xyzw $vf2, $vf2, $vf3\n\tvmul.xyzw $vf1, $vf1, $vf1\n\tvaddy.x $vf3, $vf1, $vf1y\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddz.x $vf3, $vf3, $vf1z\n\tvaddy.x $vf4, $vf2, $vf2y\n\tqmfc2.ni %0, $vf3\n\tvaddz.x $vf4, $vf4, $vf2z\n\tmtc1 %0, %1\n\tqmfc2.ni %0, $vf4"
+        : "=r"(t), "=f"(fa) : "0"(cam), "r"(a), "r"(b));
+    asm("mtc1 %1, %0" : "=f"(fb) : "r"(t));
+    float d = fb - fa;
+    if (d > 0.0f) {
+        return 1;
+    }
+    if (d < 0.0f) {
+        return -1;
+    }
+    return b->unk2E0 - a->unk2E0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016ADD8);
 
