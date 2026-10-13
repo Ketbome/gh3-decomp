@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S002D5B48 {
@@ -7,10 +8,22 @@ struct S002D5B48 {
     u8 unk16;
 };
 
+struct S27E358_N {
+    char pad0[8];
+    S27E358_N *unk8;
+};
+struct S27E358 {
+    u32 unk0;
+    S27E358_N *unk4;
+    int unk8;
+};
+
 extern "C" {
+void func_0011C408(int, void *);
 extern int D_00368A38;
 void func_00119400(int, void *);
-void func_002D5A90(void);
+void func_002D5A90_v(void) asm("func_002D5A90");
+void func_002D5A90(S27E358 *);
 }
 struct S2D4468_A {
     int unk0;
@@ -48,12 +61,32 @@ extern "C" S2D5878_0 *func_002D5888(S2D5878_0 *self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D58B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5A90);
+extern "C" void func_002D5A90(S27E358 *p) {
+    char *h = (char *)p->unk4;
+    char *n;
+    if (h) {
+        u32 cnt;
+        u32 i;
+        n = h;
+        cnt = 1 << p->unk0;
+        for (i = 0; i < cnt; i++) {
+            S27E358_N *m = ((S27E358_N *)n)->unk8;
+            while (m) {
+                S27E358_N *k = m;
+                m = m->unk8;
+                func_0011C408(0, k);
+            }
+            func_002D5878((S2D5878_0 *)n);
+            n += 0xC;
+        }
+        p->unk8 = 0;
+    }
+}
 
 extern "C" void func_002D5B48(S002D5B48 *p, int b) {
     if (p->unk16 == 0) {
         if (p->unk4) {
-            func_002D5A90();
+            func_002D5A90_v();
             if (p->unk4) {
                 func_00119400(D_00368A38, p->unk4);
             }
@@ -71,7 +104,27 @@ extern "C" void func_002D5BC0(S2D4468_A *p) {
     p->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5BD0);
+extern "C" void func_002D5BD0(S27E358 *p) {
+    char *h = (char *)p->unk4;
+    char *n;
+    if (h) {
+        u32 cnt;
+        u32 i;
+        n = h;
+        cnt = 1 << p->unk0;
+        for (i = 0; i < cnt; i++) {
+            S27E358_N *m = ((S27E358_N *)n)->unk8;
+            while (m) {
+                S27E358_N *k = m;
+                m = m->unk8;
+                func_0011C408(0, k);
+            }
+            func_002D5BC0((S2D4468_A *)n);
+            n += 0xC;
+        }
+        p->unk8 = 0;
+    }
+}
 
 extern "C" S2D4468_A *func_002D5C88(S2D4468_A *self) {
     func_002D5BC0(self);

@@ -95,7 +95,23 @@ struct S00289EA0 {
     S00289EA0_2* unkC8;
 };
 
+struct S28A5A0_E {
+    char pad0[0xC];
+    int unkC;
+    char pad10[0x20];
+};
+struct S28A5A0 {
+    char pad0[0x40];
+    int unk40;
+    char pad44[0x60];
+    S28A5A0_E *unkA4;
+    char padA8[0x20];
+    int unkC8;
+};
+
 extern "C" {
+void func_00289E10(void *, int);
+void func_001CEB48(int, void *);
 extern int D_00371484;
 void func_00289F90(char*);
 extern int D_0037148C;
@@ -397,7 +413,21 @@ extern "C" void func_0028A558(S288_Obj *p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A5A0);
+extern "C" void func_0028A5A0(S28A5A0 *p, int v) {
+    if (v) {
+        int i;
+        for (i = 0; i < p->unk40; i++) {
+            if (p->unkA4[i].unkC == v) {
+                func_001CEB48(v, p);
+                p->unkA4[i].unkC = 0;
+            }
+        }
+        if (p->unkC8 == v) {
+            func_00289E10(p, 0);
+        }
+        func_00289F90((char *)p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A650);
 

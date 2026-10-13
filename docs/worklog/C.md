@@ -658,3 +658,12 @@ was `ok == 0`; a store of 0 that sits in a call's delay slot means the zeroed lo
 `return v` read after the call, not hoisted, is `if (!call) {...; return 0;} return v;`.)
 Given up: CFunc_DestroyGem (original keeps bnezl + conditional load, ours if-converts to movz), func_002861D8 (s0/s1
 swapped, 4 forms), t_27F8C8 func_0027F8C8/F938/F9B0 (the original copies the arg into two pseudos: `move v0,a2; move s1,v0`).
+Round 8 part 3 (+12): t_2A53A8 CFunc_LoadFromMemoryCard; t_288B10 func_0028A5A0; t_2D0150 CFunc_play_stance_transition_cfunc;
+t_2C3468 CFunc_GetRandomSeeds, CFunc_SetRandomSeeds (six scalar locals, not an array, give the original arg-load order);
+t_252068 CFunc_SetActiveCamera (test inverted: `if (call) {A} else {B}`); t_254248 CFunc_PlayTrack (a 0x30 char buffer at
+sp+0 whose address is stored into a local); hash-bucket list free: t_27D828 func_0027E358, t_2D4468 func_002D5A90 /
+func_002D5BD0, t_2AD528 func_002ADFE8, t_268EB8 func_002694D8 (files t_27D828/t_2D4468/t_2AD528 now `-funroll-loops`: the
+original aligns the outer loop with a nop; `char *h = p->unk4; if (h) { n = h; ...}` keeps the head in a0).
+Given up: func_0026A3F0 (macro-form store of D_00373394 lands in a delay slot), CFunc_WhammyFXOffAll (prologue order
+`move a2,sp` before `sd ra`), func_002D8398 (struct pointer in a2 not v1), func_00269420 / func_002D5EC8 (hash-chain remove:
+`prev` lives in a0 in the original, a3 here), CFunc_MemPushContext (D_00368A38 mixed gp/lui), func_0026D9F8 (movz result).

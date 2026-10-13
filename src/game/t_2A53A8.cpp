@@ -27,7 +27,14 @@ struct S2A67_List {
     S2A67_Node unk4;
 };
 
+struct S2A5_Script {
+    char pad0[0x20];
+    int unk20;
+};
+
 extern "C" {
+void func_0028C9D0(int, int, int, int, int, int);
+int func_001E40C8(u32);
 void *func_00118F20(int, int, int, int);
 void *func_0011C130(void *, int, int, int, int, int);
 extern void *D_003690D8[] __attribute__((section(".sdata")));
@@ -224,7 +231,18 @@ extern "C" int CFunc_SaveToMemoryCard(int params) {
     return r == 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_LoadFromMemoryCard);
+extern "C" int CFunc_LoadFromMemoryCard(int params, S2A5_Script *script) {
+    u32 n;
+    func_0027D870(params, 0x11093FB5, &n, 1);
+    int r = func_001E40C8(n);
+    if (r == 2) {
+        func_0027C448(script->unk20, 0, 0xFBF9C22A);
+    }
+    if (r == 0) {
+        func_0028C9D0(0x0EB9402D, params, 0, 0, 0, 0);
+    }
+    return r == 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5EF8);
 

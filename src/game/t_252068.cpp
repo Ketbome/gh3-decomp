@@ -6,6 +6,12 @@ struct S00252EC8 {
 };
 
 extern "C" {
+void func_002530A8(int, int, int);
+int func_0015DB00(int);
+int func_0015D2E8(int, int);
+int func_0027DF00(int, u32);
+int func_0027D1F8(int, int, int *, int);
+int func_0027D870(int, int, int *, int);
 int func_0027D400(int, int, int *, int);
 void func_002532C8(int, int);
 void func_00269B70(void);
@@ -46,7 +52,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252FC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002530A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_SetActiveCamera);
+extern "C" void CFunc_SetActiveCamera(int arg0) {
+    int s = 0;
+    int c;
+    int r;
+    func_0027D870(arg0, 0x40C698AF, &s, 0);
+    c = 0;
+    if (func_0027D870(arg0, 0x9FD29151, &c, 0)) {
+        r = func_0015D2E8(c, 1);
+    } else {
+        int d = 0;
+        func_0027D1F8(arg0, 0x9FD29151, &d, 0);
+        r = func_0015DB00(d);
+    }
+    func_002530A8(s, r, func_0027DF00(arg0, 0x10C1C887));
+}
 
 extern "C" int CFunc_SetPrepassViewportCamera(void) {
     return 0;

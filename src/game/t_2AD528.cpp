@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S2ADFD8_0 {
@@ -6,7 +7,18 @@ struct S2ADFD8_0 {
     s32 unk8;
 };
 
+struct S27E358_N {
+    char pad0[8];
+    S27E358_N *unk8;
+};
+struct S27E358 {
+    u32 unk0;
+    S27E358_N *unk4;
+    int unk8;
+};
+
 extern "C" {
+void func_0011C408(int, void *);
 void func_002AF170(int, int, int);
 void func_002DC9F0(int, int);
 int func_0027D870(int, int, int *, int);
@@ -68,7 +80,27 @@ extern "C" void func_002ADFD8(S2ADFD8_0 *arg0) {
     arg0->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002ADFE8);
+extern "C" void func_002ADFE8(S27E358 *p) {
+    char *h = (char *)p->unk4;
+    char *n;
+    if (h) {
+        u32 cnt;
+        u32 i;
+        n = h;
+        cnt = 1 << p->unk0;
+        for (i = 0; i < cnt; i++) {
+            S27E358_N *m = ((S27E358_N *)n)->unk8;
+            while (m) {
+                S27E358_N *k = m;
+                m = m->unk8;
+                func_0011C408(0, k);
+            }
+            func_002ADFD8((S2ADFD8_0 *)n);
+            n += 0xC;
+        }
+        p->unk8 = 0;
+    }
+}
 
 extern "C" S2ADFD8_0 *func_002AE0A0(S2ADFD8_0 *self) {
     func_002ADFD8(self);

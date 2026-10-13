@@ -6,6 +6,7 @@ struct SGAS {
 };
 
 extern "C" {
+void func_002D1190(void *, int, int, int, int);
 void func_0027F1E0(int, int, int);
 void func_0027D400(int, int, int *, int);
 int func_0027CC30(int, int, int, int *);
@@ -108,7 +109,18 @@ extern "C" s32 CFunc_hero_get_skill_level_cfunc(int arg0, SGAS *arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D1190);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_play_stance_transition_cfunc);
+extern "C" void CFunc_play_stance_transition_cfunc(int arg0, void *arg1) {
+    int a;
+    int b;
+    int c;
+    func_0027D870(arg0, 0x9977B95F, &a, 1);
+    int x = a;
+    func_0027D870(arg0, 0x34CD6F44, &b, 1);
+    int y = b;
+    func_0027D870(arg0, 0x859884E9, &c, 1);
+    int z = c;
+    func_002D1190(arg1, func_00289E08(arg1), x, y, z);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D1578);
 

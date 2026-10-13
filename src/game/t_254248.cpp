@@ -8,6 +8,11 @@ struct S254248_A {
 };
 
 extern "C" {
+extern char D_00356110[];
+void func_0030B550(char *, char *, int);
+void func_0026C5E8(int, int);
+void func_0026DE28(int);
+int func_0026DAF8(int, int);
 void func_0026BBA8(int, int, int, int);
 void func_0026CA78(int, int, int);
 int func_0027CFA8(int, int, int *, int);
@@ -230,7 +235,28 @@ extern "C" int CFunc_LoadSoundRAM(int arg0) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayTrack);
+extern "C" int CFunc_PlayTrack(int arg0) {
+    int flag;
+    int idx;
+    int track;
+    char buf[0x30];
+    idx = 0x3E7;
+    track = 0;
+    flag = 0;
+    if (func_0027CFA8(arg0, 0, &track, 0) == 0) {
+        func_0027D1F8(arg0, 0, &idx, 0);
+        track = func_0026DAF8(idx, 0);
+        func_0030B550(buf, D_00356110, track);
+        track = (int)buf;
+    }
+    func_0027D1F8(arg0, 0x5EA0E211, &flag, 0);
+    if (track) {
+        func_0026AE70();
+        func_0026C5E8(track, flag != 0);
+        func_0026DE28(idx);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayMusicStream);
 

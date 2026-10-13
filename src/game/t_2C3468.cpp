@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+void func_0010C170(int, int, int, int, int, int);
+void func_0010C120(int *, int *, int *, int *, int *, int *);
 int func_0027D1F8(int, int, int *, int);
 void func_0027C160(int, int, int);
 extern int D_003E7F60[];
@@ -36,9 +38,29 @@ extern "C" void func_002C34C8(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_CameraCut_SwapLookAts);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_GetRandomSeeds);
+extern "C" int CFunc_GetRandomSeeds(int arg0, SCCGCI *script) {
+    int v[6];
+    func_0010C120(&v[0], &v[1], &v[2], &v[3], &v[4], &v[5]);
+    func_0027C160(script->unk20, 0x9504329E, v[0]);
+    func_0027C160(script->unk20, 0x0C0D6324, v[1]);
+    func_0027C160(script->unk20, 0x7B0A53B2, v[2]);
+    func_0027C160(script->unk20, 0xE56EC611, v[3]);
+    func_0027C160(script->unk20, 0x9269F687, v[4]);
+    func_0027C160(script->unk20, 0x0B60A73D, v[5]);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetRandomSeeds);
+extern "C" int CFunc_SetRandomSeeds(int arg0) {
+    int v0, v1, v2, v3, v4, v5;
+    func_0027D1F8(arg0, 0x9504329E, &v0, 1);
+    func_0027D1F8(arg0, 0x0C0D6324, &v1, 1);
+    func_0027D1F8(arg0, 0x7B0A53B2, &v2, 1);
+    func_0027D1F8(arg0, 0xE56EC611, &v3, 1);
+    func_0027D1F8(arg0, 0x9269F687, &v4, 1);
+    func_0027D1F8(arg0, 0x0B60A73D, &v5, 1);
+    func_0010C170(v0, v1, v2, v3, v4, v5);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetNewWhammyValue);
 
