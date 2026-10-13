@@ -143,7 +143,34 @@ extern "C" u8* func_00116E90(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00116F90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117030);
+extern "C" {
+extern int D_00368740;
+extern u8 D_00368870[];
+extern u8 D_00368878[];
+extern u8 D_00368880[];
+extern u8 D_00368888[];
+extern u8 D_00368890[];
+extern u8 D_00368898[];
+}
+GP_DATA(D_00368740);
+extern "C" void* func_00117030(void) {
+    switch (D_00368740) {
+    case 1:
+    case 2:
+    case 3:
+        return D_00368870;
+    case 4:
+        return D_00368878;
+    case 5:
+        return D_00368880;
+    case 6:
+        return D_00368888;
+    case 7:
+    case 8:
+        return D_00368890;
+    }
+    return D_00368898;
+}
 
 extern "C" void func_001170A8(void) {
     func_00122DE0();
@@ -265,7 +292,34 @@ extern "C" void func_00117D20(S_00117D20* self) {
     self->unk1C();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117D40);
+struct S117DD0;
+extern "C" void func_00117DD0(S117DD0*);
+extern "C" void func_00117E10(void*);
+extern "C" void func_00117F18(void*);
+struct S_00117D40 { char pad0[0xDC]; int unkDC; char padE0[0xC]; int unkEC; };
+extern "C" void func_00117D40(S_00117D40* self) {
+    switch (self->unkEC) {
+    case 0:
+        return;
+    case 5:
+        func_00117DD0((S117DD0*)self);
+        break;
+    case 1:
+        func_00117F18(self);
+        break;
+    case 3:
+        self->unkDC = 1;
+        self->unkEC = 2;
+        break;
+    case 4:
+        self->unkDC = 0;
+        self->unkEC = 2;
+        break;
+    case 2:
+        func_00117E10(self);
+        break;
+    }
+}
 
 struct S117DD0 { char pad0[0xEC]; int unkEC; int unkF0; };
 
