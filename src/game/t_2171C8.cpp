@@ -12,11 +12,31 @@ void* func_00218088(void*);
 void func_0016C5C0(void*, int);
 void func_00276D68(u32, void*, int);
 extern u8 D_00390198[];
+int func_0027D058(int, int, void*, int);
+void func_0016CA18(int, f32);
+void func_0016C4F8(int);
+void func_0016C6B8(int, f32);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2171C8", func_002171C8);
+extern "C" int func_002171C8(int* p, int a) {
+    f32 v[4];
+    func_0027D058(a, 0, v, 1);
+    if (p[8]) {
+        func_0016CA18(p[8], v[0]);
+        func_0016C4F8(p[8]);
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2171C8", func_00217220);
+extern "C" int func_00217220(int* p, int a) {
+    f32 v[4];
+    func_0027D058(a, 0, v, 1);
+    if (p[8]) {
+        func_0016C6B8(p[8], v[0]);
+        func_0016C4F8(p[8]);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2171C8", func_00217278);
 

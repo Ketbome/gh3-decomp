@@ -545,7 +545,7 @@ Given up:
 
 ## Session 6 (t_211050 .. t_249620, small functions first)
 
-Matched (t_2131A8 .. t_249620, ~110 so far): getters/setters, pass-through wrappers, constructors with a base ctor
+Matched 153 in session 6 (t_2131A8 .. t_249620): getters/setters, pass-through wrappers, constructors with a base ctor
 returning `void*`, list-head inits, TI128 copies, ctor/dtor pairs. 0x4 candidates (split tails) skipped.
 
 Habits (verified by match):
@@ -569,3 +569,9 @@ Given up:
 - func_0023F700 func_0023F738 func_00241040 func_00241078: table getter, original keeps the owner in v1 (ours reuses a0, branch-likely li); 6 forms
 - func_00230578: schedule of the 5-term expression with gp globals; func_002490E0: `o` in a1 vs a0 for a virtual call
 - func_00243478: `swc1 $f0` of an uninitialised register; func_0022BBA0 func_002219D8: split tails; func_00248E20 MakeVec constant; func_00231A38: 8 register args
+- func_00223B98 (MakeVec 0,0,0,1 + call), func_002141A8 (short-circuit with stack int): not attempted
+- func_00248D50: ctor; `addiu v1,s0,0xC0` temp (ours v0) with the zero stores, 4 forms
+- func_0022B168, func_002490E0: `o` of `fn(o + delta, o)` lives in a1 in the original (ours a2/a0); inline helper and `&&` forms tried
+- func_0022C498: the `D_0036F748` load sits in the first bne delay slot in the original, ours schedules it above the address build
+- func_00233B70: original keeps a `nop` before the final jr (list-head init like func_002367E0 which matches)
+- Next untouched candidates: t_2171C8 func_00217278 onward (same `func_0027D058`/`unk20` setter family), t_21BA08, t_21DA40, t_227C68, t_2320A0 larger ones
