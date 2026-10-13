@@ -58,6 +58,14 @@ s32 func_00119610(s32 h, s32 v);
 void func_001194B8(s32 h);
 void* Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
 void func_00289F70(s32 a, s32 b, void* c, s32 d);
+s32 func_001287F0(s32 a, s32 b);
+s32 func_0027AA70(s32 a);
+void func_0027C448(s32 a, u32 k, s32 v);
+void func_0027C160(s32 a, u32 k, s32 v);
+void func_0028D1B0(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h, s32 i, s32 j);
+void func_0027AC90(s32 a);
+void func_00113250(s32 a);
+void func_002305C0(void);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
@@ -74,7 +82,29 @@ extern "C" void func_002327A8(void) {
     func_0011E050(1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002327C8);
+GP_DATA(D_0036FBE8);
+extern "C" void func_002327C8(s32 a, s32 b, s32 c, s32 d, s32 e) {
+    if (c != 0) {
+        s32 t = func_0027AA70(func_001287F0(8, 1));
+        if (a != 0) {
+            func_0027C448(t, 0, 0x6086AA70);
+        } else {
+            func_0027C448(t, 0, 0xFF03CC4E);
+        }
+        func_0027C448(t, 0x520C0C9C, d);
+        func_0027C448(t, 0x26861025, b);
+        func_0027C160(t, 0xEC953EEC, e);
+        func_0028D1B0(c, t, 0, 0, 0, 0, 0, 0, 0, 0);
+        if (t != 0) {
+            func_0027AC90(t);
+            func_00113250(t);
+        }
+    }
+    if (a == 0) {
+        func_002305C0();
+        D_0036FBE8 = 0;
+    }
+}
 
 extern "C" void func_00232908(int a, int b, int c) {
     if (!a && b) {
@@ -120,7 +150,6 @@ extern "C" s32 CFunc_WaitUnloadPak(s32 self, s32 params) {
     return 1;
 }
 
-GP_DATA(D_0036FBE8);
 extern "C" int CFunc_AsyncLoadPakInProgress(void) {
     func_0011E130();
     return D_0036FBE8;
