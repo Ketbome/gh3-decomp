@@ -1,6 +1,9 @@
 #include "common.h"
 
 extern "C" {
+int func_002B6098(int);
+extern int D_00372010[2];
+extern int D_00372018[2];
 void func_002B4B98(int, int, int);
 extern int D_00371F90[2];
 }
@@ -22,7 +25,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B5DF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B6098);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B6270);
+GP_DATA(D_00372010);
+GP_DATA(D_00372018);
+extern "C" int func_002B6270(int a, int b) {
+    if (b >= D_00372010[a]) {
+        if (b < D_00372018[a]) {
+            return func_002B6098(a);
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B62C8);
 

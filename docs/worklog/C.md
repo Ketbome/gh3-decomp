@@ -590,3 +590,20 @@ Two u64 stores come out in reverse source order. Check which arg registers a cal
 had `a0` passed through, the wrapper has only (p, n).)
 Given up: CFunc_LightShow_GetParams (the original loads D_00371EE8 straight into a1 after `move s0,a1`; ours loads
 v0 first, 3 forms).
+
+Round 6 part 5 (+11): t_2BEEE0 CFunc_GetInputHandlerBotIndex; t_2AD528 CFunc_LightShow_AppendSnapshotParams,
+CFunc_LightShow_GetPyroScript; t_2AAD58 CFunc_LightShow_SetMapping; t_254248 CFunc_PauseStreamNum; t_296A10
+func_00296F18; t_2B5BC8 func_002B6270; t_2E90B0 func_002EAE00; t_266800 func_00267A00 (the existing
+`void func_002679E0(void)` wrapper is called through `int f(int) asm("func_002679E0")`); t_268EB8 func_0026A660;
+t_26AEF8 func_0026CBE8.
+(Quirks: stores come out in a rotated order, `[s0, s_last, s1, s2, ...]` for 6 stores, so source order is
+`[first, 3rd..last, 2nd]` of the wanted output. `func_X(a)` where only a0 reaches the callee unchanged, e.g.
+func_002B6098(a) with `a*4` kept in a2. A tail that reads a global in both paths is the plain `p->x = G; G = p;`
+after the `if`, not a hoisted local.)
+Given up:
+- func_00297400 (ctor): `move v0,s0` is after the five `sb` stores in the original, before them here.
+- func_002711D0, func_00271228: macro-form load of D_003733B0 must not be in the bnez delay slot (ours is gp-relative
+  and filled). func_00270DB8: sll/lui scheduling.
+- func_002AEB98: indirect call whose result gates a call with a1/a2 passed through; func_00289F90 has a 3-arg
+  prototype in this file already.
+- func_0025D680, func_0025D6E0: struct returned by value (ldl/ldr), not tried. func_0025C6A0: mixed bitfield clear, not tried.

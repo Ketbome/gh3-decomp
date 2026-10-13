@@ -7,6 +7,13 @@ struct S2ADFD8_0 {
 };
 
 extern "C" {
+int func_0027D870(int, int, int *, int);
+void func_0027C448(int, int, int);
+extern int D_00371EEC;
+int func_0027DF00(int, int);
+int func_0027D268(int, int, int *, int);
+extern int D_00371ED8;
+extern int D_00371EDC[2];
 void func_00289F90(int, int, void *);
 int func_0027D1F8(int, int, int *, int);
 int func_002DCA08(int);
@@ -15,13 +22,33 @@ int func_002AE2A8(int, int);
 extern f32 D_00373130[] __attribute__((section(".sdata")));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_AppendSnapshotParams);
+GP_DATA(D_00371EDC);
+GP_DATA(D_00371ED8);
+extern "C" s32 CFunc_LightShow_AppendSnapshotParams(int arg0) {
+    D_00371ED8 = 0;
+    if ((func_0027DF00(arg0, 0x1A4E0EF9) ^ 1) != 0) {
+        D_00371ED8 = func_0027D268(arg0, 0x164D476D, D_00371EDC, 0);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_OverrideColor);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_SetTime);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_GetPyroScript);
+struct SGPS {
+    char pad0[0x20];
+    int unk20;
+};
+GP_DATA(D_00371EEC);
+extern "C" s32 CFunc_LightShow_GetPyroScript(int arg0, SGPS *arg1) {
+    int out;
+    if (func_0027D870(D_00371EEC, 0xCF465431, &out, 0) != 0) {
+        func_0027C448(arg1->unk20, 0xCF465431, out);
+        return 1;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AD7F0);
 
@@ -89,6 +116,16 @@ struct S2AEB48 {
 };
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEB48);
 
+struct S2AEB98_P {
+    int unk0;
+};
+struct S2AEB98 {
+    char pad0[4];
+    S2AEB98_P *unk4;
+    s16 unk8;
+    char padA[2];
+    int (*unkC)(int, void *);
+};
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEB98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEBF0);

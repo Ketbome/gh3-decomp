@@ -81,6 +81,7 @@ struct S296A10_C {
 };
 
 extern "C" {
+int func_0030A49C(void *, int, int);
 extern char D_0035C330[];
 extern int D_00368A38[] __attribute__((section(".sdata")));
 void func_00119400(int, void*);
@@ -176,7 +177,32 @@ extern "C" void func_00296EC0(Sfunc_00296EC0 *p, int b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296F18);
+struct S296F18 {
+    int unk0;
+    u8 unk4;
+    char pad5[3];
+    u64 unk8;
+    int unk10;
+    int unk14;
+    int unk18;
+    int unk1C;
+    char unk20[0x200];
+    int unk220;
+    int unk224;
+};
+extern "C" S296F18 *func_00296F18(S296F18 *p) {
+    p->unk0 = 0;
+    p->unk4 = 0;
+    p->unk8 = 0;
+    p->unk10 = 0;
+    p->unk14 = 0;
+    p->unk18 = 0;
+    p->unk1C = 0;
+    p->unk220 = 0;
+    p->unk224 = 0;
+    func_0030A49C(p->unk20, 0, 0x200);
+    return p;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296F70);
 

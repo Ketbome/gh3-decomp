@@ -347,7 +347,13 @@ extern "C" int CFunc_PauseStream(int a) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStreamNum);
+extern "C" s32 CFunc_PauseStreamNum(int arg0) {
+    int x = 0;
+    int y = 1;
+    func_0027D1F8(arg0, 0, &x, 0);
+    func_0027D1F8(arg0, 0x28656D12, &y, 0);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStreamID);
 

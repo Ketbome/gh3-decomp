@@ -111,7 +111,17 @@ extern "C" f32 func_0026CA70(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CA78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CBE8);
+extern "C" void func_0026CBE8(int a) {
+    if (func_0026ABA8() == 0) {
+        char *p = D_003A66F0 + a * 0xCB0;
+        *(int *)(p + 0xCA8) = 1;
+        *(int *)(p + 0xC80) = 0;
+        *(u64 *)(p + 0xC88) = 0;
+        *(u64 *)(p + 0xC90) = 0;
+        *(u64 *)(p + 0xC98) = 0;
+        *(u64 *)(p + 0xCA0) = 0;
+    }
+}
 
 GP_DATA(D_00370C18);
 extern "C" void func_0026CC48(void) {

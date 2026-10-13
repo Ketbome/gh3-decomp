@@ -1,6 +1,10 @@
 #include "common.h"
 
 extern "C" {
+void func_0027AC90(int);
+void func_0027ABB0(int, int);
+int func_0027DF00(int, int);
+extern int D_00371EEC;
 extern s32 D_00371EF8;
 extern s32 D_003AC7C0[];
 }
@@ -32,7 +36,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetActive);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetProcessors);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetMapping);
+extern "C" s32 CFunc_LightShow_SetMapping(int arg0) {
+    func_0027AC90(D_00371EEC);
+    if ((func_0027DF00(arg0, 0x1A4E0EF9) ^ 1) != 0 && arg0 != 0) {
+        func_0027ABB0(D_00371EEC, arg0);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetParams);
 
