@@ -44,6 +44,9 @@ struct S1C97E0_L {
 };
 
 extern "C" {
+s32 func_001CA048(char* p);
+s32 func_0028C9D0_i(u32 a, s32 b, s32 c, s32 d, s32 e, s32 f) __asm__("func_0028C9D0");
+extern s32 D_00372D6C;
 S1C97E0_L* func_002764C8(u32 key, s32 b);
 s32 func_0027D870_k(s32 a, u32 key, s32* v, s32 req) __asm__("func_0027D870");
 s32 func_0027D188(s32 a, u32 key, s32* v, s32 req);
@@ -167,7 +170,19 @@ extern "C" void func_001C8470(S001C8470* p) {
     o->unkEE00[64].fn((char*)o + o->unkEE00[64].delta, p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C84A8);
+extern "C" void func_001C84A8(void* unused, char* p) {
+    char* q = *(char**)(p + 0x20);
+    if ((u32)(func_0011EF10() - D_00372D6C) >= 0x7D0 && func_001CA048(q) >= 2 && *(s32*)(q + 0xDC) == 0) {
+        u32 d = (u32)(func_0011EF10() - *(s32*)(q + 0xD4));
+        u32 lim;
+        asm("li %0, 5000" : "=r"(lim));
+        if (lim < d) {
+            func_0028C9D0(0x895819F7, 0, 0, 0, 0, 0);
+            func_0028C9D0_i(0x6CD351C5, 0, 0, 0, 0, 0);
+            *(s32*)(q + 0xDC) = 1;
+        }
+    }
+}
 
 extern "C" void func_001C8568(S001C8470* p) {
     S001C8470_20* o = p->unk20;

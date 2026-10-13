@@ -31,6 +31,37 @@ struct S001C2C88 {
     s32 unk8;
 };
 
+struct S1C3898 {
+    u8 unk0;
+    u8 unk1;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
+    s16 unk8;
+    s16 unkA;
+    s16 unkC;
+    s16 unkE;
+    s16 unk10;
+    s16 unk12;
+    s16 unk14;
+    s16 unk16;
+    s16 unk18;
+    s16 unk1A;
+    s16 unk1C;
+    s16 unk1E;
+    s16 unk20;
+    s16 unk22;
+    s16 unk24;
+    s16 unk26;
+    s16 unk28;
+    s16 unk2A;
+    s16 unk2C;
+    s16 unk2E;
+    s16 unk30;
+    s16 unk32;
+    s16 unk34;
+};
+
 extern "C" {
 void func_001BF288(s32 a);
 void func_001C2CD8(s32 a, s32 b);
@@ -246,6 +277,37 @@ extern "C" s32 func_001C3890(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3898);
+extern "C" void func_001C3898(S1C3898* p, s32 a, s32 b) {
+    s32 area = a * b * 3;
+    s32 sz = area + 0x36;
+    p->unk0 = 0x42;
+    p->unk1 = 0x4D;
+    p->unk2 = sz;
+    p->unk4 = sz >> 16;
+    p->unk6 = 0;
+    p->unk8 = 0;
+    p->unkA = 0x36;
+    p->unkC = 0;
+    p->unkE = 0x28;
+    p->unk10 = 0;
+    p->unk12 = a;
+    p->unk14 = a >> 16;
+    p->unk16 = b;
+    p->unk18 = b >> 16;
+    p->unk1A = 1;
+    p->unk1C = 0x18;
+    p->unk1E = 0;
+    p->unk20 = 0;
+    p->unk22 = area;
+    p->unk24 = area >> 16;
+    p->unk26 = 0x1284;
+    p->unk28 = 0;
+    p->unk2A = 0x1284;
+    p->unk2C = 0;
+    p->unk2E = 0;
+    p->unk30 = 0;
+    p->unk32 = 0;
+    p->unk34 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3960);

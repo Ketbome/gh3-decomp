@@ -47,6 +47,10 @@ struct S001D0F68 {
 };
 
 extern "C" {
+s32 Heap_Alloc(s32 h, s32 size, s32 a, s32 b);
+s32 func_0011C2A8(s32 a);
+extern s32 D_00371028[] __attribute__((section(".sdata")));
+extern s32 D_00371038;
 void func_001CED20(void* p, s32 v);
 void func_001CED98(void* p, s32 v);
 void func_001CEDE0(void* p, s32 v);
@@ -237,7 +241,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0798);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0848);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0900);
+extern "C" s32 func_001D0900(s32 size) {
+    s32 t = D_00371028[D_00371038];
+    s32 r;
+    if (t != 0) {
+        r = func_0011C2A8(t);
+        if (r == 0) {
+            s32 h = D_00368A38[0];
+            func_00119490(h, func_00119610(h, 1));
+            r = Heap_Alloc(D_00368A38[0], size, 1, 0);
+            func_001194B8(D_00368A38[0]);
+        }
+        return r;
+    }
+    return Heap_Alloc(D_00368A38[0], size, 1, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D09C0);
 
