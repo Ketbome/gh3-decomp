@@ -75,3 +75,6 @@ Sony libraries 3.0.0 (`PsIIlibgraph3000`, `PsIIlibmc2 3010`, ...), GameSpy SDK (
   written, and by none in some places. ee-gcc does not emit them; the assembler shipped with the compiler
   (`as.exe`, GNU as 2.9-ee-991111b) does not insert them either, nor does it pad short loops, so the game was
   assembled with a later SN assembler whose rule for these nops is not known yet.
+- 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets
+  ee-gcc 2.95.2/2.95.3-114 use (ascending, `$ra` on top), although their values are plain ints. Not reproduced
+  with 2.95.3-136 and `-fopt-stack` yet: skip them.
