@@ -667,3 +667,16 @@ Given up: func_00243678 (t-register assignment of the add chain, 3 forms), func_
 Matched: t_2131A8 func_002136A8 (two `if (p) { if (f(p)) g(p); if (p) delete (D*)p; }` blocks, D with vptr after pad 0x18 and a virtual dtor in slot 2) func_00213AA0 (57.295776f constant, $f20 kept by gcc); t_21FB88 func_00220518 func_00220A80
 (u64 bit tests: copy the u64 into a local struct `BF f = *(BF*)(q + 0x50);` with `u64 pad:1, b0:1, b1:1` and inline `bool B0()`; `f.B1() ^ 1` gives the `andi; xori`; two stores in an if/else keep the duplicated tail).
 Given up: func_002140D8 (cvt.s.w in the b delay slot of ours; the original has `b; nop`, toolchain as before), func_00220FE8 (reverse unrolled scan: gcc folds the n-1 == -1 test into n == 0), func_002212B8 (list iterator on the stack), func_00214498 func_00213B80 func_002141F8 (long; not attempted), func_0021BA08 (unrolled x10 destructor loop; not attempted).
+
+## Session 8 (worker B9, larger candidates)
+
+Habits: load a macro-form global into a local FIRST (`char* g = D_X[0];` at the top) when the original has lui/lw before
+the other loads (func_001CC330). Virtual call with `a1 = original a0` and nothing else: `((void(*)(char*,char*))e->fn)(o + e->delta, p)`
+(struct VE {s16 delta; s16 pad; void* fn}); when the result is ignored and the callee before it is declared `int`, fn lands in v1.
+
+### t_1CBB50
+Matched 22: func_001CC9E8 func_001CCA20 func_001CCA58 func_001CCD50 func_001CCDC8 func_001CCD88 func_001CCA90 func_001CCB10 func_001CCB60 func_001CBF68 func_001CBFA8 func_001CC010 func_001CC298 func_001CD158 func_001CD198 func_001CBB50 func_001CBDE8 func_001CD108 func_001CD2C8 func_001CD318 func_001CC330 func_001CD058
+Given up:
+- func_001CC1A8, func_001CD1F8: start with junk from a split tail (sw/nop/addiu sp)
+- func_001CC388: dead stack stores of a pointer and zero before the call; func_001CD470: D_00368A38 gp_rel here but macro in the rest of the file
+- func_001CD5C0: unrolled x6 scan, layout differs without -funroll-loops (1 try)
