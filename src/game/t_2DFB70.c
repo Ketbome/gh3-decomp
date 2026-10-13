@@ -57,6 +57,15 @@ extern int D_003EABE0[];
 void func_002E46F0();
 void func_002E4750();
 void func_002E1B50();
+extern int D_003308B0[];
+int func_002E3C28();
+extern int D_0037272C;
+extern int D_00372744;
+extern unsigned int D_00330970[];
+extern unsigned int D_00330A30[];
+extern unsigned int D_00330AF0[];
+extern char D_003727D8;
+int *func_002E5F38();
 char *strcpy(char *, const char *);
 unsigned int strlen(const char *);
 
@@ -415,33 +424,247 @@ int func_002E0DA8(int a, int b) {
     return -1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E0E90);
+int func_002E0E90(int a, int b, int c, int d, int e, int f, int g) {
+    int v1C;
+    int v20;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1028);
+    v20 = b & 0xFFFF0000;
+    b &= 0xFFFF;
+    if (b < 0 || b >= 0x30) {
+        return -1;
+    }
+    D_00330BD8[b] = 3;
+    v1C = f;
+    v1C += g << 8;
+    D_003308B0[b] = a;
+    func_002E4DD8(b, v20);
+    func_002E4EF8(b, (short)c, (short)d);
+    func_002DFF28(0);
+    func_002E0140(a);
+    func_002E00C8((short)b);
+    func_002E00C8((short)D_0037320C);
+    func_002E00C8((short)D_00373210);
+    func_002E00C8((short)e);
+    func_002E00C8((short)v1C);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E11F0);
+int func_002E1028(int a, int b, int c, int d, int e, int f, int g, unsigned int h) {
+    int v20;
+    int v24;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E12D8);
+    v24 = b & 0xFFFF0000;
+    b &= 0xFFFF;
+    if (b < 0 || b >= 0x30) {
+        return -1;
+    }
+    if (h > 0xFFFF) {
+        return -2;
+    }
+    D_00330BD8[b] = 3;
+    v20 = f;
+    v20 += g << 8;
+    D_003308B0[b] = a;
+    func_002E4DD8(b, v24);
+    func_002E4EF8(b, (short)c, (short)d);
+    func_002DFF28(0x39);
+    func_002E0140(a);
+    func_002E00C8((short)b);
+    func_002E00C8((short)D_0037320C);
+    func_002E00C8((short)D_00373210);
+    func_002E00C8((short)e);
+    func_002E00C8((short)v20);
+    func_002E00C8((short)h);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1370);
+int func_002E11F0(int a, int b, int c) {
+    a &= 0xFFFF;
+    if (a < 0 || a >= 0x30) {
+        return -1;
+    }
+    func_002E4EF8(a, (short)b, (short)c);
+    func_002DFF28(2);
+    func_002E00C8((short)a);
+    func_002E00C8((short)D_0037320C);
+    func_002E00C8((short)D_00373210);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1488);
+int func_002E12D8(int a, int b) {
+    if (a < 0 || a >= 0x30) {
+        return -1;
+    }
+    func_002DFF28(3);
+    func_002E0140(a);
+    func_002E0140(b);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1518);
+int func_002E1370(int a) {
+    int r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E15B8);
+    if (a < 0) {
+        return -1;
+    }
+    if (a >= 0x40) {
+        a -= 0x40;
+        r = func_002E3C28(a);
+        if (r >= 0) {
+            D_00330C08[a] = -1;
+            D_003EA600[r] = 3;
+            a = r;
+        } else {
+            return -1;
+        }
+    } else {
+        D_003EA600[a] = 3;
+    }
+    func_002DFF28(5);
+    func_002E00C8((short)a);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E15F8);
+int func_002E1488(int a) {
+    if (a < 0 || a >= 0x30) {
+        return -1;
+    }
+    func_002DFF28(4);
+    func_002E00C8((short)a);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E16F8);
+GP_DATA(D_0037272C);
+GP_DATA(D_00372744);
+void func_002E1518(int a, int b) {
+    if (a != -1) {
+        D_0037272C = 1;
+        D_00372744 = -1;
+    }
+    func_002DFF28(9);
+    func_002E00C8((short)a);
+    func_002E00C8((short)b);
+    func_002DFF78();
+    D_003727A8 = 1;
+}
+TEXT_PAD(20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1778);
+void func_002E15B8(void) {
+    func_002DFF28(7);
+    func_002DFF78();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E18B8);
+int func_002E15F8(int a, int b, int c) {
+    func_002DFF28(0xC);
+    func_002E00C8((short)a);
+    func_002E00C8((short)b);
+    func_002E00C8((short)c);
+    func_002E00C8((short)D_00372720);
+    func_002DFF78();
+    D_003731F0 = 1;
+    D_0037281C = b;
+    if (D_0037280C != 0) {
+        return -1;
+    }
+    D_0037280C = func_002E5F38(4, D_0037281C);
+    if (D_0037280C == 0) {
+        return -2;
+    }
+    func_002DFB70();
+    return 0;
+}
+TEXT_PAD(12);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E19E8);
+int func_002E16F8(unsigned int a) {
+    if (a >= 0x30) {
+        return -1;
+    }
+    D_003727A4 = a;
+    func_002DFF28(0x10);
+    func_002E00C8((short)a);
+    func_002DFF78();
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1B50);
+int func_002E1778(int a, int b, int c) {
+    if (a >= 0x30) {
+        return -1;
+    }
+    D_00330970[a] = c;
+    D_00330A30[a] = c;
+    D_00330AF0[a] = c;
+    if (b == 1) {
+        b = 0;
+        D_00330880[a] = 1;
+    } else {
+        D_00330880[a] = 0;
+    }
+    func_002DFF28(0xD);
+    func_002E00C8((short)a);
+    func_002E0140(b);
+    func_002E0140(c);
+    func_002DFF78();
+    return 0;
+}
+
+int func_002E18B8(int a, unsigned int b) {
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    if (b > D_00330970[a]) {
+        return -1;
+    }
+    D_00330A30[a] = b;
+    if (b < D_00330AF0[a]) {
+        D_00330AF0[a] = b;
+    }
+    func_002DFF28(0x47);
+    func_002E00C8((short)a);
+    func_002E0140(b);
+    func_002DFF78();
+    return 0;
+}
+
+int func_002E19E8(int a, unsigned int b) {
+    unsigned int c;
+
+    if (a >= D_003727A4) {
+        return -1;
+    }
+    if (b < 0x400 && b != 0) {
+        return -2;
+    }
+    if (D_00330970[a] == 0) {
+        return -1;
+    }
+    c = (b + 0x3F) & 0xFFFFFFC0;
+    if (b != c) {
+    }
+    if (c > D_00330A30[a]) {
+        return -1;
+    }
+    D_00330AF0[a] = c;
+    func_002DFF28(0x52);
+    func_002E00C8((short)a);
+    func_002E0140(c);
+    func_002DFF78();
+    return 0;
+}
+
+GP_DATA(D_003727D8);
+void func_002E1B50(int a) {
+    D_003727D8 = 1;
+    D_00372730 = a;
+    func_002DFF28(0xE);
+    func_002E0140(a);
+    func_002DFF78();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1BB0);
 
