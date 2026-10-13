@@ -46,6 +46,7 @@ extern u8 D_00337D80[];
 extern u8 D_003378C8[];
 void func_00114150(void*, int, int);
 void func_001144A0(void*);
+void func_001147D0(void*);
 void* operator_new(u32);
 void* Heap_Alloc(int, int, int, int);
 void* memset(void*, int, unsigned int);
