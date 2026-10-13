@@ -34,7 +34,7 @@ extern s32 D_003728F0;
 extern s32 D_003728F4;
 extern s32 D_00372900;
 extern void * D_003729B0;
-int func_002E3248(int);
+int SndDrv_FlushCommands(int);
 int func_002E3E50(int);
 int func_002E62C0(int);
 int func_002EA898(int, int);
@@ -49,7 +49,7 @@ extern "C" void func_002E90F8(void) {
     func_002E62C0(1);
     func_002E3E50(0);
     func_002E3E50(1);
-    func_002E3248(0);
+    SndDrv_FlushCommands(0);
     D_00372900 = 3;
     func_002E62C0(0);
 }
@@ -95,9 +95,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA460);
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA5E8);
 
 extern "C" void func_002EA5F0(void) {
-    func_002E3248(0);
+    SndDrv_FlushCommands(0);
     func_002EA268();
-    func_002E3248(0);
+    SndDrv_FlushCommands(0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA620);

@@ -14,7 +14,7 @@ void func_002E1B50(int);
 int func_002E5CA8(int, int, int);
 int func_002E1488(int);
 int func_002E5BB8(int, int);
-int func_002E3248(int);
+int SndDrv_FlushCommands(int);
 int func_002E5788(int, int);
 int func_002E5860(int, int);
 int func_002E59A0(int, int);
@@ -42,12 +42,12 @@ extern "C" void func_002E7BE8(void) {
 
 extern "C" void func_002E7C08(void) {
     func_002E5788(0, 0x2F);
-    func_002E3248(1);
+    SndDrv_FlushCommands(1);
 }
 
 extern "C" void func_002E7C30(void) {
     func_002E59A0(0, 0x2F);
-    func_002E3248(1);
+    SndDrv_FlushCommands(1);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E7010", func_002E7C58);
@@ -104,7 +104,7 @@ extern "C" void func_002E8440(void) {
     for (int i = 0x10; i < 0x30; i++) {
         func_002E1488(i);
     }
-    func_002E3248(0);
+    SndDrv_FlushCommands(0);
     func_002E1B50(0x25010);
     func_002E3AC0();
 }
@@ -114,13 +114,13 @@ extern "C" int func_002E8510(int a, int b, int c, int d, int, int flag) {
     func_002E3700(a, func_002E5718());
     func_002E3B08(D_0037321C, c, d);
     func_002E0B60(0x7F, D_003728B0, D_0037321C, 0);
-    func_002E3248(0);
+    SndDrv_FlushCommands(0);
     func_002E5188(D_003728B0, 0);
     if (flag != 0) {
         func_002E3700(b, func_002E5718());
         func_002E3B08(D_0037321C, c + d, d);
         func_002E0B60(0x7F, D_003728B0, D_0037321C, 0);
-        func_002E3248(0);
+        SndDrv_FlushCommands(0);
         func_002E5188(D_003728B0, 0);
     }
     return 1;
@@ -146,7 +146,7 @@ extern "C" int func_002E8A18(int a) {
             i = func_002E5CA8(i + 1, 0x2F, a);
         } while (i >= 0);
     }
-    func_002E3248(1);
+    SndDrv_FlushCommands(1);
     return n;
 }
 

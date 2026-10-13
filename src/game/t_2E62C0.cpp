@@ -17,7 +17,7 @@ extern S2E6F10 D_003EB000[2];
 extern s32 D_003728E4;
 extern s32 D_003728E8;
 extern s32 D_00372910;
-void func_002E3248(int);
+void SndDrv_FlushCommands(int);
 void func_002E3E50(u32);
 void func_002E6108(s16, s16);
 void func_002E6160(s16, s16);
