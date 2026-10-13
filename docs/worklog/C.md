@@ -757,3 +757,9 @@ Given up: t_2AD528 CFunc_LightShow_SetTime (see above), t_2EB1C0 func_002EB680 (
 (extra saved register caching the address of an stack array), t_26AEF8 func_0026BE00 (saved register for the result), func_0026BCB0 (the original keeps
 three copies of the entry pointer), t_268EB8 func_002698C8 (first two clears address the data through D_003A3484), func_0026A5D0 (return 0 first),
 t_2DEE90 func_002DF1F0 (iterator object with vptr store at the end), t_292928 func_002936C0 (volatile busy loop), t_2E90B0 func_002EA898 (empty loop).
+Part 4 (+4): t_2D4468 CFunc_SetPS2DOFZ; t_2E7010 func_002E7E20 (`r = 0x3FFF; if (!(x > 0.99f)) r = (int)(x * 16383.0f);` puts the li in the branch slot), func_002E8510 (the 5th
+arg is unused); t_2E90B0 func_002E9140 (`a && (t = q.u12) == 1 && b && (u = q.u12) == t && c` chain, then `return global`).
+Given up: t_2E7010 func_002E7010 (identical except `beql` instead of `beq` on the `D = 0 / D += 1` branch, 8 forms), func_002E7C58 (original has a nop after
+the last jal of the first if-block), func_002E8318 (needs -funroll-loops, file does not have it); t_2E90B0 func_002EA9E0 (checksum switch: tail layout
+differs by 8 bytes, 4 forms), func_002EA620; t_27D828 func_0027F610 (arg copied into v1 first: the F8C8 family problem); t_292928 func_00292AF0 (arg moves order);
+t_2D0150 CFunc_event_spawner_cfunc (`lw a0,16(sp)` in the delay slot of bnez vs ours bnezl, or moves order: pick one, never both).

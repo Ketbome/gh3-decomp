@@ -19,6 +19,8 @@ struct S27E358 {
 };
 
 extern "C" {
+int func_0027D268(int, u32, float *, int);
+extern float D_0036CA70;
 void func_0011C408(int, void *);
 extern int D_00368A38;
 void Heap_Free(int, void *);
@@ -52,7 +54,12 @@ extern "C" int func_002D4B38(int k, int *keys, int *vals, int n) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", CFunc_store_prune_guitar_finishes);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", CFunc_SetPS2DOFZ);
+extern "C" int CFunc_SetPS2DOFZ(int a) {
+    float v;
+    func_0027D268(a, 0, &v, 1);
+    D_0036CA70 = v;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5868);
 
