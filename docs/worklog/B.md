@@ -813,3 +813,5 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - t_1C5A68 func_001C6058 MATCH (unrolled-loop: dtor; the pair of members at 0x28/0x2C is `char** a = p+0x28; for i<2 { o = a[i]; if (o) del(o); a[i] = 0; }` unrolled with a virtual call inside; the nop before the second copy is the loop alignment; virtual dtor calls through a VE struct with flag 3).
 - Given up (B13): func_001B1990 (t_1B00D0): flag byte toggle + 64-byte matrix row copy loop (TI128 operator= inline, `*d++ = *s++` gives the pre-biased lq -64 form); close but v0/v1 of idx/t and a0/v0 of the count differ, pins make it worse (15 forms).
 - t_22FD98 func_00231838 MATCH (24 script-command registrations, plain u8[] data and 0x1FC bytes).
+- Given up (B13): func_001DE9C8 (t_1DE968, 24 element initialisers func_001DE9B8(p+4+0x24*i, key) in shuffled order): the original precomputes a dozen element addresses into s1-s8 and spills five to the stack before the calls; plain call chain compiles to 0x1b4 bytes; not found how to make gcc hoist them (1 form).
+- t_234190 func_00234190 MATCH (sibling of func_00234080 plus the trailing `if (b->unk84) func_0028D720(..)`).
