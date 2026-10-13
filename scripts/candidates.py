@@ -3,7 +3,7 @@
 
 Usage: .venv/bin/python scripts/candidates.py src/game/t_10C000.cpp [more files...] [--max-size 0x200]
 
-Flags: jtbl = has a jump table (needs rodata of its own: skip for now), vu0 = VU0 macro instructions (hand-written
+Flags: jtbl = has a jump table (a switch: supported, see decomp_guide.md), vu0 = VU0 macro instructions (hand-written
 assembly, keep), lit = loads float constants from memory (declare the existing constant as an extern).
 """
 

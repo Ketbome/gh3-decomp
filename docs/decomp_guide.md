@@ -52,11 +52,13 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
 - **No data of the file's own.** The rodata/data of the game stays in `asm/data` for now, so C++ must not create any:
   no string literals (`(char*)D_00364338` for an existing string: declare `extern char D_00364338[];`), no float
   literals that the compiler would put in `.lit4` (declare the existing constant: `extern float D_0036A0F0;`, it is
-  loaded the same way), no `static` variables, no `switch` that becomes a jump table (`jtbl_` in the asm: leave it
-  as INCLUDE_ASM). `fcheck.py` reports a file that has data of its own. Small strings and constants (8 bytes or
+  loaded the same way), no `static` variables. `fcheck.py` reports a file that has data of its own. Small strings and constants (8 bytes or
   less) live in `.sdata` and are reached through `$gp` (`%gp_rel`); larger ones through `%hi`/`%lo`.
   Float constants built inline (`lui`/`ori`/`mtc1 $at`) are plain literals (`57.29578f`): the build rewrites
   `li.s` like SN's assembler did. Constants loaded with `lwc1` from a `D_` symbol are variables: declare them.
+- **`switch` with a jump table** (`jtbl_` in the asm) is fine: the build drops the table the compiler writes and
+  points the code at the game's own table (`scripts/asm_filter.py`), and configure.py defines the case labels
+  (`build/jlabels.ld`). The cases must come out in the original order and addresses, which a byte match proves.
 - **Globals: `$gp` or `lui`.** Declare globals plainly (`extern int D_X;`). The build reproduces SN's one-pass
   assembler (`scripts/asm_filter.py`): a global is reached with `lui`+`%lo` outside delay slots and with `%gp_rel`
   inside them, unless the original object defined the symbol itself; then the original uses `%gp_rel` everywhere
