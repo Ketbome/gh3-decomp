@@ -1039,3 +1039,8 @@ Matched (A11) t_118E40: func_0011AA58 (ctor, counterpart of dtor func_0011AB60; 
 - func_0019FA28 (0x3F0, GS upload with sq-all saves), func_00159260 (0x47c jtbl), func_0013CB18/func_001147D0/func_0013B7E0: not attempted/skipped (variant getters with copy ctor, stack iterator with vptr, nops inside loop)
 - func_00161BA0 (stack iterator, flag bits): all matches except n=it.cur lands in t0 instead of a2 (+8 bytes of moves); 8 tries (hoisting `all = key == K` first and `s16 i` were needed)
 - func_0015AAA0 (0x138, virtual create + insert into hash table like func_0014B260): the key is held in a2 then copied (move s3,a2) in the original, ours keeps it in s1; also nop in the bnez slot; 5 tries
+
+## A12 pass (unrolled loops / untried 0x100..0x500)
+
+Matched (A12) t_112D48 (now `// cflags: -funroll-loops`, whole file still matches): func_00113BF8 (strncpy: `while (n != 0) { if (*s) *d++ = *s++; else *d++ = 0; n--; }`, unrolled 4x)
+- func_00114C70 (CRC32 table loop, unrolled 4x): structure/unroll matches but ours copies the args into t1/t3/t0 at entry (original uses a0-a2 in place), 6 forms tried (for/while/do-while/end pointer)

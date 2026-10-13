@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_001143E0 { char pad0[0x24]; int unk24; };
@@ -275,7 +276,16 @@ extern "C" char* func_00113BA0(char* s, char* sub) {
     return func_00113BA0(s + 1, sub);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113BF8);
+extern "C" void func_00113BF8(char* d, const char* s, int n) {
+    while (n != 0) {
+        if (*s) {
+            *d++ = *s++;
+        } else {
+            *d++ = 0;
+        }
+        n--;
+    }
+}
 
 extern "C" void* operator_new(u32 size) {
     void* p = Heap_Alloc(D_00368A38[0], size, 1, 0);
