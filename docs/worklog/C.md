@@ -694,3 +694,12 @@ Given up: CFunc_ReloadAnim (original: call result in s2 + `movn s2,v1,v1`; ours 
 func_002DCD68 (D_003722B0 is gp-relative file-wide through GP_DATA but this function reads it with lui: needs a split object),
 func_0028BDA8 (tail merge of the `sw` after `b`), func_002890C8 (n/l saved registers swapped), CFunc_GetHeldPattern (only
 `move a0,s0` vs `ori a2,sp,8` order), func_002964D8 (after the int-return fix only s0/s1 are swapped).
+Round 8 part 6 (+9): t_2A53A8 CFunc_GetSummaryInfo; t_254248 CFunc_IsStreamPlaying, CFunc_PlayStreamFromSet; t_296A10 func_00296CB8,
+func_00296DE0 (string holder ctors: local `u8`/`u16` copies whose addresses go to func_00296B28); t_25C450 CFunc_DisplayFreeMem
+(locals `m1 = D_003568B0; m2 = D_003568C0;` before the calls; every `a - b` operand in its own local so the calls come out in
+source order); t_2E7010 func_002E8968, func_002E8440 (16 explicit calls per iteration), func_002E8A18.
+Stack-slot rule confirmed: the FIRST address-taken local gets the LOWEST slot; to make an earlier-declared local sit lower than
+the one whose address is taken first, take its address first (`int *pa = &a;` and pass `pa`).
+Given up: CFunc_PreLoadStream / CFunc_PreLoadSoundStream (`flag = (x == K)` becomes xor+sltiu, original is a branch),
+func_002E70B0 / func_002E7D80 (two compare blocks: alignment nop + an extra saved register), func_002E8FF0 (address register
+allocation for the 0x1C-stride globals).

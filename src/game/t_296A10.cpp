@@ -80,7 +80,18 @@ struct S296A10_C {
     void *unk18;
 };
 
+struct S296CB8 {
+    u8 unk0;
+    u8 pad1;
+    u16 unk2;
+    int unk4;
+    char pad8[4];
+    int unkC;
+};
+
 extern "C" {
+int func_00296B28(u8 *, u16 *, int, int);
+void func_0030A2F4(int, int, int);
 void func_00297CF0(void *);
 int func_0030A49C(void *, int, int);
 extern char D_0035C330[];
@@ -163,7 +174,30 @@ extern "C" S296A10_B *func_00296AF0(S296A10_B *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296B28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296CB8);
+extern "C" S296CB8 *func_00296CB8(S296CB8 *p, u8 a, u16 len, int src, s8 mode) {
+    u8 sa = a;
+    u16 sl = len;
+    int x;
+    p->unkC = 0;
+    p->unk4 = 0;
+    if (sl) {
+        x = 0;
+        if (mode) {
+            x = func_00296B28(&sa, &sl, src, mode);
+            if (x) {
+                src = x;
+            }
+        }
+        p->unk4 = func_00118F20(D_00368A38[0], sl, 1, 0);
+        func_0030A2F4(p->unk4, src, sl);
+        if (x) {
+            func_00119400(D_00368A38[0], (void *)x);
+        }
+    }
+    p->unk0 = sa;
+    p->unk2 = sl;
+    return p;
+}
 
 struct Sfunc_00296D88 {
     char pad0[4];
@@ -178,7 +212,40 @@ extern "C" void func_00296D88(Sfunc_00296D88 *p, int b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296DE0);
+struct S296DE0 {
+    u8 unk0;
+    u8 pad1;
+    u16 unk2;
+    int unk4;
+    u8 unk8;
+    char pad9[7];
+    int unk10;
+};
+extern "C" S296DE0 *func_00296DE0(S296DE0 *p, u8 a, u16 len, int src, u8 c, s8 mode) {
+    u8 sa = a;
+    u16 sl = len;
+    int x;
+    p->unk10 = 0;
+    p->unk4 = 0;
+    if (sl) {
+        x = 0;
+        if (mode) {
+            x = func_00296B28(&sa, &sl, src, mode);
+            if (x) {
+                src = x;
+            }
+        }
+        p->unk4 = func_00118F20(D_00368A38[0], sl, 1, 0);
+        func_0030A2F4(p->unk4, src, sl);
+        if (x) {
+            func_00119400(D_00368A38[0], (void *)x);
+        }
+    }
+    p->unk8 = c;
+    p->unk0 = sa;
+    p->unk2 = sl;
+    return p;
+}
 
 struct Sfunc_00296EC0 {
     char pad0[4];

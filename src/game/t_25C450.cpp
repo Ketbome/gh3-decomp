@@ -24,7 +24,24 @@ struct S25C_Pool {
     bool Has(void *p) { return (char *)p >= start && (char *)p < end; }
 };
 
+struct S25C_Node {
+    char pad0[0x34];
+    int unk34;
+    char pad38[0xC];
+    char unk44[1];
+};
+
 extern "C" {
+extern char D_003568C0[];
+extern char D_003568B0[];
+void func_0025CAE8(char *, int, int, int);
+int func_0025F960(void);
+int func_0025F938(void);
+int func_0025F910(void);
+int func_0011A8D0(int);
+int func_0011A8A8(int);
+S25C_Node *func_00119A60(int, S25C_Node *);
+S25C_Node *func_00119A40(int);
 extern int D_00371038P asm("D_00371038");
 extern S25C_Pool *D_00371028P[2] asm("D_00371028");
 extern int D_00370FB8P asm("D_00370FB8");
@@ -199,7 +216,44 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_PrintMemInfo);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CAE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DisplayFreeMem);
+extern "C" int CFunc_DisplayFreeMem(void) {
+    int h = D_00368A38[0];
+    S25C_Node *n = func_00119A40(h);
+    char *m1;
+    char *m2;
+    if (n) {
+        do {
+            int v = n->unk34;
+            char *name = n->unk44;
+            int a = func_0011A8A8(v);
+            int b = func_0011A8D8(v);
+            int c = func_0011A8D0(v);
+            func_0025CAE8(name, a, b, c);
+            n = func_00119A60(h, n);
+        } while (n);
+    }
+    m1 = D_003568B0;
+    m2 = D_003568C0;
+    {
+        int a = func_0025F910();
+        int b = func_0025F938();
+        int ab = a - b;
+        int c = func_0025F910();
+        int d = func_0025F910();
+        int e = func_0025F960();
+        func_0025CAE8(m1, ab, c, d - e);
+    }
+    {
+        int a = func_0025F988();
+        int b = func_0025F9B0();
+        int ab = a - b;
+        int c = func_0025F988();
+        int d = func_0025F988();
+        int e = func_0025F9D8();
+        func_0025CAE8(m2, ab, c, d - e);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_GetHeapSize(int a, S25C450_S *s) {
     int h = D_00368A38[0];

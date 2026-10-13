@@ -33,6 +33,10 @@ struct S2A5_Script {
 };
 
 extern "C" {
+int func_0027D1F8(int, int, int *, int);
+int func_002A4DB8(int, int, int);
+extern int D_00371D84;
+extern int D_00371D80;
 void func_0028C9D0(int, int, int, int, int, int);
 int func_001E40C8(u32);
 void *func_00118F20(int, int, int, int);
@@ -208,7 +212,20 @@ extern "C" s32 CFunc_SaveFailedDueToInsufficientSpace(void) {
     return D_00371D7C;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_GetSummaryInfo);
+extern "C" int CFunc_GetSummaryInfo(int arg0, S2A5_Script *script) {
+    int y;
+    int x;
+    func_0027D870(arg0, 0, (u32 *)&x, 1);
+    int xs = x;
+    y = 0;
+    func_0027D1F8(arg0, 0xC78DABF6, &y, 0);
+    if (y) {
+        func_002A4DB8(script->unk20, D_00371D84, D_00371D80);
+    } else {
+        func_002A4DB8(script->unk20, xs, 0);
+    }
+    return 1;
+}
 
 extern "C" void func_002A5DB0(void) {
     func_0026D480(0);

@@ -8,6 +8,14 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_0027C448(int, int, int);
+int func_0026F3B8(int, int);
+void func_00113250(int);
+void func_0027AC90(int);
+int func_0027AA70(int);
+int func_001287F0(int, int);
+int CFunc_PlaySound(int, int);
+int func_0026DCC8(int);
 void func_0026C738(int, f32);
 extern char D_00356110[];
 void func_0030B550(char *, char *, int);
@@ -211,7 +219,22 @@ extern "C" int CFunc_StopAudioStreams(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_IsStreamPlaying);
+extern "C" int CFunc_IsStreamPlaying(int arg0) {
+    int a = 0;
+    int b = 0;
+    int *pa = &a;
+    func_0027D1F8(arg0, 0xAF6450A6, &b, 0);
+    if (func_0027D870(arg0, 0, pa, 0)) {
+        int v = func_0026A5D0(a);
+        if (v && b) {
+            if (func_0026DCC8(a)) {
+                v = 0;
+            }
+        }
+        return v;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetStreamParams);
 
@@ -220,7 +243,23 @@ extern "C" int CFunc_PreprocessStreamSets(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayStreamFromSet);
+extern "C" int CFunc_PlayStreamFromSet(int arg0, int arg1) {
+    int o = func_0027AA70(func_001287F0(8, 1));
+    if (func_0026F3B8(arg0, o)) {
+        CFunc_PlaySound(o, arg1);
+        if (o) {
+            func_0027AC90(o);
+            func_00113250(o);
+            return 1;
+        }
+        return 1;
+    }
+    if (o) {
+        func_0027AC90(o);
+        func_00113250(o);
+    }
+    return 0;
+}
 
 extern "C" int CFunc_LoadSoundRAM(int arg0) {
     int ok = 0;
