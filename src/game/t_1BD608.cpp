@@ -175,7 +175,22 @@ extern "C" u16 func_001BF480(S001BF1D0* p) {
     return 1 << (u16)p->unk30_30;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF4A0);
+extern "C" s32 func_001BF4A0(char* p) {
+    s32 k = (s32)((*(u64*)(p + 0x30) >> 20) & 0x3F);
+    switch (k) {
+    case 0:
+        return 0x20;
+    case 1:
+        return 0x18;
+    case 2:
+        return 0x10;
+    case 19:
+        return 8;
+    case 20:
+        return 4;
+    }
+    return 0;
+}
 
 extern "C" s32 func_001BF508(S001BF1D0* p) {
     u32 v = p->unk30_51;
@@ -195,7 +210,21 @@ extern "C" s32 func_001BF560(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF568);
+extern "C" s32 func_001BF568(s32 x) {
+    switch (x) {
+    case 32:
+        return 0;
+    case 24:
+        return 1;
+    case 16:
+        return 2;
+    case 8:
+        return 0x13;
+    case 4:
+        return 0x14;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF5C0);
 

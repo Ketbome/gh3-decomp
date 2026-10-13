@@ -79,6 +79,8 @@ void func_0027C1F8(s32 a, u32 k, f32 v);
 void func_0027C898(s32 a, u32 k, s32 v);
 void func_0021E4E8(s32 a, s32 b, s32 c);
 void func_00113250(void* p);
+struct S21D;
+void func_0021E2E0(S21D* p);
 }
 
 struct V21D {
@@ -221,7 +223,21 @@ extern "C" void func_0021E140(char* p) {
     *(int*)(p + 0x44) = func_001D1CF8(*(void**)(p + 0xC), 0xCE0CA665);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E1A0);
+extern "C" void func_0021E1A0(char* p) {
+    switch (*(u32*)(p + 0x5C)) {
+    case 0:
+        break;
+    case 1:
+    case 2:
+        func_0021E2E0((S21D*)p);
+        break;
+    case 3:
+    case 4:
+        func_0021E2E0(*(S21D**)(p + 0x60));
+        break;
+    }
+    func_002210B8(p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E208);
 

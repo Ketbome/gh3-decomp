@@ -76,6 +76,12 @@ void func_001DE9C0(int, f32);
 void func_001DE8E8(int, int);
 void func_001DE9A8(int);
 void func_001DE9B0(int);
+int func_0027D400(int, u32, int*, int);
+int func_0027DF00(int, u32);
+int func_001CD6C0(int, int);
+void func_00213EA8(char*, int);
+extern int D_0036D020;
+extern int D_00368740;
 }
 
 struct C213 {
@@ -174,7 +180,44 @@ extern "C" void func_002136A8(char* p, int flags) {
     func_001D0F90(p, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_00213770);
+extern "C" void func_00213770(char* self, int params) {
+    int a;
+    int b;
+    u32 k;
+    if (func_0027D1F8(params, 0x67E6859A, &a, 0)) {
+        func_00213EA8(self, func_001CD6C0(D_0036D020, a));
+    } else if (func_0027D1F8(params, 0xB30D9965, &a, 0)) {
+        func_00213EA8(self, a);
+    }
+    if (func_0027D400(params, 0xB9B1E3B6, &b, 0)) {
+        switch (D_00368740) {
+        case 6:
+            k = 0xF6A179C0;
+            break;
+        case 7:
+            k = 0xEF8D059E;
+            break;
+        case 5:
+            k = 0xBCF00D45;
+            break;
+        case 4:
+            k = 0x87D839B8;
+            break;
+        case 1:
+        case 2:
+        case 3:
+        case 8:
+        case 9:
+        default:
+            k = 0x988A3508;
+            break;
+        }
+        func_0027D870(b, k, (int*)(self + 0xB10), 1);
+    }
+    int f = func_0027DF00(params, 0xE20E54C5) ^ 1;
+    *(int*)(self + 0x584) = f;
+    *(int*)(self + 0xAF0) = f;
+}
 
 extern "C" void func_002138B0(S213* self, int a) {
     VEntry213* e = &self->unk18[3];

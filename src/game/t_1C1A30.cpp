@@ -201,7 +201,22 @@ extern "C" u16 func_001C3558(S001C3538* p) {
     return 1 << (u16)p->unk10_30;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3578);
+extern "C" s32 func_001C3578(char* p) {
+    s32 k = (s32)((*(u64*)(p + 0x10) >> 20) & 0x3F);
+    switch (k) {
+    case 0:
+        return 0x20;
+    case 1:
+        return 0x18;
+    case 2:
+        return 0x10;
+    case 19:
+        return 8;
+    case 20:
+        return 4;
+    }
+    return 0;
+}
 
 extern "C" s32 func_001C35E0(S001C3538* p) {
     u32 v = p->unk10_51;

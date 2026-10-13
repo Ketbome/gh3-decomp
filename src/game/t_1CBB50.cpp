@@ -134,6 +134,9 @@ void func_00114958(s32 a, s32 b);
 extern s32 D_00370EE0;
 void func_001CD6E0(s32 a, s32 b);
 extern char D_00342398[];
+int func_001CB558(void* p);
+void func_001C9DE0(void* p);
+void func_001CB550(void* p, int a);
 }
 
 extern "C" void func_001CBB50(N1CBB* n, int flags) {
@@ -576,7 +579,49 @@ extern "C" int func_001CCB60(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CBB50", func_001CCC00);
+extern "C" s32 func_001CCC00(char** pp) {
+    char* t = pp[0];
+    char* o = pp[7];
+    u32 k;
+    switch (*(s8*)t) {
+    case 4:
+        k = 0xE5A65DEC;
+        break;
+    case 0:
+        k = 0x7782B5B7;
+        break;
+    case 5:
+        k = 0xDDE5676F;
+        break;
+    case 1:
+        if (func_001CB558(o) == 4 || func_001CB558(o) == 3) {
+            k = 0x3104C1F1;
+            break;
+        }
+        func_00119490((char*)D_00368A38[0], *(int*)((char*)D_00368A38[0] + 0x1E8));
+        func_0028C9D0(0x7721B33A, 0, 0, 0, 0, 0);
+        func_00113FB8(*(int*)(o + 0x1C));
+        func_001194B8((char*)D_00368A38[0]);
+        return 1;
+    case 3:
+        func_0028C9D0(0x89E9B82D, 0, 0, 0, 0, 0);
+        func_00113FB8(*(int*)(o + 0x1C));
+        return 1;
+    case 6:
+        k = 0x922B12AD;
+        break;
+    case 7:
+        k = 0x2AB1E499;
+        break;
+    default:
+        k = 0xBA9CB8E8;
+        break;
+    }
+    *(u32*)(o + 0xB0) = k;
+    func_001C9DE0(o);
+    func_001CB550(o, 8);
+    return 3;
+}
 
 extern "C" void func_001CCD50(char* p) {
     char* o = *(char**)(p + 0x1C);
