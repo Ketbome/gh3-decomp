@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S0019FA18 {
@@ -18,6 +19,7 @@ struct N_19F { N_19F* next; char pad4[0x48]; N_19F* prev; };
 struct S1A1118 { int unk0; int unk4; int unk8; int unkC; int unk10; };
 
 extern "C" {
+void func_001A0D98(void*, void*, int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
 void func_0019F7E0(N_19F*);
@@ -157,7 +159,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0710);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0A40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0D38);
+extern "C" void* func_001A0D38(char* self) {
+    int i;
+    for (i = 0; i < 4; i++) {
+        func_001A0D98(self, self + i * 0x3C8, i);
+    }
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0D98);
 
