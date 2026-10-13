@@ -38,6 +38,9 @@ struct S001C8470 {
 };
 
 extern "C" {
+s32 func_00122718(char* p);
+s32 CFunc_ObjectExists(s32 a, s32 b);
+void func_00122770(void);
 extern G10 D_00368740;
 void func_00113F38(void* p);
 extern char D_00342398[];
@@ -163,7 +166,32 @@ extern "C" void func_001C8568(S001C8470* p) {
     o->unkEE00[65].fn((char*)o + o->unkEE00[65].delta, p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C85A0);
+extern "C" void func_001C85A0(void) {
+    char buf[0x100];
+    if (func_00122718(buf) > 0) {
+        s8 c = buf[0];
+        if (c == 0x19 || c == 0x20) {
+            int t = func_0027AA70(func_001287F0(8, 1));
+            func_0027C448(t, 0x40C698AF, 0x31631B98);
+            if (CFunc_ObjectExists(t, 0) == 0) {
+                func_0027AC90(t);
+                func_0027C448(t, 0x40C698AF, 0xF53D1D83);
+                if (CFunc_ObjectExists(t, 0) == 0) {
+                    func_0027AC90(t);
+                    func_0027C448(t, 0x40C698AF, 0x3B56E746);
+                    if (CFunc_ObjectExists(t, 0) == 0) {
+                        func_0028C9D0(0x3B4548B8, 0, 0, 0, 0, 0);
+                        func_00122770();
+                    }
+                }
+            }
+            if (t != 0) {
+                func_0027AC90(t);
+                func_00113250(t);
+            }
+        }
+    }
+}
 
 extern "C" void func_001C86C8(char* p) {
     func_001163F0();

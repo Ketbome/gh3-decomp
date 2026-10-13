@@ -764,3 +764,14 @@ Not attempted/given up: func_001D55F8 and func_001D5688 start with `move v0,a0; 
 Matched: func_001E04D8 func_001FB6C0 func_001BA6D8 (GS packet pushes: `char* D_00373270`, `*(u32*)p = X; D_00373270 = p + 4;` in the order of the original) func_002327C8 (GP_DATA must precede the function) func_00207A48 (cast-less `VEntry206* e = &self->unk18[9]`).
 Total this session (B11): 72 functions.
 Given up: func_0023A168 (loop count reload lands in v1 instead of v0 after register pins), func_001E5050 (short-loop pad: ours has one nop less), func_00233E10 (movn/movz bool conversions), func_0022BBD0 (bitfield word updates), func_001E1E58 (original precomputes ten element addresses in saved registers: unrolled loop over a key table), func_001EB4D0/func_001E30A0/func_001B1F18 (vector code / big char switch / text layout).
+
+## Session 10 (worker B12)
+
+Matched: t_238490 func_0023A248 (store order `unk14, unk1C, unk20`); t_1CE0A8 func_001CFBC8 (old prototype was void: defined under an `__asm__("func_001CFBC8")` alias returning s32, other callees via `__asm__` aliases); t_1C7AA0 func_001C85A0 (`char buf[0x100]` stack buffer); t_1C5A68 func_001C6188 (re-read `p->unk304` after the call in each branch, no local).
+Given up:
+- jtbl: func_001B4828 (t_1B4190; vector returned in TI128 matches except `move a2,a0` before the vector build, original keeps a copy of the switch value: 7 tries incl. register pins); func_001E30A0 (t_1E2B90; structure and tables match with `switch ((s8)c)` + `register k asm("$4")`/`t asm("$3")` pins, remaining diff is c in a2 vs a1 and the two 0x13C-style constants; 12 tries); func_001B1F18, CFunc_RemoveArrayElement: too long, not attempted
+- sq: func_001BDC30 (t_1BD608): body matches with plain int args (moves are daddu); all saves (s0-s8 and ra) are `sq` ascending in the original and no u128/long/asm-TI form produced that (a TI value only changes its own register's save); 8 tries
+- func_001D8618 (t_1D85E8): two hash Get() inlines; first compares against a copy of the key (`move a3,a1`), second reuses v0 as result with no `move v0,zero` on the null-bucket path; 9 tries
+- func_00239128 (t_238490): loop head duplicated into the `bnezl` delay slot (same class as the hash unlink loops); func_0023A350: needs two copies of the 0x13C constant in s3/s4 (asm `li` tried, 12 tries)
+- func_001CD360 (t_1CBB50): original hoists only the `lui` of the function/data addresses into s2/s3 (ours hoists lui+addiu or neither); 4 tries
+- CFunc_CreateCompositeObject: original loads `lw a2,4(sp)` once in the beqz delay slot for both the 3rd arg of the first call and the later call; ours CSEs it with a0 or reloads twice
