@@ -209,7 +209,13 @@ extern "C" int func_0011DAA0(S_0011DAA0* self) {
     return self->unk40 > 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DAB0);
+extern "C" int func_0011DAB0(S_0011DAA0* self) {
+    do {
+        func_0011D988();
+        func_0011E560();
+    } while (func_0011DAA0(self));
+    return *(volatile int*)self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DAF8);
 
