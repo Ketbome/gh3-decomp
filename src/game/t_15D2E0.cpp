@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct VEntry {
@@ -156,9 +157,19 @@ extern "C" int func_0015D2E8(int a, int) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015D318);
-
 GP_DATA(D_00369E68);
+extern "C" int func_0015D318(void) {
+    int i;
+    for (i = 0; i < 16; i++) {
+        int bit = 1 << i;
+        if (!(D_00369E68 & bit)) {
+            D_00369E68 |= bit;
+            return bit;
+        }
+    }
+    return 0;
+}
+
 extern "C" void func_0015D3F0(int m) {
     D_00369E68 &= ~m;
 }
