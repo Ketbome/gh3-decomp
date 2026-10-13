@@ -542,3 +542,30 @@ Given up:
   rematerialises them (bool via branches); 4 forms
 - func_0020EF70, func_0020F040: `nop; nop` before div.s (toolchain); func_00210A18: 4 inline sub-object inits, not tried
 - func_0020EEF0: stack iterators; not attempted
+
+## Session 6 (t_211050 .. t_249620, small functions first)
+
+Matched (t_2131A8 .. t_249620, ~110 so far): getters/setters, pass-through wrappers, constructors with a base ctor
+returning `void*`, list-head inits, TI128 copies, ctor/dtor pairs. 0x4 candidates (split tails) skipped.
+
+Habits (verified by match):
+- A wrapper that keeps `a0` untouched passes it through: `void f(void* p) { g(p); return p; }` is
+  `sd s0; move s0,a0; jal g; move v0,s0`. A callee whose asm has no `a0` setup but uses it takes the caller's args.
+- `return cond ? ..` early-return form: `if (!t) return 0; ...; return f() != 0;` gives the `b L; sltu` tail shape.
+- Returning a virtual call's int result (`return v->fn(...)`) is what puts the fn pointer in `$v0` (func_0022BE20).
+- Global read with `lui $a0; lw $a0,%lo($a0)` (macro form): declare it as `extern T D[] __attribute__((section(".sdata")))`
+  with a struct T larger than 8 bytes and use `D->field`; plain `int` arrays still go `$gp` (t_223BE8 D_0036F520).
+- `&D` as `addiu a0,$gp,%gp_rel(D)`: declare `extern u8 D;` (scalar), not an array (func_0022C4F0).
+- Same symbol called with 1 arg elsewhere and with 3 in its own definition: second declaration with
+  `__asm__("name")` under a new C name (t_243208 func_00244930_1).
+- `u32* d; d[1] = (u32)(d + 1)` style: take the base pointer once (`int* d = (int*)&D; int* n = d + 1;`) so the
+  `addiu` stays separate (func_002367E0, func_00246C50).
+- Store order: with N stores of mixed kinds the emitted order is a permutation of the source order (first
+  emitted = the last source store of the kind); solve by trying `src = [..]` permutations, see func_00248CF8.
+- 0xFFFFFFFF written to a u32 field gives `lui/ori`, `-1` gives `li`.
+
+Given up:
+- func_00223360: `lui` hoisted above `move a1,a0` (2 tries); func_0022F3A0: `sw` before the macro `lw` in ours, in the jal delay slot in the original
+- func_0023F700 func_0023F738 func_00241040 func_00241078: table getter, original keeps the owner in v1 (ours reuses a0, branch-likely li); 6 forms
+- func_00230578: schedule of the 5-term expression with gp globals; func_002490E0: `o` in a1 vs a0 for a virtual call
+- func_00243478: `swc1 $f0` of an uninitialised register; func_0022BBA0 func_002219D8: split tails; func_00248E20 MakeVec constant; func_00231A38: 8 register args

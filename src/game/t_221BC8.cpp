@@ -54,7 +54,7 @@ void func_002226F8(void*);
 void func_00223590(void*, int);
 void func_00223628(void*, int);
 void func_0027D470(void*, u32, void*, int);
-void func_001D0F68(void*);
+void* func_001D0F68(void*);
 void func_00223190(S221*);
 S222* func_00222DE0(S222*);
 void func_002230B8(S221*, int);
@@ -188,7 +188,12 @@ extern "C" S222* func_00222DB0(void) {
 extern "C" void func_00222DD8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222DE0);
+extern "C" S222* func_00222DE0(S222* p) {
+    func_001D0F68(p);
+    *(u8**)((char*)p + 0x18) = D_003520D8;
+    p->unk4 = 0x8B5D73B0;
+    return p;
+}
 
 extern "C" void func_00222E20(S222* self, int flag) {
     self->unk18 = (VEntry221*)D_003520D8;
