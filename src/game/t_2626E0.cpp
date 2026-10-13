@@ -491,4 +491,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewportCameraOrient);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraPos);
 
+typedef unsigned int u128 __attribute__((mode(TI)));
+struct S2626_M4 {
+    u128 a, b, c, d;
+};
+struct S2626_Cam {
+    char pad0[0x90];
+    S2626_M4 unk90;
+};
+struct S2626_VP {
+    char pad0[0x34];
+    S2626_Cam *unk34;
+};
+struct S2626_Node {
+    char pad0[0xC];
+    char *unkC;
+    char pad10[4];
+    S2626_Node *unk14;
+    char pad18[4];
+    S2626_Cam *unk1C;
+};
+extern "C" {
+S2626_VP *func_0015D568(int, int);
+S2626_VP *func_0015DB00(int);
+S2626_Node *func_001D4AC0(int, u32);
+int func_0027D2D8(int, u32, u128 *, int);
+extern int D_0036D3B0;
+}
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraOrient);
