@@ -24,7 +24,7 @@ extern short D_003727D0;
 extern int D_003727F8;
 void func_002F0D28();
 int func_002F1370();
-extern char D_00330BD8[];
+extern unsigned char D_00330BD8[];
 extern char D_00330C08[];
 extern short D_00330C38[];
 extern short D_00330C98[];
@@ -65,6 +65,21 @@ extern unsigned int D_00330970[];
 extern unsigned int D_00330A30[];
 extern unsigned int D_00330AF0[];
 extern char D_003727D8;
+extern unsigned int D_00372820;
+extern unsigned int D_00372824;
+int func_002F1750();
+extern short *D_003726E4;
+extern int D_003726DC;
+extern int D_00372700;
+extern int D_00372838;
+extern short D_00427F80[];
+extern short D_00428380[];
+extern int D_00330BB0[];
+extern int D_00372760;
+extern int D_00372764;
+extern int D_00372768[];
+extern int D_00372770[];
+extern int D_00372778[];
 int *func_002E5F38();
 char *strcpy(char *, const char *);
 unsigned int strlen(const char *);
@@ -668,19 +683,135 @@ void func_002E1B50(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E1BB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E2FB0);
+GP_DATA(D_00372820);
+int func_002E2FB0(int a, int b) {
+    int i;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3140);
+    if (a < 0 || a >= 0x30) {
+        return -2;
+    }
+    if (b < a || b >= 0x30) {
+        return -3;
+    }
+    i = a;
+    while (i <= b) {
+        if (D_00330BD8[i] == 0) {
+            if (i < 0x18 ? (int)((long)D_00372820 >> i & 1) : (int)((long)D_00372824 >> (i - 0x18) & 1)) {
+                D_00330BD8[i] = 3;
+                return i;
+            }
+        }
+        i++;
+    }
+    return -1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3248);
+int func_002E3140(int a) {
+    if (a < 0 || a >= 0x30) {
+        return -1;
+    }
+    if ((a < 0x18 ? (int)((long)D_00372820 >> a & 1) : (int)((long)D_00372824 >> (a - 0x18) & 1)) == 0) {
+        return -1;
+    }
+    return D_00330BD8[a];
+}
+TEXT_PAD(24);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E33F0);
+GP_DATA(D_003726E4);
+GP_DATA(D_003726DC);
+GP_DATA(D_00372700);
+GP_DATA(D_00372838);
+int func_002E3248(int a) {
+    int ret;
+    int r;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3610);
+    if (a == 0) {
+        while (func_002E5758() == 1) {
+        }
+    } else if (func_002E5758() == 1) {
+        return -1;
+    }
+    r = func_002F1750(D_003EAD40);
+    if (r != 0) {
+        return -1;
+    }
+    if (D_003727A8 == 0) {
+        func_002E1518(-1, 0);
+    }
+    D_003727A8 = 0;
+    D_003726E0[0] = 0x49;
+    D_003726E0[1] = (unsigned short)D_003727F8;
+    if (D_003726E0 == D_00427F80) {
+        D_003726E0 = D_00428380;
+        D_003726E4 = D_00427F80;
+    } else {
+        D_003726E0 = D_00427F80;
+        D_003726E4 = D_00428380;
+    }
+    if (D_003726D8 > D_003726DC) {
+        D_003726DC = D_003726D8;
+    }
+    D_00372700 = 1;
+    if (D_00372838 == 1) {
+        D_00372838 = 2;
+    }
+    func_002DFEB0(0, (int)D_003726E4, a);
+    ret = D_003726D8;
+    D_003726D8 = 0;
+    D_003727F8 = 0;
+    return ret;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3660);
+GP_DATA(D_00372768);
+GP_DATA(D_00372770);
+GP_DATA(D_00372760);
+GP_DATA(D_00372778);
+int func_002E33F0(int a, int b, int c, int d, int e, int f) {
+    int o;
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E36B0);
+    if (a >= 2 || a < 0) {
+        return -1;
+    } else if (b >= 0xA) {
+        return -1;
+    }
+    o = 1 - a;
+    if (D_00372768[o] == 0) {
+        D_00372770[a] = D_00372760;
+    } else if (D_00372770[o] == D_00372760) {
+        D_00372770[a] = D_00372764;
+    } else {
+        D_00372770[a] = D_00372760;
+    }
+    D_00372768[a] = b;
+    D_00372778[a] = D_00330BB0[b];
+    func_002DFF28(0x13);
+    func_002E00C8((short)a);
+    func_002E00C8((short)b);
+    func_002E00C8((short)c);
+    func_002E00C8((short)d);
+    func_002E00C8((short)e);
+    func_002E00C8((short)f);
+    func_002DFF78();
+    return 0;
+}
+
+void func_002E3610(int a) {
+    func_002DFF28(0x18);
+    func_002E00C8((short)a);
+    func_002DFF78();
+}
+
+void func_002E3660(int a) {
+    func_002DFF28(0x19);
+    func_002E00C8((short)a);
+    func_002DFF78();
+}
+
+void func_002E36B0(int a) {
+    func_002DFF28(0x17);
+    func_002E00C8((short)a);
+    func_002DFF78();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DFB70", func_002E3700);
 
