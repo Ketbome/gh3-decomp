@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_00120C60 { char pad0[0x10]; int unk10; };
@@ -135,9 +136,31 @@ extern "C" void func_0011F768(void* a, S11F768* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F7E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F8D0);
+struct S_11F8D0 { char pad0[0x4C]; int unk4C[1]; char pad50[0xFC]; int unk14C; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F9A8);
+extern "C" int func_0011F8D0(S_11F8D0* self, int key) {
+    int i;
+    for (i = 0; i < self->unk14C; i++) {
+        if (self->unk4C[i * 4] == key) {
+            return self->unk4C[i * 4 + 1];
+        }
+    }
+    return 0;
+}
+
+struct E_11F9A8 { int unk0; char pad4[0xC]; };
+struct S_11F9A8 { char pad0[0x4C]; E_11F9A8 unk4C[1]; char pad5C[0xF0]; int unk14C; };
+
+extern "C" E_11F9A8* func_0011F9A8(S_11F9A8* self, int key) {
+    int i;
+    for (i = 0; i < self->unk14C; i++) {
+        if (self->unk4C[i].unk0 == key) {
+            return &self->unk4C[i];
+        }
+    }
+    return 0;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011FA98);
 

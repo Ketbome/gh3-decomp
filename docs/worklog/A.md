@@ -1047,3 +1047,5 @@ Matched (A12) t_112D48 (now `// cflags: -funroll-loops`, whole file still matche
 Matched (A12) t_11D000 (now `// cflags: -funroll-loops`, whole file still matches): func_0011D830 (zero fill: `for (i<100) int[i]=0; for (i<200) 16-byte entry fields = 0`, unrolled 10x)
 Matched (A12) t_118E40 (now `// cflags: -funroll-loops`): func_0011A170 (32 entries of 0x50 at +0x254; key at +8, flag at +0x4C; returns the entry)
 - func_00119A60 (search `a[i]==key` returns a[i+1], unrolled 4x): all but the second `blez t0` zero-iteration guard (original has it on a copy t0 of n; ours elides it); 6 forms tried
+Matched (A12) t_11F000 (now `// cflags: -funroll-loops`): func_0011F8D0 (search 0x10-byte entries at +0x4C by key, count at +0x14C, returns field +4), func_0011F9A8 (same, returns entry)
+- func_0011FA98 (remove-by-swap-with-last on the same table, not unrolled; count volatile fits the reloads): original lays the found block before the loop and computes `i*16` at the exit while ours strength-reduces it (and `a3`=key copy); 5 forms (goto found, break) tried
