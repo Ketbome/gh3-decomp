@@ -958,3 +958,8 @@ Given up (A9, part 2): func_00176020 + func_00176880/B58/78D0/78FF0 family (scri
 match except `addiu a2,sp,4` where ours emits `ori a2,sp,4`; tried struct/array/scalar/s16/float locals),
 func_0013B8F8 (float reg numbering with -3276.75 hidden through asm), func_00137470 (original has 2 extra nops
 in a 2-instruction busy-wait loop), func_0015CFC8 (stack list iterator).
+
+A9 pass, part 3. Matched 1: func_0012B970 (small table filled through a moving pointer `d += 1; *d = ..; d += 1; d[0]=..; d[1]=..`).
+
+Given up (A9, part 3): func_0012EC20 (switch on hashes: layout matches [5F49][AF2F][C683] but epilogue/likely-branch
+shape differs), func_0019ED90 (needs `xori` after slt: forced with asm, but x/y/z registers end up a0 instead of v0).

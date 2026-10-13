@@ -83,6 +83,11 @@ struct S_0012BC90_c { char pad0[0x8]; float unk8; };
 struct S_0012BC90_b { char pad0[0xC]; S_0012BC90_c* unkC; };
 
 extern "C" {
+void func_0027C448(int, u32, int);
+void func_0027C1F8(int, u32, float);
+void func_0012A478(void*, float*, float*, float*);
+extern int D_00372AD0;
+extern u32 D_00377F70[];
 
 void func_0012BE38(void*, int, int, int, int, float, float, float, float);
 void func_0012D630(SB12_O*);
@@ -123,7 +128,30 @@ void func_001194B8(int);
 struct S_0012C1F8 { char pad0[0x38]; int unk38; };
 struct S_0012D208 { char pad0[0x8]; int unk8; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012B970);
+GP_DATA(D_00372AD0);
+extern "C" void func_0012B970(int unused, char* self, int p) {
+    char* b = self + 4;
+    float x;
+    float y;
+    float z;
+    func_0027C448(p, 0x98549BA4, *(int*)(b + 0x34));
+    func_0027C1F8(p, 0xF0D90109, *(float*)(self + 0x28));
+    if (D_00372AD0 == 0) {
+        u32* d = D_00377F70;
+        D_00377F70[0] = 0xE035F2F8;
+        d += 1;
+        *d = 0x4F792E6C;
+        d += 1;
+        d[0] = 0x3153E314;
+        d[1] = 0x6D941203;
+        D_00372AD0 = 1;
+    }
+    func_0027C448(p, 0x6B888E80, D_00377F70[*(int*)(b + 0x2C)]);
+    func_0012A478(b, &x, &y, &z);
+    func_0027C1F8(p, 0xD16B61E6, x);
+    func_0027C1F8(p, 0xD4FC8176, y);
+    func_0027C1F8(p, 0xAB81BB3D, z);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012BA98);
 

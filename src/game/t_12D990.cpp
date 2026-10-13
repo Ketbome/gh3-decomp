@@ -51,6 +51,11 @@ struct S12D_R { char pad0[0x1C]; int unk1C; };
 struct S_0012E600 { char pad0[0x4]; int unk4; int unk8; int unkC; int unk10; void* unk14; };
 
 extern "C" {
+void func_0012EB68_6(void*, int, float, float, int, float) __asm__("func_0012EB68");
+void func_0012EA80_v(void*, int) __asm__("func_0012EA80");
+int func_0027D268_i(int, u32, void*, int) __asm__("func_0027D268");
+int func_0027D1F8_i(int, u32, void*, int) __asm__("func_0027D1F8");
+int func_0027D870_i(int, u32, void*, int) __asm__("func_0027D870");
 float func_0012A1B0(void*);
 void func_0012E290(void*, float, float);
 void func_0012A590_i(int) __asm__("func_0012A590");
@@ -320,6 +325,8 @@ extern "C" void func_0012EB68(S12EB68* self, int a) {
     func_0012FA98_i(p, func_0012E6D0((S12D_E*)self));
     func_0012FAC8(p, a, func_0012E6D0((S12D_E*)self));
 }
+
+struct S12EC20 { char pad0[0x1C]; int unk1C; int unk20; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EC20);
 

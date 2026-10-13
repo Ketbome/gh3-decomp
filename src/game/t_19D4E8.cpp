@@ -17,7 +17,7 @@ void func_001B5C50(void);
 void func_001BF9E8(void);
 int func_0014F748(void);
 void func_001BF5C0(void*, int, int, int);
-void func_00138E78(int);
+void func_00138E78(void);
 void func_001BA110(void);
 extern int D_00372D24;
 void func_001549B8(void);
