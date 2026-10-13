@@ -759,3 +759,8 @@ Given up: func_0022CBC0/func_0022CC78 (hash chain unlink; loop head duplicated i
 Matched: func_001BF568 func_001BF4A0 func_001C3578 func_0021E1A0 func_001CB0A0 func_00213770 func_001CCC00 func_001C8718 (plus non-jtbl: func_001D9588 func_001E2770 etc. above).
 Habits: read the table with a script (index -> label); case blocks are emitted in SOURCE order, so list the cases in the order of the block addresses in the original (func_001BF568: 32,24,16,8,4); indices that point at the default label must be listed as explicit `case N:` sharing the default body, otherwise gcc emits a compare chain instead of a table (func_00213770 needs cases 1,2,3,8,9; func_0021E1A0 needs `case 0:`); `goto` into the middle of a switch body reproduces a case that falls into another (func_001CB0A0); `if (a(o)==4 || a(o)==3)` shares one block.
 Not attempted/given up: func_001D55F8 and func_001D5688 start with `move v0,a0; nop` (8 junk bytes before the real body); func_001B4828/func_001B48D8 (128-bit vector locals).
+
+### B11 final additions
+Matched: func_001E04D8 func_001FB6C0 func_001BA6D8 (GS packet pushes: `char* D_00373270`, `*(u32*)p = X; D_00373270 = p + 4;` in the order of the original) func_002327C8 (GP_DATA must precede the function) func_00207A48 (cast-less `VEntry206* e = &self->unk18[9]`).
+Total this session (B11): 72 functions.
+Given up: func_0023A168 (loop count reload lands in v1 instead of v0 after register pins), func_001E5050 (short-loop pad: ours has one nop less), func_00233E10 (movn/movz bool conversions), func_0022BBD0 (bitfield word updates), func_001E1E58 (original precomputes ten element addresses in saved registers: unrolled loop over a key table), func_001EB4D0/func_001E30A0/func_001B1F18 (vector code / big char switch / text layout).
