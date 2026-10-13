@@ -12,7 +12,12 @@
 - Short loops: SN's assembler worked around the R5900 short-loop erratum by padding a loop of fewer than 6
   instructions (from its head label through the delay slot of the backward branch) with nops before the branch.
 
-Usage: scripts/asm_filter.py <file.s>   (run between the compiler and the assembler; configure.py and fcheck.py do)
+- Jump tables: the game's tables stay in its .rodata (asm/data), so the table ee-gcc writes for a switch is dropped
+  and the code is pointed at the original one: the k-th table of a function becomes the k-th `jtbl_` symbol its
+  original assembly uses. The case labels the original table points at are defined by configure.py (jlabels.ld).
+
+Usage: scripts/asm_filter.py <file.s> [<source stem, e.g. t_16E670>]
+       (run between the compiler and the assembler; configure.py and fcheck.py do)
 """
 
 import re
@@ -138,6 +143,54 @@ def short_loops(text):
     return "\n".join(out)
 
 
+ROOT = Path(__file__).resolve().parent.parent
+FUNC_LABEL = re.compile(r"^([A-Za-z_][\w.$]*):")
+
+
+def original_tables(stem, func):
+    for d in ("matchings", "nonmatchings"):
+        path = ROOT / "asm" / d / "game" / stem / f"{func}.s"
+        if path.exists():
+            return list(dict.fromkeys(re.findall(r"jtbl_[0-9A-F]{8}", path.read_text())))
+    return []
+
+
+def jump_tables(text, stem):
+    lines = text.split("\n")
+    out = []
+    func = None
+    mapping = {}
+    seen = {}
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        m = FUNC_LABEL.match(line)
+        if m and not m.group(1).startswith("$"):
+            func = m.group(1)
+        if line.strip() in (".rdata", ".section\t.rodata", ".section .rodata") and func:
+            j = i + 1
+            while j < len(lines) and lines[j].strip() != ".text":
+                j += 1
+            block = lines[i + 1:j]
+            labels = [re.match(r"^(\$L\d+):", b).group(1) for b in block if re.match(r"^\$L\d+:", b)]
+            words = [b for b in block if b.strip().startswith(".word")]
+            if labels and words and all(re.match(r"^\s*\.word\s+\$L\d+\s*$", w) for w in words):
+                tables = original_tables(stem, func) if stem else []
+                for label in labels:
+                    k = seen.get(func, 0)
+                    if k < len(tables):
+                        mapping[label] = tables[k]
+                    seen[func] = k + 1
+                i = j  # keep the .text line
+                continue
+        out.append(line)
+        i += 1
+    text = "\n".join(out)
+    for label, sym in mapping.items():
+        text = re.sub(re.escape(label) + r"(?![0-9])", sym, text)
+    return text
+
+
 def li_s(m):
     indent, reg, value = m.groups()
     bits = struct.unpack("<I", struct.pack("<f", float(value)))[0]
@@ -148,8 +201,9 @@ def li_s(m):
 
 def main():
     path = Path(sys.argv[1])
+    stem = sys.argv[2] if len(sys.argv) > 2 else None
     text = path.read_text()
-    new = short_loops(memory_macros(LI_S.sub(li_s, text)))
+    new = short_loops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))))
     if new != text:
         path.write_text(new)
 

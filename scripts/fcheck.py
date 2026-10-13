@@ -37,7 +37,7 @@ def compile_object(src, out_dir):
     cc = [str(ROOT / part) if i < 2 else part for i, part in enumerate(configure.CC.split())]
     flags = configure.CC_FLAGS.split() + configure.extra_cflags(src).split()
     subprocess.run(cc + flags + ["-S", str(src), "-o", str(asm)], cwd=ROOT, check=True)
-    subprocess.run([sys.executable, str(ROOT / "scripts" / "asm_filter.py"), str(asm)], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "asm_filter.py"), str(asm), Path(src).stem], check=True)
     subprocess.run([f"{BINUTILS}as"] + configure.CC_AS_FLAGS.split()
                    + ["include/gcc_prelude.inc", str(asm), "-o", str(obj)], cwd=ROOT, check=True)
     return obj
