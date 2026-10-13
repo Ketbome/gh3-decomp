@@ -3,6 +3,7 @@
 typedef int TI128 __attribute__((mode(TI)));
 
 extern "C" {
+void func_00244B68(void* a, void* b);
 f32 func_0010F698(s32 a);
 f32 func_0010F6A8(s32 a);
 f32 func_0010F6C0(s32 a);
@@ -153,7 +154,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F700);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F738);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F770);
+extern "C" void func_0023F770(char* p, TI128* v) {
+    struct VE {
+        s16 delta;
+        s16 pad;
+        void* fn;
+    };
+    VE* e = (VE*)(*(char**)(p + 0xC) + 0x48);
+    TI128* r = ((TI128* (*)(char*))e->fn)(p + e->delta);
+    TI128 t;
+    asm volatile("lqc2 $vf2, 0(%0)" : : "r"(r));
+    register void* a1 asm("$5") = &t;
+    asm volatile("lqc2 $vf1, 0(%0)" : : "r"(v), "r"(a1));
+    register void* a0 asm("$4") = *(void**)(p + 8);
+    asm volatile("vsub.xyzw $vf1, $vf1, $vf2" : : "r"(a0));
+    asm volatile("sqc2 $vf1, %0" : "=m"(t));
+    func_00244B68(a0, a1);
+}
 
 extern "C" void func_0023F7D0(void) {
 }

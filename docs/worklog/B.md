@@ -817,3 +817,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 - t_234190 func_00234190 MATCH (sibling of func_00234080 plus the trailing `if (b->unk84) func_0028D720(..)`).
 - t_1CE0A8 func_001CEBE0 MATCH (virtual call at vptr+0x40 and null-checked virtual delete (flag 3) through a VE struct; `func_001D5BA0`/`func_001D7710` through __asm__ aliases returning pointers).
 - t_2062E8 func_002078A8 MATCH (sibling of func_00207A48/func_002077E0; vcall slot 3, 0.2f local passed by address).
+- t_23EFF8 func_0023F770 MATCH (first VU0: vsub of two vectors into a stack temp; each lqc2/vsub/sqc2 is its own `asm volatile`, and the call arguments are `register` pins declared between them ($5 before the second lqc2, $4 before vsub) so the scheduler interleaves the moves like the original).
