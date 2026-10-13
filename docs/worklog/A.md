@@ -1083,3 +1083,5 @@ Matched (A13) t_118E40: Heap_Free (lock pair func_001187F8/func_00118820 around 
 - func_0017F630 (vector normalize, vu0:33%): asm matches (the two `nop`s before `vrsqrt` belong to the VU0 sequence, they are in every vrsqrt block of the game) but the original schedules `ld ra` between the `vmul` and the `vaddy`; ours puts it after `sqc2` (barrier effect of the asm statements); ~10 asm variants
 - func_00110188, func_0016BCE8, func_001A4050, func_00123F80 (c1 sqrt): not matchable (vf register spill around a call / pextlw packing / c1)
 Matched (A13) t_1A37A8: func_001A4258 (highest set bit of the byte at +1 via `for (v = 8; v; v >>= 1) if (v & b) break;`, then `switch ((int)v)` with explicit case 1: gives slti)
+Matched (A13) t_1277C0 (now `// cflags: -funroll-loops`, whole file still matches): func_00129148 (`for (i<50) a[i] = 0; b[i] = 0xFFFFFFFF;` unrolled 10x; b is u32 for lui/ori)
+- Lesson: a hand-unrolled-looking loop with count li N-1 / bgez / addiu -K is -funroll-loops output; test the plain loop with the flag in a scratch copy of the file before fighting the prologue order.

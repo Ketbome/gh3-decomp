@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_00127818 { float unk0; };
@@ -478,7 +479,25 @@ extern "C" void func_001290C8(S1290C8* self, int i) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00129138);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00129148);
+struct S_00129148 { char pad0[4]; int unk4; int a[50]; u32 b[50]; int unk198; int unk19C; int unk1A0; int unk1A4; int unk1A8; int unk1AC; int unk1B0; int unk1B4; };
+
+extern "C" int func_00129148(void* p) {
+    S_00129148* self = (S_00129148*)p;
+    for (int i = 0; i < 50; i++) {
+        self->a[i] = 0;
+        self->b[i] = 0xFFFFFFFF;
+    }
+    self->unk1A4 = 0;
+    self->unk1A8 = 0;
+    self->unk1AC = 0;
+    self->unk1B0 = 0;
+    self->unk1A0 = 0;
+    self->unk1B4 = 0;
+    self->unk4 = 0;
+    self->unk198 = 0;
+    self->unk19C = 0;
+    return (int)self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001291E0);
 
