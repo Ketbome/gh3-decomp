@@ -50,6 +50,11 @@ struct S_0013DA60 { char pad0[0x24C]; S_0013DA60_b* unk24C; };
 struct S_0013CEA0 { char pad0[0x208]; u32 unk208; };
 
 extern "C" {
+int func_0014CD98(int, int);
+int func_0014CF50(int);
+void func_00153478(int);
+void func_001534C0(int, int, int);
+int func_00276008(int, int);
 void func_00139510(void*, float*, float*);
 int func_0027D470(void*, int, void**, int);
 float func_0027EFA0(void*, int);
@@ -252,7 +257,27 @@ extern "C" void func_0013D6E8(S13B_X* self, int a) {
     func_0013B2C8(self, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013D730);
+struct S13D730 { char pad0[0xC]; unsigned int unkC; char pad10[0x234]; int unk244; int unk248; char pad24C[0x2C]; int unk278; };
+
+extern "C" void func_0013D730(S13D730* self, int a) {
+    self->unk244 = a;
+    if (a == 0x0A77F6AE || a == 0x0D53096F) {
+        self->unk244 = 0x7D70C638;
+    }
+    if (self->unk248) func_00153488(self->unk248);
+    self->unk248 = func_0014CD98(self->unk244, 1);
+    if (func_0014CF50(self->unk244) == 0) {
+        int t = func_00276008(0x8751015E, 0);
+        self->unk244 = t;
+        if (t == 0) self->unk244 = 0x35C0114B;
+        self->unk248 = func_0014CD98(self->unk244, 1);
+    }
+    if (self->unk248) {
+        func_00153478(self->unk248);
+        func_001534C0(self->unk248, self->unk278, 0);
+    }
+    self->unkC |= 0x1000;
+}
 
 extern "C" void func_0013D818(S_0013D818* self, int v) {
     if (v >= 0) {

@@ -115,6 +115,24 @@ extern "C" void func_001A9288(void) {
     D_0036C6B4 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A92D0);
+struct V3_1A92D0 { int a, b, c; };
+extern V3_1A92D0 D_0038CFE0;
+extern V3_1A92D0 D_0038CFF0;
+extern float D_0038CB70[];
+extern float D_0038CB74[];
+extern float D_0038CB78[];
+
+extern "C" int func_001A92D0(int u, float* p, float* q) {
+    int r = 0;
+    if ((D_0038CFE0.a != 0 && q[0] + p[0] <= D_0038CB70[0]) ||
+        (D_0038CFE0.b != 0 && q[1] + p[1] <= D_0038CB74[0]) ||
+        (D_0038CFE0.c != 0 && q[2] + p[2] <= D_0038CB78[0]) ||
+        (D_0038CFF0.a != 0 && D_0038CB70[0] <= q[0] - p[0]) ||
+        (D_0038CFF0.b != 0 && D_0038CB74[0] <= q[1] - p[1]) ||
+        (D_0038CFF0.c != 0 && D_0038CB78[0] <= q[2] - p[2])) {
+        r = 1;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A93F8);

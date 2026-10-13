@@ -48,6 +48,11 @@ struct SA11D_E {
 };
 
 extern "C" {
+int func_0011A380(int);
+void func_0011A440(int, int);
+int func_0011DB60_v(void*) __asm__("func_0011DB60");
+int func_0011DBB8_v(void*, int, int, int) __asm__("func_0011DBB8");
+void func_0011DB50_v(void*, int, int, int) __asm__("func_0011DB50");
 int func_0011E190(void);
 int func_0011DD68_5(int, int, int, int, int) __asm__("func_0011DD68");
 void func_0011E3B8(int);
@@ -125,7 +130,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D520);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D530);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D720);
+struct S11D720 { char pad0[0x10]; int unk10; };
+
+extern "C" int func_0011D720(int a, int* out, int b, int c, int d, int e) {
+    S11D720* p = (S11D720*)func_0011DF78(a, 0, 0x64, 0);
+    int n = func_0011DB60_v(p);
+    int v;
+    if (e == 0) {
+        v = func_0011A380((n + 0x7FF) & ~0x7FF);
+    } else {
+        v = e;
+    }
+    if (b) {
+        p->unk10 = 8;
+        func_0011DB50_v(p, b, c, d);
+    }
+    func_0011DBB8_v(p, v, 1, n);
+    func_0011E008(p);
+    if (e == 0 && v != 0) func_0011A440(n, v);
+    if (out) *out = n;
+    return v;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D828);
 

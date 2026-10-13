@@ -277,7 +277,33 @@ extern "C" void func_0012E9E0(S12E9E0* self) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012EA80);
+struct O12EA80 { char pad0[0x38]; int unk38; };
+struct S12EA80 { char pad0[4]; O12EA80* unk4; char pad8[0x14]; int unk1C; int unk20; int unk24; int unk28; };
+
+extern "C" void func_0012EA80(S12EA80* self, int n) {
+    int h;
+    int t = self->unk1C;
+    if (t != 0) {
+        h = n != 0;
+        func_00124688(t, self->unk28);
+    } else {
+        int b = n != 0;
+        self->unk1C = func_0015FAA0(self->unk24 + n, 1, b);
+        h = b;
+    }
+    int u = self->unk20;
+    if (u != 0) {
+        func_0014EBC8(u);
+        self->unk20 = 0;
+    }
+    char* p = (char*)self + 0x2C;
+    int r = func_0015FAA0(self->unk24 + n, 1, h);
+    self->unk1C = r;
+    self->unk28 = func_00124630(r);
+    self->unk4->unk38 = n;
+    func_0012FA98_i(p, func_0012E6D0((S12D_E*)self));
+    func_0012FAC8(p, n, func_0012E6D0((S12D_E*)self));
+}
 
 struct S12EB68 { char pad0[4]; int unk4; char pad8[0x14]; int unk1C; int unk20; int unk24; int unk28; };
 

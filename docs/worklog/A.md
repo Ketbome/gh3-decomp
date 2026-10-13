@@ -829,3 +829,17 @@ Given up (A7, part 7): func_00143BC0 (s1/s2 swap of loop counter and self), func
 a register), func_00129710 (returns not merged in the original), func_00112DB0 (hi part of a symbol reused),
 func_00186E40/func_00187898 (second bit-test of the flags is re-evaluated in the original), func_0015B168
 (`move a1,zero` vs `move a0,s0` delay-slot choice).
+
+A7 pass, part 8. Matched 5: func_001A92D0 func_0013D730 func_0011D720 func_00185068 func_0012EA80
+(A7 pass total: 148 functions in parts 1-8)
+
+- Float globals read with `lui` + `lwc1 %lo(v0)` (not `$gp`, not the `$at` macro form): declare `extern float D_X[];`
+  and read `D_X[0]` (func_001A92D0; same trick as func_0011ED40).
+- Signed flag fields: `(self->unk4 >> 2) & 1` needs `int unk4` (an `unsigned` field gives `srl`, func_00185068).
+- Assign a bool temp to the saved copy only after the call (`self->f = g(..., b); h = b;`) to keep `sltu v0` /
+  `move s0,v0` (func_0012EA80).
+
+Given up (A7, part 8): func_0018AD80 (store order / mask register, bitfield variants), func_0011BC38 (register
+reuse of the first subtraction), func_00182870/func_001287F0 (prologue `sd` before `lui`), func_00163868/
+func_00163938 (delay-slot `lw` hoist), func_0011F7E0 (assembler nops), func_001681E0 family (6 functions: random
+float table fill; floats match, ours swaps s0/s1 and the order of the two argument loads).
