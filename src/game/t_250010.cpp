@@ -110,7 +110,7 @@ extern int D_0036F658;
 extern int D_00372B88;
 int func_0015B2F0(int, char *);
 int func_0015B268(int, u32);
-u32 func_00115028(char *);
+u32 CrcFromPathLowercase(char *);
 void func_0022ADD0(int, S250_Ref *);
 void func_0022B0D0(S250_Ref *, int, u32, int);
 void func_00134340(S250_Ref *);
@@ -303,7 +303,7 @@ extern "C" int CFunc_UnloadTexture(int params) {
     int tex = 0;
     if (func_0027D188(params, 0, &name, 0)) {
         tex = func_0015B2F0(D_00372B88, name);
-        key = func_00115028(func_002509A0(name));
+        key = CrcFromPathLowercase(func_002509A0(name));
     } else if (func_0027D870(params, 0, &cs, 0)) {
         tex = func_0015B268(D_00372B88, cs);
         key = cs;

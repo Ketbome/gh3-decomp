@@ -218,7 +218,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297578);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002976E8);
 
-extern "C" S296A10_N *func_00297838(S296A10_N *x) {
+extern "C" S296A10_N *RbTreeDecrement(S296A10_N *x) {
     if (x->unk0 == 0 && x->unk4->unk4 == x) {
         x = x->unkC;
     } else if (x->unk8) {
@@ -240,7 +240,7 @@ extern "C" S296A10_N *func_00297838(S296A10_N *x) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002978C0);
 
-extern "C" S296A10_N *func_002979D8(S296A10_N *x) {
+extern "C" S296A10_N *RbTreeIncrement(S296A10_N *x) {
     if (x->unkC) {
         x = x->unkC;
         while (x->unk8) {

@@ -3,3 +3,14 @@
 SetProgressionMaxDifficulty = 0x001E94F8; // type:func  // wrapped by CFunc_SetProgressionMaxDifficulty
 SetProgressionDifficulty = 0x001E9500; // type:func  // wrapped by CFunc_SetProgressionDifficulty
 GetProgressionDifficulty = 0x001E9508; // type:func  // wrapped by CFunc_GetProgressionDifficulty
+CreateSemaphore = 0x00118798; // type:func  // wraps the kernel semaphore creation
+WaitSemaphore = 0x001187D0; // type:func  // wraps the kernel semaphore wait
+CrcFromPathLowercase = 0x00115028; // type:func  // CRC32 table D_0032A080, lowercases, '/' to '\\'
+HashTable_GetItem = 0x0014C390; // type:func  // hash table lookup
+HashTable_FlushItem = 0x0014C4A8; // type:func  // hash table removal
+BcdToInt = 0x001824B8; // type:func  // (v>>4)*10 + (v&0xF)
+PoolAlloc = 0x001DCCB0; // type:func  // picks a pool from D_0036D540, falls back to the main heap
+PoolFree = 0x001DCE20; // type:func  // frees into the pool whose range holds the pointer
+StrDupHeap5 = 0x002756A8; // type:func  // strdup into heap 5
+RbTreeDecrement = 0x00297838; // type:func  // in-order predecessor walk
+RbTreeIncrement = 0x002979D8; // type:func  // in-order successor walk

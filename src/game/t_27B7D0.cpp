@@ -26,7 +26,7 @@ int func_0027D2D8(void *, u32, void *, int);
 int func_0027D470(void *, u32, void **, int);
 void *func_001D0900(int, int);
 void func_0027BDB0(void *, S27B_Comp *, int);
-u32 func_002756A8(char *);
+u32 StrDupHeap5(char *);
 void *func_0024D068(int, int);
 f32 *func_00275648(void *);
 void *func_0024D128(int, int);
@@ -97,7 +97,7 @@ extern "C" void func_0027C028(void *p, u32 key, char *s) {
     c->next = 0;
     c->val = 0;
     c->type = 3;
-    c->val = func_002756A8(s);
+    c->val = StrDupHeap5(s);
     func_0027BDB0(p, c, 0);
 }
 

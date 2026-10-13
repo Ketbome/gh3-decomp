@@ -63,7 +63,7 @@ void func_00119400(int, void*);
 extern char D_00369D90[];
 int func_0014F130(void);
 void func_0030B550(char*, char*, ...);
-int func_00115028(void*);
+int CrcFromPathLowercase(void*);
 int func_00188520(int);
 int* func_00188478(int, int, int, int, int, int, int);
 void func_00188568(S15B_C*);
@@ -216,7 +216,7 @@ extern "C" void func_0015B808(char* buf, char* p, int flag) {
 }
 
 extern "C" int func_0015B8C0(void* p) {
-    return func_00188520(func_00115028(p));
+    return func_00188520(CrcFromPathLowercase(p));
 }
 
 extern "C" void func_0015B8E8(int a, int b, int c, int d, int e, int f, int g) {

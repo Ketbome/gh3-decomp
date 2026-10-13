@@ -67,7 +67,7 @@ void func_0014EB28(void*);
 void* func_0014EB08(int);
 void func_0030A49C(void*, int, int);
 void func_0014E098(int, char*);
-u32 func_00115028(const char*);
+u32 CrcFromPathLowercase(const char*);
 void func_00160170(void*, u32, int, int, int, int);
 int func_00129390(void);
 void func_00129710(int, void*);

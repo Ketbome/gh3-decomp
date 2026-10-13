@@ -113,7 +113,7 @@ extern "C" void func_001DCC38(char* p, int flags) {
 
 GP_DATA(D_0036D550);
 GP_DATA(D_0036D540);
-extern "C" void* func_001DCCB0(s32 size) {
+extern "C" void* PoolAlloc(s32 size) {
     Pool1DC* pool = D_0036D540[D_0036D550];
     if (pool) {
         void* r = func_0011C2A8(pool);
@@ -130,7 +130,7 @@ extern "C" void* func_001DCCB0(s32 size) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCD68);
 
-extern "C" void func_001DCE20(void* p) {
+extern "C" void PoolFree(void* p) {
     Pool1DC* a = D_0036D540[D_0036D550];
     if ((a && a->Contains(p)) || ((a = D_0036D540[D_0036D550 ^ 1]) && a->Contains(p))) {
         func_0011C2E8(a, p);

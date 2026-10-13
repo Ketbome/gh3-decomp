@@ -138,7 +138,7 @@ s32 func_00160658(void*);
 s32 func_00119730(s32, u32, int);
 void func_00119490(s32, s32);
 s32 func_0012D208(void*);
-void* func_0014C390(void*);
+void* HashTable_GetItem(void*);
 void* func_00118F20(s32, s32, s32, s32);
 void* func_0014B1F8(void*, int);
 void func_0014B260(void*, void*);
@@ -280,7 +280,7 @@ extern "C" void func_001EEC68(S1EE6F8* p) {
     func_00119490(h, func_00119730(h, 0xA432DC41, 1));
     char* q = *(char**)(p->unk214 + 0x1C);
     s32 r = func_0012D208(q);
-    void* o = func_0014C390(*(void**)(q + 0x220));
+    void* o = HashTable_GetItem(*(void**)(q + 0x220));
     if (!o) {
         o = func_0014B1F8(func_00118F20(D_00368A38[0], 0xC, 1, 0), 0);
         func_0014B260(o, *(void**)(q + 0x220));

@@ -162,7 +162,7 @@ extern "C" void func_00182498(void) {
     func_0019ECE8();
 }
 
-extern "C" u8 func_001824B8(u32 v) {
+extern "C" u8 BcdToInt(u32 v) {
     return (v >> 4) * 10 + (v & 0xF);
 }
 

@@ -82,7 +82,7 @@ void func_001B1948(T_18B9C0*, int);
 extern char D_00345280[];
 void func_0015F900(S_0018D3F0*, int);
 S_0018D3F0* func_0015F8E8(S_0018D3F0*);
-int func_00115028(int);
+int CrcFromPathLowercase(int);
 extern int D_0036F658;
 void func_0022B0D0(H_0018D350*, int, int, int);
 void func_00134340(H_0018D350*);
@@ -426,7 +426,7 @@ extern "C" void* func_0018D350(void* p, int a) {
     self->unk8 = D_00345280;
     H_0018D350 h;
     int x = D_0036F658;
-    func_0022B0D0(&h, x, func_00115028(a), 1);
+    func_0022B0D0(&h, x, CrcFromPathLowercase(a), 1);
     int r;
     if (h.unk0) {
         VE_0018D350* e = &h.unk0->unk34[2];

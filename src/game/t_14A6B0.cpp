@@ -18,8 +18,8 @@ struct HT_14A { int bits; HI_14A* items; int count; char padC[9]; u8 unk15; };
 
 extern "C" {
 void func_0011C408(int, void*);
-S5_14A* func_0014C390(u32);
-void func_0014C4A8(void*, int*);
+S5_14A* HashTable_GetItem(u32);
+void HashTable_FlushItem(void*, int*);
 extern u8 D_00377FC0[];
 int func_0011EF10(void);
 void* func_00118F20(int, int, int, int);
@@ -240,14 +240,14 @@ static inline void* HT_14A_Get(HT_14A* t, const u32& key) {
     return 0;
 }
 
-extern "C" S5_14A* func_0014C390(u32 key) {
+extern "C" S5_14A* HashTable_GetItem(u32 key) {
     return (S5_14A*)HT_14A_Get((HT_14A*)D_00377FC0, key);
 }
 
 extern "C" void func_0014C418(int x) {
-    S5_14A* s = func_0014C390(x);
+    S5_14A* s = HashTable_GetItem(x);
     if (--s->unk8 == 0) {
-        func_0014C4A8(D_00377FC0, &x);
+        HashTable_FlushItem(D_00377FC0, &x);
         if (s) {
             func_0014C348(s, 3);
         }
@@ -265,7 +265,7 @@ extern "C" S_0014C470* func_0014C480(S_0014C470* self) {
     return self;
 }
 
-extern "C" void func_0014C4A8(void* p, int* key) {
+extern "C" void HashTable_FlushItem(void* p, int* key) {
     HT_14A* t = (HT_14A*)p;
     if (!t->items) {
         return;

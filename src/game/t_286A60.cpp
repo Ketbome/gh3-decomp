@@ -73,7 +73,7 @@ extern int D_00372EE8;
 extern char D_003A9AD8[];
 extern S2867_Comp D_003A9CD8;
 void func_0028E8A0(void *);
-int func_00115028(void);
+int CrcFromPathLowercase(void);
 void func_002774B8(int, int);
 int func_002875F0(int, int, int, int, int);
 int func_00287578(char *, int, int, int);
@@ -106,7 +106,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00287498);
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002874A8);
 
 extern "C" int func_00287578(char *name, int a, int b, int c) {
-    int t = func_00115028();
+    int t = CrcFromPathLowercase();
     func_002774B8(t, (int)name);
     return func_002875F0(t, a, b, c, 0);
 }

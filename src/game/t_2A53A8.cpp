@@ -64,7 +64,7 @@ void func_001E5C70(u32, int);
 extern s32 D_00368E48[] __attribute__((section(".sdata")));
 extern s32 D_00370AE0;
 extern s32 D_00371D7C;
-int func_00115028(void);
+int CrcFromPathLowercase(void);
 s32 func_001218A0(s32, int, int);
 int func_001E5050(void);
 int func_002691B0(s32);
@@ -302,7 +302,7 @@ extern "C" void func_002A6C10(void) {
 }
 
 extern "C" void func_002A6C40(void) {
-    func_00115028();
+    CrcFromPathLowercase();
 }
 
 extern "C" void func_002A6C60(void) {

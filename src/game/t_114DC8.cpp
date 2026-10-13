@@ -37,7 +37,7 @@ extern int D_00368534;
 extern u32 D_0032A080[];
 void func_002F3BD0(void);
 void func_002F3B80(void);
-u32 func_00115028(const char*);
+u32 CrcFromPathLowercase(const char*);
 void func_001165C0(void);
 void func_001162B8(void);
 void func_00116178(int, int);
@@ -53,7 +53,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00114DC8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115020);
 
-extern "C" u32 func_00115028(const char* s) {
+extern "C" u32 CrcFromPathLowercase(const char* s) {
     u32 crc;
     char c;
     const char* p;
@@ -75,7 +75,7 @@ extern "C" u32 func_00115028(const char* s) {
 }
 
 extern "C" u32 func_001150B8(const char* s) {
-    return func_00115028(s);
+    return CrcFromPathLowercase(s);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001150D8);

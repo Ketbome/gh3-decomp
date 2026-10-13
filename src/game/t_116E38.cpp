@@ -315,14 +315,14 @@ extern "C" void func_00118700(SA116_P* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118790);
 
-extern "C" void func_00118798(void) {
+extern "C" void CreateSemaphore(void) {
     SA116_Sema s;
     s.unk8 = 1;
     s.unk4 = 10;
     D_00373248 = func_002EE660(&s);
 }
 
-extern "C" void func_001187D0(void) {
+extern "C" void WaitSemaphore(void) {
     func_002EE670(D_00373248);
 }
 

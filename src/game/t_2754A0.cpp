@@ -184,7 +184,7 @@ extern "C" void func_00275698(void) {
 extern "C" void func_002756A0(void) {
 }
 
-extern "C" char *func_002756A8(char *s) {
+extern "C" char *StrDupHeap5(char *s) {
     int h = D_00368A38;
     func_00119490(h, func_00119610(h, 5));
     int n = func_0030AA88(s) + 1;

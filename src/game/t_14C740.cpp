@@ -8,7 +8,7 @@ extern "C" {
 void func_0016E170(void);
 void func_0016D4B8(void);
 void func_00181C80(void);
-u32 func_00115028(const char*);
+u32 CrcFromPathLowercase(const char*);
 int func_0014CD98(u32, int);
 extern S_0014C7C0 D_003781E8;
 int func_00113770(const char*, int);
@@ -68,7 +68,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014CC88);
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014CD98);
 
 extern "C" int func_0014CF18(const char* name, int x) {
-    return func_0014CD98(func_00115028(name), x);
+    return func_0014CD98(CrcFromPathLowercase(name), x);
 }
 
 extern "C" void func_0014CF48(int v) {

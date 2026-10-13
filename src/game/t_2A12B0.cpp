@@ -42,7 +42,7 @@ extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata
 int func_00119610(int, int);
 void func_00119490(int, int);
 void func_001194B8(int);
-int func_00115028(char *);
+int CrcFromPathLowercase(char *);
 void func_0022B0D0(S2A1_Ref *, int, int, int);
 void func_0022ADD0(int, S2A1_Ref *);
 void func_0027AA70(S2A1_St *);
@@ -423,7 +423,7 @@ extern "C" int CFunc_ReLoadNodeArray(int params, int script) {
     int h = D_00368A38_lui[0];
     func_00119490(h, func_00119610(h, 0x3B));
     int x = D_0036F520[0];
-    int k = func_00115028(D_003AAC98);
+    int k = CrcFromPathLowercase(D_003AAC98);
     int m = D_0036F658[0];
     func_0022B0D0(&ref, m, k, 0);
     func_0022ADD0(m, &ref);

@@ -64,7 +64,7 @@ void func_00157220(void*, s32, int);
 void func_001619D8(void*, s32);
 void func_0014E098(void*, char*);
 void func_00113528(char*);
-u32 func_00115028(char*);
+u32 CrcFromPathLowercase(char*);
 void* func_00160170(void*, u32, int, int, int, int);
 void func_0015F4B8(void*, s32);
 S1EFA78_R* func_0015D2E8(s32, int);
@@ -115,7 +115,7 @@ extern "C" void func_001EF6F8(S1F0010* p, int a, void* b, s32* c) {
     char buf[0x200];
     func_0014E098(b, buf);
     func_00113528(buf);
-    void* r = func_00160170(p->unk210, func_00115028(buf), a, 0, 0, 1);
+    void* r = func_00160170(p->unk210, CrcFromPathLowercase(buf), a, 0, 0, 1);
     if (r) {
         func_0015F4B8(r, *c);
     }
