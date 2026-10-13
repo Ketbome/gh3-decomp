@@ -78,6 +78,9 @@ struct S267A80 {
 };
 
 extern "C" {
+f32 func_0031B970(f32, f32);
+void func_002684D8(int, int, f32);
+void func_0026F828(f32, int, int);
 void func_00266928(f32 *, f32);
 extern S266E90_E D_003A1900E[44] asm("D_003A1900");
 void func_00266C08(void);
@@ -469,13 +472,19 @@ extern "C" f32 func_00268328(void) {
     return D_00370B04;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268330);
+extern "C" void func_00268330(int, int a, int b, f32 f) {
+    if (func_00266778() == 0) {
+        func_0026F828(f, a, b);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268388);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268468);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00268480);
+extern "C" void func_00268480(int a, f32 *v, int b) {
+    func_002684D8(a, b, func_0031B970(v[0], -v[2]) * 57.295776f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002684D8);
 

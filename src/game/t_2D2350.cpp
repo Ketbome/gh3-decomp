@@ -1,6 +1,7 @@
 #include "common.h"
 
 extern "C" {
+void func_00269E50(f32, f32);
 extern s32 D_0036CBF4[] __attribute__((section(".sdata")));
 extern f32 D_003721D8;
 f32 func_00275DE0(int, int);
@@ -21,7 +22,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D2758);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_script_callback_script_cfunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", func_002D31E0);
+extern "C" void func_002D31E0(f32 a, f32 b) {
+    func_00269E50(a * 0.01f, b * 0.01f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D2350", CFunc_update_guitar_volume_cfunc);
 

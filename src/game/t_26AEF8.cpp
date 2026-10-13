@@ -1,6 +1,10 @@
 #include "common.h"
 
 extern "C" {
+f32 func_00268328(int);
+void func_00273070(f32);
+extern int D_00370AE0;
+int func_00273510(int);
 extern int D_00370C60;
 extern int D_00370C38;
 extern int D_00370C5C;
@@ -36,7 +40,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AF28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B150);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B158);
+extern "C" int func_0026B158(int a, f32 f) {
+    if (func_0026ABA8() == 0) {
+        if (func_00273510(a) != 0) {
+            func_00273070(f);
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B1B0);
 
@@ -212,6 +224,11 @@ extern "C" void func_0026CCD8(int v) {
     D_00370C28 = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CCE0);
+extern "C" void func_0026CCE0(void) {
+    int r = func_00275EE8(0x450BAE2D, 0);
+    if (D_00370C18 == 1 && r == 0) {
+        func_00273070(func_00268328(D_00370AE0));
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CD30);

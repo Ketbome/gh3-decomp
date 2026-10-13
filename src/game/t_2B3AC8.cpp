@@ -64,7 +64,15 @@ extern "C" void func_002B4B98(int arg0, int arg1, s32 arg2) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B4BC8);
+extern "C" f32 func_002B4BC8(int arg0, int arg1, f32 v) {
+    int p = func_0027AF38(arg0, arg1, 0);
+    f32 r = v;
+    if (p != 0) {
+        r = *(f32 *)(p + 8) + v;
+        *(f32 *)(p + 8) = r;
+    }
+    return r;
+}
 
 extern "C" void func_002B4C08(s32 arg0, s32 arg1, f32 fparg0) {
     s32 temp_2;

@@ -1,4 +1,8 @@
 // cflags: -funroll-loops
+struct S2AED18 {
+    char pad0[0x20];
+    int unk20;
+};
 #include "common.h"
 
 struct S2ADFD8_0 {
@@ -18,6 +22,9 @@ struct S27E358 {
 };
 
 extern "C" {
+extern S2AED18 *D_00372318;
+float func_0011ED10(void);
+
 void func_0011C408(int, void *);
 void func_002AF170(int, int, int);
 void func_002DC9F0(int, int);
@@ -168,7 +175,12 @@ extern "C" void func_002AECF8(void) {
     func_002AE2A8(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AED18);
+extern "C" float func_002AED18(void) {
+    if (D_00372318->unk20 != 0) {
+        return 0.0f;
+    }
+    return func_0011ED10();
+}
 
 extern "C" f32 func_002AED50(void *p, int i) {
     return D_00373130[i];

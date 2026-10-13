@@ -37,6 +37,14 @@ struct S2DD8F8 {
     void *unk10;
 };
 
+struct S2DD9F0 {
+    char pad0[0x20];
+    float f20;
+    float f24;
+    float f28;
+    float unk2C;
+};
+
 struct S2DD810 {
     char pad0[4];
     int unk4;
@@ -73,6 +81,9 @@ struct S2DCE78 {
 };
 
 extern "C" {
+float func_002DDBB0();
+int func_0027DF00(int, int);
+int func_0027D058(int, int, void *, int);
 void func_002DCD68(S2DCE78_T *, int);
 void func_002DCF10(S2DCE78_T *, int);
 extern int D_00369798;
@@ -267,19 +278,49 @@ extern "C" s32 func_002DD980(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD990);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD9F0);
+extern "C" int func_002DD9F0(S2DD9F0 *p, int a) {
+    if (func_0027D058(a, 0, &p->f20, 0)) {
+        p->f20 = p->f20 * p->f20;
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDA40);
+extern "C" int func_002DDA40(S2DD9F0 *p, int a) {
+    if (func_0027D058(a, 0, &p->f24, 0)) {
+        p->f24 = p->f24 * p->f24;
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDA90);
+extern "C" int func_002DDA90(S2DD9F0 *p, int a) {
+    if (func_0027D058(a, 0, &p->f28, 0)) {
+        p->f28 = p->f28 * p->f28;
+    }
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDAE0);
+extern "C" int func_002DDAE0(S2DD9F0 *p, int a) {
+    if (func_0027DF00(a, 0xFD2EACAD) && p->unk2C != 0.0f) {
+        return 1;
+    }
+    if (!func_0027D058(a, 0, &p->unk2C, 0)) {
+        return 1;
+    }
+    p->unk2C = p->unk2C * p->unk2C;
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDB68);
+extern "C" int func_002DDB68(S2DD9F0 *p) {
+    char buf[8];
+    return func_002DDBB0(p, buf) <= p->unk2C;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDBA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDBB0);
+extern "C" float func_002DDBB0(void) {
+    return 16899999744.0f;
+}
+TEXT_PAD(12);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDBD0);
 

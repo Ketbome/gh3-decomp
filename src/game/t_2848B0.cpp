@@ -75,7 +75,18 @@ extern "C" u8 *func_00285948(u8 *p, u32 v) {
     return p + 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00285978);
+extern "C" u8 *func_00285978(u8 *p, f32 f) {
+    union { f32 f; u32 u; } v;
+    v.f = f;
+    *p = v.u;
+    p++;
+    *p = v.u >> 8;
+    p++;
+    *p = v.u >> 16;
+    p++;
+    *p = v.u >> 24;
+    return p + 1;
+}
 
 extern "C" u8* func_002859B0(u8* p, u16 v) {
     *p++ = v;

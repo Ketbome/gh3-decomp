@@ -725,3 +725,16 @@ alias of a function declared without arguments).
 Given up: func_00298390/func_00298448 (only temp register numbers), func_00273CF8 (third call: a0 moved before mov.s f12),
 func_002D0E08 (float compare return layout), func_0027AE70/func_0027ADA0, symbol lookup func_00276008/62F0/63E0/64E8, func_002A79A8
 (loop alignment), CFunc_UpdateAtoms (node + value from a lookup loop), CFunc_hero_play_tempo_anim_cfunc (order of one store).
+
+### Round 9 (agent C9)
+Skip list for candidates: functions starting `addiu sp,sp,0x10; nop` are split fragments; t_2E2FB0/t_2E4FD0/t_2E0E90 are -O0 frame-pointer code (not tried).
+Part 1 (+16): t_2DCE78 func_002DD9F0/DA40/DA90 (squares a float in place if func_0027D058 succeeds), func_002DDAE0 (two early `return 1`
+give the original's `li v0,1` in the branch delay slots), func_002DDB68 (extra unused `char buf[8]` passed as 2nd arg), func_002DDBB0 (float
+constant 16899999744.0f); t_2D2350 func_002D31E0; t_2848B0 func_00285978 (union f32/u32); t_2AD528 func_002AED18 (`if (x != 0) return 0.0f;
+return f();`); t_2B3AC8 func_002B4BC8; t_266800 func_00268330 (declare the callee with the float FIRST: `f(f32, int, int)` puts `mov.s f12`
+before the int moves), func_00268480 (57.295776f, the compiler's parse of 57.29578f is one ulp off); t_26AEF8 func_0026CCE0, func_0026B158;
+t_2D0150 CFunc_get_song_tempo_cfunc; t_268EB8 func_0026A6C0.
+Given up: func_002B4C38 / func_002B4C70 (hash chain walk, v0/v1 swapped; 4 forms), func_002B5BC8 (callee takes a float pair in f12/f13 and
+ints from a2; our ABI numbers ints from a0), func_002B7108 (original has 2 nops before div.s), func_0027DD38 (f0/f1 swapped, 4 forms),
+func_0027EFA0 (nop in the jr delay slot after cvt.s.w), func_0026BD80 (original computes `off + base` twice), func_002DFF28 and
+t_2E2FB0 family (-O0).

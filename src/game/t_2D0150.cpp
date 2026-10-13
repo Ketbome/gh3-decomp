@@ -6,6 +6,8 @@ struct SGAS {
 };
 
 extern "C" {
+void func_002D0CF0(f32 *, int *);
+void func_0027C1F8(int, int, f32);
 void func_002D1190(void *, int, int, int, int);
 void func_0027F1E0(int, int, int);
 void func_0027D400(int, int, int *, int);
@@ -87,7 +89,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_event_spawner_cfunc);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0CF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_get_song_tempo_cfunc);
+extern "C" s32 CFunc_get_song_tempo_cfunc(int arg0, SGAS *arg1) {
+    f32 a;
+    int b;
+    func_002D0CF0(&a, &b);
+    func_0027C1F8(arg1->unk20, 0x8B4A1490, a);
+    func_0027C160(arg1->unk20, 0x0EBB7064, b);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0E08);
 

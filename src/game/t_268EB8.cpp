@@ -63,6 +63,7 @@ struct S27E358 {
 };
 
 extern "C" {
+f32 func_0031BA98(f32);
 void func_00269F08(S268EB8_B *);
 void func_0011C408(int, void *);
 extern S268EB8_B D_003A3420[4];
@@ -235,7 +236,16 @@ extern "C" int func_0026A660(int a) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026A6C0);
+extern "C" f32 func_0026A6C0(f32 x) {
+    if (x <= -100.0f) {
+        return 0.0f;
+    }
+    f32 r = func_0031BA98(x * 0.11552453f) * 100.0f;
+    if (r > 400.0f) {
+        r = 400.0f;
+    }
+    return r;
+}
 
 extern "C" void func_0026A730(S00269208* p) {
     p->unk0 = 0;
