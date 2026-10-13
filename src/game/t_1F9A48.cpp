@@ -1,4 +1,5 @@
 #include "common.h"
+// cflags: -funroll-loops
 
 struct F1FB6 {
     char pad0[0x10];
@@ -172,7 +173,27 @@ extern "C" s32 func_001FAE30(void* p, s32 q) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAE50);
+struct E1FAE {
+    s32 unk0;
+    char pad4[0x34];
+};
+
+struct S1FAE50 {
+    char pad0[0x40];
+    E1FAE unk40[2];
+};
+
+extern "C" s32 func_001FAE50(S1FAE50* p, s32 params) {
+    s32 id = 0;
+    func_0027DC58(params, 0, &id, 0);
+    func_00267760(D_00370AE0, p, id);
+    for (s32 i = 0; i < 2; i++) {
+        if (p->unk40[i].unk0 == id) {
+            p->unk40[i].unk0 = 0;
+        }
+    }
+    return 1;
+}
 
 extern "C" s32 func_001FAEC0(void* p, s32 q) {
     func_001FAF90((char*)p, q);

@@ -787,3 +787,11 @@ Matched (more): t_1E0AE8 func_001E18A8 (`x = t->f30; a->f78 |= x` read order; ca
 Matched (more): t_22BD90 func_0022BF58 (`u8* fmt = D_0036F740;` read into a local right after the first call keeps lui+addiu together before the vcall).
 Given up (more): func_001DA368 (t_1D85E8): five-way compare loop; with register pins everything matches except a `nop` the original has before the loop top and the load order inside the loop (same unexplained "nop before loop head" as func_001BB078); func_001E5D98-style stack-iterator functions (func_001CA048, func_001CB478) not attempted.
 Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried. jtbl candidates tried: func_001B4828 (7 forms), func_001E30A0 (12 forms), func_001B1F18 / CFunc_RemoveArrayElement skipped as too long; sq-save candidate func_001BDC30 failed (see above).
+
+## Session 11 (worker B13)
+
+### Unrolled-loop retries
+- t_1F9A48 (now `// cflags: -funroll-loops`): func_001FAE50 MATCH first try (`for i<2` over 0x38-byte elements at 0x40, `if (e->unk0 == id) e->unk0 = 0`).
+- func_001DA368 (t_1D85E8) gave up: 40 x 12-byte table scan, count-down form (`li 39; addiu -5; bgez`, x5) needs the pointer biv + separate `do { } while (--i >= 0)` counter; structure and load order match, but ours unrolls x8 (original x5, i.e. the original body has more RTL insns), and the original keeps the loop value in a2 (copy made after the first call) so saved regs differ (s1..s3 order). 10 forms incl. inline helper, asm copy, register pin.
+- func_001BB078 (t_1B93E8) gave up: structure matches with `-funroll-loops` (`.p2align 3` gives the nop); only diff is the pad `nop` between `lw s0,0x19C(s0)` and `bnez`: asm_filter's short-loop pad is put right before a reorder-mode `bne` and gas swallows it into the delay slot (original `lw; nop; bnez; nop`). Toolchain (asm_filter), same class as func_001BB100.
+- func_001CD500 (t_1CBB50) gave up: 2x2 nested unrolled clamp loop; original keeps the pair pointer biased in s0 (`-8(v1)`/`0(v1)`) and the element in s1, ours folds the first pair against the base register; outer loop with call is not unrolled by ours unless written twice (macro). 7 forms.
