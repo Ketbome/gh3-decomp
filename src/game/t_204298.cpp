@@ -62,6 +62,7 @@ struct S204_O {
 };
 
 extern "C" {
+int func_0015D5A0(int);
 void func_001D1068(S204*, int);
 void func_00113F38(void*);
 void func_002060A0(int, int);
@@ -215,7 +216,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205B48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205C60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205DF0);
+extern "C" f32 func_00205DF0(S204* p) {
+    register char* t asm("$3") = (char*)func_0015D5A0(0);
+    if (t != 0) {
+    register s32 i asm("$2");
+    asm("lqc2 $vf2, 0x80(%1)\n\tlqc2 $vf1, 0x80(%2)\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni %0, $vf1"
+        : "=r"(i)
+        : "r"(t), "r"(p->unkC));
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(i));
+    return f;
+    }
+    return 0.0f;
+}
 
 extern "C" void func_00205E50(S204* self, int v) {
     self->unk1C = v;
