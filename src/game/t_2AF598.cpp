@@ -35,6 +35,14 @@ extern "C" s32 CFunc_EndWildcardSearch(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_InputArrayCreate);
 
+struct S2AFE38 {
+    char pad0[4];
+    int unk4;
+    int unk8;
+};
+extern "C" {
+void func_0027EDE0(int, int, int);
+}
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AFE38);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_InputArrayAddElement);

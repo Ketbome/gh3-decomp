@@ -36,6 +36,9 @@ void Heap_Free(int, int);
 extern int D_00368A38;
 void func_00282F48(void *);
 bool func_00282398(void);
+void func_00282268(int, int *, int *);
+int func_0027E0A0(int, int);
+unsigned int strlen(const char *);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282268);
@@ -48,6 +51,12 @@ extern "C" bool func_002826A0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002826C0);
 
+struct S282838 {
+    int ta;
+    int va;
+    int tb;
+    int vb;
+};
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282838);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002829B0);

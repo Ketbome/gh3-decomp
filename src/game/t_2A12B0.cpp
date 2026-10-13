@@ -127,6 +127,19 @@ int func_0027D870(int, int, int, int);
 int func_002A1AE0(int, int, int);
 int func_002A2568(int, int, int);
 int func_002DCD20(s32, int);
+int func_002A26F0(int, int, int);
+int func_002A2BE0(int, int);
+int func_002A2E68(int);
+int func_002A29A8(int);
+int func_002A2FB0(int, int);
+int func_0027CC30(int, u32, int, int *);
+void func_0027F1E0(int, int, int);
+int func_0027AA98(int, int);
+int func_0028D1D8(int, int, int, int, int, int, int, int, int, int);
+void func_00113250(int);
+int func_001287F0(int, int);
+int func_002A1888(int, int);
+int func_002A18E0(int);
 }
 
 extern "C" void func_002A12B0(S2A1_Dtor *p, int flags) {
@@ -343,7 +356,48 @@ extern "C" int func_002A18E0(int a) {
     return func_002297D8(D_0036F608[0], r);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1918);
+extern "C" int func_002A1918(int a, int op, int x, int s) {
+    switch (op) {
+    case 0:
+        return func_002A18E0(a);
+    case 1:
+        return func_002A1888(a, x);
+    case 2:
+        return func_002A26F0(a, 0, 0);
+    case 3:
+        return func_002A26F0(a, 1, 0);
+    case 6:
+        return func_002A2BE0(a, s);
+    case 4:
+        func_002A26F0(a, 0, 0);
+        return func_002A2E68(a);
+    case 5:
+        return func_002A29A8(a);
+    case 7:
+        return func_002A2FB0(a, s);
+    case 8: {
+        int o1, o2;
+        int h = func_001287F0(8, 1);
+        int v;
+        if (func_0027CC30(s, 0x7031F10C, 10, &o1)) {
+            v = o1;
+        } else {
+            func_0027F1E0(s, 0, 1);
+            v = 0;
+        }
+        int t = func_0027AA98(h, v);
+        func_0027C448(t, 0x9F92BA78, a);
+        func_0027D870(s, 0x7580010D, (int)&o2, 1);
+        func_0028D1D8(o2, t, 0, 0, 0, 0, 0, 0, 0, 0);
+        if (t) {
+            func_0027AC90((S2A1_St *)t);
+            func_00113250(t);
+        }
+        return 1;
+    }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1AE0);
 

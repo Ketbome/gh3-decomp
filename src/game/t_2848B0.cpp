@@ -1,5 +1,23 @@
 #include "common.h"
 
+struct S285400Obj {
+    char pad0[2];
+    u8 unk2;
+    char pad3[5];
+    int unk8;
+    int unkC;
+};
+
+struct S285400Tmp {
+    u32 lo : 8;
+    u32 f8 : 1;
+    u32 f9 : 7;
+    u32 hi : 16;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+
 struct S00285A10 {
     char pad[0x5C];
     int unk5C;
@@ -35,6 +53,17 @@ u8 *func_00283A08(u8 *);
 extern struct S285A60 *D_00371344;
 void func_00287F50(int);
 extern int D_0037134C;
+S285400Obj *func_00275A40(void);
+S285400Tmp *func_001D0900(int, int);
+u8 *func_00286A68(u8 *, int, S285400Tmp *);
+u8 *func_002863A0(u8 *, int, S285400Tmp *);
+void func_0025C5E8(S285400Tmp *);
+int func_0027AA70(int);
+int func_001287F0(int, int);
+int func_0027E698(void *);
+void *func_00138790(int, int);
+u8 *func_00284F20(int, u8 *, int);
+u8 *func_00283EF8(int, u8 *, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_002848B0);

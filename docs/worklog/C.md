@@ -809,3 +809,9 @@ Given up: t_2B5BC8 func_002B5C08 (call not tail-merged), t_25E580 func_0025EB48 
 (s0/s1 swapped), t_27F8C8 func_0027FA40 (saved register order), all `sq $31` functions (func_002AFE38, func_0026B3C8, ...: ra saved with sq
 cannot be produced by u128 locals/args; only s-regs go sq), CFunc_GetWaypointPos/Dir (TImode lane extraction not reproducible).
 Lesson: when replacing a function with a python slice up to the next INCLUDE_ASM, never swallow neighbours (func_0027EB70 was lost once and restored).
+
+### Round 11 (agent C11): jtbl first
+Matched jtbl: t_2A12B0 func_002A1918 (dispatcher; `int junk`/register tricks are wrong: the else-branch call is `f(s, 0, 1)`, beql slot comes from the arg setup).
+Given up: t_282268 func_00282838 (compare by type; original puts the label of the `c.lt.s` hazard nop BEFORE the nop, ours after: toolchain, 1 insn off),
+t_2848B0 func_00285400 (types 14/22.. share a tail; original runs `lw t->0` before the `move s1,v0` of the call result; cases 3/5 with `break` match, goto-tail form leaves
+only that order: 12 forms).
