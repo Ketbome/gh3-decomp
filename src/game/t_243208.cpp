@@ -174,7 +174,52 @@ extern "C" void func_00243C10(u8* a, T243C* tbl) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243CC8);
+static inline void Neg243(u8* n, int t) {
+    s32 x = *(s32*)n;
+    *(s32*)n = (-(x >> 2) << 2) | t;
+    func_00243BE0((u32*)(n + 4), (*(u32*)(n + 4) & 1) ^ 1);
+}
+
+extern "C" void func_00243CC8(u8* n0, T243C* v, int mode, int flag) {
+    T243C tmp;
+    register u8* a0 asm("$4") = n0;
+    u8* n = n0;
+    if (flag) {
+        asm volatile("lqc2 $vf1, 0(%0)\n\tvsuba.xyzw $ACC, $vf0, $vf1" : : "r"(v));
+        register T243C* a1 asm("$5") = &tmp;
+        asm volatile("vmsub.xyzw $vf1, $vf0, $vf0\n\tsqc2 $vf1, %0" : "=m"(tmp) : "r"(a1));
+        func_00243C10(a0, a1);
+    }
+    s32 t = *n & 3;
+    if ((t ^ 3) != 0) {
+        int u = t;
+        asm("" : "+r"(u));
+        int one = 1;
+        u8* c = n + 4;
+        if (u != one) {
+            int w = u ? 0 : 2;
+            if (mode == 1) goto c1;
+            if (mode < 2) goto rec;
+            if (mode == 2) goto c2;
+            if (mode == 3) goto c3;
+            goto rec;
+        c1:
+            if (u == 0) Neg243(n, t);
+            func_00243720((int*)n, w);
+            goto rec;
+        c2:
+            Neg243(n, t);
+            goto rec;
+        c3:
+            if (u == 2) Neg243(n, t);
+            func_00243720((int*)n, w);
+        }
+    rec:
+        func_00243CC8(func_00246B30(c), v, mode, 0);
+        func_00243CC8(func_00246B78(c), v, mode, 0);
+    }
+    if (flag) func_00243C10(n, v);
+}
 
 extern "C" void func_00243E90(u8* n0, T243C* v, T243C* tbl, int flag) {
     T243C tmp;
