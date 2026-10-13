@@ -1,6 +1,14 @@
 #include "common.h"
 
 extern "C" {
+extern int D_00370C60;
+extern int D_00370C38;
+extern int D_00370C5C;
+int func_00273F08(int, int);
+int func_00275EE8(u32, int);
+extern int D_00370C40;
+int func_0026B1B0(int, f32);
+void func_00273B20(int);
 extern int D_00370C24;
 extern char D_003A66F0[];
 void func_0026AEA8(int);
@@ -87,15 +95,75 @@ extern "C" int func_0026C5A8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C5E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C738);
+GP_DATA(D_00370C40);
+extern "C" void func_0026C738(int a, f32 f) {
+    if (func_0026ABA8() == 0) {
+        func_00273B20(0);
+        if (f < 0.0f) {
+            f = D_00370C20;
+        }
+        func_0026B1B0(a, f);
+        D_00370C40 = 1;
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C7A8);
+GP_DATA(D_00370C5C);
+GP_DATA(D_00370C34);
+extern "C" void func_0026C7A8(int a) {
+    if (func_0026ABA8() == 0) {
+        switch (a) {
+        case -1:
+            if (D_00370C5C == 0) {
+                func_0026C7A8(0);
+            }
+            break;
+        case 1: {
+            func_00275EE8(0xD7BB618D, 0);
+            int t = D_00370C34;
+            D_00370C34 = a;
+            D_00370C5C = t;
+            func_00273F08(1, 1);
+            break;
+        }
+        case 0:
+            func_00275EE8(0xD7BB618D, 0);
+            D_00370C34 = 0;
+            func_00273F08(0, 1);
+            break;
+        }
+    }
+}
 
 extern "C" int func_0026C870(void) {
     return D_00370C34;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C878);
+GP_DATA(D_00370C60);
+GP_DATA(D_00370C38);
+extern "C" void func_0026C878(int a) {
+    if (func_0026ABB0() == 0) {
+        switch (a) {
+        case -1:
+            if (D_00370C60 == 0) {
+                func_0026C878(0);
+            }
+            break;
+        case 1: {
+            func_00275EE8(0xD7BB618D, 0);
+            int t = D_00370C38;
+            D_00370C38 = a;
+            D_00370C60 = t;
+            func_00273F08(1, 0);
+            break;
+        }
+        case 0:
+            func_00275EE8(0xD7BB618D, 0);
+            D_00370C38 = 0;
+            func_00273F08(0, 0);
+            break;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C940);
 

@@ -37,7 +37,41 @@ struct S2DD8F8 {
     void *unk10;
 };
 
+struct S2DD810 {
+    char pad0[4];
+    int unk4;
+};
+
+struct S2DE418_V {
+    char pad0[0x18];
+    virtual void v0();
+    virtual ~S2DE418_V();
+};
+struct S2DE418_N {
+    char pad0[0xC];
+    S2DE418_N *unkC;
+    S2DE418_N *unk10;
+    void *unk14;
+};
+struct S2DE418 {
+    char pad0[4];
+    S2DE418_V *unk4;
+    char pad8[0xEDF8];
+    void *unkEE00;
+    char padEE04[0x3C];
+    S2DE418_N unkEE40;
+};
+
 extern "C" {
+extern char D_00363DB8[];
+extern char D_00363B20[];
+void func_001C8040(void *, int);
+void func_0029FD40(void *, int);
+void func_002BDEA8(int);
+int func_002BDC48(int);
+void func_0027F1E0(int, int, int);
+int func_0027D870(int, int, int *, int);
+int func_0027CC30(int, int, int, int *);
 extern char D_00362400[];
 extern int D_00368A38;
 void func_00119400(int, void *);
@@ -152,7 +186,35 @@ extern "C" s32 func_002DD808(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD810);
+extern "C" int func_002DD810(S2DD810 *p) {
+    int vd;
+    int vc;
+    int vb;
+    int va;
+    int h = p->unk4;
+    int s;
+    int t;
+    if (func_0027CC30(h, 0x51691862, 0xA, &va)) {
+        s = va;
+    } else {
+        func_0027F1E0(h, 0, 1);
+        s = 0;
+    }
+    func_0027D870(func_002BDC48(0x33FFBCC2), 0x33FFBCC2, &vb, 1);
+    int x = vb;
+    if (func_0027CC30(s, 0x33FFBCC2, 0xA, &vc)) {
+        t = vc;
+    } else {
+        func_0027F1E0(s, 0, 1);
+        t = 0;
+    }
+    func_0027D870(t, 0x33FFBCC2, &vd, 1);
+    if (x == vd) {
+        func_002BDEA8(s);
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" void func_002DD8F8(S2DD8F8 *p, int b) {
     int h = p->unk0;
@@ -245,7 +307,20 @@ extern "C" void func_002DE220(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE280);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE418);
+extern "C" void func_002DE418(S2DE418 *p, int b) {
+    p->unkEE00 = D_00363B20;
+    if (p->unk4) {
+        delete p->unk4;
+    }
+    func_0029FD40((char *)p + 0xF748, 2);
+    S2DE418_N *n = &p->unkEE40;
+    n->unk14 = D_00363DB8;
+    n->unk10->unkC = n->unkC;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    func_001C8040(p, b);
+}
 
 extern "C" void func_002DE4C8(void) {
     S2DE5B8 *p = (S2DE5B8 *)D_00372580;

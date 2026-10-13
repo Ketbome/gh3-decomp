@@ -42,7 +42,28 @@ struct S2DEE90_A {
     int (*unk1C)(S2DEE90_A *);
 };
 
+struct S2DF630_V {
+    char pad0[0x18];
+    virtual void v0();
+    virtual ~S2DF630_V();
+};
+struct S2DF630 {
+    char pad0[0xC];
+    S2DF630 *unkC;
+    S2DF630 *unk10;
+    void *unk14;
+    char pad18[0xDC];
+    char *unkF4;
+    char padF8[0x138];
+    void *unk230;
+    S2DF630_V *unk234;
+};
+
 extern "C" {
+extern char D_0034AFE8[];
+extern char D_00364028[];
+void func_00134748(char *, int);
+void func_0027AC90(char *);
 int func_001C94C0(void);
 int func_001CA038(void *);
 void func_00298448(int);
@@ -408,7 +429,31 @@ extern "C" s32 func_002DF618(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF620);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DEE90", func_002DF630);
+extern "C" void func_002DF630(S2DF630 *p, int b) {
+    char *r = p->unkF4;
+    p->unk14 = D_00364028;
+    if (r) {
+        func_0027AC90(r + 0x80);
+        func_00134748(r + 4, 2);
+        func_00119400(D_00368A38[0], r);
+    }
+    if (p->unk234) {
+        delete p->unk234;
+    }
+    if (p->unk230) {
+        func_00119400(D_00368A38[0], p->unk230);
+        p->unk230 = 0;
+    }
+    p->unk14 = D_0034AFE8;
+    int f = b & 1;
+    p->unk10->unkC = p->unkC;
+    p->unkC->unk10 = p->unk10;
+    p->unkC = p;
+    p->unk10 = p;
+    if (f) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 struct S2DF718 {
     char pad0[0x228];

@@ -679,3 +679,18 @@ array-ctor loops under `-funroll-loops`; the original keeps t in s4 and the allo
 `-1` constant; ours is 5 instructions shorter, 4 forms incl. an inline helper); func_002B4848 / func_002B48F0 (script array
 bitmask: the data pointer is CSE'd in the original); CFunc_SetGlobalPitchModulation / CFunc_SetSfxReverb (`mov.s f12,f20` goes
 before the jal and `move a1` into its delay slot in the original); CFunc_LoadAnim (stack slots of the two out locals swapped).
+Round 8 part 5 (+11): t_266800 func_00266E90 (44-element clear: an indexed `for (i = 0; i < 44; i++) D[i].f = 0` is unrolled 4x by
+`-funroll-loops`, a pointer loop is not); t_2DCE78 func_002DD810 (required-int getters, fresh out local per call),
+func_002DE418 (dtor: `delete` of an object whose destructor is the SECOND virtual -> vtable entry at 0x10/0x14, add a dummy
+`virtual void v0();` before `virtual ~X()`); t_2DEE90 func_002DF630 (same dummy-virtual trick); t_26AEF8 func_0026C738,
+func_0026C7A8, func_0026C878; t_25E580 CFunc_IsAssetLoaded, CFunc_LoadAnim, CFunc_UnloadAnim, CFunc_UnloadScene.
+KEY QUIRK (fixes many "v0/v1 swap" give-ups): declare void callees as returning `int` (func_0026B1B0, func_00275EE8,
+func_00273F08 here): the original kept an unused return-value pseudo, which moves later temporaries from v0 to v1.
+Stack-slot order of address-taken locals follows the FIRST `&x` that is expanded: to put the second out param at the lower
+address take its address early (`int *pv = &v;` at the top and pass `pv`); `((int *)obj)[7 + n] = 0` gives `addu v0,v0,base`
+(index first) where `obj->arr[n]` gives `addu base,idx`. A stack store listed in a call's delay slot means the local is
+assigned (`v = 0;`) right before that call, not at its declaration.
+Given up: CFunc_ReloadAnim (original: call result in s2 + `movn s2,v1,v1`; ours movz with name in s1, 5 forms),
+func_002DCD68 (D_003722B0 is gp-relative file-wide through GP_DATA but this function reads it with lui: needs a split object),
+func_0028BDA8 (tail merge of the `sw` after `b`), func_002890C8 (n/l saved registers swapped), CFunc_GetHeldPattern (only
+`move a0,s0` vs `ori a2,sp,8` order), func_002964D8 (after the int-return fix only s0/s1 are swapped).

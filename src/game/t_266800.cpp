@@ -61,7 +61,20 @@ struct S2676F0_4 {
     S2676F0_4 *unk14;
 };
 
+struct S266E90_E {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    char pad10[0x38];
+    int unk48;
+    char pad4C[0xC];
+};
+
 extern "C" {
+extern S266E90_E D_003A1900E[44] asm("D_003A1900");
+void func_00266C08(void);
+void func_00270BD0(void *);
 int func_00268388(int, int, int);
 void func_002680D0(int, int, int);
 int func_002670B0(int, int);
@@ -188,7 +201,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266D20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266E08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266E90);
+extern "C" int func_00266E90(int arg0) {
+    if (func_00266778() == 0) {
+        int i;
+        ((int *)arg0)[2] = 0;
+        func_00270BD0((void *)arg0);
+        func_00266C08();
+        for (i = 0; i < 44; i++) {
+            D_003A1900E[i].unk0 = 0;
+            D_003A1900E[i].unk4 = 0;
+            D_003A1900E[i].unk8 = 0;
+            D_003A1900E[i].unkC = 0;
+            D_003A1900E[i].unk48 = 0;
+        }
+    }
+    return arg0;
+}
 
 extern "C" void func_00266F50(int a, int b) {
     if (func_00266778() == 0) {
