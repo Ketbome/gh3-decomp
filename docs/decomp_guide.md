@@ -67,6 +67,22 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
 - **A lone `nop` that 8-aligns a label** (often after a `beql` slot, with no loop in sight) is the head of a loop
   that `-funroll-loops` unrolled completely: write the original loop (e.g. two fields 0x38 apart are
   `for (i = 0; i < 2; i++)` over an array of 0x38-byte elements) and give the file `// cflags: -funroll-loops`.
+- **VU0 code** (`lqc2`/`sqc2`/`vadd`/`vmul`/`qmfc2`..., flagged `vu0` by candidates.py) was inline asm in the
+  original, with the VU registers written out (`$vf1`, `$vf2`...). Write the same instructions in an `asm()` with
+  the GPR operands as constraints; the compiler places it, the assembler fills delay slots as it did then.
+  Verified (func_0010F6D8, a vector add returning 128 bits):
+  ```cpp
+  typedef unsigned int u128 __attribute__((mode(TI)));
+  extern "C" u128 func_0010F6D8(const u128* a, const u128* b) {
+      u128 r;
+      asm("lqc2 $vf2, 0(%1)\n\tlqc2 $vf1, 0(%2)\n\tvadd.xyzw $vf3, $vf2, $vf1\n\tqmfc2.ni %0, $vf3"
+          : "=r"(r) : "r"(a), "r"(b));
+      return r;
+  }
+  ```
+  In a larger function, put each run of VU0 instructions in its own asm() where the original has it, and let
+  the compiler do the rest; `asm volatile` and `"memory"` clobbers keep the order when it matters. Functions that
+  are almost all VU0 (>40%) were probably whole asm functions: leave those.
 - **Inline asm.** PS2 instructions the compiler cannot emit (MMI such as `pextlw`/`pcpyld`/`pcpyud`, COP2/VU0)
   were written as inline asm in the original too: fine. Empty `asm("" : "+r"(x))` barriers and
   `register T x asm("$N")` pins are a last resort. Ordinary instructions in asm only to force the compiler's hand

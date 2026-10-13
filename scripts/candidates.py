@@ -3,8 +3,8 @@
 
 Usage: .venv/bin/python scripts/candidates.py src/game/t_10C000.cpp [more files...] [--max-size 0x200]
 
-Flags: jtbl = has a jump table (a switch: supported, see decomp_guide.md), vu0 = VU0 macro instructions (hand-written
-assembly, keep), lit = loads float constants from memory (declare the existing constant as an extern).
+Flags: jtbl = has a jump table (a switch: supported, see decomp_guide.md), vu0 = VU0 macro instructions (inline asm in
+the original: supported, see decomp_guide.md), lit = loads float constants from memory (declare the existing constant as an extern).
 """
 
 import re
