@@ -13,6 +13,10 @@ struct S20_155 { char pad0[0x14]; void* unk14; char pad18[8]; void* unk20; };
 struct S60_155 { char pad0[0x60]; int unk60; };
 
 extern "C" {
+EB0_155* func_00156590_r(const char*, int) __asm__("func_00156590");
+int func_0027D268(int, int, void*, int);
+int func_002262A8(int);
+int func_0027DF00(int, int);
 void func_00156CB8(float, float, float, float);
 extern int D_00368A38;
 void* Heap_Alloc(int, int, int, int);
@@ -128,7 +132,18 @@ extern "C" void func_00156590(const char* name, int v) {
     e->unk9C = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001565D0);
+extern "C" EB0_155* func_001565D0(int p) {
+    const char* n = (const char*)func_00223BF0((void*)p);
+    EB0_155* e = func_001566B8(n);
+    if (!e) e = func_00156590_r(n, 0);
+    float f = 100.0f;
+    func_0027D268(p, 0x2689291C, &f, 0);
+    f = f * 0.01f;
+    *(float*)((char*)e + 0x94) = f;
+    if (!func_002262A8(p)) e->unk9C &= ~2;
+    if ((func_0027DF00(p, 0x17FA747C) ^ 1) != 0) e->unk9C &= ~1;
+    return e;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001566B8);
 

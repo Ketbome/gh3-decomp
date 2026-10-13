@@ -28,6 +28,10 @@ struct S139_X {
 };
 
 extern "C" {
+void* func_0015DB00(int);
+float func_001230D0(void*, void*, float*, float*, int*, int);
+void func_00139AE8(void*, int, int, float, float);
+void func_0013C550(void*, void*);
 void func_001CE868(S139_X*, S139_R*);
 void func_001CE888(S139_X*, S139_R*);
 void func_0013C080(S139_R*, S139_X*, int, int*);

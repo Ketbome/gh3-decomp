@@ -17,6 +17,10 @@ struct HI_14A { u32 key; void* value; HI_14A* next; };
 struct HT_14A { int bits; HI_14A* items; int count; char padC[9]; u8 unk15; };
 
 extern "C" {
+void func_00275648(void*);
+int func_0027DD38(int, int, void*, int);
+int func_0027D268(int, int, void*, int);
+int func_003174C0(float);
 void func_0011C408(int, void*);
 S5_14A* HashTable_GetItem(u32);
 void HashTable_FlushItem(void*, int*);
@@ -114,7 +118,38 @@ extern "C" void func_0014AC58(void* p, int v) {
     self->unk530 = func_0011EF10();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014ACB8);
+struct V14A { float x; float y; float z; float w; };
+
+extern "C" void* func_0014ACB8(char* self, int p, int* out) {
+    V14A a;
+    V14A b;
+    V14A c;
+    float f;
+    int n;
+    func_00275648(&a);
+    if (func_0027DD38(p, 0x21DE240C, &a, 0)) {
+        *(float*)(self + 0x500) = a.y;
+        *(float*)(self + 0x504) = a.z;
+    }
+    func_00275648(&b);
+    if (func_0027DD38(p, 0x3E10436D, &b, 0)) {
+        *(float*)(self + 0x508) = b.y;
+        *(float*)(self + 0x50C) = b.z;
+    }
+    func_00275648(&c);
+    if (func_0027DD38(p, 0x4C2A3CDE, &c, 0)) {
+        *(float*)(self + 0x510) = c.y;
+        *(float*)(self + 0x514) = c.z;
+    }
+    if (func_0027D268(p, 0x906B67BA, &f, 0)) {
+        n = func_003174C0(f * 1000.0f);
+    } else {
+        n = 0;
+    }
+    func_0014AC58(self, n);
+    if (out) *out = n;
+    return self + 0x500;
+}
 
 extern "C" void func_0014ADF0(void) {
     func_0011A380();

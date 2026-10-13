@@ -7,6 +7,16 @@ struct S135_G { char pad0[0x4]; int unk4; };
 struct S_00135DD0 { char pad0[0x6C]; char unk6C; };
 
 extern "C" {
+int func_001349D0_1(S_00135DD0*) __asm__("func_001349D0");
+extern int D_00368A38;
+void* Heap_Alloc(int, int, int, int);
+void Heap_Free(int, void*);
+int func_0027D4E0(int, int, void*, int);
+int func_0012D028(int, int);
+int func_002899D8(int);
+void func_0028A140(int, void*, int, S_00135DD0*);
+int func_0028C200(int);
+void func_00289B40(int, int);
 int func_0027D870(void*, u32, int*, int);
 int func_0027D870_i(int, int, int*, int) __asm__("func_0027D870");
 int func_0027D188(int, int, int*, int);

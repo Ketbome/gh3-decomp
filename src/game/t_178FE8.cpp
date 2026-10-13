@@ -24,6 +24,10 @@ struct S00179BB0 {
 };
 
 extern "C" {
+int func_00172CC0(void*, u32, int);
+void func_0017D658(void*, int, int);
+int func_0027D268(int, int, void*, int);
+int func_0027D870(int, int, void*, int);
 void func_0017D580(void*, int);
 extern u8 D_003424C8[];
 extern u8 D_00342638[];
@@ -146,7 +150,46 @@ INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179C00);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179DE0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A060);
+struct S17A060 { char pad0[0xC]; int unkC; char pad10[8]; char unk18[0x1C]; int unk34; float unk38; };
+
+extern "C" int func_0017A060(S17A060* self, u32 key, int p) {
+    int b;
+    int a;
+    int k;
+    void* d;
+    int fl;
+    int pp;
+    switch (key) {
+    case 0x4779AF46:
+        func_0027D870(p, 0, &a, 1);
+        {
+            u32 kk = 0xF649D637;
+            self->unk34 = a != kk;
+        }
+        return 1;
+    case 0x8C73A2F1:
+        func_0027D870(p, 0x98549BA4, &b, 1);
+        func_0017D658(self->unk18, self->unkC, b);
+        d = &self->unk38;
+        self->unk38 = 1.0f;
+        k = 0x54628ED7;
+        pp = p;
+        asm("" : "+r"(pp));
+        fl = 0;
+        goto call;
+    case 0x4F770C95:
+        d = &self->unk38;
+        k = 0;
+        fl = 1;
+        pp = p;
+        asm("" : "+r"(pp));
+    call:
+        func_0027D268(pp, k, d, fl);
+        return 1;
+    default:
+        return func_00172CC0(self, key, p);
+    }
+}
 
 extern "C" void func_0017A178(void) {
 }
@@ -186,7 +229,6 @@ extern "C" int func_0017A620(S0017A620* self) {
     return 1;
 }
 
-extern "C" int func_00172CC0(void*);
 extern "C" int func_0027DF00(int, u32);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A630);

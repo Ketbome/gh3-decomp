@@ -11,6 +11,8 @@ struct S00175D48 {
 };
 
 extern "C" {
+int func_0027D870(int, int, int*, int);
+void func_0017D658(void*, int, int);
 int func_00172CC0(void*);
 void func_0017E068(void*, float, float);
 void func_00174C20_1(void*) __asm__("func_00174C20");
@@ -204,6 +206,9 @@ extern "C" void func_00175FD0(S175FD0* self, int a) {
     func_0017D580(self->unk20, 2);
     func_00172A00_2(self, a);
 }
+
+struct P176020 { int unk0; int unk4; int unk8; };
+struct S176020 { char pad0[0x18]; int unk18; char pad1C[4]; int unk20; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00176020);
 

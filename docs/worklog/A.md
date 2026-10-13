@@ -944,3 +944,17 @@ key kept on the stack + copy in a0, 4 tries), func_001233A8 (div.s before jal, n
 reg numbering fi/fj/q), func_00188E68 (n/f/g register roles v1/v0/a0, 5 tries), func_00176108 (`li v0,1` vs
 `sw` in the delay slot of the join), func_001395D8 (store/load scheduling, 720 perms), func_00172D00/D80 (stack
 iterator), func_001204D8/func_00120010/func_0011FF58 (scoped lock/trace object on the stack).
+
+A9 pass, part 2. Matched 4: func_00128220 func_001565D0 func_0014ACB8 func_0017A060
+
+- A hash constant compared against a loaded value (`x != 0xF649D637`) swaps the v1/a0 choice; keep the constant
+  in a local (`u32 kk = 0xF649D637; ... x != kk`) to get the original register pair (func_0017A060).
+- A shared tail call reached from two switch cases (`goto call`): set every argument in both arms
+  (`pp = p; asm("" : "+r"(pp))`) or the arg move lands in the delay slot (func_0017A060).
+- `(f(...) ^ 1) != 0` with an int-returning callee reproduces the `xori`+branch (func_00128220).
+- Vectors read by a script helper: `struct {float x,y,z,w;}` locals at 0x10 strides (func_0014ACB8).
+
+Given up (A9, part 2): func_00176020 + func_00176880/B58/78D0/78FF0 family (script-param chain lookup; all
+match except `addiu a2,sp,4` where ours emits `ori a2,sp,4`; tried struct/array/scalar/s16/float locals),
+func_0013B8F8 (float reg numbering with -3276.75 hidden through asm), func_00137470 (original has 2 extra nops
+in a 2-instruction busy-wait loop), func_0015CFC8 (stack list iterator).
