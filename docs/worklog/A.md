@@ -1017,3 +1017,4 @@ Matched (A10) t_17D4D8: func_0017DB68 (0x110; ref-pointer swap + draw call with 
 Matched (A10) t_11AEB0: func_0011BB28 (0x110; error path kept out of line with goto err at the end; compare as p+a->unk8 != b)
 - func_00187F50: loop with alloc+ctor and flag set; as a for loop the structure matches; remaining: ours loads n->unk4 before the 'sh n->unkE' store and keeps the list ptr in v1 then 'move a2,v1' (original loads a2 directly); 12 tries
 Matched (A10) t_152E18: func_00153C28 (0x154; 12x unrolled by hand do-while, cvt.w.s via (s16) cast)
+Matched (A10) t_152E18: func_00153AB0 (0x178; sibling of func_00153C28 with two s16 stores)
