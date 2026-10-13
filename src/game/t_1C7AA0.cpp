@@ -173,9 +173,10 @@ extern "C" void func_001C8470(S001C8470* p) {
 extern "C" void func_001C84A8(void* unused, char* p) {
     char* q = *(char**)(p + 0x20);
     if ((u32)(func_0011EF10() - D_00372D6C) >= 0x7D0 && func_001CA048(q) >= 2 && *(s32*)(q + 0xDC) == 0) {
-        u32 d = (u32)(func_0011EF10() - *(s32*)(q + 0xD4));
-        u32 lim;
-        asm("li %0, 5000" : "=r"(lim));
+        u32 now = func_0011EF10();
+        u32 start = *(s32*)(q + 0xD4);
+        u32 lim = 5000;
+        u32 d = now - start;
         if (lim < d) {
             func_0028C9D0(0x895819F7, 0, 0, 0, 0, 0);
             func_0028C9D0_i(0x6CD351C5, 0, 0, 0, 0, 0);
