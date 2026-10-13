@@ -770,3 +770,9 @@ func_002972F8 (RLE decode: file now `-funroll-loops`, `while (n != 0) { c = *src
 Given up: t_29F288 func_002A0020 (DMA register constants: original materialises 0x10008020 once in a0 and reuses it; every volatile/local form
 re-materialises), t_268EB8 func_0026ACB0 (original strength-reduces to a base+16 induction pointer), t_25C450 func_0025C6F8 (a zero register compared
 with a loaded field), t_26AEF8 func_0026BCB0.
+Part 6 (+3, 42 total): t_2B3AC8 func_002B4A60 (unused 4-byte colour local: `u8 c[4]; u8 *p = c; c[0] = p[1] = p[2] = p[3] = 0xFF` written in index order, gcc's
+scheduler reorders the stores itself; the second parameter is reassigned `b = Alloc(...)` so it keeps its saved register); t_292928 func_00293EE0 (ring buffer
+two-span getter: read `p->unk0` in both branches, no local; `%` is fine now), t_2949F0 func_00295140 (`int n = avail; if (want < n) n = want;` gives slt+movn; D_00370E44 plain
+extern).
+Given up: t_2949F0 func_002952D8 / t_292928 func_00293A88 (identical ring-buffer copy; the original re-issues `move a0,s3` before the first memcpy, ours keeps a0), t_2797A8
+func_0027AAD8 (list copy: saved registers s2/s3 swapped and the loop-top nop), t_29D230 func_0029D2A0 (u16 spilled and re-read as two lb).

@@ -1,6 +1,12 @@
 #include "common.h"
 
 extern "C" {
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027AC90(int);
+void func_00113250(int);
+int func_0028D1D8(int, int, int, int, int, int, int, int, int, int);
+int func_0028C200(int);
 extern int D_003710A4;
 extern s32 D_0036D554[] __attribute__((section(".sdata")));
 int func_001DAC78(int, int, int, int, int, int, f32);
@@ -45,7 +51,30 @@ extern "C" void func_002B4A18(s32 arg0, s32 arg1) {
     func_001DAC78(D_0036D554[0], arg0, 0x640E830A /* broadcast */, 0x36B2EE74 /* system */, arg1, 1, -1.0f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B4A60);
+extern "C" void func_002B4A60(int a, int b) {
+    u8 c[4];
+    u8 *p = c;
+    c[0] = 0xFF;
+    p[1] = 0xFF;
+    p[2] = 0xFF;
+    p[3] = 0xFF;
+    if (b != 0) {
+        int r = func_0028D1D8(a, b, 0, 0, 0, 0, 0, 0, 0, 0);
+        if (r != 0) {
+            func_0028C200(r);
+        }
+    } else {
+        b = func_0027AA70(func_001287F0(8, 1));
+        int r = func_0028D1D8(a, b, 0, 0, 0, 0, 0, 0, 0, 0);
+        if (r != 0) {
+            func_0028C200(r);
+        }
+        if (b != 0) {
+            func_0027AC90(b);
+            func_00113250(b);
+        }
+    }
+}
 
 extern "C" int func_002B4B50(int arg0, int arg1, int arg2) {
     int p = func_0027AF38(arg0, arg1, 0);

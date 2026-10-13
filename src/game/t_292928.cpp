@@ -56,6 +56,18 @@ struct S00293340 {
     volatile int unkC;
 };
 
+struct S293EE0 {
+    int unk0;
+    char pad4[4];
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    int unk18;
+    char pad1C[0x24];
+    int unk40;
+};
+
 extern "C" {
 void func_00300270(void);
 void func_00300ED0(int, int, void *, int);
@@ -74,7 +86,8 @@ extern int D_003733C0;
 extern int D_00371718;
 void func_002930E8(void);
 void func_00293098(int);
-int func_00293EE0(void*);
+int func_00293EE0_1(void*) asm("func_00293EE0");
+void func_002EE680_4(int, int, int, int) asm("func_002EE680");
 void func_00293FD0(void*, int);
 int func_00294818(void*);
 int func_002947C0(void*);
@@ -220,7 +233,7 @@ extern "C" int func_00293468(void) {
 }
 
 extern "C" void func_00293488(char* a) {
-    func_00293EE0(a + 0x48);
+    func_00293EE0_1(a + 0x48);
 }
 
 extern "C" void func_002934A8(char* a, int n) {
@@ -327,7 +340,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293D08);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293D80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293EE0);
+extern "C" void func_00293EE0(S293EE0 *p, int *o1, int *o2, int *o3, int *o4) {
+    func_002EE6A0(p->unk40);
+    int a = p->unk10;
+    int b = p->unk14;
+    int c = a + 2;
+    int cap = p->unk18;
+    int hi = (((p->unkC + a) << 11) + b) % cap;
+    int len = ((p->unk8 - c) << 11) - b;
+    if (cap - hi >= len) {
+        *o1 = p->unk0 + hi;
+        *o2 = len;
+        *o3 = 0;
+        *o4 = 0;
+    } else {
+        *o1 = p->unk0 + hi;
+        *o2 = p->unk18 - hi;
+        *o3 = p->unk0;
+        *o4 = len - (p->unk18 - hi);
+    }
+    func_002EE680_4(p->unk40, len, c, hi);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293FD0);
 
