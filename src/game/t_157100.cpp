@@ -276,7 +276,32 @@ extern "C" int func_00157788(S_00157788* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_001577B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_001577B8);
+struct S_001577B8 { char pad0[8]; char* unk8; };
+extern "C" void func_00159AB8(int, int, int, int, int, int, int);
+static inline int VC0_001577B8(S_001577B8* o, int off) {
+    char* vt = o->unk8;
+    short d = *(short*)(vt + off);
+    int (*f)(void*) = *(int (**)(void*))(vt + off + 4);
+    return f((char*)o + d);
+}
+extern "C" int func_001577B8(S_001577B8* a, S_001577B8* b, int c) {
+    int r0 = VC0_001577B8(b, 0x20);
+    int r1 = VC0_001577B8(b, 0xD0);
+    int r2 = VC0_001577B8(b, 0xD8);
+    int r3 = VC0_001577B8(a, 0x18);
+    int r4 = VC0_001577B8(a, 0xD0);
+    int r5 = VC0_001577B8(a, 0xD8);
+    func_00159AB8(r0, r1, r2, r3, r4, r5, 0x20);
+    if (c) {
+        if ((u32)VC0_001577B8(a, 0xE0) < 9) {
+            char* vt = a->unk8;
+            short d = *(short*)(vt + 0x120);
+            int (*f)(void*, void*, int) = *(int (**)(void*, void*, int))(vt + 0x124);
+            f((char*)a + d, b, c);
+        }
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157908);
 

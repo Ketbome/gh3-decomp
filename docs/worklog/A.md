@@ -998,3 +998,10 @@ Matched (A10) t_19F538: func_001A1028 func_001A1180 (jtbl switches; byte-offset 
 Matched (A10) t_19F538: func_001A11D8 (0x13c; table search + switch)
 Matched (A10) t_114DC8: func_00116748 (jtbl digit switch)
 Matched (A10) t_116E38: func_00117030 func_00117D40 (jtbl; explicit 'case 0: return;' keeps the table starting at 0)
+- func_0019B9C8 (jtbl, tag switch with stack push/pop): all matches except D_003732AC load not landing in the beqz delay slot / n in a3 not a0; needs 'case 7: return 0' and '(h<<4)+0x10' in a local to get the table and operand order; 9 tries
+- func_00116F90, func_00116EE58(0x64): start with junk (addiu sp / nop) = split heads
+- func_001A4D20 (DMA packet writer, long arg): matches except v0/v1 roles of hi-word and li 0x42 (and the same for the two long loads); two-pointer form p/q/r with stores [hi,lo,const] needed; 14 tries
+- func_00139840: float adjust with sp0/sp4 passed by address; original reloads sp0/sp4 after the first pair of stores (only reproducible with asm memory barrier, then f-reg numbering of the loads differs); 11 tries
+- func_001881A0: alloc+ctor then inline flag getters; matches except the tail (original shares 'move v0,v1; sw' and reloads the flag word); 11 variants incl. int t reuse, goto, inline Get
+- func_00189938 (5x unrolled alloc+ctor+list push, 2 iterations): original puts 'sw D_00369DB4' in the Heap_Alloc jal delay slot after the D_00368A38 lui/lw; ours puts the gp load of D_00368A38 there; volatile on either, reorder, comma args tried; 7 tries
+Matched (A10) t_157100: func_001577B8 (0x150; 8 vcalls via an inline helper; last vcall declared int-returning)
