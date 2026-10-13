@@ -1018,3 +1018,4 @@ Matched (A10) t_11AEB0: func_0011BB28 (0x110; error path kept out of line with g
 - func_00187F50: loop with alloc+ctor and flag set; as a for loop the structure matches; remaining: ours loads n->unk4 before the 'sh n->unkE' store and keeps the list ptr in v1 then 'move a2,v1' (original loads a2 directly); 12 tries
 Matched (A10) t_152E18: func_00153C28 (0x154; 12x unrolled by hand do-while, cvt.w.s via (s16) cast)
 Matched (A10) t_152E18: func_00153AB0 (0x178; sibling of func_00153C28 with two s16 stores)
+- func_00139D50: 4-byte color compare + copies through one stack temp; original does lbu/sb pairs (no load grouping) so the temp is probably a class with copy ctor/operator= (not tried); plain struct copies group the loads; 5 tries
