@@ -617,3 +617,14 @@ Habit (verified): a loop bound that the original copies into a new register (`mo
 Matched 9: func_00227CC8 func_00227EA8 func_00228050 func_00229718 func_002280A8 func_00228368 func_00227E00 func_00227FA8 func_00227D20
 Habit: `func_f(s, obj); obj = s;` (reassign after the call) puts the `move` in the jal delay slot; a switch whose cases `break` and a trailing `return r` reproduces a shared `move v0,s1` tail; byte stores `p[0x2C] = 1; p[0x2D] = 1;` are emitted in swapped order of source.
 Given up: func_002297D0 (alabel entry in the middle), func_00228278 (MakeVec stack vectors, not attempted).
+
+### t_229D30
+Matched 10: func_0022A2D8 func_0022AE18 func_0022AFC0 func_0022BA90 func_0022B688 func_0022B9D0 func_0022B040 func_0022B5D0 func_0022B918 func_0022BCE0
+Notes: a callee that takes the caller's untouched a1 (`func_0022C768(a, b, x)` called with b = incoming a1) needs the extra parameter declared; keep the existing prototype of an already declared function (void* self + local cast) or the file stops compiling.
+Hash-bucket free loops (`do { nx = c->next; free(0, c); c = nx; } while (c)`): load the next pointer BEFORE the call (it lands in the delay slot).
+Given up: func_0022B0D0 (p/o saved registers swapped: o in s0 ours, s1 original), func_00229EB8 (record shift: v0/v1 of the three loaded words and slt position; 6 forms), func_0022A8F8 (ext lookup: the found-return is a branch-likely `lw v0,4(s1)` shared epilogue), func_0022B168 (`move v1,v0; bnez v1; li v0,1` bool tail), func_0022A800 and func_0022BAF8 (D_00368A38 macro form while the rest of the file uses gp).
+
+### t_22BD90
+Matched 11: func_0022BD90 func_0022D538 func_0022DD30 func_0022D940 func_0022D048 func_0022BE60 func_0022BEE0 func_0022D0C0 func_0022DA28 func_0022DAF0 func_0022D2C8
+Virtual-call helper used here: `VE22B* e = (VE22B*)(*(char**)(p + 0x34) + off); ((int (*)(char*))e->fn)(p + e->delta)` (vptr at 0x34, entry = delta s16 + fn). A callee whose result is ignored but declared `int` fixes v0/v1 (func_0011E008, func_0030B550). Call with args taken straight from incoming registers: alias with `__asm__("name")` and the extra parameters.
+Given up: func_0022CEF8 func_0022D240 func_0022D6A0 func_0022DBB0 (identical wrappers `if (c) v = vcall(); BCE0(p,v,b,c,d,e)`: b/c saved registers s1/s2 swapped in ours), func_0022D728 (r/f saved registers swapped).
