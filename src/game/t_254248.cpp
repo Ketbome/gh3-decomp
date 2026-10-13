@@ -8,6 +8,7 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_0026BBA8(int, int, int, int);
 void func_0026CA78(int, int, int);
 int func_0027CFA8(int, int, int *, int);
 void func_002E7C58(int, int);
@@ -215,7 +216,19 @@ extern "C" int CFunc_PreprocessStreamSets(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayStreamFromSet);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadSoundRAM);
+extern "C" int CFunc_LoadSoundRAM(int arg0) {
+    int ok = 0;
+    int v = 0;
+    int out = 0;
+    if (func_0027D188(arg0, 0, &out, 0)) {
+        ok = func_0027D1F8(arg0, 0, &v, 0) != 0;
+    }
+    if (ok) {
+        func_0026BBA8(out, v, 0, 0);
+        return 1;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayTrack);
 

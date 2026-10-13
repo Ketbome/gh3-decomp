@@ -52,10 +52,21 @@ struct S2668_Out {
     int unk30;
 };
 
+struct S2676F0_4 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    S2676F0_4 *unk10;
+    S2676F0_4 *unk14;
+};
+
 extern "C" {
+int func_00268388(int, int, int);
 void func_002680D0(int, int, int);
 int func_002670B0(int, int);
 void func_00267660(int, void *, int);
+int func_002681B0(int, int);
 int func_002679E0_i(int) asm("func_002679E0");
 void func_00267910(int, int);
 void func_0026FA80(void);
@@ -240,19 +251,27 @@ extern "C" int func_00267628(S00267628* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267658);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267660);
+extern "C" void func_00267660(int a, void *np, int c) {
+    S2676F0_4 *n = (S2676F0_4 *)np;
+    n->unk8 = 0;
+    if (c != 0 && func_00268388(a, n->unk0, 0) != 0) {
+        func_002681B0(a, n->unk0);
+    }
+    if (n->unk10 != 0) {
+        n->unk10->unk14 = n->unk14;
+    }
+    if (n->unk14 != 0) {
+        n->unk14->unk10 = n->unk10;
+    } else {
+        D_00370AF0 = (int)n->unk10;
+    }
+    D_00370B00 -= 1;
+}
 
 struct S2676F0 {
     char pad0[0xC];
     int unkC;
     S2676F0 *unk10;
-};
-struct S2676F0_4 {
-    char pad0[4];
-    int unk4;
-    char pad8[4];
-    int unkC;
-    S2676F0_4 *unk10;
 };
 extern "C" void func_002676F0(int a, int b) {
     S2676F0 *p = (S2676F0 *)D_00370AF0;

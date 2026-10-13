@@ -1,6 +1,9 @@
 #include "common.h"
 
 extern "C" {
+extern int D_00369798;
+int func_002B5888(int);
+void func_00144FC0(int, int, int, int, int);
 int func_00119610(int, int);
 void func_001194B8(int);
 void func_00119490(int, int);

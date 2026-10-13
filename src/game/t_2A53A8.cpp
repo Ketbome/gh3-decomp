@@ -28,6 +28,29 @@ struct S2A67_List {
 };
 
 extern "C" {
+void *func_00118F20(int, int, int, int);
+void *func_0011C130(void *, int, int, int, int, int);
+extern void *D_003690D8[] __attribute__((section(".sdata")));
+extern int D_003690E0[] __attribute__((section(".sdata")));
+extern int D_003690E8;
+extern void *D_003691F8[] __attribute__((section(".sdata")));
+extern int D_00369200[] __attribute__((section(".sdata")));
+extern int D_00369208;
+extern void *D_003692A0[] __attribute__((section(".sdata")));
+extern int D_003692A8[] __attribute__((section(".sdata")));
+extern int D_003692B0;
+extern void *D_0036A790[] __attribute__((section(".sdata")));
+extern int D_0036A798[] __attribute__((section(".sdata")));
+extern int D_0036A7A0;
+extern void *D_0036A6E0[] __attribute__((section(".sdata")));
+extern int D_0036A6E8[] __attribute__((section(".sdata")));
+extern int D_0036A6F0;
+extern void *D_0036D540[] __attribute__((section(".sdata")));
+extern int D_0036D548[] __attribute__((section(".sdata")));
+extern int D_0036D550;
+extern void *D_0036D0F0[] __attribute__((section(".sdata")));
+extern int D_0036D0F8[] __attribute__((section(".sdata")));
+extern int D_0036D100;
 extern S2A67_List D_003AAD80;
 int func_00121C18(S2A5_Card *);
 int func_001E32D8(u32);
@@ -321,18 +344,46 @@ extern "C" void func_002A6E50(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6EA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6EB8);
+extern "C" void func_002A6EB8(int a, int b) {
+    void **slot = &D_003690D8[D_003690E8];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x408, a, b, 1, 0);
+    D_003690E0[D_003690E8] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6F60);
+extern "C" void func_002A6F60(int a, int b) {
+    void **slot = &D_003691F8[D_00369208];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x78, a, b, 1, 0);
+    D_00369200[D_00369208] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A7008);
+extern "C" void func_002A7008(int a, int b) {
+    void **slot = &D_003692A0[D_003692B0];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x30, a, b, 1, 0);
+    D_003692A8[D_003692B0] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A70B0);
+extern "C" void func_002A70B0(int a, int b) {
+    void **slot = &D_0036A790[D_0036A7A0];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x418, a, b, 1, 0);
+    D_0036A798[D_0036A7A0] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A7158);
+extern "C" void func_002A7158(int a, int b) {
+    void **slot = &D_0036A6E0[D_0036A6F0];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0xF0, a, b, 1, 0);
+    D_0036A6E8[D_0036A6F0] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A7200);
+extern "C" void func_002A7200(int a, int b) {
+    void **slot = &D_0036D540[D_0036D550];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0x1C, a, b, 1, 0);
+    D_0036D548[D_0036D550] = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A72A8);
+extern "C" void func_002A72A8(int a, int b) {
+    void **slot = &D_0036D0F0[D_0036D100];
+    *slot = func_0011C130(func_00118F20(D_00368A38, 0x70, 1, 0), 0xC, a, b, 1, 0);
+    D_0036D0F8[D_0036D100] = 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A7350);

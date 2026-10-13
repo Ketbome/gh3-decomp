@@ -648,3 +648,13 @@ Given up:
 - func_002704E0 (2D table stores, v0/v1), func_00273498 (gcc folds the movz chain), func_002964D8 (dtor, v0/v1 + s0/s1),
   CFunc_AddMusicTrack (bool kept in s0), func_0026DCC8 (original keeps `bgez` + nop, ours `bltzl`), func_002A74C0 (macro
   load of D_00368A38 costed 1 insn), func_00268130 (`& 0xFFFFFFFE & 0xFFFFFFFB` stays unfolded in the original).
+Round 8 part 2 (+17): t_2A53A8 func_002A6EB8, func_002A6F60, func_002A7008, func_002A70B0, func_002A7158, func_002A7200,
+func_002A72A8 (pool create templates, same shape as t_2754A0 func_00276DC8); t_2AD528 CFunc_SetInput; t_254248
+CFunc_LoadSoundRAM; t_25C450 CFunc_GetHeapSize; t_29AA58 func_0029B5F8; t_2BA998 CFunc_MakeGemsVisibleOnAllViewports;
+t_2949F0 func_00295FA8 (`delete` through a vptr at 0x2418), func_00296138; t_2D0150 func_002D0150; t_2DCE78 func_002DD8F8;
+t_266800 func_00267660 (func_00268388 gets the incoming a0 passed through).
+(Quirks: `if (ok) { call; return 1; } return 0;` gives the original's `bnez` + inline `b/v0=0` even when the source test
+was `ok == 0`; a store of 0 that sits in a call's delay slot means the zeroed local is declared after the argument call;
+`return v` read after the call, not hoisted, is `if (!call) {...; return 0;} return v;`.)
+Given up: CFunc_DestroyGem (original keeps bnezl + conditional load, ours if-converts to movz), func_002861D8 (s0/s1
+swapped, 4 forms), t_27F8C8 func_0027F8C8/F938/F9B0 (the original copies the arg into two pseudos: `move v0,a2; move s1,v0`).

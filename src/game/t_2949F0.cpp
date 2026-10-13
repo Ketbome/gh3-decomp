@@ -142,7 +142,31 @@ struct S2949F0_R {
     int unk1DC;
 };
 
+struct S295FA8_Big {
+    char pad0[0x2418];
+    virtual ~S295FA8_Big();
+};
+
+struct S296138_N {
+    char pad0[4];
+    S296138_N *unk4;
+    S296138_N *unk8;
+    S296138_N *unkC;
+};
+struct S296138_L {
+    char pad0[4];
+    S296138_N *unk4;
+    int unk8;
+};
+
 extern "C" {
+void func_00297E98(void *, int);
+void func_00297470(void *, void *);
+void func_0029D898(void *);
+extern char D_0035C298[];
+extern int D_00368A38;
+void func_00119400(int, int);
+void func_0029FEF0(void);
 extern int D_00371784;
 extern int D_00372ED0;
 void func_0029FF10(void);
@@ -269,11 +293,35 @@ extern "C" void func_00295E08(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295E50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295FA8);
+extern "C" void func_00295FA8(S2949F0_R *self, char *obj) {
+    S2949F0_N *n = (S2949F0_N *)(obj + 0x1808);
+    n->unk10->unkC = n->unkC;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    func_0029D898(obj);
+    if (obj) {
+        delete (S295FA8_Big *)obj;
+    }
+    self->unk1D8--;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296028);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296138);
+extern "C" void func_00296138(char *obj, int b) {
+    S296138_L *l = (S296138_L *)(obj + 0x804);
+    if (l->unk8 != 0) {
+        func_00297470(l, l->unk4->unk4);
+        l->unk4->unk8 = l->unk4;
+        l->unk4->unk4 = 0;
+        l->unk4->unkC = l->unk4;
+        l->unk8 = 0;
+    }
+    func_00297E98(l, 2);
+    if (b & 1) {
+        func_00119400(D_00368A38, (int)obj);
+    }
+}
 
 extern "C" void func_002961C8(S2949F0_H *p, int t) {
     int i;

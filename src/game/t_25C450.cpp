@@ -13,7 +13,14 @@ struct S25C450_S {
     int unk20;
 };
 
+struct S25C450_H {
+    char pad0[0x34];
+    int unk34;
+};
+
 extern "C" {
+S25C450_H *func_00119730(int, int, int);
+int func_0011A8D8(int);
 void func_0027C160(int, int, int);
 int func_0025F9D8(void);
 int func_0025F9B0(void);
@@ -138,7 +145,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025CAE8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DisplayFreeMem);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_GetHeapSize);
+extern "C" int CFunc_GetHeapSize(int a, S25C450_S *s) {
+    int h = D_00368A38[0];
+    int out = 0;
+    func_0027D870(a, 0, &out, 0);
+    S25C450_H *p = func_00119730(h, out, 1);
+    if (p) {
+        int n = p->unk34;
+        if (n) {
+            int k = s->unk20;
+            func_0027C160(k, 0x083FDB95, func_0011A8D8(n));
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_GetMemProfileSize(void) {
     return 1;

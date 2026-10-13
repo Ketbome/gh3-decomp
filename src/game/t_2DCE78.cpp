@@ -30,7 +30,19 @@ struct S2DE5B8 {
     S2DE5B8_V *unkEE00;
 };
 
+struct S2DD8F8 {
+    int unk0;
+    int unk4;
+    char pad8[8];
+    void *unk10;
+};
+
 extern "C" {
+extern char D_00362400[];
+extern int D_00368A38;
+void func_00119400(int, void *);
+void func_00113250(int);
+void func_0027AC90(int);
 int func_001CB568(void *);
 int func_001CA210(void *);
 void func_001CB560(void *, int);
@@ -142,7 +154,22 @@ extern "C" s32 func_002DD808(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD810);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD8F8);
+extern "C" void func_002DD8F8(S2DD8F8 *p, int b) {
+    int h = p->unk0;
+    p->unk10 = D_00362400;
+    if (h != 0) {
+        func_0027AC90(h);
+        func_00113250(h);
+    }
+    h = p->unk4;
+    if (h != 0) {
+        func_0027AC90(h);
+        func_00113250(h);
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 extern "C" s32 func_002DD980(void) {
     return 0xDDFE0DB9 /* PROGRESS */;

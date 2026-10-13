@@ -6,6 +6,10 @@ struct SGAS {
 };
 
 extern "C" {
+void func_0027F1E0(int, int, int);
+void func_0027D400(int, int, int *, int);
+int func_0027CC30(int, int, int, int *);
+int func_002763E0(int, int);
 int func_002D0150(int);
 void func_0027C160(int, int, int);
 int func_0027D870(int, int, int *, int);
@@ -21,7 +25,18 @@ char *func_00289C80(s32);
 int func_00289CF8(s32);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0150);
+extern "C" int func_002D0150(int arg0) {
+    int h = func_002763E0(0x6F53CF2D, 1);
+    int out = 0;
+    int v;
+    func_0027D400(h, arg0, &out, 0);
+    int s = out;
+    if (func_0027CC30(s, 0x05294EBF, 1, &v) == 0) {
+        func_0027F1E0(s, 0, 1);
+        return 0;
+    }
+    return v;
+}
 
 extern "C" s32 CFunc_get_song_rhythm_track_cfunc(int arg0, SGAS *arg1) {
     int out = 0x0466857F;
