@@ -992,3 +992,4 @@ Given up (A10): func_00117E10 (inner `switch (u16)` with case 0xFFFF/0xFFF9 fold
 - func_0012C0B0: all matches except v0/v1 of the two li (2, 0x45) feeding the sh/sb of a stack message struct; 11 tries
 Matched (A10) t_174C20: func_00174E68 (0x100, float wrap loop)
 Matched (A10) t_11D000: func_0011E3B8 (0x130; 4-wide table slot search as a for loop with 4 ifs; D_00368C00 volatile + int return)
+Matched (A10) t_133A98: func_00133FE0 (0x144; 8 relocated offsets, -1 stays +1; loads into temps then natural-order stores)

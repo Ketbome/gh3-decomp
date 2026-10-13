@@ -106,10 +106,30 @@ extern "C" void func_00133FA0(S_00133F80* self, int flags) {
     }
 }
 
-struct S_00133FE0 { char pad0[4]; int* unk4; };
 extern "C" int func_00134288(void*);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00133FE0);
+struct S_00133FE0_b { char pad0[0x10]; u32 unk10; u32 unk14; u32 unk18; u32 unk1C; u32 unk20; u32 unk24; u32 unk28; u32 unk2C; };
+struct S_00133FE0 { char pad0[4]; S_00133FE0_b* unk4; };
+static inline u32 Fix_00133FE0(u32 x, void* p) { return x != 0xFFFFFFFF ? x + (u32)p : x + 1; }
+
+extern "C" int func_00133FE0(S_00133FE0* self, S_00133FE0_b* b) {
+    int r = 0;
+    self->unk4 = b;
+    if (func_00134288(b)) {
+        S_00133FE0_b* p = self->unk4;
+        r = 1;
+        u32 a = p->unk10, c = p->unk14, d = p->unk18, e = p->unk1C, f = p->unk20, g = p->unk24, h = p->unk28, i = p->unk2C;
+        p->unk10 = Fix_00133FE0(a, p);
+        p->unk14 = Fix_00133FE0(c, p);
+        p->unk18 = Fix_00133FE0(d, p);
+        p->unk1C = Fix_00133FE0(e, p);
+        p->unk20 = Fix_00133FE0(f, p);
+        p->unk24 = Fix_00133FE0(g, p);
+        p->unk28 = Fix_00133FE0(h, p);
+        p->unk2C = Fix_00133FE0(i, p);
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134128);
 
