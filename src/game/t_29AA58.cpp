@@ -1,8 +1,43 @@
 #include "common.h"
 
+struct S29B510_H {
+    char pad0[0x21C];
+    int unk21C;
+};
+struct S29B510_N {
+    char pad0[0xC];
+    S29B510_N *unkC;
+    S29B510_N *unk10;
+};
+struct S29B510_O {
+    char pad0[0x30B0];
+    S29B510_N unk30B0;
+    char pad30C4[0x60];
+    int unk3124;
+    int unk3128;
+    u16 unk312C;
+    char pad312E[0x1E];
+    void *unk314C;
+    int unk3150;
+};
+struct S29B510_P {
+    char pad0[0x1864];
+    int unk1864;
+    int unk1868;
+    char pad186C[0xA70];
+    S29B510_N unk22DC;
+};
+
 extern "C" {
+S29B510_O *func_0029E578(int, int);
+int func_00299E18(void *);
+int func_0011EF10(void);
+void func_001194B8(S29B510_H *);
+void func_00119490(S29B510_H *, int);
+extern S29B510_H *D_00368A38_p asm("D_00368A38");
 extern int D_00368A38;
 int func_00118F20(int, int, int, int);
+int func_00118F20_h(S29B510_H *, int, int, int) asm("func_00118F20");
 void func_00296DE0(int, int, int, int, int, int);
 void *func_0030A49C(void *, int, int);
 }
@@ -41,7 +76,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B3A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B468);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B510);
+extern "C" S29B510_O *func_0029B510(S29B510_P *p, int a, u16 b, int c) {
+    S29B510_O *o = 0;
+    func_00119490(D_00368A38_p, D_00368A38_p->unk21C);
+    if (p->unk1864 < p->unk1868) {
+        o = func_0029E578(func_00118F20_h(D_00368A38_p, 0x3164, 1, 0), c);
+        o->unk3128 = a;
+        o->unk312C = b;
+        o->unk3124 = func_00299E18(p);
+        o->unk314C = p;
+        o->unk3150 = func_0011EF10();
+        S29B510_N *n = &o->unk30B0;
+        S29B510_N *h = &p->unk22DC;
+        n->unk10 = h->unk10;
+        n->unkC = h;
+        h->unk10->unkC = n;
+        h->unk10 = n;
+    }
+    func_001194B8(D_00368A38_p);
+    return o;
+}
 
 extern "C" void func_0029B5F8(int a, u8 b, u16 c, int d, u8 e, s8 f) {
     func_00296DE0(func_00118F20(D_00368A38, 0x14, 1, 0), b, c, d, e, f);

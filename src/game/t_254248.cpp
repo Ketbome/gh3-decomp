@@ -8,6 +8,7 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_0026C738(int, f32);
 extern char D_00356110[];
 void func_0030B550(char *, char *, int);
 void func_0026C5E8(int, int);
@@ -258,7 +259,19 @@ extern "C" int CFunc_PlayTrack(int arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlayMusicStream);
+extern "C" int CFunc_PlayMusicStream(int arg0) {
+    int out = 0;
+    f32 f;
+    int ok = func_0027D870(arg0, 0, &out, 0);
+    int o = out;
+    if (ok) {
+        f = -1.0f;
+        func_0027D268(arg0, 0xF6A36814, (void *)&f, 0);
+        func_0026C738(o, f);
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" int CFunc_LoadStreamFrameAmp(int a) {
     int x;

@@ -394,7 +394,26 @@ extern "C" void func_00297E38(S296A10_L *p, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297E98);
+struct S297E98 {
+    int unk0;
+    S296A10_N *unk4;
+    int unk8;
+};
+extern "C" void func_00297E98(S297E98 *p, int b) {
+    if (p->unk8 != 0) {
+        func_00297470((int)p, (S297470 *)p->unk4->unk4);
+        p->unk4->unk8 = p->unk4;
+        p->unk4->unk4 = 0;
+        p->unk4->unkC = p->unk4;
+        p->unk8 = 0;
+    }
+    if (p->unk4) {
+        func_00297CF0(p->unk4);
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" int func_00297F20(void) {
     return 1;

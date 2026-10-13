@@ -667,3 +667,15 @@ original aligns the outer loop with a nop; `char *h = p->unk4; if (h) { n = h; .
 Given up: func_0026A3F0 (macro-form store of D_00373394 lands in a delay slot), CFunc_WhammyFXOffAll (prologue order
 `move a2,sp` before `sd ra`), func_002D8398 (struct pointer in a2 not v1), func_00269420 / func_002D5EC8 (hash-chain remove:
 `prev` lives in a0 in the original, a3 here), CFunc_MemPushContext (D_00368A38 mixed gp/lui), func_0026D9F8 (movz result).
+Round 8 part 4 (+8): t_29AA58 func_0029B510 (heap lock, object + intrusive list link: write `n->unk10 = h->unk10;` before
+`n->unkC = h;`); t_296A10 func_00297E98; t_2848B0 func_002858C0 (D_00371344/48 list, struct S285A60 moved to the top);
+t_2C9AC0 func_002CA618 (script array `Get(i)` inline); t_254248 CFunc_PlayMusicStream (read `out` into a local between the
+call and its test); t_25C450 func_0025C478, func_0025C530, func_0025C5E8 (pool-free templates with a2/a3 = index/array
+passed to func_0011C2E8; the final func_00119400 call is the 2-arg form; the sdata arrays are re-declared through
+asm-label aliases `D_X_P`).
+Given up: the 10-function hash-table ctor family func_00269240 / func_0026A768 / func_0026A980 / func_0027E4B0 /
+func_00291D28 / func_00292D98 / func_002AE0C8 / func_002D58B0 / func_002D5CE8 / func_002D5F80 (0x1e0 bytes, two inlined
+array-ctor loops under `-funroll-loops`; the original keeps t in s4 and the alloc result in s3, plus a 7th saved register for the
+`-1` constant; ours is 5 instructions shorter, 4 forms incl. an inline helper); func_002B4848 / func_002B48F0 (script array
+bitmask: the data pointer is CSE'd in the original); CFunc_SetGlobalPitchModulation / CFunc_SetSfxReverb (`mov.s f12,f20` goes
+before the jal and `move a1` into its delay slot in the original); CFunc_LoadAnim (stack slots of the two out locals swapped).

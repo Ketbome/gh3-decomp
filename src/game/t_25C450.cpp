@@ -18,7 +18,21 @@ struct S25C450_H {
     int unk34;
 };
 
+struct S25C_Pool {
+    char *start;
+    char *end;
+    bool Has(void *p) { return (char *)p >= start && (char *)p < end; }
+};
+
 extern "C" {
+extern int D_00371038P asm("D_00371038");
+extern S25C_Pool *D_00371028P[2] asm("D_00371028");
+extern int D_00370FB8P asm("D_00370FB8");
+extern S25C_Pool *D_00370FA8P[2] asm("D_00370FA8");
+void func_00119400(int, void *);
+void func_0011C2E8(S25C_Pool *, void *, int, S25C_Pool **);
+extern int D_00370FD0P asm("D_00370FD0");
+extern S25C_Pool *D_00370FC0P[2] asm("D_00370FC0");
 S25C450_H *func_00119730(int, int, int);
 int func_0011A8D8(int);
 void func_0027C160(int, int, int);
@@ -58,11 +72,53 @@ extern "C" int CFunc_PrintChecksumTableUsage(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C470);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C478);
+extern "C" void func_0025C478(void *p) {
+    S25C_Pool *pl = D_00370FC0P[D_00370FD0P];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00370FD0P, D_00370FC0P);
+        return;
+    }
+    pl = D_00370FC0P[D_00370FD0P ^ 1];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00370FD0P, D_00370FC0P);
+        return;
+    }
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C530);
+extern "C" void func_0025C530(void *p) {
+    S25C_Pool *pl = D_00370FA8P[D_00370FB8P];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00370FB8P, D_00370FA8P);
+        return;
+    }
+    pl = D_00370FA8P[D_00370FB8P ^ 1];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00370FB8P, D_00370FA8P);
+        return;
+    }
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C5E8);
+extern "C" void func_0025C5E8(void *p) {
+    S25C_Pool *pl = D_00371028P[D_00371038P];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00371038P, D_00371028P);
+        return;
+    }
+    pl = D_00371028P[D_00371038P ^ 1];
+    if (pl && pl->Has(p)) {
+        func_0011C2E8(pl, p, D_00371038P, D_00371028P);
+        return;
+    }
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025C6A0);
 

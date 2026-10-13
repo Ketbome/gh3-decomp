@@ -14,7 +14,21 @@ asm(".set D_0036CA50_lui, D_0036CA50");
 asm(".set D_0036CA80_lui, D_0036CA80");
 asm(".set D_0036CA5C_lui, D_0036CA5C");
 
+struct S2CA618_Arr {
+    int unk0;
+    int size;
+    int data;
+    int Get(int i) {
+        if (size == 1) {
+            return data;
+        }
+        return ((int *)data)[i];
+    }
+};
+
 extern "C" {
+int func_00275F08(int, int);
+S2CA618_Arr *func_002764E8(int, int);
 extern s32 D_0036C378[] __attribute__((section(".sdata")));
 extern s32 D_0036CA50;
 extern s32 D_0036CA5C;
@@ -144,7 +158,22 @@ extern "C" int CFunc_Increment(int params, S2C9_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C9AC0", func_002CA618);
+extern "C" void func_002CA618(int a, int *p) {
+    int v = 2;
+    S2CA618_Arr *t = func_002764E8(a, 0);
+    if (t) {
+        int n = t->size;
+        if (n) {
+            int i = n - func_00275F08(0xF0F1A160, 1);
+            int x = t->Get(i);
+            int y = t->Get(i + 1);
+            v = x + y;
+        }
+    }
+    if (*p < v) {
+        *p = v;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C9AC0", func_002CA6E8);
 
