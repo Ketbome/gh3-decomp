@@ -981,3 +981,7 @@ A9 pass, part 5. Matched 2: func_00127858 func_001575C0
 
 Given up (A9, part 5): func_0015AE88 (hash-bucket insert; saved regs right after `int h2 = h; asm(h)`, but
 v0/v1 and a0/a1 of the mask expression swapped, 6 variants), func_00187650 (three inline getters, register roles).
+
+A9 pass, part 6: no new matches. func_00122940 (5-entry compare ladder): everything matches except the final
+`sw %gp_rel` not landing in the `b` delay slot (ours fills it with the epilogue `ld s0`); `asm("" : "+r"(s))`
+on the first call result fixed the s0/s1 roles. GP_DATA(D_00368738) is needed for the gp store.

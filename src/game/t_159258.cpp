@@ -304,12 +304,6 @@ extern "C" void func_0015AE68(void) {
     func_00188360();
 }
 
-struct HN159 { int unk0; int unk4; HN159* unk8; };
-struct HT159 { int bits; HN159* items; int count; };
-struct VE159 { s16 delta; s16 unk2; void (*fn)(void*, int); };
-struct V159 { char pad0[0x28]; VE159 unk28; };
-struct S159AE88 { char pad0[8]; HT159* unk8; char padC[4]; V159* unk10; };
-
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AE88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AF80);
