@@ -10,6 +10,10 @@ extern s32 D_0036CAC8;
 extern s32 D_00372C30;
 extern s32 D_0036CACC;
 extern s32 D_0036CAD4;
+extern char* D_00373270;
+extern char* D_0037327C;
+void func_0019E048(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g);
+void func_0019E318(s32 a, s32 b);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B93E8);
@@ -24,7 +28,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9E90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BA110);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BA6D8);
+extern "C" void func_001BA6D8(void) {
+    char* p = D_00373270;
+    D_0037327C = p;
+    *(u32*)p = 0x10000005;
+    *(u32*)(p + 4) = 0;
+    D_00373270 = p + 8;
+    *(u32*)(p + 8) = 0x11000000;
+    D_00373270 = p + 0xC;
+    *(u32*)(p + 0xC) = 0x50000002;
+    D_00373270 = p + 0x10;
+    func_0019E048(0xE, 1, 0, 0, 0, 1, 1);
+    func_0019E318(0xF, 0);
+    char* q = D_00373270;
+    *(u32*)q = 0x13000000;
+    D_00373270 = q + 4;
+    *(u32*)(q + 4) = 0;
+    D_00373270 = q + 8;
+    *(u32*)(q + 8) = 0;
+    D_00373270 = q + 0xC;
+    *(u32*)(q + 0xC) = 0;
+    D_00373270 = q + 0x10;
+    func_0019E048(0xE, 1, 0, 0, 0, 1, 1);
+    func_0019E318(0x3F, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BA7E8);
 
