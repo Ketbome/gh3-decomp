@@ -800,3 +800,4 @@ Session total (B12): 23 matches (0 jtbl, 0 u128, 23 other), ~110 functions tried
 ### Mid-size (B13)
 - t_1BD608 func_001BDB28 MATCH (plain: `p = f5 ? alloc+copy : a|0x80`, flags tested in source order, gp global list push).
 - t_229D30 func_0022A330 MATCH (jtbl factory switch: cases in block-address order 6,7,8,9,10,3,5,2,4,12,13,18,19,14 then explicit `case 11/15/16/17:` + default; the vtable address in v1 needs `register char* vt asm("$3") = D_X;`, the result copy `o = p; asm("" : "+r"(o));` and the ignored callee declared `int` via an `__asm__` alias).
+- t_1DE968 func_001E02F8 MATCH (sibling of func_001E0198: D5CB0/D4480 returns through __asm__ aliases, virtual call at +0x50 through VE1E01).
