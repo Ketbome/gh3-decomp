@@ -119,6 +119,15 @@ extern char D_00371D88[];
 extern char D_00362370[];
 extern char D_00362380[];
 void func_0030B550(char *, const char *, ...);
+int func_00276600(int, int);
+extern char D_003AAD18[];
+extern char D_00362338[];
+extern char D_00362350[];
+extern char D_00362360[];
+extern char D_00371D88[];
+extern char D_00362370[];
+extern char D_00362380[];
+void func_0030B550(char *, const char *, ...);
 }
 
 extern "C" int func_002A53A8(u32 a) {
@@ -154,9 +163,51 @@ extern "C" int func_002A54C8(int a) {
     return a;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5510);
+extern "C" int func_002A5510(u32 key) {
+    switch (key) {
+    case 0xB010F357:
+        return func_00276600(0x09B69777, 1);
+    case 0x61A1BC57:
+        return func_00276600(0x7A549C6C, 1);
+    case 0x3BF882CC:
+        return func_00276600(0x8AE89EC8, 1);
+    case 0xCA41692D:
+        return func_00276600(0xF196EF81, 1);
+    case 0x62896EDF:
+        return func_00276600(0x68CCB5A0, 1);
+    case 0x79DAA2F9:
+        return func_00276600(0xC07CC6D9, 1);
+    case 0xFFFFFFFF:
+        break;
+    }
+    return -1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5638);
+extern "C" char *func_002A5638(u32 key, int a) {
+    switch (key) {
+    case 0xCA41692D:
+        func_0030B550(D_003AAD18, D_00362338, a);
+        break;
+    case 0xB010F357:
+        func_0030B550(D_003AAD18, D_00362350, a);
+        break;
+    case 0x61A1BC57:
+        func_0030B550(D_003AAD18, D_00362360, a);
+        break;
+    case 0x3BF882CC:
+        func_0030B550(D_003AAD18, D_00371D88, a);
+        break;
+    case 0x62896EDF:
+        func_0030B550(D_003AAD18, D_00362370, a);
+        break;
+    case 0x79DAA2F9:
+        func_0030B550(D_003AAD18, D_00362380, a);
+        break;
+    case 0xFFFFFFFF:
+        break;
+    }
+    return D_003AAD18;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5748);
 
