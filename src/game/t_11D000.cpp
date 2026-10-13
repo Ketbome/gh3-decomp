@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_0011DAA0 { char pad0[0x40]; int unk40; };
@@ -113,6 +114,9 @@ void func_00120DF8(void);
 void func_00113FB8(int);
 void func_00113F38(void);
 void func_0011D830(int, int);
+extern int D_00375700[];
+struct Q375890 { int a, b, c, d; };
+extern Q375890 D_00375890[];
 extern volatile int D_00368C00;
 void func_00120C80(void);
 extern int D_00414FB0[];
@@ -160,7 +164,20 @@ extern "C" int func_0011D720(int a, int* out, int b, int c, int d, int e) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D828);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D830);
+extern "C" void func_0011D830(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        int i;
+        for (i = 0; i < 100; i++) {
+            D_00375700[i] = 0;
+        }
+        for (i = 0; i < 200; i++) {
+            D_00375890[i].a = 0;
+            D_00375890[i].b = 0;
+            D_00375890[i].c = 0;
+            D_00375890[i].d = 0;
+        }
+    }
+}
 
 extern "C" void func_0011D968(void) {
     func_0011D830(1, 0xFFFF);

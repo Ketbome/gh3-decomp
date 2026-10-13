@@ -1044,3 +1044,4 @@ Matched (A11) t_118E40: func_0011AA58 (ctor, counterpart of dtor func_0011AB60; 
 
 Matched (A12) t_112D48 (now `// cflags: -funroll-loops`, whole file still matches): func_00113BF8 (strncpy: `while (n != 0) { if (*s) *d++ = *s++; else *d++ = 0; n--; }`, unrolled 4x)
 - func_00114C70 (CRC32 table loop, unrolled 4x): structure/unroll matches but ours copies the args into t1/t3/t0 at entry (original uses a0-a2 in place), 6 forms tried (for/while/do-while/end pointer)
+Matched (A12) t_11D000 (now `// cflags: -funroll-loops`, whole file still matches): func_0011D830 (zero fill: `for (i<100) int[i]=0; for (i<200) 16-byte entry fields = 0`, unrolled 10x)
