@@ -79,6 +79,10 @@ struct SA118_C {
 };
 
 extern "C" {
+void func_0011AD10_p(char*, char*) __asm__("func_0011AD10");
+void func_0011AD78_p(void*, int) __asm__("func_0011AD78");
+void func_0011A648_i(int, void*) __asm__("func_0011A648");
+extern u8 D_00338950[];
 extern u8 D_003388D8[];
 void func_0011A680_i(int, void*) __asm__("func_0011A680");
 void func_0030A3A0(void*, void*, int);
@@ -720,7 +724,57 @@ extern "C" S11A988* func_0011AA28(int v) {
     return (S11A988*)(t - func_0011AF08(t));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AA58);
+struct Z11AA58 { int pad0; int unk4; int unk8; };
+struct S11AA58 {
+    char pad0[0x4];
+    Z11AA58 unk4;
+    Z11AA58 unk10;
+    Z11AA58 unk1C;
+    Z11AA58 unk28;
+    int unk34;
+    int unk38;
+    char pad3C[0x4];
+    SA118_C* unk40;
+    char pad44[0x1C];
+    SA118_L unk60;
+    SA118_C unk78;
+    void* unk98;
+};
+
+extern "C" S11AA58* func_0011AA58(S11AA58* self, int a, int b, char* s, int v) {
+    self->unk98 = D_003388D8;
+    Z11AA58* z1 = &self->unk4;
+    Z11AA58* z2 = &self->unk10;
+    Z11AA58* z3 = &self->unk1C;
+    Z11AA58* z4 = &self->unk28;
+    z1->unk4 = 0;
+    z1->unk8 = 0;
+    z2->unk4 = 0;
+    z2->unk8 = 0;
+    z3->unk4 = 0;
+    z3->unk8 = 0;
+    z4->unk4 = 0;
+    z4->unk8 = 0;
+    self->unk38 = b;
+    self->unk34 = a;
+    SA118_L* p = &self->unk60;
+    p->unk8 = 0;
+    p->unkC = p;
+    p->unk10 = p;
+    p->unk4 = (void*)0xFFFFFFFF;
+    p->unk14 = D_00338950;
+    func_0011A8F8(&self->unk78);
+    func_0011AD10_p((char*)self, s);
+    func_0011AD78_p(self, v);
+    func_0011A648_i(self->unk34, self);
+    SA118_L* q = &self->unk78.unk4;
+    q->unk10 = p;
+    q->unkC = p->unkC;
+    p->unkC->unk10 = q;
+    p->unkC = q;
+    self->unk40 = &self->unk78;
+    return self;
+}
 
 struct S11AB60 { char pad0[0x34]; int unk34; char pad38[0x28]; SA118_L unk60; char pad78[0x20]; void* unk98; };
 

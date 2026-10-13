@@ -1031,3 +1031,4 @@ Matched (A11) t_12B970: func_0012BF38 (jtbl float-compare table; the original ha
 Matched (A11) t_1210C8: func_00122778 (jtbl, key-code to byte encoder; u16 value masked once before the sign test; unused jtbl indexes as explicit cases + default continue)
 Matched (A11) t_1277C0: func_00128528 (jtbl stream deserializer: memcpy func_0030A2F4 declared returning void* moves the *pp temp to v1; locals declared at function scope in order f,i4,u128 a1,a2,b1,b2,i5,i6 give the distinct stack slots; 16-byte locals as TI typedef)
 Matched (A11) t_14A6B0: func_0014B260 (array alloc + insert into the global hash table D_00377FC0; pooled node func_0011C3A8(0); write the occupied case first and store key before value in the free slot to get the likely-branch layout)
+Matched (A11) t_118E40: func_0011AA58 (ctor, counterpart of dtor func_0011AB60; pointer temps per 12-byte block, store unk4 before unk8 to get [8,4]; m2c's 3-arg call to func_0011A8F8 is residue)
