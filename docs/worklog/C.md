@@ -714,3 +714,14 @@ by 5); t_27F8C8 func_0027FDF8 (heap lock); t_26F3B8 func_00270928 (reassign the 
 same register and get the movz), func_00271028 (`u64 t = D_00370D20[i]` polled until it equals a u64-returning call, the second call
 through a void alias; the two lui-addressed arrays through `.set X_lui, X` aliases give adjacent lui/addiu).
 Given up: func_0029B468 / func_0029B3A8 (inline list-iterator search: loop shape and `movn` register differ).
+Round 8 part 9 (+14): t_282268 func_00283498; t_273498 func_00273A80 (m2c's goto form `r = 0; if (d) goto call; ... call: r = f()` matches
+exactly -- try the goto text from m2c when the plain forms give the wrong block order); t_271480 func_00272160 (callee `void`,
+here int-return makes it worse: always try both); t_266800 func_00267A80, func_00266928 (float scale loop unrolled 4x, `u32 i` vs `(u32)n`);
+t_2BCDA8/t_2EB1C0 hash lookups func_002BDC48, func_002EB4C8, CFunc_GlobalTagExists via an inline
+`SHT_Find(SHT *t, const int &k)` and a local `int k = arg0;` (the by-reference key is spilled to the stack but read from its
+register); t_2DCE78 func_002DCE78; t_2DAE48 func_002DB110; t_2DEE90 func_002DEEC0, func_002DF050, func_002DEF48 (checksum
+if-chains, `v != K ? a : b` to get movz), func_002DFA08 (virtual call through a vtable at +0xEE00 with `s16 delta`, one-argument
+alias of a function declared without arguments).
+Given up: func_00298390/func_00298448 (only temp register numbers), func_00273CF8 (third call: a0 moved before mov.s f12),
+func_002D0E08 (float compare return layout), func_0027AE70/func_0027ADA0, symbol lookup func_00276008/62F0/63E0/64E8, func_002A79A8
+(loop alignment), CFunc_UpdateAtoms (node + value from a lookup loop), CFunc_hero_play_tempo_anim_cfunc (order of one store).
