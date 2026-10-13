@@ -8,6 +8,7 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_0026D6D0(int, int, int);
 int func_0026DCA0(int);
 int func_0027D828(int, int);
 int func_002E6C80(int);
@@ -372,7 +373,12 @@ extern "C" int CFunc_LoadStreamHeader(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_AddMusicTrack);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_ChangeTrackState);
+extern "C" s32 CFunc_ChangeTrackState(int arg0) {
+    int out = 0;
+    func_0027D1F8(arg0, 0, &out, 0);
+    func_0026D6D0(out, func_0027DF00(arg0, 0xD443A2BC), 0);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_TrackEnabled);
 

@@ -1,6 +1,9 @@
 #include "common.h"
 
 extern "C" {
+void func_0027AA70(void *);
+void func_0027AC90(void *);
+void CFunc_SoundEventFast(void *, int);
 int func_00289E08(void *);
 int func_002D0F08(int);
 int func_002D0E08(void);
@@ -14,7 +17,13 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0150);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", CFunc_get_song_rhythm_track_cfunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D0240);
+extern "C" void func_002D0240(int a, int b) {
+    char buf[0x10];
+    func_0027AA70(buf);
+    func_0027C448((int)buf, 0xC451F558, a);
+    CFunc_SoundEventFast(buf, b);
+    func_0027AC90(buf);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D02A0);
 

@@ -53,7 +53,35 @@ extern "C" void func_00282F00(int a, int b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282F48);
+struct S282F48 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+};
+extern "C" void func_00282F48(void *vp) {
+    S282F48 *p = (S282F48 *)vp;
+    p->unk0 = 10;
+    int t = p->unk24;
+    p->unk4 = 0;
+    p->unkC = 0;
+    p->unk14 = 0;
+    p->unk18 = 0;
+    p->unk1C = 0;
+    p->unk8 = 0;
+    p->unk10 = 0;
+    p->unk20 = 0;
+    if (t != 0) {
+        func_00282F00(t, 3);
+        p->unk24 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282FA8);
 

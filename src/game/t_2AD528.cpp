@@ -7,6 +7,7 @@ struct S2ADFD8_0 {
 };
 
 extern "C" {
+void func_002DC9F0(int, int);
 int func_0027D870(int, int, int *, int);
 void func_0027C448(int, int, int);
 extern int D_00371EEC;
@@ -206,7 +207,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF170);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_SetInput);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_EnableInput);
+extern "C" s32 CFunc_EnableInput(int arg0) {
+    int out;
+    int t = func_0027DF00(arg0, 0xD443A2BC) ^ 1;
+    if (func_0027D1F8(arg0, 0xB30D9965, &out, 0) != 0) {
+        func_002DC9F0(out, t);
+    }
+    return 0;
+}
 
 struct S2AF438 {
     char pad0[0x20];

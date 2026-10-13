@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+int func_0027D870(int, int, int *, int);
+int func_001150B8(int);
 int func_0027CC30(int, int, int, int *);
 void func_0027F1E0(int, int, int);
 void func_002798B8(int);
@@ -60,7 +62,13 @@ extern "C" int func_0027D828(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027D870);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027DC58);
+extern "C" void func_0027DC58(int a, int b, int *c, int d) {
+    int out;
+    int k = func_001150B8(b);
+    out = 0;
+    func_0027D870(a, k, &out, d);
+    *c = out;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027DCB8);
 

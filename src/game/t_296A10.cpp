@@ -128,7 +128,22 @@ extern "C" S00296A70* func_00296A70(S00296A70* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296A90);
+struct S296A90 {
+    char pad0[0x2C];
+    void *unk2C;
+    char pad30[0x10];
+    int unk40;
+};
+extern "C" void func_00296A90(S296A90 *p, int b) {
+    if (p->unk2C != 0) {
+        if (p->unk40 == 0) {
+            func_00119400(D_00368A38[0], p->unk2C);
+        }
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38[0], p);
+    }
+}
 
 extern "C" S296A10_B *func_00296AF0(S296A10_B *p) {
     p->unk0 = 0;

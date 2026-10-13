@@ -1,5 +1,10 @@
 #include "common.h"
 
+extern "C" {
+int func_0028D558(int);
+int func_0028D1B0(int, int, int, int, int, int, int, int, int, int);
+}
+
 struct S2D8368_0 {
     char pad0[0x44];
     f32 unk44;
@@ -19,6 +24,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D8368", func_002D8880);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D8368", func_002D9FA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D8368", func_002D9FF0);
+extern "C" int func_002D9FF0(int a) {
+    if (func_0028D558(a) != 0) {
+        return func_0028D1B0(a, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D8368", func_002DA050);

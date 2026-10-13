@@ -1,6 +1,8 @@
 #include "common.h"
 
 extern "C" {
+int func_0027D1F8(int, int, int *, int);
+int CFunc_ControllerMake(int, int);
 extern s32 D_00373008[] __attribute__((section(".sdata")));
 }
 
@@ -10,7 +12,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AF698);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GuitarGetAnalogueInfo);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GuitarControllerMake);
+extern "C" s32 CFunc_GuitarControllerMake(int arg0, int arg1) {
+    int out = 0;
+    func_0027D1F8(arg0, 0, &out, 0);
+    if (out >= 2) {
+        return 0;
+    }
+    return CFunc_ControllerMake(arg0, arg1);
+}
 
 extern "C" s32 CFunc_StartWildcardSearch(void) {
     return 0;

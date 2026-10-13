@@ -1,11 +1,23 @@
 #include "common.h"
 
 extern "C" {
+int func_0027D1F8(int, int, int *, int);
+void func_0027C160(int, int, int);
+extern int D_003E7F60[];
 void *func_0027AF38(int, int, int);
 int func_00289CF8(s32);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_CameraCut_GetCameraIndex);
+struct SCCGCI {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" s32 CFunc_CameraCut_GetCameraIndex(int arg0, SCCGCI *arg1) {
+    int out;
+    func_0027D1F8(arg0, 0xD6445C38, &out, 1);
+    func_0027C160(arg1->unk20, 0xD6445C38, D_003E7F60[out]);
+    return 1;
+}
 
 struct S2C34C8 {
     char pad0[8];

@@ -607,3 +607,12 @@ Given up:
 - func_002AEB98: indirect call whose result gates a call with a1/a2 passed through; func_00289F90 has a 3-arg
   prototype in this file already.
 - func_0025D680, func_0025D6E0: struct returned by value (ldl/ldr), not tried. func_0025C6A0: mixed bitfield clear, not tried.
+
+Round 6 part 6 (+12): t_282268 func_00282F48 (kept `void *` param, other callers use it); t_2949F0 func_00296738
+(strcpy via the `func_0030A970_2` alias); t_2C0FC8 func_002C25D0 (prototype now void); t_2D0150 func_002D0240
+(`char buf[0x10]` for the stack object); t_2D8368 func_002D9FF0; t_2C3468 CFunc_CameraCut_GetCameraIndex; t_266800
+func_002676F0; t_27D828 func_0027DC58; t_254248 CFunc_ChangeTrackState; t_2AD528 CFunc_EnableInput; t_2AF598
+CFunc_GuitarControllerMake; t_296A10 func_00296A90.
+Given up: func_002680D0 (original adds 8 to the %lo address in a separate addiu, ours folds symbol+8);
+func_0027F6C8/func_0027F728 (s0/s1 swapped between b and c, 3 forms); func_0029F5C8 (`max(r, 500)` is slti+movn in
+the original, slt 499 + movz here, 5 forms); func_00295278, func_002704E0, func_002774D8: not tried.

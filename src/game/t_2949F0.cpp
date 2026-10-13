@@ -355,7 +355,18 @@ extern "C" void func_002966D8(S2949F0_Q *p, char *s) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296738);
+struct S296738 {
+    char pad0[4];
+    char unk4[0x1AC];
+    int unk1B0;
+};
+extern "C" void func_00296738(S296738 *p, char *a) {
+    char *s = p->unk4;
+    if (func_0030A824(a, s) != 0) {
+        func_0030A970_2(s, a);
+        p->unk1B0 = 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00296798);
 
