@@ -763,3 +763,10 @@ Given up: t_2E7010 func_002E7010 (identical except `beql` instead of `beq` on th
 the last jal of the first if-block), func_002E8318 (needs -funroll-loops, file does not have it); t_2E90B0 func_002EA9E0 (checksum switch: tail layout
 differs by 8 bytes, 4 forms), func_002EA620; t_27D828 func_0027F610 (arg copied into v1 first: the F8C8 family problem); t_292928 func_00292AF0 (arg moves order);
 t_2D0150 CFunc_event_spawner_cfunc (`lw a0,16(sp)` in the delay slot of bnez vs ours bnezl, or moves order: pick one, never both).
+Part 5 (+4, 39 total): t_2848B0 func_00285828 (list search; `int c` parameter compared with an lhu field, a u16 parameter adds an andi); t_296A10
+func_002972F8 (RLE decode: file now `-funroll-loops`, `while (n != 0) { c = *src; ... }` with two inner do-whiles), t_2797A8 func_0027ABB0
+(`if (a->unk4 == 0) { call(); return a; }` first, bitfield struct S27B_Comp copied; callee with no args through an asm alias), t_2CBC10 func_002CC7C8
+(script array Get as `int r; if (size == 1) r = data; else r = ((int*)data)[idx]; return r;` gives the original's bnel; `ok = f(&out); t = out; if (!ok) {...; t = 0;}`).
+Given up: t_29F288 func_002A0020 (DMA register constants: original materialises 0x10008020 once in a0 and reuses it; every volatile/local form
+re-materialises), t_268EB8 func_0026ACB0 (original strength-reduces to a base+16 induction pointer), t_25C450 func_0025C6F8 (a zero register compared
+with a loaded field), t_26AEF8 func_0026BCB0.

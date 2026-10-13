@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S00297458 {
@@ -289,7 +290,47 @@ extern "C" S296F18 *func_00296F18(S296F18 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00296F70);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002972F8);
+extern "C" int func_002972F8(u8 *src, int n, u8 *dst, int *limit) {
+    int out = 0;
+    while (n != 0) {
+        u8 c = *src;
+        u8 i;
+        n--;
+        src++;
+        if (!(c & 0x80)) {
+            i = 0;
+            do {
+                if (!(out < *limit)) {
+                    return -1;
+                }
+                i++;
+                out++;
+                *dst = *src;
+                src++;
+                dst++;
+                n--;
+            } while (!(c < i));
+        } else {
+            u32 cnt = (c & 0x7F) + 2;
+            i = 0;
+            if (cnt != 0) {
+                do {
+                    if (!(out < *limit)) {
+                        return -1;
+                    }
+                    i++;
+                    out++;
+                    *dst = *src;
+                    dst++;
+                } while (i < cnt);
+            }
+            src++;
+            n--;
+        }
+    }
+    *limit = out;
+    return 0;
+}
 
 extern "C" void func_002973C0(S296A10_C *p, int flags) {
     p->unk18 = D_0035C2B0;

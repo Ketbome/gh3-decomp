@@ -14,7 +14,25 @@ struct S0027B300 {
     int unkC;
 };
 
+struct S27A_Comp {
+    u32 b0 : 8;
+    u32 b8 : 1;
+    u32 type : 7;
+    u16 unk2;
+    u32 key;
+    u32 val;
+    S27A_Comp *next;
+};
+struct S27A_List {
+    char pad0[4];
+    S27A_Comp *unk4;
+};
+
 extern "C" {
+void func_0027AAD8_v(void) asm("func_0027AAD8");
+void *func_001D0900(int, int);
+void func_00279358(void *, void *, int, int);
+void func_0027BDB0(void *, void *, int);
 void func_002791E0(void *);
 void func_0025C5E8(void *);
 void func_0027AAD8(int, int);
@@ -52,7 +70,28 @@ extern "C" S0027AA58 *func_0027AA98(S0027AA58 *a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027AAD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027ABB0);
+extern "C" S27A_List *func_0027ABB0(S27A_List *a, S27A_List *b) {
+    if (a->unk4 == 0) {
+        func_0027AAD8_v();
+        return a;
+    }
+    S27A_Comp *s = b->unk4;
+    if (s != 0) {
+        do {
+            S27A_Comp *c = (S27A_Comp *)func_001D0900(0x10, 1);
+            c->key = 0;
+            c->next = 0;
+            c->val = 0;
+            c->b8 = 0;
+            c->type = 0;
+            c->unk2 = 0;
+            func_00279358(c, s, 0, 0);
+            func_0027BDB0(a, c, 0);
+            s = s->next;
+        } while (s != 0);
+    }
+    return a;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_0027AC80);
 

@@ -14,7 +14,19 @@ struct S285A60 {
     S285A60 *unk60;
 };
 
+struct S285828 {
+    char pad0[4];
+    int unk4;
+    int unk8;
+    u16 unkC;
+    char padE[2];
+    int unk10;
+    char pad14[0x48];
+    S285828 *unk5C;
+};
+
 extern "C" {
+int func_002899A8(void);
 void func_00285A30(int, int);
 S00285A10 *func_00285A10(S00285A10 *);
 int func_00288000(int, int);
@@ -35,7 +47,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00285400);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_002855B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00285828);
+GP_DATA(D_00371344);
+extern "C" S285828 *func_00285828(int a, int b, int c) {
+    int t = func_002899A8();
+    S285828 *n = (S285828 *)D_00371344;
+    if (n != 0) {
+        do {
+            if (n->unk8 == a && n->unk10 == b && n->unkC == c) {
+                if (n->unk4 == t) {
+                    return n;
+                }
+                if (n->unk4 == 0) {
+                    return n;
+                }
+            }
+            n = n->unk5C;
+        } while (n != 0);
+    }
+    return 0;
+}
 
 GP_DATA(D_0037134C);
 GP_DATA(D_00371348);
