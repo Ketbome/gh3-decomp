@@ -699,3 +699,11 @@ Given up: func_001D0548/F40/0518: split tails; func_001D1438/14C0: original load
 ### t_1B00D0 (session 8)
 Matched 6: func_001B1D18 func_001B0850 func_001B1428 func_001B1380 func_001B0898 func_001B1EB0
 Given up: func_001B1DD8 (passes a1..a3 straight from the loaded values with `a1` reused as the sum; ours copies the parameter to v0, register variables pinning $5/$6/$7 tried, 7 forms); func_001B1968, func_001B1910: junk / vector.
+
+### t_1CBB50 (more)
+Matched 5: func_001CBBB0 func_001CBE48 func_001CBEA8 func_001CBF08 func_001CC1F8 (list-node dtors, same body as func_001CBB50).
+
+### t_1C5A68 (session 8)
+Matched 6: func_001C63B8 func_001C5C78 func_001C79E0 func_001C7A40 func_001C63F0 func_001C7668
+Habit: a stack object whose address is used for a field store after a call: declare `L* q = (L*)((char*)&l + 4)` AFTER the call so gcc recomputes `addiu v1,sp,4` instead of keeping a saved register (func_001C7668).
+Given up: func_001C74F8 (`f1() || f2()` returning 1/0: original uses bnez with li in the delay slot, ours bnezl/sltu or movz; 5 forms).
