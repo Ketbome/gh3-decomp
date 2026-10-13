@@ -67,11 +67,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220318);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002204D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002204D8);
+extern "C" void func_002204D8(S21F* p) {
+    u8* d = D_00351D18;
+    func_001150E0(func_00133F60(p->unk3C->unk1C), d);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220518);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220578);
+extern "C" void func_00220578(S21F* p, int a) {
+    if (p->unk38 == a) {
+        func_0012FA98(p->unk34, p->unkC);
+        p->unk38 = 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_002205B8);
 

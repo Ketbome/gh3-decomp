@@ -42,7 +42,14 @@ extern "C" void func_00234808(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234810);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002348A0);
+GP_DATA(D_0036FD64);
+extern "C" void func_002348A0(void) {
+    func_00226098();
+    func_0014EAC8(1);
+    if (D_0036FD64) {
+        D_0036FD64();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002348D8);
 

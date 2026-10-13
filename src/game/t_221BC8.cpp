@@ -296,10 +296,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223580);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223590);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002235F0);
+extern "C" void func_002235F0(void* a, void* b) {
+    func_00223590(func_00224220(a, 1), (int)b);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223628);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223B60);
+extern "C" void func_00223B60(void* a, void* b) {
+    func_00223628(func_00224220(a, 1), (int)b);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00223B98);

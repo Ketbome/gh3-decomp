@@ -16,7 +16,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_002486B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248CF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248CF8);
+extern "C" void func_00248CF8(f32* p) {
+    p[2] = 1e7f;
+    p[1] = 1e7f;
+    p[5] = -1e7f;
+    p[0] = 1e7f;
+    p[4] = -1e7f;
+    p[3] = -1e7f;
+}
+TEXT_PAD(20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_247290", func_00248D40);
 

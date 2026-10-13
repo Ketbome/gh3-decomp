@@ -131,6 +131,10 @@ extern "C" char* func_00230548(S22F* self) {
     return 0;
 }
 
+GP_DATA(D_0036FBD0);
+GP_DATA(D_0036FBD8);
+GP_DATA(D_0036FBD4);
+GP_DATA(D_0036FBDC);
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_00230578);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22FD98", func_002305B8);

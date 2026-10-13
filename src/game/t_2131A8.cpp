@@ -44,6 +44,8 @@ extern u8 D_00342398[];
 void func_00276D68(u32, void*, int);
 extern u8 D_0038FED8[];
 extern u8 D_00390028[];
+void func_00118570(int);
+void func_001184C0(int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_002131A8);
@@ -56,7 +58,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_002132D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_002134C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_002134D8);
+extern "C" void func_002134D8(S213* p, int v) {
+    *(int*)((char*)p + 0x38) = v;
+    if (p->unk1C) {
+        func_00118570(v);
+    } else {
+        func_001184C0(v);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_00213518);
 

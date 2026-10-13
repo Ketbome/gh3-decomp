@@ -19,6 +19,7 @@ extern int D_0036FBE8;
 bool func_00230230(int, int);
 void func_001519B0(int, int);
 extern List232 D_00396F60;
+void func_00289F90(int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_002320A0);
@@ -82,7 +83,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233B70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233BA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233BE8);
+extern "C" void func_00233BE8(char* p, int a) {
+    if ((*(int (**)(char*))(p + 4))(p + 8)) {
+        func_00289F90(a);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233C28);
 

@@ -35,7 +35,9 @@ int func_00225E20(int);
 void func_00225A78(void*, int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225BF0);
+extern "C" void func_00225BF0(void* a, int b) {
+    func_00225A78(a, func_00225E20(b));
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225C28);
 
