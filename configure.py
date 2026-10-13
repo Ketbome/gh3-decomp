@@ -198,6 +198,14 @@ def main():
     make_rom()
     split()
     fix_split_output()
+    # A source that lacks the INCLUDE_ASM line of a function splat knows gets it back (scripts/sync_src.py); split
+    # again so that function's .s lands in asm/nonmatchings.
+    sync = subprocess.run([sys.executable, str(ROOT / "scripts" / "sync_src.py")], cwd=ROOT, check=True,
+                          capture_output=True, text=True).stdout
+    if not sync.strip().splitlines()[-1].startswith("0 "):
+        print(sync, end="")
+        split()
+        fix_split_output()
     patch_ld_script()
     write_jlabels()
     write_ninja()
