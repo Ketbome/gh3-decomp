@@ -38,6 +38,8 @@ void* func_00133F60(void*);
 void func_001150E0(void*, void*);
 extern u8 D_00351D18[];
 void func_0012FA98(void*, int);
+void func_0012FAC8(void*, int, int);
+int func_00205B48(int, int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FB88);
@@ -72,7 +74,11 @@ extern "C" void func_002204D8(S21F* p) {
     func_001150E0(func_00133F60(p->unk3C->unk1C), d);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220518);
+extern "C" void func_00220518(char* p, int a1, int a2) {
+    if (*(int*)(p + 0x38)) func_0012FA98(p + 0x34, *(int*)(p + 0xC));
+    *(int*)(p + 0x38) = a2;
+    func_0012FAC8(p + 0x34, a1, *(int*)(p + 0xC));
+}
 
 extern "C" void func_00220578(S21F* p, int a) {
     if (p->unk38 == a) {
@@ -106,7 +112,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220898);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220948);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220A80);
+struct BF21F {
+    u64 pad : 1;
+    u64 b0 : 1;
+    u64 b1 : 1;
+    bool B0() { return b0; }
+    bool B1() { return b1; }
+};
+
+extern "C" void func_00220A80(char* p) {
+    if (*(int*)(p + 0x20) == 0) {
+        *(int*)(p + 0x54) = 0;
+        return;
+    }
+    char* o = *(char**)(p + 0x40);
+    if (o) {
+        BF21F f = *(BF21F*)(*(char**)(o + 0x210) + 0x50);
+        int v = 0;
+        if (f.B0()) v = f.B1() ^ 1;
+        if (!v) {
+            *(int*)(p + 0x54) = 0;
+            return;
+        }
+    }
+    if (*(int*)(p + 0x44)) {
+        *(int*)(p + 0x54) = func_00205B48(*(int*)(p + 0x44), 0);
+    } else {
+        *(int*)(p + 0x54) = 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220B10);
 
