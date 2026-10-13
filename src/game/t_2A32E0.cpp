@@ -317,6 +317,25 @@ extern "C" int func_002A4AF0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4B50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4D28);
+extern "C" u32 func_002A4D28(int a) {
+    int c = (char)a;
+    switch (c) {
+    case 'a':
+        return 0xB010F357;
+    case 'b':
+        return 0xFFC529F4;
+    case 'f':
+        return 0x61A1BC57;
+    case 'c':
+        return 0x3BF882CC;
+    case 'e':
+        return 0xCA41692D;
+    case 'g':
+        return 0x62896EDF;
+    case 'h':
+        return 0x79DAA2F9;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A4DB8);

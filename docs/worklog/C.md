@@ -781,3 +781,8 @@ float-first `f(float, int, int, int, int)` fixes the arg load order); t_254248 C
 float in the second slot gives `move a0` / `mov.s f12` / delay-slot `move a1`; locals xx/yy/hh read in that order, global read just before the last call).
 General rule: when `mov.s f12` order is wrong, try float first, float second, float last in the prototype.
 Given up: t_2CDCC0 CFunc_GuitarEvent_Note_Window_Open_CFunc (`for(;;) switch` state machine; return value reuses the state register, 6 forms).
+Part 8 (+3, jump-table switches now supported by the build): t_2626E0 CFunc_GetPlatform, t_2A53A8 func_002A5478, t_2A32E0 func_002A4D28 (read the table in
+asm/data/cod/rodata.rodata.s; case bodies in the order of their labels in the .s; a `char` parameter is `int a; int c = (char)a;` to get the leading sll/sra; with few cases
+gcc emits a compare chain, add empty `case N: break;` to fill the table).
+Given up: t_2A53A8 func_002A53E0 (quotient gets a new saved register), t_2848B0 func_00286108 (table has 28 entries pointing into another function), t_271480 func_00272920.
+Round 9 total: 48 functions (earlier part headers in this round over-count by 5: the real per-part counts are 16, 9, 6, 4, 4, 3, 3, 3 plus part 8 = see git log).

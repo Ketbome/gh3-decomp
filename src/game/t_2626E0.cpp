@@ -53,6 +53,11 @@ struct S2626_ActMgr {
     S2626_ActEnt act[2];
 };
 
+struct S262D1C {
+    char pad0[0x20];
+    int unk20;
+};
+
 extern "C" {
 extern char D_00370870[];
 extern char D_00370878[];
@@ -284,7 +289,30 @@ extern "C" int CFunc_IsWIN32(void) {
     return D_00368740[0] == 9;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetPlatform);
+extern "C" int CFunc_GetPlatform(int, S262D1C *s) {
+    u32 v = 0;
+    switch (D_00368740[0]) {
+    case 1:
+    case 2:
+    case 3:
+        v = 0x988A3508;
+        break;
+    case 5:
+        v = 0xBCF00D45;
+        break;
+    case 4:
+        v = 0x87D839B8;
+        break;
+    case 6:
+        v = 0xF6A179C0;
+        break;
+    case 9:
+        v = 0x4AF45E2E;
+        break;
+    }
+    func_0027C448(s->unk20, 0xC6AD2F34, v);
+    return 1;
+}
 
 extern "C" int CFunc_GetPlatformExt(int params, S2626_Script *script) {
     int d = script->unk20;

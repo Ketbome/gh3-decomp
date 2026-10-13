@@ -33,6 +33,7 @@ struct S2A5_Script {
 };
 
 extern "C" {
+extern int D_00368740[] __attribute__((section(".sdata")));
 int func_0027D1F8(int, int, int *, int);
 int func_002A4DB8(int, int, int);
 extern int D_00371D84;
@@ -121,7 +122,20 @@ extern "C" int func_002A53A8(u32 a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A53E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A5478);
+extern "C" int func_002A5478(void) {
+    switch (D_00368740[0]) {
+    case 1:
+    case 2:
+    case 3:
+        return 0x400;
+    case 4:
+        return 0x2000;
+    case 5:
+    case 6:
+        return 0x4000;
+    }
+    return 1;
+}
 
 extern "C" int func_002A54C8(int a) {
     int n = func_002A5478();
