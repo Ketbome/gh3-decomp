@@ -53,6 +53,8 @@ struct SA121_L {
 };
 
 extern "C" {
+struct E122778 { int cnt; int v[5]; };
+extern E122778 D_00376E88[];
 int func_00122940_d(int, int) __asm__("func_00122940");
 int func_00116878(void*, int, int);
 int func_0030E650(int, int);
@@ -322,7 +324,75 @@ extern "C" void func_00122770(void) {
     D_00372AC0 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122778);
+extern "C" int func_00122778(int n, char* out) {
+    int k = 0;
+    int i;
+    for (i = 0; i < D_00376E88[n].cnt; i++) {
+        int v = D_00376E88[n].v[i];
+        int c = v & 0xFFFF;
+        if (v < 0) {
+            switch (c) {
+            case 0x3A:
+                out[k] = 0x1B;
+                break;
+            case 0x3B:
+                out[k] = 0x1C;
+                break;
+            case 0x3C:
+                out[k] = 0x1D;
+                break;
+            case 0x3D:
+                out[k] = 0x1E;
+                break;
+            case 0x4F:
+                out[k] = 0x15;
+                break;
+            case 0x50:
+                out[k] = 0x14;
+                break;
+            case 0x51:
+                out[k] = 0x17;
+                break;
+            case 0x52:
+                out[k] = 0x16;
+                break;
+            case 0x3E:
+            case 0x3F:
+            case 0x40:
+            case 0x41:
+            case 0x42:
+            case 0x43:
+            case 0x44:
+            case 0x45:
+            case 0x46:
+            case 0x47:
+            case 0x48:
+            case 0x49:
+            case 0x4A:
+            case 0x4B:
+            case 0x4C:
+            case 0x4D:
+            case 0x4E:
+            default:
+                continue;
+            }
+        } else {
+            if (c == 10) {
+                out[k] = 0x19;
+            } else if (c == 9) {
+                continue;
+            } else if (c == 8) {
+                out[k] = 0x18;
+            } else if (c == 0x1B) {
+                out[k] = 0x1A;
+            } else {
+                out[k] = c;
+            }
+        }
+        k++;
+    }
+    return k;
+}
 
 extern "C" void func_001228F8(void) {
     func_00113F38();
