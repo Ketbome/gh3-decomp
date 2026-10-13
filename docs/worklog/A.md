@@ -1082,3 +1082,4 @@ Matched (A13) t_16A2F0: func_0016B1B8 (intrusive list search by key at +0x1D4; i
 Matched (A13) t_118E40: Heap_Free (lock pair func_001187F8/func_00118820 around index lookup func_00118BD8 + pool free via D_00375600[i]; func_0011C2E8 alias `_i` taking the pool index/pointer)
 - func_0017F630 (vector normalize, vu0:33%): asm matches (the two `nop`s before `vrsqrt` belong to the VU0 sequence, they are in every vrsqrt block of the game) but the original schedules `ld ra` between the `vmul` and the `vaddy`; ours puts it after `sqc2` (barrier effect of the asm statements); ~10 asm variants
 - func_00110188, func_0016BCE8, func_001A4050, func_00123F80 (c1 sqrt): not matchable (vf register spill around a call / pextlw packing / c1)
+Matched (A13) t_1A37A8: func_001A4258 (highest set bit of the byte at +1 via `for (v = 8; v; v >>= 1) if (v & b) break;`, then `switch ((int)v)` with explicit case 1: gives slti)

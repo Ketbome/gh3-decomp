@@ -9,7 +9,6 @@ extern int D_00373348;
 extern int D_0036C58C;
 void func_001A41D0(int, int, int);
 extern int D_00373270;
-u8 func_001A4258(void*, int, int);
 void func_001A42E0(void*, u8);
 }
 
@@ -33,7 +32,25 @@ struct S001A41D0 { u8 unk0; u8 unk1; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A41D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A4258);
+struct S_001A4258 { char pad0[1]; u8 unk1; };
+
+extern "C" int func_001A4258(S_001A4258* self) {
+    u32 v;
+    for (v = 8; v != 0; v >>= 1) {
+        if (v & self->unk1) break;
+    }
+    switch ((int)v) {
+    case 1:
+        return 4;
+    case 2:
+    case 4:
+        return 7;
+    case 8:
+        return 0xE;
+    default:
+        return 4;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A42E0);
 
