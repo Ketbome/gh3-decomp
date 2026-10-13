@@ -709,3 +709,8 @@ CFunc_GetStrumPattern (`bool` aliases for the two getters, `missing` flags); t_2
 first gives the original block order; with an `r` variable gcc adds an extra register).
 Given up: CFunc_WhammyFXOffAll (prologue: original has `move a2,sp` before `sd ra` and the nested-call argument first; 6 forms),
 func_00289D30 (0x30-stride key search is not unrolled in our source forms), func_00269420-style hash remove (see above).
+Round 8 part 8 (+4): t_298A30 func_00299E18 (file now `-funroll-loops`: `for (i = 1; i < 0x100; i++) if (f(a, i) == 0) return i;` is unrolled
+by 5); t_27F8C8 func_0027FDF8 (heap lock); t_26F3B8 func_00270928 (reassign the parameter, `if (s == 1) a -= 0x16;`, to keep it in the
+same register and get the movz), func_00271028 (`u64 t = D_00370D20[i]` polled until it equals a u64-returning call, the second call
+through a void alias; the two lui-addressed arrays through `.set X_lui, X` aliases give adjacent lui/addiu).
+Given up: func_0029B468 / func_0029B3A8 (inline list-iterator search: loop shape and `movn` register differ).

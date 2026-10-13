@@ -1,6 +1,9 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+asm(".set D_003733A0_lui, D_003733A0");
+asm(".set D_003733A8_lui, D_003733A8");
+
 struct S0026FAB8 {
     char pad[0x1C];
     int unk1C;
@@ -31,6 +34,13 @@ struct S26F_Pair {
 };
 
 extern "C" {
+u64 func_0011ECE8(void);
+void func_0011ECE8_v(void) asm("func_0011ECE8");
+extern volatile u32 D_00370D20[2];
+extern u32 D_003733A8_x[] asm("D_003733A8_lui") __attribute__((section(".sdata")));
+extern u32 D_003733A0_x[] asm("D_003733A0_lui") __attribute__((section(".sdata")));
+int func_00271108(int, int);
+int func_0026FAC8(void);
 u32 func_00271158(int);
 int func_00270DB8(int);
 int func_00270E40(int);
@@ -183,7 +193,19 @@ extern "C" void func_00270540(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002705A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270928);
+extern "C" void func_00270928(int a) {
+    int s = func_0026FAC8();
+    S26F3B8_A *e;
+    if (s == 1) {
+        a -= 0x16;
+    }
+    e = &D_003A8D40[s][a];
+    if ((e->unkC >> 2) & 1) {
+        func_00271108(e->unkE, e->unkF);
+        e->unkC &= ~4;
+        func_00270540(s, a);
+    }
+}
 
 extern "C" void func_002709C8(void) {
     func_002700A0();
@@ -261,7 +283,18 @@ extern "C" void func_00270FF0(void) {
     func_00271198(0x8040, 0x1701, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00271028);
+GP_DATA(D_00370D20);
+extern "C" int func_00271028(int i) {
+    u64 t;
+    do {
+        t = D_00370D20[i];
+    } while (t != func_0011ECE8());
+    D_00370D20[i];
+    func_0011ECE8_v();
+    u32 x = D_003733A8_x[i];
+    u32 y = D_003733A0_x[i];
+    return x & y;
+}
 
 extern "C" int func_002710B8(int i, int bit) {
     u32 m = 1 << bit;
