@@ -22,6 +22,9 @@ struct S273498_D {
 };
 
 extern "C" {
+extern int D_00368A38;
+void func_00114660(void *, int);
+void func_00119400(int, void *);
 void func_001145D8(void *);
 int func_00273EB0(void);
 int func_002E91E8(void);
@@ -283,6 +286,13 @@ extern "C" int func_00275138(int ip) {
     return ip;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00275180);
+extern "C" void func_00275180(int a, int b) {
+    func_00114660((char *)a + 0xA0, 2);
+    func_00114660((char *)a + 0x54, 2);
+    func_00114660((char *)a + 0x8, 2);
+    if (b & 1) {
+        func_00119400(D_00368A38, (void *)a);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_002751E8);

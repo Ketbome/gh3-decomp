@@ -20,6 +20,11 @@ struct S26D_Ent {
 };
 
 extern "C" {
+int func_001150B8(void);
+int func_0026DCA0(int);
+void func_00277378_i(int, int) asm("func_00277378");
+extern int *D_00370CBC;
+extern int D_004278B0[];
 int func_0026E008(void *, int);
 void func_0026AE70(void);
 int func_0026ABA8(void);
@@ -172,7 +177,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E208);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E470);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E560);
+GP_DATA(D_00370CBC);
+extern "C" void func_0026E560(int a) {
+    int t = func_001150B8();
+    if (func_0026DCA0(t) != 0) {
+        func_00277378_i(t, a);
+        if (D_00370CBC < D_004278B0) {
+            *D_00370CBC++ = t;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E5C8);
 

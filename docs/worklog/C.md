@@ -616,3 +616,12 @@ CFunc_GuitarControllerMake; t_296A10 func_00296A90.
 Given up: func_002680D0 (original adds 8 to the %lo address in a separate addiu, ours folds symbol+8);
 func_0027F6C8/func_0027F728 (s0/s1 swapped between b and c, 3 forms); func_0029F5C8 (`max(r, 500)` is slti+movn in
 the original, slt 499 + movz here, 5 forms); func_00295278, func_002704E0, func_002774D8: not tried.
+
+Round 6 part 7 (+8): t_254248 CFunc_StopStream; t_273498 func_00275180; t_27D828 func_0027E180; t_296A10 func_00297470 (delete via
+func_00297CF0); t_25C450 CFunc_AnalyzeHeap; t_26D280 func_0026E560 (func_00277378 reached through an `asm` alias with
+(int, int)); t_2797A8 func_0027AC90; t_2DCE78 func_002DE4C8 (call the arg-producing function first: `int r = f(p);` then the
+virtual call, otherwise `p + delta` is evaluated before it and an extra saved register appears).
+Given up: CFunc_PrintMemInfo (original hoists `addiu a2,sp,0x40` above the global load; a pointer local removes the
+reload of `out`), func_002E99D0 (`move v0,s0` one slot off), func_002E7B60 (`movz` result with the constant 1 kept in s1),
+CFunc_LoadMusicHeader (D_00368A38 read by both `$gp` and `lui` in one function, not tried), func_0027E700, func_00267048,
+func_0026EAA0, func_00286330 (loops with goto-shaped control flow, not tried).

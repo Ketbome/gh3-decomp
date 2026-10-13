@@ -8,6 +8,7 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_002E7D80(int);
 void func_0026D6D0(int, int, int);
 int func_0026DCA0(int);
 int func_0027D828(int, int);
@@ -155,7 +156,16 @@ extern "C" int CFunc_StopSoundStream(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopStream);
+extern "C" s32 CFunc_StopStream(int arg0) {
+    int out = 0;
+    if (func_0027D870(arg0, 0x1C397CBC, &out, 0) == 0) {
+        if (func_0027D870(arg0, 0, &out, 0) == 0) {
+            return 0;
+        }
+    }
+    func_002E7D80(out);
+    return 0;
+}
 
 extern "C" int CFunc_StopSoundsByBuss(int a) {
     int x = 0;

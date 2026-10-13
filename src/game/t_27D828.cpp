@@ -1,6 +1,7 @@
 #include "common.h"
 
 extern "C" {
+void func_0027E1E8(void *, int);
 int func_0027D870(int, int, int *, int);
 int func_001150B8(int);
 int func_0027CC30(int, int, int, int *);
@@ -82,7 +83,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E090);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E160);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E180);
+struct S27E180_N {
+    char pad0[0xC];
+    S27E180_N *unkC;
+};
+struct S27E180 {
+    char pad0[4];
+    char *unk4;
+};
+extern "C" void func_0027E180(S27E180 *p, int n) {
+    if (p->unk4 != 0) {
+        p->unk4 = p->unk4 + n;
+    }
+    S27E180_N *c = (S27E180_N *)p->unk4;
+    if (c != 0) {
+        do {
+            func_0027E1E8(c, n);
+            c = c->unkC;
+        } while (c != 0);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E1E8);
 
