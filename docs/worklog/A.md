@@ -996,3 +996,4 @@ Matched (A10) t_133A98: func_00133FE0 (0x144; 8 relocated offsets, -1 stays +1; 
 Matched (A10) t_16E670: func_0016EEC0 (jtbl switch, 5 cases)
 Matched (A10) t_19F538: func_001A1028 func_001A1180 (jtbl switches; byte-offset table index)
 Matched (A10) t_19F538: func_001A11D8 (0x13c; table search + switch)
+Matched (A10) t_114DC8: func_00116748 (jtbl digit switch)
