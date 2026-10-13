@@ -972,3 +972,12 @@ A9 pass, part 4. Matched 1: func_001849A0 (flag word via `int f` so `sra` not `s
 Given up (A9, part 4): func_001874E0 (and the 187708/877D0 siblings): second half only differs by the delay
 slot of the `beqz a0` (ours puts `move v0,zero` there; original `sra`), 5 variants; func_00122A10 (flat compare
 ladder, original splits the shared store block; 4 layouts).
+
+A9 pass, part 5. Matched 2: func_00127858 func_001575C0
+
+- Range checks on floats with four nested `if`s and `return a <= v && v <= b;` come out right (func_00127858).
+- `void` vcall at the end that the original treats as value-returning: declare the slot `int (*fn)(...)` and
+  `return` it; also load the vtable pointer after the preceding call and before the store (func_001575C0).
+
+Given up (A9, part 5): func_0015AE88 (hash-bucket insert; saved regs right after `int h2 = h; asm(h)`, but
+v0/v1 and a0/a1 of the mask expression swapped, 6 variants), func_00187650 (three inline getters, register roles).

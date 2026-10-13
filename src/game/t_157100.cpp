@@ -23,6 +23,9 @@ struct VE_00157788 { s16 unk0; s16 unk2; int (*unk4)(void*); };
 struct S_00157788 { char pad0[0x8]; VE_00157788* unk8; };
 
 extern "C" {
+void func_0030B550(char*, const char*, const char*);
+extern char D_00369D40[];
+extern char D_0033CD90[];
 int strlen(char*);
 u32 CrcFromPathLowercase(char*);
 void func_00182E50(int, int);
@@ -220,7 +223,25 @@ extern "C" void func_00157580(S157580* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_001575C0);
+struct VE157 { s16 delta; s16 unk2; int (*fn)(void*, char*, int, int); };
+struct V157 { char pad0[0x28]; VE157 unk28; };
+struct S1575C0 { u32 unk0; char pad4[4]; V157* unk8; };
+
+extern "C" int func_001575C0(S1575C0* self, char* name, int a, int b) {
+    char buf[0x200];
+    func_0030B550(buf, D_00369D40, name);
+    if (a) {
+        if (name[0] == '.' && name[1] == '.' && name[2] == '/') {
+            func_0030B550(buf, D_00369D40, name + 3);
+        } else {
+            func_0030B550(buf, D_0033CD90, name);
+        }
+    }
+    u32 h = func_001574C0(buf);
+    V157* v = self->unk8;
+    self->unk0 = h;
+    return v->unk28.fn((char*)self + v->unk28.delta, buf, a, b);
+}
 
 struct VE_1576A8 { s16 unk0; s16 unk2; void (*unk4)(void*, int, int, int, int, int); };
 struct S_1576A8 { int unk0; int unk4; VE_1576A8* unk8; };

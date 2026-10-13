@@ -129,7 +129,24 @@ extern "C" S_00127838* func_00127838(S_00127838* self, int a, int b) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00127858);
+struct S127858 { char pad0[4]; int unk4; };
+
+extern "C" int func_00127858(S127858* self, int incl, float lo, float hi) {
+    if (incl) {
+        if (lo < hi) {
+            float v = (float)self->unk4;
+            return lo <= v && v <= hi;
+        }
+        float v = (float)self->unk4;
+        return v <= lo && hi <= v;
+    }
+    if (lo < hi) {
+        float v = (float)self->unk4;
+        return lo <= v && v < hi;
+    }
+    float v = (float)self->unk4;
+    return v <= lo && hi < v;
+}
 
 extern "C" void func_00127940(S_00127940* self, int v) {
     self->unk8 = v;
