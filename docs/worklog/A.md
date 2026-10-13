@@ -1058,3 +1058,5 @@ Matched (A12) t_146580 (now `// cflags: -funroll-loops`): func_001468A8 (`v == a
 Matched (A12) t_19F538 (now `// cflags: -funroll-loops`): func_001A0D38 (`for (i<4) f(self, self + i*0x3C8, i)`; hand-unrolled calls schedule differently, the loop form matches)
 Matched (A12) t_17B448 (now `// cflags: -funroll-loops`): func_0017B678 (empty busy loop `for (i = 0; i < self->unk208; i++) {}`, unrolled 4x; comparing against the field gives the `move a0,v0` copy and the guard)
 Matched (A12) t_11D000: func_0011DAB0 (`do { f(); g(); } while (h(self)); return *(volatile int*)self;` -- the volatile load keeps gcc from filling the bnez slot with the epilogue `ld ra`, which is the original's `nop`)
+Matched (A12) t_11D000: func_0011DE80 (wait loop `while (((volatile S*)self)->unk30 < 0) {...}` + `return` of the volatile field: this is what leaves the original's `nop` in every delay slot of a wait loop; D_00368BF8 is a plain u64)
+- QUIRK: nops in delay slots of a polling/wait loop = the polled field is volatile (cast the whole struct pointer to `volatile S*`; a `volatile int*` local changes the loop shape).

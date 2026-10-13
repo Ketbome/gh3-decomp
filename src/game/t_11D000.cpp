@@ -93,6 +93,8 @@ void func_0011D220(u32);
 void func_0011D370(u32);
 void func_0011E540(void);
 void func_0011E560(void);
+u64 func_0011ECF0(void);
+extern u64 D_00368BF8;
 void func_00114958(void*, int);
 void Heap_Free(int, void*);
 int func_00113DF0(int, int, int);
@@ -340,7 +342,16 @@ extern "C" int func_0011DE78(void) {
 }
 
 GP_DATA(D_00368BF8);
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011DE80);
+extern "C" int func_0011DE80(SA11D_O* self) {
+    while (((volatile SA11D_O*)self)->unk30 < 0) {
+        u64 v = func_0011ECF0();
+        if (v != D_00368BF8) {
+            func_0011D988();
+            D_00368BF8 = v;
+        }
+    }
+    return ((volatile SA11D_O*)self)->unk30;
+}
 
 GP_DATA(D_00368C00);
 extern "C" void func_0011DEE0(void) {
