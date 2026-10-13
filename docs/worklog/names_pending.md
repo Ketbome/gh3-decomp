@@ -9,3 +9,7 @@ changes the names workers use): then `apply_names.py`, `configure.py`, `sync_src
 | 0x00119400 | Heap_Free | (heap, p); operator delete calls it with D_00368A38 (range A worker) |
 | 0x00113D20 | operator_new | `new X` pattern, size argument (toolchain probe) |
 | 0x00297CF0 | operator_delete | called by the libstdc++ type_info destructors |
+| 0x0030AA88 | strlen | libc, behaviour (range B worker) |
+| 0x0030A970 | strcpy | libc, behaviour (range B/C workers) |
+| 0x0030A49C | memset | libc, behaviour (range B worker) |
+| 0x0030A824 | strcmp | libc, behaviour (range C worker) |
