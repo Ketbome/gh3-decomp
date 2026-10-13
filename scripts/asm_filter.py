@@ -133,7 +133,14 @@ def short_loops(text):
             pad = 6 - (body + 2)
             if pad > 0:
                 indent = re.match(r"\s*", line).group(0)
-                out += [f"{indent}nop"] * pad
+                if noreorder:
+                    out += [f"{indent}nop"] * pad
+                else:
+                    # outside noreorder gas would move a padding nop into the delay slot: write the slot out
+                    out += [f"{indent}.set\tnoreorder"] + [f"{indent}nop"] * pad + [line, f"{indent}nop",
+                                                                                f"{indent}.set\treorder"]
+                    count += pad + instructions(line) + 1
+                    continue
                 count += pad
         out.append(line)
         count += instructions(line)
