@@ -4,6 +4,7 @@ struct S_0019B668 { int unk0; int unk4; int unk8; };
 struct E_0019CFE8 { int unk0; int unk4; u64 unk8; };
 
 extern "C" {
+int func_0019D0B0(int, int, long);
 void func_0030A2F4(void*, void*, int);
 void func_0019B550(S_0019B668*, int, int);
 void func_0011A470(int);
@@ -95,7 +96,18 @@ extern "C" int func_0019CFE8(int a, int b, u64 c) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019D038);
+extern "C" void func_0019D038(void) {
+    E_0019CFE8* p = D_00415D00;
+    int i = 0;
+    if (D_0036C118 > 0) {
+        do {
+            i++;
+            func_0019D0B0(p->unk0, p->unk4, p->unk8);
+            p++;
+        } while (i < D_0036C118);
+    }
+    D_0036C118 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019D0B0);
 

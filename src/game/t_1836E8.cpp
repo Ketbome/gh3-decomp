@@ -13,6 +13,10 @@ struct S00183728 {
 };
 
 extern "C" {
+int func_001BDCF8(int, int, int, int, int, int);
+int func_001BDA28(int, int, int, int);
+s16 func_001BF348(int);
+s16 func_001BF350(int);
 void func_00157538(void*);
 extern u8 D_00343C50[];
 extern u8 D_00343A98[];
@@ -80,11 +84,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183AB8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183BD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00184188);
+struct S184188 { char pad0[4]; unsigned int unk4; char pad8[4]; s16 unkC; s16 unkE; int unk10; };
+
+extern "C" int func_00184188(S184188* self, int a, int b, int c) {
+    int t = func_001BDA28(a, b, c, ((int)self->unk4 >> 3) & 1);
+    self->unk10 = t;
+    if (t) {
+        self->unk4 = self->unk4 | 1;
+        self->unkC = func_001BF348(t);
+        self->unkE = func_001BF350(self->unk10);
+    }
+    return self->unk10 != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001841F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001842B0);
+extern "C" int func_001842B0(S184188* self, int a1, int a2, int a3, int a4, int a5, int a6) {
+    int t = func_001BDCF8(a2, a3, a4, a5, 1, a6);
+    self->unk10 = t;
+    if (t) {
+        self->unk4 = self->unk4 | 1;
+        self->unkC = func_001BF348(t);
+        self->unkE = func_001BF350(self->unk10);
+    }
+    return self->unk10 != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00184320);
 

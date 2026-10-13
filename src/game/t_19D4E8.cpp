@@ -5,6 +5,12 @@ struct S_0019F318 { char pad0[0xC]; int unkC; };
 struct U64P_19D { u64 v; } __attribute__((packed));
 
 extern "C" {
+void func_0019EE38(int, int, int, int);
+void func_001BA7E8(void);
+extern int D_0036C378;
+extern int D_0036CA4C;
+extern int D_00372D20;
+extern int D_00372D24;
 void func_001549B8(void);
 void func_001B3C98(void);
 void func_0019FEF0(void);
@@ -114,7 +120,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019EB70);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019EC08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019EC10);
+GP_DATA(D_0036C378);
+extern "C" void func_0019EC10(void) {
+    if (D_0036CA4C) {
+        D_00372D24 ^= 1;
+        if (D_0036C378 > 0) {
+            int t = D_0036C378 - 1;
+            D_0036C378 = t;
+            if (t == 0) func_0019EE38(1, 0, 0, 0);
+        }
+        if (D_00372D20) func_001BA7E8();
+    }
+}
 
 extern "C" void func_0019EC80(void) {
 }

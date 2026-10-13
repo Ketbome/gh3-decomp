@@ -780,3 +780,22 @@ Given up (A7, part 4): func_00162F48 (second constant must come through a1, ours
 func_0011BD30 (constant -1 and D lui order/regs, 7 variants), func_00128338 (beqz/beqzl in an else-if chain),
 func_001A9A98 (list unlink: gcc rewrites self as p after `p == self`, original keeps a0), func_0011FB70,
 func_0011FBE0, func_0011FC50, func_0011FCC0 (struct return/stack args to func_00120A40), func_00182110.
+
+A7 pass, part 5. Matched 19: func_00184188 func_001842B0 func_001290C8 func_0019EC10 func_00118290 func_0017F478
+func_001870E0 func_00187158 func_0019D038 func_00113FB8 func_0011A300 func_0014E560 func_0011F768 func_00113F38
+func_0017D5E0 func_001164F8 func_001280E0 func_0014DDB0 func_0014E4E0
+
+- Stack/register arguments: count the incoming registers, not m2c's argument list (func_001842B0 has 7 parameters
+  because the callee gets a2,a3,t0,t1,t2 and a1 is skipped).
+- `if (f(A)) *o = 1; else if (f(B)) *o = 2; else if (f(C)) *o = 3;` shares one `sw` tail like the original (func_0014DDB0).
+- Keep `&self->field` in a local when the original holds it in an s-register across calls (`int* pc = &self->unkC;`,
+  func_0017D5E0); hoist a format-string pointer into a local (`char* fmt = D_X;`) to get the lui before the branch
+  (func_0014E4E0).
+- `s16`/`int` array `+ i` with `SA127_Z** base = self->unk28; base + i` gives `addiu v0,s1,0x28; addu` (func_001290C8).
+- Callee declared returning `int` (result unused) moves the loop test register v0 -> v1 (func_0019D038).
+- Store runs: gcc emits the last source store first; to get [4C, 0, 4, 8] write [0, 4, 8, 4C] (func_0011A300).
+
+Given up (A7, part 5): func_0019EAA0 (DMA packet builder: p lands in a2 not v1), func_001A9A98/func_001A9B08 (list
+unlink and walk, equivalence copy-prop and loop nop), func_001198F0 (result copied to a1 before the array store),
+func_00157420 (byte stores scheduled differently), func_00175F40/func_00118308/func_00161CC8/func_00161FF8
+(address-taken locals on the stack), func_0016BE38/func_0016BEB0 (128-bit lanes).

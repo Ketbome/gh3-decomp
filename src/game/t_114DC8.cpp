@@ -31,6 +31,8 @@ struct SA114_A {
 };
 
 extern "C" {
+void func_00113FB8(void*);
+extern u8 D_00337FE8[];
 extern int D_00368768;
 extern int D_00368770;
 extern int D_00368534;
@@ -157,7 +159,26 @@ extern "C" void func_00116408(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116410);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001164F8);
+struct VE_1164F8 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V_1164F8 { char pad0[0x10]; VE_1164F8 unk10; };
+struct O_1164F8 { char pad0[0x18]; V_1164F8* unk18; };
+struct S_1164F8 { O_1164F8* unk0; char pad4[8]; void* unkC; };
+
+extern "C" void func_001164F8(S_1164F8* self, int flags) {
+    self->unkC = D_00337FE8;
+    if (self->unk0) {
+        func_00113FB8(self->unk0);
+        O_1164F8* o = self->unk0;
+        if (o) {
+            V_1164F8* v = o->unk18;
+            v->unk10.unk4((char*)o + v->unk10.unk0, 3);
+        }
+        self->unk0 = 0;
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38, (int)self);
+    }
+}
 
 extern "C" void func_00116578(SA114_A* self, void* cb, int x) {
     self->unk4 = x;

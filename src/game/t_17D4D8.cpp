@@ -11,6 +11,11 @@ struct S0017D658 {
 };
 
 extern "C" {
+void func_00124688(int, int);
+void func_001CE888(int, void*);
+void func_0014EBC8(int);
+extern u8 D_003434A8[];
+extern u8 D_003417B0[];
 void func_0017D580(void*, int);
 void func_00119400(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -38,7 +43,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017D4F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017D580);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017D5E0);
+struct S17D5E0 { char pad0[8]; int unk8; int unkC; char pad10[8]; int unk18; };
+
+extern "C" void func_0017D5E0(void* p) {
+    S17D5E0* self = (S17D5E0*)p;
+    int* pc = &self->unkC;
+    if (self->unkC) {
+        func_00124688(self->unkC, self->unk18);
+        if (self->unkC) {
+            func_001CE888(self->unkC, pc);
+            self->unkC = 0;
+        }
+        self->unkC = 0;
+    }
+    if (self->unk8) {
+        func_0014EBC8(self->unk8);
+        self->unk8 = 0;
+    }
+    self->unk18 = -1;
+}
 
 extern "C" void func_0017D658(S0017D658* self, int a1, int a2) {
     self->unk0 = a2;
@@ -148,4 +171,12 @@ extern "C" u32 func_0017F468(void) {
     return 0xA866A248 /* curve */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F478);
+struct S17F478 { void* unk0; char pad4[4]; void* unk8; };
+
+extern "C" void func_0017F478(S17F478* self, int flags) {
+    self->unk0 = D_003434A8;
+    void* p = self->unk8;
+    if (p) func_00119400(D_00368A38[0], p);
+    self->unk0 = D_003417B0;
+    if (flags & 1) func_00119400(D_00368A38[0], self);
+}

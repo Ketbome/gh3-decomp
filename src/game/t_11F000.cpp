@@ -18,6 +18,10 @@ struct SA11F_W {
 };
 
 extern "C" {
+struct E11F768 { char pad0[8]; char* unk8; int unkC; };
+struct S11F768 { char pad0[0xC]; int unkC; char pad10[0x14]; s16 unk24; s16 unk26; char unk28[1]; };
+E11F768* func_0011F9A8_2(void*, int) __asm__("func_0011F9A8");
+void func_0030A2F4(char*, char*, int);
 int func_002FF920(void*, int);
 void func_0011DCD8(int, int);
 void* func_0011D9A8(void*);
@@ -107,7 +111,20 @@ extern "C" void func_0011F710(int a, int b) {
     if (b != 0) func_002F3BD0();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F768);
+extern "C" void func_0011F768(void* a, S11F768* self) {
+    E11F768* e = func_0011F9A8_2(a, self->unkC);
+    if (e) {
+        char* t = e->unk8;
+        if (t) {
+            int s = self->unk26;
+            if (s) {
+                func_0030A2F4(t + (e->unkC - s), self->unk28, s);
+            } else {
+                func_0030A2F4(t, self->unk28, self->unk24);
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F7E0);
 

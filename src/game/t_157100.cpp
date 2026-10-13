@@ -181,6 +181,7 @@ extern "C" void func_00157400(void) {
     func_00183678();
 }
 
+
 INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157420);
 
 extern "C" void func_001574A0(void) {

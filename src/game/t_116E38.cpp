@@ -59,6 +59,8 @@ struct SA116_Sema {
 };
 
 extern "C" {
+void func_0011A470(int);
+extern u8 D_00338510[];
 void* func_00113D20(u32);
 void func_00118168(void*, int, int, int);
 void func_002ED120(int);
@@ -270,7 +272,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001180D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118168);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118290);
+struct VE_118290 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
+struct V_118290 { char pad0[8]; VE_118290 unk8; };
+struct O_118290 { char pad0[0x14]; V_118290* unk14; };
+struct S_118290 { char pad0[4]; O_118290* unk4; char pad8[0xE0]; int unkE8; char padEC[0x10]; void* unkFC; };
+
+extern "C" void func_00118290(S_118290* self, int flags) {
+    self->unkFC = D_00338510;
+    func_0011A470(self->unkE8);
+    O_118290* o = self->unk4;
+    if (o) {
+        V_118290* v = o->unk14;
+        v->unk8.unk4((char*)o + v->unk8.unk0, 3);
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118308);
 
