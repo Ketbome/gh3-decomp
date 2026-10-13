@@ -53,6 +53,10 @@ struct SA121_L {
 };
 
 extern "C" {
+int func_00122940_d(int, int) __asm__("func_00122940");
+int func_00116878(void*, int, int);
+int func_0030E650(int, int);
+extern u8 D_003391D0[];
 int func_003205E0(void);
 extern int D_00368740;
 extern int D_0032A4E0[];
