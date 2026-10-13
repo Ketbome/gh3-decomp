@@ -575,3 +575,18 @@ Given up:
 - func_0022C498: the `D_0036F748` load sits in the first bne delay slot in the original, ours schedules it above the address build
 - func_00233B70: original keeps a `nop` before the final jr (list-head init like func_002367E0 which matches)
 - Next untouched candidates: t_2171C8 func_00217278 onward (same `func_0027D058`/`unk20` setter family), t_21BA08, t_21DA40, t_227C68, t_2320A0 larger ones
+
+## Session 7 (t_2171C8 onward)
+
+### t_2171C8
+Matched 11: func_00217278 func_002172D0 func_00217328 func_00217530 func_00217380 func_00217588 func_00217410 func_002174A0 func_00218088 func_00218120
+(dtor: `delete (D*)x` then inline Release on a local `void** r`, then Release on `&p[7]` directly; ctor: member node init `q = p+7; q[1]=0; q[2]=0` before the key store).
+
+### t_219920
+Matched: func_00219CE0 func_0021B880 func_0021A490 func_0021AFD8 func_0021A100 func_0021A338 func_0021B290
+Habit: a CFG with a shared tail block needs the m2c `goto` form (func_0021B290); a callee used with 1 arg elsewhere and 2 here: `__asm__("name")` alias.
+Given up: func_0021A298, func_0021A698: virtual call `o->fn(o, ...)` keeps `o` in $a1 in the original, ours in $a0 (explicit entry, member virtual, inline helper tried).
+func_0021B058: TI128 lane extraction; func_0021B8E8: unrolled + MakeVec; not attempted.
+
+### t_21BA08
+Matched: func_0021CDB0 func_0021C250 func_0021C318
