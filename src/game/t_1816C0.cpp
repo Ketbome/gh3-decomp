@@ -11,6 +11,12 @@ struct S_00182338 { char pad0[0x10]; VE_181* unk10; };
 struct S_001823A8 { char pad0[0x1C]; VE_181* unk1C; };
 
 extern "C" {
+void func_0030A49C(void*, int, int);
+void func_0030B550(char*, const char*, ...);
+char* func_00116E90();
+void func_001575C0(int, char*, int, int);
+extern char D_00343970[];
+extern char D_0036B4B8[];
 void func_0018AD80(void*, int, int, int, int, int, int);
 void* func_00113D20(u32);
 void func_0014E988(int);

@@ -326,6 +326,16 @@ extern "C" void func_00114460(SA112_D* self, int flags) {
     }
 }
 
+struct It_1144A0 {
+    int unk0;
+    SA112_N* cur;
+    u8* vp;
+    It_1144A0() : cur(0), vp(D_00337F08) {}
+    ~It_1144A0() { vp = D_00337F08; }
+};
+
+extern "C" void func_00114580_v(void*, int) __asm__("func_00114580");
+
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_001144A0);
 
 struct N114528 { char pad0[4]; void* unk4; int unk8; N114528* unkC; N114528* unk10; void* unk14; };

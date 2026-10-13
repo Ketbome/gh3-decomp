@@ -126,7 +126,21 @@ INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00118EF8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00118F20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119098);
+extern "C" int func_00119500(S_00119500*);
+extern "C" void func_0011A9E8(int);
+extern "C" void func_001187F8(void*);
+extern "C" void func_00118820(void*);
+
+extern "C" int func_00119098(int self, int a, int b, SA118_V* o) {
+    char loc[0x10];
+    func_001187F8(loc);
+    if (!o) o = (SA118_V*)func_00119500((S_00119500*)self);
+    VEntry* e = &o->unk98[4];
+    int r = ((int (*)(void*, int, int))e->fn)((char*)o + e->delta, a, b);
+    if (r) func_0011A9E8(r);
+    func_00118820(loc);
+    return r;
+}
 
 extern "C" void* func_00119138(int a, void* b) {
     void* p = func_00118F20_0();

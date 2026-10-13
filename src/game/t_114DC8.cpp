@@ -31,6 +31,9 @@ struct SA114_A {
 };
 
 extern "C" {
+int func_0030AA88(char*);
+char* func_0030A970(char*, char*);
+int func_0030E650(char*, char*);
 void func_00113FB8(void*);
 extern u8 D_00337FE8[];
 extern int D_00368768;
@@ -228,7 +231,17 @@ extern "C" void func_001167C8(int a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001167E0);
+extern "C" int func_001167E0(char* a, char* b) {
+    int la, lb;
+    char buf[0x70];
+    if (!a || !b) return 0;
+    la = func_0030AA88(a);
+    lb = func_0030AA88(b);
+    if (la < lb) return 0;
+    func_0030A970(buf, a);
+    buf[lb] = 0;
+    return func_0030E650(buf, b) == 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116878);
 

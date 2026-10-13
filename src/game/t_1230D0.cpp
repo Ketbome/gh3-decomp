@@ -59,6 +59,7 @@ extern u8 D_00377770[];
 void func_00119400(int, void*);
 void func_001CE990(void*, int);
 void func_001234B0(void*);
+void func_001CF470(void*, int);
 void func_001233A8(void*);
 float func_0015DDA8();
 float func_0031B118(float);
@@ -173,7 +174,18 @@ extern "C" int func_00123568(SA123_V* self, u32 key, int params) {
     return func_001CFF58(self, key, params);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_001235E0);
+struct S_001235E0 { char pad0[0xDC]; float unkDC; float unkE0; };
+
+extern "C" void func_001235E0(S_001235E0* self, int a) {
+    float v[2];
+    v[0] = 0.3f;
+    v[1] = 300.0f;
+    func_0027D268(a, 0x48506742, v, 0);
+    func_0027D268(a, 0xD155F150, v + 1, 0);
+    self->unkDC = v[0];
+    self->unkE0 = v[1];
+    func_001CF470(self, a);
+}
 
 extern "C" SA123_A* func_00123678(SA123_A* self) {
     self->unk4 = 0;

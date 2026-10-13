@@ -449,6 +449,9 @@ struct SA187_Z {
 struct S_001891A0 { char pad0[0xC]; int unkC; };
 
 extern "C" {
+int func_00317588(float);
+int func_0031B650(int, u64);
+float func_00317298(int);
 void func_00188060(void*, int, int, int, int, int, int, int);
 void func_0015E0F8(void*);
 void func_0015E128(void*, int);
@@ -826,6 +829,9 @@ extern "C" void func_00188B70(SA187* self, int a) {
 
 extern "C" void func_00188BB0(void) {
 }
+
+struct S_00188BB8_b { char pad0[0x90]; int unk90; float unk94; float unk98; };
+struct S_00188BB8 { char pad0[0x14]; S_00188BB8_b* unk14; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_00188BB8);
 

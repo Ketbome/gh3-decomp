@@ -877,3 +877,16 @@ A8 pass, part 2. Matched 6: func_0010CBA0 func_0010CC30 func_0010CCC0 func_0011E
 Given up (A8, part 2): func_001180D8 (switch: case 0 returns the leftover slti value, tried 6 layouts),
 func_001234B0 (div.s before jal with nop in the slot), func_00162920 (6-byte struct copy: src/dst register choice),
 func_0011F3E8 (do-while with two nops), func_0010C... none else.
+
+A8 pass, part 3. Matched 6: func_001235E0 func_0011BF98 func_001167E0 func_0011C310 func_00119098 func_00161D40
+
+- Stack iterator on `It_161` (t_161580) works for list walks; a by-value 4-byte struct argument shows as two
+  lwl/lwr copies: `B4 t1 = *a; O* o = *pp; B4 t2 = t1; fn(..., &t2)` (func_00161D40).
+- `for (n = head; n; n = n->next)` gives the jump-to-test layout; computing `p = n + t` only inside the branch
+  that uses it fixes register choice (func_0011BF98). Declaring strcpy as returning `char*` moves a later
+  address temp from v0 to v1 (func_001167E0).
+- `int slot = &D[idx];` taken before the allocation call keeps the address in an s-register (func_0011C310).
+
+Given up (A8, part 3): func_00188BB8 (the 64-bit constant is kept in s2 in the original; ours rematerializes),
+func_00182DB0 (a3/a0 argument setup order around a branch), func_001144A0 (iterator with vptr reset on the stack;
+x/v share one register in the original, 6 variants), func_00114340/func_0011AC50 same family, not attempted.

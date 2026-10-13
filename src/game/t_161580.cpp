@@ -139,7 +139,24 @@ INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161BA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161CC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161D40);
+struct B4_161 { char c[4]; };
+struct VE_00161D40 { char pad0[0x50]; s16 unk50; s16 unk52; void (*unk54)(void*, B4_161*); };
+struct O_00161D40 { char pad0[0x18]; VE_00161D40* unk18; };
+struct N_00161D40 { int unk0; N_161* unk4; O_00161D40** unk8; };
+
+extern "C" int func_00161D40(L_161* self, B4_161* a) {
+    It_161 end(&self->unk14);
+    It_161 it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        O_00161D40** pp = ((N_00161D40*)it.cur)->unk8;
+        B4_161 t1 = *a;
+        O_00161D40* o = *pp;
+        B4_161 t2 = t1;
+        VE_00161D40* e = o->unk18;
+        e->unk54((char*)o + e->unk50, &t2);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161DD8);
 
