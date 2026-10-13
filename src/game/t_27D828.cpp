@@ -26,6 +26,7 @@ void Heap_Free(int, void *);
 void func_0027E358_v(void) asm("func_0027E358");
 void func_0027E358(S27E358 *);
 void func_0027E1E8(void *, int);
+void func_0027F008(int, int);
 int func_0027D870(int, int, int *, int);
 int func_001150B8(int);
 int func_0027CC30(int, int, int, int *);
@@ -138,7 +139,34 @@ extern "C" void func_0027E180(S27E180 *p, int n) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E1E8);
+struct S27E1E8 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+    int unkC;
+};
+extern "C" void func_0027E1E8(void *q, int n) {
+    S27E1E8 *p = (S27E1E8 *)q;
+    if (p->unkC != 0) {
+        p->unkC += n;
+    }
+    switch ((p->unk0 >> 9) & 0x7F) {
+    case 3:
+    case 5:
+    case 6:
+    case 7:
+        p->unk8 += n;
+        break;
+    case 10:
+        p->unk8 += n;
+        func_0027E180((S27E180 *)p->unk8, n);
+        break;
+    case 12:
+        p->unk8 += n;
+        func_0027F008(p->unk8, n);
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E288);
 

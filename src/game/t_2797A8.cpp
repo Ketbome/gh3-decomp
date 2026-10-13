@@ -40,7 +40,79 @@ extern u8 D_003711D8;
 void func_0027AA58(S0027AA58 *);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_002797A8);
+struct S2797A8 {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    int unk4;
+    int unk8;
+};
+extern "C" {
+void S2797A8_f1(void *) asm("func_00275730");
+void S2797A8_f2(void *) asm("func_0025C478");
+void S2797A8_f3(void *) asm("func_0025C530");
+void S2797A8_f4(void *) asm("func_0027AC90");
+void S2797A8_f5(void *) asm("func_00113250");
+void S2797A8_f6(void *) asm("func_002798B8");
+void S2797A8_f7(void *, int) asm("func_0027E6B0");
+}
+extern "C" void func_002797A8(S2797A8 *p, int i) {
+    int *base;
+    u8 t = p->unk2;
+    if (p->unk4 == 1) {
+        base = &p->unk8;
+    } else {
+        base = (int *)p->unk8;
+    }
+    int *slot = base + i;
+    switch (t) {
+    case 3: {
+        void *v = (void *)*slot;
+        if (v) {
+            S2797A8_f1(v);
+            *slot = 0;
+        }
+        break;
+    }
+    case 5: {
+        void *v = (void *)*slot;
+        if (v) {
+            S2797A8_f2(v);
+            *slot = 0;
+        }
+        break;
+    }
+    case 6: {
+        void *v = (void *)*slot;
+        if (v) {
+            S2797A8_f3(v);
+            *slot = 0;
+        }
+        break;
+    }
+    case 10: {
+        void *v = (void *)*slot;
+        if (v) {
+            S2797A8_f4(v);
+            S2797A8_f5(v);
+            *slot = 0;
+        }
+        break;
+    }
+    case 12: {
+        void *v = (void *)*slot;
+        if (v) {
+            S2797A8_f6(v);
+            S2797A8_f7(v, 3);
+            *slot = 0;
+        }
+        break;
+    }
+    case 0:
+    case 13:
+        break;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2797A8", func_002798B0);
 

@@ -368,4 +368,51 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00292130);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002921E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00292808);
+struct S292808 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+    int unkC;
+};
+extern "C" {
+unsigned int strlen(const char *);
+int func_00286160(int);
+char *func_00292928(int, int);
+char *func_002921E8(int, int);
+}
+extern "C" char *func_00292808(S292808 *p, int n) {
+    if (p->unkC != 0) {
+        p->unkC += n;
+    }
+    char *r = (char *)p + 0x10;
+    switch ((p->unk0 >> 9) & 0x7F) {
+    case 3:
+        p->unk8 += n;
+        r += ((int)strlen((char *)p->unk8) + 4) & -4;
+        break;
+    case 7:
+        p->unk8 += n;
+        r += (func_00286160(p->unk8) - p->unk8 + 3) & ~3u;
+        break;
+    case 6:
+        r += 0x10;
+        p->unk8 += n;
+        break;
+    case 5:
+        r += 0xC;
+        p->unk8 += n;
+        break;
+    case 10:
+        p->unk8 += n;
+        r = func_00292928(p->unk8, n);
+        break;
+    case 12:
+        p->unk8 += n;
+        r = func_002921E8(p->unk8, n);
+        break;
+    case 1:
+    case 26:
+        break;
+    }
+    return r;
+}

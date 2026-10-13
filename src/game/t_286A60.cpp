@@ -99,7 +99,64 @@ INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00286A68);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002870C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002873A0);
+struct S2873A0 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+    int unkC;
+    bool B10() { return (unk0 >> 10) & 1; }
+};
+extern "C" {
+void func_00275988(void *);
+void func_00275730(int);
+void func_0025C478(int);
+void func_0025C530(int);
+void func_0011A470(int);
+void func_0027AC90(int);
+void func_00113250(int);
+void func_002798B8(int);
+void func_0027E6B0(int, int);
+void func_002880B8(void *);
+}
+extern "C" void func_002873A0(S2873A0 *p) {
+    func_00275988(p);
+    if (!p->B10()) {
+        switch (((u8 *)p)[2]) {
+        case 1:
+            break;
+        case 3:
+            func_00275730(p->unkC);
+            break;
+        case 5:
+            func_0025C478(p->unkC);
+            break;
+        case 6:
+            func_0025C530(p->unkC);
+            break;
+        case 7:
+            func_0011A470(p->unkC);
+            break;
+        case 10: {
+            int o = p->unkC;
+            if (o) {
+                func_0027AC90(o);
+                func_00113250(o);
+            }
+            break;
+        }
+        case 12:
+            func_002798B8(p->unkC);
+            if (p->unkC) {
+                func_0027E6B0(p->unkC, 3);
+            }
+            break;
+        case 26:
+            break;
+        }
+        p->unkC = 0;
+        func_002880B8(p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00287498);
 

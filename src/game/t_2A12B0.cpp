@@ -81,6 +81,7 @@ extern s32 D_00369A64[] __attribute__((section(".sdata")));
 int func_00224220(int, int);
 int func_002299B0(s32, int, int, int);
 void func_002A2108(void *, int *);
+int func_001D0130(void *, int, int);
 void func_0028CF18(void *);
 void CFunc_FlushDeadObjects(int, int);
 extern char D_0035CBE0[];
@@ -471,7 +472,50 @@ extern "C" s32 CFunc_CasArtist(void) {
     return func_002765E0(0x2A648514 /* cas_artist */, 0) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2108);
+struct S2A2108_M {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+};
+struct S2A2108_O {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x20];
+    u32 unk30;
+};
+extern "C" void func_002A2108(void *op, int *mp) {
+    S2A2108_O *o = (S2A2108_O *)op;
+    S2A2108_M *m = (S2A2108_M *)mp;
+    m->unkC = 1;
+    switch (m->unk4) {
+    case 0:
+        o->unk30 |= 1 << m->unk0;
+        m->unk8 = 1;
+        break;
+    case 1:
+        o->unk30 &= ~(1 << m->unk0);
+        m->unk8 = 1;
+        break;
+    case 2:
+        if (o->unk30 & (1 << m->unk0)) {
+            m->unk8 = 1;
+        }
+        break;
+    case 3:
+        o->unkC |= m->unk0;
+        break;
+    case 4:
+        o->unkC &= ~m->unk0;
+        break;
+    case 5:
+        func_001D0130(o, m->unk0, 0);
+        m->unk8 = 1;
+        break;
+    case 6:
+        break;
+    }
+}
 
 extern "C" void func_002A2200(S2A1_Cmp *p, int *q) {
     if (p->unk2C == q[0]) {

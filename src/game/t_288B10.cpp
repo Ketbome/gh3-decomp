@@ -233,7 +233,47 @@ extern "C" void func_00289608(S00289608* p, int b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_00289630);
+extern "C" void func_002896E0(S288_Val *);
+extern "C" void func_00289710(S288_Val *);
+extern "C" void func_00289750(S288_Val *);
+extern "C" void func_002897E8(S288_Val *);
+extern "C" void func_00289868(S288_Val *, int);
+extern "C" void func_00289898(S288_Val *, int);
+extern "C" void func_002898E8(S288_Val *, int);
+extern "C" void func_00289630(S288_Val *p, int a) {
+    switch (p->unk8 & 0xF) {
+    case 0:
+    case 4:
+        break;
+    case 1:
+        func_002896E0(p);
+        break;
+    case 14:
+        func_00289710(p);
+        break;
+    case 2:
+    case 3:
+        func_00289750(p);
+        break;
+    case 5:
+        func_002897E8(p);
+        break;
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+        func_00289868(p, a);
+        break;
+    case 6:
+        func_00289898(p, a);
+        break;
+    case 7:
+        func_002898E8(p, a);
+        break;
+    }
+}
 
 extern "C" void func_002896E0(S288_Val *p) {
     if (p->unk4) {

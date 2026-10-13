@@ -86,7 +86,55 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278098);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278450);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_002787F0);
+struct S2787F0 {
+    u32 unk0;
+    char pad4[4];
+    int unk8;
+};
+extern "C" {
+int func_0027B800(void *);
+int func_0027B7D0(void *);
+S2787F0 *S2787F0_next(void *, void *) asm("func_0027B300");
+int func_002778D8(int);
+unsigned int strlen(const char *);
+}
+extern "C" int func_002787F0(void *self) {
+    int a = func_0027B800(self);
+    int b = func_0027B7D0(self);
+    int n = b - a;
+    int t = n * 8 + 4;
+    int size = a * 4 + t;
+    size += 3;
+    size += n;
+    size &= ~3u;
+    for (S2787F0 *p = S2787F0_next(self, 0); p; p = S2787F0_next(self, p)) {
+        switch ((p->unk0 >> 9) & 0x7F) {
+        case 6:
+            size += 0x10;
+            break;
+        case 5:
+            size += 0xC;
+            break;
+        case 3:
+            size += 1;
+            size += strlen((char *)p->unk8);
+            size = (size + 3) & ~3u;
+            break;
+        case 10:
+            size += 0x18;
+            size += func_002787F0((void *)p->unk8);
+            break;
+        case 12:
+            size += 0xC;
+            size += func_002778D8(p->unk8);
+            break;
+        case 1:
+        case 13:
+            break;
+        }
+    }
+    return size;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278910);
 
