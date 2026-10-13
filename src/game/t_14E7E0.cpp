@@ -19,6 +19,10 @@ struct S14E_V {
 };
 
 extern "C" {
+char* func_0030E720(int, void*);
+void func_0030A970(int, int);
+extern u8 D_00369A88[];
+extern u8 D_00369A90[];
 void func_0014F910(int, int);
 extern int D_00373254[] __attribute__((section(".sdata")));
 extern int D_00373258;
@@ -143,7 +147,15 @@ extern "C" void func_0014EBC8(void) {
     func_001821E0();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014EBE8);
+extern "C" int func_0014EBE8(int a, int b) {
+    func_0030A970(b, a);
+    char* p = func_0030E720(b, D_00369A88);
+    int r = p != 0;
+    if (r) *p = 0;
+    char* q = func_0030E720(b, D_00369A90);
+    if (q) *q = 0;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014EC58);
 

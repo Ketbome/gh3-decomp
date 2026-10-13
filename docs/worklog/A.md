@@ -764,3 +764,19 @@ func_001A2868 func_001A3178 func_0011AD10 func_0011E868 func_001279F8 func_00128
 Given up (A7, part 3): func_00127948 (return-0 branch order), func_0011DE80 (wait loop nops), func_0017D580
 (andi scheduled into the beqz slot), func_00181BD8 (constant lands in v0), func_001A0D38 (unrolled 4x loop in a
 file without -funroll-loops), func_00113D20/func_00113D88 (alloc arg order).
+
+A7 pass, part 4. Matched 17: func_00112CE0 func_00112D48 func_0014EBE8 func_0015ADF8 func_00167D70 func_0019F538
+func_0011EAD8 func_00168170 func_00168708 func_00169A70 func_00169E70 func_0016A6A8 func_0016ABA0 func_0019ED10
+func_00183678 func_00183840 func_00174DC8
+
+- `bnel` list walk (func_0019F538): write the equal case first (`if (p->k == a) {...} else p = p->next;`).
+- A constant that gcc loads after `ori` of a mask: hold the global address in a local before the mask
+  (`void* d = D_X; u32 t = x & MASK; ...; self->f = d;`) to get its `lui` scheduled first (func_00183840).
+- Address of a handwritten function + offset (`func_0011E9E0 + 0x28`) works with `extern u8 func_0011E9E0[]`.
+- Call arguments that m2c shows as `sp`/extra registers are real stack temporaries only when the asm stores to them
+  before the call; `int t[2]` then pass `t` (func_0015ADF8, call takes (x, t) only).
+
+Given up (A7, part 4): func_00162F48 (second constant must come through a1, ours goes v1 then move),
+func_0011BD30 (constant -1 and D lui order/regs, 7 variants), func_00128338 (beqz/beqzl in an else-if chain),
+func_001A9A98 (list unlink: gcc rewrites self as p after `p == self`, original keeps a0), func_0011FB70,
+func_0011FBE0, func_0011FC50, func_0011FCC0 (struct return/stack args to func_00120A40), func_00182110.

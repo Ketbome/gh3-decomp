@@ -5,6 +5,19 @@ struct S_0019F318 { char pad0[0xC]; int unkC; };
 struct U64P_19D { u64 v; } __attribute__((packed));
 
 extern "C" {
+void func_001549B8(void);
+void func_001B3C98(void);
+void func_0019FEF0(void);
+void func_0019FEB0(void);
+void func_001B3BD0(void);
+void func_0016D070(int);
+void func_001B93E8(void);
+void func_0019D038(void);
+void func_0019F328(int);
+void func_0019F5A0(void);
+void func_00197EE8(void);
+extern int D_00369A50;
+extern int D_003732FC;
 extern int D_0036C420;
 extern U64P_19D* D_00373270;
 extern int* D_003732E0;
@@ -125,7 +138,19 @@ extern "C" void func_0019ECE8(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019ED10);
+extern "C" void func_0019ED10(void) {
+    func_001549B8();
+    func_001B3C98();
+    func_0019FEF0();
+    func_0019FEB0();
+    func_001B3BD0();
+    func_0016D070(D_00369A50);
+    func_001B93E8();
+    func_0019D038();
+    func_0019F328(D_003732FC);
+    func_0019F5A0();
+    func_00197EE8();
+}
 
 extern "C" int func_0019ED80(void) {
     return D_003732E8;

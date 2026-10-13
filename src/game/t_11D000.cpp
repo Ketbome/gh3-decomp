@@ -48,6 +48,12 @@ struct SA11D_E {
 };
 
 extern "C" {
+void func_0011EA30(void);
+int func_002EE340(int, void*, int);
+void func_002EECA0(int);
+int func_002F49C8(void);
+void func_002F4BB8(int);
+extern u8 func_0011E9E0[];
 void func_001C5610(void*, int);
 extern u8 D_00338C20[];
 void func_002F4CD0(int);
@@ -396,7 +402,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E9E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EA30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EAD8);
+GP_DATA(D_00368D14);
+GP_DATA(D_00368D10);
+extern "C" void func_0011EAD8(void) {
+    func_0011EA30();
+    D_00368D14 = func_002EE340(2, func_0011E9E0 + 0x28, 0);
+    func_002EECA0(2);
+    int t = D_00368D10;
+    if (t != -1 || (D_00368D10 = func_002F49C8()) != t) {
+        func_002F4BB8(D_00368D10);
+    }
+}
 
 GP_DATA(D_00368D10);
 GP_DATA(D_00368D14);

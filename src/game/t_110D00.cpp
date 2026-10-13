@@ -1,5 +1,11 @@
 #include "common.h"
 
+extern "C" {
+void func_00119400(int, void*);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_003378E0[];
+}
+
 struct S_00112A38 { char pad0[0x24]; float* unk24; char pad1[0x10]; float* unk38; };
 
 struct S_00111A38 { char pad0[0x4]; int unk4; };
@@ -68,4 +74,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CE0);
+struct S112CE0 { void* unk0; int unk4; char pad8[4]; void* unkC; };
+
+extern "C" void func_00112CE0(S112CE0* self, int flags) {
+    self->unkC = D_003378E0;
+    void* p = self->unk0;
+    if (p) {
+        self->unk4 = 0;
+        func_00119400(D_00368A38[0], p);
+        self->unk0 = 0;
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}

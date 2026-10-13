@@ -10,6 +10,9 @@ struct VE_00159768 { s16 unk0; s16 unk2; int (*unk4)(void*, int, int); };
 struct S_00159768 { char pad0[0x8]; VE_00159768* unk8; };
 
 extern "C" {
+void func_0014F150(void);
+int func_0015AE68_r(int) __asm__("func_0015AE68");
+void func_0015B4B0(int, void*);
 void* func_0015AF80();
 int func_00157710(void*, int);
 extern u8 D_0033CDC8[];
@@ -248,7 +251,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AD38);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015ADF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015ADF8);
+struct S15ADF8 { char pad0[8]; int unk8; };
+
+extern "C" int func_0015ADF8(S15ADF8* self, int a) {
+    int t[2];
+    int v = func_001596E0((S_001596E0*)a);
+    func_0014F150();
+    if (func_0015AE68_r(a)) {
+        t[0] = v;
+        func_0015B4B0(self->unk8, t);
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" void func_0015AE68(void) {
     func_00188360();

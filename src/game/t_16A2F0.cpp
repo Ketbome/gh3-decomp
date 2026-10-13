@@ -23,6 +23,12 @@ struct S0016A2F0 {
 };
 
 extern "C" {
+void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
+extern u8 D_0033F4E8[];
+extern u8 D_0033F500[];
+void func_00119400(int, void*);
+extern u8 D_0033F380[];
+extern u8 D_0033F398[];
 void* func_001CE7A8(void*);
 void func_0016BF28(void*);
 void func_0010F690(void*);
@@ -52,7 +58,18 @@ extern "C" int func_0016A328(S0016A328* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016A330);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016A6A8);
+struct S_0016A6A8 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char pad24[0x2D8]; void* unk2FC; };
+
+extern "C" void func_0016A6A8(S_0016A6A8* self, int flags) {
+    void* p = self->unk2FC;
+    self->unk20 = D_0033F380;
+    self->unk8 = D_0033F398;
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+        self->unk2FC = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016A718);
 
@@ -70,7 +87,18 @@ extern "C" int func_0016A820(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016A828);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016ABA0);
+struct S_0016ABA0 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char pad24[0x2D8]; void* unk2FC; };
+
+extern "C" void func_0016ABA0(S_0016ABA0* self, int flags) {
+    void* p = self->unk2FC;
+    self->unk20 = D_0033F4E8;
+    self->unk8 = D_0033F500;
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+        self->unk2FC = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AC10);
 

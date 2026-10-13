@@ -13,6 +13,8 @@ struct S00183728 {
 };
 
 extern "C" {
+void func_00157538(void*);
+extern u8 D_00343C50[];
 extern u8 D_00343A98[];
 void func_00152B88(void*);
 }
@@ -57,7 +59,20 @@ extern "C" S00183828* func_00183828(S00183828* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183840);
+struct S183840 { char pad0[4]; unsigned int unk4; void* unk8; s16 unkC; s16 unkE; int unk10; };
+
+extern "C" S183840* func_00183840(S183840* self, int a) {
+    func_00157538(self);
+    void* d = D_00343C50;
+    unsigned int t = self->unk4 & 0x0FFFF000;
+    self->unk8 = d;
+    self->unkE = 0;
+    self->unkC = 0;
+    self->unk4 = t;
+    self->unk10 = 0;
+    if (a) self->unk4 = t | 8;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001838B0);
 

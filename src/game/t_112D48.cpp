@@ -41,6 +41,7 @@ struct SA112_D {
 };
 
 extern "C" {
+extern u8 D_003378C8[];
 void func_00114150(void*, int, int);
 void func_001144A0(void*);
 void* func_00113D20(u32);
@@ -60,7 +61,20 @@ extern int D_00368388[];
 void func_0030ADA0(int, int, int);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112D48);
+struct S112D48 { void* unk0; int unk4; char pad8[4]; void* unkC; };
+
+extern "C" void func_00112D48(S112D48* self, int flags) {
+    self->unkC = D_003378C8;
+    void* p = self->unk0;
+    if (p) {
+        self->unk4 = 0;
+        func_00119400(D_00368A38[0], p);
+        self->unk0 = 0;
+    }
+    if (flags & 1) {
+        func_00119400(D_00368A38[0], self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00112DB0);
 

@@ -16,6 +16,9 @@ struct S1A0_19F { int unk0; int unk4; char pad8[8]; B10_19F unk10; };
 struct N_19F { N_19F* next; char pad4[0x48]; N_19F* prev; };
 
 extern "C" {
+void func_002F3B80(void);
+void func_002F3BD0(void);
+void func_0019F7E0(N_19F*);
 extern int D_00372D24;
 extern char* D_00373308;
 extern int* D_00373320;
@@ -24,7 +27,24 @@ extern N_19F* D_00373304;
 extern void* D_0036C430;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F538);
+struct N19F538 { N19F538* unk0; char pad4[0x34]; int unk38; };
+
+extern "C" void func_0019F538(int a) {
+    N19F538* p = (N19F538*)D_00373300;
+    if (p) {
+        do {
+            if (p->unk38 == a) {
+                N19F538* n = p->unk0;
+                func_002F3B80();
+                func_0019F7E0((N_19F*)p);
+                p = n;
+                func_002F3BD0();
+            } else {
+                p = p->unk0;
+            }
+        } while (p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F5A0);
 

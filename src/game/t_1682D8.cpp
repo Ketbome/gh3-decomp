@@ -28,6 +28,15 @@ struct S00168C60 {
 };
 
 extern "C" {
+void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
+extern u8 D_0033F0B0[];
+extern u8 D_0033F0C8[];
+extern u8 D_0033EF48[];
+extern u8 D_0033EF60[];
+void func_00119400(int, void*);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern u8 D_0033E840[];
+extern u8 D_0033E858[];
 extern u8 D_0033E9A8[];
 extern u8 D_0033E9C0[];
 void func_00162FC8(void);
@@ -53,7 +62,18 @@ extern "C" int func_001682E8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_001682F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00168708);
+struct S_00168708 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char pad24[0x2D8]; void* unk2FC; };
+
+extern "C" void func_00168708(S_00168708* self, int flags) {
+    void* p = self->unk2FC;
+    self->unk20 = D_0033E840;
+    self->unk8 = D_0033E858;
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+        self->unk2FC = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00168778);
 
@@ -135,7 +155,18 @@ extern "C" int func_00169770(S00168888* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169A70);
+struct S_00169A70 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char pad24[0x2D0]; void* unk2F4; };
+
+extern "C" void func_00169A70(S_00169A70* self, int flags) {
+    void* p = self->unk2F4;
+    self->unk20 = D_0033EF48;
+    self->unk8 = D_0033EF60;
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+        self->unk2F4 = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169AE0);
 
@@ -153,7 +184,18 @@ extern "C" int func_00169BE8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169BF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169E70);
+struct S_00169E70 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char pad24[0x2D0]; void* unk2F4; };
+
+extern "C" void func_00169E70(S_00169E70* self, int flags) {
+    void* p = self->unk2F4;
+    self->unk20 = D_0033F0B0;
+    self->unk8 = D_0033F0C8;
+    if (p) {
+        func_00119400(D_00368A38[0], p);
+        self->unk2F4 = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1682D8", func_00169EE0);
 
