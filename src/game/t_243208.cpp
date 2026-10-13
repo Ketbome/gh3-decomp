@@ -176,7 +176,26 @@ extern "C" void func_00243C10(u8* a, T243C* tbl) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243CC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243E90);
+extern "C" void func_00243E90(u8* n0, T243C* v, T243C* tbl, int flag) {
+    T243C tmp;
+    register u8* a0 asm("$4") = n0;
+    u8* n = n0;
+    if (flag) {
+        asm volatile("lqc2 $vf1, 0(%0)\n\tvsuba.xyzw $ACC, $vf0, $vf1" : : "r"(v));
+        register T243C* a1 asm("$5") = &tmp;
+        asm volatile("vmsub.xyzw $vf1, $vf0, $vf0\n\tsqc2 $vf1, %0" : "=m"(tmp) : "r"(a1));
+        func_00243C10(a0, a1);
+    }
+    s32 t = *n & 3;
+    if ((t ^ 3) != 0) {
+        s32 x = *(s32*)n >> 2;
+        u8* c = n + 4;
+        *(s32*)n = ((s32)(((f32)x * 0.000244140625f) * tbl->v[t] * 4096.0f) << 2) | t;
+        func_00243E90(func_00246B30(c), v, tbl, 0);
+        func_00243E90(func_00246B78(c), v, tbl, 0);
+    }
+    if (flag) func_00243C10(n, v);
+}
 
 extern "C" s32 func_00243FA8(u8* a, s32 b, s32 c) {
     if (((*a & 3) ^ 3) == 0) {
