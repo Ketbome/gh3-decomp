@@ -13,6 +13,7 @@ struct S00183728 {
 };
 
 extern "C" {
+void func_0030A2F4(int, int, int);
 void Heap_Free(int, void*);
 void func_001BDE38(int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -154,7 +155,28 @@ extern "C" int func_001842B0(S184188* self, int a1, int a2, int a3, int a4, int 
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00184320);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001849A0);
+struct I1849A0 { char pad0[0x14]; int unk14; int unk18; int unk1C; int unk20; };
+struct O1849A0 { char pad0[4]; unsigned int unk4; char pad8[8]; I1849A0** unk10; };
+
+extern "C" int func_001849A0(O1849A0* self, int f1, int k1, int f2, int k2) {
+    I1849A0* v;
+    int f = self->unk4;
+    if ((f >> 2) & 1) {
+        v = *self->unk10;
+    } else {
+        v = 0;
+        if (f & 1) v = (I1849A0*)self->unk10;
+    }
+    if (f1) {
+        if (v->unk1C != k1) return 0;
+        func_0030A2F4(v->unk14, f1, k1);
+    }
+    if (f2) {
+        if (v->unk20 != k2) return 0;
+        func_0030A2F4(v->unk18, f2, k2);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00184A48);
 

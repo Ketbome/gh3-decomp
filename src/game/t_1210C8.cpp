@@ -53,6 +53,9 @@ struct SA121_L {
 };
 
 extern "C" {
+int func_003205E0(void);
+extern int D_00368740;
+extern int D_0032A4E0[];
 int func_002F7970(int, void*, int, int, int);
 int func_002F82B8(int, int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -81,7 +84,7 @@ extern u32 D_00368738;
 extern int D_00368768;
 int func_00122940(void);
 int func_001170D0(void);
-void func_00122A10(void);
+int func_00122A10(void);
 extern int D_00368F20;
 extern u8 D_00339370[];
 void func_001CE888(void*, void*);

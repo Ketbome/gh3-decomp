@@ -13,6 +13,8 @@ struct S001874D8 {
 struct S_001873D8 { int unk0; int unk4; char pad8[8]; int* unk10; };
 
 extern "C" {
+int func_001BF4A0(int, void*);
+int func_001C3578(int, void*);
 extern int D_0036B594;
 extern int D_00368A38;
 void Heap_Free(int, int);
@@ -69,6 +71,13 @@ static inline int S_001873D8_GetF(S_001873D8* self, int f) {
         return *self->unk10;
     }
     if (f & 1) {
+        return (int)self->unk10;
+    }
+    return 0;
+}
+
+static inline int S_001873D8_Get2F(S_001873D8* self, int f) {
+    if ((f >> 1) & 1) {
         return (int)self->unk10;
     }
     return 0;

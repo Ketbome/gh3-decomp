@@ -963,3 +963,12 @@ A9 pass, part 3. Matched 1: func_0012B970 (small table filled through a moving p
 
 Given up (A9, part 3): func_0012EC20 (switch on hashes: layout matches [5F49][AF2F][C683] but epilogue/likely-branch
 shape differs), func_0019ED90 (needs `xori` after slt: forced with asm, but x/y/z registers end up a0 instead of v0).
+
+A9 pass, part 4. Matched 1: func_001849A0 (flag word via `int f` so `sra` not `srl`).
+
+- Reusing one `int t` for the first inline getter result and the reloaded flag word (`t = Get(self); if (t) { t = self->unk4; ... }`)
+  gives the original `beqz` + `lw` in the delay slot and the shared register (func_001874E0 first half).
+
+Given up (A9, part 4): func_001874E0 (and the 187708/877D0 siblings): second half only differs by the delay
+slot of the `beqz a0` (ours puts `move v0,zero` there; original `sra`), 5 variants; func_00122A10 (flat compare
+ladder, original splits the shared store block; 4 layouts).
