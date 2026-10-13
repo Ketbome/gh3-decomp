@@ -22,6 +22,11 @@ struct S273498_D {
 };
 
 extern "C" {
+extern int D_00370DA0;
+int func_00273308(int, f32);
+extern int D_003A92CC[];
+int func_00272520(int, int, int, int, int, int);
+int func_00273D88(void);
 extern int D_00368A38;
 void func_00114660(void *, int);
 void func_00119400(int, void *);
@@ -66,11 +71,28 @@ extern int D_00372ED4[] __attribute__((section(".sdata")));
 extern S273498_D *D_00370DB8_D asm("D_00370DB8");
 }
 
+GP_DATA(D_00370DA0);
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273498);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273510);
+extern "C" int func_00273510(int a) {
+    if (func_00273D88() == 1 && D_003A92CC[0]) {
+        int r = func_00120F78(a, D_003A92CC[0]);
+        if (r) {
+            return func_00272520(D_00370DB8, r, 1, 0, 0, 0);
+        }
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273588);
+extern "C" int func_00273588(int a) {
+    if (func_00273D88() == 1 && D_003A92CC[0]) {
+        S273498_B *r = func_001210C8(a, D_003A92CC[0]);
+        if (r) {
+            return func_00272520(D_00370DB8, (int)r, 1, 0, 0, 0);
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273600);
 

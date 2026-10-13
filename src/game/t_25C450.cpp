@@ -8,14 +8,27 @@ struct S0025D4E0 {
     int unk10;
 };
 
+struct S25C450_S {
+    char pad0[0x20];
+    int unk20;
+};
+
 extern "C" {
+void func_0027C160(int, int, int);
+int func_0025F9D8(void);
+int func_0025F9B0(void);
+int func_0025F988(void);
+int func_0027D1F8(int, int, int *, int);
+void func_0011A230(int, int, int, int, int);
+void func_0011A300(int, int, int);
+int CrcFromPathLowercase(int);
 int func_0027D870(int, int, int *, int);
 int func_00119710(int, int, int);
 void func_001C4388(int);
 extern char D_00356E88[];
 extern char D_003705F0[];
 void func_0011A550(int);
-void func_0027D188(int, int, int *, int);
+int func_0027D188(int, int, int *, int);
 void func_0011A560(int, int, int);
 int func_0027DF00(int, int);
 extern int D_00368744[] __attribute__((section(".sdata")));
@@ -75,9 +88,26 @@ extern "C" int CFunc_MemPopContext(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemInitHeap);
+extern "C" int CFunc_MemInitHeap(int arg0) {
+    int out = 0;
+    int v;
+    func_0027D188(arg0, 0xA1DC81F9, &out, 1);
+    v = 0;
+    func_0027D1F8(arg0, 0x083FDB95, &v, 1);
+    func_0011A230(D_00368A38[0], CrcFromPathLowercase(out), v, out, 0);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemDeleteHeap);
+extern "C" void CFunc_MemDeleteHeap(int arg0) {
+    int out[2];
+    out[0] = 0;
+    if (func_0027D188(arg0, 0xA1DC81F9, &out[1], 0)) {
+        out[0] = CrcFromPathLowercase(out[1]);
+    } else {
+        func_0027D870(arg0, 0xA1DC81F9, out, 1);
+    }
+    func_0011A300(D_00368A38[0], out[0], 0);
+}
 
 extern "C" int CFunc_SetMemThreadSafe(int arg0) {
     if (func_0027DF00(arg0, 0xD443A2BC) != 0) {
@@ -159,7 +189,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D6E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DumpMemStatistics);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_GetNumUsedStructs);
+extern "C" int CFunc_GetNumUsedStructs(int a, S25C450_S *s) {
+    int h1 = s->unk20;
+    func_0027C160(h1, 0x86B89CE7, func_0025F9B0());
+    int h2 = s->unk20;
+    func_0027C160(h2, 0x3DD01EA1, func_0025F988());
+    int h3 = s->unk20;
+    func_0027C160(h3, 0x6289DD76, func_0025F9D8());
+    return 1;
+}
 
 extern "C" int CFunc_InitNetMiscHeap(void) {
     func_00119CC0(D_00368A38[0]);

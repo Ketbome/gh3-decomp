@@ -8,7 +8,16 @@ struct S00283520 {
     int unk0;
 };
 
+struct S282ED0 {
+    char pad0[0x24];
+    int unk24;
+};
+
 extern "C" {
+S282ED0 *func_00118F20(int, int, int, int);
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
 int func_0027B300(int, int);
 int func_002763E0(int, int);
 int func_002764E8(int, int);
@@ -36,10 +45,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_002829B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282CC8);
 
-struct S282ED0 {
-    char pad0[0x24];
-    int unk24;
-};
 extern "C" S282ED0 *func_00282ED0(S282ED0 *p) {
     p->unk24 = 0;
     func_00282F48(p);
@@ -83,7 +88,16 @@ extern "C" void func_00282F48(void *vp) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_282268", func_00282FA8);
+struct S282FA8 {
+    char pad0[0x24];
+    S282ED0 *unk24;
+};
+extern "C" void func_00282FA8(S282FA8 *p) {
+    int h = D_00368A38;
+    func_00119490(h, func_00119610(h, 5));
+    p->unk24 = func_00282ED0(func_00118F20(D_00368A38, 0x28, 1, 0));
+    func_001194B8(D_00368A38);
+}
 
 struct S283020 {
     int unk0;

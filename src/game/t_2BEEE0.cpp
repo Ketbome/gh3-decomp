@@ -1,6 +1,14 @@
 #include "common.h"
 
 extern "C" {
+int func_00119610(int, int);
+void func_001194B8(int);
+void func_00119490(int, int);
+int func_00118F20(int, int, int, int);
+extern int D_003720E8;
+extern int D_003720E4;
+extern int D_00368A38;
+extern int D_00368744;
 int func_002B5C08(int, int);
 int func_002B5CA8(int, int);
 int func_0027D870(int, int, int *, int);
@@ -12,7 +20,20 @@ void func_0027C160(int, int, int);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_DumpNoteMappings);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutputStart);
+GP_DATA(D_003720E8);
+extern "C" int CFunc_TextOutputStart(void) {
+    if (D_00368744 != 0) {
+        int h = D_00368A38;
+        func_00119490(h, func_00119610(h, 0x3B));
+    }
+    int m = func_00118F20(D_00368A38, 0x200000, 1, 0);
+    D_003720E4 = m;
+    D_003720E8 = m;
+    if (D_00368744 != 0) {
+        func_001194B8(D_00368A38);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutput);
 

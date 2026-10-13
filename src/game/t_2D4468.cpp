@@ -1,4 +1,17 @@
 #include "common.h"
+
+struct S002D5B48 {
+    char pad0[4];
+    void *unk4;
+    char pad8[0xE];
+    u8 unk16;
+};
+
+extern "C" {
+extern int D_00368A38;
+void func_00119400(int, void *);
+void func_002D5A90(void);
+}
 struct S2D4468_A {
     int unk0;
     int unk4;
@@ -37,7 +50,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D58B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5A90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5B48);
+extern "C" void func_002D5B48(S002D5B48 *p, int b) {
+    if (p->unk16 == 0) {
+        if (p->unk4) {
+            func_002D5A90();
+            if (p->unk4) {
+                func_00119400(D_00368A38, p->unk4);
+            }
+            p->unk4 = 0;
+        }
+    }
+    if (b & 1) {
+        func_00119400(D_00368A38, p);
+    }
+}
 
 extern "C" void func_002D5BC0(S2D4468_A *p) {
     p->unk0 = 0;

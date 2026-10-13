@@ -8,6 +8,11 @@ struct S254248_A {
 };
 
 extern "C" {
+void func_0026CA78(int, int, int);
+int func_0027CFA8(int, int, int *, int);
+void func_002E7C58(int, int);
+void func_00275F08(u32, int);
+int func_0026A660(int);
 int func_0026C250(int, int, int);
 int func_0026C120(int, int, int);
 void func_002E7D80(int);
@@ -252,7 +257,17 @@ extern "C" int CFunc_IsSoundLoaded(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_StopSound);
+extern "C" int CFunc_StopSound(int arg0) {
+    int out = 0;
+    if (func_0027D870(arg0, 0, &out, 0)) {
+        int r = func_0026A660(out);
+        if (r == 0) {
+            func_00275F08(0xD7BB618D, 0);
+        }
+        return r;
+    }
+    return 0;
+}
 
 extern "C" int CFunc_StopAllSounds(void) {
     func_002E8968();
@@ -388,7 +403,17 @@ extern "C" s32 CFunc_PauseStreamNum(int arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PauseStreamID);
+extern "C" int CFunc_PauseStreamID(int arg0) {
+    int v = 1;
+    int out = 0;
+    func_0027D870(arg0, 0, &out, 0);
+    int o = out;
+    func_0027D1F8(arg0, 0x28656D12, &v, 0);
+    if (o) {
+        func_002E7C58(o, v != 0);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadMusicHeader);
 

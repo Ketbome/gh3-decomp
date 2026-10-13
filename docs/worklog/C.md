@@ -632,3 +632,19 @@ t_2D0150 CFunc_get_song_rhythm_track_cfunc; t_2C0FC8 CFunc_LaunchGemEvent.
 helper call takes the incoming first argument unchanged.)
 Round 6 total (agent C7): 151 functions. Not yet tried in this range: func_0026E5C8, func_00289ED8 (hash search + loop),
 the t_2E2FB0/t_2E4FD0/t_2E0E90 -O0 frame-pointer functions, ~600 larger candidates (> 0x60 bytes).
+
+### Round 8 (agent C8)
+Candidate filter: skip functions whose .s starts with `addiu sp,sp,0x10; nop` (split-fragment prefix: t_29F288 dtors
+func_0029FB40/BA8/FC10/FC80/func_002A1110 have it twice and cannot match).
+Matched (+17 so far): t_254248 CFunc_StopSound, CFunc_PauseStreamID; t_273498 func_00273510, func_00273588; t_2848B0
+func_00286160; t_27D828 func_0027E410, func_0027DCB8; t_2D4468 func_002D5B48; t_2774B8 func_00277540 (old void prototype
+kept as `func_00277540_v` asm alias for func_002775B8); t_266800 func_002681B0, func_00267760; t_282268 func_00282FA8;
+t_25C450 CFunc_MemDeleteHeap, CFunc_MemInitHeap, CFunc_GetNumUsedStructs; t_268EB8 func_00269F60 (4-entry table scan, a
+plain `for` under `-funroll-loops`); t_2BEEE0 CFunc_TextOutputStart.
+(Quirks: `int h1 = s->unk20; ... int h2 = s->unk20;` one fresh local per use fixes s0/s1 assignment; a value read
+right after a call and tested later (`lw s1,0(sp)` before the next call) is a local copy `int o = out;`; two global
+stores where the second lands in the `beqz` delay slot: swap the source order.)
+Given up:
+- func_002704E0 (2D table stores, v0/v1), func_00273498 (gcc folds the movz chain), func_002964D8 (dtor, v0/v1 + s0/s1),
+  CFunc_AddMusicTrack (bool kept in s0), func_0026DCC8 (original keeps `bgez` + nop, ours `bltzl`), func_002A74C0 (macro
+  load of D_00368A38 costed 1 insn), func_00268130 (`& 0xFFFFFFFE & 0xFFFFFFFB` stays unfolded in the original).
