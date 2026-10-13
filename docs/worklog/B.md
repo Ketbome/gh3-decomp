@@ -750,3 +750,7 @@ Habits: with an enormous virtual table (pad 0xEE00, 40 virtual slots) a class wi
 More (B11, part 7): func_001D54D8 func_001E8D88 func_0022CF80
 Habits: `register s32* a asm("$3")` and `register s32 f asm("$3")` can both be declared when their lifetimes do not overlap (func_001E8D88: the array pointer dies into the value that is then reused for the flag).
 Given up: func_0022C3C8 (4-slot pool allocator: original builds `lui a0` first and `addiu a1,a0,lo`, and uses the base register for the later `sb`; ours reorders), func_0023A0C8 see earlier.
+More (B11, part 8): func_001E2770 func_001CF148 func_00243C10 func_00243FA8
+Habits: a flag clear followed by a mask that gcc would fold into one `and` stays two `and`s when the first is a bitfield clear (anonymous struct in a union over the u32) and the second a plain mask (func_001CF148); `struct { f32 v[4]; }` parameter indexed `tbl->v[t]` gives `addu v0,tbl,v0` operand order (func_00243C10, cvt.w.s assembles now); callers that pass a leftover register to a callee declared with the wrong arity can be widened (func_001CF148 return type s32).
+Toolchain classes skipped (not fixable from source): functions whose saves use `sq` (7+ saved registers: func_001BDC30 body matches but prologue is sd vs sq), float `cvt.s.w` in a branch delay slot / `mul.s; nop; div.s` (func_001D5138), `lq`+`mtc1` vector-as-three-floats (func_001D2918).
+Given up: func_0022CBC0/func_0022CC78 (hash chain unlink; loop head duplicated into the bnel delay in the original), func_001D2918.

@@ -1,5 +1,21 @@
 #include "common.h"
 
+struct S1E277 {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    f32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk30;
+};
+
 struct S1E0AE8_L {
     S1E0AE8_L* unk0;
     S1E0AE8_L* unk4;
@@ -80,6 +96,7 @@ void func_001E0F18(struct S1E0AE8* p);
 s32 func_0011EF10(void);
 s32 func_00275570(void);
 extern s32 D_00370F40;
+void func_001DE7C8(void* p, s32 a);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E0AE8);
@@ -312,7 +329,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2558);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2628);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2770);
+extern "C" void func_001E2770(S1E277* p) {
+    p->unk0 = 0;
+    p->unk4 = 0;
+    p->unk8 = 0;
+    p->unkC = 0;
+    p->unk14 = 0;
+    p->unk18 = 0;
+    p->unk1C = 0;
+    p->unk20 = 0;
+    p->unk24 = 0;
+    p->unk28 = 0;
+    p->unk2C = 0;
+    p->unk30 = 0;
+    p->unk10 = 0.11f;
+    func_001DE7C8((char*)p + 0x38, 0);
+    func_001DE7C8((char*)p + 0x5C, 0);
+    func_001DE7C8((char*)p + 0x80, 0);
+    func_001DE7C8((char*)p + 0xA4, 0);
+    func_001DE7C8((char*)p + 0xC8, 0);
+    func_001DE7C8((char*)p + 0xEC, 0);
+    func_001DE7C8((char*)p + 0x110, 0);
+    func_001DE7C8((char*)p + 0x134, 0);
+    func_001DE7C8((char*)p + 0x158, 0);
+    func_001DE7C8((char*)p + 0x17C, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2848);
 
