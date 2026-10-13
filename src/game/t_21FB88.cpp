@@ -1,5 +1,23 @@
 #include "common.h"
 
+struct V2208 {
+    char pad0[0x14];
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5(f32 f);
+};
+
+struct P2208 {
+    char pad0[0x1C];
+    V2208* unk1C;
+    char pad20[0x34];
+    s32 unk54;
+    s32 unk58;
+};
+
 struct G2202 {
     char pad0[0x18];
     s32 unk18;
@@ -65,6 +83,8 @@ void func_0012FAC8(void*, int, int);
 int func_00205B48(int, int);
 extern G2202* D_0036F658[] __attribute__((section(".sdata")));
 void* func_0015FAA0(s32 a, s32 b, s32 c);
+f32 func_0011ED10(void);
+void func_00220A80(char* p);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FB88);
@@ -146,7 +166,20 @@ extern "C" void* func_00220860(S21F* self) {
     return func_001D1CF8(self->unk64, 0x8536DBA5)->unk1C;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220898);
+extern "C" void func_00220898(void* pv) {
+    P2208* p = (P2208*)pv;
+    if (func_0011ED10() != 0.0f) {
+        func_00220A80((char*)p);
+        if (p->unk1C != 0) {
+            p->unk1C->v5(func_0011ED10());
+        }
+        if (p->unk54 != 0) {
+            func_002207F0((S21F*)p);
+        } else if (p->unk58 != 0) {
+            func_00220828((S21F*)p);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220948);
 

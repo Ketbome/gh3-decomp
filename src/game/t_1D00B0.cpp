@@ -1,5 +1,22 @@
 #include "common.h"
 
+struct O1D017 {
+    char pad0[0x2C];
+    virtual void v0();
+    virtual void v1();
+    virtual void v2(void* a);
+    virtual void v3();
+    virtual void v4();
+    virtual void v5(void* a);
+};
+
+struct X1D017 {
+    char pad0[0xC];
+    u32 unkC;
+    O1D017* unk10;
+    s32 unk14;
+};
+
 struct G1D00 {
     void* o;
     s32 a;
@@ -67,6 +84,9 @@ void func_001D4560(s32 a, void* b, s32 c, s32 d);
 void func_001CE868(void* p, void* g);
 void func_001CE888(void* p, void* g);
 void func_0028E010(s32 a, s32 b);
+void func_00289FB0(s32 a, s32 b);
+void func_0028DB28(void* p);
+void func_001CE810(void* p);
 }
 
 struct S1D1F {
@@ -123,7 +143,23 @@ extern "C" void func_001D0130(char* p, s32 a, s32 b) {
     func_001DAC78(D_0036D554, a, t, t, b, 0, -1.0f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0170);
+extern "C" void func_001D0170(void* pv) {
+    X1D017* p = (X1D017*)pv;
+    if ((p->unkC & 1) == 0) {
+        if (p->unk14 != 0) {
+            func_00289FB0(p->unk14, 0);
+        }
+        func_0028DB28(p);
+        O1D017* o = p->unk10;
+        p->unkC = p->unkC & 0xFFFFFFFD;
+        if (o != 0) {
+            o->v2(p);
+            o->v5(p);
+        }
+        p->unkC = p->unkC | 1;
+        func_001CE810((char*)p + 0x5C);
+    }
+}
 
 extern "C" void func_001D0228(char* p) {
     if (*(s32*)(p + 0x28) == 0) {

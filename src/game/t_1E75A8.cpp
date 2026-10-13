@@ -10,6 +10,7 @@ struct E1E8AB {
     virtual void v3();
     virtual void v4();
     virtual void v5();
+    virtual void v6();
 };
 
 struct N1E8AB {
@@ -157,6 +158,19 @@ s32 func_0027DF00(s32 p, u32 key);
 extern s32 D_00368748;
 extern char D_0034D7E8[];
 void func_001E7F18(s32 a, s32 b);
+int func_0027AA70(int);
+int func_001287F0(int, int);
+void func_0027ABB0(int, int);
+void func_0027C028(int, u32, int);
+void func_0028C9D0(int, int, int, int, int, int);
+void func_0027AC90(int);
+void func_00113250(int);
+void func_001E8948(void* p);
+s32 func_001E8838(void);
+s32 func_001E8C00(s32* p);
+void func_001E8A40(S1E89F8* p);
+void func_001E8A88(S1E89F8* p);
+extern char D_0034DC40[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E75A8);
@@ -296,7 +310,25 @@ extern "C" void func_001E88F8(S1E88F8* p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8948);
+extern "C" void func_001E8948(void* pv) {
+    E1E8AB* p = (E1E8AB*)pv;
+    u32 k = p->unkC;
+    if (k == 0xBD982FDC || k == 0x7B01911C) {
+        return;
+    }
+    if (k == 0x152D376E) {
+        if (func_001E8838() != 0) {
+            if (func_001E8C00((s32*)p) != 0) {
+                func_001E8A40((S1E89F8*)p);
+            } else {
+                func_001E8A88((S1E89F8*)p);
+            }
+        }
+    }
+    if (p->unkC == 0xB4E103FD) {
+        p->v4();
+    }
+}
 
 extern "C" s32 func_001E89F8(S1E89F8* p) {
     return p->unkC != 0xB4E103FD ? 0 : p->v3();
@@ -331,7 +363,22 @@ extern "C" void func_001E8AB0(void* pv) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8B50);
+extern "C" void func_001E8B50(void* pv) {
+    L1E8AB* p = (L1E8AB*)pv;
+    I1E8AB it;
+    I1E8AB e;
+    it.unk4 = p->unk24.unk4;
+    e.unk4 = &p->unk24;
+    while (it.unk4 != e.unk4) {
+        if (it.unk4->unk8->unkC == 0x7B01911C) {
+            it.unk4->unk8->unkC = 0x152D376E;
+            it.unk4->unk8->v6();
+            func_001E8948(it.unk4->unk8);
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk24;
+    }
+}
 
 extern "C" s32 func_001E8C00(s32* p) {
     if (*p != 0) {
@@ -385,7 +432,17 @@ extern "C" void func_001E8EB0(S1E8EB0* p, s32 flags) {
     func_001E8660(p, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8F00);
+extern "C" void func_001E8F00(char* p) {
+    int t = func_0027AA70(func_001287F0(8, 1));
+    int k = *(int*)p;
+    if (k != 0) func_0027ABB0(t, k);
+    func_0027C028(t, 0xA1DC81F9, *(int*)(p + 0x30));
+    func_0028C9D0(0x04C7C464, t, 0, 0, 0, 0);
+    if (t != 0) {
+        func_0027AC90(t);
+        func_00113250(t);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8FA0);
 
@@ -397,7 +454,32 @@ extern "C" s32 func_001E9008(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9010);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E92B0);
+extern "C" void func_001E92B0(void* pv, s32 flags) {
+    char* p = (char*)pv;
+    *(char**)(p + 0xC) = D_0034DC40;
+    u32 k = *(u32*)(p + 8);
+    if (k == 0x9E497FC6) goto a;
+    if (k > 0x9E497FC6) goto end;
+    if (k == 0x7A26BB9D) goto b;
+    goto end;
+a: {
+        void* q = *(void**)p;
+        if (q != 0) {
+            Heap_Free(D_00368A38[0], q);
+        }
+        goto end;
+    }
+b: {
+        void* q = *(void**)p;
+        if (q != 0) {
+            Heap_Free(D_00368A38[0], q);
+        }
+    }
+end:
+    if (flags & 1) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 extern "C" s32 func_001E9360(S1E9360* p) {
     return p->unk4 < 2 ? 0 : GetProgressionDifficulty();
