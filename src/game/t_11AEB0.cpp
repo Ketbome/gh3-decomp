@@ -35,6 +35,8 @@ struct SA11A_L {
 };
 
 extern "C" {
+unsigned int func_0011A8A8(int, void*);
+void func_0011B468_v(void) __asm__("func_0011B468");
 int func_0030AA88();
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00338968[];
@@ -44,7 +46,6 @@ void* func_00118F20(int, int, int, int);
 int func_0011C470(u32);
 extern int D_00368A94;
 extern int D_00368B40[2];
-void func_0011B468(void);
 void func_0011AB60(void);
 extern int D_0032A4A0[];
 }
@@ -127,12 +128,28 @@ extern "C" void func_0011AFF0(void* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011B030);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011B468);
+struct N11B468 { N11B468* unk0; char pad4[4]; unsigned int unk8; };
+struct L11B468 { char pad0[0x1C]; N11B468* unk1C; };
+struct S11B468 { char pad0[0x34]; int unk34; char pad38[8]; L11B468* unk40; };
+
+extern "C" unsigned int func_0011B468(S11B468* self) {
+    N11B468* n = self->unk40->unk1C;
+    unsigned int m = 0;
+    if (n) {
+        do {
+            unsigned int v = n->unk8;
+            n = n->unk0;
+            m = (v >= m) ? v : m;
+        } while (n);
+    }
+    unsigned int r = func_0011A8A8(self->unk34, n);
+    return (m >= r) ? m : r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011B4C0);
 
 extern "C" void func_0011BA28(void) {
-    func_0011B468();
+    func_0011B468_v();
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11AEB0", func_0011BA48);

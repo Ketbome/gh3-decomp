@@ -31,7 +31,16 @@ extern "C" int func_00183758(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183760);
+struct VE_183760 { s16 unk0; s16 unk2; int (*unk4)(void*); };
+struct V_183760 { char pad0[0xB8]; VE_183760 unkB8; };
+struct S_183760a { char pad0[0xC]; V_183760* unkC; };
+struct S_183760 { char pad0[0x14]; S_183760a* unk14; };
+
+extern "C" int func_00183760(S_183760* self) {
+    S_183760a* o = self->unk14;
+    V_183760* v = o->unkC;
+    return v->unkB8.unk4((char*)o + v->unkB8.unk0);
+}
 
 extern "C" void func_00183790(void) {
 }

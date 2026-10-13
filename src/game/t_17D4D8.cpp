@@ -11,6 +11,11 @@ struct S0017D658 {
 };
 
 extern "C" {
+void func_0017E658(void*, float);
+void func_0017D658_2(void*, void*) __asm__("func_0017D658");
+void func_0017E4B8(void*, int);
+void func_00172A00(void*, int);
+extern u8 D_00343328[];
 int func_00124630(int);
 void func_0017DC80(void);
 extern int D_0036AA90;
@@ -76,11 +81,28 @@ extern "C" u32 func_0017E458(void) {
     return 0x119E1C65 /* motionextractedsource */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E468);
+struct S17E468 { char pad0[0x14]; void* unk14; char pad18[8]; char unk20[1]; };
+
+extern "C" void func_0017E468(S17E468* self, int a) {
+    self->unk14 = D_00343328;
+    func_0017E4B8(self->unk20, 2);
+    func_00172A00(self, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E4B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E518);
+typedef unsigned int u128_17D __attribute__((mode(TI)));
+struct O17E518 { char pad0[0x58]; int unk58; };
+struct S17E518 { char pad0[0x1C]; O17E518* unk1C; char pad20[0x10]; u128_17D unk30; u128_17D unk40; u128_17D unk50; u128_17D unk60; };
+
+extern "C" void func_0017E518(S17E518* self, O17E518* o) {
+    self->unk1C = o;
+    o->unk58 = o->unk58 + 1;
+    func_0017D658_2(self, self->unk1C);
+    func_0017E658(self, 0.0f);
+    self->unk50 = self->unk30;
+    self->unk60 = self->unk40;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E570);
 

@@ -59,6 +59,8 @@ struct SA116_Sema {
 };
 
 extern "C" {
+void* func_00113D20(u32);
+void func_00118168(void*, int, int, int);
 void func_002ED120(int);
 u32 func_001180D8();
 void func_00117F50(void*);
@@ -183,7 +185,9 @@ extern "C" void func_00117168(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001171C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117270);
+extern "C" void func_00117270(int a, int b, int c, int d) {
+    func_00118168(func_00113D20(0x100), b, c, d);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_001172C8);
 

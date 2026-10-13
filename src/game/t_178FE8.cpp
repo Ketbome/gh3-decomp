@@ -24,9 +24,13 @@ struct S00179BB0 {
 };
 
 extern "C" {
+void func_0017D580(void*, int);
+extern u8 D_003424C8[];
+extern u8 D_00342638[];
 void func_00179518(int, int);
 extern u8 D_00341B18[];
 void func_00172A00(void*);
+void func_00172A00_2(void*, int) __asm__("func_00172A00");
 extern u8 D_00341AB8[];
 extern u8 D_00341A58[];
 extern u8 D_00341FB8[];
@@ -151,7 +155,13 @@ extern "C" u32 func_0017A180(void) {
     return 0x4600C341 /* overlay */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A190);
+struct S17A190 { char pad0[0x14]; void* unk14; char unk18[1]; };
+
+extern "C" void func_0017A190(S17A190* self, int a) {
+    self->unk14 = D_003424C8;
+    func_0017D580(self->unk18, 2);
+    func_00172A00_2(self, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A1E0);
 
@@ -164,7 +174,11 @@ extern "C" u32 func_0017A5C0(void) {
     return 0xBA560054 /* mappedmappedoverlay */;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A5D0);
+extern "C" void func_0017A5D0(S17A190* self, int a) {
+    self->unk14 = D_00342638;
+    func_0017D580(self->unk18, 2);
+    func_00172A00_2(self, a);
+}
 
 extern "C" int func_0017A620(S0017A620* self) {
     self->unk1C = 0;

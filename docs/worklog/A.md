@@ -728,3 +728,23 @@ Given up (A7):
 - func_001820D0: `move a2,a0` self copy for the 3rd arg lands in a3; 1 try
 - func_001A4730: lui placed before the sll in ours; func_0011E008: s0/s1 swap; func_0011DAB0: loop-tail nop
 - func_00178860, func_00179B90, func_0011EF00, func_00157298 (pextlw), func_001170D8, func_00172CC8 (stack temp): not matchable / fragments
+
+A7 pass, part 2. Matched 26: func_00119138 func_00119570 func_001195C0 func_00121F28 func_00183498 func_0011EB48
+func_0011F548 func_00175560 func_00183760 func_001820D0 func_00175CC0 func_00175FD0 func_0017A190 func_0017A5D0
+func_0017E468 func_001A46E0 func_00114528 func_00117270 func_0011ABF8 func_0011F710 func_001A4488 func_00114580
+func_00114770 func_001148F8 func_0017E518 func_0011B468
+
+- m2c's extra call arguments are often leftover registers: when a vcall/call has `move a2,a0` style copies the
+  original never sets (e.g. a1/a2 not written before `jalr`), call with fewer args (func_00175560, func_001820D0,
+  func_00183760), or declare an alias with the real arity: `void f_2(void*, int) __asm__("func_00172A00");`.
+  Callers that pass nothing also need an alias (func_0011B468_v).
+- A vcall whose result type is `int` (return it) flips the vt/fn register pair; a void call keeps the first
+  pair (func_00183760 returns `int`, func_001820D0 stays `void` with `if (!self) return 0;` first).
+- Store runs: `unk44 = 0; unk48 = 0;` came out as 0x48 first (func_001148F8), as in t_12D990.
+
+Given up (A7, part 2):
+- func_00182020: s0/s1 swap and beqzl; func_00182078, func_00197FC8: pooled new, the original loads D_003689E8
+  (`lui a2`/`lw`) before building D_003670F0 (ours the other way, volatile and a local did not help)
+- func_00120C08: original has an extra nop between `lw` and `beqz` in the wait loop; 3 tries
+- func_001A42E0: bitfield word updates, register order; func_001822F0 (alloc arg order a2,a3,a1)
+- func_0011DDA8, func_0011E9E0 (handwritten), func_001708F8 (pcpyud), func_00154030 (unaligned struct), func_00174C48
