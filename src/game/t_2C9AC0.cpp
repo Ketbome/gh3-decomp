@@ -28,6 +28,13 @@ struct S2CA618_Arr {
 
 extern "C" {
 int func_00275F08(int, int);
+int func_0030B550(void *, char *, int);
+int CrcFromPathLowercase(void *);
+int func_0027DF00(int, int);
+extern char D_00362BD0[];
+extern char D_00362BE0[];
+extern char D_00362BF8[];
+extern char D_00362C18[];
 S2CA618_Arr *func_002764E8(int, int);
 extern s32 D_0036C378[] __attribute__((section(".sdata")));
 extern s32 D_0036CA50;
@@ -55,7 +62,39 @@ void func_0027D400(int, u32, void *, int);
 int func_0027D828(int, u32);
 extern char D_00372188[];
 u32 func_001150E0(u32, char *);
+void func_0027AC90(int);
+void func_00113250(int);
+int func_0027AA70(int);
+int func_001287F0(int, int);
+void func_0027C448(int, u32, int);
+void func_0027C1F8(int, u32, f32);
+void func_0027C160(int, u32, int);
+void func_0027C5B0(int, u32, f32, f32);
+void func_0027C028(int, u32, int);
+void func_0027C898(int, u32, int);
+void CFunc_SpawnScriptNow(int, int);
 }
+
+struct S2CA888 {
+    char pad0[0x18];
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+    char pad28[4];
+    int unk2C;
+    char pad30[0x14];
+    int unk44;
+    char pad48[4];
+    int unk4C;
+    char pad50[0xC];
+    f32 unk5C;
+    char pad60[4];
+    int unk64;
+    int unk68;
+    f32 unk6C;
+    f32 unk70;
+};
 
 GP_DATA(D_00372180);
 extern "C" int CFunc_SetLastGuitarVolume(int params) {
@@ -175,11 +214,51 @@ extern "C" void func_002CA618(int a, int *p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C9AC0", func_002CA6E8);
+extern "C" void func_002CA6E8(int a, int *p) {
+    char buf[0x70];
+    int n = func_0027D828(a, 0xA1DC81F9);
+    func_0030B550(buf, D_00362BD0, n);
+    int h1 = CrcFromPathLowercase(buf);
+    func_0030B550(buf, D_00362BE0, n);
+    int h2 = CrcFromPathLowercase(buf);
+    *p = 2;
+    func_002CA618(h1, p);
+    func_002CA618(h2, p);
+    if (func_0027DF00(a, 0xC6EFF9C1)) {
+        func_0030B550(buf, D_00362BF8, n);
+        int h3 = CrcFromPathLowercase(buf);
+        func_0030B550(buf, D_00362C18, n);
+        int h4 = CrcFromPathLowercase(buf);
+        *p = 2;
+        func_002CA618(h3, p);
+        func_002CA618(h4, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C9AC0", func_002CA818);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C9AC0", func_002CA888);
+extern "C" void func_002CA888(S2CA888 *p, int a) {
+    int s = func_0027AA70(func_001287F0(8, 1));
+    func_0027C448(s, 0, p->unk18);
+    int t = func_0027AA70(func_001287F0(8, 1));
+    if (p->unk18 != 0x45E568EE) {
+        func_0027C1F8(t, 0x906B67BA, p->unk5C);
+        func_0027C160(t, 0x7D30DF01, p->unk64);
+        func_0027C5B0(t, 0x13B9DA7B, p->unk6C, p->unk70);
+        func_0027C448(t, 0x8A521CB3, p->unk68);
+        func_0027C160(t, 0x67E6859A, p->unk20);
+        func_0027C448(t, 0x1BFF0C3D, p->unk24);
+        func_0027C028(t, 0x666E080B, p->unk2C);
+        func_0027C160(t, 0x5CA15C8F, p->unk4C);
+        func_0027C160(t, 0x7FF8E6DA, p->unk44);
+    }
+    func_0027C898(s, 0x7031F10C, t);
+    CFunc_SpawnScriptNow(s, a);
+    if (s) {
+        func_0027AC90(s);
+        func_00113250(s);
+    }
+}
 
 extern "C" int CFunc_fretbar_iterator_CFunc_Setup(int params, void *script) {
     func_00289C88(script, 0x74);

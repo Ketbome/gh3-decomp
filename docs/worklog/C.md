@@ -838,3 +838,5 @@ prototype changed to `int func_002943A0(int)`).
 Round 12 given up: t_2E7010 func_002E7C58 (the two-entry unrolled compare matches as straight-line blocks except the alignment nop before the
 second block; loop forms (index, pointer, do-while) give a different base register, 6 forms), t_26F3B8 func_0026F930 (only v0/v1 of the last
 global `|=` differ, int/void callee variants tried), t_2754A0 func_00275F08 (hash lookup + alias chase, as func_00276008).
+Round 12 matches (cont.): t_2BA998 CFunc_Create2DGem (callee `(int,int,int,int,float,int,int,int)`: the float at its argument position gives the original load order;
+`int o = f(..)` for the nested call first), t_2C9AC0 func_002CA6E8 (`int`-returning sprintf-like callee fixes the move scheduling), func_002CA888.
