@@ -33,7 +33,8 @@ DEF = re.compile(r"^(?!\s)(?!INCLUDE_ASM|TEXT_PAD|GP_DATA|typedef|struct|union|c
 
 
 def strip_source(text, func):
-    """Declarations + the target function; other function bodies and INCLUDE_ASM/TEXT_PAD/GP_DATA lines dropped."""
+    """Declarations + the target function; other functions reduced to prototypes, INCLUDE_ASM/TEXT_PAD/GP_DATA lines
+    dropped."""
     lines = text.splitlines()
     out = []
     i = 0
@@ -60,6 +61,9 @@ def strip_source(text, func):
             keep = m.group(2) == func or "inline" in m.group(1)
             if keep:
                 out += body
+            else:
+                sig = "\n".join(body)
+                out.append(sig[:sig.index("{")].rstrip() + ";")
             i = j + 1
             continue
         out.append(line)
