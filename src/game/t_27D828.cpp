@@ -442,7 +442,28 @@ extern "C" int func_0027EF60(S27EF20 *p, int i) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027EFA0);
+struct S27D8_V {
+    char pad0[2];
+    u8 type;
+    char pad3;
+    int size;
+    int data;
+};
+
+extern "C" f32 func_0027EFA0(S27D8_V *v, int i) {
+    if (v->size == 1) {
+        if (v->type == 2) {
+            return *(f32 *)&v->data;
+        }
+        return (f32)v->data;
+    }
+    int t = v->type;
+    v = (S27D8_V *)v->data;
+    if (t == 2) {
+        return ((f32 *)v)[i];
+    }
+    return (f32)((int *)v)[i];
+}
 
 struct S27F008 {
     char pad0[2];
