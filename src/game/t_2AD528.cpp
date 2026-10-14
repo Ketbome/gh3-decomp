@@ -301,4 +301,21 @@ extern "C" s32 CFunc_UnBindGuitarControllerStatus(void) {
     return 1;
 }
 
+extern "C" int func_002DC9D8(int);
+struct S2AF4B0_B {
+    char pad0[9];
+    u8 u9;
+    u8 uA;
+    u8 uB;
+    u8 uC;
+    u8 uD;
+    u8 uE;
+    u8 uF;
+    u8 u10;
+};
+struct S2AF4B0_C {
+    char pad0[0x1C];
+    S2AF4B0_B *unk1C;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF4B0);
