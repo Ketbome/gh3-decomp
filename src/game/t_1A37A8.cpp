@@ -1,5 +1,7 @@
 #include "common.h"
 
+typedef unsigned int u128 __attribute__((mode(TI)));
+
 extern "C" {
 void func_001A4050(void*, int);
 void func_002F3B80(void);
@@ -8,11 +10,27 @@ extern int D_0037334C;
 extern int D_00373348;
 extern int D_0036C58C;
 void func_001A41D0(int, int, int);
-extern int D_00373270;
+extern u128* D_00373270;
+extern int D_00373294;
+void func_0019BE48(int);
 void func_001A42E0(void*, u8);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A37A8);
+extern "C" u128* func_001A37A8(u8* src) {
+    if (D_00373294 != 0) func_0019BE48(0);
+    u128* base = D_00373270;
+    u128* d = base;
+    u128* s = (u128*)src;
+    int i;
+    for (i = 0; i < (*src + 2) * 16; i += 16) {
+        *d = *s;
+        s++;
+        d++;
+    }
+    int n = *src + 2;
+    D_00373270 = D_00373270 + n;
+    return base;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A37A8", func_001A3850);
 
