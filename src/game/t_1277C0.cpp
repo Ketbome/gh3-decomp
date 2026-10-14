@@ -362,7 +362,31 @@ extern "C" void* func_00128528(char** pp) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001287F0);
+struct Pool_func_001287F0 { int unk0; };
+extern "C" {
+extern Pool_func_001287F0* D_00371228[2];
+extern int D_00371238;
+int func_0011C2A8(Pool_func_001287F0*);
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
+}
+
+extern "C" int func_001287F0(int size, int unused) {
+    int i = D_00371238;
+    Pool_func_001287F0* pool = D_00371228[i];
+    if (pool) {
+        int r = func_0011C2A8(pool);
+        if (!r) {
+            int heap = D_00368A38[0];
+            func_00119490(heap, func_00119610(heap, 1));
+            r = (int)Heap_Alloc(D_00368A38[0], size, 1, 0);
+            func_001194B8(D_00368A38[0]);
+        }
+        return r;
+    }
+    return (int)Heap_Alloc(D_00368A38[0], size, 1, 0);
+}
 
 extern "C" void func_001288B0(S_00127838* self, int flags) {
     self->unkC = D_003398C8;
