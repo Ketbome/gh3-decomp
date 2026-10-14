@@ -291,4 +291,16 @@ extern "C" void func_001318B0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_001318D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_00131970);
+struct X_00131970 { char pad0[4]; int unk4; char pad8[8]; int* unk10; };
+struct B_00131970 { char pad0[4]; X_00131970* unk4; };
+struct E_00131970 { int unk0; char pad4[0x1C]; };
+struct S_00131970 { char pad0[0x224]; E_00131970* unk224; };
+
+extern "C" void func_00131970(S12F_G* arg, int barg) {
+    S_00131970* self = (S_00131970*)arg;
+    B_00131970* b = (B_00131970*)barg;
+    int i;
+    for (i = 0; i < (*(X_00131970* volatile*)&b->unk4)->unk4; i++) {
+        self->unk224[i].unk0 = b->unk4->unk10[i];
+    }
+}
