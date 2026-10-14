@@ -6,10 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A (third round, delay-slot functions first), B (second round, delay-slot retries incl.
-func_001E0198) and C (third round, limit 25 matches or 60 attempted). func_002530A8 is not a counterexample to the
-delay-slot rule: gcc fills that slot, the fix is in the C (statement order); no non-COP2 instruction gcc could not
-place appears in any of the 84,870 slots.
+Running (2026-10-14): workers A (third round), B (third round: func_001E0198 first) and C (third round), limit 25
+matches or 60 attempted. `decomp-forensics` on branch-likely / delay-slot choices made by gcc (func_001E8838,
+CFunc_SetMenuPadMappings, func_00234B88, func_001FDC60, func_001B9C60, func_001C4200, CFunc_PendingPakManLoads;
+short-loop pad nop in a slot: func_001BB078, func_001BB100), scratch only.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
