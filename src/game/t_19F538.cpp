@@ -186,7 +186,20 @@ extern "C" void* func_001A0D38(char* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0D98);
+struct E19F { int unk0; int unk4; };
+extern "C" void func_001A0F60_e(void*, E19F*, int*, int) __asm__("func_001A0F60");
+
+extern "C" void func_001A0D98(void* a, void* base, int c) {
+    E19F (*arr)[11] = (E19F (*)[11])base;
+    for (int i = 0; i < 11; i++) {
+        for (int j = 0; j < 11; j++) {
+            E19F* e = &arr[j][i];
+            e->unk0 = 1 << j;
+            e->unk4 = 1 << i;
+            func_001A0F60_e(a, e, &e->unk4, c);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0F60);
 
