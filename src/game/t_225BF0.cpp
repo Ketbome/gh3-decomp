@@ -155,7 +155,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226528);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226730);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226888);
+static inline s32 Find226(s32 key, s32* out) {
+    s32 i = key & 0x1FF;
+    if (D_003918C8[i]) {
+        do {
+            if (D_003918C8[i] == key) {
+                if (out) *out = i;
+                return 1;
+            }
+            i = (i + 1) & 0x1FF;
+        } while (D_003918C8[i]);
+    }
+    return 0;
+}
+
+extern s8 D_003938D8[];
+
+extern "C" s32 func_00226888(s32 key) {
+    s32 i;
+    return Find226(key, &i) ? D_003938D8[i] != 0 : 0;
+}
 
 extern "C" int func_00226918(int key) {
     int i = key & 0x1FF;
@@ -217,20 +236,6 @@ extern "C" s32 D_00372E48;
 
 struct S226a { s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; };
 struct S226b { s32 unk0; s32 unk4; s32 unk8; };
-
-static inline s32 Find226(s32 key, s32* out) {
-    s32 i = key & 0x1FF;
-    if (D_003918C8[i]) {
-        do {
-            if (D_003918C8[i] == key) {
-                if (out) *out = i;
-                return 1;
-            }
-            i = (i + 1) & 0x1FF;
-        } while (D_003918C8[i]);
-    }
-    return 0;
-}
 
 GP_DATA(D_00372E40);
 extern "C" void func_00226E30(int ai, int bi) {
