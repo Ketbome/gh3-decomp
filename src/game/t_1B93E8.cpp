@@ -65,7 +65,33 @@ extern "C" void func_001BB068(void) {
     D_0036CACC = 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BB078);
+struct N1B { char pad0[0x19C]; N1B* unk19C; };
+struct M1B { char pad0[0x2C]; M1B* unk2C; };
+extern "C" void func_001B1E38(void*);
+extern "C" void func_001BF358(void*);
+
+GP_DATA(D_0036CACC);
+extern "C" void func_001BB078(void) {
+    if (D_0036CACC) {
+        func_001BB050();
+        N1B* n = (N1B*)D_00372C34[0];
+        if (n) {
+            do {
+                func_001B1E38(n);
+                n = n->unk19C;
+            } while (n);
+        }
+        M1B* m = (M1B*)D_0036CBC0[0];
+        if (m) {
+            do {
+                func_001BF358(m);
+                m = m->unk2C;
+            } while (m);
+        }
+        D_0036CACC = 0;
+        D_0036CAC8 = 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BB100);
 
