@@ -89,7 +89,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DEC40);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF390);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF538);
+extern "C" float func_002EC118(float);
+
+extern "C" float func_001DF538(float a, float b, float c) {
+    float fx = a * (a > 0.0f ? 0.007874016f : 0.0078125f);
+    float fy = b * (b > 0.0f ? 0.007874016f : 0.0078125f);
+    float r;
+    if (c > -0.7853982f && c < 0.7853982f) {
+        r = c;
+    } else {
+        if (c > 0.7853982f && c < 2.3561945f) {
+            r = c - 1.5707964f;
+        } else {
+            float ac = __builtin_fabsf(c);
+            if (ac > 2.3561945f) {
+                r = ac - 3.1415927f;
+            } else {
+                r = c + 1.5707964f;
+            }
+        }
+    }
+    float s = fx * fx + fy * fy;
+    asm volatile("nop\n\tnop\n\tsqrt.s %0, %0" : "+f"(s));
+    s = s * __builtin_fabsf(func_002EC118(r));
+    s = s * 1.17647052f;
+    return s > 1.0f ? 1.0f : s;
+}
 
 extern "C" f32 func_001DF6E8(s32 a, s32 b, s32 c, s32 d) {
     return D_0032C3B8[a + b * 2 + c * 4 + d * 8];
