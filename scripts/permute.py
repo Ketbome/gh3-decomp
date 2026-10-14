@@ -109,7 +109,24 @@ def main():
         sys.exit("preprocessing failed:\n" + pre.stderr[:2000])
     base = pre.stdout
     # C++ keywords pycparser does not know: only the parser sees these typedefs
-    base = "PERM_PRETEND(typedef int bool;)\nPERM_PRETEND(typedef int true;)\n" + base
+    # The permuter parses C (pycparser): only the target function is shown to it. Everything before it passes
+    # through untouched (PERM_IGNORE) and the parser is told which names are types (PERM_PRETEND typedefs).
+    m = re.search(rf"^[^\n;{{}}]*\b{re.escape(func)}\s*\([^;{{]*\)\s*\{{", base, re.M)
+    if not m:
+        sys.exit(f"{func}: no definition found in {src.name}")
+    depth, j = 0, m.end() - 1
+    while True:
+        depth += {"{": 1, "}": -1}.get(base[j], 0)
+        if depth == 0:
+            break
+        j += 1
+    prefix, target, suffix = base[:m.start()], base[m.start():j + 1], base[j + 1:]
+    names = set(re.findall(r"\b(?:struct|union|class|enum)\s+(\w+)", prefix))
+    names |= set(re.findall(r"\btypedef\b[^;]*?\b(\w+)\s*(?:\[[^\]]*\])?\s*;", prefix))
+    names |= {"bool"}
+    pretend = "".join(f"PERM_PRETEND(typedef int {n};)\n" for n in sorted(names))
+    base = pretend + "PERM_IGNORE(\n" + prefix + "\n)\n" + target + "\n" + (
+        "PERM_IGNORE(\n" + suffix + "\n)\n" if suffix.strip() else "")
     (out / "base.c").write_text(base)
 
     (out / "target.s").write_text('.include "macro.inc"\n.set noat\n.set noreorder\n.section .text\n'
@@ -139,7 +156,10 @@ cd {shlex.quote(str(ROOT))}
         f'func_name = "{func}"\ncompiler_type = "gcc"\n'
         f'objdump_command = "{ROOT / configure.BINUTILS}objdump -drz -m mips:5900"\n')
     plain = out / "base_plain.c"
-    plain.write_text(re.sub(r"^PERM_PRETEND\(.*\)$", "", base, flags=re.M))
+    plain_text = re.sub(r"^PERM_PRETEND\(.*\)$", "", base, flags=re.M)
+    plain_text = plain_text.replace("PERM_IGNORE(\n", "", 2)
+    plain_text = re.sub(r"\n\)\n", "\n", plain_text)
+    plain.write_text(plain_text)
     test = subprocess.run([str(out / "compile.sh"), str(plain), "-o", str(out / "base.o")],
                           capture_output=True, text=True)
     if test.returncode:
