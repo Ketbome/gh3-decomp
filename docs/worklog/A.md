@@ -1201,3 +1201,4 @@ Given up:
 - func_0012D870: near miss (nonmatching/func_0012D870.cpp): only self/counter saved registers s1/s2 swapped (the loop counter should be the lower register)
 Matched (A18): func_0011ED68 func_0011EE38 (t_11D000), func_0015E2D0 (t_15D2E0), func_0016FCD8 (t_16E670; u32->float and u32 compare now fine after the delay-slot fix: natural code with u32 types)
 - near miss: func_0016FCD8 (t_16E670; u32 timer fraction, natural code; only FP register numbering differs: original t=f3 r=f4 old=f2, ours t=f2 r=f3 old=f0; 9 forms); nonmatching/func_0016FCD8.cpp
+Matched (A18): func_0012BF38 (t_12B970; the old source minus the asm nop, hazard nop after the join label now right)
