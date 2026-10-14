@@ -283,7 +283,16 @@ extern "C" void func_00131728(S12F_G* self, S12F_HP* h) {
     func_00134340(h);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_001317D0);
+struct E_001317D0 { int unk0; char pad4[0x1C]; };
+struct S_001317D0 { char pad0[0x220]; int unk220; E_001317D0* unk224; };
+extern "C" int func_001317D0(S_001317D0* self, int key) {
+    E_001317D0* p = self->unk224;
+    E_001317D0* end = p + self->unk220;
+    for (; p != end; p++) {
+        if (key == p->unk0) return p - self->unk224;
+    }
+    return -1;
+}
 
 extern "C" void func_001318B0(void) {
     func_00131018();
