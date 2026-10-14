@@ -317,7 +317,67 @@ extern "C" s32 CFunc_RecordInput(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AF170);
+struct S2AF170_P {
+    u8 b[0x38];
+    int unk38;
+};
+
+struct S2AF170_O {
+    char pad0[0x1C];
+    S2AF170_P *unk1C;
+};
+
+extern "C" S2AF170_O *func_002DCA08_o(int) asm("func_002DCA08");
+
+extern "C" void func_002AF170(int out, int flags, int c) {
+    S2AF170_O *o = func_002DCA08_o(out);
+    o->unk1C->b[11] = 0;
+    o->unk1C->b[10] = 0;
+    o->unk1C->b[9] = 0;
+    o->unk1C->b[12] = 0;
+    o->unk1C->b[13] = 0;
+    o->unk1C->b[16] = 0;
+    if (flags & 0x10000) o->unk1C->b[0x10] = 0xFF;
+    if (flags & 0x1000) o->unk1C->b[0xA] = 0xFF;
+    if (flags & 0x100) o->unk1C->b[9] = 0xFF;
+    if (flags & 0x10) o->unk1C->b[0xB] = 0xFF;
+    if (flags & 1) o->unk1C->b[0xC] = 0xFF;
+    o->unk1C->b[15] = 0;
+    o->unk1C->b[14] = 0;
+    o->unk1C->b[7] = 0;
+    o->unk1C->b[8] = 0;
+    o->unk1C->b[6] = 0;
+    o->unk1C->b[5] = 0;
+    o->unk1C->b[1] = 0;
+    o->unk1C->b[2] = 0;
+    o->unk1C->b[3] = 0;
+    o->unk1C->b[4] = 0;
+    o->unk1C->b[17] = 0;
+    o->unk1C->b[18] = 0;
+    o->unk1C->b[19] = 0;
+    o->unk1C->b[20] = 0;
+    o->unk1C->b[21] = 0;
+    o->unk1C->b[22] = 0;
+    o->unk1C->b[23] = 0;
+    o->unk1C->b[24] = 0;
+    o->unk1C->b[25] = 0;
+    o->unk1C->b[26] = 0;
+    o->unk1C->b[27] = 0;
+    o->unk1C->b[28] = 0;
+    o->unk1C->b[29] = 0;
+    o->unk1C->b[30] = 0;
+    o->unk1C->b[31] = 0;
+    o->unk1C->b[32] = 0;
+    o->unk1C->b[33] = 0;
+    o->unk1C->b[34] = 0;
+    o->unk1C->b[35] = 0;
+    o->unk1C->b[36] = 0;
+    if (c == 0) {
+        o->unk1C->unk38 = 0;
+    } else {
+        o->unk1C->unk38 = 0x1000;
+    }
+}
 
 extern "C" int CFunc_SetInput(int arg0) {
     int a = 0;
