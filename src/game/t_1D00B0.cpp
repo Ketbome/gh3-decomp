@@ -226,7 +226,26 @@ extern "C" s32 func_001D03D8(s32 a, s32 b, s32 c, s32 d, s32 e) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0450);
+extern "C" {
+void func_0028D098(s32 a, s32 b, s32 c, s32 d, s32 e);
+s32 func_0028AB28(s32 a);
+void func_0028C200(s32 a);
+void func_00289B40(s32 a, s32 b);
+}
+
+extern "C" s32 func_001D0450(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f) {
+    if (d != 0) func_0028D098(b, 0, c, e, 0);
+    s32 r = func_0028D1D8(b, f, 0, 0, c, 0, 0, 0, 0, 0);
+    if (r != 0) {
+        func_00289E10(r, a);
+        func_0028C200(r);
+        if (func_0028AB28(r) != 0) {
+            func_00289B40(r, 3);
+            r = 0;
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0518);
 
