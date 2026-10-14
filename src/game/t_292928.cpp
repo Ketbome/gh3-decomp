@@ -122,9 +122,50 @@ void func_00293C70(u32);
 void func_00293C00(int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
+void *func_00292808(void *, int);
+void func_002791E0(void *);
+void func_0025C5E8(void *);
+void func_0027BF30(void *);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00292928);
+struct S292Node {
+    char pad0[0xC];
+    S292Node *next;
+};
+
+struct S292Obj {
+    char pad0[4];
+    S292Node *head;
+};
+
+extern "C" void *func_00292928(S292Obj *obj, int off) {
+    S292Node *n = obj->head;
+    if (n) {
+        n = (S292Node *)((char *)n + off);
+        obj->head = n;
+    }
+    void *r = (char *)obj + 8;
+    while (n) {
+        r = func_00292808(n, off);
+        S292Node *c = n->next;
+        if (c && c != r) {
+            S292Node *p = c;
+            if (p) {
+                do {
+                    S292Node *nx = p->next;
+                    func_002791E0(p);
+                    func_0025C5E8(p);
+                    p = nx;
+                } while (p);
+            }
+            n->next = 0;
+            break;
+        }
+        n = n->next;
+    }
+    func_0027BF30(obj);
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_002929F0);
 
