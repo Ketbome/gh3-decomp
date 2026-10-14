@@ -256,9 +256,21 @@ extern "C" void func_001D5030(S1D5000* p, s32 v) {
     p->unk10 = v;
 }
 
+extern "C" {
+float func_00275DE0(u32, s32);
+s32 func_00275570(void);
+extern s32 D_00370F40;
+}
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5038);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5138);
+extern "C" float func_001D5138(s32* p) {
+    float a = func_00275DE0(0xBC682BD0, 1);
+    s32 base = *p;
+    u32 d = D_00370F40 + func_00275570() - base;
+    float t = (float)d / (a * 1000.0f);
+    if (1.0f < t) t = 1.0f;
+    return 1.0f - t;
+}
 
 extern "C" s32 func_001D51F8(S1D5000* p) {
     return p->unk10 != 0 || p->unk8 < func_001D7EE8(D_0036D410)->unk40;
