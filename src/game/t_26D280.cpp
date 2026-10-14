@@ -19,6 +19,12 @@ struct S26D_Ent {
     int key;
 };
 
+struct S26D_Cnt {
+    int unk0;
+    int unk4;
+    int unk8[1];
+};
+
 struct S26E008 {
     int unk0;
     int unk4;
@@ -40,6 +46,13 @@ void func_00277378_i(int, int) asm("func_00277378");
 extern int *D_00370CBC;
 extern int D_004278B0[];
 int func_0026E008(void *, int);
+void func_0027C160(int, int, int);
+S26D_Cnt *func_0026EAA0(char *);
+u32 CrcFromPathLowercase(const char *);
+int func_0027D470(int, u32, void *, int);
+void *func_0027EF20(void *, u32);
+int func_0028DAB8(void *);
+extern char D_00370C70[];
 void func_0026AE70(void);
 int func_0026ABA8(void);
 int func_002741B8(int);
@@ -313,9 +326,53 @@ extern "C" int func_0026EB08(int list, int extra, int out) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026EC08);
+struct S26D_Arr {
+    int unk0;
+    u32 unk4;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026ED98);
+extern "C" void *func_0026EC08(int key, char c, int obj) {
+    struct {
+        char name[2];
+        char pad[14];
+        S26D_Arr *arr;
+    } l;
+    u32 i = 0;
+    l.name[0] = c;
+    l.name[1] = 0;
+    l.arr = 0;
+    func_0027D470(obj, CrcFromPathLowercase(l.name), &l.arr, 1);
+    int n = l.arr->unk4;
+    for (; i < n; i++) {
+        void *p = func_0027EF20(l.arr, i);
+        if (func_0028DAB8(p) == key)
+            return p;
+    }
+    return D_00370C70;
+}
+
+extern "C" void func_0026ED98(int a, char *fmt, int c, int d, int *tbl) {
+    char buf[256];
+    char *o = buf;
+    while (*fmt) {
+        if (*fmt == '%') {
+            fmt++;
+            char t = *fmt;
+            fmt++;
+            char *s = (char *)func_0026EC08(tbl[t - 97], t, d);
+            while (*s)
+                *o++ = *s++;
+        } else {
+            *o++ = *fmt++;
+        }
+    }
+    *o = 0;
+    S26D_Cnt *r = func_0026EAA0(buf);
+    if (r) {
+        for (int i = 0; i < r->unk4; i++)
+            func_0027C160(a, r->unk8[i], c);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026EED8);
 
