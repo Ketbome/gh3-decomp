@@ -1,6 +1,7 @@
 #include "common.h"
 
 extern "C" {
+int func_00273588(int);
 f32 func_00268328(int);
 void func_00273070(f32);
 extern int D_00370AE0;
@@ -50,7 +51,15 @@ extern "C" int func_0026B158(int a, f32 f) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B1B0);
+extern "C" int func_0026B1B0(int a, f32 f) {
+    if (func_0026ABA8() == 0) {
+        if (func_00273588(a) != 0) {
+            func_00273070(f);
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B208);
 

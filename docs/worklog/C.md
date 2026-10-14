@@ -874,3 +874,4 @@ Given up: func_0027F9B0 (original copies the first arg to v1 first, like func_00
 func_00273DE8 (if-chain: gcc merges the `4 || 3` tests), func_0026DD48 (3-slot test: original keeps &p->unk1C and the table address in s1/s3), func_002EA900 (free-list init x4 unrolled: original derives nodes from one base, ours rotates registers),
 func_00296028 (ctor: everything matches with -funroll-loops and `do {} while (--i != -1)` except the frame: original has 32 unused bytes of locals), func_0026DAF8 (basename loop), func_00271480 (bit-mask tables, first-case registers),
 func_00267910 (call with 8 args taken from leftover registers), func_002E6C80 (partial struct copy on the stack after sprintf), func_0029F790 (inlined list iterator), func_002DFAC0/func_002DF750/func_002DF8A8/func_002EAE78 (start mid-function: split tails).
+Twins (scripts/twins.py): t_26AEF8 func_0026B1B0 (copy of func_0026B158).
