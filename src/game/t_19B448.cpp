@@ -52,7 +52,19 @@ extern "C" void func_0019B6B8(int a0, int a1, int a2, int a3, int a4, int a5) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B778);
+extern "C" void func_0019B778(int a) {
+    char* p = D_00373270;
+    char* end = (char*)(((int)p + 15) & ~15);
+    for (; p < end; ) {
+        *p = 0;
+        D_00373270 = p + 1;
+        p = D_00373270;
+    }
+    D_003732A0 = a;
+    D_003732A4 = D_00373270;
+    D_0037328C = 0;
+    D_00373284 = 0;
+}
 
 extern "C" long func_0019B7E0(void) {
     char* p = D_00373270;
