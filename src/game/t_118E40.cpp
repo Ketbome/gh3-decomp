@@ -390,7 +390,69 @@ extern "C" void func_00119710(void) {
     func_00119730();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_00119730);
+struct S_00119730 {
+    char pad0[0x1DC];
+    int unk1DC;
+    int unk1E0;
+    char pad1E4[4];
+    int unk1E8;
+    char pad1EC[4];
+    int unk1F0;
+    char pad1F4[0x18];
+    int unk20C;
+    char pad210[4];
+    int unk214;
+    char pad218[4];
+    int unk21C;
+    char pad220[4];
+    int unk224;
+    char pad228[4];
+    int unk22C;
+    int unk230;
+    char pad234[4];
+    int unk238;
+    int unk23C;
+    char pad240[0x10];
+    int unk250;
+};
+
+extern "C" int func_00119730_d(S_00119730* self, u32 key) __asm__("func_00119730");
+extern "C" int func_00119730_d(S_00119730* self, u32 key) {
+    SA118_K* p = func_0011A170(self, key);
+    if (p) {
+        return p->unk4;
+    }
+    switch (key) {
+    case 0x7ED56B49:
+        return self->unk23C;
+    case 0xC7800B0:
+        return self->unk1E0;
+    case 0x8FDB68AF:
+        return self->unk1DC;
+    case 0x62F3A0F3:
+        return self->unk1E8;
+    case 0xE3551D2E:
+        return self->unk21C;
+    case 0x96D29D93:
+        return self->unk224;
+    case 0xFCD5166B:
+        return self->unk22C;
+    case 0x90020867:
+        return self->unk230;
+    case 0xFA33D9B:
+        return self->unk1F0;
+    case 0x70CB0238:
+        return self->unk250;
+    case 0x25D71469:
+        return self->unk238;
+    case 0x7D433EB9:
+        return self->unk20C;
+    case 0x70B6CB1F:
+        return self->unk214;
+    default:
+        return func_0011A208(self, key, 0);
+    }
+}
 
 extern "C" int func_001198E8(void) {
     return -1;
