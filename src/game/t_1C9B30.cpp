@@ -537,7 +537,40 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB750);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_EnterSurveyorMode);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_ExitSurveyorMode);
+struct VE1C9B {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*, char*);
+};
+
+extern "C" s32 func_001CC0C0(void*);
+
+int CFunc_ExitSurveyorMode_d(int a, int b) __asm__("CFunc_ExitSurveyorMode");
+int CFunc_ExitSurveyorMode_d(int a, int b) {
+    s32 g = D_00369A60[0];
+    char* r = (char*)func_001CA768(g);
+    if (r == 0) {
+        return 0;
+    }
+    if (func_001CC0B0(r) != 0) {
+        return 0;
+    }
+    if (func_001CC0C0(r) == 0) {
+        return 1;
+    }
+    VE1C9B* e = (VE1C9B*)(*(char**)(g + 0xEE00) + 0xE0);
+    e->fn((char*)g + e->delta, r);
+    VE1C9B* e2 = (VE1C9B*)(*(char**)(r + 0x14) + 0x40);
+    ((void (*)(char*))e2->fn)(r + e2->delta);
+    char* o = *(char**)(g + 0x38);
+    if (o != 0) {
+        VE1C9B* e3 = (VE1C9B*)(*(char**)(o + 0x18) + 0x10);
+        ((void (*)(char*, s32))e3->fn)(o + e3->delta, 3);
+    }
+    *(char**)(g + 0x38) = 0;
+    *(s32*)(r + 0x38) &= ~0x400;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB8D8);
 
