@@ -169,6 +169,16 @@ extern "C" void func_002716B8(u32 *p, float v) {
     *p = (*p & ~0xF0) | ((func_00271910(D_0032D898, 16, v) & 0xF) << 4);
 }
 
+struct S271708 {
+    u32 unk0;
+    u32 unk4;
+};
+extern float D_0032D8D8[];
+extern float D_0032DAD8[];
+extern float D_0032DCD8[];
+extern float D_0032DED8[];
+extern "C" int func_003174C0(float, float);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271708);
 
 extern "C" void func_00271880(u32 *p, float v, int mode) {
