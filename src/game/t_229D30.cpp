@@ -347,7 +347,72 @@ INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B0D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B168);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B1B8);
+struct N22B {
+    N22B* unk0;
+    N22B* unk4;
+    char* unk8;
+};
+
+struct It22B {
+    int unk0;
+    N22B* unk4;
+    int unk8;
+    int unkC;
+};
+
+struct VE22B {
+    s16 delta;
+    s16 pad;
+    int (*fn)(char*);
+};
+
+extern "C" {
+int func_0022C120(char*);
+void func_0022CA20(int, char*);
+void func_0022AFC0_c(char*, char*) __asm__("func_0022AFC0");
+}
+
+extern "C" int func_0022B1B8(void* pp) {
+    char* p = (char*)pp;
+    It22B it, end, c, d, e;
+    int any = 0;
+    end.unk4 = (N22B*)(p + 0xB0);
+    it.unk4 = *(N22B**)(p + 0xB4);
+    if (it.unk4 != end.unk4) {
+        do {
+            int del = 0;
+            char* o = it.unk4->unk8;
+            if (func_0022C120(o) == 5) {
+                VE22B* v = (VE22B*)(*(char**)(o + 0x34) + 0x40);
+                if (v->fn(o + v->delta) != 0) {
+                    del = 1;
+                    func_0022CA20(*(int*)(p + 0xA8), o);
+                    func_0022AFC0_c(p, o);
+                }
+            } else {
+                del = 1;
+            }
+            if (del != 0) {
+                any = 1;
+                N22B* n = it.unk4;
+                c.unk4 = n;
+                e.unk4 = n;
+                N22B* nx = n->unk4;
+                d.unk4 = n;
+                c.unk4 = nx;
+                n->unk0->unk4 = n->unk4;
+                n->unk4->unk0 = n->unk0;
+                Heap_Free(D_00368A38, n);
+                end.unk4 = c.unk4;
+                it.unk4 = c.unk4;
+            } else {
+                it.unk4 = it.unk4->unk4;
+            }
+            end.unk4 = (N22B*)(p + 0xB0);
+        } while (it.unk4 != end.unk4);
+    }
+    return any;
+}
 
 extern "C" void func_0022B2E8(void* a) {
     while (func_0022B1B8(a)) {
