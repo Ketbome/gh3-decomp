@@ -276,7 +276,29 @@ extern "C" void func_00271DD0(S271_Voice *p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271E88);
+struct S271_Ev {
+    int unk0;
+    char pad4[8];
+    int unkC;
+    char pad10[0x18];
+    int unk28;
+    int unk2C;
+};
+extern float D_00370B08;
+
+extern "C" void func_00271E88(S271_Ev *p) {
+    if (p->unk0 == 0) {
+        func_00271A98(0x1B0, 0, 0, 0, 0, 0);
+        return;
+    }
+    int v;
+    if (!((p->unkC >> 3) & 1)) {
+        v = (int)(p->unk28 * D_00370B08);
+    } else {
+        v = p->unk28;
+    }
+    func_00271A98((p->unk0 - 1) | 0x1C0, p->unk2C, v, 0, 0, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271F28);
 
