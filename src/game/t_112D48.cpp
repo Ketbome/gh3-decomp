@@ -42,6 +42,7 @@ struct SA112_D {
 };
 
 extern "C" {
+void func_0030C3E8(int, int, int, void*);
 extern u8 D_00337D80[];
 extern u8 D_003378C8[];
 void func_00114150(void*, int, int);
@@ -61,6 +62,7 @@ extern int D_00368390;
 void func_00113D88(int, int);
 void func_00114298(int);
 void func_00114340(int);
+void func_001149B8(struct S_001149B8*);
 void func_00114AD8(void);
 extern u8 D_00337F20[];
 void func_00114770(struct S114770*);
@@ -252,7 +254,9 @@ extern "C" void func_00113AC8(char* d, int n, const char* s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113B20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113B28);
+extern "C" void func_00113B28(int a, int b, int c, ...) {
+    func_0030C3E8(a, b, c, (char*)__builtin_next_arg(c) - 0x28);
+}
 
 extern "C" void func_00113B68(char* s) {
     while (*s) {
@@ -302,7 +306,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113D88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113DE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113DF0);
+extern "C" void* func_00113DF0(int n, int a, int b) {
+    void* p = Heap_Alloc(D_00368A38[0], n, b, a);
+    if (p) memset(p, 0, n);
+    return p;
+}
 
 extern "C" void func_00113E48(int p0, int p1, int p2) {
     func_00113D88(p0, p2);
@@ -310,7 +318,10 @@ extern "C" void func_00113E48(int p0, int p1, int p2) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113E68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113E70);
+extern "C" void* func_00113E70(u32 n, void* p) {
+    if (p) memset(p, 0, n);
+    return p;
+}
 
 struct S_00113EA8 { char pad0[0x4]; int unk4; void* unk8; int unkC; int unk10; int unk14; void* unk18; };
 struct C_00113EA8 { u8 r, g, b, a; };
@@ -508,7 +519,15 @@ extern "C" void func_00114958(S_00114958* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114978);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114980);
+struct S_00114980 { char pad0[0x40]; int unk40; int unk44; };
+
+extern "C" void func_00114980(S_00114980* self) {
+    if (self->unk44) {
+        func_001149B8((S_001149B8*)self);
+    } else {
+        func_00114340(self->unk40);
+    }
+}
 
 extern "C" void func_001149B8(S_001149B8* self) {
     func_00114340(self->unk3C);
