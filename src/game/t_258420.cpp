@@ -147,7 +147,61 @@ extern "C" int CFunc_PrintStruct(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_258420", CFunc_Dump);
+struct S258_Comp {
+    u32 b0 : 8;
+    u32 b8 : 1;
+    u32 type : 7;
+    u16 unk2;
+    u32 key;
+    u32 val;
+    S258_Comp *next;
+};
+
+extern "C" {
+void func_0030B550(char *, const char *, ...);
+int func_002775B8(int);
+void *func_001D0900(int, int);
+int func_0027AA70(int);
+void func_00279358(void *, int, int, int);
+void func_0027BDB0(int, void *, int);
+void func_0027C028_s(int, u32, char *) asm("func_0027C028");
+int CFunc_Printf_2(int, int) asm("CFunc_Printf");
+extern char D_00356540[];
+extern char D_00370538[];
+}
+
+extern "C" int CFunc_Dump(int params, S00259228 *script) {
+    char buf[0x400];
+    u32 key;
+    if ((func_0027D870(params, 0, &key, 0) ^ 1) != 0) {
+        func_0027F1E0(script->unk20, 0, 1);
+        return 1;
+    }
+    int o = func_0027AA70((int)func_001287F0(8, 1));
+    int sub = func_0027DD88(script->unk20, key);
+    if (sub == 0) {
+        func_0030B550(buf, D_00356540, func_002775B8(key));
+    } else {
+        func_0030B550(buf, D_00370538, func_002775B8(key));
+        S258_Comp *c = (S258_Comp *)func_001D0900(0x10, 1);
+        c->key = 0;
+        c->next = 0;
+        c->val = 0;
+        c->b8 = 0;
+        c->type = 0;
+        c->unk2 = 0;
+        func_00279358(c, sub, 0, 0);
+        c->key = 0x174841BC;
+        func_0027BDB0(o, c, 0);
+    }
+    func_0027C028_s(o, 0, buf);
+    int r = CFunc_Printf_2(o, (int)script);
+    if (o != 0) {
+        func_0027AC90((void *)o);
+        func_00113250((void *)o);
+    }
+    return r;
+}
 
 extern "C" int CFunc_ScriptAssert(int params, S00259228 *script) {
     char buf[0x400];
