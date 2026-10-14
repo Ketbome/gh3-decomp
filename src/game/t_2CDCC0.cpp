@@ -111,7 +111,37 @@ extern "C" void func_002CDDD0(u32 key, S2CDD30 *p, int arg) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDF70);
+extern "C" int *func_002CDCC0_p(int) asm("func_002CDCC0");
+
+extern "C" void func_002CDF70(u32 key, S2CF4F0 *s) {
+    if (key == 0x39940016) {
+        s->unk20 = 0;
+        return;
+    }
+    int *p = func_002CDCC0_p(0x84517E);
+    int t = *(int *)((char *)s + 8);
+    int v;
+    int w;
+    if (func_0027CC30(t, 0x5F1B348F, 1, &v) == 0) {
+        func_0027F1E0(t, 0, 1);
+        w = 0;
+    } else {
+        w = v;
+    }
+    if (w == 0) {
+        *p = 0x64;
+        s->unk20 = 0;
+    } else if (w == 1) {
+        if (*p != 0) {
+            *p = *p - 1;
+            s->unk20 = 0;
+        } else {
+            s->unk20 = 1;
+        }
+    } else if (w == 2) {
+        s->unk20 = 1;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", CFunc_check_for_star_power_CFunc);
 
