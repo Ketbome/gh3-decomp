@@ -1069,6 +1069,8 @@ extern "C" void func_00189798(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_001897B8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_187930", func_001897C0);
+
 extern "C" void func_00189818(SA187_7* self, int a) {
     self->unk14 = D_003445A0;
     if (self->unk18) {

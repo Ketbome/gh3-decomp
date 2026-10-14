@@ -239,6 +239,8 @@ extern "C" void func_0016BAF0(int unused, char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BB20);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BB28);
+
 struct M_0016BBC0 { char pad0[4]; u32 unk4; char pad8[4]; M_0016BBC0* unkC; };
 struct VE_0016BBC0 { char pad0[8]; s16 unk8; s16 unkA; void (*unkC)(void*, int); };
 struct O_0016BBC0 { char pad0[8]; VE_0016BBC0* unk8; char padC[0xC]; M_0016BBC0* unk18; char pad1C[0x1BC]; int unk1D8; };

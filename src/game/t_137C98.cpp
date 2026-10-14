@@ -134,6 +134,8 @@ extern "C" int func_001384B0(void* self, S137_P* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_001384F0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_001384F8);
+
 extern "C" void* func_00138790(u32 size) {
     void* pool = D_00371288[D_00371298];
     if (pool) {
@@ -224,6 +226,8 @@ extern "C" void func_00138E70(void) {
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138E78);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138F18);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138F20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00139420);
 

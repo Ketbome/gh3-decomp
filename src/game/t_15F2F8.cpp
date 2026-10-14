@@ -493,6 +493,8 @@ extern "C" int func_00160688(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160690);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160698);
+
 extern "C" int func_00160730(L15F* self) {
     func_001607F0(self, func_00160768(self));
     return 1;
@@ -524,6 +526,8 @@ extern "C" void func_001607F0(L15F* self, int a) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160850);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160858);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_001608C8);
 

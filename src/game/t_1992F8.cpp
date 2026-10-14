@@ -241,3 +241,5 @@ extern "C" int func_0019AE30(N199* n, int depth) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_0019AF18);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_0019AF20);

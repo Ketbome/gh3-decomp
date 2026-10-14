@@ -542,6 +542,8 @@ extern "C" void* func_0011A380(int size) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A3B0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A3B8);
+
 extern "C" void* func_0011A3E0(int a, int b) {
     return func_001191B0(D_00368A38[0], a, b, 0);
 }
@@ -839,6 +841,8 @@ extern "C" void func_0011ABF8(S11ABF8* self) {
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AC50);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011ACD0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011ACD8);
 
 extern "C" int func_0011ACF8(S_0011ACF8* self) {
     return self->unk20;

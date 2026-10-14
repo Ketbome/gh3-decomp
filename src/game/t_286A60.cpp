@@ -281,6 +281,8 @@ extern "C" int func_00288410(char *name, int a, int b, int c) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002884A0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002884A8);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288678);
 
 extern "C" void func_002886F8(int *p) {
@@ -334,5 +336,7 @@ extern "C" void func_00288910(S2867_Val *v, int type, S2867_Flags *a, int b) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288990);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288998);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288A20);

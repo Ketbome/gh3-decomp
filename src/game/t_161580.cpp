@@ -269,6 +269,8 @@ extern "C" void func_00162420(SBC_161* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162470);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162478);
+
 extern "C" void func_001628B8(S8_161* self) {
     if (self->unk8) {
         func_0011D348(&self->unk8);

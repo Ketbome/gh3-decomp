@@ -276,6 +276,8 @@ extern "C" S15A7B8* func_0015A7B8(S15A7B8* self, int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A7F0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A7F8);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A880);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015AAA0);

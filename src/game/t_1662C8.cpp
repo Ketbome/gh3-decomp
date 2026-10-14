@@ -29,6 +29,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_001662C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166A30);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166A38);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166F40);
 
 extern "C" int func_00167010(void) {
@@ -42,6 +44,8 @@ extern "C" int func_00167018(void) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00167020);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00167738);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00167740);
 
 extern "C" int func_00167948(void) {
     return 1;

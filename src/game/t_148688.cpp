@@ -90,6 +90,8 @@ extern "C" void func_001497F0(S_148* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149818);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149820);
+
 extern "C" void func_001498D0(S_148* self, int flags) {
     self->unk258 = (int)D_0033BB78;
     self->unk8 = D_0033BBA0;

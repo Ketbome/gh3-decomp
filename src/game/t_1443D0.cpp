@@ -114,6 +114,8 @@ extern "C" R_144* func_00145488(R_144* out, int sys, void* params, u32 hash, int
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145508);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145510);
+
 struct RR_144 {
     void* p;
     int unk4;

@@ -252,6 +252,8 @@ extern "C" void func_00113AC8(char* d, int n, const char* s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113B20);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113B28);
+
 extern "C" void func_00113B68(char* s) {
     while (*s) {
         if (*s >= 'a' && *s <= 'z') {
@@ -300,11 +302,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113D88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113DE8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113DF0);
+
 extern "C" void func_00113E48(int p0, int p1, int p2) {
     func_00113D88(p0, p2);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113E68);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113E70);
 
 struct S_00113EA8 { char pad0[0x4]; int unk4; void* unk8; int unkC; int unk10; int unk14; void* unk18; };
 struct C_00113EA8 { u8 r, g, b, a; };
@@ -501,6 +507,8 @@ extern "C" void func_00114958(S_00114958* self) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114978);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114980);
 
 extern "C" void func_001149B8(S_001149B8* self) {
     func_00114340(self->unk3C);

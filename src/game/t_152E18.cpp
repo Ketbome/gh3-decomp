@@ -132,6 +132,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153010);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153078);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153080);
+
 extern "C" void func_001530D8(S_001530D8* self, int a1) {
     VE_001530D8* e = &self->unk18[3];
     e->unk4((char*)self + e->unk0, a1);

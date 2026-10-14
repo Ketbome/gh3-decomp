@@ -147,6 +147,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_001519B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_00152540);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_00152548);
+
 extern "C" void func_001525C8(void) {
 }
 

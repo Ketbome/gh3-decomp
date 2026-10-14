@@ -51,6 +51,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019D9B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019DC48);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019DC50);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019E020);
 
 extern "C" void func_0019E090(int a, int b, int c, int d, int f) {

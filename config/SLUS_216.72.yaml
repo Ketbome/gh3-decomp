@@ -30,6 +30,7 @@ options:
     - config/symbols/cfuncs.txt
     - config/symbols/game.txt
     - config/symbols/lib.txt
+    - config/symbols/splits.txt
   reloc_addrs_path:
     - config/reloc_addrs.txt
 

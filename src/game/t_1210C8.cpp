@@ -191,6 +191,8 @@ extern "C" int func_00121C18(SA121_S* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121C68);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121C70);
+
 extern "C" int func_00121CD8(SA121_S* self) {
     if (func_00121A68(self)) {
         if (self->unk24 != 1) {
@@ -236,6 +238,8 @@ extern "C" int func_00121DD0(SA121_S* self, int a) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121E38);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121E40);
 
 extern "C" int func_00121F28(SA121_S* self, int a) {
     char buf[0x40];

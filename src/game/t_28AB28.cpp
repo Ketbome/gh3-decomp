@@ -332,6 +332,8 @@ extern "C" int func_0028C770(S28AB_Tab *p, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C840);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C848);
+
 extern "C" int func_0028C8D0(S0028C8D0* p) {
     if (p->unk40 != 0) {
         return p->unkA4->unk0;

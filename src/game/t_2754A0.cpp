@@ -246,6 +246,8 @@ extern "C" void func_00275868(S2754A0_C *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275898);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002758A0);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275978);
 
 GP_DATA(D_003710A4);
@@ -366,6 +368,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276720);
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002767D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002769A8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002769B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276BB0);
 

@@ -34,6 +34,8 @@ void func_00152B88(void*);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001836E8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001836F0);
+
 extern "C" void func_00183728(S00183728* self) {
     self->unk18 = D_00343A98;
     func_00152B88(self);
