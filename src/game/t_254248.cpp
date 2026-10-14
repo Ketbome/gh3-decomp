@@ -347,6 +347,45 @@ extern "C" int CFunc_SetStereoSound(int a) {
     return 0;
 }
 
+struct S254_Script {
+    char pad0[0x20];
+    int unk20;
+};
+struct S254_O1 {
+    f32 a;
+    f32 b;
+    char pad[0x18];
+};
+struct S254_O2 {
+    char pad[0x20];
+};
+struct S254_PL {
+    int sp40;
+    int sp44;
+    f32 sp48;
+    f32 sp4C;
+    f32 sp50;
+    f32 sp54;
+    int sp58;
+    int sp5C;
+    int sp60;
+    int sp64;
+    int sp68;
+};
+struct S254_PF {
+    S254_O1 o1;
+    S254_O2 o2;
+    S254_PL l;
+};
+extern "C" {
+void func_00266898(void *);
+void func_00266BE8(void *);
+void func_002668F8(void *, int);
+void func_00256340(void *, int);
+void func_0026A488(int, int, int, f32, f32, f32);
+int func_0027D400(int, u32, void *, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PlaySound);
 
 extern "C" int CFunc_IsSoundLoaded(void) {
