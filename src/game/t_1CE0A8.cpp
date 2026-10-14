@@ -185,7 +185,65 @@ void func_00279358(void* p, s32 a, s32 b, s32 c);
 void func_0027BDB0(s32 a, void* p, s32 b);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CE0A8);
+struct S1CE0 {
+    char pad0[1];
+    u8 unk1;
+    u8 unk2;
+    u8 unk3;
+    u8 unk4;
+    char pad5[0x1A];
+    u8 unk1F;
+    u8 unk20;
+    u8 unk21;
+    u8 unk22;
+};
+
+extern "C" void func_001CE0A8(S1CE0* p) {
+    int d1 = p->unk1;
+    d1 = 0x80 - d1;
+    d1 = __builtin_abs(d1);
+    p->unk1F = p->unk1;
+    p->unk20 = p->unk2;
+    p->unk21 = p->unk3;
+    p->unk22 = p->unk4;
+    if (d1 < 0x33) p->unk1 = 0x80;
+    int d2 = p->unk2;
+    d2 = 0x80 - d2;
+    d2 = __builtin_abs(d2);
+    if (d2 < 0x33) p->unk2 = 0x80;
+    int d3 = p->unk3;
+    d3 = 0x80 - d3;
+    d3 = __builtin_abs(d3);
+    if (d3 < 0x33) p->unk3 = 0x80;
+    int d4 = p->unk4;
+    d4 = 0x80 - d4;
+    d4 = __builtin_abs(d4);
+    if (d4 < 0x33) p->unk4 = 0x80;
+    int d5 = p->unk1F;
+    d5 = 0x80 - d5;
+    d5 = __builtin_abs(d5);
+    if (d5 < 0x33) {
+        int d6 = p->unk20;
+        d6 = 0x80 - d6;
+        d6 = __builtin_abs(d6);
+        if (d6 < 0x33) {
+            p->unk1F = 0x80;
+            p->unk20 = 0x80;
+        }
+    }
+    int d7 = p->unk21;
+    d7 = 0x80 - d7;
+    d7 = __builtin_abs(d7);
+    if (d7 < 0x33) {
+        int d8 = p->unk22;
+        d8 = 0x80 - d8;
+        d8 = __builtin_abs(d8);
+        if (d8 < 0x33) {
+            p->unk21 = 0x80;
+            p->unk22 = 0x80;
+        }
+    }
+}
 
 extern "C" void* func_001CE1D0(char* p) {
     func_001145D8(p + 4);
