@@ -147,7 +147,25 @@ extern "C" int func_00273600(int a, int b, int pp, int d, int e, int g, int h, i
     return func_00272520(D_003A9490[b], (int)o, g ^ 1, e, 0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273748);
+extern "C" int func_00273748(int a, int b, int c, int pp, int e, int g, int h, int i, f32 f) {
+    if (g == 0 && func_0026DC68(b) != 1) return 0;
+    if (h == 0 && func_0026DC68(c) != 1) return 0;
+    if (D_003A90C0[0].unk104 == 0) return 0;
+    S273498_B *o;
+    if (D_00372EC4_p != 0 && D_00372EC4_p->unk8 == a) {
+        o = D_00372EC4_p;
+    } else {
+        o = func_001210C8(a, D_003A90C0[0].unk104);
+        if (o == 0) return 0;
+    }
+    f32 *p = (f32 *)pp;
+    if (i == 0) {
+        func_00272DE8(D_003A9490[b], e);
+        func_00273308(b, f);
+        func_00273298(b, p[0], p[1]);
+    }
+    return func_00272520(D_003A9490[b], (int)o, i ^ 1, g, D_003A9490[c], h);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_002738C0);
 
