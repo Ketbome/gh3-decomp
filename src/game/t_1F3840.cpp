@@ -180,7 +180,58 @@ void func_001F56A8(S1F56A8*);
 void func_001F4880(char*);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F3840", func_001F3840);
+struct N1F38 {
+    char pad0[8];
+    u32 unk8;
+    u32 unkC;
+    u32 unk10;
+    f32 unk14;
+    char pad18[0x10];
+    f32 unk28;
+};
+
+struct VE1F38 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*, s32);
+};
+
+extern "C" {
+f32 func_001E2850(N1F38*, u32);
+u32 func_001E2968(N1F38*, u32);
+void func_001F3DE0(S1F3C70*, char*, char*, char*, f32);
+void func_001F3C08(S1F3C70*, S1F3C70_A*, f32);
+}
+
+void func_001F3840_d(char* p) __asm__("func_001F3840");
+void func_001F3840_d(char* p) {
+    S1F3C70 buf;
+    N1F38* n = *(N1F38**)(p + 0x8C);
+    f32 f;
+    if (n == (N1F38*)(p + 0x60)) {
+        u32 k = func_001E2968(n, n->unk8);
+        f32 a = func_001E2850(n, k);
+        f32 d = a - func_001E2850(n, n->unk10);
+        n->unk10 = k;
+        n->unk14 = d;
+        n->unk28 = a;
+        f = a;
+    } else {
+        f = n->unk28;
+    }
+    func_001F3DE0(&buf, p + 0x90, p + 0x20, p + 0x40, f);
+    func_001F3C08(&buf, *(S1F3C70_A**)(p + 0x1C), *(f32*)(p + 0xB8));
+    N1F38* m = *(N1F38**)(p + 0x8C);
+    u32 c = m->unkC;
+    s32 r;
+    if (c == 0) {
+        r = 1;
+    } else {
+        r = m->unk10 >= c;
+    }
+    VE1F38* e = (VE1F38*)(*(char**)(p + 0x18) + 0x40);
+    e->fn(p + e->delta, r);
+}
 
 extern "C" void func_001F3920(S1F3840_V* p) {
     p->v8(0);
