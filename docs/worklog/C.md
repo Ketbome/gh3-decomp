@@ -847,3 +847,5 @@ Matched vu0: t_252068 CFunc_CamDistFromPosLessThan (one `asm volatile` with the 
 gas does not add them); volatile keeps the lwc1 loads after it).
 Given up: t_24DDB8 CFunc_VectorLength (original sqrt.s encodes the source in the ft field (0x460C0304 = sqrt.s f12,f12 with fs=0), gas puts it in fs: differs unless the register is $f0; toolchain),
 t_2AD528 func_002AE3C0 / t_2DAE48 func_002DB920 / t_252068 func_002532A0 (start with a lone `sqcw2`/`qmfc2` before the prologue: split tails).
+Near miss: t_250010 CFunc_SetShadowDirFromLight (nonmatching/CFunc_SetShadowDirFromLight.cpp): VU0 stages as separate non-volatile asms chained by a dummy "=r"/"+r" int (volatile or output-less asms stop the compiler interleaving the lui/addiu/li between them; this chain reproduces it);
+left: gcc fills the beqz delay slot with a likely-branch copy of `lq` (`beqzl`), original has the asm's `lqc2 $vf1` (moved by gas) in the slot; `li v0,1` and the lui/addiu of D_00378210 sit one slot off.
