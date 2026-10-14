@@ -393,6 +393,13 @@ extern "C" int CFunc_IsTextureInDictionary(int params) {
     return r;
 }
 
+extern "C" {
+unsigned int strlen(const char *);
+char *func_0030E720(char *, char *);
+char *func_0030E798(char *, char *);
+extern char D_003702B8[];
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetRelativePath);
 
 extern "C" int CFunc_GetFileNameFromPath(int params, S24B_Script *script) {
