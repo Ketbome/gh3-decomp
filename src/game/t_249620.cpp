@@ -25,6 +25,7 @@ s32 func_002763C0(s32 a, s32 b);
 s32 func_0027D400(s32 a, s32 b, s32 c, s32 d);
 bool func_0027D2D8(int, u32, void*, int);
 char* func_001D8618(int, int);
+int func_0010C050_i(int) __asm__("func_0010C050");
 void func_0027C1F8(int, u32, float);
 }
 
@@ -189,7 +190,20 @@ extern "C" int CFunc_IsCompositeObjectManagerEnabled(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CreateCompositeObject);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_GetUniqueCompositeObjectID);
+extern "C" int CFunc_GetUniqueCompositeObjectID(int params, char* script) {
+    int id = 0;
+    int v;
+    int n = func_0027D870(params, 0x392649D7, &id, 0) ^ 1;
+    v = id;
+    if (n != 0) {
+        v = func_0010C050_i(0x10000);
+    }
+    while (func_001D8618(D_0036D3B0, v)) {
+        v++;
+    }
+    func_0027C448(*(int*)(script + 0x20), 0xA2B033FD, v);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CreateCompositeObjectInstance);
 
