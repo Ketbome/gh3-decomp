@@ -105,7 +105,7 @@ s32 func_001CC090_g(void*) __asm__("func_001CC090");
 void func_00296AF0(void*);
 s32 func_002DF898_g(void*) __asm__("func_002DF898");
 void* func_001CA020_g(void*, s32) __asm__("func_001CA020");
-void func_0029D238_g(void*, void*) __asm__("func_0029D238");
+void func_0029D238_g(void*, void*, s32, s32) __asm__("func_0029D238");
 void func_00161BA0(void*, s32, s32);
 extern char D_0034EA28[];
 extern char D_0038EE40[];
@@ -295,9 +295,9 @@ struct S1EE6 {
 };
 
 static inline void Set1EE6(u8* d, s32 v) { *d = v; }
-extern "C" s32 func_001EE608(S1EE6* p, s32 a, s32 b, s32 c) {
-    s32 bb = b;
-    s32 aa = a;
+extern "C" s32 func_001EE608(S1EE6* p, s32 a0, s32 b0, s32 c) {
+    register s32 b asm("$20") = b0;
+    register s32 a asm("$21") = a0;
     if (c) {
         void* g = D_00372580[0];
         void* r = func_001CA590_g(g, p->unkC->unk2C);
@@ -306,17 +306,19 @@ extern "C" s32 func_001EE608(S1EE6* p, s32 a, s32 b, s32 c) {
             M1EE6 m;
             func_00296AF0(&m);
             void* x = func_001CA020_g(g, func_002DF898_g(r));
-            d.unk0 = aa;
-            d.unk5 = bb;
-            m.unk2 = 8;
+            d.unk5 = b;
+            d.unk0 = a;
+            register s32 sz asm("$6") = 8;
+            register s32 id asm("$7") = 70;
             Set1EE6(&d.unk4, p->unkC->unk2C);
-            m.unk0 = 0x46;
+            m.unk2 = sz;
             m.unk4 = &d;
-            func_0029D238_g(x, &m);
+            m.unk0 = id;
+            func_0029D238_g(x, &m, sz, id);
         }
     }
     if (p->unk210) {
-        func_00161BA0(p->unk210, aa, bb);
+        func_00161BA0(p->unk210, a, b);
     }
     return 1;
 }
