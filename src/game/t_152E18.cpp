@@ -383,7 +383,41 @@ extern "C" void func_00153898(S_00153898* self, int flags) {
     if (flags & 1) Heap_Free(D_00368A38, self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153958);
+struct S_00153958 { char pad0[4]; char* unk4; char pad8[0x54]; VE_Cv* unk5C; };
+
+extern "C" void func_00153958(S_00153958* self, int idx, int a, int b) {
+    if (self->unk4 == 0) {
+        func_00119490(D_00368A38, ((H_152*)D_00368A38)->unk1E8);
+        int c = 0x5F;
+        int* blk = (int*)Heap_Alloc(D_00368A38, 0x3D0, 1, 0);
+        char* base = (char*)(blk + 4);
+        *blk = 0x60;
+        char* q = base;
+        do {
+            c -= 12;
+            func_001537C0((S_001537C0*)q);
+            func_001537C0((S_001537C0*)(q + 0xA));
+            func_001537C0((S_001537C0*)(q + 0x14));
+            func_001537C0((S_001537C0*)(q + 0x1E));
+            func_001537C0((S_001537C0*)(q + 0x28));
+            func_001537C0((S_001537C0*)(q + 0x32));
+            func_001537C0((S_001537C0*)(q + 0x3C));
+            func_001537C0((S_001537C0*)(q + 0x46));
+            func_001537C0((S_001537C0*)(q + 0x50));
+            func_001537C0((S_001537C0*)(q + 0x5A));
+            func_001537C0((S_001537C0*)(q + 0x64));
+            func_001537C0((S_001537C0*)(q + 0x6E));
+            q += 0x78;
+        } while (c != -1);
+        self->unk4 = base;
+        func_001194B8(D_00368A38);
+    }
+    int off = idx * 10;
+    *(s16*)(off + (int)self->unk4) = a;
+    *(s16*)(off + (int)self->unk4 + 2) = b;
+    VE_Cv* e = &self->unk5C[4];
+    e->unk4((char*)self + e->unk0);
+}
 
 struct VE_00153C28 { char pad0[0x20]; s16 unk20; s16 unk22; void (*unk24)(void*); };
 struct S_00153C28 { char pad0[4]; char* unk4; char pad8[0x54]; VE_00153C28* unk5C; };
