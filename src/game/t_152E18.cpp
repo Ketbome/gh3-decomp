@@ -595,7 +595,28 @@ extern "C" void func_001541A0(S_00154180* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", CFunc_LightShow_UpdateLightingTweaks);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00154380);
+typedef unsigned int u128_154380 __attribute__((mode(TI)));
+struct O_154380 { char pad0[0x40]; f32 unk40; char pad44[0xC]; u128_154380 unk50; };
+struct S_154380 { f32 unk0; O_154380* unk4; };
+extern "C" {
+f32 func_0010F698(void*);
+f32 func_0010F6A8(void*);
+f32 func_0010F6C0(void*);
+void func_00127818(void*, f32);
+void func_00127820(void*, f32);
+void func_00127828(void*, f32);
+f32 func_00156AB0(void*);
+}
+
+extern "C" void func_00154380(S_154380* self, f32 scale) {
+    u128_154380 v = self->unk4->unk50;
+    func_00127818(&v, func_0010F698(&v) * 0.0078125f);
+    func_00127820(&v, func_0010F6A8(&v) * 0.0078125f);
+    func_00127828(&v, func_0010F6C0(&v) * 0.0078125f);
+    f32 t = self->unk4->unk40;
+    t = t * func_00156AB0(&v);
+    self->unk0 = t * scale;
+}
 
 extern "C" S_00154420* func_00154420(S_00154420* self) {
     self->unk0 = 0;

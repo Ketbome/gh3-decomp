@@ -337,6 +337,16 @@ extern "C" void* func_0022CD30(char* p) {
     return p;
 }
 
+extern "C" {
+extern u8 D_0036F7E0[];
+void func_00113528(char*);
+int func_001150B8(char*);
+int func_0011D000(char*, int, int, int, int);
+int func_0011D4F8(char*);
+int func_0022BBB0_i(void*, char*, int, int, int, int) __asm__("func_0022BBB0");
+void func_0030B550_5(char*, void*, int, int) __asm__("func_0030B550");
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CD68);
 
 extern "C" void func_0022CEF8(char* p, int a, int b, int c, int d, int e) {
