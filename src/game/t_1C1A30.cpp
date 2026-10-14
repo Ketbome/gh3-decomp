@@ -1,4 +1,5 @@
 #include "common.h"
+// cflags: -funroll-loops
 
 struct N0 {
     N0* unk0;
@@ -301,7 +302,18 @@ extern "C" u8 func_001C3638(S001C3538* p) {
     return p->unk8 + 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3648);
+extern "C" s32 func_001C3648(char* p) {
+    u32 fl = *(u32*)(p + 0xC);
+    u32 n = *(u32*)(p + 8);
+    u32 i = 0;
+    u32 k = 0x02040000;
+    for (; i <= n; i++) {
+        if (fl & (k << i)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3718);
 
