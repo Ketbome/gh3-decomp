@@ -1167,3 +1167,8 @@ Matched (A16): func_001874E0 (t_185918; same getter-dispatch shape as func_00187
 Matched (A16): func_001287F0 (t_1277C0; pooled operator new with lui-reached pools: declaring the pool array with its real size `extern P* D_00371228[2];` (unsized gives the lui/addiu in the wrong place) -- the near miss was only that). Try sized array declarations on every 'address computed one slot too early' near miss (func_0013D100 ...).
 Matched (A16): func_00182870 (t_1816C0; twin of func_001287F0 with D_0036A790[2] / D_0036A7A0)
 Matched (A16): func_0013D100 (t_13BE78; the near miss was fixed by sizing the array: `extern P* D_00371288[2];`, plain version without locals). Its twin func_00137558 (t_135A98) starts with a split stub (addiu sp,+16; nop), skipped.
+
+## Session 5 (this run)
+- t_1727C8 func_00172D80 MATCH (stack list count + vcall returning f32; `if (n == 0) return 0.0f;` first, call last)
+- t_161580 func_00161F48 MATCH (TI128 lanes via inline GetX/GetY/GetZ asm with "r"(q) inputs, not "0"; used inside the `||` chain)
+- func_00116178 (t_114DC8) give up: struct init with `char name[16]="xxxx"`-like 5-byte copy + memset(11); ours hoists the D_00337F90 lui/move a1 differently, _start/D_C000 regs swap; 8 forms

@@ -50,7 +50,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172CC8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172D00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1727C8", func_00172D80);
+struct S172D80_V { char pad0[0x48]; s16 delta; s16 pad4A; float (*fn)(void*); };
+struct S172D80_O { char pad0[0x14]; S172D80_V* vt; };
+struct S172D80_N { int unk0; S172D80_N* unk4; S172D80_O* unk8; };
+struct S172D80_I { int unk0; S172D80_N* unk4; };
+struct S172D80 { int unk0; S172D80_N* unk4; S172D80_N* unk8; };
+
+extern "C" float func_00172D80(S172D80* p) {
+    S172D80_I a;
+    S172D80_I end;
+    S172D80_I it;
+    int n = 0;
+    a.unk4 = (S172D80_N*)p->unk8;
+    end.unk4 = (S172D80_N*)((char*)p + 4);
+    it.unk4 = (S172D80_N*)p->unk8;
+    if (it.unk4 != end.unk4) {
+        do {
+            n++;
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    if (n == 0) return 0.0f;
+    a.unk4 = p->unk4;
+    S172D80_O* o = a.unk4->unk8;
+    S172D80_V* vt = o->vt;
+    return vt->fn((char*)o + vt->delta);
+}
 
 extern "C" void func_00172E00(void) {
 }
