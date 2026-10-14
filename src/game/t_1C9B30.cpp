@@ -70,6 +70,9 @@ int func_0027D000(void* params, s32 name, s32* out, s32 d);
 void func_001C93B0(s32 p, s32 v);
 void func_001C93C0(s32 p, s32 v);
 void func_00296AF0(void* p);
+void func_0029D730(s32 a, s32 b);
+s32 func_001CB558(S001C9FB0* p);
+s32 func_001CA020(S001C9FB0* p, s32 i);
 s32 func_001CC0B0(void* p);
 void func_0029D238(s32 a, void* b);
 extern char* D_00370EE0;
@@ -101,7 +104,28 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9B78);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9DD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9DE0);
+struct VE1C9D {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*);
+};
+
+extern "C" void func_001C9DE0(S001C9FB0* sp) {
+    char* p = (char*)sp;
+    char buf[0x30];
+    func_00296AF0(buf);
+    if (func_001CB558(sp) != 9 && func_001CB558(sp) != 7 && func_001CB558(sp) != 8) {
+        s32 h = func_001CA020(sp, 0);
+        buf[0] = 0xB;
+        func_0029D238(h, buf);
+        func_0029D730(h, 0);
+        VE1C9D* e = (VE1C9D*)(*(char**)(p + 0xEE00) + 0x20);
+        e->fn(p + e->delta);
+        func_00113FB8(*(void**)(p + 0x1C));
+        e = (VE1C9D*)(*(char**)(p + 0xEE00) + 0x240);
+        e->fn(p + e->delta);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9EB8);
 
