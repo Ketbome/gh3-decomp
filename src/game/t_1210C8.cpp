@@ -6,7 +6,7 @@ struct S_00123018 { char pad0[0x2C]; int unk2C; char pad1[0x4]; int unk34; };
 
 struct SA121_T {
     int unk0;
-    char pad4[0x4];
+    int unk4;
     int unk8;
 };
 
@@ -191,7 +191,18 @@ extern "C" int func_00121C18(SA121_S* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121C68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121C70);
+extern "C" int func_00121C70(SA121_S* self) {
+    func_00121BF8(self);
+    if (func_00121A68(self)) {
+        if (self->unk24 != 1) {
+            if (self->unk24 != 0) {
+                self->unk24 = 8;
+                return 0;
+            }
+        }
+    }
+    return self->unk8->unk4 == 1;
+}
 
 extern "C" int func_00121CD8(SA121_S* self) {
     if (func_00121A68(self)) {
