@@ -855,3 +855,5 @@ Stub splits: matched func_002DE0C8, func_00288998, func_0028C848, func_002758A0 
 func_002769B0 (unrolled loop; `u32 i = 0; if (n) { q = p; do {...; i++} while (i < n); }` with `int n`: the pointer copy inside the `if` puts `move s4,a0` after the branch).
 Near miss: func_002884A8 (nonmatching/func_002884A8.cpp): only `move a0,s0` / `move a1,zero` order before func_00119610(h, 0) differs
 (original sets a1 first and a0 in the delay slot). Loop forms that mattered: first loop `while ((it = f(it)))` with `if (x == key) n++` gives movz; second `e = f(0); if (e) { w = arr; do {...} while (e); }`; last `for (o = f(0); o; o = f(o))`.
+Sqrt retries: CFunc_Sqrt, CFunc_VectorLength match. Pattern: `asm volatile("lwc1 %0,%1; nop; nop; sqrt.s %0,%0" : "=f"(d) : "m"(x))`; for VectorLength the VU0 part is split in two asms:
+the first (`lqc2; vmul`, output dummy `k`, `"memory"` clobber) then `int dst = script->unk20;` then `asm volatile` (vaddy, vaddz, qmfc2.ni t, mtc1, nop, nop, sqrt.s) taking `k` and `dst` as inputs, so the `lw a0` lands between the stages and the `lui` after.

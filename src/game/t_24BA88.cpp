@@ -483,7 +483,14 @@ extern "C" int CFunc_ATan(int params, S24B_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Sqrt);
+extern "C" int CFunc_Sqrt(int params, S24B_Script *script) {
+    f32 x;
+    f32 d;
+    func_0027D268(params, 0, &x, 1);
+    asm volatile("lwc1 %0, %1\n\tnop\n\tnop\n\tsqrt.s %0, %0" : "=f"(d) : "m"(x));
+    func_0027C1F8(script->unk20, 0xB86383A7, d);
+    return 1;
+}
 
 extern "C" int CFunc_Mod(int params, S24B_Script *script) {
     int a;
