@@ -343,7 +343,35 @@ extern "C" S00291CF0 *func_00291D00(S00291CF0 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291D28);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291F08);
+struct HI_CBC0 { u32 key; void* value; HI_CBC0* next; };
+
+struct HT_CBC0 { int bits; HI_CBC0* items; int count; };
+
+extern "C" void func_00291F08(int a0, int * a1) {
+    HT_CBC0* t = (HT_CBC0*)a0;
+    int* key = (int*)a1;
+    if (!t->items) {
+        return;
+    }
+    HI_CBC0* e = &t->items[*key & ((1 << t->bits) - 1)];
+    HI_CBC0* prev = 0;
+    while (e) {
+        HI_CBC0* next = e->next;
+        if (e->key == (u32)*key && e->value) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->value = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 struct S291F_N {
     char pad0[8];
