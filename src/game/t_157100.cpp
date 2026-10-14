@@ -63,7 +63,13 @@ extern "C" int func_00157100(S_157100* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157160);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_157100", func_00157168);
+struct VE_157168 { s16 unk0; s16 unk2; int (*unk4)(void*, int, int); };
+struct V_157168 { char pad0[0x18]; VE_157168 unk18; };
+struct S_157168 { char pad0[0x20]; V_157168* unk20; };
+
+extern "C" int func_00157168(S_157168* self, int a, int b) {
+    return self->unk20->unk18.unk4((char*)self + self->unk20->unk18.unk0, a, b);
+}
 
 struct V_157190 { char pad0[0x20]; VE_157100 unk20; char pad28[0x20]; VF_157100 unk48; };
 struct S_157190 { char pad0[0x20]; V_157190* unk20; };
