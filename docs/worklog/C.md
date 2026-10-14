@@ -947,3 +947,7 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 ## Session 4 (untried 0x100..0x1000)
 - func_0026FD70 MATCH (index into the table as `i = b*0x14 + a*0x1B8`, reload `(int)D_003A8D40 + i` for the second store).
 - func_0026F828: near miss, nonmatching/func_0026F828.cpp (struct store order around the trunc.w.s; all 720 orders of the six stores tried; final D_00370D10 reload v0 vs v1).
+- func_002532C8: near miss, nonmatching/func_002532C8.cpp (only v0/v1 of the loop-end length load vs the sll i*4; ~8 loop forms).
+- func_0028C658 gave up: three inlined hash-bucket lookups (key at +4, next at +0x10) with a loop over 0x30-byte entries; -funroll-loops unrolls the do-while, goto form is not unrolled but the shared 'return 0' tail and the register split differ (6 forms).
+- func_002EB568: node-pool push loop (sprintf name + hash lookup); original keeps hash constant 0xAD7928D4 in s2 (loop-invariant li hoisted, call in loop uses move a0,s2); we rematerialise it, 6 forms (H local, while/for).
+- func_0028A020 MATCH (constructor-like init: `func_00291230(table, b, &sp)` keeps a1 = original arg; reuse v for the call result; read sp[0] into a local before storing the previous result).

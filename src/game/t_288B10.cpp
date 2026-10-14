@@ -120,6 +120,12 @@ int func_00288998(void*);
 int func_00288888(void*);
 void func_00288D20(void*, void*, int);
 void func_0028A020(int, int, int, int, int);
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027ABB0(int, int);
+int func_002870C0(int, int, int, int *);
+void func_0028A300(int);
+void func_0028A558(S288_Obj *);
 extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
 extern int D_0037141C;
 int func_0027D470(int, u32, void *, int);
@@ -455,7 +461,45 @@ extern "C" void func_0028A010(void) {
 extern "C" void func_0028A018(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A020);
+struct S28A020 {
+    char pad0[0x14];
+    int unk14;
+    int unk18;
+    char pad1C[4];
+    int unk20;
+    char pad24[0xB0];
+    int unkD4;
+};
+
+extern "C" void func_0028A020(int a, int b, int c, int d, int e) {
+    S28A020 *o = (S28A020 *)a;
+    int sp[2];
+    sp[0] = b;
+    int v;
+    if (c == 0) {
+        v = func_00291230(D_003715D4[0], b, sp);
+        if (v == 0) {
+            func_0028A300(a);
+            func_0028A558((S288_Obj *)a);
+            return;
+        }
+    } else {
+        v = c;
+    }
+    int h = func_0027AA70(func_001287F0(8, 1));
+    sp[1] = 0;
+    v = func_002870C0(h, v, 0, &sp[1]);
+    if (sp[1]) func_0027ABB0(h, sp[1]);
+    if (d) func_0027ABB0(h, d);
+    func_0028A300(a);
+    o->unk20 = h;
+    o->unk14 = v;
+    int w = func_0027AA70(func_001287F0(8, 1));
+    int t = sp[0];
+    o->unk18 = w;
+    o->unkD4 = t;
+    func_00289E10((void *)a, e);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A140);
 
