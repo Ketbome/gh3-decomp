@@ -875,3 +875,42 @@ func_00273DE8 (if-chain: gcc merges the `4 || 3` tests), func_0026DD48 (3-slot t
 func_00296028 (ctor: everything matches with -funroll-loops and `do {} while (--i != -1)` except the frame: original has 32 unused bytes of locals), func_0026DAF8 (basename loop), func_00271480 (bit-mask tables, first-case registers),
 func_00267910 (call with 8 args taken from leftover registers), func_002E6C80 (partial struct copy on the stack after sprintf), func_0029F790 (inlined list iterator), func_002DFAC0/func_002DF750/func_002DF8A8/func_002EAE78 (start mid-function: split tails).
 Twins (scripts/twins.py): t_26AEF8 func_0026B1B0 (copy of func_0026B158).
+
+### Round 16 (agent C16): +27
+Division now works (`-mno-check-zero-division` is in the global flags), so `/` and `%` functions are fair game.
+Matches: t_2B5BC8 func_002B5CA8; t_2C57B8 func_002C6B20; t_252068 func_002538C0; t_2AAD58 CFunc_LightShow_SetParams;
+t_2A53A8 CFunc_MemCardGetUniqueFileName; t_2CDCC0 func_002CDDD0, func_002CDF70; t_2E90B0 func_002EA7E0, func_002E9510 (division);
+t_254248 CFunc_LoadMusicHeader (gp read first, then `lui`: `asm(".set D_X_lui, D_X")` alias); t_25C450 CFunc_MemPushContext;
+t_29AA58 func_0029AAA0; t_26D280 func_0026E1B0, func_0026E0E8, func_0026E470, func_0026EB08, func_0026EC08, func_0026ED98, func_0026D9F8;
+t_266800 func_00267048; t_2848B0 func_00286330; t_2908A0 func_00291FC0, func_00292130; t_2DCE78 func_002DD308;
+t_2AD528 func_002AE510, func_002AE5E8; t_2BEEE0 CFunc_TextOutputEnd.
+Files that gained `// cflags: -funroll-loops` (nop before a loop label, loop heads aligned): t_29AA58, t_2848B0, t_2908A0, t_2BEEE0.
+A scan with the flag prepended (fcheck of every `extern "C"` function) shows these files still fully match with it, so they can take it when a
+function needs it: t_252068 t_254248 t_25A428 t_25C450 t_25E580 t_260658 t_2647A8 t_26AEF8 t_271480 t_273498 t_2774B8 t_2797A8 t_27B7D0
+t_27F8C8 t_282268 t_288B10 t_292928 t_29D230 t_29F288 t_2A53A8 t_2A74C0 t_2AAD58 t_2AF598 t_2B3AC8 t_2B5BC8 t_2B8088 t_2BA998 t_2BCDA8 t_2C0FC8
+t_2C3468 t_2C57B8 t_2C9AC0 t_2CBC10 t_2CDCC0 t_2D0150 t_2D2350 t_2D8368 t_2DAE48 t_2DEE90 t_2E62C0 t_2E90B0 t_2EB1C0
+(not t_24DDB8, t_250010, t_258420, t_286A60, t_2949F0, t_2A12B0, t_2A32E0, t_2DCE78: other functions change).
+Patterns that worked:
+- Out-value tested after a call (`lw` in the branch delay slot, `move v0,zero` on the other arm): `if (call(&v) == 0) { f(); w = 0; } else w = v;`
+  (neither a pre-read copy nor `v = 0` in the arm).
+- Address of a local used after calls and passed to one of them: `int *p = &l.x;` before the first call keeps it in a saved register.
+- A loop that `-funroll-loops` fully removed (lone nop before a label): the one-iteration table scan `for (i = 0; i < 1; i++)`.
+  Unrolled search loops are plain `for (u32 i = 0; i < n; i++)` (declare `u32 i = 0` first, no extra `if (n)` guard: the guard comes from the unroller).
+- Weighted pick (func_0026EB08): `while (n) { sel = n; r -= n->w; if (r <= 0) break; n = next(n); }`; the first `b` into the loop is gcc's rotation.
+- `x ^ 1` of an int call gives `xori`; `int r = 0; if ((a ^ b) == 0) r = 1;` gives the `movz` (a direct `==` gives `sltiu`).
+- `if (D) { ...all...; return r; } return 0;` positive-first layout; `int r = f(); if (!r) {...; r = g(); } return r;` gives the `move v0,s0`.
+- Independent stores whose order the scheduler changes: brute-force the permutations of the source order (func_002AE510: unk4, unk8, unkC;
+  func_002AE5E8 same) with a script that rewrites the statements and runs fcheck.
+- A vector<int> dtor/copy ctor: element = `struct { int a; }` (unrolled x4 gives `+0x10`), `const int &last` for the copy loop, locals read in order res, first, last.
+- `D_X` with `GP_DATA` file-wide but read through `lui`: alias `asm(".set D_X_lui, D_X")` (not needed when the first use is outside a delay slot).
+Near misses saved (nonmatching/): CFunc_GetAngle, func_0028C8F8 (v0/v1 of one constant), CFunc_LightShow_PassEvent (lui/lw hoist and register numbering),
+func_002B6C10 (lui/addiu order), func_002949F0 (v0/v1 of the first slt), CFunc_SetStreamParams (s0/s1), func_00272058 (v0/v1), func_0026EAA0,
+func_0026DAF8 (a0/a1 for the index copy), func_00277220 (`move v0,zero` in the slot of the first bne), func_00289ED8 (p in v0 vs v1),
+func_002891A8 (s0/s1 of i and this), func_002B4CE8 (one extra `move`), CFunc_GetNoteMapping (load order after the second call).
+Given up: func_0027F938 (original copies arg3 to v0 first, like func_0027FCD8), func_002E62C0 (original hoists `li s0,1`), CFunc_LightShow_PlaySnapshot
+(`x = (v == K)` folds to xor/sltiu again, hoists constants), func_002DD288 (original keeps the two `return 0` tails separate, we cross-jump them),
+func_002DCD68 (last call's `lui/lw` of D_003722B0 goes into the jal slot instead of the store), func_00279150 / func_00276698 (peeled first
+iteration of a pointer-chase loop), func_002763E0/func_002764E8/func_00276110 (alias chase: the original keeps p5/p6 copies inside the loops),
+func_00289D30 (unrolled search: the original combines the biv increments, we keep four `i++`), func_002982B8 (list walk: `movn v0,a0` form needs a live copy),
+func_00290A40 (rotated loop that enters at the test), CFunc_LightShow_BeginProcessBlock (we cross-jump the two case tails), CFunc_HideObjectByType (obj in a2 vs a0),
+func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tried further), func_002B53E0 (string builder with short loops).
