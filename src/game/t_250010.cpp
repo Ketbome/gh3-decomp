@@ -180,7 +180,52 @@ extern "C" int CFunc_InitAnimCompressTable(int params) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_InitAnimSystem);
+struct S250010_IA {
+    int a;
+    int b;
+    int c;
+    u32 sel;
+    int d;
+    int e;
+    int f;
+};
+extern "C" void func_001292D0(int, int, int);
+
+extern "C" int CFunc_InitAnimSystem(int params) {
+    S250010_IA l;
+    l.a = 0;
+    func_0027D1F8(params, 0x83DFF28A, &l.a, 1);
+    l.b = 0;
+    func_0027D1F8(params, 0x7AA8C11C, &l.b, 1);
+    l.c = 0;
+    func_0027D1F8(params, 0x599D67C7, &l.c, 1);
+    l.sel = 0;
+    func_0027D870(params, 0x891A96A9, &l.sel, 1);
+    int mode;
+    switch (l.sel) {
+    case 0xEF082878:
+        mode = 2;
+        break;
+    case 0x50428FBD:
+        mode = 3;
+        break;
+    case 0x7ADB1481:
+        mode = 4;
+        break;
+    default:
+        mode = 0;
+        break;
+    }
+    int bb = l.b;
+    func_001292D0(l.a, bb, mode);
+    l.d = 0;
+    func_0027D1F8(params, 0x5F63F886, &l.d, 1);
+    l.e = 0;
+    func_0027D1F8(params, 0xD14E9A11, &l.e, 1);
+    l.f = 0;
+    func_0027D1F8(params, 0x416BC96B, &l.f, 1);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_UpdateAnimCache);
 
