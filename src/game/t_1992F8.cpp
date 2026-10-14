@@ -251,7 +251,60 @@ extern "C" void func_0019A2E0(int a, int b, int c) {
     func_0019A088(b, &k, 5, c, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_0019A320);
+extern "C" void func_0019A320(int node, S199_K* box, int lvl, int qaddr, void* outp) {
+    Q_0019A088* q = (Q_0019A088*)qaddr;
+    float* out = (float*)outp;
+    if (node == 0) return;
+    int sz = 1 << lvl;
+    int d0 = box->c[0] - q->b[0];
+    int d1 = box->c[1] - q->b[1];
+    int d2 = box->c[2] - q->b[2];
+    int d3 = box->c[3] - q->b[3];
+    if (d0 < 0 && d1 < 0 && d2 < 0 && d3 < 0) {
+        int e0 = q->a[0] - box->c[0];
+        int e1 = q->a[1] - box->c[1];
+        int e2 = q->a[2] - box->c[2];
+        int e3 = q->a[3] - box->c[3];
+        if (e0 < sz && e1 < sz && e2 < sz && e3 < sz) {
+            int nsz = -sz;
+            if (nsz >= d0 && nsz >= d1 && nsz >= d2 && nsz >= d3 && e0 <= 0 && e1 <= 0 && e2 <= 0 && e3 <= 0) {
+                if (lvl == 0) {
+                    float* n = (float*)node;
+                    out[0] = out[0] + n[0];
+                    out[1] = out[1] + n[1];
+                    out[2] = out[2] + n[2];
+                    out[3] = out[3] + n[3];
+                    out[4] = out[4] + n[4];
+                    out[5] = out[5] + n[5];
+                    return;
+                }
+            }
+            lvl--;
+            int i = 0;
+            int* p = (int*)node;
+            do {
+                {
+                    S199_K nb;
+                    nb.c[0] = box->c[0] + ((((i) >> 3) & 1) << lvl);
+                    nb.c[1] = box->c[1] + ((((i) >> 2) & 1) << lvl);
+                    nb.c[2] = box->c[2] + ((((i) >> 1) & 1) << lvl);
+                    nb.c[3] = box->c[3] + (((i) & 1) << lvl);
+                    func_0019A320(p[0], &nb, lvl, qaddr, out);
+                }
+                {
+                    S199_K nb;
+                    nb.c[0] = box->c[0] + ((((i + 1) >> 3) & 1) << lvl);
+                    nb.c[1] = box->c[1] + ((((i + 1) >> 2) & 1) << lvl);
+                    nb.c[2] = box->c[2] + ((((i + 1) >> 1) & 1) << lvl);
+                    nb.c[3] = box->c[3] + (((i + 1) & 1) << lvl);
+                    func_0019A320(p[1], &nb, lvl, qaddr, out);
+                }
+                i += 2;
+                p += 2;
+            } while (i < 16);
+        }
+    }
+}
 
 extern "C" S00199BF0* func_0019A5D8(S00199BF0* self, int a, int b) {
     S199_K k;
