@@ -375,6 +375,24 @@ extern "C" int func_0013DCA8(S_0013DCA8* self, int s) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DD50);
+struct S_0013DD50 { char pad0[0x240]; int unk240; };
+
+extern "C" int func_0013DD50(S_0013DD50* self) {
+    char buf[0x80];
+    int len;
+    if (!self->unk240) return 0;
+    len = func_00113900(self->unk240);
+    if (!len) return 0;
+    func_00113960(buf, 0x80, self->unk240);
+    if (len >= 2) {
+        char c = buf[len - 1];
+        if (c == 0x5C) {
+            if (buf[len - 2] == c) buf[len - 2] = 0;
+        }
+    }
+    buf[len - 1] = 0;
+    func_0013D838(self, buf);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DDF8);
