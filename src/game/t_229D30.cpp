@@ -61,6 +61,9 @@ extern u8 D_00352CC8[];
 extern u8 D_00393AD8[];
 extern void* D_00368A38;
 void Heap_Free(void*, void*);
+extern char D_00352B48[];
+void func_001C5610(void*, int);
+void func_0022B688_f(char*, int) __asm__("func_0022B688");
 void func_0022B5D0(void*);
 void func_0022B918(void*);
 void func_0011E050(int, void*);
@@ -242,7 +245,45 @@ extern "C" void* func_0022A330(void* unused, s32 type) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A680);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A800);
+struct VE22A {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*, int);
+};
+
+extern "C" void func_0022A800(char* p, int f) {
+    *(char**)(p + 0x14) = D_00352B48;
+    char* a = *(char**)(p + 0xA8);
+    if (a) {
+        func_0022B688_f(a, 2);
+        Heap_Free(D_00368A38, a);
+    }
+    a = *(char**)(p + 0xA4);
+    if (a) {
+        func_0022B688_f(a, 2);
+        Heap_Free(D_00368A38, a);
+    }
+    char* c = *(char**)(p + 0xCC);
+    if (c) {
+        VE22A* e = (VE22A*)(*(char**)(c + 0x18) + 0x10);
+        e->fn(c + e->delta, 3);
+    }
+    char* h = p + 0xAC;
+    char* sent = p + 0xB0;
+    char* n = *(char**)(h + 8);
+    *(char**)(h + 8) = sent;
+    *(char**)(h + 4) = sent;
+    if (n != sent) {
+        char* end = sent;
+        asm("" : "+r"(end));
+        do {
+            char* nx = *(char**)(n + 4);
+            Heap_Free(D_00368A38, n);
+            n = nx;
+        } while (n != end);
+    }
+    func_001C5610(p, f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A8F8);
 
