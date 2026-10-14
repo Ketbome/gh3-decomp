@@ -24,7 +24,14 @@ sources = ["src/game/*.cpp", "src/game/*.c"]
 asm_dirs = ["asm/nonmatchings", "asm/matchings"]
 include_asm = "INCLUDE_ASM"
 state = "docs/STATE.md"
+worklogs = ["docs/worklog/[A-Z].md", "docs/worklog/O0.md"]
+near_misses = "nonmatching"
 
 [hooks]
 pre_check = [".venv/bin/python scripts/fix_gp_data.py {file}"]
 pre_commit = [".venv/bin/python scripts/fix_padding.py {file}"]
+
+[docs]
+# `dk docs` rewrites the blocks between <!-- dk:NAME --> and <!-- /dk:NAME --> with the output of blocks.NAME
+files = ["README.md"]
+blocks = { progress = ".venv/bin/python scripts/progress.py --markdown" }

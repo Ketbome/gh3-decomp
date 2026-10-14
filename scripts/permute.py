@@ -7,7 +7,7 @@ Usage: .venv/bin/python scripts/permute.py <src file or attempt file> <func> [-j
 
 The source must contain a C/C++ attempt of <func> (it does not have to match). The permuter (tools/decomp-permuter,
 set up by scripts/setup_tools.sh) mutates it at random and prints every better-scoring version to
-build/permute/<func>/output-*/; score 0 is a match: copy that function back and check it with fcheck.
+build/permute/<func>/output-*/; score 0 is a match: scripts/permute_apply.py copies it back and checks it with `dk try`.
 
 What it builds in build/permute/<func>/:
 - base.c: the file reduced to its declarations plus <func>, `extern "C"` removed, preprocessed (the permuter parses C);

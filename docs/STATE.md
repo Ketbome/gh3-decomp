@@ -1,15 +1,12 @@
 # Session state
 
-Rewritten by the orchestrator whenever the plan changes. A new session starts here (`dk state` prints it).
-
-## Verified
-
-- Last integrated and pushed commit: `add2c79` — 22.05% of game code, 5,754 functions in C++ (byte-identical build).
+The plan, rewritten by the orchestrator whenever it changes and committed before the turn ends. A new session
+starts here: `dk state` prints it with the numbers it computes (progress, commits, pushed or not, worklog activity),
+so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Nothing running (2026-10-14, all three workers stopped by the session rate limit; their work was rescued with
-`dk rescue --commit` and integrated). Relaunch from the worklogs:
+Nothing running (2026-10-14). Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
 |---|---|---|---|
@@ -18,7 +15,8 @@ Nothing running (2026-10-14, all three workers stopped by the session rate limit
 | C | `t_24BA88` .. `t_2EB1C0` (not `t_2DFB70.c`) | docs/worklog/C.md | twins, table initialisers, untried 0x100..0x800 |
 
 Workers: mid-size model (sonnet), max 3 at a time (16 GB machine), prompt = 4 lines pointing at
-docs/agent_protocol.md.
+docs/agent_protocol.md; they pick with `dk next <files> --untried` (2,059 of the 3,248 INCLUDE_ASM functions were
+never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
@@ -31,7 +29,8 @@ docs/agent_protocol.md.
 
 ## Open toolchain questions (see docs/toolchain.md)
 
-- Two nops before `div.s` (418/700 cases), rule unknown.
+- Two nops before `div.s` (418/700 cases), rule unknown. Biggest lever: 213 INCLUDE_ASM functions contain `div.s`
+  (2026-10-14).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
@@ -39,5 +38,6 @@ docs/agent_protocol.md.
 
 ## Next step
 
-`dk state`, then relaunch the three workers (A, B, C) with the focus above and run the permuter batch on the near
-misses while they work.
+1. Toolchain forensics on the `div.s` nops with a strong model (references/toolchain-forensics.md of the skill),
+   while no worker runs; if fixed: `dk all`, commit, then workers retry the `div.s` give-ups first.
+2. Relaunch workers A, B, C (focus above, `--untried`) and run the permuter batch on the near misses meanwhile.

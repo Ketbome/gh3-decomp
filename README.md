@@ -9,11 +9,14 @@ that release; the build checks its result against it.
 
 ## Status
 
-| Binary | Code in matching C++ | Functions still in assembly |
-|---|---|---|
-| `SLUS_216.72` (game code, 8,709 functions) | 0.19% | 8,465 |
+<!-- dk:progress -->
+| Binary | Code in matching C++ | Functions in C++ | Functions still in assembly |
+|---|---|---|---|
+| `SLUS_216.72` (game code, 9,002 functions) | 22.05% | 5,754 | 3,248 |
+<!-- /dk:progress -->
 
-The rebuilt executable is byte-identical to the original. `python3 scripts/progress.py` prints the current numbers.
+The rebuilt executable is byte-identical to the original. The table is regenerated at every integration
+(`scripts/dk.py docs`); `.venv/bin/python scripts/progress.py` prints the current numbers.
 
 ## Building
 
@@ -43,8 +46,8 @@ Works on macOS (arm64) and Linux (x86-64).
 |---|---|
 | `src/`, `include/` | The decompiled code |
 | `config/` | How the binary is split (`SLUS_216.72.yaml`) and the symbol names |
-| `scripts/` | Tool setup, progress report, single-function check (`fcheck.py`), candidate list |
-| `docs/` | [decomp_guide.md](docs/decomp_guide.md) (how to contribute), [toolchain.md](docs/toolchain.md), [text_map.md](docs/text_map.md) |
+| `scripts/` | Tool setup, `dk.py` (per-function check, candidates, commit, recovery), progress, integration, permuter |
+| `docs/` | [decomp_guide.md](docs/decomp_guide.md) (how to contribute), [toolchain.md](docs/toolchain.md), [text_map.md](docs/text_map.md), [STATE.md](docs/STATE.md) (current plan) |
 
 Names of functions and variables are ours unless stated; the executable is stripped. Names come only from the
 executable itself (strings, the script command table), the game's own scripts and our own analysis: no leaked or

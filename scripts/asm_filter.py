@@ -17,7 +17,7 @@
   original assembly uses. The case labels the original table points at are defined by configure.py (jlabels.ld).
 
 Usage: scripts/asm_filter.py <file.s> [<source stem, e.g. t_16E670>]
-       (run between the compiler and the assembler; configure.py and fcheck.py do)
+       (run between the compiler and the assembler; configure.py and dk.py do)
 """
 
 import re

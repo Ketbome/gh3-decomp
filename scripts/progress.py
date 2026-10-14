@@ -7,6 +7,7 @@ libm) is excluded: see docs/text_map.md.
 """
 
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -34,6 +35,11 @@ def main():
     total = sum(sizes.values())
     c_funcs = len(sizes) - asm_funcs
     done = total - asm_bytes
+    if "--markdown" in sys.argv:
+        print("| Binary | Code in matching C++ | Functions in C++ | Functions still in assembly |")
+        print("|---|---|---|---|")
+        print(f"| `SLUS_216.72` (game code, {len(sizes):,} functions) | {100 * done / total:.2f}% | {c_funcs:,} | {asm_funcs:,} |")
+        return
     print(f"SLUS_216.72: {done:#x} / {total:#x} bytes of game code in C++ ({100 * done / total:.2f}%)")
     print(f"    functions: {c_funcs} in C++, {asm_funcs} still INCLUDE_ASM")
 

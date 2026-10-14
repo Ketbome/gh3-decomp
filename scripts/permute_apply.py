@@ -5,7 +5,7 @@ Usage: .venv/bin/python scripts/permute_apply.py <func> [--output DIR]
 
 Takes build/permute/<func>/output-<lowest score>-*/source.c (or the given output dir), extracts the function and
 any helper functions the permuter added (e.g. `inline_fn`), writes nonmatching/<func>.<ext> with them in place of
-the old attempt, and runs scripts/try.py on it. The file is updated only if the result is not worse.
+the old attempt, and runs `dk try` on it. The file is updated only if the result is not worse.
 """
 
 import re
@@ -81,9 +81,9 @@ def main():
         after_file.parent.mkdir()
         before_file.write_text(text)
         after_file.write_text(candidate)
-        before = subprocess.run([PY, str(ROOT / "scripts" / "try.py"), str(before_file), func], cwd=ROOT,
+        before = subprocess.run([PY, str(ROOT / "scripts" / "dk.py"), "try", str(before_file), func], cwd=ROOT,
                                 capture_output=True, text=True)
-        after = subprocess.run([PY, str(ROOT / "scripts" / "try.py"), str(after_file), func], cwd=ROOT,
+        after = subprocess.run([PY, str(ROOT / "scripts" / "dk.py"), "try", str(after_file), func], cwd=ROOT,
                                capture_output=True, text=True)
         print(after.stdout.strip()[:3000])
         if score_of(after) <= score_of(before):

@@ -1,9 +1,11 @@
 #!/bin/sh
-# Verifies the committed HEAD in a separate worktree (so workers' asm/ and build/ are untouched) and, if the rebuilt
-# executable is byte-identical, pushes it. Usage: scripts/integrate.sh [worktree dir]
+# Regenerates the progress blocks of the documents (dk docs, committed), verifies the committed HEAD in a separate
+# worktree (so workers' asm/ and build/ are untouched) and, if the rebuilt executable is byte-identical, pushes it.
+# Usage: scripts/integrate.sh [worktree dir]
 set -e
 cd "$(dirname "$0")/.."
 ROOT=$PWD
+.venv/bin/python scripts/dk.py docs --commit
 WT=${1:-${TMPDIR:-/tmp}/gh3-integrate}
 REV=$(git rev-parse HEAD)
 rm -rf "$WT"
