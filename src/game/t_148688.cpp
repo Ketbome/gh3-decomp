@@ -17,6 +17,9 @@ extern u8 D_0033BBA0[];
 void func_00148508(void*);
 void* func_00148490(void*);
 void func_001CEDE0(void*, u32);
+void* func_00138F20(void*);
+void func_001D8A88(void*, int);
+void func_001D8B30(void*, void*);
 void func_001CEE88(void*, u32, int);
 void func_001CEE38(void*, u32, int);
 void func_001D8AB8(void*, int);
@@ -90,7 +93,44 @@ extern "C" void func_001497F0(S_148* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149818);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149820);
+struct S_149820 {
+    char pad0[0x8];
+    void* unk8;
+    char padC[0x234];
+    char unk240[0x18];
+    void* unk258;
+    int unk25C;
+    int unk260;
+    char pad264[8];
+    int unk26C;
+    int unk270;
+    int unk274;
+    float unk278;
+    int unk27C;
+    int unk280;
+    float unk284;
+};
+
+extern "C" S_149820* func_00149820(S_149820* self) {
+    func_00138F20(self);
+    func_001D8A88(self->unk240, 1);
+    void* x = D_0033BB78;
+    void* y = D_0033BBA0;
+    self->unk8 = y;
+    self->unk258 = x;
+    func_001D8B30(self->unk240, self);
+    self->unk25C = 0;
+    self->unk260 = 0;
+    self->unk26C = 0;
+    self->unk270 = 0;
+    self->unk274 = 0;
+    self->unk280 = 0;
+    self->unk278 = 10000.0f;
+    self->unk27C = -1;
+    self->unk284 = -1.0f;
+    func_001CEDE0(self, 0x84298A3C);
+    return self;
+}
 
 extern "C" void func_001498D0(S_148* self, int flags) {
     self->unk258 = (int)D_0033BB78;
