@@ -264,7 +264,25 @@ extern "C" void func_0013D048(T_func_0013D048* t, int* key) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013D100);
+struct P_0013D100 {
+    u32 unk0;
+    u32 unk4;
+    int Has(u32 p) { return !(p < unk0) && p < unk4; }
+};
+extern "C" {
+extern P_0013D100* D_00371288[2];
+extern int D_00371298;
+void func_0011C2E8(P_0013D100*, void*);
+}
+
+extern "C" void func_0013D100(void* p) {
+    P_0013D100* pool = D_00371288[D_00371298];
+    if ((pool && pool->Has((u32)p)) || ((pool = D_00371288[D_00371298 ^ 1]) && pool->Has((u32)p))) {
+        func_0011C2E8(pool, p);
+    } else if (p) {
+        Heap_Free(D_00368A38, p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013D1B8);
 
