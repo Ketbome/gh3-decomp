@@ -38,7 +38,53 @@ extern "C" void func_00241110(void* p) {
 extern "C" void func_00241140(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241148);
+struct V241148 {
+    char pad0[0xC];
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v26(void* a);
+};
+
+struct O241148 : V241148 {
+    f32 unk10[0x10];
+    f32 unk50;
+    f32 unk54;
+    f32 unk58;
+};
+
+extern "C" void func_00241148(O241148* o, f32* a, TI128* b) {
+    if (a[0] == o->unk50 && a[1] == o->unk54 && a[2] == o->unk58) {
+        TI128 t;
+        register TI128* tp asm("$5") = &t;
+        asm volatile("lqc2 $vf2, 0(%1)\n\tlqc2 $vf1, 0x10(%2)\n\tvmul.xyzw $vf1, $vf2, $vf1\n\tsqc2 $vf2, %0\n\tsqc2 $vf1, %0"
+            : "=m"(t) : "r"(b), "r"(o));
+        o->v26(tp);
+    }
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_002411D0);
 
