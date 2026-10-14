@@ -466,7 +466,64 @@ extern "C" void func_002A6C60(void) {
     func_002A6C10_a(func_002A6C40_r());
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", func_002A6C88);
+extern "C" {
+void func_0011A558(u32, int, int);
+void func_0011A568(void);
+void func_002767D8(void);
+void func_0014E170(void);
+void func_002A6EB8(int, int);
+void func_002A6F60(int, int);
+void func_002A7008(int, int);
+void func_002A70B0(int, int);
+void func_002A7158(int, int);
+void func_002A7200(int, int);
+void func_002A72A8(int, int);
+void func_002769B0(int, int);
+void func_00276BB0(int, int);
+int func_002A1820(void);
+int func_002A1828(void);
+extern char D_003625A8[];
+extern char D_003625C0[];
+extern char D_003625D0[];
+extern char D_003625E8[];
+extern char D_003625F8[];
+extern char D_00362610[];
+extern char D_00362628[];
+extern char g_cfunc_table[];
+extern char D_003300D0[];
+}
+
+extern "C" void func_002A6C88(void) {
+    func_0011A558(0xA76BFA95, 0, 0);
+    func_002767D8();
+    func_0014E170();
+    func_0011A568();
+    func_0011A558(0xCAA97111, 0, 0);
+    func_002A6EB8(0xC8, (int)D_003625A8);
+    func_0011A568();
+    func_0011A558(0x154E93FF, 0, 0);
+    func_002A6F60(1, (int)D_003625C0);
+    func_0011A568();
+    func_0011A558(0xA394CD22, 0, 0);
+    func_002A7008(1, (int)D_003625D0);
+    func_0011A568();
+    func_0011A558(0x93D10D41, 0, 0);
+    func_002A70B0(0x40, (int)D_003625E8);
+    func_0011A568();
+    func_0011A558(0xF4439A94, 0, 0);
+    func_002A7158(0x4B, (int)D_003625F8);
+    func_0011A568();
+    func_0011A558(0xA63C4993, 0, 0);
+    func_002A7200(0xAF, (int)D_00362610);
+    func_0011A568();
+    func_0011A558(0x5F405993, 0, 0);
+    func_002A72A8(0x12C, (int)D_00362628);
+    func_0011A568();
+    func_0011A558(0xA750190B, 0, 0);
+    func_002769B0((int)g_cfunc_table, func_002A1820());
+    func_00276BB0((int)D_003300D0, func_002A1828());
+    func_0011A568();
+}
 
 extern "C" void func_002A6E50(int a, int b) {
     func_0011A558(0x328084D7, 0, 0);
