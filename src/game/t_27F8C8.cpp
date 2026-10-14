@@ -3,6 +3,7 @@
 extern "C" {
 extern int D_00368A38;
 int func_0027FAC8(int, int, int, int, int);
+int func_0027F1E8(int, int, int);
 void func_0011A470(int);
 int func_0011A380(int);
 int func_00119610(int, int);
