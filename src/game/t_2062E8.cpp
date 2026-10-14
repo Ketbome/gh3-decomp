@@ -198,7 +198,49 @@ extern "C" int func_00206E10(void* self, int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206E30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206E48);
+struct V6E48 {
+    int a;
+    int b;
+};
+
+struct E6E48 {
+    u32 key;
+    u32 type;
+    V6E48 v;
+};
+
+extern E6E48 T6E48[] __asm__("D_0038FC78");
+extern V6E48 S6E48_0[] __asm__("D_0036EA08");
+extern V6E48 S6E48_1[] __asm__("D_0036EA10");
+extern V6E48 S6E48_2[] __asm__("D_0036EA18");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_00206E48(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E6E48* e = T6E48;
+        V6E48 t;
+        e->key = 0x67660FE5;
+        t = *S6E48_0;
+        e->type = 0xB87C8E43;
+        e->v = t;
+        e++;
+        e->key = 0xDCE760A1;
+        t = *S6E48_1;
+        e->type = 0xB87C8E43;
+        e->v = t;
+        e++;
+        e->key = 0x6520B902;
+        t = *S6E48_2;
+        e->type = 0xB87C8E43;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0xB87C8E43;
+        e->v = t;
+    }
+}
+TEXT_PAD(12);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206F70);
 
@@ -399,7 +441,60 @@ extern "C" void func_00207E28(S206* self, u128_206* v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00207E38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00207E58);
+struct V7E58 {
+    int a;
+    int b;
+};
+
+struct E7E58 {
+    u32 key;
+    u32 type;
+    V7E58 v;
+};
+
+extern E7E58 T7E58[] __asm__("D_0038FCB8");
+extern V7E58 S7E58_0[] __asm__("D_0036EA68");
+extern V7E58 S7E58_1[] __asm__("D_0036EA70");
+extern V7E58 S7E58_2[] __asm__("D_0036EA78");
+extern V7E58 S7E58_3[] __asm__("D_0036EA80");
+extern V7E58 S7E58_4[] __asm__("D_0036EA88");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_00207E58(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E7E58* e = T7E58;
+        V7E58 t;
+        e->key = 0xAAF6E513;
+        t = *S7E58_0;
+        e->type = 0x8A897DD2;
+        e->v = t;
+        e++;
+        e->key = 0xF272C43A;
+        t = *S7E58_1;
+        e->type = 0x8A897DD2;
+        e->v = t;
+        e++;
+        e->key = 0x8BE62DC0;
+        t = *S7E58_2;
+        e->type = 0x8A897DD2;
+        e->v = t;
+        e++;
+        e->key = 0x5CB80CB4;
+        t = *S7E58_3;
+        e->type = 0x8A897DD2;
+        e->v = t;
+        e++;
+        e->key = 0x8E9030C;
+        t = *S7E58_4;
+        e->type = 0x8A897DD2;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x8A897DD2;
+        e->v = t;
+    }
+}
 
 extern "C" void func_00207FF0(void) {
     func_00207E58(1, 0xFFFF);
