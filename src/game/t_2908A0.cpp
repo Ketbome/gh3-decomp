@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S00291CF0 {
@@ -110,6 +111,7 @@ int func_00291D28(int, int, int);
 void func_00291C40(void *);
 void func_00291F08(int, int *);
 void func_00291FC0(void *);
+void func_0011C408(int, void *);
 void func_00291020(S2908_List *, S2908_Node *);
 void func_00290D18(S2908_Node *, int);
 void func_002908A0(S2908_Script *, int);
@@ -339,7 +341,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291D28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291F08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00291FC0);
+struct S291F_N {
+    char pad0[8];
+    S291F_N *unk8;
+};
+
+struct S291F_T {
+    char pad0[8];
+    S291F_N *unk8;
+};
+
+struct S291F_O {
+    int unk0;
+    S291F_T *unk4;
+    S291F_N *unk8;
+};
+
+extern "C" void func_00291FC0(void *vo) {
+    S291F_O *o = (S291F_O *)vo;
+    if (o->unk4) {
+        S291F_T *t = o->unk4;
+        u32 n = 1 << o->unk0;
+        for (u32 i = 0; i < n; i++, t++) {
+            S291F_N *p = t->unk8;
+            while (p) {
+                S291F_N *next = p->unk8;
+                func_0011C408(0, p);
+                p = next;
+            }
+            func_00291CF0((S00291CF0 *)t);
+        }
+        o->unk8 = 0;
+    }
+}
 
 extern "C" void func_00292078(S2908_Buf *p, int flags) {
     if (!p->unk16 && p->unk4) {
