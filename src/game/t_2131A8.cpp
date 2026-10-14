@@ -137,7 +137,36 @@ extern "C" void func_002134D8(S213* p, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_00213518);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_00213520);
+struct V3520 {
+    int a;
+    int b;
+};
+
+struct E3520 {
+    u32 key;
+    u32 type;
+    V3520 v;
+};
+
+extern E3520 T3520[] __asm__("D_0038FEB8");
+extern V3520 S3520_0[] __asm__("D_0036ED10");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_00213520(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E3520* e = T3520;
+        V3520 t;
+        e->key = 0xDF8A5F0A;
+        t = *S3520_0;
+        e->type = 0x404EB936;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x404EB936;
+        e->v = t;
+    }
+}
 
 extern "C" void func_002135C8(void) {
     func_00213520(1, 0xFFFF);
