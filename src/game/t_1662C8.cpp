@@ -15,6 +15,8 @@ struct S00167958 {
 extern "C" {
 void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
 extern u8 D_0033E6D8[];
+extern u8 D_0033E2A0[];
+extern u8 D_0033E2B8[];
 extern u8 D_0033E6F0[];
 void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -23,6 +25,7 @@ extern u8 D_0033E588[];
 extern u8 D_0033E408[];
 extern u8 D_0033E420[];
 void func_00162FC8(void);
+int func_0014EB28(void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_001662C8);
@@ -31,7 +34,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166A30);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166A38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_00166F40);
+struct S_00166F40 {
+    char pad0[0x8];
+    void* unk8;
+    char padC[0x14];
+    void* unk20;
+    char pad24[0x2CC];
+    int unk2F0;
+    char pad2F4[4];
+    void* unk2F8;
+    char pad2FC[4];
+    void** unk300;
+};
+
+extern "C" void func_00166F40(S_00166F40* self, int flags) {
+    self->unk20 = D_0033E2A0;
+    self->unk8 = D_0033E2B8;
+    if (self->unk2F8) {
+        Heap_Free(D_00368A38[0], self->unk2F8);
+        self->unk2F8 = 0;
+    }
+    if (self->unk300) {
+        u32 i = 0;
+        u32 n;
+        if (self->unk2F0) {
+            do {
+                func_0014EB28(self->unk300[i]);
+                i++;
+                n = self->unk2F0;
+            } while (i < n);
+        }
+        if (self->unk300) {
+            Heap_Free(D_00368A38[0], self->unk300);
+        }
+        self->unk300 = 0;
+    }
+    func_00162FC8_2(self, flags);
+}
 
 extern "C" int func_00167010(void) {
     return 1;
