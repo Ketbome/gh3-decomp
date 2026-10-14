@@ -389,6 +389,31 @@ extern "C" void func_00293CE0(u64* p, u32 b, u32 c, u32 d) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293D08);
 
+struct S293_E {
+    long unk0;
+    long unk8;
+    int unk10;
+    int unk14;
+};
+
+struct S293_D {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    char pad18[0x2C];
+    int unk44;
+    char pad48[8];
+    S293_E *unk50;
+    int unk54;
+    int unk58;
+    int unk5C;
+};
+
+extern "C" void func_00293C70_3(int, int, int) asm("func_00293C70");
+
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293D80);
 
 extern "C" void func_00293EE0(S293EE0 *p, int *o1, int *o2, int *o3, int *o4) {
