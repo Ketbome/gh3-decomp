@@ -99,6 +99,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", func_002BDCD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", func_002BDEA8);
 
+struct S2BCDA8_O {
+    char pad0[0x1C];
+    int unk1C;
+};
+struct S2BCDA8_L {
+    int a;
+    int b;
+};
+extern "C" {
+extern int D_0036D3B0;
+extern char D_003B1150[];
+extern int D_003E56C8[];
+extern int D_003E56E8[];
+extern int D_003E5708[];
+extern int D_003E5728[];
+int func_0027D2D8(int, int, void *, int);
+int func_0027D1F8(int, int, void *, int);
+int func_001D8618(int, int);
+S2BCDA8_O *func_001D1CF8(int, int, void *);
+int func_0015D2E8(int, int);
+}
+
+GP_DATA(D_0036D3B0);
+GP_DATA(D_003720D0);
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_AddCrowdModelCam);
 
 GP_DATA(D_003720D0);
@@ -125,6 +149,29 @@ extern "C" s32 CFunc_DumpClose(void) {
     return 1;
 }
 
+struct S2BCDA8_C {
+    char pad0[0x20];
+    int unk20;
+};
+struct S2BCDA8_M {
+    char pad0[0x28];
+    S2BCDA8_C *unk28[2];
+};
+struct S2BCDA8_S {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" {
+extern S2BCDA8_M *D_0036CDB4;
+void func_0027E698(void *);
+void func_0027E760(void *, int, int);
+void func_0027EDE0(void *, int, int);
+void func_0027E6B0(void *, int);
+void func_0027C678(int, u32, void *);
+int func_00117F10(int, int);
+}
+
+GP_DATA(D_0036CDB4);
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_GetActiveControllers);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_HideObjectByType);
