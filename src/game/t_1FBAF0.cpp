@@ -79,6 +79,8 @@ int func_0026C250(int, int, void*);
 void func_0026AF28(void*);
 int func_001EB338(void*);
 TI128 func_001EB638(void*, int);
+int func_001EAA68(void*);
+TI128 func_001EAEA0(void*, int);
 }
 
 static inline void Release1FB(void** pp) {
@@ -179,7 +181,24 @@ extern "C" int func_001FBF10(void* self, int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBFC8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBFD0);
+struct S1FBFD_R {
+    char pad0[0x80];
+    TI128 unk80;
+};
+
+struct S1FBFD {
+    char pad0[0xC];
+    S1FBFD_R* unkC;
+    char pad10[0x18];
+    void* unk28;
+};
+
+extern "C" TI128 func_001FBFD0(S1FBFD* p, int a) {
+    if (func_001EAA68(p->unk28) && a) {
+        return func_001EAEA0(p->unk28, a + 0x80);
+    }
+    return p->unkC->unk80;
+}
 
 extern "C" int func_001FC030(S1FB* p, int a, TI128* out) {
     if (!a) return 0;
