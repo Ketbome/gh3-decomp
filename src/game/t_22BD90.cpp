@@ -59,6 +59,8 @@ int func_0014F130(void);
 void func_0030B550(int, void*, int, int);
 extern u8 D_0036F8D8[];
 void func_0022BBB0(void*, int, int, int, int, int);
+char* strcpy(char*, const char*);
+void func_00152548(char*, char*, int);
 struct LI22C {
     s32 unk0;
     s32* unk4;
@@ -282,6 +284,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C850);
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CA20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CB10);
+
+struct HV22C {
+    char pad0[8];
+    s32 unk8;
+};
+
+struct HN22C {
+    u32 key;
+    HV22C* val;
+    HN22C* next;
+};
+
+struct HT22C {
+    s32 bits;
+    HN22C* buckets;
+    char pad8[0xD];
+    u8 unk15;
+
+    HV22C* Get(const u32& key) {
+        if (!buckets) {
+            return 0;
+        }
+        HN22C* n = &buckets[key & ((1 << bits) - 1)];
+        if (!n) {
+            return 0;
+        }
+        do {
+            if (n->key == key) {
+                if (unk15 || n->val) {
+                    return n->val;
+                }
+            }
+            n = n->next;
+        } while (n);
+        return 0;
+    }
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022CB18);
 
