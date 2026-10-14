@@ -182,7 +182,48 @@ extern "C" s32 func_002086D0(S208_V* p, S208_A* a, int x, int y) {
 extern "C" void func_00208770(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_208310", func_00208778);
+struct V8778 {
+    int a;
+    int b;
+};
+
+struct E8778 {
+    u32 key;
+    u32 type;
+    V8778 v;
+};
+
+extern E8778 T8778[] __asm__("D_0038FD28");
+extern V8778 S8778_0[] __asm__("D_0036EBC8");
+extern V8778 S8778_1[] __asm__("D_0036EBD0");
+extern V8778 S8778_2[] __asm__("D_0036EBD8");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_00208778(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E8778* e = T8778;
+        V8778 t;
+        e->key = 0x91224113;
+        t = *S8778_0;
+        e->type = 0xC4E311FA;
+        e->v = t;
+        e++;
+        e->key = 0x2B3F9CE;
+        t = *S8778_1;
+        e->type = 0xC4E311FA;
+        e->v = t;
+        e++;
+        e->key = 0xE8BC699B;
+        t = *S8778_2;
+        e->type = 0xC4E311FA;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0xC4E311FA;
+        e->v = t;
+    }
+}
 
 extern "C" void func_00208898(void) {
     func_00208778(1, 0xFFFF);
