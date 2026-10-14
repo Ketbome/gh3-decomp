@@ -9,7 +9,9 @@ so no progress figures or hashes are written by hand here.
 Running (2026-10-14): workers A and C (`div.s` functions first); `decomp-forensics` on delay slots the modern gas
 fills where the original leaves `nop` (unsigned `cvt.s.w` before `b`/`jr`: func_002009B0, func_001D5038,
 func_001D5138, func_001B21A0, func_001E2850; volatile `sw` before `jal`: func_001B3BD0), scratch copy only.
-Worker B finished its round (12 matches, few viable candidates left); relaunch after the forensics result.
+Worker A relaunched (second round, `div.s` left, then untried; 3 more `cvt.s.w` cases from it went to the forensics:
+func_0011EE38, func_0011ED68, func_0016FCD8). Worker B finished its round (12 matches, few viable candidates left);
+relaunch after the forensics result. A `general-purpose` agent investigates the `dk twins` failures (patch for the skill).
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
