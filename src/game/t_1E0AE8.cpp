@@ -423,7 +423,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E24B0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2558);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2628);
+extern "C" {
+s32 func_001E1F88_r(void) __asm__("func_001E1F88");
+s32 func_0027CC30(s32 a, s32 b, s32 c, void* d);
+f32 func_0027EFA0(s32 a, s32 b);
+void func_0027F1E0(s32 a, s32 b, s32 c);
+}
+
+extern "C" void func_001E2628(char* p, f32* out, s32 key, f32 v) {
+    s32 buf[3];
+    s32 h = func_001E1F88_r();
+    s32 q;
+    f32 sign;
+    f32 a;
+    f32 b;
+    f32 r;
+    f32 t;
+    s32 ok = func_0027CC30(h, key, 12, buf);
+    q = buf[0];
+    if (ok == 0) {
+        func_0027F1E0(h, 0, 1);
+        q = 0;
+    }
+    sign = -1.0f;
+    if (v >= 0.0f) sign = 1.0f;
+    f32 av = __builtin_fabsf(v);
+    a = func_0027EFA0(q, 0);
+    b = func_0027EFA0(q, 1) * *(f32*)(p + 0x1AC);
+    if (b == a) {
+        r = 0.0f;
+    } else {
+        r = (av - a) / (b - a);
+        if (r < 0.0f) r = 0.0f;
+        t = 1.0f < r ? 1.0f : r;
+        r = t;
+    }
+    *out = sign * r;
+}
 
 extern "C" void func_001E2770(S1E277* p) {
     p->unk0 = 0;
