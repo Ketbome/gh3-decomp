@@ -197,7 +197,40 @@ extern "C" int CFunc_DestroyAllFastParticles(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_Change);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_SetEventHandlerOnObject);
+struct S24B_Handler {
+    char pad0[0x14];
+    int unk14;
+};
+extern "C" {
+S24B_Handler *func_001D8618(int, int);
+int func_0012D028(int, int);
+int func_002899D8(int);
+void func_0028DCF8(int, int, int, int, int, int, int);
+}
+
+extern "C" int CFunc_SetEventHandlerOnObject(int params) {
+    int a = 0;
+    func_0027D870(params, 0xF8728BEC, &a, 1);
+    int a2 = a;
+    int b = 0;
+    func_0027D870(params, 0xA6D2D890, &b, 1);
+    int b2 = b;
+    int c = 0;
+    func_0027D870(params, 0x923FBB3A, &c, 0);
+    int c2 = c;
+    int d = func_0027DF00(params, 0x80367192);
+    int e = func_0027DF00(params, 0x84FD71D0);
+    int f = 0;
+    func_0027D400(params, 0x7031F10C, &f, 0);
+    int g = 0;
+    func_0027D870(params, 0x57525413, &g, 1);
+    S24B_Handler *h = func_001D8618(D_0036D3B0, g);
+    if (h->unk14 == 0) {
+        h->unk14 = func_002899D8(func_0012D028(0x10C, 1));
+    }
+    func_0028DCF8(h->unk14, a2, b2, c2, d, e, f);
+    return 1;
+}
 
 extern "C" int CFunc_GetNode(int params, S24B_Script *script) {
     u32 k;
@@ -389,6 +422,17 @@ extern "C" int CFunc_GetCCallstack(void) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_StringRemove);
+
+extern "C" {
+extern int D_00369CD8;
+extern int D_00369CDC;
+extern char D_00355B28[];
+void func_0014F150(void);
+void func_00157318(char *, int);
+void func_00157378(f32);
+void func_001573B8(int);
+int func_0027D268(int, u32, void *, int);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_DisplayLoadingScreen);
 
