@@ -256,7 +256,24 @@ extern "C" float func_0015DCC8(void) {
     return D_00369E50;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015DCD0);
+extern "C" {
+int func_0015D6F0(void);
+float func_0031B5C8(float);
+void func_001234B0(void*);
+}
+extern float D_00373268;
+
+GP_DATA(D_00369E50);
+extern "C" void func_0015DCD0(float v) {
+    if (v == 0.0f) v = D_00369E50;
+    int i = 0;
+    D_00373268 = v;
+    float t = func_0031B5C8(v * 0.5f * 0.017453294f);
+    D_00369E54 = t / func_0031B5C8(D_00369E50 * 0.5f * 0.017453294f);
+    while (i < func_0015D6F0()) {
+        R_0015D5A0* o = func_0015D570(i); i++; if (o) { if (o->unk34) func_001234B0((void*)o->unk34); }
+    }
+}
 
 extern "C" float func_0015DDA8(void) {
     return D_00369E54;
