@@ -134,6 +134,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DCC0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DCC8);
 
+struct S26DD48_T {
+    int unk0;
+    char pad[0x7C];
+};
+struct S26DD48 {
+    char pad0[0x1C];
+    int unk1C;
+};
+extern S26DD48_T D_003A44B0[];
+extern "C" int func_0026ABB0(void);
+extern "C" int func_0026AD48(int, int);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DD48);
 
 extern "C" int func_0026DE20(void) {
