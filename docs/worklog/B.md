@@ -851,3 +851,6 @@ Habits found:
 - A callee declared `int` instead of void changes the v0/v1 choice (func_002435D8). Callees with fewer args than m2c shows (func_0019F9F8 takes none).
 Near misses saved: func_001E0768(matched later) func_001D8180 func_001EE608 (two sb swapped) func_001FAC90 func_001FDDC0 func_001DE210 func_0022D5E8 (a0/a1 move order) func_001D8C10 (v0/v1 temp) func_0022CB18 (leading move before addiu sp: toolchain class, same as func_0022F3A0 func_001D55F8).
 Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/func_001DD018/func_001DCF90 (dead nested test kept / ~x!=0 iterator), func_002252C0 (original uses branches, ours movz), func_00233728 (needs asm copy hack, epilogue layout), func_00222470 (separate lui/addiu regs for D_00390790), func_001ECC90 (first vtable store dropped by gcc), func_001DFFB0 (movz for the ternary constants, slot fill), func_00226340 (list erase). Remaining 8-byte `addiu sp; nop` stub prefixes are not code.
+
+## Session 15 (agentB17)
+- CFunc_SetPakManCurrent (t_234190) transplanted from the integrator's permuter result (int-return alias `__asm__("func_0027D870")` + Ne helper).
