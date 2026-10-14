@@ -76,6 +76,26 @@ extern "C" float func_002B7108(float *p, float a, float b, float c, float d, flo
     return r;
 }
 
+struct S2B7_Arr {
+    int unk0;
+    int size;
+    int data;
+    int Get(int i) {
+        if (size == 1) {
+            return data;
+        }
+        return ((int *)data)[i];
+    }
+};
+
+extern "C" {
+extern S2B7_Arr *D_00371FB0[] __attribute__((section(".sdata")));
+extern float D_00373138[];
+extern float D_003730F8;
+extern float D_003730FC;
+}
+
+GP_DATA(D_00371FB0);
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B7140);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B72C0);
