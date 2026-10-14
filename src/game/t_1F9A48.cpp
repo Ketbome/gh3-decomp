@@ -159,18 +159,6 @@ static inline TI128 MakeVec1FA(f32 x, f32 y, f32 z, f32 w) {
     return hi;
 }
 
-struct S1FAC {
-    char pad0[4];
-    u32 unk4;
-    char pad8[0x10];
-    u8* unk18;
-    char pad1C[0x94];
-    TI128 unkB0;
-    TI128 unkC0;
-    s32 unkD0;
-    s32 unkD4;
-};
-
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAD10);
