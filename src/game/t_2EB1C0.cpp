@@ -56,6 +56,15 @@ struct S2EB_O {
 };
 extern "C" void func_002EAE80(int *, int);
 extern "C" void func_002EB680(int, int *);
+extern "C" {
+int func_0030B550(char*, const char*, ...);
+int func_001150E0(u32, char*);
+int func_0027D400(int, int, int*, int);
+int func_002EAC68(int, int);
+extern char D_003729C0[];
+extern S2EB_L *D_003729D4;
+extern int D_003729D8;
+}
 
 extern "C" void func_002EB1C8(S2EB_O *p, int b) {
     S2EB_L *n = p->unk20;
@@ -86,6 +95,8 @@ extern "C" int func_002EB4C8(int arg0) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB550);
 
+GP_DATA(D_003729D4);
+GP_DATA(D_003729D8);
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB568);
 
 GP_DATA(D_003729D8);
@@ -101,6 +112,51 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB970);
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBA98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBC18);
+
+struct SHI_V {
+    int unk0;
+    int unk4;
+};
+struct SHI_N {
+    int key;
+    SHI_V *val;
+    SHI_N *next;
+};
+struct SHI {
+    int bits;
+    SHI_N *tab;
+    int pad8;
+    int idx;
+    SHI_N *cur;
+};
+extern "C" SHI *D_003729D0_i asm("D_003729D0");
+
+static inline SHI *SHI_Begin(SHI *t) {
+    t->idx = -1;
+    t->cur = 0;
+    return t;
+}
+
+static inline int SHI_Next(SHI *t, int size) {
+    if (t->cur != 0) {
+        t->cur = t->cur->next;
+    } else if (t->idx >= 0) {
+        return 0;
+    }
+    if (t->cur != 0) return 1;
+    for (;;) {
+        int i = t->idx + 1;
+        t->idx = i;
+        if (!(i < size)) return 0;
+        SHI_N *p = t->tab + i;
+        t->cur = p;
+        if (p->val != 0) return 1;
+        if (p->next != 0) {
+            t->cur = p->next;
+            return 1;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBCF8);
 
