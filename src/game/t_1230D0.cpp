@@ -162,11 +162,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123310);
 
 struct S1233A8 { char pad0[0xD4]; float unkD4; float unkD8; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_001233A8);
+extern "C" void func_001233A8(void* p) {
+    S1233A8* self = (S1233A8*)p;
+    float v = self->unkD4;
+    if (func_0015DCB8() > 1.34f) {
+        float t = func_0031B5C8(v * 0.5f * 0.017453294f);
+        v = 2.0f * func_0031B118(t / (func_0015DCB8() * 0.75f)) * 57.295776f;
+    }
+    float t2 = func_0031B5C8(v * 0.5f * 0.017453294f);
+    self->unkD8 = t2 / func_0031B5C8(func_0015DCC8() * 0.5f * 0.017453294f);
+}
 
 struct S_001234B0 { char pad0[0xD0]; float unkD0; float unkD4; char padD8[0x10]; float unkE8; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_001234B0);
+extern "C" void func_001234B0(void* p) {
+    S_001234B0* self = (S_001234B0*)p;
+    float t = func_0031B5C8(self->unkD0 * 0.5f * 0.017453294f);
+    self->unkD4 = 2.0f * func_0031B118((t * func_0015DDA8()) / self->unkE8) * 57.295776f;
+    func_001233A8(self);
+}
 
 extern "C" float func_00123540(SA123_V* self) {
     func_001234B0(self);
