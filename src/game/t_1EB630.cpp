@@ -53,6 +53,10 @@ struct S1EBAE8 {
 
 extern "C" {
 extern S1ECC40 D_0038EE00;
+void func_001D0F68(void*);
+extern char D_0034EA28[];
+extern char D_0034E9B0[];
+extern s32 D_00372DC8[] __attribute__((section(".sdata")));
 extern void* D_0032C550[];
 extern u32 D_0036E060;
 void func_001ECC40(int, int);
@@ -132,6 +136,29 @@ extern "C" void func_001ECC40(int a, int b) {
 extern "C" void func_001ECC70() {
     func_001ECC40(1, 0xFFFF);
 }
+
+struct N1ECC9 {
+    N1ECC9* unk0;
+    N1ECC9* unk4;
+};
+
+struct S1ECC9 {
+    char pad0[4];
+    s32 unk4;
+    char pad8[0x10];
+    char* unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    s32 unk30;
+    s32* unk34;
+    char pad38[4];
+    N1ECC9* unk3C;
+    char pad40[0x58];
+    s32 unk98;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1EB630", func_001ECC90);
 
