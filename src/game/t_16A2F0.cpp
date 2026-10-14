@@ -31,6 +31,9 @@ void func_00162FC8_2(void*, int) __asm__("func_00162FC8");
 extern u8 D_0033F4E8[];
 extern u8 D_0033F500[];
 void Heap_Free(int, void*);
+void* Heap_Alloc(int, int, int, int);
+int func_0010C050(int);
+extern int D_003689E8[] __attribute__((section(".sdata")));
 extern u8 D_0033F380[];
 extern u8 D_0033F398[];
 void* func_001CE7A8(void*);
@@ -75,7 +78,21 @@ extern "C" void func_0016A6A8(S_0016A6A8* self, int flags) {
     func_00162FC8_2(self, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016A718);
+struct S_0016A718 { char pad0[0xA0]; int unkA0; char padA4[0x258]; float* unk2FC; };
+
+extern "C" void func_0016A718(S_0016A718* self, float a, float b) {
+    int i;
+    if (self->unk2FC || (self->unk2FC = (float*)Heap_Alloc(D_00368A38[0], self->unkA0 * 4, D_003689E8[0], 0))) {
+        if (self->unkA0 > 0) {
+            float d = b - a;
+            i = 0;
+            do {
+                self->unk2FC[i] = (a + d * (float)func_0010C050(10000) * 0.0001f) * 6.2831855f;
+                i++;
+            } while (i < self->unkA0);
+        }
+    }
+}
 
 extern "C" void func_0016A810(S0016A810* self, float v) {
     self->unk2F8 = v;
@@ -104,7 +121,19 @@ extern "C" void func_0016ABA0(S_0016ABA0* self, int flags) {
     func_00162FC8_2(self, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016AC10);
+extern "C" void func_0016AC10(S_0016A718* self, float a, float b) {
+    int i;
+    if (self->unk2FC || (self->unk2FC = (float*)Heap_Alloc(D_00368A38[0], self->unkA0 * 4, D_003689E8[0], 0))) {
+        if (self->unkA0 > 0) {
+            float d = b - a;
+            i = 0;
+            do {
+                self->unk2FC[i] = (a + d * (float)func_0010C050(10000) * 0.0001f) * 6.2831855f;
+                i++;
+            } while (i < self->unkA0);
+        }
+    }
+}
 
 extern "C" void func_0016AD08(S0016A810* self, float v) {
     self->unk2F8 = v;
