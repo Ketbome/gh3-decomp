@@ -152,7 +152,48 @@ extern "C" void func_0021DC40(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DC48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DC50);
+struct VDC50 {
+    int a;
+    int b;
+};
+
+struct EDC50 {
+    u32 key;
+    u32 type;
+    VDC50 v;
+};
+
+extern EDC50 TDC50[] __asm__("D_00390530");
+extern VDC50 SDC50_0[] __asm__("D_0036F1A0");
+extern VDC50 SDC50_1[] __asm__("D_0036F1A8");
+extern VDC50 SDC50_2[] __asm__("D_0036F1B0");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_0021DC50(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        EDC50* e = TDC50;
+        VDC50 t;
+        e->key = 0x317A113A;
+        t = *SDC50_0;
+        e->type = 0x6DCFEC46;
+        e->v = t;
+        e++;
+        e->key = 0x286BA49C;
+        t = *SDC50_1;
+        e->type = 0x6DCFEC46;
+        e->v = t;
+        e++;
+        e->key = 0x982C70E5;
+        t = *SDC50_2;
+        e->type = 0x6DCFEC46;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x6DCFEC46;
+        e->v = t;
+    }
+}
 
 extern "C" void func_0021DD70(void) {
     func_0021DC50(1, 0xFFFF);
