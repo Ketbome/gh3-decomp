@@ -919,3 +919,7 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002B7108 MATCH (store `*p` after computing the result so the branch follows the div).
 - CFunc_Sqrt already matches (asm workaround present).
 - CFunc_LinearMap: near miss, nonmatching/CFunc_LinearMap.cpp (clamps now match with `if (t<0) t=0; if (t>1) u=1 else u=t`; only float register numbers (lo f0 vs f2) and mtc1 placement differ).
+- func_00271C10 MATCH (t_271480).
+- Near misses (nonmatching/): func_002C10E8 (div.s now fine; only f-register numbers of the x0/y0/t temporaries differ), func_00299910 (only v0/v1 of the flag load), CFunc_LightShow_SetActive (`key == K` becomes sltiu; original is `bne; move v0,0; li v0,1`).
+- Gave up: func_00286270 (while(p) loop with a self-looping `case 0`, gcc hoists the constants; 4 forms), func_00266C08 (the `s=2,k=1; while (s<0x80 && k<12)` loop is constant-folded by gcc; original is not), func_00275CE8 (iterator with two duplicated tails), func_002EB738/func_002EB858 (hash-table iterator inlined).
+- Vector-to-3-floats pattern (`lq; dsrl32; pcpyud; mtc1 x3` before a call taking f12..f14: CFunc_GetViewportCameraPos, CFunc_GetWaypointDir, CFunc_NormalizeVector): union of u128/f32[4], aligned f32x4 struct and u32 bit-casts all go through the stack or emit `dsll32/dsra32`; inline asm (`dsrl32`/`pcpyud`/`mtc1`) gets within register numbering. Real source construct unknown.
