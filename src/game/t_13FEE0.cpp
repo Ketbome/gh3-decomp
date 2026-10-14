@@ -234,10 +234,56 @@ extern "C" void func_001413A0(S13F_X* self, void* list) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00141428);
 
 extern "C" int func_00141608(S_00141608* self) {
     return *self->unk248;
+}
+
+struct VE_141 { s16 delta; s16 unk2; void* fn; };
+struct VO_141 { char pad0[0x34]; VE_141* unk34; };
+struct H_141 { VO_141* unk0; int unk4; int unk8; };
+struct S_141 { char pad0[0xC]; u32 unkC; char pad10[0x1E0]; float unk1F0; float unk1F4; char pad1F8[0x48]; int unk240; int pad244; int unk248; };
+
+extern "C" {
+void func_0022B0D0(H_141*, int, int, int);
+void func_00134340(H_141*);
+void func_001342E8(H_141*, int);
+void func_0015E190(int, int);
+int func_001596E8(int);
+int func_00159710(int);
+void func_001397A8(S_141*, int, float, float);
+void func_00139AE8(S_141*, int, int, float, float);
+extern int D_0036F658;
+void func_00141428_i(S_141* self, int a) __asm__("func_00141428");
+}
+
+void func_00141428_i(S_141* self, int a) {
+    H_141 h;
+    func_0022B0D0(&h, D_0036F658, a, 0);
+    bool none = h.unk0 == 0;
+    func_00134340(&h);
+    if (none) {
+        a = 0xE9CA7F30;
+        self->unkC |= 0x400000;
+    }
+    self->unk240 = a;
+    func_0022B0D0(&h, D_0036F658, a, 0);
+    if (h.unk0 == 0) {
+        H_141 h2;
+        func_0022B0D0(&h2, D_0036F658, 0xE9CA7F30, 0);
+        if (h2.unk0) func_001342E8(&h, (int)h2.unk0);
+        func_00134340(&h2);
+    }
+    VO_141* o = h.unk0;
+    func_0015E190(self->unk248, o ? ((int (*)(void*))o->unk34[2].fn)((char*)o + o->unk34[2].delta) : 0);
+    if (self->unkC & 0x2000) {
+        float x = self->unk1F0 / (float)func_001596E8(func_00141608((S_00141608*)self));
+        func_00139AE8(self, 0, 0, x, self->unk1F4 / (float)func_00159710(func_00141608((S_00141608*)self)));
+    }
+    float w = (float)func_001596E8(func_00141608((S_00141608*)self));
+    func_001397A8(self, 0, w, (float)func_00159710(func_00141608((S_00141608*)self)));
+    self->unkC |= 0x1000;
+    func_00134340(&h);
 }
 
 extern "C" void func_00141618(void) {
