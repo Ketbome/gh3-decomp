@@ -50,6 +50,7 @@ extern s32 D_00372D6C;
 S1C97E0_L* func_002764C8(u32 key, s32 b);
 s32 func_0027D870_k(s32 a, u32 key, s32* v, s32 req) __asm__("func_0027D870");
 s32 func_0027D188(s32 a, u32 key, s32* v, s32 req);
+s32 func_0029FDA8(s32 a, u32 b);
 s32 func_00122718(char* p);
 s32 CFunc_ObjectExists(s32 a, s32 b);
 void func_00122770(void);
@@ -398,7 +399,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9658);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9780);
+extern "C" s32 func_001C9780(char* p) {
+    s32 v;
+    VEnt* e = (VEnt*)(*(char**)(p + 0xEE00) + 0x100);
+    s32 r = func_0027D188(func_0029FDA8(((s32 (*)(char*))e->fn)(p + e->delta), 0xCA3DB92A), 0x96875C0F, &v, 1);
+    return v;
+}
 
 extern "C" s32 func_001C97E0(char* o) {
     s32 sp0;
