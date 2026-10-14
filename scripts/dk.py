@@ -598,12 +598,17 @@ def function_text(text, name):
 
 def local_type_names(text):
     return set(re.findall(r"^(?:struct|union|class)\s+(\w+)\s*[:{]", text, re.M)) | \
-        set(re.findall(r"^typedef\b[^;]*?\b(\w+)\s*;", text, re.M))
+        set(re.findall(r"^typedef\b[^;]*?\b(\w+)\s*(?:__attribute__\(\(.*?\)\)\s*)?;", text, re.M)) | \
+        set(re.findall(r"^(?:struct|union|class)\s+(\w+)\s*;", text, re.M))
 
 
 def type_definition(text, name):
     lines = text.splitlines(keepends=True)
     for i, line in enumerate(lines):
+        if re.match(rf"^(?:struct|union|class)\s+{name}\b[^;{{]*\{{.*\}}\s*;\s*$", line):
+            return line
+        if re.match(rf"^(?:struct|union|class)\s+{name}\s*;", line):
+            return line
         if re.match(rf"^(?:struct|union|class)\s+{name}\b[^;]*$", line):
             j, depth = i, 0
             while True:
@@ -611,9 +616,61 @@ def type_definition(text, name):
                 if depth <= 0 and "}" in lines[j]:
                     return "".join(lines[i:j + 1])
                 j += 1
-        if re.match(rf"^typedef\b[^;]*\b{name}\s*;", line):
+        if re.match(rf"^typedef\b[^;]*\b{name}\s*(?:__attribute__\(\(.*?\)\)\s*)?;", line):
             return line
     return None
+
+
+def twin_declaration(ttext, name):
+    """A declaration line of `name` (function or variable) in the twin's file, as a line with C linkage."""
+    for line in ttext.splitlines():
+        if not line or line[0] in " \t#" or line.startswith(INCLUDE_ASM) or not re.search(rf"\b{re.escape(name)}\b", line):
+            continue
+        s = line.strip()
+        d = re.match(rf"^(.*\b{re.escape(name)}\s*\(.*\))\s*(?:const\s*)?\{{\s*$", s)
+        if d:
+            s = d.group(1) + ";"
+        elif "{" in s.split("//")[0].replace("{}", "") and not s.endswith(";") or not re.search(r";\s*(//.*)?$", s):
+            continue
+        if re.match(r"^(typedef|struct|union|class|return)\b", s) or "=" in s.split("(")[0] and "__asm__" not in s:
+            continue
+        if not re.search(rf"\b{re.escape(name)}\s*(\(|\[|;|__)", s):
+            continue
+        if s.startswith('extern "C"'):
+            return s + "\n"
+        return 'extern "C" ' + (s[7:] if s.startswith("extern ") else s) + "\n"
+    return None
+
+
+def adapt_signature(body, name, known):
+    """If `name` is already prototyped in the target file with other types, give the definition the prototype's
+    types and bind the twin's parameters by cast. Returns (body, error)."""
+    proto = re.search(rf"^(?!\s)(?!{INCLUDE_ASM})([^\n(=]*?)\b{name}\s*\(([^)]*)\)\s*;", known, re.M)
+    sig = re.search(rf"^(.*?)\b{name}\s*\(([^)]*)\)\s*\{{[^\n]*\n", body)
+    if not proto or not sig:
+        return body, None
+    norm = lambda s: re.sub(r"\s+", "", s.replace('extern "C"', "").replace("extern", ""))
+    if norm(proto.group(2)) == norm(sig.group(2)):
+        return body, None
+    if norm(proto.group(1)) != norm(sig.group(1)):
+        return body, f"return type differs from the prototype in the file ({proto.group(0).strip()})"
+    old = [x.strip() for x in sig.group(2).split(",")] if sig.group(2).strip() else []
+    new = [x.strip() for x in proto.group(2).split(",")] if proto.group(2).strip() else []
+    if len(old) != len(new) or any("(" in x or "[" in x for x in old + new):
+        return body, f"parameters differ from the prototype in the file ({proto.group(0).strip()})"
+    params, casts = [], []
+    for i, (o, n) in enumerate(zip(old, new)):
+        om, nm = re.match(r"^(.*?)(\w+)$", o), re.match(r"^(.*?)(\w+)$", n)
+        if norm(o) == norm(n):
+            params.append(o)
+        elif not om or not om.group(1).strip():
+            return body, f"parameter {i} cannot be rebound to the prototype ({proto.group(0).strip()})"
+        else:
+            ntype = n if not nm or not nm.group(1).strip() else nm.group(1).strip()
+            params.append(f"{ntype} a{i}")
+            casts.append(f"    {o} = ({om.group(1).strip()})a{i};\n")
+    head = f"{sig.group(1)}{name}({', '.join(params)}) {{\n"
+    return head + "".join(casts) + body[sig.end():], None
 
 
 def cmd_twins(args):
@@ -663,6 +720,51 @@ def cmd_twins(args):
             line = re.search(rf'^{INCLUDE_ASM}\("[^"]+",\s*{name}\);\n', text, re.M)
             if not body or not line:
                 continue
+            for a, b in mapping.items():
+                body = re.sub(rf"\b{re.escape(a)}\b", b, body)
+            decls, missing, shapes, conflicts = [], [], [], []
+            known = re.sub(rf"^{INCLUDE_ASM}[^\n]*\n", "", text, flags=re.M)
+            body, err = adapt_signature(body, name, known)
+            if err:
+                print(f"{rel(src)}: {name} skipped: {err}; change the prototype or write it by hand")
+                continue
+            for a in dict.fromkeys(tsyms):
+                b = mapping.get(a, a)
+                if a == twin:
+                    continue
+                if re.search(rf"\b{re.escape(b)}\b", known):
+                    mine, theirs_d = twin_declaration(known, b), twin_declaration(ttext, a)
+                    flat = lambda d: re.sub(r"\s|\b(?:extern|static)\b|\"C\"", "", re.sub(r"\b[su]32\b", "int", d.split("__")[0]))
+                    flat = lambda d, f=flat: f(re.sub(rf"\b(?:{re.escape(a)}|{re.escape(b)})\b", "N",
+                                                      re.sub(r"(?<=[\w*&])\s+\w+(?=\s*[,)\[])", "", d)))
+                    if mine and theirs_d and flat(mine) != flat(theirs_d):
+                        conflicts.append(f"{b}: file has `{mine.strip()}`, twin has `{theirs_d.strip()}`")
+                    if mine and theirs_d and "(" not in mine.split("__")[0] and "(" not in theirs_d.split("__")[0]:
+                        shape = lambda d: re.match(rf"^(.*?)\b{re.escape(b if d is mine else a)}\s*(\[[^\]]*\])?",
+                                                   d.replace('extern "C"', "").replace("extern", ""))
+                        sm, st = shape(mine), shape(theirs_d)
+                        ty = lambda m: re.sub(r"\s", "", re.sub(r"\b[su]32\b", "int", m.group(1)).replace("unsignedint", "u32"))
+                        if sm and st and ty(sm) == ty(st):
+                            if st.group(2) is None and sm.group(2) is not None:
+                                body = re.sub(rf"\b{re.escape(b)}\b(?!\s*\[)", f"{b}[0]", body)
+                            elif st.group(2) is not None and sm.group(2) is None:
+                                if re.search(rf"\b{re.escape(b)}\b(?!\[0\])", body):
+                                    shapes.append(b)
+                                body = re.sub(rf"\b{re.escape(b)}\[0\]", b, body)
+                    continue
+                d = twin_declaration(ttext, a)
+                if d:
+                    decls.append(re.sub(rf"\b{re.escape(a)}\b", b, d))
+                else:
+                    missing.append(a)
+            if shapes:
+                print(f"{rel(src)}: {name} skipped: {' '.join(shapes)} is an array in {rel(src)} but a scalar in "
+                      f"{rel(owner[twin])} and the twin uses it as a pointer; adapt by hand")
+                continue
+            if missing:
+                print(f"{rel(src)}: {name} skipped: no declaration of {' '.join(missing)} found in {rel(owner[twin])}; "
+                      f"declare it in {rel(src)} and retry")
+                continue
             types, have, theirs = [], local_type_names(text), local_type_names(ttext)
             try:
                 seen = set()
@@ -678,26 +780,12 @@ def cmd_twins(args):
                             types.append(block)
                 if owner[twin] != src:
                     visit(body)
-            except KeyError:
+                    visit("".join(decls))
+            except KeyError as e:
+                print(f"{rel(src)}: {name} skipped: cannot copy the definition of type {e.args[0]} from "
+                      f"{rel(owner[twin])}; define it in {rel(src)} and retry")
                 continue
-            for a, b in mapping.items():
-                body = re.sub(rf"\b{re.escape(a)}\b", b, body)
-            decls = []
-            for a, b in mapping.items():
-                if a == twin or re.search(rf"\b{re.escape(b)}\b", text):
-                    continue
-                d = re.search(rf"^[^\n]*\b{re.escape(a)}\b[^\n]*;[^\n]*$", ttext, re.M)
-                if d:
-                    decls.append(re.sub(rf"\b{re.escape(a)}\b", b, d.group(0).strip()) + "\n")
-            new = text[:line.start()] + "".join(t + "\n" for t in types) + body + text[line.end():]
-            if decls:
-                m = re.search(r'^extern "C" \{\n', new, re.M)
-                if m:
-                    new = new[:m.end()] + "".join(decls) + new[m.end():]
-                else:
-                    inc = list(re.finditer(r"^#include[^\n]*\n", new, re.M))
-                    at = inc[-1].end() if inc else 0
-                    new = new[:at] + "".join(decls) + new[at:]
+            new = text[:line.start()] + "".join(t + "\n" for t in types) + "".join(decls) + body + text[line.end():]
             src.write_text(new)
             run_hooks("pre_check", src)
             good, _, _ = run_check(src, [name], quiet=True)
@@ -707,6 +795,8 @@ def cmd_twins(args):
             else:
                 src.write_text(text)
                 print(f"{rel(src)}: {name} no match (from {twin})")
+                for c in conflicts:
+                    print(f"  declaration differs from the twin's file, the copied body may need casts: {c}")
     print(f"{total} candidates" if listing else f"{ok} of {total} twins matched")
 
 
