@@ -229,7 +229,34 @@ extern "C" s32 func_001FAEE0() {
     return 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEE8);
+struct Q1FAE {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int);
+};
+
+struct A1FAE {
+    s32 unk0;
+    s32 unk4;
+    s32 (Q1FAE::*unk8)(int, int);
+};
+
+extern "C" s32 func_001FAEE8(Q1FAE* p, A1FAE* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" void func_001FAF88(void) {
 }
