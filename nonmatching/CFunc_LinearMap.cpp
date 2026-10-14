@@ -152,39 +152,45 @@ S24D_Anim *func_0024E3C0(int);
 int func_0014F178(void);
 }
 
-inline f32 Clamp24D(f32 v, f32 lo, f32 hi) {
-    return v < lo ? lo : (hi < v ? hi : v);
+inline f32 LinearMap24D(f32 val, f32 end, f32 lo, f32 hi, f32 start) {
+    f32 r = start;
+    if (hi != lo) {
+        f32 t = (val - lo) / (hi - lo);
+        if (t < 0.0f) {
+            t = 0.0f;
+        }
+        f32 u;
+        if (1.0f < t) {
+            u = 1.0f;
+        } else {
+            u = t;
+        }
+        r = start + (end - start) * u;
+    }
+    return r;
 }
 
 extern "C" int CFunc_LinearMap(int params, S24D_Script *script) {
     int key;
-    f32 from;
-    f32 to;
-    f32 v;
+    f32 start;
+    f32 end;
+    f32 val;
     f32 lo;
     f32 hi;
     func_0027D870(params, 0xEC953EEC, &key, 1);
-    func_0027D268(params, 0x46E55E8F, &from, 1);
-    func_0027D268(params, 0x28782D3B, &to, 1);
-    func_0027D268(params, 0x08296457, &v, 1);
+    func_0027D268(params, 0x46E55E8F, &start, 1);
+    func_0027D268(params, 0x28782D3B, &end, 1);
+    func_0027D268(params, 0x08296457, &val, 1);
     func_0027D268(params, 0x0EA9E0A8, &lo, 1);
     func_0027D268(params, 0xACAECE33, &hi, 1);
-    int sc = script->unk20;
-    int k = key;
-    f32 r = from;
-    f32 b = to;
-    f32 l = lo;
-    if (hi != l) {
-        f32 t = (v - l) / (hi - l);
-        if (t < 0.0f) t = 0.0f;
-        f32 u;
-        if (t > 1.0f) u = 1.0f; else u = t;
-        r = r + (b - r) * u;
-    }
-    func_0027C1F8(sc, k, r);
+    int dst = script->unk20;
+    func_0027C1F8(dst, key, LinearMap24D(val, end, lo, hi, start));
     return 1;
 }
 
+inline f32 Clamp24D(f32 v, f32 lo, f32 hi) {
+    return v < lo ? lo : (hi < v ? hi : v);
+}
 
 extern "C" int CFunc_Clamp(int params, S24D_Script *script) {
     f32 v;
