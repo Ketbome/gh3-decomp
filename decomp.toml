@@ -1,0 +1,30 @@
+# Configuration of the dk tool (decomp kit, https://github.com/Ketbome/decomp-skills).
+
+[target]
+image = "disc/SLUS_216.72.rom"   # flat image of the original code (objcopy -O binary of the ELF)
+image_vram = 0x100000            # address of its first byte
+endian = "little"
+
+[toolchain]
+cc = "tools/wibo/wibo-macos tools/compilers/ee-gcc2.95.3-136/bin/ee-gcc.exe"
+cflags = "-O2 -G8 -fopt-stack -mno-check-zero-division -fno-exceptions -fno-rtti -Iinclude"
+file_flags_marker = "// cflags:"
+asm_filter = ".venv/bin/python scripts/asm_filter.py {asm} {stem}"
+as = "tools/binutils/mips-ps2-decompals-as"
+asflags = "-EL -march=r5900 -mabi=o64 -no-pad-sections -mno-pdr -Iinclude"
+asflags_when_cflag = { "-O0" = "-O0" }
+as_prelude = "include/gcc_prelude.inc"
+objdump = "tools/binutils/mips-ps2-decompals-objdump"
+objdump_arch = "mips:5900"
+m2c = ".venv/bin/m2c -t mipsee-gcc-c {asm}"
+progress = ".venv/bin/python scripts/progress.py"
+
+[layout]
+sources = ["src/game/*.cpp", "src/game/*.c"]
+asm_dirs = ["asm/nonmatchings", "asm/matchings"]
+include_asm = "INCLUDE_ASM"
+state = "docs/STATE.md"
+
+[hooks]
+pre_check = [".venv/bin/python scripts/fix_gp_data.py {file}"]
+pre_commit = [".venv/bin/python scripts/fix_padding.py {file}"]

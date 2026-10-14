@@ -51,6 +51,11 @@ executable itself (strings, the script command table), the game's own scripts an
 otherwise copyrighted source code is used. A function that does not match
 yet stays as the original assembly.
 
+## How it is made
+
+With AI agents following the [matching-decomp skill](https://github.com/Ketbome/decomp-skills) (method, `dk`
+tool, session recovery), every function verified byte for byte before it is committed.
+
 ## Licence
 
 What is ours in this repository (the names, comments, documentation, scripts and build configuration, and the work

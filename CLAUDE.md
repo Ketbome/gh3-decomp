@@ -25,6 +25,11 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
 - `scripts/check_all.py`: fcheck every C++ function (regression check after toolchain changes)
 - `scripts/qbkeys.py key <name>` / `build <qb script dirs>`: Neversoft checksums -> `config/qbkeys.txt`
 
+## dk (decomp kit)
+
+`decomp.toml` configures [dk](https://github.com/Ketbome/decomp-skills) (`skills/matching-decomp/scripts/dk.py`):
+`dk state` / `dk rescue` after an interruption, `dk all` after a toolchain change. Method: the `matching-decomp` skill.
+
 ## Conventions
 
 - Never commit game data: the ISO, `disc/`, `asm/`, `build/` and `tools/` are ignored.
