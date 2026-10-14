@@ -312,4 +312,6 @@ extern "C" void func_0029A7B8(int self, u8 *src, s8 *dst, int n, int *out) {
     *out = n + 2;
 }
 
+extern "C" void func_0030A2F4(u8 *, u8 *, int);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A8E8);
