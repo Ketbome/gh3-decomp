@@ -347,7 +347,17 @@ extern "C" void func_0014F8E8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F908);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F910);
+extern "C" void func_0014F910(int a, int b) {
+    if (b == 0xFFFF && a) {
+        u32* d = (u32*)&D_003781F8;
+        u32 k = 0xFFFFFFFF;
+        d[5] = (u32)D_0033C3A0;
+        d[1] = k;
+        d[3] = (u32)d;
+        d[4] = (u32)d;
+        d[2] = 0;
+    }
+}
 
 extern "C" void func_0014F958(u128_14E* dst, u128_14E a, u128_14E b) {
     dst[0] = a;
