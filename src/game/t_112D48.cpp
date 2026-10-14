@@ -441,7 +441,41 @@ extern "C" void func_001140F0(void* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114150);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114298);
+struct N114298 { char pad0[4]; int unk4; int unk8; N114298* unkC; N114298* unk10; };
+struct L114298 { char pad0[4]; int unk4; N114298 unk8; int unk1C; int unk20; int unk24; };
+struct I114298 { char pad0[8]; N114298* unk8; L114298* unkC; int unk10; };
+extern "C" void func_00114298_2(L114298* l, I114298* it) __asm__("func_00114298");
+
+extern "C" void func_00114298_2(L114298* l, I114298* it) {
+    N114298* head = &l->unk8;
+    l->unk4 = l->unk4 + 1;
+    N114298* n = head->unkC;
+    N114298* m = it->unk8;
+    int key = m->unk8;
+    int k = n->unk4;
+    N114298* cur = (~k != 0) ? n : 0;
+    while (cur != 0) {
+        if (!(key < cur->unk8)) {
+            m->unk10 = cur->unk10;
+            m->unkC = cur;
+            cur->unk10->unkC = m;
+            cur->unk10 = m;
+            goto done;
+        }
+        n = cur->unkC;
+        k = n->unk4;
+        cur = (~k != 0) ? n : 0;
+    }
+    m->unk10 = head->unk10;
+    m->unkC = head;
+    head->unk10->unkC = m;
+    head->unk10 = m;
+done:
+    it->unkC = l;
+    it->unk10 = l->unk20 - 1;
+    l->unk24 = 1;
+    l->unk4 = l->unk4 - 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114340);
 
