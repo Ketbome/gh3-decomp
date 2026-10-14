@@ -887,3 +887,5 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_0020EF70, func_0020AD10 matched after asm_filter div.s fix (plain C++).
 - func_0020F040, func_002034A8 matched (decl order c,b,d,a; if/else for clamp).
 - Toolchain: cvt.s.w on an unsigned->float conversion: ours fills the 'b' delay slot with the cvt, the original has a nop there (func_002009B0, func_001D5038, func_001D5138; bodies otherwise match). func_00202D90: original shares one 'nop; bc1f; swc1 v; jr; swc1 g' tail between two clamp branches whose c.lt.s differ (cc kept across blocks); bit variable/duplicate tails do not reproduce it.
+- func_0023F310 given up: three 1/x column normalisations; scheduling/register of the 1.0 constant (original keeps it in $f12 as the call arg) not reproduced in 5 forms.
+- func_0023A858: near miss (zero const lives in $f0 in ours vs $f1 + rematerialised $f0 in the original; code otherwise identical), nonmatching/func_0023A858.cpp.
