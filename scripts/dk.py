@@ -218,6 +218,27 @@ def stray_data(obj):
             and s["sh_size"]]
 
 
+def definition_order(obj, src):
+    """Complaint if the object lays its functions out in another order than the original (address order)."""
+    from elftools.elf.elffile import ELFFile
+    elf = ELFFile(open(obj, "rb"))
+    index = next((i for i, sec in enumerate(elf.iter_sections()) if sec.name == ".text"), None)
+    if index is None:
+        return None
+    syms = [s for s in elf.get_section_by_name(".symtab").iter_symbols()
+            if s["st_info"]["type"] == "STT_FUNC" and s["st_shndx"] == index]
+    placed = []
+    for s in sorted(syms, key=lambda s: s["st_value"]):
+        path = find_asm(s.name)
+        if path:
+            placed.append((s.name, parse_asm(path)[0]))
+    for (a, x), (b, y) in zip(placed, placed[1:]):
+        if x > y:
+            return (f"{Path(src).name}: {a} is defined before {b}; definitions must follow address order "
+                    f"(put it where its {INCLUDE_ASM} line was)")
+    return None
+
+
 def disasm(addr, data):
     with tempfile.NamedTemporaryFile(suffix=".bin") as f:
         f.write(data)
@@ -278,6 +299,9 @@ def run_check(src, names, quiet=False):
             return False, [], []
         results = [check_function(obj, n, image) for n in names]
         stray = stray_data(obj)
+        order = definition_order(obj, src)
+    if order:
+        results.append("FILE: " + order)
     if stray:
         results.append("FILE: the object has data of its own (would shift the game's data): " + ", ".join(stray))
     if not quiet:
