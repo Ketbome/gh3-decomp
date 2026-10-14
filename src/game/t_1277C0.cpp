@@ -90,6 +90,8 @@ extern u8 D_003397B0[];
 int func_00125740(void*, int, int, int, int, int);
 void Heap_Free(int, void*);
 void func_001291E0(int, int);
+void func_00128B40(int, int);
+void func_001294C0(void*, int);
 void func_0011A300(int, u32, int);
 void memset(void*, int, int);
 int func_00128F48(void*);
@@ -499,7 +501,24 @@ extern "C" int func_00129148(void* p) {
     return (int)self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001291E0);
+struct S_001291E0 { char pad0[8]; int unk8[50]; char pad1D0[0xD4]; int unk1A4; int unk1A8; int unk1AC; };
+
+extern "C" void func_001291E0(int a, int flags) {
+    S_001291E0* self = (S_001291E0*)a;
+    int i;
+    for (i = 0; i < 50; i++) {
+        if (self->unk8[i]) {
+            func_00128B40(self->unk8[i], 3);
+            self->unk8[i] = 0;
+        }
+    }
+    self->unk1A4 = 0;
+    self->unk1A8 = 0;
+    self->unk1AC = 0;
+    if (flags & 1) {
+        Heap_Free(D_00368A38[0], self);
+    }
+}
 
 GP_DATA(D_003690EC);
 extern "C" void func_001292D0(int a, int b, int c) {
@@ -535,4 +554,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001294C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00129710);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001297B8);
+struct S_001297B8 { char pad0[8]; S1290C8* unk8[50]; u32 unkD0[50]; char pad198[0x1C]; int unk1B4; };
+
+extern "C" void func_001297B8(S_001297B8* self, u32 key, int a2) {
+    int i;
+    for (i = 0; i < 50; i++) {
+        if (self->unkD0[i] == key) {
+            func_001290C8(self->unk8[i], a2);
+            if (self->unk8[i]->unk474 == 0) {
+                self->unkD0[i] = 0xFFFFFFFF;
+                if (self->unk1B4) func_001294C0(self, key);
+            }
+        }
+    }
+}
