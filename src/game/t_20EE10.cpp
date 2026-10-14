@@ -126,7 +126,16 @@ extern "C" void func_0020EFA8(f32* d, P20E* s) {
     d[3] = ((f32*)Second20E(s))[2];
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_0020F040);
+extern "C" f32 func_0020F040(f32* p, f32 x) {
+    f32 c = p[3], b = p[2], d = p[1], a = p[0];
+    if (c == b) return a;
+    f32 t = (x - b) / (c - b);
+    if (t < 0.0f) t = 0.0f;
+    f32 u;
+    if (1.0f < t) u = 1.0f;
+    else u = t;
+    return a + (d - a) * u;
+}
 
 extern "C" f32 func_0020F0C0(f32* p, f32 x) {
     f32 sign = -1.0f;

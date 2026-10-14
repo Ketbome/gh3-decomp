@@ -885,3 +885,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - Given up: func_001FB820 (t_1F9A48, two 0x38-byte ldl/ldr struct copies into slots at 0x3C/0x74: original keeps v1=a0+0x70 as base with negative offsets, we fold it into a0; asm barrier gets closer but bnezl/addiu v1 hoisting differs; 8 forms).
 
 - func_0020EF70, func_0020AD10 matched after asm_filter div.s fix (plain C++).
+- func_0020F040, func_002034A8 matched (decl order c,b,d,a; if/else for clamp).
