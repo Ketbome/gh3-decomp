@@ -115,7 +115,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FC90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FE60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FED0);
+struct V_10FE { int a; int b; int c; void* vp; };
+struct O_10FE { V_10FE a; V_10FE b; int x; V_10FE c; V_10FE d; void* e; };
+
+extern "C" O_10FE* func_0010FED0(O_10FE* self) {
+    self->a.a = 0;
+    self->a.vp = D_003378E0;
+    self->a.b = 0;
+    V_10FE* pb = &self->b;
+    self->a.c = 0;
+    pb->vp = D_003378C8;
+    V_10FE* pc = &self->c;
+    self->b.a = 0;
+    V_10FE* pd = &self->d;
+    pb->b = 0;
+    pb->c = 0;
+    self->x = 0;
+    *(void**)((char*)pc + 0x20) = D_003378B0;
+    pc->vp = D_003378C8;
+    self->c.a = 0;
+    pc->b = 0;
+    pc->c = 0;
+    pd->vp = D_003378C8;
+    self->d.a = 0;
+    pd->b = 0;
+    pd->c = 0;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FF48);
 
