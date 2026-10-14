@@ -138,6 +138,7 @@ void func_001CE7A0(void);
 void func_001CE810(L4* p);
 void func_001CE888(L4* l, N8* n);
 s32 func_0027D268(void* a, s32 b);
+s32 func_0027D268_4(void* p, s32 key, void* v, s32 req) __asm__("func_0027D268");
 s32 func_001CFFC8(void* p);
 s32 func_001D0228(void* p);
 s32 func_0027ABB0_2(void* a, s32 b) __asm__("func_0027ABB0");
@@ -459,7 +460,10 @@ extern "C" void func_001CEE88(S001CEDE8* p, s32 a, s32 b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEED8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEEE0);
+extern "C" void func_001CEEE0(S001CE0A8* p, s32 a, f32 f) {
+    func_001D0228(p);
+    func_0027C1F8((s32)p->unk28, a, f);
+}
 
 extern "C" void func_001CEF30(S001CE0A8* p) {
     if (p->unk28 != 0) {
@@ -483,7 +487,12 @@ extern "C" s32 func_001CEF80(S001CE0A8* p, s32 key, void* v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEFA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEFB0);
+extern "C" s32 func_001CEFB0(S001CE0A8* p, s32 key, void* v) {
+    if (p->unk28 != 0) {
+        return func_0027D268_4(p->unk28, key, v, 0);
+    }
+    return 0;
+}
 
 extern "C" s32 func_001CEFD8(S001CE0A8* p) {
     if (p->unk28 != 0) {
