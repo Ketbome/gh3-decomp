@@ -1194,3 +1194,4 @@ Given up:
 - func_001422A8: near miss (nonmatching/func_001422A8.cpp, needs // cflags: -funroll-loops: 25 slots unrolled x5 matches; only self/array-base register choice s1/s2 differs); func_00139420 matched
 - func_0017DC80: near miss (nonmatching/func_0017DC80.cpp): only the second `addiu s2,s0,12` is CSE'd away in ours (4 bytes), and bnez vs bnezl; 6 tries
 - func_00172B38: near miss (nonmatching/func_00172B38.cpp): structure right, this/q saved registers s1/s2 swapped and the beqz delay-slot fill differs; 12 tries
+- func_0011F028: near miss (nonmatching/func_0011F028.cpp): all matches except the 6-byte copy of D_00368D88 (original lw %lo(v0)/addiu v1/lhu through a2/a3 with the u16 as 4th arg of func_0030ADA0; ours loads in other order via two lui); strchr(name,':') is func_0030A684; 10 tries
