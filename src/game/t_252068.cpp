@@ -6,6 +6,16 @@ struct S00252EC8 {
 };
 
 extern "C" {
+struct S252_Vec {
+    f32 x, y, z, w;
+};
+struct S252_Cam {
+    char pad[0xD8];
+    f32 unkD8;
+};
+int func_0027D2D8(int, u32, S252_Vec *, int);
+int func_0027D268(int, u32, f32 *, int);
+S252_Cam *func_0015D5A0(int);
 void func_002530A8(int, int, int);
 int func_0015DB00(int);
 int func_0015D2E8(int, int);
@@ -46,7 +56,19 @@ extern "C" void CFunc_IsMovieQueued(void) {
     func_001E1A28(D_0036CDB4[0]->unk308);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_CamDistFromPosLessThan);
+extern "C" int CFunc_CamDistFromPosLessThan(int params) {
+    S252_Vec v;
+    f32 lim;
+    f32 d;
+    int t;
+    func_0027D2D8(params, 0x7F261953, &v, 1);
+    lim = 0.0f;
+    func_0027D268(params, 0x7E832F08, &lim, 1);
+    S252_Cam *c = func_0015D5A0(0);
+    asm volatile("lqc2 $vf1, 0(%2)\n\tlqc2 $vf2, 0x80(%3)\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni %1, $vf1\n\tmtc1 %1, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(d), "=&r"(t) : "r"(&v), "r"(c));
+    return d * c->unkD8 < lim;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252FC0);
 

@@ -840,3 +840,10 @@ second block; loop forms (index, pointer, do-while) give a different base regist
 global `|=` differ, int/void callee variants tried), t_2754A0 func_00275F08 (hash lookup + alias chase, as func_00276008).
 Round 12 matches (cont.): t_2BA998 CFunc_Create2DGem (callee `(int,int,int,int,float,int,int,int)`: the float at its argument position gives the original load order;
 `int o = f(..)` for the nested call first), t_2C9AC0 func_002CA6E8 (`int`-returning sprintf-like callee fixes the move scheduling), func_002CA888.
+
+### Round 14 (agent C14)
+Note: fcheck/try output is misaligned after any `nop` word (objdump collapses zero words into `...`); the flagged address is still right.
+Matched vu0: t_252068 CFunc_CamDistFromPosLessThan (one `asm volatile` with the whole VU0 sequence + `qmfc2.ni t; mtc1 t,f; nop; nop; sqrt.s f,f` (the two nops are in the original,
+gas does not add them); volatile keeps the lwc1 loads after it).
+Given up: t_24DDB8 CFunc_VectorLength (original sqrt.s encodes the source in the ft field (0x460C0304 = sqrt.s f12,f12 with fs=0), gas puts it in fs: differs unless the register is $f0; toolchain),
+t_2AD528 func_002AE3C0 / t_2DAE48 func_002DB920 / t_252068 func_002532A0 (start with a lone `sqcw2`/`qmfc2` before the prologue: split tails).
