@@ -583,7 +583,51 @@ INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_NormalizeVector);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetVectorComponents);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_SetVectorComponents);
+typedef int TI24B __attribute__((mode(TI)));
+
+static inline f32 Get24BX(TI24B q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get24BY(TI24B q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get24BZ(TI24B q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+
+extern "C" {
+int func_0027D2D8(int, u32, void *, int);
+void func_0027C4D8(int, int, f32, f32, f32);
+}
+
+extern "C" int CFunc_SetVectorComponents(int params, S24B_Script *s) {
+    int tmp[4];
+    TI24B v;
+    f32 f;
+    func_0027D870(params, 0, tmp, 1);
+    func_0027D2D8(s->unk20, tmp[0], &v, 1);
+    if (func_0027D268(params, 0x7323E97C, &f, 0)) {
+        ((f32 *)&v)[0] = f;
+    }
+    if (func_0027D268(params, 0x0424D9EA, &f, 0)) {
+        ((f32 *)&v)[1] = f;
+    }
+    if (func_0027D268(params, 0x9D2D8850, &f, 0)) {
+        ((f32 *)&v)[2] = f;
+    }
+    func_0027C4D8(s->unk20, tmp[0], Get24BX(v), Get24BY(v), Get24BZ(v));
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetAngle);
 

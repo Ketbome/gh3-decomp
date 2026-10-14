@@ -997,3 +997,10 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002D2120 MATCH (frame-timer window check: swap two func_002CDCF8 float slots, optional func_002D2118, then spawn a script when prev < t*0.001 <= now; plain translation, aliases (asm names) for the declarations the file already has with other types).
 - CFunc_DoScreenElementMorphList: near miss, nonmatching/CFunc_DoScreenElementMorphList.cpp (array loop over morph entries; stack layout matches with a 16-byte ref at 0x110 (int[4]); original hoists the buffer address, &ref, lui hi(D_003720D8) and the constant 1 into s3/s1/s4/s5 and keeps i in s2, ours keeps fewer invariants and swaps s2/s3; size 0x190 vs 0x198).
 - func_002DB2D0: gave up (nonmatching/func_002DB2D0.cpp is a first draft, not a near miss): registers seven callbacks through func_002981A0 then fixes two table entries; ours is 0x21c vs 0x23c and the saved-register assignment (o s5, base s6, y s4, hoisted 0xB0 and base+8 in s2/s3) differs.
+
+## Round 3 (priority: VU0 register variables in branch-likely slots, then untried 0x100..0x1000)
+
+- Branch-likely + lqc2/sqc2/qmfc2 slot scan of my files: only func_00252090 (0xcc0, 26% VU0), func_002687F0 (0x6c4),
+  func_002BE288 (0x364, 36% VU0). All three are large mixed VU0 code with vrsqrt/matrix products; skipped, not attempted.
+- CFunc_SetVectorComponents MATCH: lanes of a TI128 as three float args: x `mtc1 %1,%0` ("=f"), y/z as TWO asms each:
+  `dsrl32`/`pcpyud` into `u32 t` ("=r"), then `mtc1` from t into "=f" (a single asm with "=r"(f) gives a different schedule).
