@@ -98,6 +98,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetNewWhammyValue);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetAllWhammyValues);
 
+struct S2C3468_BD {
+    int key;
+    int a;
+    int o;
+    f32 f[11];
+};
+extern "C" {
+bool func_0027D870_b(int, u32, int *, int) asm("func_0027D870");
+bool func_0027D268_b(int, int, f32 *, int) asm("func_0027D268");
+void func_0027C5B0(int, u32, f32, f32);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2C3468", CFunc_SetButtonData);
 
 extern "C" s32 CFunc_ATan2(int arg0, SCCGCI *arg1) {
