@@ -75,6 +75,7 @@ void func_00182498(void*);
 void func_001827B0(void);
 void func_00182798(void);
 void func_001827F0(void);
+int func_001827A0(void);
 void func_001827A8(void);
 void func_00182818(void);
 void func_00182820(void);
@@ -296,7 +297,9 @@ extern "C" void func_0014F7B8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F7D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014F7E0);
+extern "C" void func_0014F7E0(void) {
+    func_001827A0();
+}
 
 extern "C" void func_0014F800(void) {
     func_001827A8();
