@@ -371,7 +371,48 @@ extern "C" int CFunc_StringLength(int params, S25A_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_RequireParams);
+struct S25A_RArr {
+    int unk0;
+    u32 unk4;
+    int unk8;
+};
+
+struct S25A_Req {
+    S25A_RArr *unk0;
+    u32 unk4;
+    int unk8;
+};
+
+extern "C" {
+void func_0027B4D0(void *, void *, void *, int);
+extern char func_0025C6F8[];
+}
+
+extern "C" int CFunc_RequireParams(int params, S25A_Script *script) {
+    int sp10;
+    S25A_RArr *arr = 0;
+    if (func_0027D870(params, 0x90FEC815, &sp10, 0)) {
+        func_0027D400(script->unk20, sp10, &arr, 1);
+    } else if ((func_0027D400(params, 0x90FEC815, &arr, 0) ^ 1) != 0) {
+        arr = (S25A_RArr *)script->unk20;
+    }
+    if (arr == 0) return 0;
+    S25A_Req r;
+    r.unk0 = 0;
+    r.unk4 = 0;
+    r.unk8 = 0;
+    if ((func_0027D470(params, 0, &r, 0) ^ 1) != 0) {
+        return arr->unk4 == 0;
+    }
+    int c = 0;
+    func_0027B4D0(arr, func_0025C6F8, &r, 1);
+    if (func_0027DF00(params, 0x1F26CCAF)) c = r.unk8 != 0;
+    if (c) return 0;
+    int d = 0;
+    if (func_0027DF00(params, 0xC4E78E22)) d = r.unk4 < r.unk0->unk4;
+    if (d) return 0;
+    return r.unk4 != 0;
+}
 
 extern "C" {
 extern int D_00368A38;
