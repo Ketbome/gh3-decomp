@@ -104,6 +104,16 @@ extern "C" s32 CFunc_LightShow_SetMapping(int arg0) {
     return 1;
 }
 
+extern "C" {
+extern int D_00371EE8;
+void func_0027ABB0(int, int);
+int func_0027DD88(int, u32);
+void func_002A79A8(void);
+int func_002ABC18(int);
+int func_002ABD58(int);
+void func_002AB848(void);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetParams);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_GetParams);
