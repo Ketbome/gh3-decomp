@@ -584,7 +584,18 @@ extern "C" void func_00114A78(SA112_L* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114AD8);
+extern u32 D_0032A080[];
+extern "C" u32 func_00114AD8_c(const char* p, int n) __asm__("func_00114AD8");
+extern "C" u32 func_00114AD8_c(const char* p, int n) {
+    u32 crc;
+    int i;
+    if (!p || n <= 0) return 0;
+    crc = 0xFFFFFFFF;
+    for (i = 0; i < n; i++) {
+        crc = D_0032A080[(crc ^ p[i]) & 0xFF] ^ ((crc >> 8) & 0xFFFFFF);
+    }
+    return crc;
+}
 
 extern "C" void func_00114C50(void) {
     func_00114AD8();
