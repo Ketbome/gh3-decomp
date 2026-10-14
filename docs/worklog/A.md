@@ -1191,3 +1191,4 @@ Given up:
 - func_0019E380 (opcode field patcher, 6/7, 0x16/0x17, 0x50 + empty 0x34..0x37): compare tree reproduced with a switch (empty cases 0x34-0x37 needed) but the exit block placement/shared tail differs (0xb4 vs 0xc0); 6 tries
 - func_001A1A18 (4x16 table-driven byte gather): original keeps 4 separate pointer temps and does not strength-reduce, ours is 0x24 bytes smaller; 3 tries
 - func_001965D0 (xorshift float RNG, 2x unrolled with odd entry): -funroll-loops gives 4x, hand-written 2x gotos differ in scheduling; 4 tries
+- func_001422A8: near miss (nonmatching/func_001422A8.cpp, needs // cflags: -funroll-loops: 25 slots unrolled x5 matches; only self/array-base register choice s1/s2 differs); func_00139420 matched
