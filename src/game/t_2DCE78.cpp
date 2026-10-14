@@ -184,7 +184,42 @@ extern "C" int func_002DD108(void) {
     return x;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD160);
+GP_DATA(D_00372368);
+GP_DATA(D_0037237C);
+GP_DATA(D_00372380);
+GP_DATA(D_00372374);
+GP_DATA(D_0037236C);
+GP_DATA(D_00372370);
+extern "C" int func_002DD160(void) {
+    if (func_002DD108() == 0) {
+        D_00372368 = 0;
+        D_0037237C = 0;
+        D_00372380 = 0;
+        D_003731E8 = func_0011ED00();
+        D_00372384 = 0;
+        goto no;
+    }
+    if (func_0011ED00() == D_003731E8) {
+        return 1;
+    }
+    if (D_00372368 != 0) {
+        if ((int)((float)(D_00372380 * D_0037236C) * D_00372374) < D_0037237C) {
+            D_00372368 = 0;
+        }
+        if (D_00372368 != 0) goto act;
+    }
+    if (D_0037237C < (int)((float)(D_00372380 * D_0037236C) * D_00372370)) {
+        D_00372368 = (int)((float)D_0037236C * D_00372378);
+    }
+    if (D_00372368 == 0) goto no;
+act:
+    if (D_00372384 < D_00372368) {
+        D_00372384 += 1;
+        return 1;
+    }
+no:
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD288);
 
