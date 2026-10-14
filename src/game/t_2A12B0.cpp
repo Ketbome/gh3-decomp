@@ -399,6 +399,12 @@ extern "C" int func_002A1918(int a, int op, int x, int s) {
     return 0;
 }
 
+extern "C" {
+int func_0027DCB8(int, u32, int *, int);
+int *func_00223360(int, void *, int);
+int func_002A1918_5(int, int, int, int, int) asm("func_002A1918");
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A1AE0);
 
 extern "C" void CFunc_IsInNodeArray(s32 arg0) {
