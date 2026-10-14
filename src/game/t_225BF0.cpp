@@ -210,7 +210,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226CA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226CD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226E30);
+extern "C" s32 D_00372E40;
+extern "C" s32 D_00372E48;
+
+struct S226a { s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; };
+struct S226b { s32 unk0; s32 unk4; s32 unk8; };
+
+static inline s32 Find226(s32 key, s32* out) {
+    s32 i = key & 0x1FF;
+    if (D_003918C8[i]) {
+        do {
+            if (D_003918C8[i] == key) {
+                if (out) *out = i;
+                return 1;
+            }
+            i = (i + 1) & 0x1FF;
+        } while (D_003918C8[i]);
+    }
+    return 0;
+}
+
+GP_DATA(D_00372E40);
+extern "C" void func_00226E30(int ai, int bi) {
+    S226a* a = (S226a*)ai;
+    S226b* b = (S226b*)bi;
+    s32 t = b->unk4;
+    if (t == D_00372E40) {
+        a->unk4 = Find226(b->unk8, &a->unkC);
+    } else if (t == D_00372E48) {
+        a->unk8 = Find226(b->unk8, &a->unk10);
+    } else if (t == 0xA1DC81F9) {
+        a->unk0 = b->unk8;
+    }
+}
 
 extern "C" void func_00226F40(void) {
     func_00226B28(1, 0xFFFF);
