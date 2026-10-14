@@ -67,6 +67,11 @@ struct HI_150 { u32 key; void* value; HI_150* next; };
 struct HT_150 { int bits; HI_150* items; int count; char padC[9]; u8 unk15; u8 unk16; };
 
 extern "C" {
+void func_0030B550(char*, char*, ...);
+int func_0014F130(void);
+extern u8 D_0033C4C8[];
+extern u8 D_00369AF0[];
+extern u8 D_00369AA8[];
 void func_00151120(S150_A*);
 extern u8 D_0033C528[];
 extern u8 D_0033C4F8[];
@@ -147,7 +152,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_001519B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_00152540);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_150DE8", func_00152548);
+extern "C" void func_00152548(char* buf, int n, int flag) {
+    char* fmt = (char*)D_0033C4C8;
+    char* s = flag ? (char*)D_00369AF0 : (char*)D_00369AA8;
+    func_0030B550(buf, fmt, n, n, s, func_0014F130());
+}
 
 extern "C" void func_001525C8(void) {
 }

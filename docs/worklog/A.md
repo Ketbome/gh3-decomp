@@ -1104,3 +1104,5 @@ Matched (A15): func_0011ACD8 func_0011A3B8 (t_118E40), func_0014F7E0 (t_14E7E0),
 - func_00113B28 (printf-like varargs wrapper): `void f(int a, int b, int c, ...) { g(a, b, c, (char*)__builtin_next_arg(c) - 0x28); }` (the va pointer is the a3 save slot; `__builtin_saveregs()` emits a libcall instead).
 - func_00153080: write the `!flag` branch first to get the original's fall-through order.
 - near miss: func_001897C0 (ctor + `Heap_Alloc(D_00368A38[0],8,1,0)` + call; body identical but the vtable address lives in v0 and its `sw` is scheduled after `li a2`, original uses v1 and stores earlier); nonmatching/func_001897C0.cpp; 7 tries.
+Matched (A15, cont.): func_00152548 (t_150DE8; local `fmt` pointer declared first), func_0015A7F8 (t_159258), func_0016BB28 (t_16A2F0; list walk: `cur = o; next = Cast(Get(cur->unk18)); o = next; if (cur) vcall; while (next)`), func_00149820 (t_148688; two locals pin the lui order), func_00121E40 (t_1210C8; the `&buf` passed is a 0x40-byte local `int buf[16]`, the "out" is buf[4])
+- skipped (stack iterator): func_00160858, func_00160698, func_0012CCF8
