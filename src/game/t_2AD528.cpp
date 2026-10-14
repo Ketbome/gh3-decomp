@@ -45,6 +45,8 @@ int func_0027D1F8(int, int, int *, int);
 int func_002DCA08(int);
 void func_0028D720(int);
 int func_002AE2A8(int, int);
+extern int D_00368A38;
+void Heap_Free(int, void *);
 extern f32 D_00373130[] __attribute__((section(".sdata")));
 }
 
@@ -131,7 +133,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE430);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE4A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE510);
+struct S2AE5_E {
+    int a;
+};
+
+struct S2AE5_V {
+    int unk0;
+    S2AE5_E *unk4;
+    S2AE5_E *unk8;
+    int unkC;
+};
+
+extern "C" void func_002AE510(S2AE5_V *self, int flags) {
+    S2AE5_V *v = (S2AE5_V *)((char *)self + 4);
+    S2AE5_E *b = v->unk4;
+    if (b) {
+        S2AE5_E *e = v->unk8;
+        int h = D_00368A38;
+        for (S2AE5_E *p = b; p != e; p++) {
+        }
+        Heap_Free(h, b);
+        v->unk4 = 0;
+        v->unk8 = 0;
+        v->unkC = 0;
+    }
+    if (flags & 1)
+        Heap_Free(D_00368A38, self);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE5E8);
 
