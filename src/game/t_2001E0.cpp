@@ -339,7 +339,22 @@ extern "C" void func_00200980(S200* self) {
     p->unk80 = v.q;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2001E0", func_002009B0);
+extern "C" void func_002009B0(S200* self) {
+    u32 r = (D_00370F40 + func_00275570()) % (u32)self->unk218;
+    u32 x = r * 2;
+    f32 a = (f32)x;
+    f32 s = func_002EC100((a * 3.1415927f) / (f32)self->unk218);
+    f32 t = self->unk214 * s;
+    self->unk210 = t;
+    S200b* p = self->unkC;
+    union {
+        u128_200 q;
+        f32 f[4];
+    } v;
+    v.q = p->unk80;
+    v.f[1] += t;
+    p->unk80 = v.q;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2001E0", func_00200A70);
 

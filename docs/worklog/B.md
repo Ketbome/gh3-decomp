@@ -910,3 +910,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_002335F0: array-of-0x24 entry remove by key. Structure reproduced except that gcc hoists both lui+addiu of D_00396AE0 (original hoists only the lui, addiu s2 inside the found branch) and the b-12/b-8 temporaries; 6 forms.
 - func_002335F0: array-of-0x24 entry remove by key. Structure reproduced except that gcc hoists both lui+addiu of D_00396AE0 (original hoists only the lui, addiu inside the found branch) and the b-12/b-8 temporaries; 6 forms.
 - Toolchain cf046cf retry: func_001B21A0 func_001B3BD0 func_001D5138 matched (forensics C). func_001D5038: near miss (forensics C compiles; remaining diff is fp register numbers: ours c in f1 / const f3, original c in f0 / const f2 / t in f1; tried ternary, one-const, split mul).
+- t_2001E0 func_002009B0 matched after cf046cf (unsigned modulo then (f32)(r*2); signed (f32) of the divisor field; vector y += t via union copy).
