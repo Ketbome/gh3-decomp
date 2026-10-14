@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S285400Obj {
@@ -220,7 +221,14 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_002861D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00286270);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00286330);
+extern "C" int func_00286330(u8 *end, u8 *p) {
+    while (*p != '$') {
+        if (p == end)
+            return 1;
+        p = func_00283A08(p);
+    }
+    return p == end;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2848B0", func_00286398);
 
