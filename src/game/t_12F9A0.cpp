@@ -254,7 +254,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_00131338);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_001313E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12F9A0", func_001315F8);
+extern "C" void* func_0030A2F4(void*, void*, int);
+
+struct S1315F8_E { int unk0; int unk4; int unk8; int unkC; u128_12F unk10; };
+
+struct S1315F8 {
+    int unk0;
+    void* unk4;
+    char pad8[0x210];
+    int unk218;
+    char pad21C[0x4];
+    int unk220;
+    S1315F8_E* unk224;
+};
+
+extern "C" void func_001315F8(S1315F8* self, S1315F8* src) {
+    func_0030A2F4(self->unk4, src->unk4, self->unk220 << 6);
+    int i;
+    for (i = 0; i < self->unk220; i++) {
+        self->unk224[i].unk8 = src->unk224[i].unk8;
+        self->unk224[i].unk0 = src->unk224[i].unk0;
+        self->unk224[i].unk10 = src->unk224[i].unk10;
+    }
+    self->unk218 = src->unk218;
+    self->unk0 = src->unk0;
+}
 
 extern "C" void func_001316B8(S12F_E* self, int flags) {
     if (self->unk224) {
