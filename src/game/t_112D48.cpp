@@ -120,7 +120,29 @@ static inline E_func_00113308* Slot_00113308(T_func_00113308* t, int k) {
     return &t->buckets[k & ((1 << t->bits) - 1)];
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00113308);
+extern "C" void func_00113308(T_func_00113308* t, int* key) {
+    if (!t->buckets) {
+        return;
+    }
+    E_func_00113308* e = &t->buckets[*key & ((1 << t->bits) - 1)];
+    E_func_00113308* prev = 0;
+    while (e) {
+        E_func_00113308* next = e->next;
+        if (e->key == *key && e->val) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->val = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 extern "C" void func_001133C0(int p) {
     if (p == 0) {
