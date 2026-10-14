@@ -50,6 +50,7 @@ struct S1FD_A {
 extern "C" {
 void* operator_new(u32 size);
 void* func_001FDDC0(void*);
+void func_001D0F68(void*);
 void func_00276D68(u32, void*, int);
 extern u8 D_0038F8E8[];
 S1FD* func_001FEE90(S1FD*);
@@ -94,6 +95,20 @@ extern "C" void* func_001FDD68(void) {
 extern "C" void func_001FDD90(void) {
     func_00276D68(0x5CB5CB7E, D_0038F8E8, 0x10);
 }
+
+struct S1FDD {
+    char pad0[4];
+    s32 unk4;
+    char pad8[0x10];
+    char* unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
+    char pad30[0xB8];
+    u64 unkE8;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDDC0);
 
