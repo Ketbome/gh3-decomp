@@ -577,7 +577,61 @@ extern "C" int func_00160A40(L15F* self, int key) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160A90);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160C58);
+static inline int Q_160C58(int a) {
+    H15F h;
+    func_0022B0D0(&h, D_0036F658, a, 1);
+    int r;
+    if (h.unk0) {
+        VEntry* e = &h.unk0->unk34[2];
+        r = ((int (*)(void*))e->fn)((char*)h.unk0 + e->delta);
+    } else {
+        r = 0;
+    }
+    func_00134340(&h);
+    return r;
+}
+
+struct S160C58 { char pad0[0x14]; N15F unk14; char pad20[0x38]; VEntry* unk58; };
+
+extern "C" {
+char* strcpy(char*, char*);
+void func_00113528(char*);
+char* func_0030E720(char*, char*);
+void func_0030A554(char*, char*);
+extern char D_00369FF0[];
+int func_0015B218(int, char*, int);
+void func_00275F08(int, int);
+}
+
+extern "C" int func_00160C58(S160C58* self, int key, char* name, int hkey) {
+    int ret = 0;
+    int all = key == 0xC4E78E22;
+    VEntry* e = &self->unk58[11];
+    ((int (*)(void*))e->fn)((char*)self + e->delta);
+    char buf[0x200];
+    strcpy(buf, name);
+    func_00113528(buf);
+    if (func_0030E720(buf, D_00369FF0) == 0) {
+        func_0030A554(buf, D_00369FF0);
+    }
+    int v = Q_160C58(hkey);
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        Y15F* y = it.cur->unk8;
+        if (key == y->unk8 || all) {
+            if (y->unk4 != 0) {
+                if (func_0015B218(y->unk4, buf, v) != 0) ret = 1;
+            }
+        }
+    }
+    if (ret == 0) {
+        func_00275F08(0x2A648514, 0);
+    }
+    e = &self->unk58[12];
+    ((int (*)(void*))e->fn)((char*)self + e->delta);
+    return ret;
+}
 
 extern "C" int func_00160DE8(L15F* self, int key) {
     int any = key == (int)0xC4E78E22;
