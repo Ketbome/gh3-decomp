@@ -21,6 +21,7 @@ extern int D_00368A38[] __attribute__((section(".sdata")));
 void Heap_Free(int, void*);
 void func_0011A470(int);
 void func_002454D0(S2454*, int, f32*);
+void func_00248CF8(void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00245220);
@@ -111,7 +112,18 @@ INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246C98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246CC0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246CC8);
+struct S246C {
+    char pad0[0x18];
+    int unk18;
+    int unk1C;
+};
+
+extern "C" S246C* func_00246CC8(S246C* o) {
+    func_00248CF8(o);
+    o->unk18 = 0;
+    o->unk1C = 0;
+    return o;
+}
 
 extern "C" void func_00246CF8(char* p, int f) {
     int t = *(int*)(p + 0x1C);
