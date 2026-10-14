@@ -13,6 +13,7 @@ extern u8 D_00354B70[];
 u8* func_00246B30(u8*);
 u8* func_00246B78(u8*);
 s32 func_00243FA8(u8* a, s32 b, s32 c);
+int func_00244128_d(void*) __asm__("func_00244128");
 }
 
 extern "C" void func_00243208(void** p) {
@@ -86,7 +87,36 @@ extern "C" void func_002435B8(void) {
     func_002432F8(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002435D8);
+struct S2435 {
+    char pad0[0xA];
+    u8 unkA;
+    char padB;
+    void* unkC;
+    char pad10[0x20];
+    void* unk30;
+    char pad34[4];
+    void* unk38;
+};
+
+extern "C" void func_002435D8(S2435* p, s32 f) {
+    if (p->unk30 != 0) {
+        Heap_Free(D_00368A38[0], p->unk30);
+    }
+    if (p->unk38 != 0) {
+        Heap_Free(D_00368A38[0], p->unk38);
+    }
+    if (p->unkC != 0) {
+        if (p->unkA != 0) {
+            Heap_Free(D_00368A38[0], p->unkC);
+        } else {
+            Heap_Free(D_00368A38[0], p->unkC);
+        }
+    }
+    func_00244128_d(p);
+    if (f & 1) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243678);
 
