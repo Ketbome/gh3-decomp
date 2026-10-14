@@ -1,6 +1,7 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+struct S_0011ACD8 { char pad0[0x34]; int unk34; };
 struct S_0011A8D0 { char pad0[0xC]; int unkC; };
 struct S_0011A8E8 { char pad0[0x10]; int unk10; };
 struct S_0011A8F0 { char pad0[0x10]; int unk10; };
@@ -542,7 +543,9 @@ extern "C" void* func_0011A380(int size) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A3B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A3B8);
+extern "C" void func_0011A3B8() {
+    func_00119180((SA118_H*)D_00368A38[0]);
+}
 
 extern "C" void* func_0011A3E0(int a, int b) {
     return func_001191B0(D_00368A38[0], a, b, 0);
@@ -842,7 +845,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011AC50);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011ACD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011ACD8);
+extern "C" void func_0011ACD8(S_0011ACD8* self) {
+    func_0011A8F0((S_0011A8F0*)self->unk34);
+}
 
 extern "C" int func_0011ACF8(S_0011ACF8* self) {
     return self->unk20;
