@@ -594,4 +594,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F6C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F728);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027F788);
+extern "C" unsigned int strlen(const char *);
+
+extern "C" int func_0027F788(int ctx, char *str, u8 *buf, u32 cap) {
+    u8 *start = buf;
+    int n = strlen(str);
+    if (cap < n + 6) return 0;
+    buf = func_0027F1E8(buf, 3, ctx);
+    for (u32 i = 0; i < n; i++) {
+        *buf++ = *str++;
+    }
+    *buf++ = 0;
+    return buf - start;
+}
