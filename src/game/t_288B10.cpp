@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 asm(".set D_0036D554_lui, D_0036D554");
@@ -386,7 +387,83 @@ INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_002899C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_002899D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_00289B40);
+struct S289B40_Fh {
+    char pad0[8];
+    int unk8;
+    char pad0C[4];
+    int unk10;
+};
+
+struct S289B40 {
+    char pad0[8];
+    S289B40 *unk8;
+    S289B40 *unkC;
+    char pad10[0xB8];
+    int unkC8;
+    char padCC[0x1C];
+    int unkE8;
+    char padEC[4];
+    S289B40_Fh *unkF0;
+};
+
+extern "C" {
+void func_0028A558(S288_Obj *);
+void func_0027AC90(int);
+void func_00113250(int);
+void func_00285A60(void *);
+void func_001D8C10(void *, int);
+void func_001CE7C0(void *, int);
+void func_002887D8(void *, int);
+void func_00137560(void *);
+extern int D_00371490;
+}
+
+GP_DATA(D_0037148C);
+GP_DATA(D_00371490);
+extern "C" void func_00289B40(S289B40 *t, int flags) {
+    func_0028A300((int)t);
+    func_0028A558((S288_Obj *)t);
+    int h = t->unkE8;
+    if (h != 0) {
+        func_0027AC90(h);
+        func_00113250(h);
+        t->unkE8 = 0;
+    }
+    S289B40 *p = t->unkC;
+    if (p == 0) {
+        D_0037148C = (int)t->unk8;
+    }
+    S289B40 *n = t->unk8;
+    if (n != 0) n->unkC = p;
+    p = t->unkC;
+    if (p != 0) p->unk8 = t->unk8;
+    func_00285A60(t);
+    S289B40_Fh *o = t->unkF0;
+    if (o != 0) {
+        if (o->unk10 != 0) {
+            o->unk8 = 0;
+        } else {
+            func_001D8C10(o, 3);
+            t->unkF0 = 0;
+        }
+    }
+    D_00371490 = D_00371490 - 1;
+    func_001CE7C0((char *)t + 0x100, 2);
+    int *pc = &t->unkC8;
+    if (*pc != 0) {
+        func_001CE888(*pc, pc);
+        *pc = 0;
+    }
+    func_002887D8((char *)t + 0xA8, 2);
+    char *m = (char *)t + 0x44;
+    int bit = flags & 1;
+    if (m != 0 && m != (char *)t + 0xA4) {
+        for (int i = 1; i >= 0; i--) {
+            func_002887D8((char *)t + 0x60 + i * 0x30, 2);
+        }
+    }
+    if (bit) func_00137560(t);
+}
 
 extern "C" int func_00289C80(S00289C80* p) {
     return p->unkEC;
