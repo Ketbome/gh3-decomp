@@ -532,6 +532,8 @@ extern "C" void func_001EA990() {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EA9D8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EA9E0);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAA68);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EABC0);

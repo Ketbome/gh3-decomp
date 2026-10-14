@@ -377,6 +377,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5BA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5C30);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5C38);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5CB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5D28);

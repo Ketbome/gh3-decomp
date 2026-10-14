@@ -63,6 +63,8 @@ extern "C" void func_001B4330(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4358);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4360);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4468);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B46B0);

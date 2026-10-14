@@ -97,7 +97,11 @@ extern "C" void func_001C9B30(S001C9B30* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9B70);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9B78);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9DD8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9DE0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9EB8);
 

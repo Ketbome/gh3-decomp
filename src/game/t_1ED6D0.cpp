@@ -260,6 +260,8 @@ extern "C" void func_001EE5A8(S1EE6F8* p, void* m) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EE600);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EE608);
+
 extern "C" void func_001EE6F8(S1EE6F8* p) {
     func_00161CC8(p->unk210);
 }

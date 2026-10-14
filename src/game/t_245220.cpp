@@ -111,6 +111,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246C98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246CC0);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246CC8);
+
 extern "C" void func_00246CF8(char* p, int f) {
     int t = *(int*)(p + 0x1C);
     if (t) {

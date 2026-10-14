@@ -94,6 +94,8 @@ extern "C" s32 func_001E5050(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5128);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5130);
+
 GP_DATA(D_0036DA4C);
 extern "C" void func_001E5C50(void) {
     D_0036DA4C();

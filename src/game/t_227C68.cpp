@@ -243,6 +243,8 @@ extern "C" void func_00228868(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_227C68", func_00228890);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_227C68", func_00228898);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_227C68", func_00229538);
 
 extern "C" int func_00229718(char* p) {

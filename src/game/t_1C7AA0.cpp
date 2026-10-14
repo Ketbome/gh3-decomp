@@ -398,6 +398,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9658);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9778);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9780);
+
 extern "C" s32 func_001C97E0(char* o) {
     s32 sp0;
     s32 sp4;

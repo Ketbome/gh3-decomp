@@ -179,6 +179,8 @@ extern "C" int func_001FBF10(void* self, int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBFC8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBFD0);
+
 extern "C" int func_001FC030(S1FB* p, int a, TI128* out) {
     if (!a) return 0;
     if (!p->unk2C) return 0;

@@ -459,6 +459,8 @@ extern "C" void func_001CEE88(S001CEDE8* p, s32 a, s32 b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEED8);
 
+INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEEE0);
+
 extern "C" void func_001CEF30(S001CE0A8* p) {
     if (p->unk28 != 0) {
         func_0027AE70(p->unk28);
@@ -480,6 +482,8 @@ extern "C" s32 func_001CEF80(S001CE0A8* p, s32 key, void* v) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEFA8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CEFB0);
 
 extern "C" s32 func_001CEFD8(S001CE0A8* p) {
     if (p->unk28 != 0) {
