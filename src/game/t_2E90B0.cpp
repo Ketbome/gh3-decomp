@@ -188,6 +188,24 @@ extern "C" void func_002EAB08(S2EAB08_0 *arg0) {
     D_003729B0 = arg0;
 }
 
+struct S2EAB18_N {
+    char pad0[0x18];
+    S2EAB18_N *unk18;
+    char pad1C[8];
+};
+
+extern "C" {
+void *Heap_Alloc(int, int, int, int);
+extern void *D_00368A38[] __attribute__((section(".sdata")));
+extern S2EAB18_N *D_003729B4;
+extern int D_003729B8;
+extern S2EAB18_N *D_003729BC_n asm("D_003729BC");
+void func_002EA900(void *);
+}
+
+GP_DATA(D_003729B8);
+GP_DATA(D_003729B4);
+GP_DATA(D_003729BC);
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAB18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EAC68);
