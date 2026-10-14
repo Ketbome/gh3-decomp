@@ -290,7 +290,28 @@ extern "C" u16 func_001BF350(S001BF1D0* p) {
     return p->unk4A;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BF358);
+extern u32 D_00372C30;
+extern s32 D_0036C7E8;
+extern s32 D_0036C7F0;
+
+extern "C" void func_001BF358(char* p) {
+    s32 f = *(s32*)(p + 8);
+    if ((f >> 1) & 1) {
+        if (((f >> 11) & 1) == 0) {
+            u32 x = *(u16*)(p + 0x4C);
+            u32 y = *(u16*)(p + 0x4E);
+            u16 a = *(u16*)&D_00372C30;
+            D_00372C30 += x;
+            u16 b = *(u16*)&D_00372C30;
+            D_00372C30 += y;
+            if ((u32)(D_0036C7E8 + D_0036C7F0) >= D_00372C30) {
+                *(u16*)(p + 0x50) = a;
+                *(u16*)(p + 0x52) = b;
+                func_0019E380(6, (s32)(p + 0x30), (s16)a, (s16)b, -1);
+            }
+        }
+    }
+}
 
 extern "C" void func_001BF408(char* p) {
     func_0019E380(0x50, *(s32*)(p + 0x40), *(s16*)(p + 0x50), -1, -1);
