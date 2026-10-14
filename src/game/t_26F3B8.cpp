@@ -75,6 +75,8 @@ u32 func_00271180(int);
 void func_00266928(void*, f32);
 void func_0026FAE0(int, int, f32, f32);
 void func_0026FC80(int, int, f32);
+void func_00271590(int *, int);
+void func_002733E0(int);
 extern int D_0032D838[];
 int func_00270E10(int, int);
 extern f32 D_00370B08;
