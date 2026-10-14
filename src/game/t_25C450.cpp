@@ -13,6 +13,11 @@ struct S25C450_S {
     int unk20;
 };
 
+struct S25C_H1E0 {
+    char pad0[0x1E0];
+    int unk1E0;
+};
+
 struct S25C450_H {
     char pad0[0x34];
     int unk34;
@@ -62,6 +67,7 @@ void func_0011A300(int, int, int);
 int CrcFromPathLowercase(int);
 int func_0027D870(int, int, int *, int);
 int func_00119710(int, int, int);
+void func_00119490(int, int);
 void func_001C4388(int);
 extern char D_00356E88[];
 extern char D_003705F0[];
@@ -161,7 +167,19 @@ extern "C" int CFunc_GotExtraMemory(void) {
     return D_00368744[0] != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_MemPushContext);
+extern "C" int CFunc_MemPushContext(int params) {
+    int v = 0;
+    if (func_0027D1F8(params, 0, &v, 0)) {
+        if (v == 0)
+            func_00119490(D_00368A38[0], ((S25C_H1E0 *)D_00368A38[0])->unk1E0);
+    } else {
+        int w = 0;
+        func_0027D870(params, 0, &w, 1);
+        int r = func_00119710(D_00368A38[0], w, 1);
+        func_00119490(D_00368A38[0], r);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_MemPopContext(void) {
     func_001194B8(D_00368A38[0]);
