@@ -206,7 +206,35 @@ extern "C" void func_00156C88(float a, float b, float c) {
     func_00156CB8(0.0f, a, b, c);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156CB8);
+struct S156CB8 { int unk0; float unk4; float unk8; float unkC; float unk10; float unk14; float unk18; float unk1C; char pad20[4]; float unk24; float unk28; };
+extern "C" {
+float func_002EC118(float);
+float func_0031B118(float);
+void func_00156CB8_m(S156CB8*, float, float, float, float) __asm__("func_00156CB8");
+}
+
+extern "C" void func_00156CB8_m(S156CB8* self, float a, float b, float c, float d) {
+    if (d <= 0.0f) d = 0.01f;
+    long flag = 1;
+    if (a != 0.0f) flag = 0;
+    float diff = b - a;
+    float ad = __builtin_fabsf(diff);
+    *(long*)self = (*(long*)self & ~8L) | (flag << 3);
+    self->unk1C = c;
+    self->unk14 = a;
+    self->unk18 = b;
+    self->unk24 = d;
+    if (ad < 0.1f) self->unk28 = d;
+    else self->unk28 = (d * b) / diff;
+    float t = self->unk18 / self->unk28;
+    if (t >= 0.0f) self->unk8 = 2.0f * func_0031B118(t);
+    else self->unk8 = 0.0f;
+    float u = t * self->unk1C;
+    if (u >= 0.0f) self->unk4 = 2.0f * func_0031B118(u);
+    else self->unk4 = 0.0f;
+    self->unkC = func_002EC118(self->unk4 * 0.5f);
+    self->unk10 = func_002EC118(self->unk8 * 0.5f);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156DF8);
 
