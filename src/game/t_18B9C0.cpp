@@ -245,7 +245,29 @@ INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C428);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C658);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C7B8);
+struct S_0018C7B8 { char pad0[0x24]; P_0018D050* unk24; };
+struct O_0018C7B8 { float unk0; float unk4; float unk8; float unkC; };
+
+extern "C" {
+int func_001ACD68(void*);
+u32 func_001AD090(void*);
+}
+
+extern "C" int func_0018C7B8(S_0018C7B8* self, int key, int unused, O_0018C7B8* out) {
+    P_0018D050* n = self->unk24;
+    while (!func_001ACD28(n)) {
+        if (func_001ACD68(n) != 0 && func_001ACF30((int)n) == key) {
+            u32 c = func_001AD090(n);
+            out->unk0 = (float)(c & 0xFF);
+            out->unk4 = (float)((c >> 8) & 0xFF);
+            out->unk8 = (float)((c >> 16) & 0xFF);
+            out->unkC = (float)((c >> 24) & 0xFF);
+            return 1;
+        }
+        n = func_001ACF70(n);
+    }
+    return 0;
+}
 
 extern "C" int func_0018C948(S_18B9C0* self, int key, int arg) {
     P_0018D050* p;
