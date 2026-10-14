@@ -99,6 +99,14 @@ struct S1EE428_O {
 };
 
 extern "C" {
+extern void* D_00372580[] __attribute__((section(".sdata")));
+void* func_001CA590_g(void*, u16) __asm__("func_001CA590");
+s32 func_001CC090_g(void*) __asm__("func_001CC090");
+void func_00296AF0(void*);
+s32 func_002DF898_g(void*) __asm__("func_002DF898");
+void* func_001CA020_g(void*, s32) __asm__("func_001CA020");
+void func_0029D238_g(void*, void*) __asm__("func_0029D238");
+void func_00161BA0(void*, s32, s32);
 extern char D_0034EA28[];
 extern char D_0038EE40[];
 void* operator_new(u32 size);
@@ -260,6 +268,33 @@ extern "C" void func_001EE5A8(S1EE6F8* p, void* m) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EE600);
 
+struct M1EE6 {
+    u8 unk0;
+    char pad1;
+    u16 unk2;
+    void* unk4;
+    char pad8[0x28];
+};
+
+struct D1EE6 {
+    s32 unk0;
+    u8 unk4;
+    u8 unk5;
+};
+
+struct C1EE6 {
+    char pad0[0x2C];
+    s32 unk2C;
+};
+
+struct S1EE6 {
+    char pad0[0xC];
+    C1EE6* unkC;
+    char pad10[0x200];
+    void* unk210;
+};
+
+static inline void Set1EE6(u8* d, s32 v) { *d = v; }
 INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EE608);
 
 extern "C" void func_001EE6F8(S1EE6F8* p) {
