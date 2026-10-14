@@ -76,6 +76,10 @@ s32 func_0027D268(void* a, s32 key, void* v, s32 req);
 s32 func_0027D870(void* a, s32 key, void* v, s32 req);
 s32 func_001D1CF8(void* a, s32 b);
 void Heap_Free(s32 heap, void* p);
+extern char D_0034B850[];
+extern s32 D_0036D3B0_m __asm__("D_0036D3B0");
+void func_001D4C08(s32 a, void* b);
+void func_001CE990(void* p, s32 f);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_0028DBD0(void);
 void func_001D0170(void* p);
@@ -329,7 +333,36 @@ extern "C" void func_001D10A0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D10A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D11B0);
+struct S1D11 {
+    char pad0[8];
+    char* unk8;
+    char pad0C[0x60];
+    s32 unk6C;
+    char pad70[0xE0];
+    N1548* unk150;
+    s32 unk154;
+};
+
+extern "C" void func_001D11B0(S1D11* p, s32 f) {
+    p->unk8 = D_0034B850;
+    p->unk154 |= 0x80;
+    if (p->unk150 != 0) {
+        do {
+            N1548* n = p->unk150;
+            p->unk150 = n->next;
+            func_001D4C08(D_0036D3B0_m, n);
+            if (n != 0) {
+                VEnt* e = (VEnt*)(n->vt + 8);
+                ((void (*)(char*, s32))e->fn)((char*)n + e->delta, 3);
+            }
+        } while (p->unk150 != 0);
+    }
+    if (p->unk6C != 0) {
+        Heap_Free(D_00368A38[0], (void*)p->unk6C);
+        p->unk6C = 0;
+    }
+    func_001CE990(p, f);
+}
 
 extern "C" void func_001D1270(void* q) {
     S1D14P* p = (S1D14P*)q;
