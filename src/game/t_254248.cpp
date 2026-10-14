@@ -1,6 +1,7 @@
 #include "common.h"
 
 asm(".set D_00370AE0_gp, D_00370AE0");
+asm(".set D_00368A38_lui, D_00368A38");
 
 struct S254248_A {
     char pad0[0x1E0];
@@ -81,6 +82,8 @@ void func_002EBA98(int);
 void func_002EA740(int);
 int func_0027D188(int, u32, void*, int);
 extern S254248_A *D_00368A38;
+extern S254248_A *D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
+int func_0026DC20(int);
 void func_00119490(S254248_A *, int);
 void func_001194B8(S254248_A *);
 int func_00266E08(int);
@@ -627,7 +630,17 @@ extern "C" int CFunc_PauseStreamID(int arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadMusicHeader);
+extern "C" int CFunc_LoadMusicHeader(int a) {
+    int x = 0;
+    func_0027D188(a, 0, &x, 0);
+    if (x) {
+        func_00119490(D_00368A38, D_00368A38->unk1E0);
+        int r = func_0026DC20(x);
+        func_001194B8(D_00368A38_lui[0]);
+        return r;
+    }
+    return 0;
+}
 
 extern "C" int CFunc_LoadStreamHeader(int a) {
     int x = 0;
