@@ -19,6 +19,13 @@
   instruction sequences get either), and ee-gcc writes none. The k-th `div.s` of a function gets the nops of the k-th
   one in its original assembly, inside `.set noreorder` so gas does not move it; `div.s` in inline asm is left alone.
 
+- Delay slots: outside `.set noreorder` the modern gas moves the instruction before a branch or jump into its delay
+  slot whenever it can. SN's assembler only moved COP2 (VU0 macro) instructions there (`lqc2`, `sqc2`, `qmfc2`,
+  `qmtc2`, `v*`; not `ctc2`/`cfc2`); anything else (a volatile store, the `cvt.s.w` of an int-to-float) kept a nop
+  in the slot. A local label right before the branch stops gas from swapping without changing its hazard nops.
+- Hazard nop at a label: between `mtc1 ..,$fN` and a label followed by a read of `$fN`, SN's assembler put the nop
+  after the label (29 times in the game, never before it); the modern gas puts it before. Written out after the label.
+
 Usage: scripts/asm_filter.py <file.s> [<source stem, e.g. t_16E670>]
        (run between the compiler and the assembler; configure.py and dk.py do)
 """
@@ -265,6 +272,67 @@ def div_nops(text, stem):
     return "\n".join(out)
 
 
+JUMP = re.compile(r"^\s*(b\w*|j|jal|jr|jalr)\s")
+COP2_SWAP = re.compile(r"^(lqc2|sqc2|qmfc2|qmtc2|v\w*)(\.\w+)?$")
+
+
+def delay_slots(text):
+    out = []
+    prev = None
+    noreorder = False
+    n = 0
+    for line in text.split("\n"):
+        code = line.split("#", 1)[0].strip()
+        if code.startswith(".set"):
+            if code.endswith("noreorder"):
+                noreorder = True
+            elif code.endswith("reorder"):
+                noreorder = False
+        elif code.endswith(":"):
+            prev = None
+        elif code and not code.startswith("."):
+            op = code.split()[0]
+            if JUMP.match(code) and not noreorder and prev and not COP2_SWAP.match(prev):
+                n += 1
+                out.append(f".L__noswap{n}:")
+            prev = op
+        out.append(line)
+    return "\n".join(out)
+
+
+MTC1 = re.compile(r"^\s*mtc1\s+\$\w+,\s*(\$f\d+)\s*$")
+
+
+def label_hazards(text):
+    lines = text.split("\n")
+    out = []
+    noreorder = False
+    fpr = None
+    for i, line in enumerate(lines):
+        code = line.split("#", 1)[0].strip()
+        out.append(line)
+        if code.startswith(".set"):
+            if code.endswith("noreorder"):
+                noreorder = True
+            elif code.endswith("reorder"):
+                noreorder = False
+            continue
+        if not code or code.startswith("."):
+            continue
+        if code.endswith(":"):
+            if fpr and not noreorder:
+                nxt = next((l.split("#", 1)[0].strip() for l in lines[i + 1:]
+                            if l.split("#", 1)[0].strip() and not l.strip().startswith(".")), "")
+                if not nxt.endswith(":") and re.search(re.escape(fpr) + r"(?!\d)", nxt.partition(" ")[2] or nxt.partition("\t")[2]):
+                    indent = "\t"
+                    out += [f"{indent}.set\tnoreorder", f"{indent}nop", f"{indent}.set\treorder"]
+            fpr = None
+            continue
+        m = MTC1.match(line)
+        fpr = m.group(1) if m and not noreorder else None
+    return "\n".join(out)
+
+
 def li_s(m):
     indent, reg, value = m.groups()
     bits = struct.unpack("<I", struct.pack("<f", float(value)))[0]
@@ -277,7 +345,7 @@ def main():
     path = Path(sys.argv[1])
     stem = sys.argv[2] if len(sys.argv) > 2 else None
     text = path.read_text()
-    new = short_loops(div_nops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))), stem))
+    new = label_hazards(delay_slots(short_loops(div_nops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))), stem))))
     if new != text:
         path.write_text(new)
 

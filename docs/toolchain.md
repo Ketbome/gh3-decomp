@@ -81,6 +81,19 @@ Inferred, not derived: `scripts/asm_filter.py` gives the k-th `div.s` of a funct
 its original assembly (as with `jtbl_`), under `.set noreorder`. Checked: the 7 matched functions with `div.s` stay
 identical; func_00174CB8, func_00122FF8, func_002B7108 match with it and not without.
 
+## Delay slots
+
+Verified with the compiler's own `as.exe` (2.9-ee-991111b, `-O2`, 2026-10-14): outside `.set noreorder` SN's
+assembler moves only COP2 instructions into a branch delay slot (`lqc2`, `sqc2`, `qmfc2`, `qmtc2`, `v*`, `vcallms`;
+not `ctc2`/`cfc2`, `cvt.s.w`, `mtc1`/`mfc1`, `lwc1`/`swc1`, integer ops or stores). gcc never puts an asm in a slot,
+so the 287 COP2 slots of the game were filled by the assembler; 41 `cvt.s.w` and 64 volatile stores sit before a
+branch with a `nop` slot. The modern gas moves anything it can: `scripts/asm_filter.py` puts a local label before
+each branch whose previous instruction is not COP2 (gas does not move an instruction across a label).
+With `mtc1 ..,$fN` before a label and a read of `$fN` after it, the hazard nop goes after the label (29 times,
+never before); the filter writes it there. `gas -O1` instead breaks 11 functions (10 VU0 inline asm).
+Checked: `dk all` 5796 match; func_001E0198 relied on gas moving a `move` into the slot and went back to asm
+(near miss in nonmatching/).
+
 ## Open questions
 
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets

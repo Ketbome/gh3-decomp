@@ -171,31 +171,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DFD28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DFFB0);
 
-extern "C" void func_001E0198(u32 a, s32 b) {
-    char* o;
-    if (func_001D5BA0(D_0036D410[0], 0x3B5737A6, 0)) {
-        char* t = (char*)func_001D6738(func_001D5BA0(D_0036D410[0], 0x3B5737A6, 1), 0);
-        func_001CEDE0(t, 0xCDEB9229);
-        o = t;
-        asm("" : "+r"(o));
-        func_001D1910(t, &a, b);
-        VE1E01* e = (VE1E01*)(*(char**)(t + 8) + 0x50);
-        e->fn(t + e->delta);
-        func_001D54D8(t);
-        func_001D67C8(func_001D5BA0(D_0036D410[0], 0x3B5737A6, 1), t);
-    } else {
-        o = (char*)func_001D10A8(operator_new(0x160));
-        func_001CEDE0(o, 0xCDEB9229);
-        func_001D1910(o, &a, b);
-        VE1E01* e = (VE1E01*)(*(char**)(o + 8) + 0x50);
-        e->fn(o + e->delta);
-    }
-    s32 r = func_001D1CF8(o, 0x286A8D26);
-    if (r != 0) {
-        func_001F1E10(r);
-    }
-    func_001E04D8((s32)o, b);
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001E0198);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001E02F0);
 
