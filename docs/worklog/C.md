@@ -930,3 +930,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002C8930 (div.s): near miss, nonmatching/func_002C8930.cpp; only one thing differs: the original keeps the table value `D_003CDFC8[idx].v[D_00372128[idx]]` in a callee-saved float ($f21, four float saves) while we use $f1. Findings: `.extern sym,4` gp arrays must be declared `[2]` (size <= 8) or gcc emits lui itself; read-then-fallback `if (call(&a)) x = a; else { F1E0(); x = 0; }` puts the lw in the bnez slot like the original.
 - CFunc_LinearMap: nonmatching/CFunc_LinearMap.cpp refreshed (inline helper with args evaluated first puts lw a0/a1 before the compare; only the order of two lwc1 (start vs val) differs).
 - func_00292928 MATCH (list walk with tail delete).
+- func_00278D78 MATCH (binary search over {key,val} entries; hoist the table base `(char*)(t+1)` into its own variable before the key sum).

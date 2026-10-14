@@ -140,7 +140,53 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278910);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278C50);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278D78);
+struct S2774Ent {
+    u32 key;
+    int val;
+};
+
+struct S2774Tbl {
+    u16 n;
+    u8 off;
+    u8 pad3;
+};
+
+extern "C" int func_00278D78(S2774Tbl *t, int a, int mode, void *out, int unused) {
+    if (t->n) {
+        char *b = (char *)(t + 1);
+        u32 key = a + mode;
+        u32 lo = 0;
+        u32 hi = t->n;
+        S2774Ent *e = (S2774Ent *)(b + t->off * 4);
+        while (1) {
+            u32 mid = (lo + hi) >> 1;
+            u32 k = e[mid].key;
+            if (key < k) {
+                if (hi == mid) {
+                    break;
+                }
+                hi = mid;
+            } else if (k < key) {
+                if (lo == mid) {
+                    break;
+                }
+                lo = mid;
+            } else {
+                *(int *)out = e[mid].val;
+                return 1;
+            }
+        }
+    }
+    if (mode == 2) {
+        int tmp;
+        if (func_00278D78(t, a, 1, &tmp, 0)) {
+            *(f32 *)out = (f32)tmp;
+            return 1;
+        }
+        return 0;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00278E48);
 
