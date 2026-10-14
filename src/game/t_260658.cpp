@@ -221,7 +221,13 @@ extern "C" int CFunc_ResetTimer(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TimeGreaterThan);
+extern "C" int CFunc_TimeGreaterThan(int params) {
+    f32 t = 0.0f;
+    func_0027D268(params, 0, &t, 0);
+    int st = D_003706DC;
+    f32 el = (f32)(u32)(func_0011EF10() - st);
+    return t * 1000.0f < el;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002608C0);
 
