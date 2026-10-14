@@ -65,7 +65,7 @@ void func_00119490(int, int);
 void func_001194B8(int);
 char *func_0011A380(int);
 void func_0030A2F4(char *, char *, int);
-int strlen(char *);
+unsigned int strlen(const char *);
 void memset(void *, int, int);
 extern int D_00368744;
 extern char D_7000100[];
@@ -372,7 +372,64 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276698);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276720);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002767D8);
+extern "C" {
+void func_0011A558(u32, int, int);
+void func_0011A568(void);
+void func_001E65C0(int, void *);
+void func_001E6668(int, void *);
+void func_001E6710(int, void *);
+void func_00276E88(int, int);
+void func_00276F30(int, int);
+void func_00276FD8(int, int);
+void func_00277080(int, int);
+void func_00277128(int, int);
+void func_00276DC8(int, int);
+void func_00277298(void);
+void func_00292BB0(void);
+extern char D_003590E0[];
+extern char D_003590F8[];
+extern char D_00359108[];
+extern char D_00359120[];
+extern char D_00371100[];
+extern char D_00371108[];
+extern char D_00371110[];
+extern char D_00371118[];
+extern char D_00371120[];
+}
+
+extern "C" void func_002767D8(void) {
+    func_0011A558(0x9C2B6C4B, 0, 0);
+    func_00277298();
+    func_0011A568();
+    func_00292BB0();
+    func_0011A558(0x799B56A8, 0, 0);
+    func_00276DC8(0x12C, (int)D_003590E0);
+    func_0011A568();
+    func_0011A558(0x74943260, 0, 0);
+    func_001E65C0(0x9C40, D_003590F8);
+    func_0011A568();
+    func_0011A558(0xD39D0074, 0, 0);
+    func_001E6668(0x2AF8, D_00371100);
+    func_0011A568();
+    func_0011A558(0x72619F01, 0, 0);
+    func_001E6710(0x1F4, D_00371108);
+    func_0011A568();
+    func_0011A558(0xCF51C40A, 0, 0);
+    func_00276E88(0x1F4, (int)D_00371110);
+    func_0011A568();
+    func_0011A558(0xA7733A02, 0, 0);
+    func_00276F30(0x32C8, (int)D_00371118);
+    func_0011A568();
+    func_0011A558(0x1A376AD7, 0, 0);
+    func_00276FD8(0x7D0, (int)D_00359108);
+    func_0011A568();
+    func_0011A558(0x758E5060, 0, 0);
+    func_00277080(0x1A4, (int)D_00371120);
+    func_0011A568();
+    func_0011A558(0xE02F7469, 0, 0);
+    func_00277128(0x64, (int)D_00359120);
+    func_0011A568();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002769A8);
 
