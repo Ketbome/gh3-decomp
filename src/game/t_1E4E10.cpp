@@ -58,7 +58,39 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E4E10);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5050);
+struct S1E50 { s32 unk0; char pad4[0x10]; s32 unk14; };
+
+extern "C" {
+void func_001E2FF0(void*);
+void func_001E3048(void*, int);
+void* func_001E4780(void*, int, int);
+void func_001E48C0(void*);
+void func_001E4E10(void*, int);
+void func_001E75A8(void*, int);
+S1E50* func_001218A0(s32, int, int);
+extern s32 D_00368E48[] __attribute__((section(".sdata")));
+}
+
+extern "C" s32 func_001E5050(int a, int b) {
+    char stk[0x30];
+    func_001E2FF0(stk);
+    s32 r = 1;
+    S1E50* o = (S1E50*)func_001E4780(Heap_Alloc(D_00368A38[0], 0x84, 1, 0), a, b);
+    S1E50* h = func_001218A0(D_00368E48[0], 0, 0);
+    if (h) {
+        func_001E75A8(stk + 0x10, o->unk14);
+        if (o->unk0 == 0) {
+            do {
+                func_001E48C0(o);
+            } while (o->unk0 == 0);
+        }
+    } else {
+        r = 0;
+    }
+    if (o) func_001E4E10(o, 3);
+    func_001E3048(stk, 2);
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E4E10", func_001E5128);
 
