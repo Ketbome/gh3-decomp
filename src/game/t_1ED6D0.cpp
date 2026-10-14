@@ -105,7 +105,7 @@ s32 func_001CC090_g(void*) __asm__("func_001CC090");
 void func_00296AF0(void*);
 s32 func_002DF898_g(void*) __asm__("func_002DF898");
 void* func_001CA020_g(void*, s32) __asm__("func_001CA020");
-void func_0029D238_g(void*, void*) __asm__("func_0029D238");
+void func_0029D238_g(void*, void*, s32, s32) __asm__("func_0029D238");
 void func_00161BA0(void*, s32, s32);
 extern char D_0034EA28[];
 extern char D_0038EE40[];
