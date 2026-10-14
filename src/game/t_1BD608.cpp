@@ -137,7 +137,42 @@ extern "C" void func_001BDCF8(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f) {
     func_001BE088(Heap_Alloc(D_00368A38, 0x60, 1, 0), a, b, c, d, e, f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDD90);
+struct S1BDD {
+    char pad0[8];
+    u32 unk8;
+    char padC[4];
+    void* unk10;
+    char pad14[0x14];
+    s32 unk28;
+    void* unk2C;
+    char pad30[0x24];
+    s32 unk54;
+};
+
+extern "C" S1BDD* func_001BDD90(S1BDD* o) {
+    if (o->unk28 == 0) {
+        return 0;
+    }
+    if (o->unk10 == 0) {
+        return 0;
+    }
+    S1BDD* n = (S1BDD*)func_0011A380(o->unk28);
+    func_0030A2F4(n, o->unk10, o->unk28);
+    u32 f = n->unk8;
+    if (f & 0x80) {
+        n->unk8 = f ^ 0x80;
+    }
+    n->unk10 = n;
+    n->unk54 = 0;
+    func_001BE3A0(n, (s32)n - (s32)o);
+    register u64 g asm("$3") = *(u64*)&n->unk8;
+    if ((g & 9) == 8) {
+        n->unk2C = D_0036CBC0;
+        D_0036CBC0 = n;
+    }
+    return n;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDE38);
 
