@@ -421,7 +421,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2260);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E24B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E2558);
+extern "C" {
+s32 func_001E1F88_r(void) __asm__("func_001E1F88");
+s32 func_0027CC30(s32 a, s32 b, s32 c, void* d);
+void func_0027F1E0(s32 a, s32 b, s32 c);
+f32 func_0011ED18(void);
+}
+
+void func_001E2558_d(f32* p, s32 key, f32 target) __asm__("func_001E2558");
+void func_001E2558_d(f32* p, s32 key, f32 target) {
+    s32 buf;
+    s32 h = func_001E1F88_r();
+    s32 ok = func_0027CC30(h, key, 1, &buf);
+    s32 v = buf;
+    if (ok == 0) {
+        func_0027F1E0(h, 0, 1);
+        v = 0;
+    }
+    f32 t = (f32)v / (func_0011ED18() * 60.0f);
+    f32 a = t / (t + 1.0f);
+    *p = a * *p + (1.0f - a) * target;
+}
 
 extern "C" {
 s32 func_001E1F88_r(void) __asm__("func_001E1F88");

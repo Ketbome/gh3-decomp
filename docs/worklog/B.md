@@ -936,3 +936,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - t_1C9B30 CFunc_ExitSurveyorMode matched (early returns; D_00369A60 via the existing sdata array decl; virtual calls through vptr entry tables).
 - t_249620 CFunc_CreateCompositeObjectInstance matched (a call whose result is ignored must be declared with an int return: the dead result pseudo takes v0 and moves the next load to v1; one-argument alias for the second func_00289E08 call).
 - CFunc_PendingPakManLoads: everything matches except the last return: original 'move v1,v0; bnez v1,L; li v0,1; move v0,zero' (branchy), ours if-converts to sltu/movz in every form tried; nonmatching/CFunc_PendingPakManLoads.cpp.
+- t_1E0AE8 func_001E2558 matched (exponential smoothing with the config-value getter; same getter pattern as func_001E2628).
