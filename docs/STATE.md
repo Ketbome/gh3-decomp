@@ -6,10 +6,9 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A (third round: delay-slot functions func_0011ED68, func_0011EE38, func_0015E2D0,
-func_0016FCD8 first), B and C (second round, told about the delay-slot fix cf046cf; B retries func_001B21A0,
-func_001B3BD0, func_001D5138, func_001D5038, func_002009B0, func_001E2850 and func_001E0198, reverted to asm by
-that fix, near miss in nonmatching/).
+Running (2026-10-14): workers A (third round, delay-slot functions first), B (second round, delay-slot retries incl.
+func_001E0198) and C (third round, limit 25 matches or 60 attempted). The `decomp-forensics` agent checks a possible
+counterexample to the delay-slot rule: func_002530A8 has an `addiu` in a plain `beqz` slot where we emit `nop`.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
