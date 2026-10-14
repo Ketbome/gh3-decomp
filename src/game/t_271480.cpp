@@ -245,7 +245,37 @@ extern "C" int func_00271A08(S271_Name *name, u8 *out) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271A98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271C10);
+struct S271_Req {
+    char pad0[0x10];
+    int unk10;
+    int unk14;
+    int unk18;
+};
+
+extern "C" int func_002EEA00(int);
+extern "C" int func_002F0AB0(int, S271_Req *, int, int, int, int);
+extern "C" S271_Req D_003A9690;
+extern "C" char D_00358C40[];
+extern "C" int D_00370DC0;
+
+GP_DATA(D_00370DC0);
+extern "C" void func_00271C10(int a, int b, int c) {
+    if (D_00370DC0) {
+        while (func_002EEA00(D_00370DC0) >= 0) {}
+    }
+    D_003A9690.unk18 = c;
+    D_003A9690.unk14 = b;
+    D_003A9690.unk10 = a - 1;
+    int i = 0;
+    for (;;) {
+        int r = func_002F0AB0(2, &D_003A9690, 0x20, 0, 0, 0);
+        D_00370DC0 = r;
+        int m = i % 1000;
+        i++;
+        if (r) break;
+        if (m == 0) func_002F0488(D_00358C40);
+    }
+}
 
 extern "C" void func_00271CE0(void) {
 }
