@@ -413,7 +413,46 @@ extern "C" s32 func_00207BD8(S206_PV* p, S206_A* a, int x, int y) {
     return p->v12(a->unk0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00207C78);
+struct VE207C {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*, char*, s32, u128_206);
+};
+
+extern "C" {
+void* func_001236D0(void*);
+void func_00123778(void*, s32);
+void func_00123C00(void*, float);
+}
+
+extern "C" void func_00207C78(char* p, s32 a, s32 b) {
+    if (*(char**)(p + 0x1C) == 0) {
+        char* s = 0;
+        char* r = func_001D1CF8(*(void**)(p + 0xC), 0x286A8D26);
+        if (r != 0) {
+            s = *(char**)(r + 0x210);
+        }
+        switch (a) {
+        case 1: {
+            char* o = (char*)func_001236D0(operator_new(0x18));
+            u128_206 sv = *(u128_206*)(s + 0x20);
+            float sf;
+            asm("mtc1 %1, %0" : "=f"(sf) : "r"(sv));
+            *(float*)(o + 0x10) = sf;
+            func_00123778(o, b);
+            *(char**)(p + 0x1C) = o;
+            VE207C* e = (VE207C*)(*(char**)(o + 8) + 0x20);
+            e->fn(o + e->delta, p + 0x20, *(s32*)(p + 0xC) + 0xA0, *(u128_206*)(p + 0x30));
+            break;
+        }
+        case 2:
+            if (*(char**)(p + 0x1C) != 0) {
+                func_00123C00(*(char**)(p + 0x1C), 5.0f);
+            }
+            break;
+        }
+    }
+}
 
 extern "C" void func_00207D70(char* p) {
     if (*(void**)(p + 0x1C)) {
