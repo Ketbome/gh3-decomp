@@ -71,6 +71,9 @@ extern u8 D_00339068[];
 extern u8 D_00339080[];
 int func_00121B18(SA121_S*);
 int func_00121A68(SA121_S*);
+int func_002F7690(int, int);
+long func_0011ECE8(void);
+int func_002F8208(int*, int*);
 int func_00121BF8(SA121_S*);
 int func_00121CD8(SA121_S*);
 int func_002F8230(int*, int*);
@@ -150,7 +153,29 @@ extern "C" SA121_S* func_001218A0(SA121_A* self, int i, int j) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_001218F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121A68);
+struct S_00121A68 { char pad0[4]; int unk4; char pad8[4]; int unkC; int unk10; int unk14; int unk18; char pad1C[8]; int unk24; };
+
+extern "C" int func_00121A68(SA121_S* arg) {
+    S_00121A68* self = (S_00121A68*)arg;
+    int buf[2];
+    if (self->unk18 == 0) {
+        int r = func_002F7690(self->unk4, self->unkC);
+        if (r) {
+            self->unk24 = 8;
+            return r;
+        }
+        self->unk18 = 1;
+    }
+    if ((u32)((int)func_0011ECE8() - self->unk14) < 0x1E) {
+        if (func_002F8208(buf, &buf[1]) == 1) {
+            int b = buf[1];
+            func_001218F8(arg, buf[0], b);
+        }
+    } else {
+        func_00121B18(arg);
+    }
+    return self->unk10;
+}
 
 extern "C" int func_00121B18(SA121_S* self) {
     int a;

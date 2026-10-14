@@ -1141,3 +1141,4 @@ Matched (A16): func_0019B778 (same pad-to-16 loop as func_0019B7E0)
 - func_00131018 (t_12F9A0): search of 0x20-byte entries (count at +0x220, array at +0x224), unrolled 4x; the original has the entry test `blez n -> return 0` AND a second unroll guard; ours merges them (12 forms); called as void(void) so needs an asm-label alias
 - func_001A9ED0 (t_1A9A60): body is trivial (list walk) but the store of 0x9000100010001000 is a 64-bit `li` that the old assembler expanded as ori/dsll19/ori/dsll16/ori/dsll13/ori; ours expands it lui/ori/dsll/ori (toolchain: li64 expansion); 1 try
 Matched (A16): func_0013DD50 (t_13BE78; strip trailing backslash from a 0x80 buffer copy)
+Matched (A16): func_00121A68 (t_1210C8; `int b = buf[1]; f(arg, buf[0], b)` gives the a2-before-a1 load order)
