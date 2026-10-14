@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S001BD998 {
@@ -29,6 +30,8 @@ void func_001BB068(void);
 void func_0019E380(s32 a, s32 b, s32 c, s32 d, s32 e);
 void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38;
+extern char* D_0036CB70;
+void func_001BD9B8(S001BD998* p);
 void func_001BF298(S001BF1D0* p);
 void* func_0011A380(s32 size);
 void func_0030A2F4(void* d, void* s, s32 n);
@@ -60,7 +63,13 @@ extern "C" void func_001BD6E0(char* p, s32 a, s32 b, s32 c) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD780);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BD8E8);
+GP_DATA(D_0036CB70);
+extern "C" void func_001BD8E8() {
+    if (D_0036CB70 == 0) {
+        D_0036CB70 = (char*)Heap_Alloc(D_00368A38, 0x12C, 1, 0);
+        for (s32 i = 0; i < 25; i++) func_001BD9B8((S001BD998*)(D_0036CB70 + i * 12));
+    }
+}
 
 GP_DATA(D_0036CB74);
 extern "C" S001BD998* func_001BD998(void) {
