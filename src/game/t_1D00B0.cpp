@@ -352,9 +352,37 @@ extern "C" void func_001D1418(void) {
     func_001D12E0();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1438);
+extern "C" void func_001D1438(void* q, s32 f) {
+    S1D14P* p = (S1D14P*)q;
+    if (f != p->Test(4)) {
+        if (f) p->unk154 |= 4;
+        else p->unk154 &= ~4;
+        N1548* n = (N1548*)p->unk150;
+        if (n != 0) {
+            do {
+                VEnt* e = (VEnt*)(n->vt + 0x48);
+                ((void (*)(char*, s32))e->fn)((char*)n + e->delta, f);
+                n = n->next;
+            } while (n != 0);
+        }
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D14C0);
+extern "C" void func_001D14C0(void* q, s32 f) {
+    S1D14P* p = (S1D14P*)q;
+    if (f != p->Test(2)) {
+        if (f) p->unk154 |= 2;
+        else p->unk154 &= ~2;
+        N1548* n = (N1548*)p->unk150;
+        if (n != 0) {
+            do {
+                VEnt* e = (VEnt*)(n->vt + 0x40);
+                ((void (*)(char*, s32))e->fn)((char*)n + e->delta, f);
+                n = n->next;
+            } while (n != 0);
+        }
+    }
+}
 
 extern "C" void func_001D1548(void* q) {
     S1D14P* p = (S1D14P*)q;
