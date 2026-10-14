@@ -39,8 +39,11 @@ s32 func_001F9B80(void);
 void func_001FA348(int, int);
 void func_001FB028(void*);
 void func_001FB6C0(s32 self, s32 params);
+f32 func_0010C2E0(f32 a, f32 b, f32 c);
+f32 func_0011ED10(void);
 void* operator_new(u32);
 void* func_001FAC90(void*);
+void func_001D0F68(void*);
 extern char D_0038F5B0[];
 void func_00276D68(u32, void*, int);
 void func_001FB480(void*, TI128);
@@ -147,6 +150,26 @@ extern "C" void* func_001FAC38() {
 extern "C" void func_001FAC60() {
     func_00276D68(0x07713C7B, D_0038F5B0, 0x10);
 }
+
+static inline TI128 MakeVec1FA(f32 x, f32 y, f32 z, f32 w) {
+    TI128 lo, hi;
+    asm("pextlw %0, %1, %2" : "=r"(lo) : "r"(y), "r"(x));
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(w), "r"(z));
+    asm("pcpyld %0, %1, %2" : "=r"(hi) : "r"(hi), "r"(lo));
+    return hi;
+}
+
+struct S1FAC {
+    char pad0[4];
+    u32 unk4;
+    char pad8[0x10];
+    u8* unk18;
+    char pad1C[0x94];
+    TI128 unkB0;
+    TI128 unkC0;
+    s32 unkD0;
+    s32 unkD4;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAC90);
 
@@ -255,7 +278,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB450);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB480);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB618);
+struct S1FB6 {
+    char pad0[0x10];
+    f32 unk10;
+    f32 unk14;
+    char pad18[8];
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+};
+
+extern "C" void func_001FB618(void* self, S1FB6* p) {
+    if (p->unk20 != p->unk10) {
+        p->unk10 = func_0010C2E0(p->unk20, p->unk10, p->unk28 * (func_0011ED10() * 60.0f));
+    }
+    if (p->unk24 != p->unk14) {
+        p->unk14 = func_0010C2E0(p->unk24, p->unk14, p->unk2C * (func_0011ED10() * 60.0f));
+    }
+}
 
 extern "C" void func_001FB6C0(s32 self, s32 params) {
     f32 a = 100.0f;
