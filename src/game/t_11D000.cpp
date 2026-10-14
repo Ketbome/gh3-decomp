@@ -90,7 +90,7 @@ extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00338C68[];
 u32 func_001150B8(const char*);
 void func_0011D220(u32);
-void func_0011D370(u32);
+int func_0011D370(u32);
 void func_0011E540(void);
 void func_0011E560(void);
 u64 func_0011ECF0(void);
@@ -119,6 +119,7 @@ void func_0011D830(int, int);
 extern int D_00375700[];
 struct Q375890 { int a, b, c, d; };
 extern Q375890 D_00375890[];
+int* func_0011CE08(u32);
 extern volatile int D_00368C00;
 void func_00120C80(void);
 extern int D_00414FB0[];
@@ -132,7 +133,19 @@ extern "C" void func_0011D348(const char* s) {
     func_0011D220(func_001150B8(s));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D370);
+extern "C" int func_0011D370(u32 key) {
+    int i;
+    for (i = 0; i < 200; i++) {
+        if (D_00375890[i].a && D_00375890[i].b == key) {
+            return D_00375890[i].c;
+        }
+    }
+    int* p = func_0011CE08(key);
+    if (p) {
+        return *p;
+    }
+    return 0;
+}
 
 extern "C" void func_0011D4F8(const char* s) {
     func_0011D370(func_001150B8(s));
