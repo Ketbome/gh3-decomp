@@ -179,4 +179,47 @@ extern "C" void func_002D2110(void) {
 extern "C" void func_002D2118(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D2120);
+extern "C" {
+float func_002AED18(void);
+void func_00260D50_f(float) asm("func_00260D50");
+float func_00260D08(void);
+float *func_002CDCF8(u32);
+float func_00275DE0(u32, int);
+void func_0027C898(int, u32, int);
+void *func_001287F0(int, int);
+int func_0027AA70_i(int) asm("func_0027AA70");
+void func_0027AC90_i(int) asm("func_0027AC90");
+void func_00113250(int);
+void CFunc_SpawnScriptNow(int, int);
+}
+
+extern "C" void func_002D2120(int a) {
+    float f20 = func_002AED18();
+    func_00260D50_f(f20);
+    float f21 = func_00260D08();
+    *func_002CDCF8(0x6D735468) = f20;
+    float *q = func_002CDCF8(0x5FD80EDC);
+    f20 = *q;
+    *q = f21;
+    if (func_00276008(0x2B580363, 0) == 0x64CB606E) {
+        func_002D2118();
+    }
+    float t = func_00275DE0(0x7617AFAE, 0) * 0.001f;
+    if (f20 < t && t <= f21) {
+        int o = func_0027AA70_i((int)func_001287F0(8, 1));
+        func_0027C448(o, 0, 0xD7B6902D);
+        int p = func_0027AA70_i((int)func_001287F0(8, 1));
+        func_0027C448(p, 0xD24F570C, func_00276008(0x03A17838, 1));
+        func_0027C448(p, 0x44949010, func_00276008(0x9B2F5962, 1));
+        func_0027C448(p, 0xD524D574, func_00276008(0x6BF07EAD, 1));
+        func_0027C160(p, 0xD16B61E6, func_00275F08(0x0A4DD04A, 1));
+        func_0027C160(p, 0xC9428A08, func_00275F08(0xAB76E33E, 1));
+        func_0027C448(p, 0, 0xDE655351);
+        func_0027C898(o, 0x7031F10C, p);
+        CFunc_SpawnScriptNow(o, a);
+        if (o != 0) {
+            func_0027AC90_i(o);
+            func_00113250(o);
+        }
+    }
+}
