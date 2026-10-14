@@ -413,4 +413,36 @@ extern "C" int func_0013DD50(S_0013DD50* self) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DDF8);
+struct CP_0013DDF8 { u8 r; u8 g; u8 b; u8 a; };
+struct C_0013DDF8 {
+    CP_0013DDF8 c;
+    C_0013DDF8(const C_0013DDF8& o) : c(o.c) {}
+    C_0013DDF8& operator=(const C_0013DDF8& o) { *(u32*)this = *(const u32*)&o; return *this; }
+};
+struct T_0013DDF8 { char pad0[0x538]; C_0013DDF8 unk538; };
+struct S_0013DDF8 { char pad0[0xE8]; C_0013DDF8 unkE8; char padEC[0x16C]; T_0013DDF8* unk258; };
+
+extern "C" {
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
+void* Heap_Alloc(int, int, int, int);
+T_0013DDF8* func_0014A7A8(void*);
+void func_0013EB38_1(void*, int) __asm__("func_0013EB38");
+void func_0013E870_1(void*, int, int) __asm__("func_0013E870");
+}
+
+extern "C" void func_0013DDF8(S_0013DDF8* self) {
+    if (self->unk258 == 0) {
+        func_0013EB38_1(self, 0);
+        int h = D_00368A38;
+        func_00119490(h, func_00119610(h, 0x3A));
+        T_0013DDF8* t = func_0014A7A8(Heap_Alloc(D_00368A38, 0x540, 1, 0));
+        self->unk258 = t;
+        C_0013DDF8 tmp(self->unkE8);
+        t->unk538 = tmp;
+        C_0013DDF8 tmp2(t->unk538);
+        func_001194B8(D_00368A38);
+        func_0013E870_1(self, 0x11, 0);
+    }
+}
