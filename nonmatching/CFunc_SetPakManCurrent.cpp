@@ -192,17 +192,24 @@ int func_0027D188(int, u32, int*, int);
 void func_002350B0(char*, int);
 }
 
+static inline int Ne_234190(int a, int b) {
+    return a != b;
+}
+
+extern "C" int func_0027D870_i(int, u32, int*, int) __asm__("func_0027D870");
 extern "C" int CFunc_SetPakManCurrent(int p) {
     int a = 0;
+    int m2;
     int b = 0;
     func_0027D870(p, 0x6C525544, &a, 1);
     if (a == 0x7A354E97) func_00223340();
     func_0027D1F8(p, 0x53F1DF98, &b, 0);
     int m = func_00233C50(a);
-    if (m == 0) return 0;
+    m2 = m;
+    if (m2 == 0) return 0;
     char* o = func_00233CA8((char*)m, b);
     int h = 0;
-    func_0027D870(p, 0xF2C9AC8B, &h, 0);
+    func_0027D870_i(p, 0xF2C9AC8B, &h, 0);
     if (h == 0) {
         int path;
         func_0027D188(p, 0xDCD6CB13, &path, 1);
@@ -212,7 +219,7 @@ extern "C" int CFunc_SetPakManCurrent(int p) {
     func_002350B0(o, h);
     func_00234CB8();
     int f = 0;
-    if (a == 0x7A354E97) f = 0x806FFF30 != h;
+    if (a == 0x7A354E97) f = Ne_234190(0x806FFF30, h);
     if (f) {
         int c = func_00276008(0x8320D478, 0);
         func_002532C0(h, c);
