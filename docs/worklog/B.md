@@ -892,3 +892,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_002251F8: 256-entry search loop (x4 unrolled with -funroll-loops, pointer+counter); ours turns 'if (c) r = v' into movz where the original branches (beql); 4 forms tried.
 - func_001C3150: stride loop x4 unrolled; original keeps the 0x80 stride in a register (li t0,128; addu) and does not copy a1; ours folds it (size 0x100 vs 0xf0).
 - func_00234B88: near miss (only the branch-likely/delay-slot choice before the compaction loop differs: ours beqz + move a0,a3, original beqzl + lw), nonmatching/func_00234B88.cpp. Tip: array-of-16-byte-entries access as ((P*)(base + i*16))->field with a union { long a; T* o; } gives lw for the pointer and ld/sd for the copy; a separate pointer copy for the inner loop.
+- func_00225CA8: near miss (path basename/extension scan; structure identical, only register choice of the 92/47 constants and the lb target differ), nonmatching/func_00225CA8.cpp.
