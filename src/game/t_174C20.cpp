@@ -24,6 +24,8 @@ void func_00289F90(int);
 void Heap_Free(int, void*);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern u8 D_00340F78[];
+extern u8 D_00340EF0[];
+extern u8 D_00341728[];
 void func_00174058(void*);
 void func_0017D6D0(void*);
 void func_00172810(int);
@@ -125,6 +127,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174F70);
 
 extern "C" u32 func_001750A0(void) {
     return 0xA1762145 /* PLAY */;
+}
+
+struct E_1750B0 { int unk0; int unk4; };
+struct N_1750B0 { int unk0; N_1750B0* unk4; E_1750B0* unk8; };
+struct L_1750B0 { int unk0; N_1750B0* unk4; N_1750B0* unk8; };
+struct It_1750B0 {
+    int unk0;
+    N_1750B0* cur;
+    It_1750B0(N_1750B0* n) : cur(n) {}
+    bool operator!=(const It_1750B0& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct C_1750B0 { int unk0; L_1750B0 unk4; };
+struct S_1750B0 { char pad0[0x14]; void* unk14; char pad18[0x1C]; char unk34[0x10]; C_1750B0 unk44; };
+
+extern "C" void func_0017DFC0(void*);
+static inline void Clear_1750B0(L_1750B0* l) {
+    N_1750B0* s = (N_1750B0*)&l->unk4;
+    N_1750B0* f = l->unk8;
+    l->unk8 = s;
+    l->unk4 = s;
+    if (f != s) {
+        N_1750B0* q = f;
+        do {
+            f = f->unk4;
+            Heap_Free(D_00368A38[0], q);
+            q = f;
+        } while (f != s);
+    }
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_001750B0);
@@ -275,6 +306,20 @@ extern "C" void func_00176A20(S00175D48* self) {
     self->unk14 = D_00341558;
     func_00172A00(self);
 }
+
+struct VE_176A48 { s16 delta; s16 unk2; void (*fn)(void*, int); };
+struct V_176A48 { char pad0[0x10]; VE_176A48 unk10; };
+struct W_176A48 { V_176A48* unk0; };
+struct E_176A48 { int unk0; W_176A48* unk4; };
+struct N_176A48 { int unk0; N_176A48* unk4; E_176A48* unk8; };
+struct It_176A48 {
+    int unk0;
+    N_176A48* cur;
+    It_176A48(N_176A48* n) : cur(n) {}
+    bool operator!=(const It_176A48& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct S_176A48 { char pad0[0x14]; void* unk14; char pad18[0x10]; N_176A48 unk28; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00176A48);
 

@@ -141,7 +141,7 @@ int func_001F35D0(s32);
 int func_001F4070(s32);
 int func_00276D68(s32, void *, int);
 void func_002DD738(int, int);
-int func_002DDBD8(int, int);
+void func_002DDBD8(int, int);
 s32 func_002DE280(s32);
 }
 
@@ -360,7 +360,66 @@ TEXT_PAD(12);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDBD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDBD8);
+struct V2DDB {
+    int a;
+    int b;
+};
+
+struct E2DDB {
+    u32 key;
+    u32 type;
+    V2DDB v;
+};
+
+extern E2DDB T2DDB[] __asm__("D_003E96F0");
+extern V2DDB V2DDB_0[] __asm__("D_003724C0");
+extern V2DDB V2DDB_1[] __asm__("D_003724C8");
+extern V2DDB V2DDB_2[] __asm__("D_003724D0");
+extern V2DDB V2DDB_3[] __asm__("D_003724D8");
+extern V2DDB V2DDB_4[] __asm__("D_003724E0");
+extern V2DDB V2DDB_5[] __asm__("D_003724E8");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_002DDBD8(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E2DDB* e = T2DDB;
+        V2DDB t;
+        e->key = 0x82A0A873;
+        t = *V2DDB_0;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        e->key = 0x8CB5D0C0;
+        t = *V2DDB_1;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        e->key = 0x50F28D36;
+        t = *V2DDB_2;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        e->key = 0x2D703B94;
+        t = *V2DDB_3;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        e->key = 0x13C0D8DC;
+        t = *V2DDB_4;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        e->key = 0x9522F906;
+        t = *V2DDB_5;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x1D5B1AE6;
+        e->v = t;
+    }
+}
 
 extern "C" void func_002DDDA8(void) {
     func_002DDBD8(1, 0xFFFF);

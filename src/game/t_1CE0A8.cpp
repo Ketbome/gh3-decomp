@@ -177,6 +177,9 @@ void func_0027C1F8(s32 a, s32 b, f32 c);
 void Heap_Free(s32 heap, void* p);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void func_00113250(s32 a);
+void func_0028DB28(void* p);
+void func_0028E278(s32 a);
+void func_00289B40(s32 a, s32 b);
 void func_0027AC90(s32 a);
 void func_0027D470(s32 a, s32 b, s32* c, s32 d);
 s32 func_0027DD88(s32 a, s32 b);
@@ -389,6 +392,13 @@ extern "C" void* func_001CE8D0(char* p) {
     *(s32*)(p + 0x34) = 0;
     return p;
 }
+
+struct LH1CE {
+    char pad0[0xC];
+    LH1CE* unkC;
+    LH1CE* unk10;
+    void* unk14;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CE990);
 
