@@ -336,6 +336,17 @@ extern "C" void CFunc_SystemUIDelayed(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262E28);
 
+extern int D_0039A3D8[];
+extern "C" int func_001CD5C0(int);
+extern "C" u32 func_0011EF10(void);
+extern "C" int func_003174C0(u32, f32);
+extern "C" int func_0027D268(int, int, f32 *, int);
+
+struct S262E38 {
+    u32 v;
+    f32 t;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_ControllerDebounce);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", func_00262F18);
