@@ -29,7 +29,32 @@ int func_00251F68(void);
 extern S00252EC8* D_0036CDB4[] __attribute__((section(".sdata")));
 void func_001E19F8(int);
 void func_001E1A28(int);
+void func_0015D5E8(int, void *, void *, int);
+void func_002EB280(void *);
 }
+
+typedef unsigned int u128_252 __attribute__((mode(TI)));
+
+struct S252_Obj {
+    char pad0[0x2C];
+    int unk2C;
+    char pad30[0x50];
+    u128_252 unk80;
+};
+
+struct S252_Loc {
+    int a0;
+    int a4;
+    int a8;
+    int aC;
+    int a10;
+    int a14;
+    int pad18;
+    int pad1C;
+    float f20;
+    int pad24[3];
+    u128_252 v30;
+};
 
 extern "C" int CFunc_KillCamAnim(void) {
     func_00251F68();
@@ -161,7 +186,27 @@ extern "C" int CFunc_GetSoundBussEffects(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00253678);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002538C0);
+extern "C" void func_002538C0(int params, S252_Obj *obj) {
+    S252_Loc l;
+    int *p8 = &l.a8;
+    l.a0 = 0;
+    l.a8 = 0;
+    l.a14 = 0;
+    func_0027D870(params, 0xC451F558, &l.a0, 1);
+    func_0027D268(params, 0xD4F52446, &l.f20, 1);
+    l.a4 = (int)(l.f20 * 1000.0f);
+    func_0027D870(params, 0x61D8542A, p8, 1);
+    func_0027D1F8(params, 0x5726EB0E, &l.aC, 1);
+    l.a10 = 0;
+    if (obj) {
+        l.a14 = obj->unk2C;
+        if (l.a8 == 0x49EF8F3F) {
+            l.v30 = obj->unk80;
+            func_0015D5E8(0, &l.v30, &l.a10, 0);
+        }
+    }
+    func_002EB280(&l);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002539C0);
 
