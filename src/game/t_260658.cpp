@@ -509,7 +509,52 @@ extern "C" int CFunc_GameIsOver(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_002614E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SetConfig);
+extern "C" {
+extern int D_00368738;
+extern int D_00368744;
+extern int D_00368748;
+extern int D_0036876C;
+extern char D_00370770[];
+void func_0011F238(char *);
+void func_0011F3A8(void);
+}
+
+extern "C" int CFunc_SetConfig(int params) {
+    u32 sel = 0;
+    func_0027D870(params, 0x2B248E4A, &sel, 0);
+    switch (sel) {
+    case 0xD37CFDFF:
+        D_00368738 = 0x77B12AAB;
+        break;
+    case 0x508A31A1:
+        D_00368738 = 0x4C9908C7;
+        break;
+    case 0x5DCBBF5E:
+        D_00368738 = 0x41D88638;
+        break;
+    case 0xCBE70ACB:
+        D_00368738 = 0x6F2ADD9F;
+        break;
+    case 0xA8469630:
+        D_00368738 = 0x0C8B4164;
+        break;
+    }
+    if (func_0027DF00(params, 0xBA297025)) {
+        if (D_00368748 == 0) func_0011F238(D_00370770);
+        D_00368748 = 1;
+    }
+    if (func_0027DF00(params, 0x2B6D7B32)) {
+        if (D_00368748 != 0) func_0011F3A8();
+        D_00368748 = 0;
+    }
+    if (func_0027DF00(params, 0x38D23FD4)) D_00368744 = 1;
+    if (func_0027DF00(params, 0xAF11B50F)) D_00368744 = 0;
+    if (func_0027DF00(params, 0x6CAD3928)) D_00368768[0] = 0;
+    if (func_0027DF00(params, 0x86137A88)) D_00368768[0] = 1;
+    int t = 0x3C;
+    if (func_0027D1F8(params, 0xEE2BC65F, &t, 0)) D_0036876C = t;
+    return 1;
+}
 
 extern "C" int CFunc_PrintConfig(void) {
     return 1;
