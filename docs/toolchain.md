@@ -78,3 +78,7 @@ Sony libraries 3.0.0 (`PsIIlibgraph3000`, `PsIIlibmc2 3010`, ...), GameSpy SDK (
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets
   ee-gcc 2.95.2/2.95.3-114 use (ascending, `$ra` on top), although their values are plain ints. Not reproduced
   with 2.95.3-136 and `-fopt-stack` yet: skip them.
+- 58 functions hide behind 16 bytes of `addiu $sp,$sp,+X; nop; addiu $sp,$sp,+Y; nop` (not code that runs: no
+  path reaches it); splat starts the function there, so the real prologue sits 0x10 bytes in. Fix (to do when no
+  worker runs): give the real start a symbol (`func_<addr+0x10>`), resplit, sync_src; the 16 bytes stay INCLUDE_ASM.
+  About 650 other "fragments" (lone sqc2/lqc2 or epilogue-first pieces) are to be classified the same way.
