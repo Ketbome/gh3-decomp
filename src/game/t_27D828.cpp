@@ -245,10 +245,6 @@ extern "C" int func_0027E6F8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E700);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E760);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E820);
-
 struct S27E9D8_A {
     u32 unk0;
     int unk4;
@@ -260,6 +256,39 @@ struct S27E9D8_A {
         return (int *)unk8;
     }
 };
+extern "C" void func_0027E700(S27E9D8_A *);
+extern "C" int func_00119610(int, int);
+extern "C" void func_00119490(int, int);
+extern "C" void func_001194B8(int);
+extern "C" char *func_0011A380(int);
+
+extern "C" void func_0027E760(S27E9D8_A *p, int n, int c) {
+    func_0027E700(p);
+    ((char *)p)[2] = c;
+    p->unk4 = n;
+    if (n != 0) {
+        if (n != 1) {
+            int h = D_00368A38;
+            func_00119490(h, func_00119610(h, 5));
+            p->unk8 = (int)func_0011A380(p->unk4 * 4);
+            func_001194B8(D_00368A38);
+            u32 i = 0;
+            int *w = (int *)p->unk8;
+            if (p->unk4 != 0) {
+                do {
+                    *w = 0;
+                    i++;
+                    w++;
+                } while (i < (u32)p->unk4);
+            }
+        }
+    } else {
+        ((char *)p)[2] = 0;
+    }
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_27D828", func_0027E820);
+
 struct S27E9D8_E {
     u32 unk0;
     S27E9D8_A *unk4;
