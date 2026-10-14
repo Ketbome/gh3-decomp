@@ -172,7 +172,19 @@ extern "C" int CFunc_Clamp(int params, S24D_Script *script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24DDB8", func_0024DF98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24DDB8", CFunc_VectorLength);
+extern "C" int CFunc_VectorLength(int params, S24D_Script *script) {
+    S24D_Vec v;
+    f32 d;
+    int t;
+    func_0027D2D8(params, 0xE491B7A4, &v, 1);
+    int k;
+    asm("lqc2 $vf2, 0(%1)\n\tvmul.xyzw $vf2, $vf2, $vf2" : "=r"(k) : "r"(&v) : "memory");
+    int dst = script->unk20;
+    asm volatile("vaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni %1, $vf1\n\tmtc1 %1, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(d), "=&r"(t) : "r"(k), "r"(dst));
+    func_0027C1F8(dst, 0xFE82614D, d);
+    return 1;
+}
 
 extern "C" int CFunc_MathFloor(int params, S24D_Script *script) {
     f32 v;
