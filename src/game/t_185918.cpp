@@ -171,7 +171,16 @@ extern "C" u16 func_001874D8(S001874D8* self) {
     return self->unkE;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001874E0);
+extern "C" int func_001874E0(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return func_001BF4A0(S_001873D8_Get(self), self);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return func_001C3578(S_001873D8_Get2F(self, f), self);
+    }
+    return 0;
+}
 
 extern "C" int func_001875A8(S_001873D8* self) {
     if (S_001873D8_Get(self)) {

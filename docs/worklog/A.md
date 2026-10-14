@@ -1162,3 +1162,4 @@ Matched (A16): func_00114AD8 (t_112D48; CRC32 over (buf, len) with the D_0032A08
 Matched (A16): func_00114C70 (t_112D48; the same CRC32 loop with the running crc as 3rd argument)
 Matched (A16): func_001A9128 (t_1A7A50; PS2 busy-wait delay: `if (b == 0xFFFF && a) { for (i = 0xFF; i != -1; i--) for (j = 3; j != -1; j--) {} for (k = 11; k != -1; k--) for (l = 4; l != -1; l--) {} }`, four separate loop variables; the empty inner loops compile to the nop blocks)
 Matched (A16): func_00183AB8 (t_1836E8; dtor: vtable store, variant getter tested then reused, then the owned block with three optional members; plain natural code)
+Matched (A16): func_001874E0 (t_185918; same getter-dispatch shape as func_00187708 with func_001BF4A0 / func_001C3578). Tip: group identical bodies by asm with symbols normalised (scripts/twins.py only clones when the symbols map)
