@@ -1192,3 +1192,4 @@ Given up:
 - func_001A1A18 (4x16 table-driven byte gather): original keeps 4 separate pointer temps and does not strength-reduce, ours is 0x24 bytes smaller; 3 tries
 - func_001965D0 (xorshift float RNG, 2x unrolled with odd entry): -funroll-loops gives 4x, hand-written 2x gotos differ in scheduling; 4 tries
 - func_001422A8: near miss (nonmatching/func_001422A8.cpp, needs // cflags: -funroll-loops: 25 slots unrolled x5 matches; only self/array-base register choice s1/s2 differs); func_00139420 matched
+- func_0017DC80: near miss (nonmatching/func_0017DC80.cpp): only the second `addiu s2,s0,12` is CSE'd away in ours (4 bytes), and bnez vs bnezl; 6 tries
