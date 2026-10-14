@@ -101,7 +101,34 @@ extern "C" S1DC968* func_001DC978(S1DC968* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DC9A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCB80);
+extern "C" void func_0011C408(int, void*);
+extern "C" void func_001DC750(int*);
+
+extern "C" void func_001DCB80(void* self) {
+    int* p = (int*)self;
+    char* t = (char*)p[1];
+    if (t) {
+        char* q = t;
+        u32 n = 1 << p[0];
+        u32 i = 0;
+        if (n) {
+            do {
+                char* c = *(char**)(q + 8);
+                if (c) {
+                    do {
+                        char* nx = *(char**)(c + 8);
+                        func_0011C408(0, c);
+                        c = nx;
+                    } while (c);
+                }
+                func_001DC750((int*)q);
+                i++;
+                q += 12;
+            } while (i < n);
+        }
+        p[2] = 0;
+    }
+}
 
 extern "C" void func_001DCC38(char* p, int flags) {
     if (!*(u8*)(p + 0x16)) {
@@ -135,7 +162,32 @@ extern "C" void* PoolAlloc(s32 size) {
     return Heap_Alloc(D_00368A38[0], size, 1, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCD68);
+struct HI_CD68 { u32 key; void* value; HI_CD68* next; };
+struct HT_CD68 { int bits; HI_CD68* items; int count; };
+
+extern "C" void func_001DCD68(HT_CD68* t, int* key) {
+    if (!t->items) {
+        return;
+    }
+    HI_CD68* e = &t->items[*key & ((1 << t->bits) - 1)];
+    HI_CD68* prev = 0;
+    while (e) {
+        HI_CD68* next = e->next;
+        if (e->key == (u32)*key && e->value) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->value = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 extern "C" void PoolFree(void* p) {
     Pool1DC* a = D_0036D540[D_0036D550];
