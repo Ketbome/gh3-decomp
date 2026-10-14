@@ -192,7 +192,32 @@ extern "C" int func_00161EE0(L_161* self, int x) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00161F48);
+struct S20_161 { char pad0[0x20]; u128_161 unk20; char pad30[0x20]; B50_161 unk50; };
+
+static inline f32 GetX161(u128_161 q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 GetY161(u128_161 q) {
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(f) : "r"(q));
+    return f;
+}
+static inline f32 GetZ161(u128_161 q) {
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(f) : "r"(q));
+    return f;
+}
+
+extern "C" int func_00161F48(S20_161* self, u128_161* v) {
+    int b = 0;
+    self->unk20 = *v;
+    u128_161 q = *v;
+    if (GetX161(q) != 1.0f || GetY161(q) != 1.0f || GetZ161(q) != 1.0f) b = 1;
+    self->unk50.f3 = b;
+    return 1;
+}
 
 extern "C" void func_00161FD8(S50_161* self, int v) {
     self->unk50.f3 = v;
