@@ -2,7 +2,8 @@
 """Adds GP_DATA(sym) in front of C++ functions whose original reaches a global through $gp outside a delay slot.
 
 SN's assembler only did that for symbols whose size it already knew, i.e. data the original object defined itself
-(see scripts/asm_filter.py). Idempotent: a symbol already declared with GP_DATA earlier in the file is skipped.
+(see scripts/asm_filter.py). A function defined under an alias (`f_i(...) __asm__("f")`) is looked up as `f`.
+Idempotent: a symbol already declared with GP_DATA earlier in the file is skipped.
 
 Usage: .venv/bin/python scripts/fix_gp_data.py [src files...]   (default: all of src/game)
 """
@@ -26,7 +27,9 @@ def asm_of(stem, name):
 
 
 def fix(path):
-    lines = path.read_text().splitlines(keepends=True)
+    text = path.read_text()
+    lines = text.splitlines(keepends=True)
+    alias = dict(re.findall(r"\b(\w+)\s*\([^;{]*?\)\s*__asm__\(\"(\w+)\"\)", text))
     declared = set()
     out = []
     added = 0
@@ -36,7 +39,7 @@ def fix(path):
             declared.add(m.group(1))
         d = DEF.match(line)
         if d and "{" in "".join(lines[i:i + 3]):
-            asm = asm_of(path.stem, d.group(1))
+            asm = asm_of(path.stem, alias.get(d.group(1), d.group(1)))
             if asm:
                 for sym in dict.fromkeys(GP_OUTSIDE_SLOT.findall(asm)):
                     if sym not in declared and not sym.startswith("."):
