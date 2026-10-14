@@ -861,4 +861,39 @@ extern "C" int func_001CFF58(S001CE0A8* p, u32 key, void* a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CFFC8);
+struct A1CFF {
+    s32 pad0;
+    u32 n;
+    s32* d;
+};
+
+extern "C" {
+s32 func_00275F08(s32 a, s32 b);
+s32 func_0027D1F8_b(s32 p, s32 key, s32* v, s32 req) __asm__("func_0027D1F8");
+void func_0027D470_b(s32 p, s32 key, A1CFF** v, s32 req) __asm__("func_0027D470");
+}
+
+extern "C" s32 func_001CFFC8_2(void* a, s32 b) {
+    s32 k = 0;
+    s32 mask = 0;
+    A1CFF* arr = 0;
+    func_0027D470_b(b, 0, &arr, 0);
+    if (arr) {
+        u32 i = 0;
+        if (arr->n != 0) {
+            do {
+                s32 v;
+                if (arr->n == 1) {
+                    v = (s32)arr->d;
+                } else {
+                    v = arr->d[i];
+                }
+                i++;
+                mask |= 1 << func_00275F08(v, 0);
+            } while (i < arr->n);
+        }
+    } else if (func_0027D1F8_b(b, 0, &k, 0)) {
+        mask = 1 << k;
+    }
+    return mask;
+}
