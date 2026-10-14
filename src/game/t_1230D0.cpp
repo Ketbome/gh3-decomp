@@ -69,6 +69,7 @@ float func_0031B5C8(float);
 void func_00160970(void*, int);
 void func_001CE7A8(void*);
 void func_00124558(void*);
+void* func_00124628(void*);
 void func_001CE7C0(void*, int);
 void func_0014EB28(void*);
 void* func_0014EB08(int);
@@ -77,6 +78,8 @@ void func_0014E098(int, char*);
 u32 CrcFromPathLowercase(const char*);
 void func_00160170(void*, u32, int, int, int, int);
 int func_00129390(void);
+void func_001294C0(int, void*);
+void func_0011A470(void*);
 void func_00129710(int, void*);
 void func_001297B8(int, void*, int);
 void* func_0011DF78(int, int, int, int);
@@ -364,7 +367,30 @@ extern "C" void func_00124510(SA123_C* self, int flags) {
     func_001CE7C0(self, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00124558);
+struct VT_00124558 { char pad0[8]; s16 unk8; s16 unkA; void (*unkC)(void*, int); };
+struct O_00124558 { char pad0[0xC]; VT_00124558* unkC; };
+struct H_00124558 { char pad0[0x12]; u16 unk12; O_00124558** unk14; };
+struct S_00124558 { char pad0[0xC]; H_00124558* unkC; char pad10[0x10]; int unk20; };
+
+extern "C" void func_00124558(void* p) {
+    int i;
+    S_00124558* self = (S_00124558*)p;
+    if (self->unkC->unk14) {
+        i = 0;
+        if (self->unkC->unk12) {
+            do {
+                O_00124558* o = self->unkC->unk14[i];
+                if (o) o->unkC->unkC((char*)o + o->unkC->unk8, 3);
+                i++;
+            } while (i < self->unkC->unk12);
+        }
+        func_0011A470(self->unkC->unk14);
+    }
+    if (self->unk20) {
+        i = func_00129390();
+        if (i) func_001294C0(i, func_00124628(self));
+    }
+}
 
 extern "C" void* func_00124628(void* p) {
     return p;
