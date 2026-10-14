@@ -69,6 +69,24 @@ void func_0029D2A0(s32 a, s32 b, s32 c, void* d, s32 e, s32 f, s32 g);
 int func_0027D000(void* params, s32 name, s32* out, s32 d);
 void func_001C93B0(s32 p, s32 v);
 void func_001C93C0(s32 p, s32 v);
+void func_002981A0_r(s32 a, s32 b, void (*c)(void), s32 d, void* e, s32 f) __asm__("func_002981A0");
+s32 func_0029D8C8(s32 a);
+void func_001CCA90(void);
+void func_001CCB10(void);
+void func_001CCB60(void);
+void func_001CCC00(void);
+void func_001CCD50(void);
+void func_001CC310(void);
+void func_001CC330(void);
+void func_001CD108(void);
+void func_001CD058(void);
+void func_001CCE08(void);
+void func_001CCE00(void);
+void func_001CC298(void);
+void func_001CCD88(void);
+void func_001CC2D8(void);
+void func_001CD158(void);
+void func_001CD198(void);
 void func_00296AF0(void* p);
 void func_0029D730(s32 a, s32 b);
 s32 func_001CB558(S001C9FB0* p);
@@ -100,7 +118,38 @@ extern "C" void func_001C9B30(S001C9B30* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9B70);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9B78);
+struct S1C9B7 {
+    char pad0[0x81AC];
+    s32 unk81AC;
+};
+
+struct S1C9B7_B {
+    s32 unk0;
+};
+
+extern "C" void func_001C9B78(S1C9B7* self, S1C9B7_B* b, s32 f) {
+    s32 e = (s32)b + 4;
+    func_002981A0_r(e, 0x49, func_001CCA90, 2, self, 0x80);
+    func_002981A0_r(e, 0x50, func_001CCB10, 2, self, 0x80);
+    func_002981A0_r(e, 0x51, func_001CCB60, 2, self, 0x80);
+    func_002981A0_r(e, 0x4b, func_001CCC00, 2, self, 0x80);
+    func_002981A0_r(e, 0x52, func_001CCD50, 2, self, 0x80);
+    func_002981A0_r(e, 0x36, func_001CC310, 2, self, 0x80);
+    func_002981A0_r(e, 0x37, func_001CC330, 2, self, 0x80);
+    func_002981A0_r(e, 0x47, func_001CD108, 2, self, 0x80);
+    func_002981A0_r(e, 0x4f, func_001CD058, 2, 0, 0x80);
+    if (f) {
+        func_002981A0_r(self->unk81AC + 4, 0x4A, func_001CCE08, 0, self, 0xFF);
+        func_002981A0_r(self->unk81AC + 4, 0x4A, func_001CCE00, 0, self, 0xFF);
+        if (func_0029D8C8(self->unk81AC) == 0) {
+            func_002981A0_r(e, 0x33, func_001CC298, 0, self, 0x80);
+            func_002981A0_r(e, 0x5E, func_001CCD88, 0, self, 0x80);
+        }
+        func_002981A0_r(e, 0x5F, func_001CC2D8, 0, self, 0x80);
+        func_002981A0_r(e, 0x59, func_001CD158, 0, self, 0x80);
+        func_002981A0_r(e, 0x5B, func_001CD198, 0, self, 0x80);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001C9DD8);
 
