@@ -963,3 +963,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002ABC18 MATCH (array iterate with the stack object passed to func_0028C9F0; do/while with i++ before the call; the else branch and the fall-through both end in the same global store).
 - func_002ABD58 MATCH (twin of func_002ABC18 with other keys and D_00372F20; dk twins did not see it because the constants differ).
 - func_0027F788 MATCH (string copy into a buffer after a header; reassign the buffer parameter to the call result and keep the original in a local for the length).
+- func_00266A20 MATCH (max of fabsf over 5 or 2 floats, count chosen by field 0x14 == 2; plain for loop under -funroll-loops).

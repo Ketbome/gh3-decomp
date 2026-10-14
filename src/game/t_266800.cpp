@@ -180,7 +180,15 @@ extern "C" void func_00266928(f32 *a, f32 f) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266A20);
+extern "C" f32 func_00266A20(f32 *v) {
+    u32 n = ((int *)v)[5] == 2 ? 5 : 2;
+    f32 m = __builtin_fabsf(v[0]);
+    for (u32 i = 1; i < n; i++) {
+        f32 a = __builtin_fabsf(v[i]);
+        if (m < a) m = a;
+    }
+    return m;
+}
 
 extern "C" int func_00266B60(S266800_A *p) {
     if (p->unk0 != 0.0f || p->unk4 != 0.0f) {
