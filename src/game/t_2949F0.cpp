@@ -326,6 +326,63 @@ extern "C" void func_00295E08(void) {
     }
 }
 
+struct S295_Node {
+    char pad0[0xC];
+    S295_Node *unkC;
+    S295_Node *unk10;
+};
+
+struct S295_Obj {
+    char pad0[0x1808];
+    S295_Node node;
+    char pad181C[0x20];
+    int unk183C;
+    char pad1840[0x10];
+    S295_Obj *unk1850;
+    char pad1854[0x14];
+    int unk1868;
+    char pad186C[0x42C];
+    char pad1C98[0x600];
+    char name[0x40];
+    char pad22D8[0x34];
+    int unk230C;
+    char pad2310[0x108];
+    virtual void f0();
+    virtual void f1();
+    virtual void f2();
+    virtual void f3();
+    virtual void f4();
+    virtual void f5();
+    virtual void f6();
+    virtual void f7();
+    virtual void f8();
+    virtual void f9();
+    virtual void f10();
+    virtual void f11();
+    virtual void f12();
+    virtual void f13();
+    virtual void f14();
+    virtual void f15(int, int);
+};
+
+struct S295_Self {
+    char pad0[4];
+    S295_Node list;
+    char pad14[0x1C4];
+    int unk1D8;
+};
+
+extern "C" {
+void func_00119490(int, int);
+void func_001194B8(int);
+int func_0029D8C8(S295_Obj *);
+int func_00296988(S00296848 *);
+S295_Obj *func_0029FFB8(S295_Self *, int);
+int func_002FF118(int, int);
+void func_0030ADA0(char *, int, int);
+extern int D_00368A38;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295E50);
 
 extern "C" void func_00295FA8(S2949F0_R *self, char *obj) {
