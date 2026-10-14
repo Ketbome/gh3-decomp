@@ -26,7 +26,13 @@ extern "C" void func_0017B460(S0017B460* self) {
     func_00172A00(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17B448", func_0017B488);
+extern "C" void func_0017B488(int* self, int n) {
+    int i;
+    self[0x82] = n;
+    for (i = 0; i < n; i++) {
+        self[i] = i;
+    }
+}
 
 struct S17B528 { int unk0[0x82]; int unk208; };
 
