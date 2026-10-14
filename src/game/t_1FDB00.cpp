@@ -50,7 +50,6 @@ struct S1FD_A {
 extern "C" {
 void* operator_new(u32 size);
 void* func_001FDDC0(void*);
-void func_001D0F68(void*);
 void func_00276D68(u32, void*, int);
 extern u8 D_0038F8E8[];
 S1FD* func_001FEE90(S1FD*);
@@ -86,7 +85,65 @@ extern "C" void func_001FDB00(S1FD* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDB08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDC60);
+typedef unsigned int TI1FD __attribute__((mode(TI)));
+
+static inline f32 Get1FDX(TI1FD q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+
+static inline f32 Get1FDY(TI1FD q) {
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(f) : "r"(q));
+    return f;
+}
+
+static inline f32 Get1FDZ(TI1FD q) {
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(f) : "r"(q));
+    return f;
+}
+
+struct M1FD {
+    TI1FD r0, r1, r2, r3;
+};
+
+struct S1FDb {
+    char pad0[0x210];
+    TI1FD* unk210;
+};
+
+struct S1FDa {
+    char pad0[0x70];
+    int unk70;
+    struct { char pad0[0x1C]; int unk1C; }* unk74;
+    S1FDb* unk78;
+};
+
+extern "C" int func_00133A98(int, int, void*);
+
+extern "C" void func_001FDC60(S1FDa* p0, M1FD* m0) {
+    M1FD* m = m0;
+    S1FDa* p = p0;
+    if (func_00133A98(p->unk74->unk1C, p->unk70, m) == 0) {
+        m->r0 = 0x3F800000;
+        m->r1 = (u64)0xFE00 << 46;
+        m->r2 = (TI1FD)0x3F800000 << 64;
+        m->r3 = (TI1FD)((u64)0xFE00 << 46) << 64;
+        p->unk70 = 0;
+    }
+    S1FDb* o = p->unk78;
+    if (o) {
+        TI1FD q = o->unk210[2];
+        if (Get1FDX(q) != 1.0f || Get1FDY(q) != 1.0f || Get1FDZ(q) != 1.0f) {
+            register TI1FD v asm("vf1") = m->r3;
+            register TI1FD w asm("vf2") = q;
+            asm("vmul.xyzw %0, %0, %1" : "+j"(v) : "j"(w));
+            m->r3 = v;
+        }
+    }
+}
 
 extern "C" void* func_001FDD68(void) {
     return func_001FDDC0(operator_new(0xF0));
@@ -95,20 +152,6 @@ extern "C" void* func_001FDD68(void) {
 extern "C" void func_001FDD90(void) {
     func_00276D68(0x5CB5CB7E, D_0038F8E8, 0x10);
 }
-
-struct S1FDD {
-    char pad0[4];
-    s32 unk4;
-    char pad8[0x10];
-    char* unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    s32 unk28;
-    s32 unk2C;
-    char pad30[0xB8];
-    u64 unkE8;
-};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1FDB00", func_001FDDC0);
 
