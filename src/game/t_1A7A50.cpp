@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct E_1A8520 { int* unk0; char pad4[0x6C]; };
@@ -66,11 +67,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A85D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8758);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8810);
+struct E_1A8A60 { int unk0; int unk4; int unk8; char padC[0x54]; };
+GP_DATA(D_0036C654);
+extern "C" void func_001A8810(int key, int val) {
+    u32 i = 0;
+    if (D_0036C654) {
+        do {
+            E_1A8A60* e = &((E_1A8A60*)D_00386450)[i];
+            if (e->unk8 == key) e->unk4 = val;
+            i++;
+        } while (i < D_0036C654);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A88E8);
 
-struct E_1A8A60 { int unk0; int unk4; char pad8[0x58]; };
+
 GP_DATA(D_0036C654);
 GP_DATA(D_0036C658);
 extern "C" void func_001A8A60(void) {
