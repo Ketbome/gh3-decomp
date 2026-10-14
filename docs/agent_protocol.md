@@ -18,7 +18,10 @@ word-split; pass file lists explicitly or through xargs).
    integrator runs the permuter on those (`scripts/permute.py`). Do not run it yourself.
    Give up after ~15 tries: `.venv/bin/python scripts/revert_func.py <file> <func>`; keep any prototype other code
    in the file needs (the file must compile); note the function and why in your worklog.
-6. After each match (or a few): `scripts/done.sh <file> docs/worklog/<range>.md "decomp: <file> +N functions"`.
+6. Identical functions: `.venv/bin/python scripts/twins.py <your files>` copies every matched function onto the
+   functions with the same assembly in your files (renaming symbols) and keeps only what matches. Run it after
+   matching anything, and prefer functions that have twins (`scripts/twins.py --list`).
+7. After each match (or a few): `scripts/done.sh <file> docs/worklog/<range>.md "decomp: <file> +N functions"`.
    It fixes padding, refuses to commit if anything in the file does not match, and commits only those two paths.
 
 Before stopping, `git status` must show none of your files modified.
