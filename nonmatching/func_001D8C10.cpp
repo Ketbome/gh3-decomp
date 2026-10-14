@@ -281,11 +281,13 @@ struct S1D8C {
     s32 unk4;
 };
 
-extern "C" void func_001D8C10(S1D8C* p, s32 f) {
+extern "C" void func_001D8C10(S1D8C* p0, s32 f0) {
+    S1D8C* p = p0;
+    s32 f = f0;
     if (p->unk0 != 0) {
-        s32 off = 0;
         s32 i = 0;
         if (p->unk4 > 0) {
+            register s32 off asm("$19") = 0;
             do {
                 void* o = ((E1D8C*)(off + p->unk0))->unkC;
                 if (o != 0) {
