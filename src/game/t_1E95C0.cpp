@@ -532,7 +532,9 @@ extern "C" void func_001EA990() {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EA9D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EA9E0);
+extern "C" void* func_001EA9E0(u32 key) {
+    return D_0036DFC0->Get(key);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAA68);
 
