@@ -339,4 +339,51 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB820);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB938);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB998);
+struct V1FB9 {
+    int a;
+    int b;
+};
+
+struct E1FB9 {
+    u32 key;
+    u32 type;
+    V1FB9 v;
+};
+
+extern E1FB9 T1FB9[] __asm__("D_0038F5B0");
+extern V1FB9 V1FB9_0[] __asm__("D_0036E5E8");
+extern V1FB9 V1FB9_1[] __asm__("D_0036E5F0");
+extern V1FB9 V1FB9_2[] __asm__("D_0036E5F8");
+extern V1FB9 V1FB9_3[] __asm__("D_0036E600");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_001FB998(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E1FB9* e = T1FB9;
+        V1FB9 t;
+        e->key = 0xAFA20E18;
+        t = *V1FB9_0;
+        e->type = 0x07713C7B;
+        e->v = t;
+        e++;
+        e->key = 0x3E5E8023;
+        t = *V1FB9_1;
+        e->type = 0x07713C7B;
+        e->v = t;
+        e++;
+        e->key = 0x4E4132D6;
+        t = *V1FB9_2;
+        e->type = 0x07713C7B;
+        e->v = t;
+        e++;
+        e->key = 0xE8347171;
+        t = *V1FB9_3;
+        e->type = 0x07713C7B;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x07713C7B;
+        e->v = t;
+    }
+}
