@@ -54,7 +54,20 @@ extern "C" void func_0019B6B8(int a0, int a1, int a2, int a3, int a4, int a5) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B778);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B7E0);
+extern "C" long func_0019B7E0(void) {
+    char* p = D_00373270;
+    char* end = (char*)(((int)p + 15) & ~15);
+    for (; p < end; ) {
+        *p = 0;
+        D_00373270 = p + 1;
+        p = D_00373270;
+    }
+    long r = ((long)D_003732A4 << 32) | ((long)(u32)D_003732A0 << 28) | (u32)((D_00373284 & 0x3FF) << 16);
+    if (D_003732A0 == 3) {
+        r |= (D_00373270 - D_003732A4) >> 4;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B880);
 
