@@ -864,3 +864,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - near miss: func_002250F8 (nonmatching/func_002250F8.cpp; element-array base copy a3 and v0/v1 order; decl in file changed to s32(void*) there).
 - Skipped func_00231A80 (t_22FD98): saves $31 with sq (toolchain class).
 - near miss: func_0021F8D8 (nonmatching/func_0021F8D8.cpp; only mov.s f12/move a2 order around the final jal slot).
+- Given up: func_001FB998 / func_0021B0F8 / func_0021B6B8 (static table initialisers: {key,type,packed u64} entries built via a stack temp t (ldl/ldr/sdl/sdr), entry pointer walks p++; original keeps the lui of D_ in s0 and stores key through it (sw lo(s0)) then addiu s0; ours splits into a0/at; the .sdata-section trick breaks the p++ chain; 5 forms; packed struct + memset(&t,0,8) for the last entry compile fine otherwise).

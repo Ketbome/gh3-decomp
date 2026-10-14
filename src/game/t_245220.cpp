@@ -165,6 +165,17 @@ extern "C" void* func_00246F08(char* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246F48);
+extern "C" void func_00246F48(char* p, int f) {
+    if (*(s32*)(p + 0x30) != 0) {
+        for (s32 i = 0; i < *(s32*)(p + 0x28); i++) {
+            for (s32 j = 0; j < *(s32*)(p + 0x2C); j++) {
+                func_00246CF8(*(char**)(*(s32*)(p + 0x30) + i * 4) + (j << 5), 2);
+            }
+        }
+        func_0011A470(*(s32*)(p + 0x30));
+        *(s32*)(p + 0x30) = 0;
+    }
+    if (f & 1) Heap_Free(D_00368A38[0], p);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00247020);
