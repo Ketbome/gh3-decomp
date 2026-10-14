@@ -31,6 +31,13 @@ void func_0027F1E0(int, int, int);
 void func_002CDD30(S2CDD30 *);
 s32 func_00289C88(s32, s32);
 char *func_00289C80(s32);
+void CFunc_SpawnScriptNow(int, int);
+void func_00113250(int);
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027AC90(int);
+void func_0027C448(int, u32, int);
+void func_0027C898(int, u32, int);
 int func_00289CF8(s32);
 }
 
@@ -67,7 +74,42 @@ extern "C" s32 CFunc_check_for_star_power_CFunc_Cleanup(int arg0, s32 arg1) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDDD0);
+extern "C" void func_002CDDD0(u32 key, S2CDD30 *p, int arg) {
+    int ok = 0;
+    if (key == 0xF8B928FD || key == 0xA572DCB2)
+        ok = 1;
+    if (ok) {
+        int e = func_0027AA70(func_001287F0(8, 1));
+        func_0027C448(e, 0, 0x38C4BE6D);
+        int c = func_0027AA70(func_001287F0(8, 1));
+        func_0027C898(e, 0x7031F10C, c);
+        int t = p->unk8;
+        int v;
+        int w;
+        if (func_0027CC30(t, 0x67E6859A, 1, &v) == 0) {
+            func_0027F1E0(t, 0, 1);
+            w = 0;
+        } else {
+            w = v;
+        }
+        if (w == 1) {
+            func_0027C448(c, 0x1BFF0C3D, 0x57D6374F);
+            CFunc_SpawnScriptNow(e, arg);
+            if (func_00275F08(0x8737EEDA, 0)) {
+                func_0027AC90(e);
+                func_0027C448(e, 0, 0xF010A127);
+                CFunc_SpawnScriptNow(e, arg);
+            }
+        } else {
+            func_0027C448(c, 0x1BFF0C3D, 0xD95930AC);
+            CFunc_SpawnScriptNow(e, arg);
+        }
+        if (e) {
+            func_0027AC90(e);
+            func_00113250(e);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CDCC0", func_002CDF70);
 
