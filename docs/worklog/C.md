@@ -956,3 +956,5 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_0026C120 gave up: search loop matches; the tail `cnt = &D[idx].unk2C; n = *cnt; *cnt = n+1; items[n] = ..; f(b, cnt)` keeps folding the +0x2C into the table base (s0 = D+44) where the original keeps s0 = D and a1 = (s0+44)+(idx<<7); 8 forms.
 - func_00273940 MATCH (slot allocator: two unused-by-name float params f12/f13 are passed straight to func_002730D0(float,float), the third float is the real one in f14; D_00370DB4 declared volatile so the store stays out of the jal delay slot).
 - func_00273600 MATCH (early-return guards instead of nested ifs; D_00372EC4 re-declared as a struct pointer through an asm alias).
+- func_0026B628 gave up: table slot init (D_003A44B0 + (idx<<7)); original keeps base and offset in two saved registers across the calls and recomputes each field address (copies via daddu); gcc CSEs/rematerialises them (5 forms).
+- func_00276BB0 MATCH (sibling of func_002769B0: copy the pointer into a local inside the if; r[2] = 9).

@@ -454,7 +454,20 @@ extern "C" void func_002769B0(S2754A0_P *p, int n) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276BB0);
+extern "C" void func_00276BB0(int *p, int n) {
+    u32 i = 0;
+    if (n) {
+        int *q = p;
+        do {
+            int h = func_001150B8(*q);
+            func_00277378(h, *q);
+            char *r = (char *)func_00275A40(h);
+            r[2] = 9;
+            q++;
+            i++;
+        } while (i < n);
+    }
+}
 
 extern "C" void func_00276D48(int a, int *e, int stride) {
     func_00276D68(a, e, stride);
