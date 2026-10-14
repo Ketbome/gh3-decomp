@@ -64,6 +64,28 @@ extern "C" s32 CFunc_DeinitAtoms(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_DeRegisterAtoms);
 
+struct SAtomH {
+    int unk0;
+    int unk4;
+    SAtomH *unk8;
+};
+struct SAtomT {
+    int bits;
+    SAtomH *items;
+    int count;
+};
+
+extern "C" {
+void func_0011A558(u32, int, int);
+void func_0011A568(void *);
+int func_001E7EC8(int);
+void func_001E7FD8(int, int);
+int func_0027D470(int, int, int *, int);
+void *func_0011C3A8_i(int) __asm__("func_0011C3A8");
+SAtomH *func_002D5888(void *);
+extern SAtomT *D_00371FF0_p asm("D_00371FF0");
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_RegisterAtoms);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_UpdateAtoms);
