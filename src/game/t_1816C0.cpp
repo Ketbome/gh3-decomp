@@ -109,7 +109,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00181C80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00181ED8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00181EE0);
+struct S181EE0 { char pad0[0xC]; u32 unkC; };
+
+extern "C" {
+S181EE0* func_00189E90(void*);
+void func_0018A078(S181EE0*, int, int);
+int func_001AD4C8(int, int, int, int*);
+int func_00187F48(int);
+}
+
+extern "C" S181EE0* func_00181EE0(int a0, int a1, int a2, int a3, int a4) {
+    S181EE0* o = func_00189E90(Heap_Alloc(D_00368A38[0], 0xB0, 1, 0));
+    if (a2) {
+        o->unkC |= 1;
+    } else {
+        o->unkC &= ~1;
+    }
+    if (a3) {
+        o->unkC |= 2;
+    } else {
+        o->unkC &= ~2;
+    }
+    if (a4) {
+        o->unkC |= 0x40;
+    } else {
+        o->unkC &= ~0x40;
+    }
+    o->unkC &= ~0x20;
+    int out;
+    int g = func_00187F48(a1);
+    int t = a4 == 0;
+    func_0018A078(o, func_001AD4C8(a0, g, a3 ? (t | 2) : t, &out), out);
+    return o;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182020);
 
