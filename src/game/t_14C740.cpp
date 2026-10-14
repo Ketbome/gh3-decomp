@@ -109,7 +109,31 @@ extern "C" void func_0014CF48(int v) {
     D_00372B48 = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014CF50);
+static inline int SHT14_Find(HT_14CF50 *t, const int &k) {
+    HE_14CF50 *n;
+    if (t->unk4 == 0) {
+        return 0;
+    }
+    n = &t->unk4[k & ((1 << t->unk0) - 1)];
+    if (n == 0) {
+        return 0;
+    }
+    do {
+        if (n->unk0 == k) {
+            int v = n->unk4;
+            if (t->unk15 != 0 || v != 0) {
+                return v;
+            }
+        }
+        n = n->unk8;
+    } while (n);
+    return 0;
+}
+
+extern "C" int func_0014CF50(int arg0) {
+    int k = arg0;
+    return SHT14_Find(&D_003781A0, k);
+}
 
 extern "C" int func_0014CFD8(const char* name) {
     return D_004159C8[func_00113770(name, 0)];
