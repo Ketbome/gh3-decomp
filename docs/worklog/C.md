@@ -943,3 +943,7 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - Near misses (nonmatching/): func_0026FC80 (lw a0 vs v1 and `slt v1,zero,s0` v1 known-zero CSE), func_002684D8 (5-entry fuzzy table, unrolled; leaves duplicate the tail `mul` in delay slots, we share it; size 0x304 vs 0x318), func_00269780 (a/b register swap, clear block addressing), func_002AB738 (two insns swapped around `sltiu t0,a0,1`), func_002530A8 (original has `addiu s2,s1,52` in the `beqz` delay slot; gcc leaves nop: toolchain/delay-slot question).
 - Gave up: func_00299D20 (stack iterator with vptr), func_002EBC18 (hash iterator), func_002DD578 (unrolled search returning a u128 constant {0,0,0,1.0}), CFunc_DebugTransform (pextlw/pcpyld vector build), func_00292928-style hash chain functions func_002978C0/func_002996C0/func_00275BD0 not tried further, func_002677E0 (unrolled pool free-list).
 - Session 3 total: 14 matches (func_00292928, func_00278D78, func_0026AD48, func_00252FC0, func_0028ABB0, func_00274B08, func_00272F70, func_002B5888, func_0028C518, func_0028C4B0, CFunc_TimeGreaterThan, func_0027EFA0).
+
+## Session 4 (untried 0x100..0x1000)
+- func_0026FD70 MATCH (index into the table as `i = b*0x14 + a*0x1B8`, reload `(int)D_003A8D40 + i` for the second store).
+- func_0026F828: near miss, nonmatching/func_0026F828.cpp (struct store order around the trunc.w.s; all 720 orders of the six stores tried; final D_00370D10 reload v0 vs v1).
