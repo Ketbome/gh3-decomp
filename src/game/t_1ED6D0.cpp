@@ -300,7 +300,40 @@ extern "C" void func_001EEFE0(void* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EF000);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EF208);
+struct S1EF208 {
+    char pad0[0x230];
+    TI128 unk230;
+    TI128 unk240;
+    f32 unk250;
+    f32 unk254;
+    s32 unk258;
+    s32 unk25C;
+    s32 unk260;
+};
+
+extern "C" f32 func_0011ED10();
+
+extern "C" void func_001EF208(S1EF208* p) {
+    if (p->unk254 != 0.0f) {
+        f32 t = p->unk250 + func_0011ED10() / p->unk254;
+        p->unk250 = t;
+        if (t >= 1.0f) {
+            p->unk254 = 0.0f;
+            p->unk250 = 1.0f;
+            func_001EF3A8((S1EE6F8*)p, (Vec*)&p->unk240, 0, 0, 0);
+            return;
+        }
+        VecU u;
+        asm volatile("lqc2 $vf1, %0" : : "m"(p->unk230));
+        register S1EE6F8* a0 asm("$4");
+        asm("" : "=r"(a0) : "0"(p));
+        asm volatile("lqc2 $vf2, 0x240(%0)" : : "r"(p));
+        register Vec* a1 asm("$5") = &u.v;
+        f32 tt = t;
+        asm volatile("vsub.xyzw $vf2, $vf2, $vf1\n\tqmtc2.ni %1, $vf3\n\tvmulx.xyzw $vf2, $vf2, $vf3x\n\tvadd.xyzw $vf1, $vf1, $vf2\n\tsqc2 $vf1, %0" : "=m"(u) : "r"(tt));
+        func_001EF3A8(a0, a1, ((S1EF208*)a0)->unk258, ((S1EF208*)a0)->unk25C, ((S1EF208*)a0)->unk260);
+    }
+}
 
 extern "C" void func_001EF2D8(void) {
 }
