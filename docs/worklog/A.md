@@ -1198,3 +1198,4 @@ Given up:
 - func_0012E290: near miss (nonmatching/func_0012E290.cpp): virtual call loop fine; original keeps the `a<b` / `b<a` result in the FP condition bit (c.lt; bnez; c.lt; bc1fl), ours materialises it with li/move; 12 tries
 - func_0019EAA0: near miss (nonmatching/func_0019EAA0.cpp): GS packet header, registers/schedule only (v1/a2 base reg, order of the lui loads)
 - func_001293A0: near miss (nonmatching/func_001293A0.cpp): loop of 50 slots matches instruction for instruction under the file's -funroll-loops; only saved-register assignment (self/p s0-s1, flag/-1/counter s3-s5) differs
+- func_0012D870: near miss (nonmatching/func_0012D870.cpp): only self/counter saved registers s1/s2 swapped (the loop counter should be the lower register)
