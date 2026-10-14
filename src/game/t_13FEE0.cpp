@@ -235,9 +235,7 @@ extern "C" void func_001413A0(S13F_X* self, void* list) {
 }
 
 
-extern "C" int func_00141608(S_00141608* self) {
-    return *self->unk248;
-}
+extern "C" int func_00141608(S_00141608* self);
 
 struct VE_141 { s16 delta; s16 unk2; void* fn; };
 struct VO_141 { char pad0[0x34]; VE_141* unk34; };
@@ -284,6 +282,10 @@ void func_00141428_i(S_141* self, int a) {
     func_001397A8(self, 0, w, (float)func_00159710(func_00141608((S_00141608*)self)));
     self->unkC |= 0x1000;
     func_00134340(&h);
+}
+
+extern "C" int func_00141608(S_00141608* self) {
+    return *self->unk248;
 }
 
 extern "C" void func_00141618(void) {
