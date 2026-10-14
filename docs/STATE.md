@@ -7,7 +7,8 @@ so no progress figures or hashes are written by hand here.
 ## In flight
 
 Running (2026-10-14): workers A and C (fourth round: functions with `lqc2`/`sqc2` in branch-likely slots first, the
-VU0 register-variable pattern), B (third round), limit 25 matches or 60 attempted (rounds with this limit: A 25, C 21).
+VU0 register-variable pattern), B (fourth round: func_001DC788 hash-table constructor + 6 twins first), limit 25
+matches or 60 attempted (A 25, C 21, B 6/17 in the last round: B stops early).
 Branch-likely-only differences are C shape, not toolchain (docs/toolchain.md).
 Ranges for the next workers:
 
@@ -39,6 +40,7 @@ never mentioned in a worklog on 2026-10-14).
   to run it on their 13 candidates.
 - Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): CFunc_GetViewportCameraPos, CFunc_GetWaypointDir,
   CFunc_NormalizeVector; source construct unknown.
+- func_001E1B28: our gcc always folds `r = 0; if (x == C) r = 1;` to `xor`+`sltiu`, the original branches.
 - `if (c) r = v` becomes `movz` where the original branches (func_002251F8).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
