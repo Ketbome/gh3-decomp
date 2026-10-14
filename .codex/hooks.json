@@ -1,0 +1,16 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear|compact",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "cd \"$(git rev-parse --show-toplevel)\" && .venv/bin/python scripts/dk.py state 2>&1 | head -150",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -5,7 +5,8 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
 
 ## Start of every session
 
-1. `.venv/bin/python scripts/dk.py state` (Claude Code runs it for you at startup, `/clear` and compaction): plan
+1. `.venv/bin/python scripts/dk.py state` (run for you at startup, clear and compaction by `.claude/settings.json`,
+   `.codex/hooks.json` and `.opencode/plugins/dk-state.js`): plan
    (`docs/STATE.md`), commits, uncommitted work, progress, worklog activity, stale documents. Trust it over memory
    and over a compacted summary.
 2. If it shows uncommitted sources or a warning, deal with that first (`dk rescue`, `dk docs --commit`).
@@ -16,14 +17,15 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
   It does not decompile functions itself and does not read asm, m2c output, diffs, whole worklogs or agent
   transcripts: investigations go to a subagent that reports in under 200 words. Numbers, hashes and worker status
   come from `dk state`/git at the moment they are stated, never from memory.
-- **Subagents** (`.claude/agents/`, launched by `subagent_type`; model per task and escalation rules: skill,
-  references/orchestration.md, "Choosing models and effort"):
-  - `decomp-worker` (sonnet): the per-function loop on a range it owns, `docs/agent_protocol.md`; prompt of four
-    lines (files, worklog, scratch folder, priority). Max 3 at a time.
-  - `decomp-forensics` (opus, effort high): a difference repeated across many functions (e.g. the `div.s` nops);
-    works in a scratch copy, the orchestrator applies the fix and runs `dk all`.
-  - `decomp-runner` (haiku, effort low): exact commands only (permuter batch + `permute_apply.py`, `dk twins`,
-    names list, counts).
+- **Delegate to the role subagents** (this file asks for it explicitly). Definitions: `.claude/agents/`,
+  `.codex/agents/`, `.opencode/agents/`; model per task and escalation rules: skill, references/orchestration.md,
+  "Choosing models and effort".
+  - `decomp-worker` (mid-size: Sonnet; Codex effort medium): the per-function loop on a range it owns,
+    `docs/agent_protocol.md`; prompt of four lines (files, worklog, scratch folder, priority). Max 3 at a time.
+  - `decomp-forensics` (strongest: Opus effort high; Codex effort xhigh): a difference repeated across many
+    functions (e.g. the `div.s` nops); works in a scratch copy, the orchestrator applies the fix and runs `dk all`.
+  - `decomp-runner` (smallest: Haiku effort low; Codex effort low): exact commands only (permuter batch +
+    `permute_apply.py`, `dk twins`, names list, counts).
 
 ## Keeping documents current (orchestrator, every integration round)
 
