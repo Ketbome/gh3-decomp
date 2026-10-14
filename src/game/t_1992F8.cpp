@@ -188,7 +188,34 @@ extern "C" int func_00199D38(S199_M* tbl, int start) {
     return -1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199D90);
+extern "C" int func_00199D90(int root, S199_M* node, u32 key, int depth) {
+    if (depth == 0) return (int)node;
+    int idx = key & 0xF;
+    int* slot = &node->m[idx];
+    if (*slot == 0) {
+        int n = (int)func_00199C60();
+        if (n != 0) {
+            *slot = n;
+            if (depth == 1) {
+                func_00199BF0((S00199BF0*)n);
+            } else {
+                func_00199C18((S199_M*)n);
+            }
+        } else {
+            idx = func_00199D38(node, idx);
+            if (idx < 0) return 0;
+        }
+    }
+    key >>= 4;
+    depth--;
+    int start = idx;
+    for (;;) {
+        int r = func_00199D90(root, (S199_M*)node->m[idx], key, depth);
+        if (r != 0) return r;
+        idx = func_00199D38(node, idx);
+        if (start == idx) return 0;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199EA8);
 
