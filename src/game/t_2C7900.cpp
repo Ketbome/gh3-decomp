@@ -28,6 +28,21 @@ S2C79_Arr *func_002764E8(int, int);
 int func_002763E0(int, int);
 int func_0027D1F8(int, int, int *, int);
 int func_0027D870(int, int, int *, int);
+int func_0027CC30(int, u32, int, void *);
+void func_0027F1E0(int, int, int);
+f32 func_00260D08_f(void) asm("func_00260D08");
+f32 func_002B4BC8(int, int, f32);
+extern int D_00372128[2];
+extern f32 D_00372138[2];
+extern f32 D_00372140[2];
+extern int D_00372148[2];
+extern f32 D_00373080[];
+extern f32 D_00373158[];
+extern f32 D_00373198[];
+struct S2C79_Row {
+    f32 v[4000];
+};
+extern S2C79_Row D_003CDFC8[];
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", func_002C7900);
@@ -88,6 +103,10 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_CheckNoteHoldWait);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_CheckNoteHoldStart);
 
+GP_DATA(D_00372128);
+GP_DATA(D_00372148);
+GP_DATA(D_00372138);
+GP_DATA(D_00372140);
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", func_002C8930);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_CheckNoteHoldPerFrame);
