@@ -96,7 +96,29 @@ extern "C" void func_001BF6A0(char* p, s32 flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF6F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF798);
+extern "C" void func_001BF798(N1C* n, f32 t) {
+    N1C* c;
+    for (c = n->unk18; c; c = c->unk18) {
+        if (c->unkC < t) {
+            func_001BFE40(n);
+            n->unk18 = c;
+            N1C* p = c->unk1C;
+            n->unk1C = p;
+            if (p) p->unk18 = n;
+            c->unk1C = n;
+            break;
+        }
+        if (!c->unk18) {
+            func_001BFE40(n);
+            c->unk18 = n;
+            n->unk1C = c;
+            n->unk18 = 0;
+            D_0036CBDC = n;
+            break;
+        }
+    }
+    n->unkC = t;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BF628", func_001BF838);
 
