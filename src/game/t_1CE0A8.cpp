@@ -760,7 +760,26 @@ extern "C" s32 func_001CFE38(S001CE0A8* p, s32 a) {
     return (old & m) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CFEB8);
+struct Q1CFE {
+    char pad0[8];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual s32 v4(int);
+};
+
+struct A1CFE {
+    s32 unk0;
+    s32 unk4;
+    s32 (Q1CFE::*unk8)(int, int);
+};
+
+extern "C" s32 func_001CFEB8(Q1CFE* p, A1CFE* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v4(a->unk0);
+}
 
 extern "C" int func_001CFF58(S001CE0A8* p, u32 key, void* a) {
     switch (key) {
