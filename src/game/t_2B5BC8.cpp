@@ -69,7 +69,12 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B6D90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B6D98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B7108);
+extern "C" float func_002B7108(float *p, float a, float b, float c, float d, float e) {
+    float t = a - b * c;
+    float r = (t / (d * 1000.0f)) * (e * d);
+    if (p) *p = t;
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B5BC8", func_002B7140);
 
