@@ -71,8 +71,12 @@ extern int D_003A91C4[];
 extern int D_00372EC4;
 extern int D_00370DA4;
 extern u8 D_0032E1E1[];
-extern u8 D_00370DB4;
+extern volatile u8 D_00370DB4;
 void func_00271A98(int, int, int, int, int, int);
+int func_002730D0(float, float);
+int func_00273240(float);
+extern u8 D_0032E1D8[];
+extern float D_00370B08;
 int func_00274BF8(void);
 extern int D_00370E44;
 void func_002746E8(int, int, int);
@@ -130,7 +134,21 @@ extern "C" int func_00273910(int i) {
     return func_00272B28(D_003A9490[i]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273940);
+GP_DATA(D_00370DA4);
+GP_DATA(D_00370DB4);
+extern "C" int func_00273940(int a, int b, int c, int d, float f0, float f1, float f) {
+    int bit = 1;
+    int i;
+    for (i = 0; i < D_00370DA4; i++, bit <<= 1) {
+        if ((D_0032E1D8[9] & bit) && !(D_00370DB4 & bit)) break;
+    }
+    if (i == D_00370DA4) return -1;
+    D_00370DB4 |= bit;
+    int r = func_002730D0(f0, f1);
+    int t = func_00273240(f);
+    func_00271A98(i | 0x90, a, b - 0x10, d | (c << 8), r, (int)((float)t * D_00370B08));
+    return i;
+}
 
 extern "C" int func_00273A80(int a, int i, int c, int d, int e) {
     int r;
