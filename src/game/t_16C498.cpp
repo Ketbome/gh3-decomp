@@ -340,7 +340,34 @@ extern "C" Z_0016D0F8* func_0016DDB0(Z_0016D0F8* s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016DDD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016DFB8);
+struct E_func_0016DFB8 { int key; int val; E_func_0016DFB8* next; };
+struct T_func_0016DFB8 { int bits; E_func_0016DFB8* buckets; int count; };
+
+extern "C" void func_0011C408(int, E_func_0016DFB8*);
+
+extern "C" void func_0016DFB8(T_func_0016DFB8* t, int* key) {
+    if (!t->buckets) {
+        return;
+    }
+    E_func_0016DFB8* e = &t->buckets[*key & ((1 << t->bits) - 1)];
+    E_func_0016DFB8* prev = 0;
+    while (e) {
+        E_func_0016DFB8* next = e->next;
+        if (e->key == *key && e->val) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->val = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 GP_DATA(D_0036A6F0);
 GP_DATA(D_0036A6E0);
