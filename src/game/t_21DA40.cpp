@@ -296,7 +296,35 @@ extern "C" int func_0021E3A0(void) {
     return 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E3A8);
+extern "C" {
+int func_0027D650(int, u32, void*, int);
+int func_0027D470(int, u32, void*, int);
+int func_002763E0(int, int);
+void func_00220148(void*, int);
+void func_00220118(void*, int);
+int func_00173F60(void*, void*, void*);
+}
+
+extern "C" int func_0021E3A8(char* p, int s) {
+    int a;
+    int b;
+    int c;
+    func_0027D650(s, 0x48C1A123, &a, 1);
+    int r = func_002763E0(a, 1);
+    b = 0;
+    func_0027D470(s, 0xC050664C, &b, 0);
+    c = 0;
+    func_0027D400(s, 0x7031F10C, &c, 0);
+    func_0027D870(s, 0xD88DEEAF, (int*)(p + 0x2C), 0);
+    func_002210B8(p);
+    func_00220148(p, b);
+    int args[3];
+    args[0] = r;
+    args[1] = c;
+    args[2] = 0;
+    func_00220118(p, func_00173F60(*(void**)(p + 0xC), p, args));
+    return 1;
+}
 
 extern "C" int func_0021E498(S21D* self) {
     if (!self->unk1C) {
