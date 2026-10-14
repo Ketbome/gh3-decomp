@@ -196,7 +196,39 @@ extern "C" void func_00222550(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222570);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222590);
+extern "C" {
+int func_0027D188(int, u32, void*, int);
+int func_0027D1F8(int, u32, void*, int);
+int func_0027D870(int, u32, void*, int);
+char* func_00277540(int);
+extern s32 D_0036876C;
+void* memset(void*, int, unsigned int);
+}
+
+extern "C" void func_00222590(char* p, int k) {
+    char* name;
+    s32 a;
+    s32 b;
+    s32 c;
+    *(s32*)(p + 0x128) = 0;
+    *(s32*)(p + 0xC) = 0;
+    memset(p + 0x12C, 0, 0x70);
+    *(s32*)(p + 0x12C) = 4;
+    func_0027D188(k, 0xC3F4169A, &name, 1);
+    strcpy(p + 0x24, name);
+    a = 0;
+    func_0027D1F8(k, 0xA134D888, &a, 1);
+    *(s32*)(p + 0x10) = a;
+    *(s32*)(p + 0x124) = 1;
+    func_0027D1F8(k, 0x41BD3858, p + 0x124, 0);
+    b = D_0036876C;
+    func_0027D1F8(k, 0x06A2F62D, &b, 0);
+    c = 0;
+    *(f32*)(p + 0x20) = 1.0f / (f32)b;
+    func_0027D870(k, 0x91CC92C8, &c, 1);
+    *(s32*)(p + 0x138) = c;
+    strcpy(p + 0x14C, func_00277540(c));
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002226D8);
 
