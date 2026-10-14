@@ -73,7 +73,41 @@ extern "C" int CFunc_FirstTimeThisIsCalled(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_StringToCharArray);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_AppendSuffix);
+extern "C" {
+unsigned int strlen(const char *);
+char *strcpy(char *, const char *);
+void func_0030A554(char *, char *);
+int func_0030B550(char *, const char *, ...);
+void func_0027C028(int, u32, char *);
+extern char D_003704B8[];
+extern char D_00370548[];
+}
+
+extern "C" int CFunc_AppendSuffix(int params, S25A_Script *script) {
+    char buf[112];
+    char suf[32];
+    char *path = D_003704B8;
+    int len;
+    int cap;
+    int num;
+    u32 key;
+    func_0027D188(params, 0xC4745838, &path, 0);
+    len = strlen(path);
+    strcpy(buf, path);
+    cap = 15;
+    func_0027D1F8(params, 0xA6931595, &cap, 0);
+    num = 1;
+    func_0027D1F8(params, 0x4A4F7821, &num, 0);
+    func_0030B550(suf, D_00370548, num);
+    int sl = strlen(suf);
+    if (cap < len + sl) {
+        buf[cap - sl] = 0;
+    }
+    func_0030A554(buf, suf);
+    func_0027D870(params, 0x50060694, &key, 0);
+    func_0027C028(script->unk20, key, buf);
+    return 1;
+}
 
 extern "C" int CFunc_IsObjectScript(int a, int b) {
     return func_00289E08(b) != 0;

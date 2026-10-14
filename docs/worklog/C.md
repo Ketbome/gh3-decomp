@@ -964,3 +964,6 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002ABD58 MATCH (twin of func_002ABC18 with other keys and D_00372F20; dk twins did not see it because the constants differ).
 - func_0027F788 MATCH (string copy into a buffer after a header; reassign the buffer parameter to the call result and keep the original in a local for the length).
 - func_00266A20 MATCH (max of fabsf over 5 or 2 floats, count chosen by field 0x14 == 2; plain for loop under -funroll-loops).
+- CFunc_FlushCutsceneDestroyList gave up: std::list-style destroy loop with two stack iterators (end at sp4, cur at sp14) then clear; the original keeps hi(D_0039A3C8) in s2 across the loop and reads the head before adding 4 to the sentinel address; we fold the +4 first and rematerialise lui (5 forms).
+- CFunc_GetRelativePath gave up: everything matches except the return-0 tails: the original keeps a separate `b end; move v0,0` block between the strlen add and the second func_0027DF00 call (reached from both the null result and the r==0 test), gcc merges all return-0 paths into one at the end (9 forms: ret var, nested ifs, r==0 placement).
+- CFunc_AppendSuffix MATCH (stack buffers 112 + 32 bytes; ints cap/num read through func_0027D1F8, key through func_0027D870).
