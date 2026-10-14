@@ -1,5 +1,16 @@
 #include "common.h"
 
+struct S2EA7_E {
+    int unk0;
+    s16 unk4;
+    s16 unk6;
+    char pad8[0x30];
+    int unk38;
+    char pad3C[8];
+    int unk44;
+    int unk48;
+};
+
 struct S2EAB08_0 {
     char pad0[0x14];
     void *unk14;
@@ -38,6 +49,10 @@ int SndDrv_FlushCommands(int);
 int func_002E3E50(int);
 int func_002E62C0(int);
 int func_002EA898(int, int);
+extern S2EA7_E D_003EB000[];
+extern s32 D_003728E4;
+extern s32 D_003728E8;
+int func_002E6270(s16);
 }
 
 extern "C" void func_002E90B0(int a) {
@@ -127,7 +142,14 @@ extern "C" void func_002EA758(f32 f) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA7E0);
+GP_DATA(D_003728E4);
+GP_DATA(D_003728E8);
+extern "C" u32 func_002EA7E0(void) {
+    if (D_003728E4 == -1 || D_003728E8 == 0)
+        return 0;
+    u32 a = func_002E6270(D_003EB000[D_003728E4].unk4);
+    return a * 70 / (D_003EB000[D_003728E4].unk38 / 25) * 20 / (D_003EB000[D_003728E4].unk48 / 5) + D_003EB000[D_003728E4].unk44;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002EA898);
 
