@@ -120,7 +120,19 @@ extern "C" void func_001A90F8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A9120);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A9128);
+extern "C" void func_001A9128(int a, int b) {
+    if (b == 0xFFFF && a) {
+        int i, j, k, l;
+        for (i = 0xFF; i != -1; i--) {
+            for (j = 3; j != -1; j--) {
+            }
+        }
+        for (k = 11; k != -1; k--) {
+            for (l = 4; l != -1; l--) {
+            }
+        }
+    }
+}
 
 extern "C" void func_001A9220(void) {
     func_001A9128(1, 65535);
