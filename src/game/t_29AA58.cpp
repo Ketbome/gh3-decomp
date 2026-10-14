@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S29B510_H {
@@ -64,7 +65,26 @@ extern "C" S29AA58 *func_0029AA58(S29AA58 *p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029AAA0);
+struct S29AA_R {
+    int unk0;
+    int v[10];
+    int unk2C;
+};
+
+extern "C" void func_0029AAA0(S29AA_R *r, int x) {
+    int sum = 0;
+    int n = 0;
+    r->v[r->unk2C] = x;
+    r->unk2C = (u32)(r->unk2C + 1) % 10;
+    for (int i = 0; i < 10; i++) {
+        if (r->v[i]) {
+            sum += r->v[i];
+            n++;
+        }
+    }
+    if (n > 0)
+        r->unk0 = sum / n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029ABB8);
 
