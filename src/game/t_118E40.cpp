@@ -509,7 +509,27 @@ extern "C" int func_0011A208(void* self, u32 key, int c) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A230);
+extern "C" char* strcpy(char*, const char*);
+
+struct E_11A230 { int unk0; int unk4; int unk8; char unkC[0x40]; int unk4C; };
+struct S_11A230 { char pad0[0x254]; E_11A230 unk254[32]; };
+
+extern "C" void func_0011A230(S_11A230* self, int a, int b, char* name) {
+    E_11A230* e = 0;
+    int i;
+    for (i = 0; i < 32; i++) {
+        if (self->unk254[i].unk4C == 0) {
+            e = &self->unk254[i];
+            break;
+        }
+    }
+    e->unk8 = a;
+    strcpy(e->unkC, name);
+    S11A7C0* o = func_0011A7C0((S11A7C0*)operator_new(0x24), b);
+    e->unk0 = (int)o;
+    e->unk4 = func_001198F0_4(self, o, 1, e->unkC);
+    e->unk4C = 1;
+}
 
 struct VE_11A300 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
 struct V_11A300 { char pad0[8]; VE_11A300 unk8; };
