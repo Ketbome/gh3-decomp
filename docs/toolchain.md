@@ -69,12 +69,20 @@ real class and signature are known, decompiled code uses `extern "C"` with the s
 Sony libraries 3.0.0 (`PsIIlibgraph3000`, `PsIIlibmc2 3010`, ...), GameSpy SDK (built as `.cpp`), libstdc++
 (`bad_alloc`). None of their ranges are mapped yet.
 
+## `div.s` nops
+
+`div.s` is preceded by two nops in most of the game (418 of ~700) and by none elsewhere. Verified (2026-10-14):
+ee-gcc 2.95.3-136 and every SN build emit none; Sony's ee-gcc 2.96/3.2 always emit `nop; nop; div.s` (the 29 `div.s`
+of Sony's libraries in the game all have two); the `as.exe` shipped with the compiler inserts none. So the game's
+SN assembler added them, and its rule is not known: identical sequences (`lwc1; lwc1; div.s`) get 0 in one place and
+2 in another, and a decision tree on the 4 preceding and 3 following instructions predicts 79% (always-2: 76%).
+`sqrt.s` has two nops in 213 of 214 cases; workers write them in their `asm()`.
+Inferred, not derived: `scripts/asm_filter.py` gives the k-th `div.s` of a function the nop count of the k-th one in
+its original assembly (as with `jtbl_`), under `.set noreorder`. Checked: the 7 matched functions with `div.s` stay
+identical; func_00174CB8, func_00122FF8, func_002B7108 match with it and not without.
+
 ## Open questions
 
-- `div.s` is preceded by two nops in most of the game (418 of ~700), regardless of how far back its operands were
-  written, and by none in some places. ee-gcc does not emit them; the assembler shipped with the compiler
-  (`as.exe`, GNU as 2.9-ee-991111b) does not insert them either, nor does it pad short loops, so the game was
-  assembled with a later SN assembler whose rule for these nops is not known yet.
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets
   ee-gcc 2.95.2/2.95.3-114 use (ascending, `$ra` on top), although their values are plain ints. Not reproduced
   with 2.95.3-136 and `-fopt-stack` yet: skip them.

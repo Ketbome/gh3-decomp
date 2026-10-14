@@ -40,8 +40,9 @@ Before stopping, `git status` must show none of your files modified.
 
 ## Skip (open toolchain questions)
 
-Split tails (fragments starting mid-function), functions saving `$31` with `sq`, functions whose only difference is
-the nops before `div.s`, VU0 functions above ~40% VU0.
+Split tails (fragments starting mid-function), functions saving `$31` with `sq`, VU0 functions above ~40% VU0.
+The nops before `div.s` are no longer a reason to skip: `scripts/asm_filter.py` copies them from the original
+(docs/toolchain.md), so `dk try` shows only real differences; retry earlier `div.s` give-ups.
 
 ## Final report (under 200 words)
 

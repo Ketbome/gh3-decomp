@@ -15,6 +15,9 @@
 - Jump tables: the game's tables stay in its .rodata (asm/data), so the table ee-gcc writes for a switch is dropped
   and the code is pointed at the original one: the k-th table of a function becomes the k-th `jtbl_` symbol its
   original assembly uses. The case labels the original table points at are defined by configure.py (jlabels.ld).
+- `div.s` nops: SN's assembler put 0 or 2 nops before a `div.s` depending on context, with no rule found (identical
+  instruction sequences get either), and ee-gcc writes none. The k-th `div.s` of a function gets the nops of the k-th
+  one in its original assembly, inside `.set noreorder` so gas does not move it; `div.s` in inline asm is left alone.
 
 Usage: scripts/asm_filter.py <file.s> [<source stem, e.g. t_16E670>]
        (run between the compiler and the assembler; configure.py and dk.py do)
@@ -198,6 +201,70 @@ def jump_tables(text, stem):
     return text
 
 
+ORIG_INSN = re.compile(r"/\*\s+\w+\s+\w+\s+\w+\s+\*/\s+(\S+)")
+DIV_S = re.compile(r"^\s*div\.s\s")
+DELAYED = re.compile(r"^(b\w*|j\w*)$")
+
+
+def original_div_nops(stem, func):
+    """Nops SN's assembler put before each div.s of the original function, in order (a branch delay slot nop
+    right before them is not counted)."""
+    for d in ("matchings", "nonmatchings"):
+        path = ROOT / "asm" / d / "game" / stem / f"{func}.s"
+        if path.exists():
+            ops = [m.group(1) for m in map(ORIG_INSN.search, path.read_text().splitlines()) if m]
+            counts = []
+            for i, op in enumerate(ops):
+                if op != "div.s":
+                    continue
+                j = i - 1
+                while j >= 0 and ops[j] == "nop":
+                    j -= 1
+                n = i - 1 - j
+                if n and j >= 0 and DELAYED.match(ops[j]):
+                    n -= 1
+                counts.append(n)
+            return counts
+    return []
+
+
+def div_nops(text, stem):
+    out = []
+    func = None
+    counts = []
+    k = 0
+    app = False
+    noreorder = False
+    for line in text.split("\n"):
+        stripped = line.strip()
+        m = FUNC_LABEL.match(line)
+        if m and not m.group(1).startswith("$"):
+            func = m.group(1)
+            counts = original_div_nops(stem, func) if stem else []
+            k = 0
+        if stripped == "#APP":
+            app = True
+        elif stripped == "#NO_APP":
+            app = False
+        if stripped.startswith(".set"):
+            if stripped.endswith("noreorder"):
+                noreorder = True
+            elif stripped.endswith("reorder"):
+                noreorder = False
+        if DIV_S.match(line):
+            n = counts[k] if k < len(counts) else None
+            k += 1
+            if n is not None and not app:
+                indent = re.match(r"\s*", line).group(0)
+                if noreorder:
+                    out += [f"{indent}nop"] * n + [line]
+                else:
+                    out += [f"{indent}.set\tnoreorder"] + [f"{indent}nop"] * n + [line, f"{indent}.set\treorder"]
+                continue
+        out.append(line)
+    return "\n".join(out)
+
+
 def li_s(m):
     indent, reg, value = m.groups()
     bits = struct.unpack("<I", struct.pack("<f", float(value)))[0]
@@ -210,7 +277,7 @@ def main():
     path = Path(sys.argv[1])
     stem = sys.argv[2] if len(sys.argv) > 2 else None
     text = path.read_text()
-    new = short_loops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))))
+    new = short_loops(div_nops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))), stem))
     if new != text:
         path.write_text(new)
 
