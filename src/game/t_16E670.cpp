@@ -380,7 +380,23 @@ extern "C" void func_0016EF20(S16E_B* self) {
 }
 
 GP_DATA(D_0036A888);
-INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016EF40);
+extern "C" void func_0016EF40(S16E_B* self) {
+    S16E_B** head = &D_0036A888;
+    if (self->unk4 & 0x100) head = &D_0036A88C;
+    S16E_B* h = *head;
+    if (h == self) {
+        *head = self->unk0;
+        return;
+    }
+    S16E_B* p = h;
+    while (p) {
+        S16E_B* n = *(S16E_B* volatile*)&p->unk0;
+        if (!n) break;
+        if (n == self) break;
+        p = p->unk0;
+    }
+    if (p) p->unk0 = p->unk0->unk0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016EFA8);
 
