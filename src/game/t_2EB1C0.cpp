@@ -44,7 +44,37 @@ struct S2EBDE0_0 {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB1C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB1C8);
+struct S2EB_L {
+    int type;
+    int *unk4;
+    S2EB_L *next;
+};
+struct S2EB_O {
+    int unk0;
+    char pad4[0x1C];
+    S2EB_L *unk20;
+};
+extern "C" void func_002EAE80(int *, int);
+extern "C" void func_002EB680(int, int *);
+
+extern "C" void func_002EB1C8(S2EB_O *p, int b) {
+    S2EB_L *n = p->unk20;
+    while (n) {
+        if (n->type == 2) {
+            if (*n->unk4 != 0) {
+                int *o = n->unk4;
+                S2EB_L *next = n->next;
+                func_002EB680(p->unk0, o);
+                n = next;
+                continue;
+            }
+            func_002EAE80(n->unk4, b);
+            for (S2EB_L *it = p->unk20; it; it = it->next) {
+            }
+        }
+        n = n->next;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB280);
 
@@ -89,4 +119,38 @@ extern "C" S2EBDE0_0 *func_002EBDF0(S2EBDE0_0 *self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBE18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBFF8);
+struct SHT_R {
+    int bits;
+    SHT_N *tab;
+    int count;
+};
+extern "C" void func_0011C408(int, void *);
+
+static inline void SHT_Remove(SHT_R *t, const int &k) {
+    SHT_N *prev;
+    SHT_N *n;
+    if (t->tab == 0) return;
+    n = &t->tab[k & ((1 << t->bits) - 1)];
+    prev = 0;
+    if (n == 0) return;
+    do {
+        SHT_N *next = n->next;
+        if (n->key == k && n->val != 0) {
+            if (prev != 0) {
+                prev->next = next;
+                func_0011C408(0, n);
+            } else {
+                n->key = 0;
+                n->val = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = n;
+        n = next;
+    } while (n);
+}
+
+extern "C" void func_002EBFF8(SHT_R *t, int *kp) {
+    SHT_Remove(t, *kp);
+}
