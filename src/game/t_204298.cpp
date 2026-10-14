@@ -332,7 +332,48 @@ INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205F98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00206098);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_002060A0);
+struct V60A0 {
+    int a;
+    int b;
+};
+
+struct E60A0 {
+    u32 key;
+    u32 type;
+    V60A0 v;
+};
+
+extern E60A0 T60A0[] __asm__("D_0038FC38");
+extern V60A0 S60A0_0[] __asm__("D_0036E9A8");
+extern V60A0 S60A0_1[] __asm__("D_0036E9B0");
+extern V60A0 S60A0_2[] __asm__("D_0036E9B8");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_002060A0(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E60A0* e = T60A0;
+        V60A0 t;
+        e->key = 0xA0B7E09B;
+        t = *S60A0_0;
+        e->type = 0xCE0CA665;
+        e->v = t;
+        e++;
+        e->key = 0x5F08F48C;
+        t = *S60A0_1;
+        e->type = 0xCE0CA665;
+        e->v = t;
+        e++;
+        e->key = 0xAD68A522;
+        t = *S60A0_2;
+        e->type = 0xCE0CA665;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0xCE0CA665;
+        e->v = t;
+    }
+}
 
 extern "C" void func_002061C0(void* p) {
     func_00113F38(p);
