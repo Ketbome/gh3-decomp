@@ -862,3 +862,5 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - near miss: func_001D9658 (nonmatching/func_001D9658.cpp; reg numbering s3/s4 and the second addu v1 in the beql slot, k/i pinned).
 - near miss: func_0020EE10 (nonmatching/func_0020EE10.cpp; second loop: zero lands in f0 instead of f2, mov/nop placement).
 - near miss: func_002250F8 (nonmatching/func_002250F8.cpp; element-array base copy a3 and v0/v1 order; decl in file changed to s32(void*) there).
+- Skipped func_00231A80 (t_22FD98): saves $31 with sq (toolchain class).
+- near miss: func_0021F8D8 (nonmatching/func_0021F8D8.cpp; only mov.s f12/move a2 order around the final jal slot).
