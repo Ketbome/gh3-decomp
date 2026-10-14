@@ -131,7 +131,75 @@ extern "C" S211* func_00212770(S211* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00212778);
+struct M212 {
+    u128_211 r[4];
+    M212& operator=(const M212& o) {
+        r[0] = o.r[0];
+        r[1] = o.r[1];
+        r[2] = o.r[2];
+        r[3] = o.r[3];
+        return *this;
+    }
+};
+
+struct S212 {
+    s32 unk0;
+    s32 unk4;
+    char pad8[8];
+    u128_211 unk10;
+    s32 unk20;
+    char pad24[0xC];
+    M212 unk30;
+    char pad70[0];
+    s32 unk70;
+    char pad74[0xC];
+    M212 unk80;
+    s32 unkC0;
+    f32 unkC4;
+    s32 unkC8;
+    s32 unkCC;
+    s32 unkD0;
+    s32 unkD4;
+    s32 unkD8;
+    s32 unkDC;
+    s32 unkE0;
+    char padE4[0xC];
+    u128_211 unkF0;
+    s32 unk100;
+    s32 unk104;
+    char pad108[8];
+    u128_211 unk110;
+    f32 unk120;
+    f32 unk124;
+    struct { u64 v; } __attribute__((packed)) unk128;
+};
+
+extern "C" S212* func_00212778(S212* a, S212* b) {
+    a->unk0 = b->unk0;
+    a->unk4 = b->unk4;
+    a->unk10 = b->unk10;
+    a->unk20 = b->unk20;
+    a->unk30 = b->unk30;
+    a->unk70 = b->unk70;
+    a->unk80 = b->unk80;
+    a->unkC0 = b->unkC0;
+    a->unkC4 = b->unkC4;
+    a->unkC8 = b->unkC8;
+    a->unkCC = b->unkCC;
+    a->unkD0 = b->unkD0;
+    a->unkD4 = b->unkD4;
+    a->unkD8 = b->unkD8;
+    a->unkDC = b->unkDC;
+    a->unkE0 = b->unkE0;
+    a->unkF0 = b->unkF0;
+    a->unk100 = b->unk100;
+    a->unk104 = b->unk104;
+    a->unk110 = b->unk110;
+    a->unk120 = b->unk120;
+    a->unk124 = b->unk124;
+    a->unk128 = b->unk128;
+    return a;
+}
 
 extern "C" void func_00212880(char* p, int flags) {
     *(void**)(p + 0x44) = D_00350AE0;
