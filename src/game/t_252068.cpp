@@ -95,7 +95,61 @@ extern "C" int CFunc_CamDistFromPosLessThan(int params) {
     return d * c->unkD8 < lim;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00252FC0);
+struct S252_M4 {
+    u128_252 r0, r1, r2, r3;
+};
+
+struct S252_VEnt {
+    s16 delta;
+    s16 unk2;
+    void (*fn)(void *);
+};
+
+struct S252_Comp {
+    char pad0[0x18];
+    S252_VEnt *vt;
+    int unk1C;
+};
+
+struct S252_Node {
+    char pad0[0x80];
+    u128_252 unk80;
+    char pad90[0x10];
+    S252_M4 unkA0;
+};
+
+struct S252_CamN {
+    char pad0[0x80];
+    u128_252 unk80;
+    S252_M4 unk90;
+};
+
+extern "C" {
+S252_Node *func_001D8618(int, int);
+S252_Comp *func_001D1CF8(S252_Node *, u32);
+S252_CamN *func_0015D5A0_n(int) asm("func_0015D5A0");
+void func_0015DC18(int, int);
+extern int D_0036D3B0;
+}
+
+extern "C" int func_00252FC0(int id, int cam, int copy) {
+    S252_Node *n = func_001D8618(D_0036D3B0, id);
+    if (!n) {
+        return 0;
+    }
+    S252_Comp *c = func_001D1CF8(n, 0xC4E311FA);
+    if (c) {
+        if (copy) {
+            S252_M4 *sp = &func_0015D5A0_n(cam)->unk90;
+            S252_M4 *d = &n->unkA0;
+            *d = *sp;
+            n->unk80 = func_0015D5A0_n(cam)->unk80;
+            c->vt[2].fn((char *)c + c->vt[2].delta);
+        }
+        func_0015DC18(cam, c->unk1C);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002530A8);
 

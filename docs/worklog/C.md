@@ -932,3 +932,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_00292928 MATCH (list walk with tail delete).
 - func_00278D78 MATCH (binary search over {key,val} entries; hoist the table base `(char*)(t+1)` into its own variable before the key sum).
 - func_0026AD48 MATCH (two linear scans over 0x80-byte entries; the loop continues when the call returns 1, so write `!= 1` then return i).
+- func_00252FC0 MATCH (64-byte matrix copy of two 128-bit-member structs through pointer locals, source pointer declared first; gcc 2.x vtable entry vt[2]={delta,_,fn}).
