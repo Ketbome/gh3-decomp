@@ -1159,3 +1159,4 @@ Matched (A16): func_001A8810 (t_1A7A50, now `// cflags: -funroll-loops`; `u32 i 
 Matched (A16): func_001317D0 (t_12F9A0; index of the 0x20-byte entry whose first word is key: `p = arr; end = p + count; for (; p != end; p++) if (key == p->unk0) return p - self->unk224; return -1;`)
 Matched (A16): func_00189098 (t_187930, now `// cflags: -funroll-loops`, all 40+ functions of the file still match; `for (i = 0; i < 16; i++) self->unkC->unk15C[i] = src[i];` unrolled 8x)
 Matched (A16): func_00114AD8 (t_112D48; CRC32 over (buf, len) with the D_0032A080 table, defined through an asm-label alias because the stub caller declares it void(void): `for (i = 0; i < n; i++) crc = T[(crc ^ p[i]) & 0xFF] ^ ((crc >> 8) & 0xFFFFFF);`)
+Matched (A16): func_00114C70 (t_112D48; the same CRC32 loop with the running crc as 3rd argument)

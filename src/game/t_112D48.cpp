@@ -601,4 +601,10 @@ extern "C" void func_00114C50(void) {
     func_00114AD8();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_112D48", func_00114C70);
+extern "C" u32 func_00114C70(const char* p, int n, u32 crc) {
+    int i;
+    for (i = 0; i < n; i++) {
+        crc = D_0032A080[(crc ^ p[i]) & 0xFF] ^ ((crc >> 8) & 0xFFFFFF);
+    }
+    return crc;
+}
