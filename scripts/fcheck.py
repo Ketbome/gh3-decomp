@@ -117,7 +117,7 @@ def disasm(addr, data):
     with tempfile.NamedTemporaryFile(suffix=".bin") as f:
         f.write(data)
         f.flush()
-        out = subprocess.run([f"{BINUTILS}objdump", "-D", "-b", "binary", "-m", "mips:5900", "-EL",
+        out = subprocess.run([f"{BINUTILS}objdump", "-D", "-z", "-b", "binary", "-m", "mips:5900", "-EL",
                               f"--adjust-vma={addr:#x}", f.name], capture_output=True).stdout.decode()
     return [line.split("\t", 2)[-1].strip() for line in out.splitlines() if re.match(r"^\s+[0-9a-f]+:\t", line)]
 

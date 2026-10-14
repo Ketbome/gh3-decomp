@@ -49,3 +49,23 @@ __gp_lid
 .irp mnem, mfc1
     __gp_hazard \mnem
 .endr
+
+# `sqrt.s fd, ft`: the R5900 takes the operand from the ft field (bits 16-20); the modern gas puts it in fs (bits
+# 11-15) even for this CPU. (Same fix as the BT3-Decompiled project's prelude, CC0.)
+.macro __gp_regnum sym, reg
+    .set \sym, 99
+    .irp n, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+        .ifc \reg,$f\n
+            .set \sym, \n
+        .endif
+    .endr
+.endm
+
+.macro sqrt.s fd, ft
+    __gp_regnum .L__gp_fd, \fd
+    __gp_regnum .L__gp_ft, \ft
+    .if (.L__gp_fd > 31) || (.L__gp_ft > 31)
+        .error "gcc_prelude.inc: sqrt.s \fd, \ft: operands must be written $fN"
+    .endif
+    .word 0x46000004 | (.L__gp_ft << 16) | (.L__gp_fd << 6)
+.endm

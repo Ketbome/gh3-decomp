@@ -83,6 +83,11 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   In a larger function, put each run of VU0 instructions in its own asm() where the original has it, and let
   the compiler do the rest; `asm volatile` and `"memory"` clobbers keep the order when it matters. Functions that
   are almost all VU0 (>40%) were probably whole asm functions: leave those.
+- **`sqrt.s`** is encoded the R5900 way (operand in the ft field) by the prelude: write `sqrtf`/`__builtin_sqrtf`
+  with `-ffast-math`, or the plain instruction in VU0 asm, and it assembles like the original (`c1 0xC0304` in splat's
+  listing).
+- **VU0 stages:** separate non-volatile `asm()` blocks chained through a dummy `"=r"`/`"+r"` operand let gcc
+  interleave ordinary instructions between stages; `asm volatile` and output-less asms pin the order instead.
 - **Inline asm.** PS2 instructions the compiler cannot emit (MMI such as `pextlw`/`pcpyld`/`pcpyud`, COP2/VU0)
   were written as inline asm in the original too: fine. Empty `asm("" : "+r"(x))` barriers and
   `register T x asm("$N")` pins are a last resort. Ordinary instructions in asm only to force the compiler's hand
