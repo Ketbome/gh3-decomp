@@ -6,9 +6,11 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): `decomp-forensics` on the `div.s` nops (scratch copy only) and a `decomp-runner` permuter
-batch on func_001E8CA8, func_0020EE10, func_0022E0C0, func_002250F8 (+ obsolete near-miss list, CFunc_SetShadowDirFromLight
-error). Workers wait for the forensics result. Ranges for the next workers:
+Running (2026-10-14): workers A and B (skipping `div.s` functions), a `decomp-runner` with
+`permute.py --batch --timeout 120 -j 2`. Worker C starts when the permuter batch ends (16 GB machine).
+`div.s` forensics done: no SN rule found; proposed filter pass `div_nops` (copies the k-th `div.s` nop count from
+the original .s, like `jtbl_`) waits for the user's decision; diff kept in the session scratchpad (divs/exp/div_nops.diff).
+Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
 |---|---|---|---|
