@@ -39,6 +39,8 @@ s32 func_001F9B80(void);
 void func_001FA348(int, int);
 void func_001FB028(void*);
 void func_001FB6C0(s32 self, s32 params);
+f32 func_0010C2E0(f32 a, f32 b, f32 c);
+f32 func_0011ED10(void);
 void* operator_new(u32);
 void* func_001FAC90(void*);
 void func_001D0F68(void*);
@@ -173,15 +175,22 @@ extern "C" void* func_001FAC90(void* pv) {
     S1FAC* p = (S1FAC*)pv;
     u8 c[4];
     func_001D0F68(p);
+    TI128 hi, lo;
+    f32 one = 1.0f;
+    register u32 zero asm("$3") = 0;
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(one), "r"(zero));
+    asm("pextlw %0, %1, %2" : "=r"(lo) : "r"(zero), "r"(zero));
+    asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
     p->unk18 = D_0034F6F0;
     p->unk4 = 0x07713C7B;
     c[3] = 0xFF;
-    p->unkC0 = p->unkB0 = MakeVec1FA(0.0f, 0.0f, 0.0f, 1.0f);
+    p->unkC0 = lo;
     c[0] = 0xFF;
     c[1] = 0xFF;
     c[2] = 0;
     p->unkD0 = 0;
     p->unkD4 = 0;
+    p->unkB0 = lo;
     return p;
 }
 
@@ -241,7 +250,34 @@ extern "C" s32 func_001FAEE0() {
     return 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FAEE8);
+struct Q1FAE {
+    char pad0[0x18];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual s32 v12(int);
+};
+
+struct A1FAE {
+    s32 unk0;
+    s32 unk4;
+    s32 (Q1FAE::*unk8)(int, int);
+};
+
+extern "C" s32 func_001FAEE8(Q1FAE* p, A1FAE* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v12(a->unk0);
+}
 
 extern "C" void func_001FAF88(void) {
 }
@@ -290,7 +326,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB450);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB480);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB618);
+struct S1FB6 {
+    char pad0[0x10];
+    f32 unk10;
+    f32 unk14;
+    char pad18[8];
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    f32 unk2C;
+};
+
+extern "C" void func_001FB618(void* self, S1FB6* p) {
+    if (p->unk20 != p->unk10) {
+        p->unk10 = func_0010C2E0(p->unk20, p->unk10, p->unk28 * (func_0011ED10() * 60.0f));
+    }
+    if (p->unk24 != p->unk14) {
+        p->unk14 = func_0010C2E0(p->unk24, p->unk14, p->unk2C * (func_0011ED10() * 60.0f));
+    }
+}
 
 extern "C" void func_001FB6C0(s32 self, s32 params) {
     f32 a = 100.0f;
