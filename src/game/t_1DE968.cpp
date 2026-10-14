@@ -307,7 +307,21 @@ struct S1E076 {
     s32 unkA8;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001E0768);
+extern "C" S1E076* func_001E0768(S1E076* o) {
+    func_001E0BC8(o);
+    o->unk90 = 0;
+    o->unk94 = 0;
+    register char* vt asm("$3") = D_0034CAB8;
+    o->unk8 = vt;
+    S1E076L* t = (S1E076L*)&o->unk98;
+    t->Init();
+    register s32 one asm("$3") = 1;
+    o->unkA8 = one;
+    o->unk98 = 0;
+    o->unkA4 = 0;
+    return o;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001E07C0);
 
