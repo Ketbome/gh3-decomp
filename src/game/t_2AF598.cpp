@@ -10,7 +10,58 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GetHeldPattern);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", func_002AF698);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AF598", CFunc_GuitarGetAnalogueInfo);
+struct S2AF598_P {
+    char pad0[0x23];
+    u8 unk23;
+    u8 unk24;
+};
+struct S2AF598_Q {
+    char pad0[0x1C];
+    S2AF598_P *unk1C;
+};
+struct S2AF598_M {
+    char pad0[0x28];
+    S2AF598_Q *unk28[2];
+};
+struct S2AF598_S {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" {
+extern S2AF598_M *D_0036CDB4;
+void func_0027C1F8(int, u32, f32);
+int func_002DC9D8(int);
+int CFunc_GetAnalogueInfo(int, S2AF598_S *);
+}
+
+extern "C" int CFunc_GuitarGetAnalogueInfo(int params, S2AF598_S *script) {
+    int idx = 0;
+    func_0027D1F8(params, 0xB30D9965, &idx, 0);
+    S2AF598_M *m = D_0036CDB4;
+    if (idx >= 2) {
+        func_0027C1F8(script->unk20, 0x303067F1, 0.0f);
+        func_0027C1F8(script->unk20, 0x47375767, 0.0f);
+        func_0027C1F8(script->unk20, 0x694DF774, 0.0f);
+        func_0027C1F8(script->unk20, 0x1E4AC7E2, 0.0f);
+        func_0027C1F8(script->unk20, 0x7F46D589, 0.0f);
+        func_0027C1F8(script->unk20, 0x8C5016D1, 0.0f);
+        func_0027C1F8(script->unk20, 0x791C32BF, 0.0f);
+        func_0027C1F8(script->unk20, 0x1C5FFDBA, 0.0f);
+        func_0027C1F8(script->unk20, 0x7B854432, 90.0f);
+        func_0027C1F8(script->unk20, 0xDACFA0C3, 0.0f);
+        func_0027C1F8(script->unk20, 0x051F8920, 0.0f);
+        return 1;
+    }
+    if (func_002DC9D8(idx)) {
+        S2AF598_P *p = m->unk28[idx]->unk1C;
+        func_0027C1F8(script->unk20, 0xDACFA0C3, (f32)(p->unk23 - 0x80));
+        func_0027C1F8(script->unk20, 0x051F8920, (f32)(p->unk24 - 0x80));
+    } else {
+        func_0027C1F8(script->unk20, 0xDACFA0C3, 0.0f);
+        func_0027C1F8(script->unk20, 0x051F8920, 0.0f);
+    }
+    return CFunc_GetAnalogueInfo(params, script);
+}
 
 extern "C" s32 CFunc_GuitarControllerMake(int arg0, int arg1) {
     int out = 0;
