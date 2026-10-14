@@ -6,7 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A, B, C (first the `div.s` functions, unblocked by the asm_filter `div_nops` pass).
+Running (2026-10-14): workers A and C (`div.s` functions first); `decomp-forensics` on delay slots the modern gas
+fills where the original leaves `nop` (unsigned `cvt.s.w` before `b`/`jr`: func_002009B0, func_001D5038,
+func_001D5138, func_001B21A0, func_001E2850; volatile `sw` before `jal`: func_001B3BD0), scratch copy only.
+Worker B finished its round (12 matches, few viable candidates left); relaunch after the forensics result.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
@@ -30,6 +33,9 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Open toolchain questions (see docs/toolchain.md)
 
+- `dk twins` failed on types/prototypes for 5 twins that worker B then did by hand (func_001DCB80, func_0022CBC0,
+  func_0022CC78, func_001DCD68, func_001D0848): check why and fix dk.py in the skill.
+- `if (c) r = v` becomes `movz` where the original branches (func_002251F8).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
