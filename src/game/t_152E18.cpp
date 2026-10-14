@@ -88,6 +88,10 @@ void func_0030ADA0(void*, void*, int);
 void func_001537E0(S_001537C0*, int);
 }
 
+inline void operator delete[](void* p) {
+    Heap_Free(D_00368A38, p);
+}
+
 struct H_152 { char pad0[0x1E8]; int unk1E8; };
 struct S_00153DE0 { char pad0[0x8]; void* unk8; char padC[0x50]; VE_C* unk5C; };
 struct S_00153E70 { char pad0[0x4]; S_001537C0* unk4; void* unk8; };
@@ -357,7 +361,27 @@ extern "C" S_00153810* func_00153810(S_00153810* self, int a) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153898);
+struct E_00153898 { char pad0[0xA]; };
+
+struct S_00153898 { char pad0[4]; E_00153898* unk4; void* unk8; char padC[0x50]; void* unk5C; };
+
+extern "C" void func_00153898(S_00153898* self, int flags) {
+    self->unk5C = D_0033C800;
+    if (self->unk8) Heap_Free(D_00368A38, self->unk8);
+    E_00153898* a = self->unk4;
+    if (a) {
+        E_00153898* e = (E_00153898*)((char*)a + ((int*)a)[-4] * 10);
+        if (a != e) {
+            do {
+                e--;
+                func_001537E0((S_001537C0*)e, 0);
+            } while (self->unk4 != e);
+        }
+        Heap_Free(D_00368A38, (char*)self->unk4 - 0x10);
+        self->unk4 = 0;
+    }
+    if (flags & 1) Heap_Free(D_00368A38, self);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153958);
 
