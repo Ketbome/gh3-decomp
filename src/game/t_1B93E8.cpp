@@ -93,7 +93,25 @@ extern "C" void func_001BB078(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BB100);
+extern "C" void func_001BB100(void) {
+    if (D_0036CAC8) {
+        N1B* n = (N1B*)D_00372C34[0];
+        if (n) {
+            do {
+                func_001B1EB0(n);
+                n = n->unk19C;
+            } while (n);
+        }
+        M1B* m = (M1B*)D_0036CBC0[0];
+        if (m) {
+            do {
+                func_001BF408(m);
+                m = m->unk2C;
+            } while (m);
+        }
+        D_0036CAC8 = 0;
+    }
+}
 
 extern "C" void func_001BB180(void) {
     D_0036CAD4 = 0;
