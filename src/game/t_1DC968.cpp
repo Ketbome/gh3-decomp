@@ -296,7 +296,52 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DDFA0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DDFD8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DE0F8);
+struct S1DE0F8 {
+    char pad0[0x10];
+    U128_1DC968 unk10;
+    char pad20[0x54];
+    s32 unk74;
+    char pad78[8];
+    U128_1DC968 unk80;
+    U128_1DC968 unk90;
+    char padA0[0x20];
+    f32 unkC0;
+    s32 unkC4;
+    f32 unkC8;
+    char padCC[0x30];
+    s32 unkFC;
+};
+
+extern "C" {
+void func_001DE1B0(S1DE1B0* p);
+int func_001DE210(S1DE0F8* p);
+void func_001DDFA0(S1DE0F8* p);
+}
+
+extern "C" void func_001DE0F8(S1DE0F8* p, s32 a, U128_1DC968* v) {
+    f32 z = 0.0f;
+    f32 one = 1.0f;
+    p->unk74 = a;
+    p->unkFC = 0;
+    p->unkC4 = 0;
+    p->unkC8 = z;
+    p->unkC0 = z;
+    U128_1DC968 q = *v;
+    p->unk80 = q;
+    p->unk10 = q;
+    func_001DE1B0((S1DE1B0*)p);
+    f32 d;
+    int t;
+    asm volatile("lqc2 $vf1, 0x90(%0)" : : "r"(p));
+    for (;;) {
+        asm volatile("lqc2 $vf2, 0x10(%2)\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni %1, $vf1\n\tmtc1 %1, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+            : "=f"(d), "=&r"(t) : "r"(p));
+        if (!(d < one)) break;
+        if (func_001DE210(p) == 0) return;
+        asm volatile("lqc2 $vf1, 0x90(%0)" : : "r"(p));
+    }
+    func_001DDFA0(p);
+}
 
 extern "C" void func_001DE1B0(S1DE1B0* p) {
     func_00223590(func_00224220(p->unk74, 1), p->unk90);
