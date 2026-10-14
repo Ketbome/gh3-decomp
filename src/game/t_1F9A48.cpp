@@ -47,6 +47,8 @@ void func_001FB480(void*, TI128);
 TI128 func_001EAEA0(s32 a, s32 b);
 s32 func_0027D870(s32 a, s32 key, s32* v, s32 req);
 s32 func_001EB300(s32 a);
+s32 func_001EB338_i(s32 a) __asm__("func_001EB338");
+TI128 func_001EB638_i(s32 a, s32 b) __asm__("func_001EB638");
 void func_002676F0(s32 a, void* b);
 void func_001D0F90(void* a, s32 b);
 extern u8 D_0034F6F0[];
@@ -232,7 +234,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB390);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB3D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB3D8);
+struct S1FB3 {
+    char pad0[0xD4];
+    s32 unkD4;
+};
+
+extern "C" s32 func_001FB3D8(S1FB3* p, s32 a, TI128* out) {
+    if (a) {
+        if (p->unkD4) {
+            if (func_001EB338_i(p->unkD4)) {
+                *out = func_001EB638_i(p->unkD4, a + 0x80);
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB450);
 
