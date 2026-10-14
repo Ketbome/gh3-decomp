@@ -103,7 +103,23 @@ extern "C" int func_00137448(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00137470);
+extern "C" int func_00137470(int a, int b, int c) {
+    int o = func_001349D0_1(D_00369428);
+    if (o) {
+        int* blk = (int*)Heap_Alloc(D_00368A38, 8, 1, 0);
+        blk[0] = 0;
+        blk[1] = 0;
+        if (func_0027D4E0(o, c, blk, 0)) {
+            int t = func_002899D8(func_0012D028(0x10C, 1));
+            func_0028A140(t, blk, 0, D_00369428);
+            while (func_0028C200(t)) {
+            }
+            if (t) func_00289B40(t, 3);
+        }
+        Heap_Free(D_00368A38, blk);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00137558);
 
