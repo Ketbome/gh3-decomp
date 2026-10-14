@@ -114,7 +114,26 @@ int func_002ABD58(int);
 void func_002AB848(void);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetParams);
+extern "C" int CFunc_LightShow_SetParams(int params) {
+    int v;
+    int dirty = 0;
+    int h = D_00371EE8;
+    if (params)
+        func_0027ABB0(h, params);
+    if (func_0027DD88(params, 0xFD75CB86))
+        func_002A79A8();
+    if (func_0027D870(params, 0x7D28697E, &v, 0))
+        dirty = func_002ABC18(v) != 0;
+    if (func_0027D870(params, 0xFCC65109, &v, 0)) {
+        int r = func_002ABD58(v);
+        dirty = dirty || r;
+    }
+    if (dirty) {
+        func_002ABB00();
+        func_002AB848();
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_GetParams);
 
