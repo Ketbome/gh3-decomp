@@ -260,7 +260,25 @@ extern "C" void func_00266FA8(int) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00267048);
+struct S267_L {
+    int unk0;
+    char pad4[0xC];
+    S267_L *unk10;
+};
+
+extern "C" int func_00267048(int a, int b) {
+    if (func_00268388(a, b, 0) != 0)
+        return 0;
+    S267_L *p = (S267_L *)D_00370AF0;
+    int r = 1;
+    if (p) {
+        for (; p; p = p->unk10) {
+            if (p->unk0 == b)
+                return 0;
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002670B0);
 
