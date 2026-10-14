@@ -338,7 +338,40 @@ struct L1E81 {
     N1E81* unk10;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8170);
+extern "C" void func_001E8170(L1E81* l) {
+    I1E81 it;
+    I1E81 end;
+    it.unk4 = l->unk10;
+    end.unk4 = (N1E81*)&l->unkC;
+    if (it.unk4 != end.unk4) {
+        do {
+            M1E81* m = it.unk4->unk8;
+            if (m) {
+                VE1E81* e = (VE1E81*)(m->unk2C + 8);
+                e->fn((char*)m + e->delta, 3);
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (N1E81*)&l->unkC;
+        } while (it.unk4 != end.unk4);
+    }
+    A1E81* a = (A1E81*)((char*)l + 8);
+    N1E81* n = a->unk8;
+    N1E81* c = (N1E81*)((char*)a + 4);
+    char* t = (char*)a + 0xC;
+    a->unk8 = c;
+    a->unk4 = c;
+    if (n != c) {
+        N1E81* end = c;
+        asm("" : "+r"(end));
+        do {
+            N1E81* nx = n->unk4;
+            Heap_Free(D_00368A38[0], n);
+            n = nx;
+        } while (n != end);
+    }
+    func_001E9A68(t);
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8238);
 
