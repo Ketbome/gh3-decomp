@@ -61,7 +61,7 @@ int func_0028A018(int);
 void func_00258E28(int, int);
 int func_0027DF00(int, u32);
 extern int D_00368428[] __attribute__((section(".sdata")));
-void func_002592E0(void*, int, int, int);
+int func_002592E0(void*, int, int, int);
 int func_0027D470(int, int, void*, int);
 void func_0027ACF8(int, u32);
 S258_Arr *func_00256848(int, S00259228 *, int);
@@ -124,7 +124,51 @@ extern "C" int CFunc_ExtendCrc(int params, S00259228 *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_258420", func_002592E0);
+extern "C" {
+void func_00113B28(char *, int, const char *, long);
+void func_0027ABB0(int, int);
+int func_0027AA70(int);
+int func_00258E28_i(int, int) asm("func_00258E28");
+int func_0027D268_f(int, u32, float *, int) asm("func_0027D268");
+long func_00317588(float);
+extern char D_00356528[];
+extern char D_00370520[];
+extern char D_00370528[];
+extern char D_00370530[];
+}
+
+extern "C" int func_002592E0(void *buf_, int size, int params, int script) {
+    char *buf = (char *)buf_;
+    int sp0;
+    if (func_0027CC30(params, 0, 3, &sp0)) {
+        char *str = D_00356528;
+        func_0027D188(params, 0, (int *)&str, 0);
+        int o = func_0027AA70((int)func_001287F0(8, 1));
+        func_0027C448(o, 0xFF0DB407, 0xBC4AC08B);
+        if (params != 0) func_0027ABB0(o, params);
+        if (func_00258E28_i(o, o)) {
+            func_0027D188(o, 0xBC4AC08B, (int *)&str, 0);
+        } else {
+            str = D_003704B8;
+        }
+        func_00113B28(buf, size, D_00370520, (long)str);
+        if (o != 0) {
+            func_0027AC90((void *)o);
+            func_00113250((void *)o);
+        }
+        return 1;
+    }
+    int v = 0;
+    if (func_0027D1F8(params, 0, &v, 0)) {
+        func_00113B28(buf, size, D_00370528, v);
+        return 1;
+    }
+    float f = 0.0f;
+    if (func_0027D268_f(params, 0, &f, 0)) {
+        func_00113B28(buf, size, D_00370530, func_00317588(f));
+    }
+    return 1;
+}
 
 GP_DATA(D_00370534);
 extern "C" int CFunc_EnableScriptPrintf(int params) {
