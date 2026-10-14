@@ -284,7 +284,54 @@ extern "C" int func_0021B0A0(char** p, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B0E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B0F8);
+struct V21B0 {
+    int a;
+    int b;
+};
+
+struct E21B0 {
+    u32 key;
+    u32 type;
+    V21B0 v;
+};
+
+extern E21B0 T21B0[] __asm__("D_00390388");
+extern V21B0 S21B0_0[] __asm__("D_0036F088");
+extern V21B0 S21B0_1[] __asm__("D_0036F090");
+extern V21B0 S21B0_2[] __asm__("D_0036F098");
+extern V21B0 S21B0_3[] __asm__("D_0036F0A0");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_0021B0F8(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E21B0* e = T21B0;
+        V21B0 t;
+        e->key = 0xE75660B8;
+        t = *S21B0_0;
+        e->type = 0x41272956;
+        e->v = t;
+        e++;
+        e->key = 0x25676094;
+        t = *S21B0_1;
+        e->type = 0x41272956;
+        e->v = t;
+        e++;
+        e->key = 0xACEC9985;
+        t = *S21B0_2;
+        e->type = 0x41272956;
+        e->v = t;
+        e++;
+        e->key = 0xB2C32ECC;
+        t = *S21B0_3;
+        e->type = 0x41272956;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x41272956;
+        e->v = t;
+    }
+}
 
 extern "C" void func_0021B250(void) {
     func_0021B0F8(1, 0xFFFF);
@@ -346,7 +393,54 @@ extern "C" int func_0021B670(S219* self, int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_219920", func_0021B6B8);
+struct V21B6 {
+    int a;
+    int b;
+};
+
+struct E21B6 {
+    u32 key;
+    u32 type;
+    V21B6 v;
+};
+
+extern E21B6 T21B6[] __asm__("D_003903D8");
+extern V21B6 S21B6_0[] __asm__("D_0036F0F0");
+extern V21B6 S21B6_1[] __asm__("D_0036F0F8");
+extern V21B6 S21B6_2[] __asm__("D_0036F100");
+extern V21B6 S21B6_3[] __asm__("D_0036F108");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_0021B6B8(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E21B6* e = T21B6;
+        V21B6 t;
+        e->key = 0x4AF8B9AE;
+        t = *S21B6_0;
+        e->type = 0xCDC76A22;
+        e->v = t;
+        e++;
+        e->key = 0x1DE2F35B;
+        t = *S21B6_1;
+        e->type = 0xCDC76A22;
+        e->v = t;
+        e++;
+        e->key = 0x4A752AAE;
+        t = *S21B6_2;
+        e->type = 0xCDC76A22;
+        e->v = t;
+        e++;
+        e->key = 0x80D5F732;
+        t = *S21B6_3;
+        e->type = 0xCDC76A22;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0xCDC76A22;
+        e->v = t;
+    }
+}
 
 extern "C" void func_0021B810(void) {
     func_0021B6B8(1, 0xFFFF);
