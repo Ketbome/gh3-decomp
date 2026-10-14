@@ -195,7 +195,26 @@ extern "C" s32 func_001D3538(void* p, void* a) {
     return func_001D1CF8(p, v) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3580);
+struct Q1D35 {
+    char pad0[8];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual s32 v4(int);
+};
+
+struct A1D35 {
+    s32 unk0;
+    s32 unk4;
+    s32 (Q1D35::*unk8)(int, int);
+};
+
+extern "C" s32 func_001D3580(Q1D35* p, A1D35* a, int x, int y) {
+    if (a->unk8) {
+        return (p->*a->unk8)(x, y);
+    }
+    return p->v4(a->unk0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3620);
 
