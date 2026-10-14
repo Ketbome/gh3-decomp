@@ -1204,3 +1204,6 @@ Matched (A18): func_0011ED68 func_0011EE38 (t_11D000), func_0015E2D0 (t_15D2E0),
 Matched (A18): func_0012BF38 (t_12B970; the old source minus the asm nop, hazard nop after the join label now right)
 Matched (A18): func_00137E30, func_00137EB0 (t_137C98; `*dst = D_0032A520` / `D_00377F80 = *src` with the 0x38-byte struct), func_001224F8 (t_1210C8; switch (op) 0 set / 1 add / 2 `unk48 - a`, return field)
 - func_00122940 (t_1210C8) retry: five-way strcmp-like chain with func_0030E650, storing D_00368738; layout fine but original has n in s0 and the table base in s1, ours the reverse; 6 forms
+Matched (A18): func_001206D0 (t_11F000; `for (i<2) if (D[i].unk8 == key) { *(volatile int*)&D[i].unk4 = 0; return; }` -- a volatile store is what leaves the original's `sw; jr; nop`; with -funroll-loops)
+- func_00120628 (t_11F000) retry: same table, alloc with size test + volatile flag store + func_002F3BD0(D, &D[0].unk4, 1) (needs an asm-label alias, callers declare void(void)); original is a 2x unroll with a1 = copy of the stepped pointer, ours loops or reorders; 6 forms
+- TIP: an __asm__-alias definition (`f_d(..) __asm__("f")`) is invisible to `dk done`'s check: run `dk try` on it yourself before committing.

@@ -257,7 +257,15 @@ INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120628);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_001206C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_001206D0);
+extern "C" void func_001206D0(int key) {
+    int i;
+    for (i = 0; i < 2; i++) {
+        if (D_00415170[i].unk8 == key) {
+            *(volatile int*)&D_00415170[i].unk4 = 0;
+            return;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120710);
 
