@@ -49,6 +49,7 @@ struct S_00153510 { char pad0[8]; VE_00153510* unk8; };
 struct S_00153810 { int unk0; int unk4; int unk8; int unkC; int unk10; int unk14; int unk18; float unk1C; float unk20; int unk24; int unk28; char pad2C[8]; u8 unk34[4]; u32 unk38; int unk3C; int unk40; char pad44[8]; int unk4C; int unk50; int unk54; int unk58; void* unk5C; };
 
 extern "C" {
+void func_00240F58(void*, int);
 int func_00152E88_r(void) __asm__("func_00152E88");
 void func_0015F460(int, int);
 extern char D_0033C800[];
@@ -132,7 +133,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153010);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153078);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_152E18", func_00153080);
+struct F_00153080 { char pad0[0x4]; u16 unk4; };
+struct S_00153080 { char pad0[0x14]; F_00153080* unk14; };
+
+extern "C" void func_00153080(S_00153080* self, int on) {
+    F_00153080* f = self->unk14;
+    if (f) {
+        if (!on) {
+            f->unk4 = f->unk4 & 0xFF7F;
+        } else {
+            u16 v = f->unk4;
+            if (!(v & 0x80)) {
+                f->unk4 = v | 0x80;
+                func_00240F58(self->unk14, v);
+            }
+        }
+    }
+}
 
 extern "C" void func_001530D8(S_001530D8* self, int a1) {
     VE_001530D8* e = &self->unk18[3];
