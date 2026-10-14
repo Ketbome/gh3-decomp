@@ -81,7 +81,61 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9AA8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9B80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9C58);
+struct N9C {
+    N9C* unk0;
+    N9C* unk4;
+    char* unk8;
+};
+
+struct It9C {
+    s32 unk0;
+    N9C* unk4;
+    s32 unk8;
+    s32 unkC;
+};
+
+struct VE9C {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*, s32);
+};
+
+extern "C" {
+void Heap_Free(void*, void*);
+extern void* D_00368A38;
+}
+
+s32 func_001F9C58_d(char* self, s32 key) __asm__("func_001F9C58");
+s32 func_001F9C58_d(char* self, s32 key) {
+    It9C it, end, c, d, e;
+    it.unk4 = *(N9C**)(self + 0x4C);
+    end.unk4 = (N9C*)(self + 0x48);
+    if (it.unk4 != end.unk4) {
+        do {
+            char* o = it.unk4->unk8;
+            if (*(s32*)(o + 0x10) == key) {
+                if (o) {
+                    VE9C* v = (VE9C*)(*(char**)(o + 0x14) + 8);
+                    v->fn(o + v->delta, 3);
+                }
+                N9C* n = it.unk4;
+                c.unk4 = n;
+                e.unk4 = n;
+                N9C* nx = n->unk4;
+                d.unk4 = n;
+                c.unk4 = nx;
+                n->unk0->unk4 = n->unk4;
+                n->unk4->unk0 = n->unk0;
+                Heap_Free(D_00368A38, n);
+                end.unk4 = c.unk4;
+                return 1;
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (N9C*)(self + 0x48);
+        } while (it.unk4 != end.unk4);
+    }
+    return 0;
+}
 
 extern "C" s32 func_001F9D18(char* p, s32 v) {
     S1F9D_I it;

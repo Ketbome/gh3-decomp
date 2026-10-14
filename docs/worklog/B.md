@@ -922,3 +922,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_0022D7E0: same family, near miss (self/src swapped between s0/s1 and q reuse), nonmatching/func_0022D7E0.cpp.
 - t_243208 func_00244128 matched: array delete[] (count at -0x10, 8-byte elements destroyed back to front): one variable q for end/cursor, 'do { q -= 8; dtor(q, 0); } while (p->unk34 != q)'.
 - func_001F9AA8 (and sibling func_001F9B80): list push_back with value held in a volatile stack slot (volatile s32 v = x; node temp built after Heap_Alloc, 'if (n) *n = tmp;'). Matches except the final iterator advance: original has an extra 'move a0,v1' between the two stores (0x14/0x24 iterator slots); nonmatching/func_001F9AA8.cpp.
+- t_1F9A48 func_001F9C58 matched: find-by-key + virtual dtor + erase (template; 'return 1' inside the match branch, end = c only).
