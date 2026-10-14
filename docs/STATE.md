@@ -6,10 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A, B, C (second round: twins, `div.s` left, untried up to 0x1000, new stop rule);
-`decomp-forensics` on delay slots the modern gas fills where the original leaves `nop` (u32-to-float `cvt.s.w` before
-`b`/`jr`: func_002009B0, func_001D5038, func_001D5138, func_001B21A0, func_001E2850, func_0011EE38, func_0011ED68,
-func_0016FCD8; volatile `sw` before `jal`: func_001B3BD0; hazard nop after a join label: func_0015E2D0), scratch only.
+Running (2026-10-14): workers A (third round: delay-slot functions func_0011ED68, func_0011EE38, func_0015E2D0,
+func_0016FCD8 first), B and C (second round, told about the delay-slot fix cf046cf; B retries func_001B21A0,
+func_001B3BD0, func_001D5138, func_001D5038, func_002009B0, func_001E2850 and func_001E0198, reverted to asm by
+that fix, near miss in nonmatching/).
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
@@ -24,7 +24,8 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
-- Permuter when no worker runs: 27 new near misses from round 1 (A 14, C 13, mostly register numbering).
+- Permuter when no worker runs: ~36 new near misses from rounds 1-2 (A 23, C 13, mostly register numbering or
+  s1/s2 save order).
 - Permuter: `--batch --timeout 120` stopped after ~15 of 74 (too slow with workers running), no score 0. Best:
   CFunc_DisplayLoadingScreen 175, func_00114660 225, CFunc_GetAngle 225, CFunc_SetStreamParams 260. Earlier 360 s
   runs: func_001E8CA8 60, func_0020EE10 60, func_002250F8 120. Not worth more CPU while workers run.
