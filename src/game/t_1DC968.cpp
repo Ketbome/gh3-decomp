@@ -251,27 +251,6 @@ extern "C" void func_001DD4D0(S1DD4* p0, void* a0) {
     }
 }
 
-struct E1DD5 {
-    s32 unk0;
-    char pad4[8];
-};
-
-struct S1DD5 {
-    s32 unk0;
-    s32 unk4;
-};
-
-static inline void Set1DD5(E1DD5* e, S1DD5* p, s32 a) {
-    if (e->unk0 != 0) {
-        func_001CE888_3(e->unk0, e, p);
-        e->unk0 = 0;
-    }
-    e->unk0 = a;
-    if (a) {
-        func_001CE868_2(a, e);
-    }
-}
-
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD568);
 
 GP_DATA(D_0036D6C8);
