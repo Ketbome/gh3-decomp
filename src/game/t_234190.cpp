@@ -32,6 +32,7 @@ int func_0023A458(void*, int);
 int func_00233E10(int, int*, int);
 void func_0027C160(int, u32, int);
 char* func_00233CA8(char*, int);
+int func_00230230(int, int);
 int func_00239000(char*, char*, void*);
 extern u8 D_0036FCE0[];
 int func_0027D1F8(int, u32, int*, int);
@@ -115,7 +116,27 @@ extern "C" void func_002348A0(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002348D8);
+struct E2348 {
+    char pad0[0x44];
+    s32 a[1];
+};
+
+extern "C" void func_002348D8(char* a, char* b) {
+    if ((func_00230230(CrcFromPathLowercase(b + 0xB0), *(s32*)(b + 0x134)) ^ 1) != 0) {
+        *(u8*)(b + 0x128) = 0;
+        *(u8*)(b + 0x12A) = 0;
+        *(u8*)(b + 0x12C) = 0;
+        char* o = *(char**)(a + 0x40);
+        if (*(s32*)(o + 0x8C) != 0) {
+            for (s32 i = 0; i < *(s32*)(o + 0x88); i++) {
+                s32 e = (s32)func_00233CA8(o, i);
+                if (*(s32*)(*(s32*)(b + 0x134) * 0x38 + e + 0x2C) == *(s32*)b) {
+                    ((E2348*)e)->a[*(s32*)(b + 0x134)] = 0;
+                }
+            }
+        }
+    }
+}
 
 extern "C" void func_002349B0(S234b* self) {
     self->unk12A = 1;
