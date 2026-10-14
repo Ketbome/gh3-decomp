@@ -105,6 +105,10 @@ void func_0028EBA0(void *);
 int func_0028E868(int, int);
 void func_00279358(void *, int, int, int);
 int Heap_Alloc(int, int, int, int);
+int func_0011C2A8(void *);
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
 void func_001C55A8(void *);
 int func_00291D28(int, int, int);
 
@@ -398,7 +402,20 @@ extern "C" int func_00292110(void) {
     return D_003715C0[D_003715D0]->unk8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_00292130);
+extern "C" int func_00292130(int size) {
+    S002920F0 *pl = D_003715C0[D_003715D0];
+    if (pl != 0) {
+        int r = func_0011C2A8(pl);
+        if (r == 0) {
+            int h = D_00368A38;
+            func_00119490(h, func_00119610(h, 1));
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return r;
+    }
+    return Heap_Alloc(D_00368A38, size, 1, 0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2908A0", func_002921E8);
 
