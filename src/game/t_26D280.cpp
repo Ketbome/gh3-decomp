@@ -86,6 +86,39 @@ void func_0026DFE8(S0026DFE8 *);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D280);
 
+struct S26D4_R {
+    char pad0[0x10];
+    int unk10;
+    char pad14[8];
+    int unk1C;
+    int unk20;
+    char pad24[0x14];
+    int unk38;
+    char pad3C[0x44];
+};
+
+extern "C" {
+extern S26D4_R D_003A44B0_r[] asm("D_003A44B0");
+extern int D_00372E98;
+extern int D_00370C2C;
+extern float D_00370C1C_f asm("D_00370C1C");
+extern int D_00370C34;
+extern int D_00370C24;
+int func_00272F70(void);
+void func_0026AEA8(int);
+void func_0026BD80(void);
+int func_0026C3D8(int);
+void func_0026CD30(void);
+void func_0026D280(void);
+int func_0026DC68(int);
+void func_0026E190(int *);
+}
+
+GP_DATA(D_00370C2C);
+GP_DATA(D_00370C50);
+GP_DATA(D_00370C1C);
+GP_DATA(D_00370C34);
+GP_DATA(D_00370C24);
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D480);
 
 extern "C" void func_0026D660(u64* a, u64* b) {
