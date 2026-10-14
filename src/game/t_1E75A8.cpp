@@ -153,6 +153,7 @@ s32 GetProgressionDifficulty(void);
 extern char D_0034D928[];
 void func_001E99A0(void* p);
 extern char D_0034DBD0[];
+void func_001E9A68(void* p);
 void func_001E82F0(void* p, s32* a);
 void func_0027D188(s32 a, u32 key, char** v, s32 req);
 char* StrDupHeap5(char* s);
@@ -302,6 +303,40 @@ extern "C" S1E8068_X* func_001E8068(S1E8068* p, s32 key) {
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E80C0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8168);
+
+struct VE1E81 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, s32);
+};
+
+struct M1E81 {
+    char pad0[0x2C];
+    char* unk2C;
+};
+
+struct N1E81 {
+    N1E81* unk0;
+    N1E81* unk4;
+    M1E81* unk8;
+};
+
+struct I1E81 {
+    s32 unk0;
+    N1E81* unk4;
+};
+
+struct A1E81 {
+    char pad0[4];
+    N1E81* unk4;
+    N1E81* unk8;
+};
+
+struct L1E81 {
+    char pad0[0xC];
+    N1E81* unkC;
+    N1E81* unk10;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8170);
 
