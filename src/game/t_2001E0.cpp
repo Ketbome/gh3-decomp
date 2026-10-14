@@ -205,7 +205,48 @@ static inline u128_200 MakeVec(f32 x, f32 y, f32 z, f32 w) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2001E0", func_002001E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2001E0", func_002001E8);
+struct V01E8 {
+    int a;
+    int b;
+};
+
+struct E01E8 {
+    u32 key;
+    u32 type;
+    V01E8 v;
+};
+
+extern E01E8 T01E8[] __asm__("D_0038F8E8");
+extern V01E8 S01E8_0[] __asm__("D_0036E768");
+extern V01E8 S01E8_1[] __asm__("D_0036E770");
+extern V01E8 S01E8_2[] __asm__("D_0036E778");
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_002001E8(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E01E8* e = T01E8;
+        V01E8 t;
+        e->key = 0x785E57C7;
+        t = *S01E8_0;
+        e->type = 0x5CB5CB7E;
+        e->v = t;
+        e++;
+        e->key = 0xC49D01C6;
+        t = *S01E8_1;
+        e->type = 0x5CB5CB7E;
+        e->v = t;
+        e++;
+        e->key = 0xD40CD91D;
+        t = *S01E8_2;
+        e->type = 0x5CB5CB7E;
+        e->v = t;
+        e++;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x5CB5CB7E;
+        e->v = t;
+    }
+}
 
 extern "C" void func_00200308(void) {
     func_002001E8(1, 0xFFFF);
