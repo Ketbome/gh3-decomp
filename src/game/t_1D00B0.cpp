@@ -76,6 +76,10 @@ s32 func_0027D268(void* a, s32 key, void* v, s32 req);
 s32 func_0027D870(void* a, s32 key, void* v, s32 req);
 s32 func_001D1CF8(void* a, s32 b);
 void Heap_Free(s32 heap, void* p);
+struct Pool1D07;
+extern Pool1D07* D_0036D0F0[2];
+extern s32 D_0036D100;
+void func_0011C2E8_p(Pool1D07*, void*) __asm__("func_0011C2E8");
 extern char D_0034B850[];
 extern s32 D_0036D3B0_m __asm__("D_0036D3B0");
 void func_001D4C08(s32 a, void* b);
@@ -241,7 +245,22 @@ extern "C" s32 func_001D0788(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0790);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0798);
+struct Pool1D07 {
+    char* unk0;
+    char* unk4;
+    bool Contains(void* p) { return (char*)p >= unk0 && (char*)p < unk4; }
+};
+
+GP_DATA(D_0036D100);
+GP_DATA(D_0036D0F0);
+extern "C" void func_001D0798(void* p) {
+    Pool1D07* a = D_0036D0F0[D_0036D100];
+    if ((a && a->Contains(p)) || ((a = D_0036D0F0[D_0036D100 ^ 1]) && a->Contains(p))) {
+        func_0011C2E8_p(a, p);
+    } else if (p) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0848);
 
