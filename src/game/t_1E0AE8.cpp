@@ -283,7 +283,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1068);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E10C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E1220);
+extern "C" s32 func_001E1698(void*);
+
+extern "C" void func_001E1220(void* pv) {
+    S1E0AE8* p = (S1E0AE8*)pv;
+    S1E0AE8_I it;
+    S1E0AE8_I end;
+    it.unk4 = (S1E0AE8_N*)p->unk70.unk4;
+    end.unk4 = (S1E0AE8_N*)&p->unk70;
+    if (it.unk4 != end.unk4) {
+        do {
+            func_001E0EE0((S1E0AE8*)it.unk4->unk8, 0);
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    if ((S1E0AE8_N*)p->unk70.unk4 != (S1E0AE8_N*)&p->unk70) {
+        do {
+        } while (func_001E1698(p));
+    }
+}
 
 extern "C" s32 func_001E12A8(S1E0AE8* p) {
     S1E0AE8_I it;
