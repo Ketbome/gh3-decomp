@@ -1,3 +1,4 @@
+// cflags: -fno-cse-skip-blocks
 #include "common.h"
 
 struct S001874D0 {
@@ -16,6 +17,10 @@ extern "C" {
 void func_0030A2F4(int, int, int);
 int func_001BF4A0(int, void*);
 int func_001C3578(int, void*);
+int func_001BF508(int, void*);
+int func_001C35E0(int, void*);
+int func_001BF560(int, void*);
+int func_001C3638(int, void*);
 extern int D_0036B594;
 extern int D_00368A38;
 void Heap_Free(int, int);
@@ -65,8 +70,6 @@ static inline int S_001873D8_Get2(S_001873D8* self) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186E40);
-
 static inline int S_001873D8_GetF(S_001873D8* self, int f) {
     if ((f >> 2) & 1) {
         return *self->unk10;
@@ -84,11 +87,49 @@ static inline int S_001873D8_Get2F(S_001873D8* self, int f) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186EE8);
+extern "C" int func_00186E40(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return *(int*)(S_001873D8_Get(self) + 0x14);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return *(int*)(S_001873D8_Get2F(self, f) + 0x28);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00186F90);
+extern "C" int func_00186EE8(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return *(int*)(S_001873D8_Get(self) + 0x1C);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return *(int*)(S_001873D8_Get2F(self, f) + 0x2C);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187038);
+extern "C" int func_00186F90(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return *(int*)(S_001873D8_Get(self) + 0x18);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return *(int*)(S_001873D8_Get2F(self, f) + 0x30);
+    }
+    return 0;
+}
+
+extern "C" int func_00187038(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return *(int*)(S_001873D8_Get(self) + 0x20);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return *(int*)(S_001873D8_Get2F(self, f) + 0x34);
+    }
+    return 0;
+}
 
 extern "C" int func_001870E0(S_001873D8* self) {
     if (S_001873D8_Get(self)) {
@@ -132,12 +173,39 @@ extern "C" u16 func_001874D8(S001874D8* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001874E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001875A8);
+extern "C" int func_001875A8(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return *(int*)(S_001873D8_Get(self) + 0x18);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return *(int*)(S_001873D8_Get2F(self, f) + 0x30);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187650);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187708);
+extern "C" int func_00187708(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return func_001BF508(S_001873D8_Get(self), self);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return func_001C35E0(S_001873D8_Get2F(self, f), self);
+    }
+    return 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_001877D0);
+extern "C" int func_001877D0(S_001873D8* self) {
+    if (S_001873D8_Get(self)) {
+        return func_001BF560(S_001873D8_Get(self), self);
+    }
+    int f = self->unk4;
+    if (S_001873D8_Get2F(self, f)) {
+        return func_001C3638(S_001873D8_Get2F(self, f), self);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_185918", func_00187898);
