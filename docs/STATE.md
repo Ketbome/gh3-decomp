@@ -24,9 +24,6 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
-- BUILD BROKEN since 04de0a0 (t_13FEE0: func_00141428_i defined after func_00141608; already pushed to origin by a
-  plain `git push`). Worker A was asked to move the definition; then integrate.sh. A dk.py order check (skill) is
-  being written so `dk done` refuses out-of-order definitions.
 - Permuter when no worker runs: 27 new near misses from round 1 (A 14, C 13, mostly register numbering).
 - Permuter: `--batch --timeout 120` stopped after ~15 of 74 (too slow with workers running), no score 0. Best:
   CFunc_DisplayLoadingScreen 175, func_00114660 225, CFunc_GetAngle 225, CFunc_SetStreamParams 260. Earlier 360 s
