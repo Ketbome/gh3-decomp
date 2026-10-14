@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Runs decomp-permuter on one function, to close register-allocation / scheduling near misses automatically.
 
-Usage: .venv/bin/python scripts/permute.py <src file or attempt file> <func> [-j 2] [--setup-only] [-- permuter args]
+Usage: .venv/bin/python scripts/permute.py <src file or attempt file> <func> [-j 2] [--timeout SECONDS] [--setup-only]
+                                         [-- permuter args]
+       .venv/bin/python scripts/permute.py --batch [--timeout SECONDS] [-j 2]   (every nonmatching/<func>.* in turn)
 
 The source must contain a C/C++ attempt of <func> (it does not have to match). The permuter (tools/decomp-permuter,
 set up by scripts/setup_tools.sh) mutates it at random and prints every better-scoring version to
@@ -14,8 +16,10 @@ What it builds in build/permute/<func>/:
 Only the code of <func> may differ in C++-only ways that pycparser cannot read: wrap such parts in PERM_IGNORE().
 """
 
+import os
 import re
 import shlex
+import signal
 import subprocess
 import sys
 from pathlib import Path
@@ -73,6 +77,16 @@ def main():
         args, extra = args[:k], args[k + 1:]
     setup_only = "--setup-only" in args
     args = [a for a in args if a != "--setup-only"]
+    timeout = None
+    if "--timeout" in args:
+        k = args.index("--timeout")
+        timeout = int(args[k + 1])
+        del args[k:k + 2]
+    if "--batch" in args:
+        args.remove("--batch")
+        for f in sorted((ROOT / "nonmatching").glob("*.c*")):
+            subprocess.run([sys.executable, __file__, str(f), f.stem, "--timeout", str(timeout or 600)] + args)
+        return
     jobs = "2"
     if "-j" in args:
         k = args.index("-j")
@@ -133,8 +147,17 @@ cd {shlex.quote(str(ROOT))}
     print(f"set up in {out.relative_to(ROOT)}")
     if setup_only:
         return
-    subprocess.run([sys.executable, str(PERMUTER / "permuter.py"), str(out), "-j", jobs, "--best-only"] + extra,
-                   cwd=PERMUTER)
+    proc = subprocess.Popen([sys.executable, str(PERMUTER / "permuter.py"), str(out), "-j", jobs, "--best-only",
+                             "--stop-on-zero", "--quiet"] + extra, cwd=PERMUTER, start_new_session=True,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    try:
+        proc.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        os.killpg(proc.pid, signal.SIGTERM)
+        proc.wait()
+    scores = sorted(int(d.name.split("-")[1]) for d in out.glob("output-*"))
+    print(f"{func}: best score {scores[0] if scores else 'none'}" + ("  <- MATCH, see " + str(
+        next(out.glob("output-0-*")).relative_to(ROOT)) if scores and scores[0] == 0 else ""))
 
 
 if __name__ == "__main__":
