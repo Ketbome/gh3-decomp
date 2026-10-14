@@ -6,7 +6,9 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Nothing running (2026-10-14). Ranges for the next workers:
+Running (2026-10-14): `decomp-forensics` on the `div.s` nops (scratch copy only) and a `decomp-runner` permuter
+batch on func_001E8CA8, func_0020EE10, func_0022E0C0, func_002250F8 (+ obsolete near-miss list, CFunc_SetShadowDirFromLight
+error). Workers wait for the forensics result. Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
 |---|---|---|---|
