@@ -306,7 +306,30 @@ extern "C" int func_00182828(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182868);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_00182870);
+struct Pool_func_00182870 { int unk0; };
+extern "C" {
+extern Pool_func_00182870* D_0036A790[2];
+extern int D_0036A7A0;
+int func_0011C2A8(Pool_func_00182870*);
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
+}
+
+extern "C" int func_00182870(int size, int unused) {
+    Pool_func_00182870* pool = D_0036A790[D_0036A7A0];
+    if (pool) {
+        int r = func_0011C2A8(pool);
+        if (!r) {
+            int heap = D_00368A38[0];
+            func_00119490(heap, func_00119610(heap, 1));
+            r = (int)Heap_Alloc(D_00368A38[0], size, 1, 0);
+            func_001194B8(D_00368A38[0]);
+        }
+        return r;
+    }
+    return (int)Heap_Alloc(D_00368A38[0], size, 1, 0);
+}
 
 extern "C" void* func_00182930(void) {
     return D_0037DBD0;
