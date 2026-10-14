@@ -23,7 +23,12 @@ int func_0027D870(int, u32, int*, int);
 int func_001D0680(int);
 s32 func_002763C0(s32 a, s32 b);
 s32 func_0027D400(s32 a, s32 b, s32 c, s32 d);
+bool func_0027D2D8(int, u32, void*, int);
+char* func_001D8618(int, int);
+void func_0027C1F8(int, u32, float);
 }
+
+typedef unsigned int TI249 __attribute__((mode(TI)));
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", func_00249620);
 
@@ -211,7 +216,28 @@ extern "C" int CFunc_CompositeObjectExists(int s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_Orient);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_GetDistance);
+extern "C" int CFunc_GetDistance(int params, char* script) {
+    struct { TI249 a; int ida; TI249 b; int idb; } l;
+    bool na = !func_0027D2D8(params, 0xC8A87799, &l.a, 0);
+    if (na) {
+        func_0027D870(params, 0xBE5C4244, &l.ida, 1);
+        char* o = func_001D8618(D_0036D3B0, l.ida);
+        if (!o) return 0;
+        l.a = *(TI249*)(o + 0x80);
+    }
+    bool nb = !func_0027D2D8(params, 0x51A12623, &l.b, 0);
+    if (nb) {
+        func_0027D870(params, 0x275513FE, &l.idb, 1);
+        char* o = func_001D8618(D_0036D3B0, l.idb);
+        if (!o) return 0;
+        l.b = *(TI249*)(o + 0x80);
+    }
+    float r;
+    asm volatile("lqc2 $vf1, %1\n\tlqc2 $vf2, %2\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(r) : "m"(l.a), "m"(l.b) : "$2");
+    func_0027C1F8(*(int*)(script + 0x20), 0xB1167AE4, r);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_AddArrayElement);
 
