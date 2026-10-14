@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -133,6 +134,20 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B53E0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B5528);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B5888);
+extern int D_003AD060[];
+extern int D_00371FF4;
+extern "C" void func_002B5528(int);
+
+GP_DATA(D_00371FF4);
+extern "C" int func_002B5888(int key) {
+    int i;
+    for (i = 0; i < D_00371FF4; i++) {
+        if (D_003AD060[i] == key) {
+            func_002B5528(i);
+            return 1;
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2B3AC8", func_002B5990);
