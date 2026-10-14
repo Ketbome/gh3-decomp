@@ -243,7 +243,34 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA6D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA768);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA808);
+struct It1CA8 {
+    s32 unk0;
+    s32 unk4;
+    void* unk8;
+};
+
+extern "C" {
+extern s32 D_0034AC90[];
+s32 func_001CA458(s32, It1CA8*, s32);
+s32 func_001CA6D0(s32, It1CA8*, s32);
+s32 func_001CC0E8(s32);
+}
+
+extern "C" s32 func_001CA808(s32 a) {
+    It1CA8 it;
+    s32 n = 0;
+    it.unk8 = D_0034AC90;
+    it.unk4 = 0;
+    s32 r = func_001CA6D0(a, &it, 0);
+    if (r) {
+        do {
+            if (func_001CC0E8(r) == 0) n++;
+            r = func_001CA458(a, &it, 0);
+        } while (r);
+    }
+    it.unk8 = D_0034AC90;
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CA898);
 

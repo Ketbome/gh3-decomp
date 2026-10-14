@@ -854,3 +854,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 
 ## Session 15 (agentB17)
 - CFunc_SetPakManCurrent (t_234190) transplanted from the integrator's permuter result (int-return alias `__asm__("func_0027D870")` + Ne helper).
+- Given up: func_00248D98 (t_247290, ctor with pextlw/pcpyld ones vector: z pointer lands in a0 not a1, pextlw order/regs differ; pins break slot scheduling; 6 forms). func_001B3D28 (empty counted loops, junk).
