@@ -1209,3 +1209,5 @@ Matched (A18): func_001206D0 (t_11F000; `for (i<2) if (D[i].unk8 == key) { *(vol
 - TIP: an __asm__-alias definition (`f_d(..) __asm__("f")`) is invisible to `dk done`'s check: run `dk try` on it yourself before committing.
 Matched (A18): func_0010FE60 (t_10EBD8; rotate/negate pair by op 1/2/3: needs an empty 'case 0:' to get the original compare tree (1, <2, 2, 3), the stores inside each case so the tail is shared, loads in the order b = *x; a = *y; b = -b;)
 Matched (A18): func_00137470 (t_135A98; alloc 8-byte block, request, poll loop `while (func_0028C200(t)) {}` now gets its nops from the filter)
+- func_00120E00 (t_11F000) retry: lock + toggle D_00368C18 ^= 1 (volatile) + D_00368C08 = 0 + unlock; only the xori temp is v0 (original v1); 6 forms
+- func_001755B0 (t_174C20): PMF call `(o->*self->pm)(self+0x10, self, o)` (virtual-capable, 3 args after this; o = self->unk4 ? *self->unk4 : 0); structure right, but the original moves self into a2 at entry and o into a3 (t0/t1 for the entry), ours keeps self in t0; 7 forms (same as func_00175750)
