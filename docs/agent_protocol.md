@@ -12,7 +12,10 @@ word-split; pass file lists explicitly or through xargs).
 3. Write the C++ in place of that function's `INCLUDE_ASM` line only (never touch neighbouring lines). `extern "C"`,
    same name; declarations in the file's `extern "C" { }` block; structs local to the file, fields named by offset.
 4. Check: `.venv/bin/python scripts/try.py <file> <func>` (adds needed GP_DATA lines, then compares). Iterate.
-5. Give up after ~15 tries: `.venv/bin/python scripts/revert_func.py <file> <func>`; keep any prototype other code
+5. Near miss (only registers or instruction order differ)? Save your best attempt as
+   `nonmatching/<func>.cpp` (a copy of the whole source file with your attempt in place) and list it in the worklog
+   as `near miss`: the integrator runs the permuter on those (`scripts/permute.py`). Do not run it yourself.
+   Give up after ~15 tries: `.venv/bin/python scripts/revert_func.py <file> <func>`; keep any prototype other code
    in the file needs (the file must compile); note the function and why in your worklog.
 6. After each match (or a few): `scripts/done.sh <file> docs/worklog/<range>.md "decomp: <file> +N functions"`.
    It fixes padding, refuses to commit if anything in the file does not match, and commits only those two paths.

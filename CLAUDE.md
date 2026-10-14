@@ -21,6 +21,7 @@ Matching decompilation of Guitar Hero III (PS2, USA, SLUS-21672). Goal: C++ that
 - `.venv/bin/m2c -t mipsee-gcc-c <func.s>`: first C draft of a function
 - `scripts/show.py <func>` (asm + m2c), `scripts/try.py <file> <func>` (GP_DATA + fcheck),
   `scripts/done.sh <file> <worklog> <msg>` (padding, full check, commit): the worker loop, see `docs/agent_protocol.md`
+- `scripts/permute.py <file> <func> [-j N]`: decomp-permuter on a near miss (CPU instead of hand-tuning)
 - `scripts/check_all.py`: fcheck every C++ function (regression check after toolchain changes)
 - `scripts/qbkeys.py key <name>` / `build <qb script dirs>`: Neversoft checksums -> `config/qbkeys.txt`
 

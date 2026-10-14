@@ -111,6 +111,12 @@ Each worker owns a set of `src/game` files and nobody else edits them. To surviv
   with the name in a comment, `0x0A015E17 /* Motion */`. `config/qbkeys.txt` lists the known ones;
   `scripts/qbkeys.py key <name>` computes one.
 
+## Near misses: the permuter
+
+`scripts/permute.py <file with the attempt> <func> -j 2` sets up decomp-permuter with our toolchain and runs it:
+it mutates the attempt at random and writes each better version to `build/permute/<func>/output-<score>-N/`.
+Score 0 is a match. It is CPU-heavy: one at a time, few threads.
+
 ## Useful facts
 
 - `docs/toolchain.md`: compiler, flags, sections.
