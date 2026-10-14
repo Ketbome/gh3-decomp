@@ -300,7 +300,35 @@ extern "C" void func_00271E88(S271_Ev *p) {
     func_00271A98((p->unk0 - 1) | 0x1C0, p->unk2C, v, 0, 0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271F28);
+struct S271F28 {
+    int unk0;
+    char pad4[8];
+    int unkC;
+    int *unk10;
+    char pad14[8];
+    int unk1C;
+    char pad20[8];
+    int unk28;
+    int unk2C;
+};
+
+extern "C" void func_00271F28(S271F28 *p) {
+    if (p->unk0 == 0) {
+        func_00271A98(0x20, p->unk1C / 2, 0, 0, 0, 0);
+        return;
+    }
+    int v;
+    if (!((p->unkC >> 3) & 1)) {
+        v = (int)(p->unk28 * D_00370B08);
+    } else {
+        v = p->unk28;
+    }
+    if ((p->unkC >> 2) & 1) {
+        func_00271A98((p->unk0 - 1) | 0x50, p->unk1C / 2, *p->unk10 - 1, p->unk2C, v, 0);
+        return;
+    }
+    func_00271A98((p->unk0 - 1) | 0x40, p->unk1C, p->unk2C, v, 0, 0);
+}
 
 struct S272020 {
     int unk0;
@@ -439,7 +467,29 @@ extern "C" int func_00273298(int x) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00273308);
+struct S273308 {
+    char pad0[8];
+    int unk8;
+    int unkC;
+    char pad10[0x18];
+    int unk28;
+};
+
+extern "C" int func_00273308(int x, float v) {
+    int r = func_00273240(v);
+    if (r > 0) ((S273308 *)D_003A9490[x])->unk28 = r;
+    S273308 *e = (S273308 *)D_003A9490[x];
+    int p;
+    if (!((e->unkC >> 3) & 1)) {
+        p = (int)(e->unk28 * D_00370B08);
+    } else {
+        p = e->unk28;
+    }
+    if (((S273308 *)D_003A9490[x])->unk8 == 5) {
+        func_00271A98(x | 0xF0, p, 0, 0, 0, 0);
+    }
+    return r != 0;
+}
 
 extern "C" int func_002733E0(int a) {
     int r = func_002730D0(a);
