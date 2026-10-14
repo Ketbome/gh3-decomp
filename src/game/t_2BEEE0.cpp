@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -9,6 +10,8 @@ void func_001194B8(int);
 void func_00119490(int, int);
 int Heap_Alloc(int, int, int, int);
 extern int D_003720E8;
+int func_0027DF00(int, u32);
+void Heap_Free(int, int);
 extern int D_003720E4;
 extern int D_00368A38;
 extern int D_00368744;
@@ -40,7 +43,29 @@ extern "C" int CFunc_TextOutputStart(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutput);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutputEnd);
+GP_DATA(D_003720E4);
+extern "C" int CFunc_TextOutputEnd(int params) {
+    char buf[0x200];
+    if (func_0027DF00(params, 0xC844F1E2)) {
+        char *p = (char *)D_003720E4;
+        while (*p) {
+            char *o = buf;
+            while (*p != '\n') {
+                *o = *p;
+                p++;
+                o++;
+            }
+            *o = *p;
+            o[1] = 0;
+            p++;
+        }
+    }
+    if (D_003720E4)
+        Heap_Free(D_00368A38, D_003720E4);
+    D_003720E8 = 0;
+    D_003720E4 = 0;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_ApplyBossBattleGemMisses);
 
