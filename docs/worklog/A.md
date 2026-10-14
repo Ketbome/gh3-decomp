@@ -1202,3 +1202,5 @@ Given up:
 Matched (A18): func_0011ED68 func_0011EE38 (t_11D000), func_0015E2D0 (t_15D2E0), func_0016FCD8 (t_16E670; u32->float and u32 compare now fine after the delay-slot fix: natural code with u32 types)
 - near miss: func_0016FCD8 (t_16E670; u32 timer fraction, natural code; only FP register numbering differs: original t=f3 r=f4 old=f2, ours t=f2 r=f3 old=f0; 9 forms); nonmatching/func_0016FCD8.cpp
 Matched (A18): func_0012BF38 (t_12B970; the old source minus the asm nop, hazard nop after the join label now right)
+Matched (A18): func_00137E30, func_00137EB0 (t_137C98; `*dst = D_0032A520` / `D_00377F80 = *src` with the 0x38-byte struct), func_001224F8 (t_1210C8; switch (op) 0 set / 1 add / 2 `unk48 - a`, return field)
+- func_00122940 (t_1210C8) retry: five-way strcmp-like chain with func_0030E650, storing D_00368738; layout fine but original has n in s0 and the table base in s1, ours the reverse; 6 forms

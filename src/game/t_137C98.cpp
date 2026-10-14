@@ -99,9 +99,13 @@ void* Heap_Alloc(S137_H*, u32, int, int);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137C98);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137E30);
+extern "C" void func_00137E30(S137_B* dst) {
+    *dst = D_0032A520;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00137EB0);
+extern "C" void func_00137EB0(S137_B* src) {
+    D_00377F80 = *src;
+}
 
 extern "C" void func_00137F30(int v) {
     D_003694D0 = v;
