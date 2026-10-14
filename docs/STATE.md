@@ -6,10 +6,9 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A and B (skipping `div.s` functions), a `decomp-runner` with
-`permute.py --batch --timeout 120 -j 2`. Worker C starts when the permuter batch ends (16 GB machine).
-`div.s` forensics done: no SN rule found; proposed filter pass `div_nops` (copies the k-th `div.s` nop count from
-the original .s, like `jtbl_`) waits for the user's decision; diff kept in the session scratchpad (divs/exp/div_nops.diff).
+Running (2026-10-14): workers A and B (first the `div.s` functions, now unblocked by the asm_filter `div_nops`
+pass), a `decomp-runner` with `permute.py --batch --timeout 120 -j 2`. Worker C starts when the permuter batch ends
+(16 GB machine), first func_002B7108 and the `div.s` give-ups in C.md.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
@@ -33,8 +32,6 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Open toolchain questions (see docs/toolchain.md)
 
-- Two nops before `div.s` (418/700 cases), rule unknown. Biggest lever: 213 INCLUDE_ASM functions contain `div.s`
-  (2026-10-14).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
@@ -42,7 +39,5 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Toolchain forensics on the `div.s` nops: a `decomp-forensics` subagent (opus, effort high), while no worker
-   runs; if fixed: `dk all`, commit, then workers retry the `div.s` give-ups first.
-2. Relaunch workers A, B, C (focus above, `--untried`) and a `decomp-runner` for the permuter batch on the near
-   misses meanwhile.
+1. When the permuter batch ends: apply score-0 results, launch worker C (`div.s` first).
+2. Integrate (scripts/integrate.sh) after each worker round.
