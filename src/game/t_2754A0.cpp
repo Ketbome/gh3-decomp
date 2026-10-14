@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S002754A0 {
@@ -97,6 +98,8 @@ extern int D_003710A0;
 extern char D_00359058[];
 void func_0011A470(void);
 S2754A0_F *func_00275A40(int);
+int func_001150B8(int);
+void func_00277378(int, int);
 void func_00275DE0(void);
 void func_00275F08(int, int);
 void func_00276110(void);
@@ -246,7 +249,11 @@ extern "C" void func_00275868(S2754A0_C *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275898);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002758A0);
+GP_DATA(D_003710A4);
+extern "C" void func_002758A0(void) {
+    D_003710A4 = (S2754A0_B **)func_0011A380(0x20000);
+    for (int i = 0; i < 0x8000; i++) D_003710A4[i] = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00275978);
 
@@ -369,7 +376,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002767D8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002769A8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_002769B0);
+struct S2754A0_P {
+    int unk0;
+    int unk4;
+};
+
+extern "C" void func_002769B0(S2754A0_P *p, int n) {
+    u32 i = 0;
+    if (n) {
+        S2754A0_P *q = p;
+        do {
+            int h = func_001150B8(q->unk0);
+            func_00277378(h, q->unk0);
+            char *r = (char *)func_00275A40(h);
+            r[2] = 8;
+            *(int *)(r + 0xC) = q->unk4;
+            q++;
+            i++;
+        } while (i < n);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276BB0);
 

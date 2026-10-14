@@ -1,5 +1,10 @@
 #include "common.h"
 
+struct S2867_N {
+    char pad0[0x8];
+    int unk8;
+};
+
 struct S2867_V {
     virtual ~S2867_V();
 };
@@ -83,10 +88,14 @@ int strcmp(char *, char *);
 extern char D_003713C0[];
 void func_00288B10(S2867_Val *);
 void func_00288888(S2867_Val *);
+void func_00288A20(S2867_Val *, int);
 int func_0028C658(void *);
 void func_0028A300(void *);
 void func_0028A558(void *);
 void *func_002899B0(void *);
+S2867_N *func_00275CE8(S2867_N *);
+char *func_0011A380(int);
+void func_0011D220(int);
 void func_00288678(void);
 void func_00288238(int, int);
 void func_00288170(int, int);
@@ -337,6 +346,12 @@ extern "C" void func_00288910(S2867_Val *v, int type, S2867_Flags *a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288990);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288998);
+extern "C" void func_00288998(S2867_Val *v, int type, S2867_V *obj, int d) {
+    func_00288888(v);
+    v->obj = obj;
+    v->type = type;
+    if (d) func_00288A20(v, d);
+    v->b6 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288A20);
