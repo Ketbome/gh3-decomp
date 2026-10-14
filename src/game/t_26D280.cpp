@@ -57,6 +57,15 @@ extern int D_00370C18;
 void func_00273070(void);
 int func_0026E5C8(int, int);
 extern int D_00370CB8;
+struct S26D_W {
+    int unk0;
+    int unk4;
+    int unk8;
+};
+S26D_W *func_0027B300(int, S26D_W *);
+int func_0010C050(int);
+void func_0027C448(int, int, int);
+void func_0027ABB0(int, int);
 void func_0026DFE8(S0026DFE8 *);
 }
 
@@ -235,7 +244,28 @@ extern "C" void func_0026E1E8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E208);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E470);
+extern "C" void func_0026E470(char *pat, char *buf, void (*cb)(char *)) {
+    char *out = buf + strlen(buf);
+    char *o = out;
+    while (*pat) {
+        if (*pat == '?') {
+            pat++;
+            for (char c = '0'; c <= '9'; c++) {
+                o[1] = 0;
+                o[0] = c;
+                func_0026E470(pat, buf, cb);
+            }
+            *out = 0;
+            return;
+        }
+        *o = *pat;
+        pat++;
+        o++;
+    }
+    *o = 0;
+    cb(buf);
+    *out = 0;
+}
 
 GP_DATA(D_00370CBC);
 extern "C" void func_0026E560(int a) {
@@ -261,7 +291,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026E8B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026EAA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026EB08);
+extern "C" int func_0026EB08(int list, int extra, int out) {
+    int total = 0;
+    for (S26D_W *n = func_0027B300(list, 0); n; n = func_0027B300(list, n))
+        total += n->unk8;
+    if (total == 0)
+        return 0;
+    int r = func_0010C050(total) + 1;
+    S26D_W *sel = func_0027B300(list, 0);
+    S26D_W *n = sel;
+    while (n) {
+        sel = n;
+        r -= n->unk8;
+        if (r <= 0)
+            break;
+        n = func_0027B300(list, n);
+    }
+    func_0027C448(out, 0, sel->unk4);
+    if (extra)
+        func_0027ABB0(out, extra);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026EC08);
 
