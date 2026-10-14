@@ -133,7 +133,60 @@ done:
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9F40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FA218);
+struct I1FA2 {
+    s32 unk0;
+    S1F9D_N* unk4;
+    s32 unk8;
+    s32 unkC;
+};
+
+extern "C" {
+void func_0012CAA8(void* a, s32 b);
+s32 func_0012CF40(void* a, s32 b);
+void Heap_Free(void* a, void* b);
+extern void* D_00368A38;
+}
+
+extern "C" s32 func_001FA218(char* p, s32 k) {
+    I1FA2 it, end, c, e2, cnt, d, e;
+    it.unk4 = *(S1F9D_N**)(p + 0x40);
+    end.unk4 = (S1F9D_N*)(p + 0x3C);
+    if (it.unk4 != end.unk4) {
+        do {
+            if (func_0012CF40((char*)it.unk4 + 8, k) != 0) {
+                s32 count = 0;
+                S1F9D_N* sub = (S1F9D_N*)((char*)it.unk4 + 0x10);
+                c.unk4 = *(S1F9D_N**)((char*)it.unk4 + 0x14);
+                e2.unk4 = sub;
+                cnt.unk4 = c.unk4;
+                if (c.unk4 != sub) {
+                    do {
+                        count++;
+                        cnt.unk4 = cnt.unk4->unk4;
+                    } while (cnt.unk4 != sub);
+                }
+                if (count == 0) {
+                S1F9D_N* n = it.unk4;
+                c.unk4 = n;
+                e.unk4 = n;
+                S1F9D_N* nx = n->unk4;
+                d.unk4 = n;
+                c.unk4 = nx;
+                ((S1F9D_N*)n->unk0)->unk4 = n->unk4;
+                n->unk4->unk0 = n->unk0;
+                func_0012CAA8((char*)n + 8, 2);
+                Heap_Free(D_00368A38, n);
+                end.unk4 = c.unk4;
+                it.unk4 = c.unk4;
+                }
+                return 1;
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (S1F9D_N*)(p + 0x3C);
+        } while (it.unk4 != end.unk4);
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FA330);
 
