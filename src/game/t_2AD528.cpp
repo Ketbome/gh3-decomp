@@ -47,6 +47,7 @@ void func_0028D720(int);
 int func_002AE2A8(int, int);
 extern int D_00368A38;
 void Heap_Free(int, void *);
+int *Heap_Alloc(int, int, int, int);
 extern f32 D_00373130[] __attribute__((section(".sdata")));
 }
 
@@ -161,7 +162,40 @@ extern "C" void func_002AE510(S2AE5_V *self, int flags) {
         Heap_Free(D_00368A38, self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE5E8);
+static inline int *S2AE5_Copy(int *first, const int &last, int *res) {
+    for (; first != (int *)last; first++, res++) {
+        if (res)
+            *res = *first;
+    }
+    return res;
+}
+
+struct S2AE5_C {
+    int unk0;
+    S2AE5_V v;
+};
+
+extern "C" S2AE5_C *func_002AE5E8(S2AE5_C *self, S2AE5_C *o) {
+    S2AE5_V *a = &o->v;
+    S2AE5_V *v = &self->v;
+    self->unk0 = o->unk0;
+    v->unk4 = 0;
+    v->unk8 = 0;
+    v->unkC = 0;
+    int n;
+    n = a->unk4 ? (((int)a->unk8 - (int)a->unk4) >> 2) : 0;
+    if (n != 0) {
+        int *buf = Heap_Alloc(D_00368A38, n * 4, 1, 0);
+        v->unk4 = (S2AE5_E *)buf;
+        v->unk8 = (S2AE5_E *)buf;
+        v->unkC = (int)(buf + n);
+    }
+    int *r0 = (int *)v->unk4;
+    int *f0 = (int *)a->unk4;
+    int last = (int)a->unk8;
+    v->unk8 = (S2AE5_E *)S2AE5_Copy(f0, last, r0);
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE6C8);
 
