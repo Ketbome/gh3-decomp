@@ -961,3 +961,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_002727E8 MATCH (final three stores in the order unkC &= ~4, unk4 = 1, unk8 = 7; found by trying the six orders).
 - func_002729C0: near miss, nonmatching/func_002729C0.cpp (body matches; gcc cross-jumps the two identical func_00271A98 call tails (0x30 vs 0x70 branches), the original keeps both copies, size 0x150 vs 0x168; func_00273D88 takes no argument).
 - func_002ABC18 MATCH (array iterate with the stack object passed to func_0028C9F0; do/while with i++ before the call; the else branch and the fall-through both end in the same global store).
+- func_002ABD58 MATCH (twin of func_002ABC18 with other keys and D_00372F20; dk twins did not see it because the constants differ).

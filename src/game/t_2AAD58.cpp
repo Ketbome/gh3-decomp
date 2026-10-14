@@ -100,6 +100,7 @@ void func_0027C448(void *, u32, int);
 int func_0027D400(int, u32, int *, int);
 int func_0027D470(int, u32, S2AB_Arr **, int);
 extern int D_00372F18;
+extern int D_00372F20;
 }
 
 GP_DATA(D_00371EEC);
@@ -133,7 +134,35 @@ extern "C" int func_002ABC18(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ABD58);
+extern "C" int func_002ABD58(int a) {
+    if (D_00372F20 == a) return 0;
+    int sp10 = 0;
+    if (func_0027D400(D_00371EEC, 0x6FB89DB9, &sp10, 0)) {
+        S2AB_Arr *arr = 0;
+        if (func_0027D470(sp10, 0xFCC65109, &arr, 0)) {
+            char buf[16];
+            u32 i = 0;
+            func_0027AA70(buf);
+            func_0027C448(buf, 0xFCC65109, a);
+            func_0027C448(buf, 0xC7E3D626, D_00372F20);
+            if (arr->unk4 != 0) {
+                do {
+                    int v;
+                    if (arr->unk4 == 1) v = arr->unk8;
+                    else v = ((int *)arr->unk8)[i];
+                    i++;
+                    func_0028C9F0(v, (int)buf, 0, 0, 0, 0);
+                } while (i < arr->unk4);
+            }
+            func_0027AC90((int)buf);
+        } else {
+            D_00372F20 = a;
+            return 1;
+        }
+    }
+    D_00372F20 = a;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", CFunc_LightShow_SetActive);
 
