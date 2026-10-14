@@ -23,6 +23,10 @@ void func_001A0D98(void*, void*, int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
 void func_0019F7E0(N_19F*);
+void Heap_Free(int, void*);
+extern int D_00373310[];
+extern int D_00373318[];
+extern struct H_001A0380* D_0037331C;
 void* Heap_Alloc(int, int, int, int);
 extern int D_00368A38[] __attribute__((section(".sdata")));
 extern S0019FA18* D_0036C42C;
@@ -161,6 +165,8 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019FEF0);
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A01F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0220);
+
+struct H_001A0380 { H_001A0380* unk0; H_001A0380** unk4; char pad8[8]; B10_19F unk10; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_001A0380);
 
