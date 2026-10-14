@@ -204,7 +204,32 @@ extern "C" int func_00288E30(int a, int b) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_00288EA8);
+struct S288EA8 {
+    int unk0;
+    int *unk4;
+    u32 unk8;
+};
+extern "C" int func_002890C8(S288EA8 *, int, int *);
+extern "C" int func_00289048(int, int, S288_List *);
+
+extern "C" int func_00288EA8(S288EA8 *p, int b, int *out) {
+    int r = 0;
+    if (p->unk4) {
+        if (((p->unk8 >> 4) & 3) == 0) {
+            r = func_00288F90((int)p, b, (char *)*p->unk4);
+            if (out) *out = 0x7321A8D6;
+        }
+        int t = (p->unk8 >> 4) & 3;
+        if (t == 1) {
+            r = func_00289048((int)p, b, (S288_List *)p->unk4);
+            if (out) *out = 0xEE2A952F;
+        } else if (t == 2) {
+            r = func_002890C8(p, b, p->unk4);
+            if (out) *out = 0x2AAE172E;
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_00288F90);
 
