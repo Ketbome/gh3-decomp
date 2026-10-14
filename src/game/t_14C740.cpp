@@ -152,7 +152,34 @@ extern "C" S_0014C7C0* func_0014D7A0(S_0014C7C0* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D7C8);
+struct E_func_0014D7C8 { int key; int val; E_func_0014D7C8* next; };
+struct T_func_0014D7C8 { int bits; E_func_0014D7C8* buckets; int count; };
+
+extern "C" void func_0011C408(int, E_func_0014D7C8*);
+
+extern "C" void func_0014D7C8(T_func_0014D7C8* t, int* key) {
+    if (!t->buckets) {
+        return;
+    }
+    E_func_0014D7C8* e = &t->buckets[*key & ((1 << t->bits) - 1)];
+    E_func_0014D7C8* prev = 0;
+    while (e) {
+        E_func_0014D7C8* next = e->next;
+        if (e->key == *key && e->val) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->val = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014D880);
 
