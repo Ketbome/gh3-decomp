@@ -149,11 +149,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3150);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3298);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D32D8);
+static inline f32 Len1D(char* self) {
+    f32 len;
+    asm volatile("lqc2 $vf2, 0xE0(%1)\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(len) : "r"(self) : "$2");
+    return len;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3360);
+extern "C" s32 func_001D32D8(char* self, s32 s0) {
+    f32 sp0 = 0.0f;
+    f32 len;
+    func_0027D268(s0, 0, &sp0, 0);
+    asm volatile("lqc2 $vf2, 0xE0(%1)\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(len) : "r"(self) : "$2");
+    return __builtin_fabsf(len - sp0) < 0.1f;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D33D8);
+extern "C" s32 func_001D3360(char* self, s32 s0) {
+    f32 sp0 = 0.0f;
+    func_0027D268(s0, 0, &sp0, 0);
+    f32 len = Len1D(self);
+    f32 t = sp0;
+    asm("" : "+f"(len));
+    return t < len;
+}
+
+extern "C" s32 func_001D33D8(char* self, s32 s0) {
+    f32 sp0 = 0.0f;
+    func_0027D268(s0, 0, &sp0, 0);
+    f32 len = Len1D(self);
+    f32 t = sp0;
+    asm("" : "+f"(len));
+    return len < t;
+}
 
 extern "C" s32 func_001D3450(char* self, s32 s0) {
     register s32 s asm("$17") = s0;
