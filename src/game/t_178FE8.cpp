@@ -134,7 +134,16 @@ extern "C" void func_00179B68(S00179148* self) {
     func_00172A00(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179B90);
+struct S001CC050 {
+    char pad0[0x1C];
+    void (*unk1C)(void);
+    char pad20[0x8];
+    void (*unk28)(void);
+};
+
+extern "C" void func_00179B90(S001CC050* p) {
+    p->unk28();
+}
 
 extern "C" void func_00179BB0(S00179BB0* self) {
     self->unk18 = D_00342398;
