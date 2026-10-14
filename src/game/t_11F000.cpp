@@ -315,7 +315,39 @@ extern "C" int func_00120C60(void) {
     return func_001208C0_v()->unk10;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120C80);
+struct T_00120C80 { char pad0[0x10]; int unk10; int unk14; s16 unk18; s16 unk1A; char pad1C[0x50]; int unk6C; };
+
+extern "C" {
+extern S11F548* D_00414FB0[];
+extern int D_00368A38;
+void* Heap_Alloc(int, int, int, int);
+void func_0011D9E0(void*);
+void func_00120C08(int);
+void func_00120710(void);
+void func_00120938(void);
+}
+
+GP_DATA(D_00368A38);
+extern "C" void func_00120C80(void) {
+    int i;
+    for (i = 0; i < 16; i++) {
+        if (D_00414FB0[i] != 0) {
+            func_0011D9E0(D_00414FB0[i]);
+        } else {
+            D_00414FB0[i] = func_0011F548((S11F548*)Heap_Alloc(D_00368A38, 0x15C, 1, 0));
+        }
+    }
+    func_00120710();
+    func_00120938();
+    T_00120C80 t;
+    int v = D_00368748[0];
+    t.unk14 = 0x10000;
+    t.unk10 = 0x64;
+    t.unk1A = v;
+    t.unk6C = 0;
+    t.unk18 = 0;
+    func_00120C08(func_00120A40(&t, 0, 1, -1));
+}
 
 extern "C" int func_00120DF0(void) {
     return 1;
