@@ -58,6 +58,8 @@ int func_0026ABA8(void);
 int func_002741B8(int);
 extern int D_00370C08;
 int func_00273DE8(void);
+int func_00273D88(void);
+extern char D_003A8050[];
 extern int D_00370C50;
 extern S26D_Ent D_003A34A0[];
 extern int D_00370C14;
@@ -106,7 +108,22 @@ extern "C" void func_0026D6B0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D6D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D9F8);
+extern "C" int func_0026D9F8(int a, int b) {
+    if (func_0026ABA8() == 0) {
+        if (func_00273D88() != 1) {
+            if (b < (&D_003A66F0)[a].unkC80) {
+                int t = func_0028DAB8(D_003A8050);
+                int u = func_0028DAB8((char *)&(&D_003A66F0)[a] + b * 0x28);
+                int r = 0;
+                if ((t ^ u) == 0)
+                    r = 1;
+                return r;
+            }
+        }
+        return 0;
+    }
+    return 0;
+}
 
 extern "C" int func_0026DAB0(int i) {
     if (func_0026ABA8() != 0) {
