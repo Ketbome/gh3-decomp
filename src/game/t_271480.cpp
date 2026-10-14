@@ -537,4 +537,12 @@ extern "C" int func_002733E0(int a) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00273428);
+extern "C" int func_00273240_i(int) asm("func_00273240");
+
+extern "C" int func_00273428(int p) {
+    int n = func_00273240_i(p);
+    if (n > 0) {
+        func_00271A98(p | 0x120, (int)((float)n * D_00370B08), 0, 0, 0, 0);
+    }
+    return n > 0;
+}
