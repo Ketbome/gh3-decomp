@@ -89,7 +89,27 @@ extern "C" int func_002E9140(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E91E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E9510);
+extern "C" void func_002E9510(int i, int a, int b, int n, int *out) {
+    out[0] = 0;
+    out[1] = 0;
+    if (a) {
+        int d = b - a;
+        n -= d;
+        out[i] += d;
+        i ^= 1;
+    }
+    int q = n / b / 2 * b;
+    out[0] += q;
+    out[1] += q;
+    n -= q * 2;
+    if (n >= b) {
+        n -= b;
+        out[i] += b;
+        i ^= 1;
+    }
+    if (n)
+        out[i] += n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E95C0);
 
