@@ -358,6 +358,47 @@ extern "C" void func_00120DF8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120E00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120E40);
+extern "C" {
+int strlen(char*);
+char* strcpy(char*, char*);
+int func_0028DAB8(char*);
+}
+
+extern "C" void func_00120E40(char* path, int* outDir, int* outName) {
+    char full[0x80];
+    char dir[0x80];
+    char name[0x80];
+    char* q = full;
+    int i = 0;
+    while (strlen(path) >= i) {
+        u8 c = path[i];
+        *q = c;
+        if ((s8)c == '/') *q = '\\';
+        q++;
+        i++;
+    }
+    int len = strlen(full);
+    i = len - 1;
+    char* p = (char*)(len + (int)full);
+    char* r = (char*)(i + (int)full);
+    while (i >= 0) {
+        char c = *r;
+        if (c == '\\') {
+            strcpy(name, p);
+            *r = 0;
+            if (full[0] == c) {
+                strcpy(dir, &full[1]);
+            } else {
+                strcpy(dir, full);
+            }
+            break;
+        }
+        p--;
+        r--;
+        i--;
+    }
+    if (outDir) *outDir = func_0028DAB8(dir);
+    if (outName) *outName = func_0028DAB8(name);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120F78);
