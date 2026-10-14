@@ -59,6 +59,7 @@ extern u32 D_003733A0[] __attribute__((section(".sdata")));
 void func_00271280(u16, u16, int, int, int, int, int);
 void func_002705A0(int, int, int, int, f32, f32, f32);
 void func_00271198(u16, u16, int);
+void func_00273428(int);
 extern u32 D_00372EA8[] __attribute__((section(".sdata")));
 extern S26F3B8_A D_003A8D40[][22];
 extern int D_00370D10;
