@@ -87,6 +87,22 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_PlaySnapshot);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_CycleNextSnapshot);
 
+struct S2AD_Arr {
+    int unk0;
+    u32 unk4;
+    int unk8;
+};
+
+extern "C" {
+int func_0027CC30_i(int, int, int, void *) asm("func_0027CC30");
+void func_0027F1E0_i(int, int, int) asm("func_0027F1E0");
+int func_0027D470(int, int, int *, int);
+int func_001F5958(int, void *);
+}
+
+GP_DATA(D_00371EE8);
+extern int D_00371EE8;
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_RefreshSpotlightOverrideParams);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", CFunc_LightShow_EnableSpotlights);
