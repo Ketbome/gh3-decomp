@@ -276,6 +276,31 @@ extern "C" void func_0025B238(int a, u32 k, S25B238 *c) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Push);
 
+struct S25A_Arr {
+    char pad0[2];
+    u8 type;
+    char pad3;
+    int unk4;
+    int unk8;
+};
+struct S25A_PL {
+    u32 key;
+    int a;
+    S25A_Arr *obj;
+};
+extern "C" {
+void func_0027C1F8(int, u32, f32);
+void func_0027C028(int, u32, char *);
+void func_0027C448(int, u32, int);
+void func_0027C7D0(int, u32, int);
+void func_0027C678(int, u32, int);
+f32 func_0027EFA0(S25A_Arr *, int);
+char *func_0027EF60(S25A_Arr *, int);
+void func_002797A8(S25A_Arr *, int);
+void func_0027E820(S25A_Arr *, int);
+void func_0027ACF8(int, u32);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Pop);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_CanPop);
