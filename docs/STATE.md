@@ -6,10 +6,9 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A (third round), B (third round: func_001E0198 first) and C (third round), limit 25
-matches or 60 attempted. `decomp-forensics` on branch-likely / delay-slot choices made by gcc (func_001E8838,
-CFunc_SetMenuPadMappings, func_00234B88, func_001FDC60, func_001B9C60, func_001C4200, CFunc_PendingPakManLoads;
-short-loop pad nop in a slot: func_001BB078, func_001BB100), scratch only.
+Running (2026-10-14): workers A and C (fourth round: functions with `lqc2`/`sqc2` in branch-likely slots first, the
+VU0 register-variable pattern), B (third round), limit 25 matches or 60 attempted (rounds with this limit: A 25, C 21).
+Branch-likely-only differences are C shape, not toolchain (docs/toolchain.md).
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
@@ -24,8 +23,8 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
-- Permuter when no worker runs: ~36 new near misses from rounds 1-2 (A 23, C 13, mostly register numbering or
-  s1/s2 save order).
+- Permuter when no worker runs: ~85 new near misses this session (mostly register numbering, s1/s2 save order,
+  one scheduled instruction): run `permute.py --batch --timeout 360 -j 4` overnight with no worker.
 - Permuter: `--batch --timeout 120` stopped after ~15 of 74 (too slow with workers running), no score 0. Best:
   CFunc_DisplayLoadingScreen 175, func_00114660 225, CFunc_GetAngle 225, CFunc_SetStreamParams 260. Earlier 360 s
   runs: func_001E8CA8 60, func_0020EE10 60, func_002250F8 120. Not worth more CPU while workers run.
