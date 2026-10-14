@@ -14,7 +14,7 @@ Nothing running (2026-10-14). Ranges for the next workers:
 | B | `t_1ABAA0` .. `t_249620` | docs/worklog/B.md | untried 0x100..0x800 (was starting func_001E5C70); VU0 up to 30% |
 | C | `t_24BA88` .. `t_2EB1C0` (not `t_2DFB70.c`) | docs/worklog/C.md | twins, table initialisers, untried 0x100..0x800 |
 
-Workers: mid-size model (sonnet), max 3 at a time (16 GB machine), prompt = 4 lines pointing at
+Workers: `decomp-worker` subagents (sonnet), max 3 at a time (16 GB machine), prompt = 4 lines pointing at
 docs/agent_protocol.md; they pick with `dk next <files> --untried` (2,059 of the 3,248 INCLUDE_ASM functions were
 never mentioned in a worklog on 2026-10-14).
 
@@ -38,6 +38,7 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Toolchain forensics on the `div.s` nops with a strong model (references/toolchain-forensics.md of the skill),
-   while no worker runs; if fixed: `dk all`, commit, then workers retry the `div.s` give-ups first.
-2. Relaunch workers A, B, C (focus above, `--untried`) and run the permuter batch on the near misses meanwhile.
+1. Toolchain forensics on the `div.s` nops: a `decomp-forensics` subagent (opus, effort high), while no worker
+   runs; if fixed: `dk all`, commit, then workers retry the `div.s` give-ups first.
+2. Relaunch workers A, B, C (focus above, `--untried`) and a `decomp-runner` for the permuter batch on the near
+   misses meanwhile.

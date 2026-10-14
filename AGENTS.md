@@ -16,8 +16,14 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
   It does not decompile functions itself and does not read asm, m2c output, diffs, whole worklogs or agent
   transcripts: investigations go to a subagent that reports in under 200 words. Numbers, hashes and worker status
   come from `dk state`/git at the moment they are stated, never from memory.
-- **Workers** follow `docs/agent_protocol.md` on files they own; launch prompt: four lines (skill,
-  references/orchestration.md).
+- **Subagents** (`.claude/agents/`, launched by `subagent_type`; model per task and escalation rules: skill,
+  references/orchestration.md, "Choosing models and effort"):
+  - `decomp-worker` (sonnet): the per-function loop on a range it owns, `docs/agent_protocol.md`; prompt of four
+    lines (files, worklog, scratch folder, priority). Max 3 at a time.
+  - `decomp-forensics` (opus, effort high): a difference repeated across many functions (e.g. the `div.s` nops);
+    works in a scratch copy, the orchestrator applies the fix and runs `dk all`.
+  - `decomp-runner` (haiku, effort low): exact commands only (permuter batch + `permute_apply.py`, `dk twins`,
+    names list, counts).
 
 ## Keeping documents current (orchestrator, every integration round)
 
