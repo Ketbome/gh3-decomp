@@ -11,3 +11,11 @@ __pycache__/
 /build.ninja
 .ninja_*
 .DS_Store
+# agent skills installed at project level (install.sh --project): they live in the decomp-skills repo
+/.claude/skills/
+/.agents/skills/
+/.codex/skills/
+/.opencode/skills/
+/.cursor/skills/
+/.gemini/skills/
+/.github/skills/
