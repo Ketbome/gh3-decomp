@@ -198,6 +198,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_GetActiveControllers);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_HideObjectByType);
 
+struct S2BE_Range {
+    u8 unk0;
+    u8 unk1;
+    f32 unk4;
+    f32 unk8;
+};
+
+struct S2BE_Arr {
+    int unk0;
+    u32 unk4;
+    int unk8;
+};
+
+extern "C" {
+void func_00275648(S2BE_Range *);
+int func_002763E0(int, int);
+int func_0027D870_i(int, u32, int *, int) asm("func_0027D870");
+int func_0027DD38_r(int, u32, S2BE_Range *, int) asm("func_0027DD38");
+int func_0027D188_i(int, u32, int *, int) asm("func_0027D188");
+int func_0027D470_a(int, u32, S2BE_Arr **, int) asm("func_0027D470");
+int func_001150B8_s(char *) asm("func_001150B8");
+void func_00145310(int *, int, int, int);
+void func_001CE888(int, int *);
+void func_001395D8(int, int, f32, f32);
+int func_0030B550_p(char *, const char *, int, int) asm("func_0030B550");
+extern char D_003720D8[];
+extern int D_00369798;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_DoScreenElementMorphList);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_SetNoteMappings);
