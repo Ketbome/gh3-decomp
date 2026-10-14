@@ -532,7 +532,7 @@ def cmd_state(args):
         print(f"{rel(STATE)}: {when}, {ago} commits ago")
     stale = [f for f, _ in render_docs()]
     if stale:
-        warnings.append(f"generated blocks out of date in {', '.join(stale)}: run `dk docs --commit`")
+        warnings.append(f"generated blocks out of date in {', '.join(rel(f) for f in stale)}: run `dk docs --commit`")
     if warnings:
         print("\n== warnings")
         print("\n".join(warnings))

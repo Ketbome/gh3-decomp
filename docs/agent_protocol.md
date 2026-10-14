@@ -28,7 +28,7 @@ Your worklog: read only the notes at its top (before the first `## ` file sectio
 7. After each match (or a few): `dk done <file> docs/worklog/<range>.md "decomp: <file> +N functions"`.
    It fixes padding, refuses to commit if anything in the file does not match, and commits only those two paths.
 
-Stop only at the limit your prompt gives (time or matches) or when `dk next <your files> --untried` lists nothing
+Stop only at the limit your prompt gives (matches and functions attempted; count both) or when `dk next <your files> --untried` lists nothing
 you have not tried. Running out of easy candidates is not a reason: raise `--max-size`, take twins, retry give-ups
 whose reason a toolchain fix has removed.
 
