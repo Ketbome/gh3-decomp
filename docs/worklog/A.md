@@ -1087,3 +1087,11 @@ Matched (A13) t_1277C0 (now `// cflags: -funroll-loops`, whole file still matche
 - Lesson: a hand-unrolled-looking loop with count li N-1 / bgez / addiu -K is -funroll-loops output; test the plain loop with the flag in a scratch copy of the file before fighting the prologue order.
 Matched (A13) t_159258 (now `// cflags: -funroll-loops`, whole file still matches): func_00159858 (strided copy of one word `*dst = *src; dst += stride`, unrolled 4x with the Duff-style remainder)
 - func_00175750 (pointer-to-member call `(o->*pmf)()`, virtual-capable: `struct O { virtual int vf(); }` makes gcc emit the idx/delta lookup): everything matches except `move a3,zero` scheduled before the `sd ra` and the 64-bit vtable entry in t0 instead of v0 (the original keeps a1/a2/a3 live to the call); 4 tries
+
+## A14 pass (VU0 candidates, jtbl, plain)
+
+Most vu0/jtbl candidates are split heads/tails (junk `addiu sp`/`sqc2` first, e.g. func_001288F8 func_0019E020 func_0016D0D0 func_00181BB0 func_001791E0 func_0014DB30 func_0016EE58) or need `c1`/pextlw (func_0017F690 func_0018C1F8 func_0010D5C8).
+- near miss: func_00170940 (lerp with VU0 blocks; one asm statement per run, `b0 = o->f[0]` loaded first; left: `li v0,1` for the unk64 store hoisted in the original, f0 load order, lqc2/add.s order); nonmatching/func_00170940.cpp. Siblings func_00171F38/func_00171708/func_0016FF60 not tried.
+- near miss: func_00114660 (intrusive list dtor; goto-loop so b/flag are computed inside the retry loop; left: original keeps a second pointer copy of self+0xC in s3 for the loop (`move s3,s1`), gcc merges them); nonmatching/func_00114660.cpp.
+- func_00130628 (two-element unrolled loop of lqc2/vadd, file has -funroll-loops): original is a loop of 2 bodies with i+=2; ours unrolls fully or uses extra induction registers; 6 tries.
+- func_00174F70/001750B0/001751F0/00175330/func_0013D1B8: list-clear dtor with stack iterator (sp+4/sp+0x14), not attempted.
