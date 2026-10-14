@@ -492,20 +492,7 @@ extern "C" void func_00122918(S_00122918* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122938);
 
-int func_00122940_d(int a, int b) {
-    int* t = D_0032A4E0;
-    int n = func_00116878(D_003391D0, a, b);
-    if (n == 0) return 0;
-    int v;
-    if (func_0030E650(n, t[2]) == 0) v = t[1];
-    else if (func_0030E650(n, t[5]) == 0) v = t[4];
-    else if (func_0030E650(n, t[8]) == 0) v = t[7];
-    else if (func_0030E650(n, t[11]) == 0) v = t[10];
-    else if (func_0030E650(n, t[14]) == 0) v = t[13];
-    else return 0;
-    D_00368738 = v;
-    return 1;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122940);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122A10);
 
