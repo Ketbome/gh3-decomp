@@ -90,6 +90,16 @@ void func_00141B50(S_00141B50*, int);
 extern int D_003696B8;
 void func_0011C2A8(int, int);
 void func_0011C2E8(int, int);
+int func_0013B608_4(void*, u32, void*, void*) __asm__("func_0013B608");
+int func_0013DA80(void*);
+int func_0013DCA8(void*, int);
+int func_0013DD50(void*);
+void func_0027C028(int, u32, int);
+void func_0027C160(int, u32, int);
+void func_0027D188(void*, int, int*, int);
+int func_0013FC78_i(void*, char*, int) __asm__("func_0013FC78");
+int func_0027DF00(void*, u32);
+int func_00140558(void*, int, int, int);
 }
 
 struct S_00141608 { char pad0[0x248]; int* unk248; };
@@ -117,9 +127,57 @@ INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00140408);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00140558);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_001406D8);
+struct P_001406D8 { char pad0[0x20]; int unk20; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_001407D8);
+extern "C" int func_001406D8(S13F_X* self, u32 key, void* a2, P_001406D8* a3) {
+    int buf[1];
+    switch (key) {
+    case 0xAFE66453:
+        func_0027D188(a2, 0, buf, 1);
+        return func_0013DCA8(self, buf[0]);
+    case 0xB3104E54:
+        return func_0013DD50(self);
+    case 0x7DAB7D15:
+        if (self->unk240) {
+            func_0027C028(a3->unk20, 0x61414D56, self->unk240);
+        }
+        return 1;
+    case 0xE268510E: {
+        int t = a3->unk20;
+        func_0027C160(t, 0xFE82614D, func_0013DA80(self));
+        return 1;
+    }
+    default:
+        return func_0013B608_4(self, key, a2, a3);
+    }
+}
+
+extern "C" int func_001407D8(S13F_X* self, u32 key, void* a2, P_001406D8* a3) {
+    char buf[0x200];
+    int val;
+    switch (key) {
+    case 0xAFE66453: {
+        int v;
+        func_0027D188(a2, 0, &val, 1);
+        v = val;
+        return func_00140558(self, v, func_0027DF00(a2, 0x27E7A420), func_0027DF00(a2, 0xB8C08F55));
+    }
+    case 0xB3104E54:
+        return func_0013FEE0(self);
+    case 0x7DAB7D15:
+        if (func_0013FC78_i(self, buf, 0x200)) {
+            func_0027C028(a3->unk20, 0x61414D56, (int)buf);
+        }
+        return 1;
+    case 0xE268510E: {
+        int t2 = a3->unk20;
+        func_0027C160(t2, 0xFE82614D, func_0013FE00(self));
+        return 1;
+    }
+    default:
+        return func_0013B608_4(self, key, a2, a3);
+    }
+}
 
 extern "C" void func_00140930(void) {
     void* m;
