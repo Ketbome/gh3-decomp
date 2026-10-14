@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 typedef unsigned int u128_181 __attribute__((mode(TI)));
@@ -60,7 +61,25 @@ int func_0016E728(int);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_001816C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1816C0", func_001817F8);
+struct I_1817 { char pad0[0x28]; float f28; float f2C; float f30; };
+struct N_1817 { char pad0[4]; N_1817* next; char pad8[8]; I_1817 in; char pad4C[0]; };
+struct O_1817 { char pad0[0x24]; N_1817* head; };
+
+extern "C" void func_001817F8(O_1817* o, int n, float a, float b) {
+    struct { int x; N_1817* q; } it;
+    it.q = o->head;
+    for (unsigned i = 0; i < (unsigned)n; i++) it.q = it.q->next;
+    if (b == 0.0f) {
+        I_1817* t = &it.q->in;
+        t->f2C = a;
+        t->f28 = a;
+        *(float*)((char*)it.q + 0x40) = 0.0f;
+    } else {
+        I_1817* t = &it.q->in;
+        t->f30 = (a - t->f28) / b;
+        *(float*)((char*)it.q + 0x44) = a;
+    }
+}
 
 extern "C" void func_001818F8(M2_181* d, u128_181* a, u128_181* b) {
     d->a = *a;
