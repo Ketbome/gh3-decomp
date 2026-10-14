@@ -235,7 +235,34 @@ extern "C" int func_0013D000(S13B_X* self) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013D048);
+struct E_func_0013D048 { int key; int val; E_func_0013D048* next; };
+struct T_func_0013D048 { int bits; E_func_0013D048* buckets; int count; };
+
+extern "C" void func_0011C408(int, E_func_0013D048*);
+
+extern "C" void func_0013D048(T_func_0013D048* t, int* key) {
+    if (!t->buckets) {
+        return;
+    }
+    E_func_0013D048* e = &t->buckets[*key & ((1 << t->bits) - 1)];
+    E_func_0013D048* prev = 0;
+    while (e) {
+        E_func_0013D048* next = e->next;
+        if (e->key == *key && e->val) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->val = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013D100);
 
