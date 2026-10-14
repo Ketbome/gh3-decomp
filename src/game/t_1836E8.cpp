@@ -30,11 +30,16 @@ extern u8 D_00343A98[];
 extern u8 D_0033C6B8[];
 void* Heap_Alloc(int, int, int, int);
 void func_00152B88(void*);
+void func_00152B38(void*);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001836E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001836F0);
+extern "C" S00183728* func_001836F0(S00183728* self) {
+    func_00152B38(self);
+    self->unk18 = D_00343A98;
+    return self;
+}
 
 extern "C" void func_00183728(S00183728* self) {
     self->unk18 = D_00343A98;

@@ -1096,3 +1096,11 @@ Most vu0/jtbl candidates are split heads/tails (junk `addiu sp`/`sqc2` first, e.
 - func_00130628 (two-element unrolled loop of lqc2/vadd, file has -funroll-loops): original is a loop of 2 bodies with i+=2; ours unrolls fully or uses extra induction registers; 6 tries.
 - func_00174F70/001750B0/001751F0/00175330/func_0013D1B8: list-clear dtor with stack iterator (sp+4/sp+0x14), not attempted.
 - func_0013D1B8 (same dtor family as func_00174F70 etc.): volatile stack iterators `It{int;N* cur;int;int}` x2 at sp+0/sp+0x10 match the first loop; the two list clears are an inline Clear(l) but the original keeps extra pointer copies (`move s3,v1`, end iterator copies, 3 more instructions); 5 tries, size 0x100 vs 0x10c. Tip for the family: loop-1 iterator is `volatile`.
+
+## A15 pass (36 un-stubbed functions, then plain/jtbl 0x80..0x500)
+
+Matched (A15): func_0011ACD8 func_0011A3B8 (t_118E40), func_0014F7E0 (t_14E7E0), func_00157168 (t_157100), func_001836F0 (t_1836E8), func_00113B28 func_00113E70 func_00114980 func_00113DF0 (t_112D48), func_00145510 (t_1443D0), func_00153080 (t_152E18), func_00121C70 (t_1210C8)
+- func_00157168: a virtual call that looks like it drops args (`addu a0,a0,a3` with the delta in a3) passes its own a1/a2 through: declare `(self, int a, int b)` and call `fn(this, a, b)` and `return` it.
+- func_00113B28 (printf-like varargs wrapper): `void f(int a, int b, int c, ...) { g(a, b, c, (char*)__builtin_next_arg(c) - 0x28); }` (the va pointer is the a3 save slot; `__builtin_saveregs()` emits a libcall instead).
+- func_00153080: write the `!flag` branch first to get the original's fall-through order.
+- near miss: func_001897C0 (ctor + `Heap_Alloc(D_00368A38[0],8,1,0)` + call; body identical but the vtable address lives in v0 and its `sw` is scheduled after `li a2`, original uses v1 and stores earlier); nonmatching/func_001897C0.cpp; 7 tries.
