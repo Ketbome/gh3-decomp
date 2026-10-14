@@ -5,7 +5,31 @@ void func_002C5970(int, int);
 int func_0027D870(int, int, int *, int);
 int func_002763E0(int, int);
 void func_002C5FF0(int, int);
+int func_0030B550(char *, char *, ...);
+u32 CrcFromPathLowercase(const char *);
+void *func_002764E8(u32, int);
+int func_002B4848(void *);
+void func_002CC540(int, u32, int);
+extern char D_00362BC0[];
 }
+
+struct S2C6B_X {
+    char pad0[0x18];
+    int unk18;
+};
+
+struct S2C6B_E {
+    int unk0;
+    int unk4;
+    S2C6B_X *unk8;
+};
+
+struct S2C6B_A {
+    int unk0;
+    int unk4;
+    S2C6B_E **unk8;
+};
+
 
 extern "C" {
 f32 func_00275DE0(u32, int);
@@ -85,7 +109,28 @@ extern "C" void CFunc_CrowdDecrease(int arg0, int arg1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C57B8", CFunc_GemArrayStepperCompressedBroadcastEvent);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C57B8", func_002C6B20);
+extern "C" void func_002C6B20(int name, int idx, int arg) {
+    char buf[64];
+    S2C6B_E *e;
+    int x;
+    func_0030B550(buf, D_00362BC0, name);
+    S2C6B_A *a = (S2C6B_A *)func_002764E8(CrcFromPathLowercase(buf), 1);
+    if (a->unk4 == 1)
+        e = (S2C6B_E *)a->unk8;
+    else
+        e = a->unk8[idx];
+    int n = func_002B4848(e);
+    if (e->unk4 == 1)
+        x = (int)e->unk8;
+    else
+        x = e->unk8->unk18;
+    int o = func_002763E0(arg, 1);
+    func_002CC540(o, 0xA3B56E54, n);
+    if (x == 1)
+        func_002CC540(o, 0xEB463FC2, 0);
+    else
+        func_002CC540(o, 0xEB463FC2, 1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C57B8", CFunc_GemStep);
 
