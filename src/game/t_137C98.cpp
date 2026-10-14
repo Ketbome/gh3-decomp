@@ -229,7 +229,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138F18);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00138F20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00139420);
+struct S137_Rf { int p; int unk4; int unk8; };
+struct S137_D { char pad0[0x2C]; u32 unk2C; char pad30[0x3C]; S137_Rf r6C; S137_Rf r78; S137_Rf r84; S137_Rf r90; };
+struct S137_T { int unk0; int unk4; int unk8; };
+
+extern "C" {
+void func_0013C280(void*, S137_T*, int);
+void func_0013D1B8(void*, int);
+void func_001CE888(int, void*);
+
+void func_001CE990(void*, int);
+extern char D_0033AC10[];
+}
+
+extern "C" void func_00139420(S137_D* self, int flags) {
+    S137_T t;
+    *(char**)((char*)self + 8) = D_0033AC10;
+    t.unk4 = 0;
+    t.unk8 = 0;
+    t.unk0 = 0;
+    func_0013C280(self, &t, 0);
+    if (t.unk0) {
+        func_001CE888(t.unk0, &t);
+        t.unk0 = 0;
+    }
+    self->unk2C = 0xDEADBEEF;
+    func_0013D1B8((char*)self + 0x210, 2);
+    S137_Rf* q;
+    q = &self->r90;
+    if (q->p) { func_001CE888(q->p, q); q->p = 0; }
+    q = &self->r84;
+    if (q->p) { func_001CE888(q->p, q); q->p = 0; }
+    q = &self->r78;
+    if (q->p) { func_001CE888(q->p, q); q->p = 0; }
+    q = &self->r6C;
+    if (q->p) { func_001CE888(q->p, q); q->p = 0; }
+    func_001CE990(self, flags);
+}
 
 extern "C" void func_00139510(S137_R* self, float* x, float* y) {
     float s = func_002EC118(self->unk44);

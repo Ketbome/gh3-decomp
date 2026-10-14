@@ -1188,3 +1188,6 @@ Given up:
 - func_0012F3E0: near miss (nonmatching/func_0012F3E0.cpp): only f0/f12 allocation of the int->float temp and one sub.s order; 8 tries
 - func_00165210 (hash-switch float waveform): nested-if form from m2c gives 0x21c vs 0x238 bytes, case order/epilogue duplication differs; 3 tries, reverted
 - dk twins (5b03625): func_001681E0 matched (from func_0016A718). Skipped: func_0014CF50 (from func_002BDC48: D_003781A0 is HT_14CF50 here, SHT in the twin; also SHT_Find undeclared), func_0014F910 (from func_00246C50: D_003781F8 is S14E_L here, u8[] in the twin; strcpy declared as void(int,int) in the file)
+- func_0019E380 (opcode field patcher, 6/7, 0x16/0x17, 0x50 + empty 0x34..0x37): compare tree reproduced with a switch (empty cases 0x34-0x37 needed) but the exit block placement/shared tail differs (0xb4 vs 0xc0); 6 tries
+- func_001A1A18 (4x16 table-driven byte gather): original keeps 4 separate pointer temps and does not strength-reduce, ours is 0x24 bytes smaller; 3 tries
+- func_001965D0 (xorshift float RNG, 2x unrolled with odd entry): -funroll-loops gives 4x, hand-written 2x gotos differ in scheduling; 4 tries
