@@ -36,7 +36,10 @@ extern "C" void func_001B2168(char* p, s8 i, f32 f) {
     e->unk4 = e->unk0 + (s32)f;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B2168", func_001B21A0);
+extern "C" float func_001B21A0(char* p, s8 i) {
+    u16* e = (u16*)(*(char**)(p + 0xC) + *(u8*)(p + i + 0x10) * 10);
+    return (float)(e[2] - e[0]);
+}
 
 extern "C" void* func_001B21E0(char* p) {
     func_001BF628(p, 1);
@@ -72,7 +75,27 @@ extern "C" void func_001B3BA8(void) {
     func_001B3C98();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B2168", func_001B3BD0);
+extern "C" {
+int func_002EE370(int, void*, int);
+int func_002EE340(int, void*, int);
+void func_0030C538(int);
+void func_002EED70(int);
+void func_002EECA0(int);
+void func_0019E440(void);
+void func_0019E670(void);
+}
+extern "C" void func_001B3BD0(void) {
+    D_0036C848 = func_002EE370(2, (void*)func_0019E440, 0);
+    if (D_0036C848 == -1) func_0030C538(1);
+    *(volatile s32*)0x1000E010 = 4;
+    func_002EED70(2);
+    D_0036C84C = func_002EE340(0, (void*)func_0019E670, 0);
+    if (D_0036C84C == -1) func_0030C538(1);
+    *(volatile u64*)0x12001010 = 0xFE00;
+    func_002EECA0(0);
+    *(volatile s32*)0x10003C20 = 7;
+    *(volatile s32*)0x10003010 = 4;
+}
 
 GP_DATA(D_0036C848);
 GP_DATA(D_0036C84C);
