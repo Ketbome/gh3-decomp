@@ -418,7 +418,32 @@ extern "C" void func_0026AC60(S26AC60 *p, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026ACB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_268EB8", func_0026AD48);
+struct S26AD48_E {
+    int unk0;
+    int unk4;
+    char pad8[8];
+    int unk10;
+    char pad14[0x6C];
+};
+
+extern S26AD48_E D_003A44B0[];
+extern int D_00372E98;
+extern "C" int func_0026DC68(int);
+
+extern "C" int func_0026AD48(int id) {
+    int i;
+    for (i = 0; i < D_00372E98; i++) {
+        if (D_003A44B0[i].unk4 == id && func_0026DC68(D_003A44B0[i].unk10) != 1) {
+            return i;
+        }
+    }
+    for (i = 0; i < D_00372E98; i++) {
+        if (D_003A44B0[i].unk0 == id && func_0026DC68(D_003A44B0[i].unk10) != 1) {
+            return i;
+        }
+    }
+    return -1;
+}
 
 extern "C" int func_0026AE30(int a) {
     while (func_0026ACB0(a) == 0) {
