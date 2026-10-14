@@ -7,6 +7,7 @@ s32 func_00249A88(u8);
 void func_0024A4E8(int, int);
 s32 func_00249B78(s32 a, s32 b, s32 c);
 extern int D_0036D3B0;
+extern int D_0036D410;
 void func_001D8180(int);
 void func_001D48D0(int, int);
 extern u8 D_00399A68[];
@@ -205,7 +206,64 @@ extern "C" int CFunc_GetUniqueCompositeObjectID(int params, char* script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_249620", CFunc_CreateCompositeObjectInstance);
+extern "C" {
+int CFunc_CreateCompositeObject(int, int);
+int func_002765E0(u32, int);
+int func_0027D470(int, u32, int*, int);
+int func_0027D1F8(int, u32, int*, int);
+int func_001287F0(int, int);
+int func_0027AA70(int);
+int func_0027AA98(int, int);
+int func_0027DD88(int, u32);
+char* func_00289E08(int, int);
+char* func_00289E08_1(int) __asm__("func_00289E08");
+int func_001D5CB0(int, int, int, int, int, int, int);
+void func_0027AC90(int);
+void func_00113250(int);
+}
+
+extern "C" int CFunc_CreateCompositeObjectInstance(int params, int script) {
+    int sp0;
+    int sp4;
+    int sp8;
+    int spC;
+    sp0 = 0x69B05E2C;
+    func_0027D870(params, 0x42D6DD1E, &sp0, 0);
+    if (func_002765E0(0x79C3B839, 0) == 0) {
+        if (func_0027D870(params, 0x9084FFDC, &sp0, 0) != 0) {
+            if (sp0 == (int)0x9B493919) {
+                return CFunc_CreateCompositeObject(params, script);
+            }
+        }
+    }
+    sp4 = 0;
+    func_0027D470(params, 0x11B70A02, &sp4, 1);
+    int a = 0;
+    sp8 = 0;
+    func_0027D400(params, 0x7031F10C, (s32)&sp8, 0);
+    if (sp8 == 0) {
+        a = func_0027AA70(func_001287F0(8, 1));
+        sp8 = a;
+    }
+    int b = sp8;
+    func_0027D1F8(params, 0x9D5923D8, &spC, 1);
+    if (func_0027DD88(sp8, 0xA7F6519E) == 0) {
+        if (func_00289E08(script, sp4) != 0) {
+            b = func_0027AA98(func_001287F0(8, 1), sp8);
+            func_0027C448(b, 0xA7F6519E, *(int*)(func_00289E08_1(script) + 0x1C));
+        }
+    }
+    int r = func_001D5CB0(D_0036D410, sp4, b, spC, sp0, 1, 0) != 0;
+    if (b != sp8 && b != 0) {
+        func_0027AC90(b);
+        func_00113250(b);
+    }
+    if (a != 0) {
+        func_0027AC90(a);
+        func_00113250(a);
+    }
+    return r;
+}
 
 extern "C" int CFunc_PauseObjects(void) {
     func_001D48D0(D_0036D3B0, 1);
