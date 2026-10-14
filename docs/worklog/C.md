@@ -914,3 +914,8 @@ iteration of a pointer-chase loop), func_002763E0/func_002764E8/func_00276110 (a
 func_00289D30 (unrolled search: the original combines the biv increments, we keep four `i++`), func_002982B8 (list walk: `movn v0,a0` form needs a live copy),
 func_00290A40 (rotated loop that enters at the test), CFunc_LightShow_BeginProcessBlock (we cross-jump the two case tails), CFunc_HideObjectByType (obj in a2 vs a0),
 func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tried further), func_002B53E0 (string builder with short loops).
+
+## Session 2 (div.s retry)
+- func_002B7108 MATCH (store `*p` after computing the result so the branch follows the div).
+- CFunc_Sqrt already matches (asm workaround present).
+- CFunc_LinearMap: near miss, nonmatching/CFunc_LinearMap.cpp (clamps now match with `if (t<0) t=0; if (t>1) u=1 else u=t`; only float register numbers (lo f0 vs f2) and mtc1 placement differ).
