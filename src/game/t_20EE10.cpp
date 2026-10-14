@@ -113,7 +113,11 @@ INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_0020EE10);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_0020EEF0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_0020EF70);
+extern "C" f32 func_002EC100(f32);
+
+extern "C" f32 func_0020EF70(f32 a, f32 b) {
+    return func_002EC100(b * a) / b;
+}
 
 extern "C" void func_0020EFA8(f32* d, P20E* s) {
     d[0] = ((f32*)First20E(s))[1];
