@@ -138,7 +138,7 @@ struct N_00161AC8 { int unk0; N_161* unk4; O_00161AC8* unk8; };
 struct L_00161AC8 { char pad0[0x14]; N_161 unk14; char pad20[0x32]; s16 unk52; s16 unk54; };
 
 extern "C" {
-void func_0014EB78(int);
+int func_0014EB78(int);
 void func_00134340(void*);
 }
 
