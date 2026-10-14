@@ -286,7 +286,63 @@ extern "C" void func_00234C70(char* p) {
     *(int*)p = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234CB8);
+struct N234 {
+    s32 unk0;
+    N234* unk4;
+    char* unk8;
+};
+
+struct I234 {
+    s32 unk0;
+    N234* unk4;
+};
+
+struct L234 {
+    char pad0[4];
+    N234* unk4;
+    N234* unk8;
+};
+
+extern "C" {
+extern L234 D_003979F0;
+extern void (*D_0036FD28)(void*);
+void func_00234A10(char*);
+void func_00234B88(char*);
+}
+
+GP_DATA(D_0036FD28);
+extern "C" void func_00234CB8(void) {
+    I234 end;
+    I234 it;
+    u8 buf[0x10];
+    it.unk4 = D_003979F0.unk8;
+    end.unk4 = (N234*)((char*)&D_003979F0 + 4);
+    if (it.unk4 != end.unk4) {
+        do {
+            char* o = it.unk4->unk8;
+            int i;
+            for (i = 0; i < *(int*)(o + 0x88); i++) {
+                char* e = func_00233CA8(o, i);
+                if (*(int*)e != 0) {
+                    func_00234A10(e);
+                    if (*(int*)(e + 0x7C8) == 0) {
+                        func_00234B88(e);
+                        if (*(int*)(e + 0xF50) == 0) {
+                            func_00234C70(e);
+                        }
+                    }
+                }
+            }
+            it.unk4 = it.unk4->unk4;
+        } while (it.unk4 != end.unk4);
+    }
+    if (func_00233C50(0x7A354E97) != 0) {
+        func_0027AA70((s32)buf);
+        func_0027C448((s32)buf, 0x6C525544, 0x7A354E97);
+        D_0036FD28(buf);
+        func_0027AC90((s32)buf);
+    }
+}
 
 extern "C" int func_00234DD0(int a) {
     if (a != 0xC4E78E22) {
