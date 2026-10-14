@@ -328,7 +328,23 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D55F8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5688);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5758);
+extern "C" s32 func_001D6488_a(void*, s32) __asm__("func_001D6488");
+extern "C" s32 D_0036D408;
+extern "C" s32 D_0036D40C;
+
+GP_DATA(D_0036D408);
+GP_DATA(D_0036D40C);
+extern "C" void func_001D5758(s32 self, char* p) {
+    char* t = (char*)func_001D5BA0(D_0036D410, *(u32*)(p + 0x50), (void*)1);
+    s32 a = *(s32*)(p + 0x160);
+    s32 b = *(s32*)(t + 0x2C);
+    s32 x = a * b - func_001D6488_a(t, *(s32*)(p + 0x2C));
+    s32 d = D_0036D408;
+    s32 r = d - x % d;
+    if (r == d) r = 0;
+    if ((u32)(r - 1) <= 0x1E) r += d;
+    D_0036D40C += r;
+}
 
 extern "C" void func_001D57F0(void) {
 }
