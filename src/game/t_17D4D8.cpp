@@ -26,11 +26,27 @@ void func_00172A00(void*, int);
 extern u8 D_00343328[];
 int func_00124630(int);
 void func_0017DC80(void);
+void func_00220578(int, int);
 extern int D_0036AA90;
 void func_0017DC80(void);
 void func_0017E570(void*);
 void func_0017D5E0(void*);
 }
+
+inline void operator delete[](void* p) {
+    Heap_Free(D_00368A38[0], p);
+}
+
+struct E_0017DFC0B {
+    char pad0[0xC];
+    virtual ~E_0017DFC0B();
+};
+
+struct E_0017DFC0 : E_0017DFC0B {
+    char pad10[0xC];
+};
+
+struct S_0017DFC0 { E_0017DFC0* unk0; int unk4; int unk8; int unkC; };
 
 extern "C" void func_0017D4D8(void) {
 }
@@ -125,7 +141,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017DC80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017DD68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017DFC0);
+extern "C" void func_0017DFC0(S_0017DFC0* self) {
+    if (self->unk0) {
+        self->unk4 = 0;
+        delete[] self->unk0;
+        self->unk0 = 0;
+    }
+    if (self->unkC) {
+        func_00220578(self->unkC, self->unk8);
+    }
+    self->unk8 = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E068);
 
