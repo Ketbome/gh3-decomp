@@ -274,6 +274,26 @@ extern "C" void func_0025B238(int a, u32 k, S25B238 *c) {
     }
 }
 
+struct S25A_PushArr {
+    char pad0[4];
+    int unk4;
+};
+struct S25A_PushL {
+    u32 key;
+    int a;
+    int arr;
+};
+extern "C" {
+S25B238 *func_0027B300(int, S25B238 *);
+int func_0027AA70(int);
+void func_0027C898(int, u32, int);
+void func_0027EB78(int, int);
+void func_0027E760(int, int, int);
+void func_0027C740(int, u32, int);
+bool func_0027D470_b(int, u32, void *, int) asm("func_0027D470");
+bool func_0027D400_b(int, u32, void *, int) asm("func_0027D400");
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Push);
 
 struct S25A_Arr {
