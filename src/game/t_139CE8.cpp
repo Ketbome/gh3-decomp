@@ -128,7 +128,14 @@ extern "C" void func_00139EE0(S139_X* self, int on) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_00139F98);
+extern "C" S139_X* func_00139F98(S139_X* self) {
+    S139_X* c = self->unk78;
+    while (c) {
+        if (!*(S139_X* volatile*)&c->unk84) break;
+        c = c->unk84;
+    }
+    return c;
+}
 
 extern "C" S139_X* func_00139FC0(S139_X* self, int a, int* b) {
     S139_R r;
