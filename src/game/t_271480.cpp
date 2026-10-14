@@ -486,7 +486,31 @@ extern "C" int func_00273070(float v) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_002730D0);
+extern "C" int func_002730D0_f(float l, float r) asm("func_002730D0");
+GP_DATA(D_00370DBC);
+extern "C" int func_002730D0_f(float l, float r) {
+    u32 m = D_00370DBC;
+    int vl = (int)(l * (float)m * 0.01f);
+    vl = (int)((float)vl * 81.909996f);
+    if (vl >= 0x4000) {
+        vl = 0x3FFF;
+    } else if (vl <= -0x4000) {
+        vl = -0x3FFF;
+    }
+    int vr = vl;
+    if (r != l) {
+        vr = (int)(r * (float)m * 0.01f);
+        vr = (int)((float)vr * 81.909996f);
+        if (vr >= 0x4000) {
+            vr = 0x3FFF;
+        } else if (vr <= -0x4000) {
+            vr = -0x3FFF;
+        }
+    }
+    if (vl < 0) vl += 0x7FFF;
+    if (vr < 0) vr += 0x7FFF;
+    return ((vl & 0x7FFF) << 16) | (vr & 0x7FFF);
+}
 
 extern "C" int func_00273240(float v) {
     if (v > 100.0f) {
