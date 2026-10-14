@@ -17,6 +17,8 @@ extern int D_00372B38;
 extern Sys_144* D_00369798;
 extern u32 D_0036979C;
 void* func_00113DF0(int, int, int);
+void func_0013B7E0(int);
+void func_00146C10(void*);
 Sys_144* func_001444F0(void*);
 int func_00145B10(int, void*, u32, int*);
 void func_00145310(R_144*, int, int, int);
@@ -114,7 +116,14 @@ extern "C" R_144* func_00145488(R_144* out, int sys, void* params, u32 hash, int
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145508);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145510);
+struct S_00145510 { char pad0[0x4C]; int unk4C; char pad50[0x564]; int unk5B4; };
+
+extern "C" void func_00145510(S_00145510* self) {
+    if (self->unk4C) {
+        func_0013B7E0(self->unk4C);
+        if (self->unk5B4 > 0) func_00146C10(self);
+    }
+}
 
 struct RR_144 {
     void* p;
