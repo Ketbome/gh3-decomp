@@ -111,7 +111,7 @@ extern "C" {
 extern S28AB_Ctx *D_0036F658;
 extern int D_00372580;
 void func_001C8258(int);
-int func_0028ABB0(int, int);
+void *func_001D1CF8(void *, u32);
 u8 *func_00283A08(u8 *);
 void func_0028B840(S28AB_Scr *);
 u8 *func_002870C0(int, u8 *, int, int *);
@@ -142,7 +142,47 @@ extern "C" void func_0028AB70(S28AB_Scr *p) {
     p->unk14 = func_002870C0(p->unk18, p->unk14, p->unk20, &p->unk1C);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028ABB0);
+struct S28AB_VEnt {
+    s16 delta;
+    s16 unk2;
+    int (*fn)(void *, void *, int, int);
+};
+
+struct S28AB_Comp {
+    char pad0[0x18];
+    S28AB_VEnt *vt;
+};
+
+struct S28AB_Tgt {
+    char pad0[8];
+    S28AB_VEnt *vt;
+    char pad0C[0x48];
+    int unk54;
+};
+
+struct S28AB_Msg {
+    char pad0[4];
+    u32 unk4;
+};
+
+extern "C" int func_0028ABB0(S28AB_Msg *msg, int a, S28AB_Tgt *obj, int b) {
+    int r;
+    S28AB_Ctx *c = D_0036F658;
+    int pv = obj->unk54;
+    c->unk18++;
+    *(int *)(c->unk18 * 4 + (int)c + 0x1C) = pv;
+    u32 id = msg->unk4;
+    if (id == 0x57525413) {
+        r = obj->vt[5].fn((char *)obj + obj->vt[5].delta, msg, a, b);
+    } else if (id == 0x0ADA4E74) {
+        r = obj->vt[5].fn((char *)obj + obj->vt[5].delta, msg, a, b);
+    } else {
+        S28AB_Comp *k = (S28AB_Comp *)func_001D1CF8(obj, id);
+        r = k->vt[13].fn((char *)k + k->vt[13].delta, msg, a, b);
+    }
+    c->Pop();
+    return r != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028ACA8);
 

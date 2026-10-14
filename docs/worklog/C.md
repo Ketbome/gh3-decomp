@@ -933,3 +933,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_00278D78 MATCH (binary search over {key,val} entries; hoist the table base `(char*)(t+1)` into its own variable before the key sum).
 - func_0026AD48 MATCH (two linear scans over 0x80-byte entries; the loop continues when the call returns 1, so write `!= 1` then return i).
 - func_00252FC0 MATCH (64-byte matrix copy of two 128-bit-member structs through pointer locals, source pointer declared first; gcc 2.x vtable entry vt[2]={delta,_,fn}).
+- func_0028ABB0 MATCH (push onto a global stack then virtual dispatch; `if (id==K1) A; else if (id==K2) A; else B` with the same call twice gives the shared tail; stack slot written as `*(int*)(n*4 + (int)c + 0x1C)` with the value read first to get `addu idx,base` order (c->Push gave `addu base,idx`)).
