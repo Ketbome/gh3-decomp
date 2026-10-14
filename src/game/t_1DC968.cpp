@@ -59,6 +59,7 @@ struct Pool1DC {
 };
 
 extern "C" {
+void func_001CE888(void* a, void* b);
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void Heap_Free(s32 heap, void* p);
 void* Heap_Alloc(s32 heap, s32 size, s32 a, s32 b);
@@ -182,6 +183,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD260);
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD488);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD4C8);
+
+struct E1DD4 {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+};
+
+struct S1DD4 {
+    E1DD4* unk0;
+    s32 unk4;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD4D0);
 
