@@ -611,6 +611,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AddToCutsceneDestroyList);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_RemoveFromCutsceneDestroyList);
 
+struct S260_Item {
+    char pad0[8];
+    int unk8;
+    void *unkC;
+};
+
+struct S260_Node {
+    S260_Node *unk0;
+    S260_Node *unk4;
+    S260_Item *unk8;
+};
+
+struct S260_It {
+    int pad0;
+    S260_Node *p;
+};
+
+extern "C" void Heap_Free(void *, void *);
+extern int D_003707C0;
+
+GP_DATA(D_003707C0);
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_FlushCutsceneDestroyList);
 
 extern "C" int CFunc_CutsceneDestroyListActive(void) {
