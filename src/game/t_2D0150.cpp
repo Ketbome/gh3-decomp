@@ -57,6 +57,11 @@ extern "C" void func_002D0240(int a, int b) {
     func_0027AC90(buf);
 }
 
+extern "C" {
+int func_00275F08(u32, int);
+int func_00276008(u32, int);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2D0150", func_002D02A0);
 
 extern "C" s32 CFunc_GuitarEvent_MissedNote_CFunc_Setup(int arg0, s32 arg1) {
