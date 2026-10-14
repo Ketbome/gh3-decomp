@@ -138,4 +138,21 @@ extern "C" void func_00168170(S_00168170* self, int flags) {
     func_00162FC8_2(self, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1662C8", func_001681E0);
+struct S_0016A718 { char pad0[0xA0]; int unkA0; char padA4[0x258]; float* unk2FC; };
+
+extern "C" int D_003689E8[] __attribute__((section(".sdata")));
+extern "C" void* Heap_Alloc(int, int, int, int);
+extern "C" int func_0010C050(int);
+extern "C" void func_001681E0(S_0016A718* self, float a, float b) {
+    int i;
+    if (self->unk2FC || (self->unk2FC = (float*)Heap_Alloc(D_00368A38[0], self->unkA0 * 4, D_003689E8[0], 0))) {
+        if (self->unkA0 > 0) {
+            float d = b - a;
+            i = 0;
+            do {
+                self->unk2FC[i] = (a + d * (float)func_0010C050(10000) * 0.0001f) * 6.2831855f;
+                i++;
+            } while (i < self->unkA0);
+        }
+    }
+}

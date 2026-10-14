@@ -1186,3 +1186,5 @@ Matched: func_001817F8 (needs `-funroll-loops` cflags; list walk through a local
 Given up:
 - func_0013C6E0: everything matches except the tail (`lq` then `mtc1`/`swc1` of the low two floats of a 128-bit out value from func_0027D2D8; `*(float*)&q` goes through memory and the register allocation (s2/s3) shifts, a u64 union gives integer stores); 10 tries
 - func_0012F3E0: near miss (nonmatching/func_0012F3E0.cpp): only f0/f12 allocation of the int->float temp and one sub.s order; 8 tries
+- func_00165210 (hash-switch float waveform): nested-if form from m2c gives 0x21c vs 0x238 bytes, case order/epilogue duplication differs; 3 tries, reverted
+- dk twins (5b03625): func_001681E0 matched (from func_0016A718). Skipped: func_0014CF50 (from func_002BDC48: D_003781A0 is HT_14CF50 here, SHT in the twin; also SHT_Find undeclared), func_0014F910 (from func_00246C50: D_003781F8 is S14E_L here, u8[] in the twin; strcpy declared as void(int,int) in the file)
