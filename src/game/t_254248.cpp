@@ -386,7 +386,46 @@ extern "C" int CFunc_UnPauseSoundsByBuss(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_SetSoundParams);
+extern "C" {
+void func_00269E50(int, f32, f32);
+void func_00269FE0(int, f32, f32);
+}
+
+struct S254_SP {
+    int sp0;
+    int sp4;
+    f32 a;
+    f32 b;
+    f32 c;
+};
+
+extern "C" int CFunc_SetSoundParams(int params) {
+    S254_SP l;
+    l.sp0 = 0;
+    l.sp4 = 0;
+    int *p4 = &l.sp4;
+    func_0027D870(params, 0, &l.sp0, 0);
+    func_0027D870(params, 0x1C397CBC, p4, 0);
+    if (l.sp0 != 0 || l.sp4 != 0) {
+        l.a = 100.0f;
+        l.b = 100.0f;
+        int found = 0;
+        if (func_0027D268(params, 0x5E285A66, &l.a, 0)) found = 1;
+        if (func_0027D268(params, 0xA4276705, &l.b, 0)) found = 1;
+        if (func_0027D268(params, 0xF6A36814, &l.c, 0)) {
+            found = 1;
+            l.b = l.a = l.c;
+        }
+        if (found) {
+            if (l.sp4 != 0) {
+                func_00269E50(l.sp4, l.a * 0.01f, l.b * 0.01f);
+            } else {
+                func_00269FE0(l.sp0, l.a * 0.01f, l.b * 0.01f);
+            }
+        }
+    }
+    return 1;
+}
 
 extern "C" int CFunc_IsSoundPlaying(int a) {
     int x = 0;
