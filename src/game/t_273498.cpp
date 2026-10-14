@@ -333,7 +333,28 @@ extern "C" int func_00274AD8(void) {
     return func_002E9140();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00274B08);
+extern char D_00358EE0[];
+extern char D_00358EF8[];
+extern "C" int func_00116E70(void);
+extern "C" void func_0030B550_4(void *, char *, int, int) asm("func_0030B550");
+extern "C" unsigned int strlen(const char *);
+
+extern "C" void func_00274B08(char *dst, int n) {
+    if (D_00368748[0]) {
+        unsigned int i;
+        func_0030B550_4(dst, D_00358EE0, func_00116E70(), n);
+        for (i = 7; i < strlen(dst); i++) {
+            u8 c = dst[i];
+            if ((u8)(c - 'a') < 26) {
+                dst[i] = c - 0x20;
+            } else if ((char)c == '/') {
+                dst[i] = '\\';
+            }
+        }
+    } else {
+        func_0030B550(dst, D_00358EF8, n);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00274BF8);
 
