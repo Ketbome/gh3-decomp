@@ -1207,3 +1207,4 @@ Matched (A18): func_00137E30, func_00137EB0 (t_137C98; `*dst = D_0032A520` / `D_
 Matched (A18): func_001206D0 (t_11F000; `for (i<2) if (D[i].unk8 == key) { *(volatile int*)&D[i].unk4 = 0; return; }` -- a volatile store is what leaves the original's `sw; jr; nop`; with -funroll-loops)
 - func_00120628 (t_11F000) retry: same table, alloc with size test + volatile flag store + func_002F3BD0(D, &D[0].unk4, 1) (needs an asm-label alias, callers declare void(void)); original is a 2x unroll with a1 = copy of the stepped pointer, ours loops or reorders; 6 forms
 - TIP: an __asm__-alias definition (`f_d(..) __asm__("f")`) is invisible to `dk done`'s check: run `dk try` on it yourself before committing.
+Matched (A18): func_0010FE60 (t_10EBD8; rotate/negate pair by op 1/2/3: needs an empty 'case 0:' to get the original compare tree (1, <2, 2, 3), the stores inside each case so the tail is shared, loads in the order b = *x; a = *y; b = -b;)
