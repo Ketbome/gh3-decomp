@@ -1,5 +1,14 @@
 #include "common.h"
 
+struct N_0019F450 { N_0019F450* unk0; float unk4; char pad8[0x44]; N_0019F450* unk4C; };
+
+extern "C" {
+void func_002F3B80(void);
+void func_002F3BD0(void);
+extern N_0019F450* D_00373300;
+extern N_0019F450* D_00373304;
+}
+
 struct S_0019F318 { char pad0[0xC]; int unkC; };
 
 struct U64P_19D { u64 v; } __attribute__((packed));
@@ -206,4 +215,36 @@ extern "C" void func_0019F318(S_0019F318* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019F328);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19D4E8", func_0019F450);
+extern "C" void func_0019F450(N_0019F450* n) {
+    N_0019F450* head;
+    N_0019F450* p;
+    func_002F3B80();
+    head = D_00373300;
+    if (!head || n->unk4 < head->unk4) {
+        n->unk0 = head;
+        n->unk4C = 0;
+        D_00373300 = n;
+        if (head) {
+            head->unk4C = n;
+        } else {
+            D_00373304 = n;
+        }
+    } else if (D_00373304->unk4 <= n->unk4) {
+        n->unk4C = D_00373304;
+        n->unk0 = 0;
+        D_00373304->unk0 = n;
+        D_00373304 = n;
+    } else {
+        p = head;
+        if (!(n->unk4 < head->unk4)) {
+            do {
+                p = p->unk0;
+            } while (p && !(n->unk4 < p->unk4));
+        }
+        n->unk0 = p;
+        n->unk4C = p->unk4C;
+        p->unk4C->unk0 = n;
+        p->unk4C = n;
+    }
+    func_002F3BD0();
+}
