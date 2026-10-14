@@ -117,26 +117,35 @@ struct A20EE {
 
 extern "C" f32 func_0011ED10(void);
 
-extern "C" void func_0020EE10(void* p) {
-    A20EE* a = (A20EE*)p;
-    f32 t = a->unk0 + func_0011ED10() * 60.0f * (a->unkC * 3.1415927f);
-    a->unk0 = t;
-    if (t > 6.2831855f) {
-        f32 x = t;
-        do {
-            x -= 6.2831855f;
-        } while (x > 6.2831855f);
-        a->unk0 = x;
+extern "C" void func_0020EE10(void *p)
+{
+  A20EE *a = (A20EE *) p;
+  f32 t = a->unk0 + ((func_0011ED10() * 60.0f) * (a->unkC * 3.1415927f));
+  float new_var;
+  a->unk0 = t;
+  if (t > 6.2831855f)
+  {
+    f32 x = t;
+    do
+    {
+      x -= 6.2831855f;
     }
-    f32 y = a->unk0;
-    if (y < 0.0f) {
-        f32 z;
-        do {
-            z = y + 6.2831855f;
-            y = z;
-        } while (z < 0.0f);
-        a->unk0 = z;
+    while (x > 6.2831855f);
+    a->unk0 = x;
+  }
+  f32 y = a->unk0;
+  new_var = 0.0f;
+  if (y < new_var)
+  {
+    f32 z;
+    do
+    {
+      z = y + 6.2831855f;
+      y = z;
     }
+    while (z < new_var);
+    a->unk0 = z;
+  }
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_0020EEF0);

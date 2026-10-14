@@ -214,32 +214,52 @@ struct O2250 {
     s32 unk2810;
 };
 
-extern "C" s32 func_002250F8(void* p) {
-    O2250* o = (O2250*)p;
-    s32 idx = o->unk280C;
-    El2250* e = o->e;
-    if (idx == -1) return 0;
-    Q2250* q = e[idx].unk0;
-    s32 pos = o->unk2810;
-    s32 r;
-    if (q->unk4 == 1) r = q->unk8;
-    else r = ((s32*)q->unk8)[pos];
-    o->unk2810 = pos + 1;
-    if (pos + 1 >= q->unk4) {
-        o->unk2810 = 0;
-        for (;;) {
-            s32 i = o->unk280C + 1;
-            o->unk280C = i;
-            if (i >= 0x100) {
-                o->unk280C = -1;
-                break;
-            }
-            if (o->e[i].unk0 == 0) continue;
-            if (e[i].unk0->unk4 == 0) continue;
-            break;
-        }
+extern "C" s32 func_002250F8(void *p)
+{
+  O2250 *o = (O2250 *) p;
+  s32 idx = o->unk280C;
+  El2250 *e;
+  if (idx == (-1))
+  {
+    return 0;
+  }
+  Q2250 *q = o->e[idx].unk0;
+  s32 pos = o->unk2810;
+  s32 r;
+  if (q->unk4 == 1)
+  {
+    r = q->unk8;
+  }
+  else
+  {
+    r = ((s32 *) q->unk8)[pos];
+  }
+  o->unk2810 = pos + 1;
+  if ((pos + 1) >= q->unk4)
+  {
+    o->unk2810 = 0;
+    for (;;)
+    {
+      s32 i = o->unk280C + 1;
+      o->unk280C = i;
+      if (i >= 0x100)
+      {
+        o->unk280C = -1;
+        break;
+      }
+      if ((*(&o->e[i])).unk0 == 0)
+      {
+        continue;
+      }
+      if (o->e[i].unk0->unk4 == 0)
+      {
+        continue;
+      }
+      break;
     }
-    return r;
+
+  }
+  return r;
 }
 
 extern "C" void func_002251B8(S223* self) {
