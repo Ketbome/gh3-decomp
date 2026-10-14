@@ -375,7 +375,67 @@ extern "C" void func_0014FA00(void) {
     func_0014F910(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FA20);
+struct N14FA20 { char pad0[4]; u32 unk4; int unk8; N14FA20* unkC; N14FA20* unk10; void* unk14; };
+struct S14FA20 {
+    int unk0; char pad4[8]; int unkC; char pad10[0x40]; int unk50; int unk54; void* unk58; int unk5C; int unk60; int unk64;
+    int unk68; int unk6C; int unk70; int unk74; int unk78; int unk7C; int unk80; int unk84; N14FA20* unk88; N14FA20* unk8C; void* unk90;
+};
+extern "C" {
+void func_0010F690(void*);
+void func_001342B0(void*);
+void* func_00152670(void*, int, int);
+void* Heap_Alloc(int, int, int, int);
+void* operator_new(u32);
+extern u8 D_0033C510[];
+extern u8 D_0033C540[];
+}
+
+extern "C" S14FA20* func_0014FA20(S14FA20* self, int n) {
+    char* a = (char*)self + 0x10;
+    char* b = (char*)self + 0x30;
+    self->unk90 = D_0033C540;
+    func_0010F690(a);
+    func_0010F690((char*)self + 0x20);
+    func_001342B0(a);
+    func_0010F690(b);
+    func_0010F690((char*)self + 0x40);
+    func_001342B0(b);
+    self->unk5C = 0;
+    void* r;
+    if (n > 0) r = func_00152670(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), n, 0);
+    else r = 0;
+    self->unk0 = 0;
+    self->unkC = 0;
+    self->unk60 = 0;
+    self->unk5C = 0;
+    self->unk68 = 0;
+    self->unk6C = 0;
+    self->unk64 = 0;
+    self->unk50 = 0;
+    self->unk54 = 0;
+    self->unk70 = 0;
+    self->unk78 = 0;
+    self->unk74 = 0;
+    self->unk80 = 0;
+    self->unk84 = 0;
+    self->unk7C = 0;
+    self->unk58 = r;
+    N14FA20* x = (N14FA20*)operator_new(0x18);
+    x->unk4 = 0xFFFFFFFF;
+    x->unk8 = 0;
+    x->unk14 = D_0033C510;
+    x->unkC = x;
+    x->unk10 = x;
+    self->unk88 = x;
+    N14FA20* y = (N14FA20*)operator_new(0x18);
+    y->unk4 = 0xFFFFFFFF;
+    y->unk14 = D_0033C510;
+    y->unk8 = 0;
+    y->unkC = y;
+    y->unk10 = y;
+    self->unk8C = y;
+    return self;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FB78);
 
