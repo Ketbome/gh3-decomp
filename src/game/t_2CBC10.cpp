@@ -50,7 +50,45 @@ extern "C" void func_002CC570(int arg0, int arg1, s32 arg2) {
     *(s32 *)&func_0027AF38(arg0, arg1, 0)->unk8 = arg2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2CBC10", func_002CC5A0);
+extern "C" {
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027AC90(int);
+void func_0027C448(int, u32, int);
+void func_0027C1F8(int, u32, f32);
+void func_0027C898(int, u32, int);
+void func_001CFA70(int, int, int);
+void func_001CFB88(int, int, int);
+void func_00113250(int);
+}
+
+extern "C" void func_002CC5A0(int a, int key, int v, int g, f32 f) {
+    if (v == 0) return;
+    int s1 = func_0027AA70(func_001287F0(8, 1));
+    int s2 = func_0027AA70(func_001287F0(8, 1));
+    if (key == 0x85981897) {
+        func_0027C448(s1, 0xA1DC81F9, 0x2C7E20C1);
+        func_001CFA70(a, s1, g);
+        func_0027AC90(s1);
+        func_0027C448(s1, 0, 0x2C7E20C1);
+        func_0027C448(s2, 0x98549BA4, v);
+        func_0027C1F8(s2, 0xBF237659, f);
+        func_0027C898(s1, 0x7031F10C, s2);
+        func_001CFB88(a, s1, g);
+    } else {
+        func_0027C448(s1, 0xA1DC81F9, 0x8B990189);
+        func_001CFA70(a, s1, g);
+        func_0027AC90(s1);
+        func_0027C448(s1, 0, 0x8B990189);
+        func_0027C448(s2, 0x98549BA4, v);
+        func_0027C898(s1, 0x7031F10C, s2);
+        func_001CFB88(a, s1, g);
+    }
+    if (s1 != 0) {
+        func_0027AC90(s1);
+        func_00113250(s1);
+    }
+}
 
 extern "C" s32 CFunc_Drum_iterator_CFunc_Setup(int arg0, s32 arg1) {
     func_00289C88(arg1, 0x24);
@@ -116,6 +154,33 @@ extern "C" s32 CFunc_kill_object_later_CFunc_Setup(int arg0, s32 arg1) {
 extern "C" s32 CFunc_kill_object_later_CFunc_Cleanup(int arg0, s32 arg1) {
     func_00289CF8(arg1);
     return 1;
+}
+
+struct S2CD_St {
+    int unk0;
+    int unk4;
+    f32 unk8;
+};
+
+struct S2CD_Obj {
+    int p;
+};
+
+struct S2CD_Script {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" {
+void func_00139590(int, void *, f32 *);
+void func_00144FC0(int, int, int, int, int);
+void func_00145310(S2CD_Obj *, int, int, int);
+void func_001CE888(int, void *);
+f32 func_00275DE0(u32, int);
+int func_0027D870(int, u32, int *, int);
+S2CD_St *func_00289C80_p(S2CD_Script *) asm("func_00289C80");
+int func_002B5888(int);
+extern int D_00369798;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CBC10", CFunc_kill_object_later_CFunc);
