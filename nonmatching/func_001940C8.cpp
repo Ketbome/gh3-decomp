@@ -27,7 +27,7 @@ struct S_1940C8 { char pad0[8]; void* unk8; char padC[0x14]; void* unk20; char p
 
 extern "C" {
 extern int D_0036F658;
-void func_00169378(void);
+int func_00169378(void);
 void func_0022B0D0(H_1940C8*, int, int, int);
 void func_00134340(H_1940C8*);
 long func_001A4770(int, int);
