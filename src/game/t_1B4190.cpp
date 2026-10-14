@@ -7,7 +7,9 @@ struct S001B49A0 {
     s32 unkC;
 };
 
+struct R1B43;
 extern "C" {
+void* func_0019F9F8(void);
 extern s32 D_0036C948;
 extern s32 D_0036C94C;
 extern s32 D_0036C950;
@@ -62,6 +64,59 @@ extern "C" void func_001B4330(void) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4358);
+
+struct D1B43 {
+    char pad0[4];
+    s32 unk4;
+    char pad8[0x38];
+};
+
+struct Q1B43 {
+    char pad0[8];
+    s32 unk8;
+    char pad0C[0x48];
+};
+
+struct R1B43;
+
+struct E1B43 {
+    char pad0[8];
+    s32 unk8;
+    char padC[0x28];
+    R1B43* unk34;
+    char pad38[0x18];
+};
+
+struct T1B43 {
+    s32 unk0;
+    char pad4[0xC];
+    E1B43* unk10;
+};
+
+struct S1B43 {
+    char pad0[0x14];
+    T1B43* unk14;
+    s32 unk18;
+    s32 unk1C;
+    D1B43* unk20;
+    char pad24[4];
+    s32 unk28;
+    char pad2C[4];
+    Q1B43* unk30;
+};
+
+struct R1B43 {
+    S1B43* unk0;
+    s32 unk4;
+    Q1B43* unk8;
+    s32 unkC;
+    R1B43* unk10;
+};
+
+struct A1B43 {
+    s32 unk0;
+    s32 unk4;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4360);
 
