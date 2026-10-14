@@ -160,7 +160,19 @@ extern "C" void func_00203448(S202* p, int o) {
     *(M202*)(p->unkC + 0x100) = *(M202*)(p->unkC + 0xA0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_202258", func_002034A8);
+extern "C" void func_002034A8(S202* p) {
+    f32 t = p->unk208 + p->unk21C;
+    f32 d = p->unk204;
+    f32 r;
+    p->unk208 = t;
+    if (d == 0.0f || d <= t) {
+        r = 1.0f;
+        p->unk1C &= ~0x20;
+    } else {
+        r = t / d;
+    }
+    func_0010F970(p->unk20C, p->unkC + 0xA0, r);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_202258", func_00203528);
 
