@@ -103,6 +103,12 @@ extern float D_0032E158[];
 extern u8 D_0032E1D8[];
 void func_00272058(void *, int, int);
 int func_0011DF78(int, int, int, int);
+void func_0011DC18(int);
+void func_0011E008(int);
+void func_0026AC60(void *, int);
+int func_0026DC68(int);
+int func_00273D88(void);
+extern char D_003A44B0[];
 int func_0028DAB8(int);
 int func_0011DB60(int);
 void func_0011DB08(int, int);
@@ -446,7 +452,7 @@ extern "C" int func_002724F8(S002724F8_4* p) {
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272520);
 
 struct S2727E8 {
-    char pad0[4];
+    int pad0i;
     int unk4;
     int unk8;
     int unkC;
@@ -510,6 +516,11 @@ extern "C" void func_00272DE8(S271_C *p, int on) {
     }
 }
 
+extern int D_00370DA0;
+extern u8 D_00370DB4;
+
+GP_DATA(D_00370DA0);
+GP_DATA(D_00370DB4);
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272E18);
 
 GP_DATA(D_00370DE8);
