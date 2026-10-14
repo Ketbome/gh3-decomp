@@ -88,7 +88,127 @@ extern "C" void func_00234190(s32 a, void* bp) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002342B0);
+struct O2342 {
+    void* unk0;
+    char pad4[0x110];
+    int unk114;
+};
+
+struct C2342 {
+    char pad0[0x40];
+    O2342* unk40;
+    char pad44[0x784];
+    int unk7C8;
+    char pad7CC[0x784];
+    int unkF50;
+};
+
+struct P2342 {
+    char pad0[0x18];
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+    int unk30;
+    int unk34;
+    int unk38;
+    int unk3C;
+    int unk40;
+    int unk44;
+    int unk48;
+    char pad4C[0x4C];
+    int unk98;
+    int unk9C;
+    int unkA0;
+    int unkA4;
+    int unkA8;
+    char padAC[0x7E];
+    u8 unk12A;
+    char pad12B;
+    u8 unk12C;
+    u8 unk12D;
+};
+
+extern int D_0036FD30;
+extern int D_0036FD34;
+extern int D_0036FD38;
+extern int D_0036FD3C;
+extern int D_0036FD40;
+extern int D_0036FD44;
+extern int D_0036FD48;
+extern int D_0036FD4C;
+extern int D_0036FD50;
+extern int D_0036FD54;
+extern int D_0036FD58;
+extern int D_0036FD5C;
+extern int D_0036FD60;
+extern "C" void func_001519B0(int, void*);
+extern "C" void func_00233F20(void*, void*);
+
+GP_DATA(D_0036FD34);
+GP_DATA(D_0036FD3C);
+GP_DATA(D_0036FD30);
+GP_DATA(D_0036FD38);
+GP_DATA(D_0036FD40);
+GP_DATA(D_0036FD44);
+GP_DATA(D_0036FD48);
+GP_DATA(D_0036FD4C);
+GP_DATA(D_0036FD50);
+GP_DATA(D_0036FD54);
+GP_DATA(D_0036FD58);
+GP_DATA(D_0036FD5C);
+GP_DATA(D_0036FD60);
+extern "C" void func_002342B0(int a, int b, C2342* c, P2342* d, int e) {
+    if (e == 1) {
+        c->unk40->unk114 = 1;
+        c->unk7C8 = 0;
+        c->unkF50 = 0;
+        d->unk12D = 0;
+        return;
+    }
+    if (a == 0) {
+        d->unk12A = 1;
+        d->unk12C = 0;
+        d->unk12D = 0;
+        d->unk98 = b;
+        d->unk9C = 0;
+        d->unkA0 = 0;
+        d->unkA4 = 0;
+        d->unkA8 = 0;
+        if (b != 0) {
+            func_001519B0(b, (char*)d + 0xB0);
+        }
+        d->unk18 = D_0036FD30;
+        d->unk20 = D_0036FD34;
+        d->unk24 = D_0036FD38;
+        d->unk1C = D_0036FD3C;
+        d->unk28 = D_0036FD40;
+        d->unk2C = D_0036FD44;
+        d->unk30 = D_0036FD48;
+        d->unk34 = D_0036FD4C;
+        d->unk38 = D_0036FD50;
+        d->unk40 = D_0036FD54;
+        d->unk3C = D_0036FD58;
+        d->unk44 = D_0036FD5C;
+        d->unk48 = D_0036FD60;
+        D_0036FD30 = 0;
+        D_0036FD34 = 0;
+        D_0036FD38 = 0;
+        D_0036FD3C = 0;
+        D_0036FD40 = 0;
+        D_0036FD44 = 0;
+        D_0036FD48 = 0;
+        D_0036FD4C = 0;
+        D_0036FD50 = 0;
+        D_0036FD54 = 0;
+        D_0036FD58 = 0;
+        D_0036FD5C = 0;
+        D_0036FD60 = 0;
+        func_00233F20(c->unk40->unk0, d);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002343E8);
 
