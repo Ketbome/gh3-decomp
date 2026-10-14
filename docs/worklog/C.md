@@ -937,3 +937,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_00274B08 MATCH (sprintf then in-place upcase/slash loop: index the buffer `dst[i]` with an unsigned i instead of a walking pointer; `u8 c` and `(char)c == '/'` give the lbu + sll/sra shape).
 - func_00272F70 MATCH (loop over 0x40-byte entries: take the entry as `&arr[i]` inside the body, not a separate walking pointer, so the table address is set up after the loop test; inline S271Flags(id) for the sentinel flag lookup).
 - func_002B5888 MATCH (linear search over int table with the 4x unrolled body; needed `// cflags: -funroll-loops` in t_2B3AC8, every function of the file still matches).
+- func_0028C518, func_0028C4B0 MATCH after toolchain cf046cf (u32 -> f32 cast, `(f32)v`).

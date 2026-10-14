@@ -337,9 +337,13 @@ extern "C" void func_0028C490(char* a) {
     func_00288C00(a + 0xA8);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C4B0);
+extern "C" void func_0028C4B0(char *p, u32 v, int b) {
+    func_00288B88(p + 0xA8, (f32)v * 0.001f, b);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C518);
+extern "C" void func_0028C518(char *p, u32 v) {
+    func_00288C90(p + 0xA8, (f32)v);
+}
 
 extern "C" int func_0028C570(S28AB_Tab *p, int v) {
     return func_0028C590(p, v);
