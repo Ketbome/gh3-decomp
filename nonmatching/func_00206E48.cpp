@@ -214,30 +214,34 @@ extern u8 D_0036EA18[];
 void memset(void*, int, int);
 }
 
-extern "C" void func_00206E48(int ok, int k) {
-    if (k == 0xFFFF && ok) {
-        N206 t;
-        E206* e = D_0038FC78;
-        e->a = 0x67660FE5;
-        t = *(N206*)D_0036EA08;
-        e->b = 0xB87C8E43;
-        e->c = t;
-        t = *(N206*)D_0036EA10;
-        e++;
-        e->a = 0xDCE760A1;
-        e->b = 0xB87C8E43;
-        e->c = t;
-        t = *(N206*)D_0036EA18;
-        e++;
-        e->a = 0x6520B902;
-        e->b = 0xB87C8E43;
-        e->c = t;
-        memset(&t, 0, 8);
-        e++;
-        e->b = 0xB87C8E43;
-        e->a = 0;
-        e->c = t;
-    }
+extern "C" void func_00206E48(int ok, int k)
+{
+  int new_var;
+  if ((k == 0xFFFF) && ok)
+  {
+    N206 t;
+    E206 *e = D_0038FC78;
+    e->a = 0x67660FE5;
+    new_var = 0xDCE760A1;
+    t = *((N206 *) D_0036EA08);
+    e->b = 0xB87C8E43;
+    e->c = t;
+    t = *((N206 *) D_0036EA10);
+    e++;
+    e->a = new_var;
+    e->b = 0xB87C8E43;
+    e->c = t;
+    t = *((N206 *) D_0036EA18);
+    e++;
+    e->a = 0x6520B902;
+    e->b = 0xB87C8E43;
+    e->c = t;
+    memset(&t, 0, 8);
+    e++;
+    e->b = 0xB87C8E43;
+    e->a = 0;
+    e->c = t;
+  }
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2062E8", func_00206F70);

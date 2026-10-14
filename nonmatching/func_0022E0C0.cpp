@@ -140,21 +140,21 @@ extern u8 D_0036F990[];
 extern u8 D_0036F998[];
 }
 
-extern "C" void func_0022E0C0(char* o, int a1, int a2, int a3, int a4, int a5) {
-    char buf[0x100];
-    char buf2[0x100];
-    VE22D* e = (VE22D*)(*(char**)(o + 0x34) + 0x78);
-    ((void (*)(char*, int, int))e->fn)(o + e->delta, a4, a5);
-    int r = func_0014EBE8(a1, buf);
-    func_00113528(buf);
-    char* b2 = buf2;
-    u8* fmt = D_003537D0;
-    u8* s = r ? D_0036F990 : D_0036F998;
-    int k = func_0014F130();
-    register char* pb asm("$6") = buf;
-    func_0030B550_5(b2, fmt, pb, s, k);
-    *(int*)(*(char**)(o + 0x18) + 0x94) = r;
-    func_0022BBB0(o, buf2, a2, a3, a4, a5);
+extern "C" void func_0022E0C0(char *o, int a1, int a2, int a3, int a4, int a5)
+{
+  char buf[0x100];
+  char buf2[0x100];
+  VE22D *e = (VE22D *) ((*((char **) (o + 0x34))) + 0x78);
+  ((void (*)(char *, int, int)) e->fn)(o + e->delta, a4, a5);
+  int r = func_0014EBE8(a1, buf);
+  func_00113528(buf);
+  char *b2 = buf2;
+  u8 *fmt = D_003537D0;
+  u8 *s = (r) ? (D_0036F990) : (D_0036F998);
+  int k = func_0014F130();
+  func_0030B550_5(b2, fmt, buf, s, k);
+  *((int *) ((*((char **) (o + 0x18))) + 0x94)) = r;
+  func_0022BBB0(o, buf2, a2, a3, a4, a5);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022E1D0);
