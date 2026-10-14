@@ -1,7 +1,9 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
 void func_00244930_1(void*) __asm__("func_00244930");
+extern u16 D_0032C7F8[];
 extern u8 D_00397A40[];
 extern u8 D_00397A00[];
 void func_002432F8(int, int);
@@ -285,7 +287,12 @@ extern "C" s32 func_00243FA8(u8* a, s32 b, s32 c) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244060);
+extern "C" s32 func_00244060(char* p) {
+    if (D_0032C7F8[0] != 0) {
+        for (s32 i = 0x7FF; i >= 0; i--) D_0032C7F8[i] = i;
+    }
+    return *(s32*)(p + 0x34) != 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244128);
 
