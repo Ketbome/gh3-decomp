@@ -622,9 +622,42 @@ extern "C" void func_0011ED40(void) {
     func_00317588(D_00376528[0]);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011ED68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EE38);
+extern "C" {
+extern long D_00368D20;
+extern s32 D_00368CD8;
+extern s32 D_0036876C;
+void* func_0014F738(void);
+s32 func_003174C0(float);
+}
+GP_DATA(D_00368D20);
+GP_DATA(D_00368CD8);
+extern "C" void func_0011ED68(void) {
+    D_00368D20 = func_0011ED00();
+    while (D_00368D20 == func_0011ED00()) {
+        if (func_0014F738()) {
+            ((void (*)(void))func_0014F738())();
+        }
+    }
+    long t = func_0011ED00();
+    u32 n = D_00368CD4;
+    s32 d = D_0036876C;
+    D_00368D20 = t;
+    D_00368CD8 = func_003174C0((float)n * (1000.0f / (float)d));
+}
+
+extern "C" void func_0011EE38(void) {
+    while (D_00368D20 == func_0011ED00()) {
+        if (func_0014F738()) {
+            ((void (*)(void))func_0014F738())();
+        }
+    }
+    long t = func_0011ED00();
+    u32 n = D_00368CD4;
+    s32 d = D_0036876C;
+    D_00368D20 = t;
+    D_00368CD8 = func_003174C0((float)n * (1000.0f / (float)d));
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EF00);
 
