@@ -94,7 +94,14 @@ int func_00122A10(void);
 extern int D_00368F20;
 extern u8 D_00339370[];
 void func_001CE888(void*, void*);
+void* operator_new(u32);
+char* strcpy(char*, const char*);
+int func_002F7A90(int, char*);
+int func_002F7750(int, char*, void*);
+void* func_00122460_4(void*, int, void*, int) __asm__("func_00122460");
 }
+
+struct SA121_O { char pad0[0x48]; int unk48; u8 pad4C[2]; u8 unk4E; char pad4F; int unk50; };
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_001210C8);
 
@@ -250,7 +257,33 @@ extern "C" int func_00121DD0(SA121_S* self, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121E38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00121E40);
+extern "C" SA121_O* func_00121E40(SA121_S* self, char* name, int flags) {
+    SA121_O* o = 0;
+    int buf[16];
+    int r;
+    func_00121B18(self);
+    if (flags & 4) {
+        r = func_002F7A90(self->unk4, name);
+        buf[4] = 0;
+    } else {
+        r = func_002F7750(self->unk4, name, buf);
+    }
+    if (r) {
+        self->unk24 = 8;
+        return 0;
+    }
+    int n = func_00121B18(self);
+    if (n >= 0) {
+        o = (SA121_O*)func_00122460_4(operator_new(0x5C), n, self, 0);
+    }
+    if (o) {
+        strcpy((char*)o + 0x18, name);
+        o->unk4E = flags;
+        o->unk50 = 0;
+        o->unk48 = buf[4];
+    }
+    return o;
+}
 
 extern "C" int func_00121F28(SA121_S* self, int a) {
     char buf[0x40];
