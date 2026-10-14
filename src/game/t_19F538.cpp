@@ -23,6 +23,10 @@ void func_001A0D98(void*, void*, int);
 void func_002F3B80(void);
 void func_002F3BD0(void);
 void func_0019F7E0(N_19F*);
+void* Heap_Alloc(int, int, int, int);
+extern int D_00368A38[] __attribute__((section(".sdata")));
+extern S0019FA18* D_0036C42C;
+void func_0019FA18_v(S0019FA18*) __asm__("func_0019FA18");
 extern int D_00372D24;
 extern char* D_00373308;
 extern int* D_00373320;
@@ -109,7 +113,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F838);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F848);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19F538", func_0019F928);
+GP_DATA(D_0036C42C);
+extern "C" void func_0019F928(void) {
+    if (D_0036C42C == 0) {
+        int i;
+        D_0036C42C = (S0019FA18*)Heap_Alloc(D_00368A38[0], 0x2BC, 1, 0);
+        for (i = 0; i < 35; i++) {
+            func_0019FA18_v(&D_0036C42C[i]);
+        }
+    }
+}
 
 GP_DATA(D_0036C430);
 extern "C" void* func_0019F9F8(void) {
