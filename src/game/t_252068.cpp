@@ -242,7 +242,64 @@ extern "C" int CFunc_GetSoundBussEffects(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_00253678);
+extern "C" {
+int func_001150E0(int, char *);
+float func_00275DE0(u32, int);
+int func_00275F08(u32, int);
+int func_00276008(u32, int);
+int func_002763E0(int, int);
+void func_0027C160(int, u32, int);
+void func_0027C1F8(int, u32, float);
+void func_0027C448(int, u32, int);
+int func_0027D1F8(int, int, int *, int);
+extern int D_00370434;
+extern char D_00370438[];
+extern int D_00372E58;
+extern int D_00372E60;
+extern int D_00372E64;
+extern float D_00372E68;
+extern int D_00372E6C;
+}
+
+GP_DATA(D_00370434);
+extern "C" int func_00253678(int a, int b) {
+    int sp0;
+    int sp4;
+    float sp8;
+    int spC;
+    int sp10;
+    if (D_00370434 == 0) {
+        D_00372E64 = func_00275F08(0x1F5DD214, 1);
+        D_00372E58 = func_00276008(0xAEA1C866, 1);
+        D_00372E68 = func_00275DE0(0x9A6ED562, 1);
+        D_00372E60 = func_00276008(0x59F9BA16, 1);
+        D_00372E6C = func_00275F08(0x6C7486B9, 1);
+        D_00370434 = 1;
+    }
+    int t = func_002763E0(func_001150E0(a, D_00370438), 0);
+    int r = t != 0;
+    if (t == 0 || (func_0027D1F8(t, 0x9B1D1396, &sp0, 0) ^ 1) != 0) {
+        sp0 = D_00372E64;
+    }
+    func_0027C160(b, 0x8A7A1F88, sp0);
+    if (t == 0 || (func_0027D870(t, 0x95418465, &sp4, 0) ^ 1) != 0) {
+        sp4 = D_00372E58;
+    }
+    func_0027C448(b, 0x92ECB746, sp4);
+    if (t == 0 || (func_0027D268(t, 0x14021E42, &sp8, 0) ^ 1) != 0) {
+        sp8 = D_00372E68;
+    }
+    func_0027C1F8(b, 0xD4F52446, sp8);
+    if (t == 0 || (func_0027D870(t, 0xBC2F36B9, &spC, 0) ^ 1) != 0) {
+        spC = D_00372E60;
+    }
+    func_0027C448(b, 0x61D8542A, spC);
+    if (t == 0 || (func_0027D1F8(t, 0xF546374F, &sp10, 0) ^ 1) != 0) {
+        sp10 = D_00372E6C;
+    }
+    func_0027C160(b, 0x5726EB0E, sp10);
+    return r;
+}
 
 extern "C" void func_002538C0(int params, S252_Obj *obj) {
     S252_Loc l;
