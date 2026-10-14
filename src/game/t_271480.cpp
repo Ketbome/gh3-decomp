@@ -469,7 +469,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272E18);
 GP_DATA(D_00370DE8);
 GP_DATA(D_00370DA8);
 GP_DATA(D_00372EC0);
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272F70);
+struct S271Ent {
+    int id;
+    char pad4[0x3C];
+};
+
+extern "C" int func_00272F70(void) {
+    int i;
+    int r;
+    func_00272E18();
+    if ((D_0032E1D8[0] & 0x40) && D_00370DE8) {
+        D_00370DE8 = 0;
+        func_002F0488(D_00358CA8);
+    }
+    for (i = 0; i < D_00370DA8; i++) {
+        S271Ent *e = &((S271Ent *)D_003A92D0)[i];
+        r = func_00272B48(e);
+        if (r) {
+            return r;
+        }
+        if (*S271Flags(e->id) & 3) {
+            func_0011ED00();
+        }
+    }
+    D_00372EC0 = func_0011ED00();
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00273060);
 
