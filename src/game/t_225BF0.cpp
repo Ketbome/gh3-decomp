@@ -158,7 +158,40 @@ extern "C" int func_00225F80(void) {
     return D_003938C8.unk8 != &D_003938C8.unk4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225FA0);
+struct N225;
+extern "C" struct N225* D_003938D0[];
+
+struct N225 {
+    N225* unk0;
+    N225* unk4;
+    int unk8;
+    int unkC;
+};
+
+struct It225 {
+    int unk0;
+    N225* unk4;
+    int unk8;
+    int unkC;
+};
+
+extern "C" int func_00225FA0(void) {
+    if (!func_00225F80()) return 0;
+    It225 a, b, c, d, e;
+    a.unk4 = D_003938D0[0];
+    func_00225F58(a.unk4->unk8, a.unk4->unkC);
+    N225* n = a.unk4;
+    c.unk4 = n;
+    e.unk4 = n;
+    N225* nx = n->unk4;
+    d.unk4 = n;
+    c.unk4 = nx;
+    n->unk0->unk4 = n->unk4;
+    n->unk4->unk0 = n->unk0;
+    Heap_Free(D_00368A38, n);
+    b.unk4 = c.unk4;
+    return 1;
+}
 
 extern "C" void func_00226030(void) {
     List225* d = &D_003938C8;
