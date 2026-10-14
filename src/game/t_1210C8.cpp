@@ -516,7 +516,10 @@ extern "C" void func_00122F88(SA121_D* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1210C8", func_00122FF8);
+extern "C" float func_00122FF8(char* p) {
+    float* q = (float*)(p + 4);
+    return q[3] / q[4];
+}
 
 extern "C" int func_00123018(S_00123018* self, int v) {
     if (self->unk34 == v) {
