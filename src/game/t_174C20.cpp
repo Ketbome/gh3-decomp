@@ -56,7 +56,9 @@ extern "C" int func_00174C90(S174C90* self) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00174CB8);
+extern "C" float func_00174CB8(float* p) {
+    return p[6] / p[9];
+}
 
 extern "C" void func_00174CD8(void) {
 }
