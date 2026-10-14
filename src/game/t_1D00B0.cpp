@@ -282,7 +282,21 @@ extern "C" void func_001D0798(void* p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0848);
+extern "C" s32 func_001D0848(s32 size) {
+    s32 t = (s32)D_0036D0F0[D_0036D100];
+    s32 r;
+    if (t != 0) {
+        r = func_0011C2A8(t);
+        if (r == 0) {
+            s32 h = D_00368A38[0];
+            func_00119490(h, func_00119610(h, 1));
+            r = Heap_Alloc(D_00368A38[0], size, 1, 0);
+            func_001194B8(D_00368A38[0]);
+        }
+        return r;
+    }
+    return Heap_Alloc(D_00368A38[0], size, 1, 0);
+}
 
 extern "C" s32 func_001D0900(s32 size) {
     s32 t = D_00371028[D_00371038];
