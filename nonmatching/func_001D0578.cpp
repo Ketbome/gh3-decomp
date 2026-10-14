@@ -227,32 +227,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0548);
 extern "C" void func_001D0570(void) {
 }
 
-struct HE1D { s32 unk0; s32 unk4; HE1D* unk8; };
-struct HT1D { s32 unk0; HE1D* unk4; char pad8[0xD]; u8 unk15; };
+struct HI1D { u32 key; void* value; HI1D* next; };
+struct HT1D { int bits; HI1D* items; int count; char padC[9]; u8 unk15; };
 struct HP1D { char pad0[8]; HT1D* unk8; HT1D* unkC; };
 
-static inline s32 Find1D(HT1D* h, const s32& k) {
-    if (h->unk4) {
-        HE1D* e = &h->unk4[k & ((1 << h->unk0) - 1)];
-        if (e) {
-            do {
-                if (e->unk0 == k) {
-                    s32 v = e->unk4;
-                    if (h->unk15 || v) return v;
-                }
-                e = e->unk8;
-            } while (e);
+static inline void* Get1D(HT1D* t, const u32& key) {
+    HI1D* it = t->items;
+    if (!it) {
+        return 0;
+    }
+    HI1D* e = &it[key & ((1 << t->bits) - 1)];
+    if (!e) {
+        return 0;
+    }
+    while (e) {
+        if (e->key == key && (t->unk15 || e->value)) {
+            return e->value;
         }
+        e = e->next;
     }
     return 0;
 }
 
-extern "C" s32 func_001D0578(s32 k) {
+extern "C" void* func_001D0578(u32 k) {
     HP1D* p = (HP1D*)D_0036D554;
-    s32 r = Find1D(p->unk8, k);
-    if (r == 0) r = Find1D(p->unkC, k);
+    void* r = Get1D(p->unk8, k);
+    if (r == 0) r = Get1D(p->unkC, k);
     return r;
 }
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D0680);
 
