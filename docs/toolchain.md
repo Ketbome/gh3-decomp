@@ -95,6 +95,15 @@ never before); the filter writes it there. Across all 84,870 delay slots of the 
 Checked: `dk all` 5796 match; func_001E0198 relied on gas moving a `move` into the slot and went back to asm
 (near miss in nonmatching/).
 
+## VU0 registers allocated by gcc
+
+ee-gcc 2.95.3-136 allocates VU0 registers for `register TI v asm("vf1")` variables (constraint `"j"`) and emits
+`lqc2`/`sqc2`/`qmfc2` itself, also copying them into branch-likely delay slots (41 in the game, 34 unmatched
+functions); it writes the register without `$` (`vf1`), which gas rejects, so `scripts/asm_filter.py` adds it.
+Branch-likely vs plain branch elsewhere is not a toolchain matter: 22 flag variants and all five SN compilers give
+the same choice, and the 1255 branch-likely in matched functions reproduce; it follows register liveness in reorg
+(C shape or permuter). Checked: `dk all` 5856 match, func_001FDC60 matches with it.
+
 ## Open questions
 
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets

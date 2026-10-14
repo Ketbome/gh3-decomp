@@ -90,6 +90,10 @@ To survive a crash without losing work:
 - **`sqrt.s`** is encoded the R5900 way (operand in the ft field) by the prelude: write `sqrtf`/`__builtin_sqrtf`
   with `-ffast-math`, or the plain instruction in VU0 asm, and it assembles like the original (`c1 0xC0304` in splat's
   listing).
+- **VU0 register variables:** an `lqc2`/`sqc2`/`qmfc2` copied into a branch-likely delay slot (`bc1fl`) or
+  scheduled among ordinary instructions came from gcc, not from an asm: declare `register TI v asm("vf1") = m->r3;`
+  and pass it with the `"j"` constraint (`asm("vmul.xyz %0,..." : "+j"(v))`); gcc then loads/stores the VU0 register
+  itself (func_001FDC60; 41 such slots in the game).
 - **VU0 stages:** separate non-volatile `asm()` blocks chained through a dummy `"=r"`/`"+r"` operand let gcc
   interleave ordinary instructions between stages; `asm volatile` and output-less asms pin the order instead.
 - **Inline asm.** PS2 instructions the compiler cannot emit (MMI such as `pextlw`/`pcpyld`/`pcpyud`, COP2/VU0)

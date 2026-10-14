@@ -26,6 +26,10 @@
 - Hazard nop at a label: between `mtc1 ..,$fN` and a label followed by a read of `$fN`, SN's assembler put the nop
   after the label (29 times in the game, never before it); the modern gas puts it before. Written out after the label.
 
+- VU0 registers: ee-gcc allocates them itself for `register TI v asm("vf1")` operands (constraint `"j"`), and writes
+  them without `$` (`lqc2 vf1,...`), which the modern gas rejects; written as `$vfN`. gcc then also copies such
+  `lqc2`/`sqc2` into branch-likely delay slots, which inline asm never is (41 cases in the game).
+
 Usage: scripts/asm_filter.py <file.s> [<source stem, e.g. t_16E670>]
        (run between the compiler and the assembler; configure.py and dk.py do)
 """
@@ -333,6 +337,13 @@ def label_hazards(text):
     return "\n".join(out)
 
 
+VF = re.compile(r"(?<![\w$])vf(\d+)(?!\d)")
+
+
+def vu_registers(text):
+    return "\n".join(l if l.lstrip().startswith(("#", ".")) else VF.sub(r"$vf\1", l) for l in text.split("\n"))
+
+
 def li_s(m):
     indent, reg, value = m.groups()
     bits = struct.unpack("<I", struct.pack("<f", float(value)))[0]
@@ -345,7 +356,7 @@ def main():
     path = Path(sys.argv[1])
     stem = sys.argv[2] if len(sys.argv) > 2 else None
     text = path.read_text()
-    new = label_hazards(delay_slots(short_loops(div_nops(memory_macros(LI_S.sub(li_s, jump_tables(text, stem))), stem))))
+    new = label_hazards(delay_slots(short_loops(div_nops(memory_macros(LI_S.sub(li_s, jump_tables(vu_registers(text), stem))), stem))))
     if new != text:
         path.write_text(new)
 
