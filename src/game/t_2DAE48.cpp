@@ -294,6 +294,35 @@ extern "C" void func_002DB268(s32 a) {
     }
 }
 
+struct S2DB2D0_P {
+    char pad0[0x1C];
+    int unk1C;
+    int unk20;
+    int unk24;
+};
+
+struct S2DB2D0_O {
+    char pad0[0x18];
+    S2DB2D0_P *unk18;
+    S2DB2D0_P *unk1C;
+    int unk20;
+    int unk24;
+    char pad28[0x38];
+    int unk60;
+};
+
+extern "C" {
+void func_002981A0(int, int, int, int, int, int);
+extern char cb_AF98[] asm("func_002DAF98");
+extern char cb_AFA0[] asm("func_002DAFA0");
+extern char cb_AEE0[] asm("func_002DAEE0");
+extern char cb_AFB0[] asm("func_002DAFB0");
+extern char cb_B058[] asm("func_002DB058");
+extern char cb_B078[] asm("func_002DB078");
+extern int D_0036D020;
+extern int D_00368748;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DB2D0);
 
 extern "C" void func_002DB510(S2DAE48_E *p) {
