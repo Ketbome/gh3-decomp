@@ -110,7 +110,45 @@ extern "C" int func_00225E20(int a) {
     return CrcFromPathLowercase(buf);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225E70);
+struct H225 {
+    int unk0;
+    char* unk4;
+    char* unk8;
+};
+
+extern "C" {
+extern H225 D_003920C8[];
+extern s8 D_003938D8[];
+extern int D_00372E4C;
+extern s32 D_00372E40;
+extern s32 D_00372E48;
+void func_00226030(void);
+}
+
+extern "C" void func_00225E70(int a, int b) {
+    D_00372E48 = b;
+    D_00372E40 = a;
+    for (int i = 0; i < 0x200; i++) {
+        D_003918C8[i] = 0;
+        D_003938D8[i] = 0;
+        H225* h = &D_003920C8[i];
+        char* e = (char*)h + 4;
+        h->unk4 = e;
+        char* c = h->unk8;
+        h->unk8 = e;
+        if (c != e) {
+            char* end = e;
+            asm("" : "+r"(end));
+            do {
+                char* nx = *(char**)(c + 4);
+                Heap_Free(D_00368A38, c);
+                c = nx;
+            } while (c != end);
+        }
+    }
+    D_00372E4C = 0;
+    func_00226030();
+}
 
 extern "C" void func_00225F58(int a, int b) {
     func_002A1918(a, b, 0, 0, 0);
