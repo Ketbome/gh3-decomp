@@ -1142,3 +1142,4 @@ Matched (A16): func_0019B778 (same pad-to-16 loop as func_0019B7E0)
 - func_001A9ED0 (t_1A9A60): body is trivial (list walk) but the store of 0x9000100010001000 is a 64-bit `li` that the old assembler expanded as ori/dsll19/ori/dsll16/ori/dsll13/ori; ours expands it lui/ori/dsll/ori (toolchain: li64 expansion); 1 try
 Matched (A16): func_0013DD50 (t_13BE78; strip trailing backslash from a 0x80 buffer copy)
 Matched (A16): func_00121A68 (t_1210C8; `int b = buf[1]; f(arg, buf[0], b)` gives the a2-before-a1 load order)
+Matched (A16): func_001A8A60 (t_1A7A50; round-robin over 0x60-byte entries: `&T[D_0036C658++]`, count of processed in n < 4)

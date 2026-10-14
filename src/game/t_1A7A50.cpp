@@ -17,6 +17,9 @@ void Heap_Free(int, void*);
 void func_001A9128(int, int);
 int func_001A46E0(int);
 extern int D_0036C660;
+extern u32 D_0036C654;
+extern u32 D_0036C658;
+extern u8 D_00386450[];
 extern u8 D_0038C450[];
 extern int D_0036C65C;
 extern u8 func_001A8560[];
@@ -67,7 +70,25 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8810);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A88E8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8A60);
+struct E_1A8A60 { int unk0; int unk4; char pad8[0x58]; };
+GP_DATA(D_0036C654);
+GP_DATA(D_0036C658);
+extern "C" void func_001A8A60(void) {
+    if (D_0036C654) {
+        u32 n = 0;
+        u32 i = 0;
+        for (; n < 4; ) {
+            E_1A8A60* e = &((E_1A8A60*)D_00386450)[D_0036C658++];
+            if (e->unk0 == 0 && e->unk4) {
+                n++;
+                func_001A8520((int*)e);
+            }
+            i++;
+            if (D_0036C658 >= D_0036C654) D_0036C658 = 0;
+            if (!(i < D_0036C654)) break;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A8B10);
 
