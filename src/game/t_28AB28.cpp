@@ -361,7 +361,36 @@ extern "C" int func_0028C590(S28AB_Tab *p, int v) {
     return 0;
 }
 
+struct S28C_H {
+    int unk0;
+    int key;
+    int unk8;
+    int unkC;
+    S28C_H *next;
+};
+
+struct S28C_E {
+    int id;
+    char pad[0x2C];
+};
+
+struct S28C_O {
+    char pad0[0x10];
+    int unk10;
+    char pad14[0x2C];
+    int unk40;
+    char pad44[0x60];
+    S28C_E *unkA4;
+    char padA8[0x2C];
+    int unkD4;
+};
+
+extern "C" S28C_H **D_003710A4;
+
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C658);
+
+
+
 
 extern "C" int func_0028C770(S28AB_Tab *p, int v) {
     if (p->unkC8 == v) {
