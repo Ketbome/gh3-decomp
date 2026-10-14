@@ -757,7 +757,61 @@ extern "C" void func_001CD6D0(S001CD6B0* p, s32 i, s32 v) {
     p->unk174[i] = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CBB50", func_001CD6E0);
+extern "C" void func_001CD6E0_d(s32 a, s32 b) __asm__("func_001CD6E0");
+extern "C" void func_001CD6E0_d(s32 a, s32 b) {
+    if (b == 0xFFFF && a != 0) {
+        int* p = D_0038E3A0;
+        *p = 0;
+        *++p = 0xBC6B118F;
+        *++p = 0xE3006FC4;
+        *++p = 0x85981897;
+        *++p = 0x4B358AEB;
+        *++p = 0xB7231A95;
+        *++p = 0xA50950C5;
+        *++p = 0xD8847EFA;
+        *++p = 0x786B8B68;
+        *++p = 0x2B489A86;
+        *++p = 0x321C9756;
+        *++p = 0x7323E97C;
+        *++p = 0x20689278;
+        *++p = 0x26B0C991;
+        *++p = 0xBFB9982B;
+        *++p = 0xC8BEA8BD;
+        *++p = 0xF2F1F64E;
+        *++p = 0x6BF8A7F4;
+        *++p = 0x1CFF9762;
+        *++p = 0xCB53A789;
+        *++p = 0x9758A9C3;
+        *++p = 0xF1C0DE90;
+        *++p = 0xD525478E;
+        *++p = 0x8A659F8F;
+        *++p = 0x5856EF3A;
+        *++p = 0xF57BCEC8;
+        *++p = 0xB0912558;
+        *++p = 0xBB5C10C9;
+        *++p = 0x3224B0E6;
+        *++p = 0x54BCC7B5;
+        *++p = 0x9E84EFD0;
+        *++p = 0x6FD42D4;
+        *++p = 0xA463FF9B;
+        *++p = 0x545668A6;
+        *++p = 0x1A3A44A1;
+        *++p = 0x767A45D7;
+        *++p = 0xBD30325B;
+        *++p = 0xB40D153F;
+        *++p = 0x9D2D8850;
+        *++p = 0x6AE9700F;
+        *++p = 0xE23670C3;
+        *++p = 0x84AE0790;
+        *++p = 0xD5502957;
+        *++p = 0xFFE1765D;
+        *++p = 0x83D87F28;
+        *++p = 0xE540087B;
+        *++p = 0xE2E9FCA8;
+        *++p = 0x5775A6C1;
+        *++p = 0xC9EF9394;
+    }
+}
 
 extern "C" void func_001CDA00(void* p) {
     func_00113F38(p);
