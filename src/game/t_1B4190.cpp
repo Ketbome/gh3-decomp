@@ -74,7 +74,7 @@ struct D1B43 {
 struct Q1B43 {
     char pad0[8];
     s32 unk8;
-    char pad0C[0x48];
+    char pad0C[0x44];
 };
 
 struct R1B43;
@@ -118,7 +118,51 @@ struct A1B43 {
     s32 unk4;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4360);
+extern "C" void func_001B4360(A1B43* a, S1B43* s) {
+    register s32 i asm("$7") = 0;
+    T1B43* t = s->unk14;
+    s32 n = a->unk4;
+    s32 cnt = t->unk0;
+    register s32 key asm("$4") = a->unk0;
+    E1B43* e = t->unk10;
+    for (; i < cnt; i++, e++) {
+        if (e->unk8 == key) {
+            break;
+        }
+    }
+    R1B43* r = (R1B43*)func_0019F9F8();
+    r->unk0 = s;
+    register s32 t18 asm("$3") = s->unk18;
+    r->unk4 = t18;
+    register s32 m asm("$4") = s->unk28;
+    s32 b = (s32)s->unk30;
+    r->unkC = n;
+    m = m * 0x50;
+    r->unk8 = (Q1B43*)(b + m);
+    register R1B43* ee asm("$4") = e->unk34;
+    r->unk10 = ee;
+    e->unk34 = r;
+    register Q1B43* q asm("$6") = r->unk8;
+    register s32 j asm("$7") = 0;
+    if (n > 0) {
+        do {
+            register s32 j1 asm("$9") = j + 1;
+            register s32 cnt2 asm("$5") = s->unk1C;
+            register s32 want asm("$7") = q->unk8;
+            register s32 k asm("$4") = 0;
+            register D1B43* d asm("$3") = s->unk20;
+            for (; k < cnt2; k++, d++) {
+                if (d->unk4 == want) {
+                    break;
+                }
+            }
+            q->unk8 = (s32)d;
+            j = j1;
+            q = q + 1;
+        } while (j < n);
+    }
+    s->unk28 += n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B4190", func_001B4468);
 
