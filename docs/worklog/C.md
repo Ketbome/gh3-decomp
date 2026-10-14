@@ -959,3 +959,5 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - func_0026B628 gave up: table slot init (D_003A44B0 + (idx<<7)); original keeps base and offset in two saved registers across the calls and recomputes each field address (copies via daddu); gcc CSEs/rematerialises them (5 forms).
 - func_00276BB0 MATCH (sibling of func_002769B0: copy the pointer into a local inside the if; r[2] = 9).
 - func_002727E8 MATCH (final three stores in the order unkC &= ~4, unk4 = 1, unk8 = 7; found by trying the six orders).
+- func_002729C0: near miss, nonmatching/func_002729C0.cpp (body matches; gcc cross-jumps the two identical func_00271A98 call tails (0x30 vs 0x70 branches), the original keeps both copies, size 0x150 vs 0x168; func_00273D88 takes no argument).
+- func_002ABC18 MATCH (array iterate with the stack object passed to func_0028C9F0; do/while with i++ before the call; the else branch and the fall-through both end in the same global store).

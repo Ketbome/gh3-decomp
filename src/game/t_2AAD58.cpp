@@ -88,7 +88,50 @@ extern "C" void func_002ABB00(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ABC18);
+struct S2AB_Arr {
+    int unk0;
+    u32 unk4;
+    int unk8;
+};
+
+extern "C" {
+void func_0027AA70(void *);
+void func_0027C448(void *, u32, int);
+int func_0027D400(int, u32, int *, int);
+int func_0027D470(int, u32, S2AB_Arr **, int);
+extern int D_00372F18;
+}
+
+GP_DATA(D_00371EEC);
+extern "C" int func_002ABC18(int a) {
+    if (D_00372F18 == a) return 0;
+    int sp10 = 0;
+    if (func_0027D400(D_00371EEC, 0x6FB89DB9, &sp10, 0)) {
+        S2AB_Arr *arr = 0;
+        if (func_0027D470(sp10, 0x7D28697E, &arr, 0)) {
+            char buf[16];
+            u32 i = 0;
+            func_0027AA70(buf);
+            func_0027C448(buf, 0x7D28697E, a);
+            func_0027C448(buf, 0x6963DBBF, D_00372F18);
+            if (arr->unk4 != 0) {
+                do {
+                    int v;
+                    if (arr->unk4 == 1) v = arr->unk8;
+                    else v = ((int *)arr->unk8)[i];
+                    i++;
+                    func_0028C9F0(v, (int)buf, 0, 0, 0, 0);
+                } while (i < arr->unk4);
+            }
+            func_0027AC90((int)buf);
+        } else {
+            D_00372F18 = a;
+            return 1;
+        }
+    }
+    D_00372F18 = a;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AAD58", func_002ABD58);
 
