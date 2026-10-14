@@ -849,3 +849,9 @@ Given up: t_24DDB8 CFunc_VectorLength (original sqrt.s encodes the source in the
 t_2AD528 func_002AE3C0 / t_2DAE48 func_002DB920 / t_252068 func_002532A0 (start with a lone `sqcw2`/`qmfc2` before the prologue: split tails).
 Near miss: t_250010 CFunc_SetShadowDirFromLight (nonmatching/CFunc_SetShadowDirFromLight.cpp): VU0 stages as separate non-volatile asms chained by a dummy "=r"/"+r" int (volatile or output-less asms stop the compiler interleaving the lui/addiu/li between them; this chain reproduces it);
 left: gcc fills the beqz delay slot with a likely-branch copy of `lq` (`beqzl`), original has the asm's `lqc2 $vf1` (moved by gas) in the slot; `li v0,1` and the lui/addiu of D_00378210 sit one slot off.
+
+### Round 15 (agent C15)
+Stub splits: matched func_002DE0C8, func_00288998, func_0028C848, func_002758A0 (file now `-funroll-loops`: `for (i = 0; i < 0x8000; i++) p[i] = 0`),
+func_002769B0 (unrolled loop; `u32 i = 0; if (n) { q = p; do {...; i++} while (i < n); }` with `int n`: the pointer copy inside the `if` puts `move s4,a0` after the branch).
+Near miss: func_002884A8 (nonmatching/func_002884A8.cpp): only `move a0,s0` / `move a1,zero` order before func_00119610(h, 0) differs
+(original sets a1 first and a0 in the delay slot). Loop forms that mattered: first loop `while ((it = f(it)))` with `if (x == key) n++` gives movz; second `e = f(0); if (e) { w = arr; do {...} while (e); }`; last `for (o = f(0); o; o = f(o))`.

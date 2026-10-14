@@ -131,6 +131,7 @@ s32 operator_new(int);
 s32 func_00113DF0(int, int, int);
 int func_001ECC90(s32);
 int func_001F35D0(s32);
+int func_001F4070(s32);
 int func_00276D68(s32, void *, int);
 void func_002DD738(int, int);
 int func_002DDBD8(int, int);
@@ -334,7 +335,9 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDDC8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE0C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE0C8);
+extern "C" void func_002DE0C8(void) {
+    func_001F4070(operator_new(0x160));
+}
 
 extern "C" void func_002DE0F0(void) {
     func_00276D68(D_00372E10[0], D_0038F230, 0x10);
