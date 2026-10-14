@@ -29,7 +29,40 @@ extern H_0019B6B8* D_00368A38;
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B448);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019B550);
+extern int D_0036C0C8;
+extern short D_0036C0CC;
+extern short D_0036C0CE;
+
+GP_DATA(D_0036C0CE);
+GP_DATA(D_0036C0C8);
+GP_DATA(D_0036C0CC);
+extern "C" void func_0019B550(S_0019B668* a, int n, int depth) {
+    if (D_0036C0CE != 0) {
+        func_0011A470(D_0036C0C8);
+        D_0036C0C8 = 0;
+        D_0036C0CC = 0;
+        D_0036C0CE = 0;
+    } else if (n) {
+        if (depth > 0) {
+            int d = depth - 1;
+            int* p = (int*)n;
+            int c = 15;
+            do {
+                c -= 8;
+                func_0019B550(a, p[0], d);
+                func_0019B550(a, p[1], d);
+                func_0019B550(a, p[2], d);
+                func_0019B550(a, p[3], d);
+                func_0019B550(a, p[4], d);
+                func_0019B550(a, p[5], d);
+                func_0019B550(a, p[6], d);
+                func_0019B550(a, p[7], d);
+                p += 8;
+            } while (c >= 0);
+        }
+        func_0011A470(n);
+    }
+}
 
 GP_DATA(D_0036C0C4);
 extern "C" void func_0019B668(S_0019B668* self) {
