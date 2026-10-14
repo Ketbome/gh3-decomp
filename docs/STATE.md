@@ -6,12 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-14): workers A and C (`div.s` functions first); `decomp-forensics` on delay slots the modern gas
-fills where the original leaves `nop` (unsigned `cvt.s.w` before `b`/`jr`: func_002009B0, func_001D5038,
-func_001D5138, func_001B21A0, func_001E2850; volatile `sw` before `jal`: func_001B3BD0), scratch copy only.
-Worker A relaunched (second round, `div.s` left, then untried; 3 more `cvt.s.w` cases from it went to the forensics:
-func_0011EE38, func_0011ED68, func_0016FCD8). Worker B finished its round (12 matches, few viable candidates left);
-relaunch after the forensics result.
+Running (2026-10-14): workers A, B, C (second round: twins, `div.s` left, untried up to 0x1000, new stop rule);
+`decomp-forensics` on delay slots the modern gas fills where the original leaves `nop` (u32-to-float `cvt.s.w` before
+`b`/`jr`: func_002009B0, func_001D5038, func_001D5138, func_001B21A0, func_001E2850, func_0011EE38, func_0011ED68,
+func_0016FCD8; volatile `sw` before `jal`: func_001B3BD0; hazard nop after a join label: func_0015E2D0), scratch only.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |
@@ -26,6 +24,7 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
+- Permuter when no worker runs: 27 new near misses from round 1 (A 14, C 13, mostly register numbering).
 - Permuter: `--batch --timeout 120` stopped after ~15 of 74 (too slow with workers running), no score 0. Best:
   CFunc_DisplayLoadingScreen 175, func_00114660 225, CFunc_GetAngle 225, CFunc_SetStreamParams 260. Earlier 360 s
   runs: func_001E8CA8 60, func_0020EE10 60, func_002250F8 120. Not worth more CPU while workers run.
@@ -38,6 +37,8 @@ never mentioned in a worklog on 2026-10-14).
 - `dk twins` fixed in skill 1.5.1 (4 of 5 hand-done twins now automatic); func_001D0848 still needs casts (file
   declares Heap_Alloc, func_0011C2A8, D_0036D0F0 with other types than its twin's file). Workers A and C were told
   to run it on their 13 candidates.
+- Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): CFunc_GetViewportCameraPos, CFunc_GetWaypointDir,
+  CFunc_NormalizeVector; source construct unknown.
 - `if (c) r = v` becomes `movz` where the original branches (func_002251F8).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
