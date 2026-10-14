@@ -294,9 +294,67 @@ extern "C" int CFunc_StringLength(int params, S25A_Script *script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_RequireParams);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_ShortenUIString);
+extern "C" {
+extern int D_00368A38;
+void *Heap_Alloc(int, int, int, int);
+void Heap_Free(int, void *);
+void memset(void *, int, int);
+void func_00113960(char *, int, char *);
+void func_0027C028(int, u32, char *);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_StringRemoveTrailingWhitespace);
+extern "C" int CFunc_ShortenUIString(int params, S25A_Script *script) {
+    char *s = 0;
+    func_0027D188(params, 0x96875C0F, &s, 0);
+    int r = 0;
+    if (s) {
+        int n = 0x14;
+        func_0027D1F8(params, 0xE2DB8458, &n, 0);
+        char *buf = (char *)Heap_Alloc(D_00368A38, n + 4, 1, 0);
+        memset(buf, 0, n + 4);
+        func_00113960(buf, n, s);
+        if (n < func_00113900(s)) {
+            buf[n] = 0x2E;
+            buf[n + 1] = 0x2E;
+            buf[n + 2] = 0x2E;
+        }
+        func_0027C028(script->unk20, 0xE8EE8638, buf);
+        if (buf) Heap_Free(D_00368A38, buf);
+        r = 1;
+    }
+    return r;
+}
+
+extern "C" {
+void func_00113930(char *, char *);
+extern char D_003704B8[];
+bool func_0027D188_b(int, u32, void *, int) asm("func_0027D188");
+}
+struct S25A_SW {
+    u32 key;
+    char *s;
+};
+
+extern "C" int CFunc_StringRemoveTrailingWhitespace(int params, S25A_Script *script) {
+    S25A_SW l;
+    l.s = D_003704B8;
+    l.key = 0x99DB757C;
+    bool miss = !func_0027D188_b(params, 0x61414D56, &l.s, 0);
+    if (miss) {
+        func_0027D870(params, 0x5B058376, &l.key, 1);
+        bool miss2 = !func_0027D188_b(script->unk20, l.key, &l.s, 1);
+        if (miss2) return 0;
+    }
+    int n = func_00113900(l.s);
+    char *buf = (char *)Heap_Alloc(D_00368A38, n + 1, 1, 0);
+    func_00113930(buf, l.s);
+    for (int i = n - 1; i >= 0 && buf[i] == 0x20; i--) {
+        buf[i] = 0;
+    }
+    func_0027C028(script->unk20, l.key, buf);
+    if (buf) Heap_Free(D_00368A38, buf);
+    return 1;
+}
 
 extern "C" int CFunc_ScriptCacheDeleteZeroUsage(void) {
     func_00291900(D_003715D4[0]);
