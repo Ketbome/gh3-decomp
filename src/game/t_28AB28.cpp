@@ -123,6 +123,7 @@ int func_00288C48(void*);
 int func_00288C00(void*);
 int func_00289630(void*, void*);
 int func_0027D870(int, u32, int *, int);
+void func_00289608(void *, int);
 }
 
 extern "C" int func_0028AB28(S0028AB28* p) {
@@ -332,7 +333,17 @@ extern "C" int func_0028C770(S28AB_Tab *p, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C840);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C848);
+struct S0028C848 {
+    char pad[0x40];
+    int unk40;
+    char pad1[0x60];
+    char* unkA4;
+};
+
+extern "C" void func_0028C848(S0028C848* p, int b) {
+    func_00289608((char*)p + 0xA8, b);
+    for (int i = 0; i < p->unk40; i++) func_00289608(p->unkA4 + i * 0x30 + 0x1C, b);
+}
 
 extern "C" int func_0028C8D0(S0028C8D0* p) {
     if (p->unk40 != 0) {
