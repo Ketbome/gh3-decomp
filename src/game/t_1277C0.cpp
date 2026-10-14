@@ -93,7 +93,7 @@ void func_001291E0(int, int);
 void func_00128B40(int, int);
 void func_001294C0(void*, int);
 void func_0011A300(int, u32, int);
-void memset(void*, int, int);
+void* memset(void*, int, int);
 int func_00128F48(void*);
 extern int D_003690EC;
 extern u8 D_003398C8[];
@@ -476,7 +476,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128D48);
 extern "C" void func_00128F40(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128F48);
+extern "C" void* func_0012A0F8(int, int);
+
+static inline void Fill_00128F48(S_00128A80** slot) {
+    memset((char*)(*slot = func_00128A80((S_00128A80*)func_0012A0F8(0x408, 1))) + 4, 0, 0x200);
+    memset((char*)*slot + 0x204, 0, 0x200);
+}
+
+extern "C" int func_00128F48(void* self) {
+    S_00128A80** p = (S_00128A80**)((char*)self + 0x28);
+    int i = 0;
+    do {
+        if (p[0] == 0) {
+            Fill_00128F48(&p[0]);
+            return i;
+        }
+        int k = i + 1;
+        if (p[1] == 0) {
+            Fill_00128F48(&p[1]);
+            return k;
+        }
+        k = i + 2;
+        if (p[2] != 0) {
+            i += 3;
+            p += 3;
+            continue;
+        }
+        Fill_00128F48(&p[2]);
+        return k;
+    } while (i < 0x12);
+    return -1;
+}
+
 
 extern "C" int func_00129070(S_00129070* self) {
     return self->unk480 != 0;
