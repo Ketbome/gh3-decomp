@@ -330,13 +330,37 @@ extern "C" S0025D4E0* func_0025D4E0(S0025D4E0* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D500);
+extern "C" S0025D4E0 func_0025D500(S0025D4E0 *a, S0025D4E0 *b) {
+    S0025D4E0 r;
+    func_0025D4E0(&r);
+    r.unk0 = a->unk0 + b->unk0;
+    r.unk4 = a->unk4 + b->unk4;
+    r.unk8 = a->unk8 + b->unk8;
+    r.unkC = a->unkC + b->unkC;
+    r.unk10 = a->unk10 + b->unk10;
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D5C0);
+extern "C" S0025D4E0 func_0025D5C0(S0025D4E0 *a, S0025D4E0 *b) {
+    S0025D4E0 r;
+    func_0025D4E0(&r);
+    r.unk0 = a->unk0 - b->unk0;
+    r.unk4 = a->unk4 - b->unk4;
+    r.unk8 = a->unk8 - b->unk8;
+    r.unkC = a->unkC - b->unkC;
+    r.unk10 = a->unk10 - b->unk10;
+    return r;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D680);
+extern "C" S0025D4E0 *func_0025D680(S0025D4E0 *a, S0025D4E0 *b) {
+    *a = func_0025D500(a, b);
+    return a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25C450", func_0025D6E0);
+extern "C" S0025D4E0 *func_0025D6E0(S0025D4E0 *a, S0025D4E0 *b) {
+    *a = func_0025D5C0(a, b);
+    return a;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25C450", CFunc_DumpMemStatistics);
 
