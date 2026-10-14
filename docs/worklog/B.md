@@ -950,3 +950,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_001E45C8: near miss (3 instructions: original puts 'sw v0,0(s2)' in the jal func_00122550 slot after 'move a0,s0'; ours the reverse; and beqzl for the null return), nonmatching/func_001E45C8.cpp.
 - func_001C9EB8: near miss (teardown with two refs to the member at +0x81AC: original keeps the pointer in s0 and a copy in s2 (asm barrier gives the right pair but the compiler then uses the other register for block 1), base p+0x8000 computed in the prologue), nonmatching/func_001C9EB8.cpp.
 - func_00207C78 MATCH (switch + virtual call with a u128 arg; the lq+mtc1 float read is an asm("mtc1 %1, %0" : "=f"(f) : "r"(u128)) on the loaded 128-bit value, as in t_161580).
+- func_00233D10 MATCH (recursive max over a list iterator: movn max from 'best = best < v ? v : best', two stack out-pointers x,y; asm aliases for the list functions).

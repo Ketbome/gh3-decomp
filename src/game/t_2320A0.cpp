@@ -241,7 +241,40 @@ extern "C" void func_00233CC0(int a, int b) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233D10);
+struct J2320 {
+    s32 unk0;
+    s32 unk4;
+};
+
+extern "C" {
+void* func_0027B300_j(s32 l, void* it) __asm__("func_0027B300");
+s32 func_0027D470_j(s32 p, u32 key, J2320** v, s32 req) __asm__("func_0027D470");
+s32 func_002763E0_j(s32 a, s32 b) __asm__("func_002763E0");
+}
+
+extern "C" s32 func_00233D10(s32 a) {
+    char* it = 0;
+    s32 best = 0;
+    s32 list = func_002763E0_j(a, 1);
+    while ((it = (char*)func_0027B300_j(list, it)) != 0) {
+        s32 v = 0;
+        if ((*(u32*)it & 0xFE00) == 0x3400) {
+            v = func_00233D10(*(s32*)(it + 8));
+        } else {
+            s32 n = *(s32*)(it + 8);
+            J2320* x = 0;
+            J2320* y = 0;
+            if (func_0027D470_j(n, 0x7A354E97, &x, 0) != 0) {
+                v = x->unk4;
+            }
+            if (func_0027D470_j(n, 0xB0EAA257, &y, 0) != 0) {
+                v += y->unk4;
+            }
+        }
+        best = best < v ? v : best;
+    }
+    return best;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2320A0", func_00233E10);
 
