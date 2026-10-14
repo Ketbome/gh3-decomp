@@ -383,7 +383,32 @@ INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FD50);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FF18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FF20);
+struct B14FF20 { int unk0; B14FF20* unk4; int unk8; };
+struct H14FF20 { int unk0; int unk4; H14FF20* unk8; };
+struct O14FF20 { char pad0[0x58]; B14FF20* unk58; };
+extern "C" {
+void* func_0011C3A8_2(int) __asm__("func_0011C3A8");
+H14FF20* func_00152648_2(void*) __asm__("func_00152648");
+}
+
+extern "C" void func_0014FF20(void* p, int key) {
+    O14FF20* self = (O14FF20*)p;
+    int h = func_00152C50(key);
+    B14FF20* t = self->unk58;
+    H14FF20* b = (H14FF20*)((char*)t->unk4 + ((h & ((1 << t->unk0) - 1)) * 0xC));
+    if (b->unk4 != 0 || b->unk0 != 0) {
+        H14FF20* n = (H14FF20*)func_0011C3A8_2(0);
+        if (n != 0) n = func_00152648_2(n);
+        n->unk0 = h;
+        n->unk4 = key;
+        n->unk8 = b->unk8;
+        b->unk8 = n;
+    } else {
+        b->unk0 = h;
+        b->unk4 = key;
+    }
+    t->unk8 = t->unk8 + 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14E7E0", func_0014FFF0);
 
