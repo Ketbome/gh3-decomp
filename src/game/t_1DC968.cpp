@@ -60,6 +60,8 @@ struct Pool1DC {
 
 extern "C" {
 void func_001CE888(void* a, void* b);
+void func_001CE888_3(s32 a, void* b, void* c) __asm__("func_001CE888");
+void func_001CE868_2(s32 a, void* b) __asm__("func_001CE868");
 extern s32 D_00368A38[] __attribute__((section(".sdata")));
 void Heap_Free(s32 heap, void* p);
 void* Heap_Alloc(s32 heap, s32 size, s32 a, s32 b);
@@ -73,6 +75,10 @@ S1DC968* func_001DD640(S1DC968* p);
 s32 func_00275570(void);
 extern s32 D_00370F40[] __attribute__((section(".sdata")));
 void func_001DCB80(void*);
+void* func_001D1CF8(void* p, u32 key);
+void* func_002234E8(void* a, s32 b);
+s32 func_00201CE0(void* p);
+s32 func_0010C050(s32 a);
 extern Pool1DC* D_0036D540[2];
 extern s32 D_0036D550;
 void* func_0011C2A8(Pool1DC*);
@@ -164,6 +170,35 @@ extern "C" void func_001DCF30(S1DCED0* p, s32 flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DCF90);
 
+struct Q1DD0 {
+    char pad0[0x20];
+    s32 unk20;
+};
+
+struct N1DD0 {
+    char pad0[4];
+    Q1DD0* unk4;
+    char pad8[4];
+    N1DD0* unkC;
+};
+
+struct I1DD0 {
+    char pad0[4];
+    N1DD0* unk4;
+    char pad8[4];
+    s32 unkC;
+};
+
+static inline N1DD0* Adv1DD(I1DD0* it) {
+    N1DD0* n = it->unk4->unkC;
+    N1DD0* r = 0;
+    if (~(s32)n->unk4 != 0) {
+        r = n;
+    }
+    it->unk4 = r;
+    return r;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD018);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD0A0);
@@ -191,11 +226,51 @@ struct E1DD4 {
 };
 
 struct S1DD4 {
-    E1DD4* unk0;
+    s32 unk0;
     s32 unk4;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD4D0);
+extern "C" void func_001DD4D0(S1DD4* p0, void* a0) {
+    s32 i = 0;
+    register void* a asm("$18") = a0;
+    register S1DD4* p asm("$19") = p0;
+    if (p->unk4 > 0) {
+        register s32 off asm("$20") = 0;
+        do {
+            E1DD4* e = (E1DD4*)(off + p->unk0);
+            if ((void*)e->unk0 == a) {
+                if (a) {
+                    func_001CE888(a, e);
+                    e->unk0 = 0;
+                }
+                e->unk0 = 0;
+            }
+            i++;
+            off += 0xC;
+        } while (i < p->unk4);
+    }
+}
+
+struct E1DD5 {
+    s32 unk0;
+    char pad4[8];
+};
+
+struct S1DD5 {
+    s32 unk0;
+    s32 unk4;
+};
+
+static inline void Set1DD5(E1DD5* e, S1DD5* p, s32 a) {
+    if (e->unk0 != 0) {
+        func_001CE888_3(e->unk0, e, p);
+        e->unk0 = 0;
+    }
+    e->unk0 = a;
+    if (a) {
+        func_001CE868_2(a, e);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD568);
 
@@ -252,6 +327,17 @@ extern "C" void func_001DE1B0(S1DE1B0* p) {
         p->unkC4 &= ~2;
     }
 }
+
+struct S1DE21 {
+    char pad0[0x20];
+    void* unk20;
+    char pad24[0x4C];
+    void* unk70;
+    void* unk74;
+    char pad78[8];
+    U128_1DC968 unk80;
+    U128_1DC968 unk90;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DE210);
 
