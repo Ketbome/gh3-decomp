@@ -89,6 +89,10 @@ void func_0026C7A8(int);
 void func_0026C878(int);
 int func_0027D870(int, u32, u32 *, int);
 int func_0027D188(int, u32, int *, int);
+int func_0027CC30(int, u32, int, int *);
+void func_0027F1E0(int, int, int);
+void func_001E4448(int, int, int, void *);
+void func_0027C028(int, u32, void *);
 int func_001E46B0(u32);
 extern int D_0036DAD0;
 extern int D_0036DAD4;
@@ -232,7 +236,29 @@ extern "C" int CFunc_GetMemCardSpaceRequired(int params, S2A6648_1 *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardGetUniqueFileName);
+extern "C" int CFunc_MemCardGetUniqueFileName(int params, S2A5_Script *script) {
+    struct {
+        int len;
+        int a;
+        int b;
+    } l;
+    int n;
+    if (func_0027CC30(params, 0x37D4417D, 1, &l.len) == 0) {
+        func_0027F1E0(params, 0, 1);
+        n = 0;
+    } else {
+        n = l.len;
+    }
+    func_0027D870(params, 0xFADDC0B8, (u32 *)&l.a, 1);
+    int a = l.a;
+    func_0027D188(params, 0xC3F4169A, &l.b, 0);
+    void *buf = Heap_Alloc(D_00368A38, n + 2, 1, 0);
+    func_001E4448(a, l.b, n + 1, buf);
+    func_0027C028(script->unk20, 0xC3F4169A, buf);
+    if (buf)
+        Heap_Free(D_00368A38, buf);
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardFileExists);
 
