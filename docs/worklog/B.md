@@ -860,3 +860,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - Given up: func_002433A8 (t_243208, copy ctor with vptr chain + 0x20/0x60 TI128 blocks via base pointers; pointer-setup ordering differs; 5 forms).
 - Given up: func_0022D160 (t_22BD90, strcpy + 5-byte struct copy from D_0036F830: original keeps la result in t1 and loads w before the lui; 8 forms, register/slot order only).
 - near miss: func_001D9658 (nonmatching/func_001D9658.cpp; reg numbering s3/s4 and the second addu v1 in the beql slot, k/i pinned).
+- near miss: func_0020EE10 (nonmatching/func_0020EE10.cpp; second loop: zero lands in f0 instead of f2, mov/nop placement).
