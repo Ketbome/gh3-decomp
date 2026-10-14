@@ -130,6 +130,13 @@ extern "C" int func_002CC7C8(int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2CBC10", CFunc_Drum_iterator_CFunc);
 
+struct S2CT_Script {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" void func_0027C1F8(int, u32, float);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2CBC10", CFunc_compute_desired_drummer_twist);
 
 extern "C" s32 CFunc_gem_array_stepper_CFunc_Setup(int arg0, s32 arg1) {
