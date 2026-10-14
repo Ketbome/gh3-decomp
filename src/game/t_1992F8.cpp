@@ -192,7 +192,55 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199D90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199EA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_0019A088);
+struct Q_0019A088 { u8 a[4]; u8 b[4]; };
+
+extern "C" void func_0019A088(int node, S199_K* box, int lvl, int qaddr, int val) {
+    Q_0019A088* q = (Q_0019A088*)qaddr;
+    if (node == 0) return;
+    int sz = 1 << lvl;
+    int d0 = box->c[0] - q->b[0];
+    int d1 = box->c[1] - q->b[1];
+    int d2 = box->c[2] - q->b[2];
+    int d3 = box->c[3] - q->b[3];
+    if (d0 < 0 && d1 < 0 && d2 < 0 && d3 < 0) {
+        int e0 = q->a[0] - box->c[0];
+        int e1 = q->a[1] - box->c[1];
+        int e2 = q->a[2] - box->c[2];
+        int e3 = q->a[3] - box->c[3];
+        if (e0 < sz && e1 < sz && e2 < sz && e3 < sz) {
+            int nsz = -sz;
+            if (nsz >= d0 && nsz >= d1 && nsz >= d2 && nsz >= d3 && e0 <= 0 && e1 <= 0 && e2 <= 0 && e3 <= 0) {
+                if (lvl == 0) {
+                    *((u8*)node + 0x18) = val;
+                    return;
+                }
+            }
+            lvl--;
+            int i = 0;
+            int* p = (int*)node;
+            do {
+                {
+                    S199_K nb;
+                    nb.c[0] = box->c[0] + ((((i) >> 3) & 1) << lvl);
+                    nb.c[1] = box->c[1] + ((((i) >> 2) & 1) << lvl);
+                    nb.c[2] = box->c[2] + ((((i) >> 1) & 1) << lvl);
+                    nb.c[3] = box->c[3] + (((i) & 1) << lvl);
+                    func_0019A088(p[0], &nb, lvl, qaddr, val);
+                }
+                {
+                    S199_K nb;
+                    nb.c[0] = box->c[0] + ((((i + 1) >> 3) & 1) << lvl);
+                    nb.c[1] = box->c[1] + ((((i + 1) >> 2) & 1) << lvl);
+                    nb.c[2] = box->c[2] + ((((i + 1) >> 1) & 1) << lvl);
+                    nb.c[3] = box->c[3] + (((i + 1) & 1) << lvl);
+                    func_0019A088(p[1], &nb, lvl, qaddr, val);
+                }
+                i += 2;
+                p += 2;
+            } while (i < 16);
+        }
+    }
+}
 
 extern "C" void func_0019A2E0(int a, int b, int c) {
     S199_K k;
