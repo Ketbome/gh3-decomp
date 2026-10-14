@@ -71,7 +71,8 @@ void func_001DAC78(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, f32 g);
 extern s32 D_0036D554;
 void func_001D1548(void* p);
 void func_0027D2D8(void* a, s32 key, void* v, s32 req);
-void func_001D1E20(void* a, f32 b);
+int func_001D1E20(void* a, f32 b);
+void* func_0015D5A0(int);
 s32 func_0027D268(void* a, s32 key, void* v, s32 req);
 s32 func_0027D870(void* a, s32 key, void* v, s32 req);
 s32 func_001D1CF8(void* a, s32 b);
@@ -534,7 +535,21 @@ extern "C" void func_001D1DD8(void* p, void* a) {
     func_001D1E20(p, v);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1E20);
+struct C1D1E {
+    char pad0[0x80];
+    char unk80[0x58];
+    f32 unkD8;
+};
+
+extern "C" int func_001D1E20(void* a, f32 lim) {
+    f32 d;
+    C1D1E* c = (C1D1E*)func_0015D5A0(0);
+    return c ? ({
+        asm volatile("lqc2 $vf1, 0x80(%1)\n\tlqc2 $vf2, 0x80(%2)\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $3, $vf1\n\tmtc1 $3, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+            : "=f"(d) : "r"(a), "r"(c) : "$3");
+        d * c->unkD8 < lim;
+    }) : 0;
+}
 
 extern "C" int func_001D1EA8(void* a, void* params) {
     s32 v;
