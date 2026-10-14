@@ -73,6 +73,10 @@ void func_001D17B0(void* o, s32 a, s32 b, s32 t);
 char* func_001D36E8(void* p, u32 key);
 s32 func_0027D268(s32 a, u32 b, void* v, s32 c);
 f32 func_0010D5C8(void* a, void* v, s32 b, s32 c);
+void func_0027C1F8(s32 a, u32 key, f32 v);
+void* func_00224220(s32 a, s32 b);
+void func_00223590(void* a, void* v);
+void* func_001D0680(s32 a);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2508);
@@ -141,9 +145,34 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2E60);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2F00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3020);
+extern "C" s32 func_001D3020(char* self, void* a, char* script) {
+    s32 id;
+    TI128 v;
+    f32 d;
+    s32 st;
+    func_0027D870(a, 0, &id, 0);
+    func_00223590(func_00224220(id, 1), &v);
+    asm volatile("lqc2 $vf1, %2\n\tlqc2 $vf2, 0x80(%1)\n\tvsub.xyzw $vf2, $vf2, $vf1"
+        : "=r"(st) : "r"(self), "m"(v));
+    s32 sc = *(s32*)(script + 0x20);
+    asm volatile("vmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(d) : "r"(st) : "$2");
+    func_0027C1F8(sc, 0x7E832F08, d);
+    return 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D30B8);
+extern "C" s32 func_001D30B8(char* self, void* a, char* script) {
+    s32 id;
+    func_0027D870(a, 0, &id, 1);
+    char* o = (char*)func_001D0680(id);
+    f32 d = 0.0f;
+    if (o) {
+        asm volatile("lqc2 $vf1, 0x80(%1)\n\tlqc2 $vf2, 0x80(%2)\n\tvsub.xyzw $vf2, $vf2, $vf1\n\tvmul.xyzw $vf2, $vf2, $vf2\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni %1, $vf1\n\tmtc1 %1, $f0\n\tnop\n\tnop\n\tsqrt.s %0, $f0"
+            : "=f"(d), "+r"(o) : "r"(self) : "$f0");
+    }
+    func_0027C1F8(*(s32*)(script + 0x20), 0x976B04A3, d);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3150);
 
