@@ -31,7 +31,38 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9A98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9B08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9B80);
+struct N_1A9 { char pad0[0x30]; int unk30; };
+
+extern "C" {
+int func_001ACD38(void*);
+void func_001ACE28(void*, int);
+N_1A9* func_001ACF70(N_1A9*);
+N_1A9* func_001AD008(N_1A9*);
+}
+
+extern "C" int func_001A9B80(N_1A9* n, int key) {
+    int r = 0;
+    while (!func_001ACD28(n)) {
+        if (n->unk30 == key) {
+            func_001ACE28(n, 1);
+            r = 1;
+        }
+        if (func_001AD008(n) && func_001ACD38(n)) {
+            r |= func_001A9B80(func_001AD008(n), key) != 0;
+        }
+        n = func_001ACF70(n);
+    }
+    if (n) {
+        do {
+            if (n->unk30 == key) {
+                func_001ACE28(n, 1);
+                r = 1;
+            }
+            n = func_001AD008(n);
+        } while (n);
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1A9A60", func_001A9C68);
 
