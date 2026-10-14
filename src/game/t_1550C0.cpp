@@ -119,7 +119,29 @@ struct S_001563D0 { char pad0[0x90]; int unk90; float unk94; };
 GP_DATA(D_00369BE8);
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_001563D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156470);
+struct B_00156470 { char pad0[0x34]; int unk34; char pad38[0x28]; int unk60; };
+
+extern "C" void func_00156470(EB0_155* self, int on) {
+    int i;
+    if (on) {
+        self->unk9C = self->unk9C | 2;
+    } else {
+        self->unk9C = self->unk9C & ~2;
+    }
+    for (i = 0; i < D_00369BE8; i++) {
+        B_00156470* b = (B_00156470*)D_0032A558[i];
+        if (b && b->unk60) {
+            if (func_00154830(b, self->unk90)) {
+                B_00156470* c = (B_00156470*)D_0032A558[i];
+                if (on) {
+                    c->unk34 = c->unk34 | 2;
+                } else {
+                    c->unk34 = c->unk34 & ~2;
+                }
+            }
+        }
+    }
+}
 
 extern "C" void func_00156550(S90_155* self, void* x) {
     func_00154750(x);
