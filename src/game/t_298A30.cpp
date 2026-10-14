@@ -291,6 +291,25 @@ extern "C" void func_0029A778(S298_Owner *o) {
     p->v14();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A7B8);
+struct S29A_P2 {
+    s8 a, b;
+};
+extern "C" u32 func_00114C50(u8 *, int);
+
+extern "C" void func_0029A7B8(int self, u8 *src, s8 *dst, int n, int *out) {
+    int m = n;
+    u32 c = func_00114C50(src, m);
+    s16 k = (c >> 16) + c;
+    u8 key = *(u8 *)&k;
+    *(S29A_P2 *)dst = *(S29A_P2 *)&k;
+    s8 *d = dst + 2;
+    if (m > 0) {
+        int i = m;
+        do {
+            *d++ = *src++ ^ key;
+        } while (--i);
+    }
+    *out = n + 2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A8E8);
