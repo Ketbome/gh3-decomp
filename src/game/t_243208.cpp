@@ -294,7 +294,30 @@ extern "C" s32 func_00244060(char* p) {
     return *(s32*)(p + 0x34) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244128);
+extern "C" int func_00244128(char* p) {
+    int r = 0;
+    char* a = *(char**)(p + 0x34);
+    if (a != 0) {
+        u32 t = func_00243B70((u8*)a);
+        if (t != 0) {
+            Heap_Free(D_00368A38[0], (void*)t);
+        }
+        char* b = *(char**)(p + 0x34);
+        if (b != 0) {
+            char* q = b + *(int*)(b - 0x10) * 8;
+            if (b != q) {
+                do {
+                    q -= 8;
+                    func_002436F0(q, 0);
+                } while (*(char**)(p + 0x34) != q);
+            }
+            Heap_Free(D_00368A38[0], *(char**)(p + 0x34) - 0x10);
+        }
+        *(char**)(p + 0x34) = 0;
+        r = 1;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002441D0);
 
