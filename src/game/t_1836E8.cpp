@@ -117,7 +117,27 @@ extern "C" S183840* func_00183840(S183840* self, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_001838B0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183AB8);
+struct B_00183AB8 { int unk0; void* unk4; void* unk8; int unkC; };
+struct S_00183AB8 { char pad0[4]; int unk4; u8* unk8; char padC[4]; B_00183AB8* unk10; };
+extern "C" void func_00157580(void*, int);
+static inline int Get_00183AB8(S_00183AB8* s) {
+    if ((s->unk4 >> 2) & 1) return *(int*)s->unk10;
+    if (s->unk4 & 1) return (int)s->unk10;
+    return 0;
+}
+extern "C" void func_00183AB8(S_00183AB8* self, int flags) {
+    self->unk8 = D_00343C50;
+    if (Get_00183AB8(self)) {
+        func_001BDE38(Get_00183AB8(self));
+    }
+    if ((self->unk4 >> 2) & 1) {
+        if (self->unk10->unk4) Heap_Free(D_00368A38[0], self->unk10->unk4);
+        if (self->unk10->unk8) Heap_Free(D_00368A38[0], self->unk10->unk8);
+        if (self->unk10->unkC) func_001BDE38(self->unk10->unkC);
+        Heap_Free(D_00368A38[0], self->unk10);
+    }
+    func_00157580(self, flags);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1836E8", func_00183BD0);
 
