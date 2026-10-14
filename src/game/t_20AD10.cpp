@@ -61,7 +61,12 @@ static inline void Init20C(char* q) {
     func_001E29F0(q);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020AD10);
+extern int D_0036876C;
+
+extern "C" f32 func_0020AD10(f32 a, f32 b) {
+    f32 t = b * (f32)D_0036876C * a;
+    return t / ((1.0f - a) + t);
+}
 
 extern "C" f32 func_0020AD50(char* p, f32 t) {
     f32 r = func_0031BD50(__builtin_fabsf(t + t - 1.0f), *(f32*)(p + 0xC));
