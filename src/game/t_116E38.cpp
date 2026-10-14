@@ -97,7 +97,7 @@ void func_00113F38(void);
 extern int D_00368750;
 extern u8 D_003687C0[];
 extern u8 D_003686F0[];
-void strcpy(u8*, int);
+void strcpy_u(u8*, int) __asm__("strcpy");
 extern int D_003689E0;
 extern int D_00373248;
 void func_002EE6A0(int);
@@ -111,7 +111,7 @@ extern "C" u8* func_00116E38(void) {
 }
 
 extern "C" void func_00116E48(int a) {
-    strcpy(D_00375308, a);
+    strcpy_u(D_00375308, a);
 }
 
 GP_DATA(D_00368750);
@@ -474,7 +474,28 @@ extern "C" void func_00118570(S_00118570* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118578);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00118580);
+extern "C" void func_00118580(N_00117AA0* arg) {
+    SA116_P* self = (SA116_P*)arg;
+    if (*(int*)((char*)self + 0xD0) == 0) {
+        if (self->unkEC == 2) {
+            if (self->unkD8 & 2) {
+                u8 mask;
+                int x;
+                int i;
+                for (i = 0; i < self->unkE4; i++) {
+                    u8 t = self->unk64[i];
+                    self->unk64[i] = 0;
+                    self->unkAC[i] = t;
+                }
+                x = 0;
+                mask = (1 << self->unkE4) - 1;
+                func_002ED798(self->unk18, 1, &mask, 2, &x);
+            }
+        }
+    }
+    SA116_C* c = &self->unkCC;
+    c->unk4++;
+}
 
 extern "C" void func_00118640(SA116_P* self) {
     u8 mask;

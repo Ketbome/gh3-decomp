@@ -1143,3 +1143,5 @@ Matched (A16): func_0019B778 (same pad-to-16 loop as func_0019B7E0)
 Matched (A16): func_0013DD50 (t_13BE78; strip trailing backslash from a 0x80 buffer copy)
 Matched (A16): func_00121A68 (t_1210C8; `int b = buf[1]; f(arg, buf[0], b)` gives the a2-before-a1 load order)
 Matched (A16): func_001A8A60 (t_1A7A50; round-robin over 0x60-byte entries: `&T[D_0036C658++]`, count of processed in n < 4)
+- near miss: func_0013D100 (+ identical func_00137558 in t_135A98 with D_00371470/D_00371480: pooled delete like func_0012F9E8 but the pool array/index are lui-reached globals; original keeps idx in a2 (copy of the load) and the array base in a3 (copied in the first beqz delay slot), ours swaps them; 30 forms); nonmatching/func_0013D100.cpp
+Matched (A16): func_00118580 (t_116E38; test the counter through a raw `*(int*)((char*)self + 0xD0)` and build `SA116_C* c = &self->unkCC` only at the end: the original recomputes the address in each branch delay slot)
