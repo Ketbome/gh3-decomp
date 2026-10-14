@@ -422,7 +422,54 @@ extern "C" int CFunc_UseNetworkPreferences(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_TestNetSetup);
+extern "C" {
+int func_00296598_i(int) asm("func_00296598");
+int func_002965E0_i(int) asm("func_002965E0");
+void func_0027ABB0(void *, int);
+void func_0027C028(void *, u32, int);
+void func_0028C9D0(u32, void *, int, int, int, int);
+void func_0028C9F0(int, void *, int, int, int, int);
+}
+
+extern "C" int CFunc_TestNetSetup(int arg) {
+    int h = D_003717E0[0];
+    void *st = func_0027AA70(func_001287F0(8, 1));
+    if (arg) func_0027ABB0(st, arg);
+    int r = func_00296598_i(h);
+    if (r == 0) {
+        if (func_002965E0_i(h) == 2) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0x40014137, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else if (func_002965E0_i(h) == 3) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0x25920928, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else if (func_002965E0_i(h) == 4) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0x94FA75C8, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else if (func_002965E0_i(h) == 5) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0x45D4E05A, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else if (func_002965E0_i(h) == 6) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0xDA6E30B1, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else if (func_002965E0_i(h) == 7) {
+            func_0027C028(st, 0xC4745838, func_002760E0(0xC46CD12F, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        } else {
+            func_0027C028(st, 0xC4745838, func_002760E0(0xA22ADD48, 0));
+            func_0028C9D0(0x6D51F203, st, 0, 0, 0, 0);
+        }
+    } else {
+        u32 v;
+        func_0027D870((int)st, 0x2D8A8860, &v, 1);
+        func_0028C9F0(v, st, 0, 0, 0, 0);
+    }
+    if (st) {
+        func_0027AC90(st);
+        func_00113250(st);
+    }
+    return r;
+}
 
 extern "C" void CFunc_NeedToTestNetSetup(void) {
     func_00296550(D_003717E0[0]);
