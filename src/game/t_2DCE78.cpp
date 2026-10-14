@@ -115,6 +115,13 @@ extern int D_0036F608;
 void func_001CA898(void);
 int func_002DD108(void);
 int func_002DD288(void);
+int func_002DD160(void);
+long func_0011ED00(void);
+extern s32 D_00372368;
+extern s32 D_0037237C;
+extern s32 D_00372380;
+extern s32 D_00372384;
+extern long D_003731E8;
 extern s32 D_0037236C;
 extern f32 D_00372370;
 extern f32 D_00372374;
@@ -181,7 +188,35 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD160);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD288);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD308);
+GP_DATA(D_00372380);
+GP_DATA(D_00372368);
+GP_DATA(D_0037237C);
+GP_DATA(D_00372384);
+extern "C" int func_002DD308(int a) {
+    if (a != 0) {
+        D_00372380 = D_00372380 + 1;
+        if (func_002DD108() == 0) {
+            D_00372368 = 0;
+            D_0037237C = 0;
+            D_00372380 = 0;
+            D_003731E8 = func_0011ED00();
+            D_00372384 = 0;
+            return 0;
+        }
+        int r = 0;
+        while (func_002DD160() != 0) {
+            if (func_002DD288() != 0) {
+                r = 1;
+                D_0037237C = D_0037237C + 1;
+            }
+        }
+        D_003731E8 = func_0011ED00();
+        D_00372384 = 0;
+        return r;
+    }
+    D_003731E8 = func_0011ED00();
+    return func_002DD288();
+}
 
 GP_DATA(D_0037236C);
 GP_DATA(D_00372370);
