@@ -212,7 +212,65 @@ extern "C" int func_00205B38(S204* self) {
 extern "C" void func_00205B40(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205B48);
+struct S205B {
+    char pad0[0xC];
+    char* unkC;
+    char pad10[0xC];
+    int unk1C;
+    char pad20[8];
+    f32 unk28;
+    char pad2C[4];
+    char* unk30;
+    char pad34[0x14];
+    f32 unk48;
+    int unk4C;
+};
+
+union V205 {
+    u128_204 q;
+    struct { f32 x __attribute__((aligned(16))); f32 y, z, w; } v;
+};
+
+extern "C" u128_204 func_001EF570(void*);
+extern "C" int func_0015D6F0();
+extern "C" int func_001B9D78(void*, f32);
+extern int D_0036E994;
+
+GP_DATA(D_0036E994);
+extern "C" int func_00205B48(S205B* p, f32* out) {
+    if (p->unk1C != 0) return 1;
+    {
+        int r = 1;
+        f32 d = p->unk28;
+        f32 sq = p->unk48 * p->unk48;
+        if (out) *out = d;
+        char* o = p->unk30;
+        if (o && *(int*)(o + 0x210)) {
+            V205 u;
+            u128_204 q = func_001EF570(o);
+            u.q = q;
+            register u32 t asm("$2");
+            f32 w;
+            asm volatile("qmtc2.ni %0, $vf1" : : "r"(q));
+            asm("pcpyud %0, %1, %1" : "=r"(t) : "0"(q));
+            asm("dsrl32 %0, %0, 0" : "+r"(t));
+            asm("mtc1 %1, %0" : "=f"(w) : "r"(t));
+            asm volatile("lqc2 $vf2, 0x80(%1)\n\tvadd.xyzw $vf1, $vf1, $vf2\n\tsqc2 $vf1, 0(%0)" : : "r"(&u), "r"(p->unkC) : "memory");
+            u.v.w = w;
+            f32 w2;
+            if (func_0015D6F0() == r && func_0015D5A0(0)) {
+                asm("pcpyud %0, %1, %1" : "=r"(w2) : "0"(u.q));
+                asm("dsrl32 %0, %0, 0" : "+r"(w2));
+                if (!func_001B9D78(&u, w2)) return p->unk4C ? r : 0;
+            }
+        }
+        if (sq < d) {
+            D_0036E994++;
+            if (D_0036E994 & 1) r = 0;
+        }
+        return p->unk4C ? 1 : r;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_204298", func_00205C60);
 
