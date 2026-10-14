@@ -159,7 +159,33 @@ extern "C" S2D4468_A *func_002D5CC0(S2D4468_A *self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5CE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5EC8);
+struct HI_CBC0 { u32 key; void* value; HI_CBC0* next; };
+
+struct HT_CBC0 { int bits; HI_CBC0* items; int count; };
+
+extern "C" void func_002D5EC8(HT_CBC0* t, int* key) {
+    if (!t->items) {
+        return;
+    }
+    HI_CBC0* e = &t->items[*key & ((1 << t->bits) - 1)];
+    HI_CBC0* prev = 0;
+    while (e) {
+        HI_CBC0* next = e->next;
+        if (e->key == (u32)*key && e->value) {
+            if (prev) {
+                prev->next = next;
+                func_0011C408(0, e);
+            } else {
+                e->key = 0;
+                e->value = 0;
+            }
+            t->count--;
+            return;
+        }
+        prev = e;
+        e = next;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2D4468", func_002D5F80);
 
