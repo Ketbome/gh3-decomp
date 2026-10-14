@@ -129,6 +129,33 @@ void func_002A6B70(char *, int, u32);
 u32 func_001150B8(char *);
 }
 
+typedef int TI24B __attribute__((mode(TI)));
+
+static inline f32 Get24BX(TI24B q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get24BY(TI24B q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get24BZ(TI24B q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+
+extern "C" {
+int func_0027D2D8(int, u32, void *, int);
+void func_0027C4D8(int, int, f32, f32, f32);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_IsInArray);
 
 extern "C" int CFunc_Test(void) {
@@ -579,35 +606,31 @@ extern "C" int CFunc_Mod(int params, S24B_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_NormalizeVector);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", CFunc_GetVectorComponents);
-
-typedef int TI24B __attribute__((mode(TI)));
-
-static inline f32 Get24BX(TI24B q) {
-    f32 f;
-    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
-    return f;
-}
-static inline f32 Get24BY(TI24B q) {
-    u32 t;
-    f32 f;
-    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
-    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
-    return f;
-}
-static inline f32 Get24BZ(TI24B q) {
-    u32 t;
-    f32 f;
-    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
-    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
-    return f;
+extern "C" int CFunc_NormalizeVector(int params, S24B_Script *s) {
+    TI24B v;
+    func_0027D2D8(params, 0, &v, 1);
+    f32 len;
+    asm volatile("lqc2 $vf3, 0(%1)\n\tvmul.xyzw $vf2, $vf3, $vf3\n\tvaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, $f0\n\tnop\n\tnop\n\tsqrt.s %0, $f0"
+        : "=f"(len) : "r"(&v) : "$2", "$f0");
+    if (len != 0.0f) {
+        f32 inv = 1.0f / len;
+        u32 u;
+        asm("mfc1 %0, %1" : "=r"(u) : "f"(inv));
+        asm("qmtc2.ni %0, $vf1\n\tvmulx.xyzw $vf3, $vf3, $vf1x\n\tsqc2 $vf3, 0(%1)" : : "r"(u), "r"(&v) : "memory");
+    }
+    func_0027C4D8(s->unk20, 0x68C32A5F, Get24BX(v), Get24BY(v), Get24BZ(v));
+    func_0027C1F8(s->unk20, 0xFE82614D, len);
+    return 1;
 }
 
-extern "C" {
-int func_0027D2D8(int, u32, void *, int);
-void func_0027C4D8(int, int, f32, f32, f32);
+
+extern "C" int CFunc_GetVectorComponents(int params, S24B_Script *s) {
+    TI24B v;
+    func_0027D2D8(params, 0, &v, 1);
+    func_0027C1F8(s->unk20, 0x7323E97C, Get24BX(v));
+    func_0027C1F8(s->unk20, 0x0424D9EA, Get24BY(v));
+    func_0027C1F8(s->unk20, 0x9D2D8850, Get24BZ(v));
+    return 1;
 }
 
 extern "C" int CFunc_SetVectorComponents(int params, S24B_Script *s) {

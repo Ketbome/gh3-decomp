@@ -1004,3 +1004,7 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   func_002BE288 (0x364, 36% VU0). All three are large mixed VU0 code with vrsqrt/matrix products; skipped, not attempted.
 - CFunc_SetVectorComponents MATCH: lanes of a TI128 as three float args: x `mtc1 %1,%0` ("=f"), y/z as TWO asms each:
   `dsrl32`/`pcpyud` into `u32 t` ("=r"), then `mtc1` from t into "=f" (a single asm with "=r"(f) gives a different schedule).
+- CFunc_GetVectorComponents, CFunc_NormalizeVector MATCH (same lane helpers; NormalizeVector: one `asm volatile` with
+  lqc2/vmul/vaddy/vaddz/qmfc2 `$2`/mtc1 `$f0`/nop/nop/sqrt.s as in t_1D2508, clobbers "$2","$f0"; then
+  `1.0f/len` -> `mfc1` -> `qmtc2.ni`/`vmulx`/`sqc2` in a second asm with a "memory" clobber). This solves the
+  "vector to 3 floats" pattern listed above as not reproduced.
