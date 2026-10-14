@@ -376,7 +376,19 @@ extern "C" void func_0015E2A8(S0015E168* self, int a1) {
     ((void (*)(void*, int))e->fn)((char*)self + e->delta, a1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015E2D0);
+extern "C" void func_0015E2D0(S0015E168* self, float x, float y) {
+    void* a = *(void**)self;
+    if (a) {
+        float w = (float)func_001596E8(a);
+        float h = (float)func_00159710(*(void**)self);
+        float px = w * x;
+        float py = h * y;
+        if (0.0f < x && px <= 1.25f) x = 1.25f / w;
+        if (0.0f < y && py <= 1.1666f) y = 1.1666f / h;
+    }
+    VEntry* e = &self->unk10[18];
+    ((void (*)(void*, float, float))e->fn)((char*)self + e->delta, x, y);
+}
 
 extern "C" void func_0015E3E0(S0015E168* self, int a1, int a2) {
     VEntry* e = &self->unk10[31];
