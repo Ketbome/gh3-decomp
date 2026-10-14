@@ -7,8 +7,9 @@ so no progress figures or hashes are written by hand here.
 ## In flight
 
 Running (2026-10-14): workers A (third round, delay-slot functions first), B (second round, delay-slot retries incl.
-func_001E0198) and C (third round, limit 25 matches or 60 attempted). The `decomp-forensics` agent checks a possible
-counterexample to the delay-slot rule: func_002530A8 has an `addiu` in a plain `beqz` slot where we emit `nop`.
+func_001E0198) and C (third round, limit 25 matches or 60 attempted). func_002530A8 is not a counterexample to the
+delay-slot rule: gcc fills that slot, the fix is in the C (statement order); no non-COP2 instruction gcc could not
+place appears in any of the 84,870 slots.
 Ranges for the next workers:
 
 | Range | Files | Worklog | Last focus |

@@ -90,7 +90,8 @@ so the 287 COP2 slots of the game were filled by the assembler; 41 `cvt.s.w` and
 branch with a `nop` slot. The modern gas moves anything it can: `scripts/asm_filter.py` puts a local label before
 each branch whose previous instruction is not COP2 (gas does not move an instruction across a label).
 With `mtc1 ..,$fN` before a label and a read of `$fN` after it, the hazard nop goes after the label (29 times,
-never before); the filter writes it there. `gas -O1` instead breaks 11 functions (10 VU0 inline asm).
+never before); the filter writes it there. Across all 84,870 delay slots of the game, no instruction gcc cannot place in a slot
+(`mtc1`, `cvt.*`, `div.s`, `ctc2`, ...) appears except COP2 ones. `gas -O1` instead breaks 11 functions (10 VU0 inline asm).
 Checked: `dk all` 5796 match; func_001E0198 relied on gas moving a `move` into the slot and went back to asm
 (near miss in nonmatching/).
 
