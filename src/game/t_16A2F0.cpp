@@ -239,7 +239,28 @@ extern "C" void func_0016BAF0(int unused, char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BB20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16A2F0", func_0016BB28);
+struct VE_0016BB28 { s16 unk0; s16 unk2; s16 unk4; s16 unk6; s16 unk8; s16 unkA; void (*unkC)(void*, int); };
+struct O_0016BB28 { char pad0[8]; VE_0016BB28* unk8; char padC[0xC]; M_0016B1B8* unk18; };
+
+inline O_0016BB28* Cast_0016BB28(M_0016B1B8* m) {
+    if (m) return (O_0016BB28*)((char*)m - 0xC);
+    return 0;
+}
+
+extern "C" void func_0016BB28(S_0016B1B8* self) {
+    if (self->unk10) {
+        O_0016BB28* o = Cast_0016BB28(Get_0016B1B8(self->unk10->unkC));
+        if (o) {
+            O_0016BB28* next;
+            do {
+                O_0016BB28* cur = o;
+                next = Cast_0016BB28(Get_0016B1B8(cur->unk18));
+                o = next;
+                if (cur) cur->unk8->unkC((char*)cur + cur->unk8->unk8, 3);
+            } while (next);
+        }
+    }
+}
 
 struct M_0016BBC0 { char pad0[4]; u32 unk4; char pad8[4]; M_0016BBC0* unkC; };
 struct VE_0016BBC0 { char pad0[8]; s16 unk8; s16 unkA; void (*unkC)(void*, int); };
