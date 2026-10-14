@@ -48,6 +48,9 @@ struct SA123_V {
 };
 
 extern "C" {
+void func_0015F940(void*);
+void func_0015F968(void*, float);
+void func_0015F990(void*, int);
 float func_0015DCB8(void);
 float func_0015DCC8(void);
 extern int D_00368A38[] __attribute__((section(".sdata")));
@@ -258,13 +261,41 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123998);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123AB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123B68);
+struct N_00123B68 { int unk0; N_00123B68* unk4; struct O_00123B68* unk8; };
+struct O_00123B68 { int unk0; int unk4; };
+struct It_00123B68 {
+    int unk0;
+    N_00123B68* cur;
+    It_00123B68(N_00123B68* n) : cur(n) {}
+    bool operator!=(const It_00123B68& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct L_00123B68 { char pad0[0xC]; int unkC; char pad10[4]; N_00123B68 unk14; };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123BB0);
+extern "C" void func_00123B68(L_00123B68* self, int a) {
+    self->unkC = a;
+    It_00123B68 end(&self->unk14);
+    It_00123B68 it(self->unk14.unk4);
+    for (; it != end; ++it) it.cur->unk8->unk4 = a;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123C00);
+extern "C" void func_00123BB0(L_00123B68* self) {
+    It_00123B68 end(&self->unk14);
+    It_00123B68 it(self->unk14.unk4);
+    for (; it != end; ++it) func_0015F940(it.cur->unk8);
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123C60);
+extern "C" void func_00123C00(L_00123B68* self, float f) {
+    It_00123B68 end(&self->unk14);
+    It_00123B68 it(self->unk14.unk4);
+    for (; it != end; ++it) func_0015F968(it.cur->unk8, f);
+}
+
+extern "C" void func_00123C60(L_00123B68* self, int a) {
+    It_00123B68 end(&self->unk14);
+    It_00123B68 it(self->unk14.unk4);
+    for (; it != end; ++it) func_0015F990(it.cur->unk8, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123CC0);
 
