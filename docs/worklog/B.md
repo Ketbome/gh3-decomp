@@ -958,3 +958,8 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_001DF538 MATCH (float: asm volatile("nop; nop; sqrt.s %0,%0" : "+f"(s)) keeps sqrt before the call as the original; c.lt chain written as && forms in an else-block; ternary x * (x > 0 ? k1 : k2); final 'return s > 1.0f ? 1.0f : s'; literal 1.17647052f for 0x3F969696).
 - func_001FDC60 MATCH (coordinator hint): register TI v asm("vf1") = m->r3 with the "j" constraint; nonmatching file dropped.
 - func_001DC788 (hash-table ctor, unrolled; twins: func_001DC9A0 func_001E9E80 func_001EAF90 func_0022B3F0 func_0022B738 func_0024A128 each with its own element ctor): needs '// cflags: -funroll-loops' in t_1DA7B8 (check every function of the file still matches). Near miss with 'for (s32 i = n - 1; i != -1; i--)' loop: structure identical, only saved-register numbering differs (original keeps this/ext in s4/s5 and one more live register in the allocated-items path); nonmatching/func_001DC788.cpp. Worth a permuter run; then dk twins for the six siblings.
+
+## Session 3 (current worker)
+- func_001DE2C0 (t_1DC968) matched: VU0 register variables (`register U128 v1 asm("vf1")`, `"+j"`), sqrt.s in asm with `register f32 d asm("$f0")`; the store order BC, C0, FC in source gave the target schedule (other orders move the branch-slot store).
+- func_001DC788: retried 3 forms (items copy, asm barrier); still the saved-register numbering near miss (original keeps an extra copy of ext live in the unrolled external-buffer path); left to the permuter.
+- func_001FEB48: gave up: all matches except q in $v0 instead of $v1 for the `lq` target (func_001FDC60 pattern); register pin worsens.

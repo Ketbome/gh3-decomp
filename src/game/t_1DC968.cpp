@@ -421,7 +421,64 @@ extern "C" void func_001DE2B0(S1DE2B0* p, U128_1DC968* q) {
     *q = p->unk50;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DE2C0);
+struct S1DE2C {
+    char pad0[0x10];
+    U128_1DC968 unk10;
+    void* unk20;
+    char pad24[0x4C];
+    void* unk70;
+    char pad74[0xC];
+    U128_1DC968 unk80;
+    char pad90[0x2C];
+    f32 unkBC;
+    f32 unkC0;
+    s32 unkC4;
+    f32 unkC8;
+    char padCC[4];
+    U128_1DC968 unkD0;
+    char padE0[0x1C];
+    s32 unkFC;
+};
+
+extern "C" {
+int func_001DDA68(S1DE2C* p);
+void func_00201CF0(void* a, void* b);
+void func_001DD9A8(S1DE2C* p);
+void func_001DDE28(S1DE2C* p);
+}
+
+extern "C" void func_001DE2C0(S1DE2C* p) {
+    switch (func_001DDA68(p)) {
+    case 0: {
+        register f32 d asm("$f0");
+        int t;
+        register U128_1DC968 v1 asm("vf1") = p->unk10;
+        register U128_1DC968 v2 asm("vf2") = p->unk80;
+        asm volatile("vsub.xyzw %0, %1, %0\n\tvmul.xyzw %0, %0, %0" : "+j"(v2) : "j"(v1));
+        p->unkD0 = v1;
+        asm volatile("vaddy.x $vf1, %2, %2y\n\tvaddz.x $vf1, $vf1, %2z\n\tqmfc2.ni %1, $vf1\n\tmtc1 %1, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+            : "=f"(d), "=&r"(t) : "j"(v2));
+        f32 c = p->unkC8;
+        p->unkBC = d;
+        p->unkC0 = c;
+        p->unkFC = 3;
+        break;
+    }
+    case 1:
+        p->unkFC = 2;
+        break;
+    case 2: {
+        void* o = func_001D1CF8(p->unk20, 0x0A015E17 /* Motion */);
+        func_00201CF0(o, p->unk70);
+        p->unkC0 = p->unkBC - p->unkC0;
+        p->unkC4 &= ~4;
+        func_001DD9A8(p);
+        func_001DDE28(p);
+        p->unkFC = 1;
+        break;
+    }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DE3C0);
 
