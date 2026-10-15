@@ -53,6 +53,8 @@ void func_0027AA70(char*);
 void func_00138960(int, int);
 int func_002763E0(u32, int);
 void func_0027ABB0(char*, int);
+void func_0027AAD8(char*, char*);
+void func_00134D28(S133_S*);
 void* operator_new(u32);
 int func_00138908(void*);
 extern u8 D_0033A478[];
@@ -262,7 +264,22 @@ extern "C" void func_00134748(S133_S* self, int flags) {
     func_001CE990(self, flags);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_001347B0);
+struct B133 { char d[0x45A0]; };
+
+extern "C" S133_S* func_001347B0(S133_S* self, S133_S* o) {
+    if (o == self) return self;
+    func_0027AAD8(self->unk6C, o->unk6C);
+    if (self->unk74) {
+        Heap_Free(D_00368A38[0], (void*)self->unk74);
+        self->unk74 = 0;
+    }
+    if (o->unk74) {
+        func_00134D28(self);
+        *(B133*)self->unk74 = *(B133*)o->unk74;
+    }
+    self->unk78 = o->unk78;
+    return self;
+}
 
 extern "C" int func_001348C8(S133_S* self) {
     int r;

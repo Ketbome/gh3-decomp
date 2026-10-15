@@ -1243,3 +1243,4 @@ Matched (A18): func_00160C58 (t_15F2F8; script-manager style search: vcall 11, c
 
 ## Round 3 (VU0 register variables, branch-likely slot)
 - near miss: func_00171708 (lerp: floats and vf1..vf6 allocation match with `register TI asm("vf1")` + "j"; left: gcc scheduling of lqc2/vsub/qmtc2 vs the mul.s for `unk18*128`, tail `sltu` with `li 127` and an extra `move`); nonmatching/func_00171708.cpp.
+- matched func_001347B0 (0x45A0-byte block copy = `struct{char d[0x45A0]}` assignment, expands to the ldl/ldr or ld/sd loops), func_0015BD40 (4 floats kept in f20-f22 then stored in a local struct and copied; `func_0027DD88(s, key)` takes two args).
