@@ -1008,3 +1008,9 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   lqc2/vmul/vaddy/vaddz/qmfc2 `$2`/mtc1 `$f0`/nop/nop/sqrt.s as in t_1D2508, clobbers "$2","$f0"; then
   `1.0f/len` -> `mfc1` -> `qmtc2.ni`/`vmulx`/`sqc2` in a second asm with a "memory" clobber). This solves the
   "vector to 3 floats" pattern listed above as not reproduced.
+
+## t_2626E0 (round 3)
+- CFunc_GetViewportCameraPos, CFunc_GetViewportCameraOrient MATCH (lane helpers as in t_24BA88). Stack layout of the
+  three lookup temporaries (id=0, key, i) only matched as one local struct `{int id; int k; int i;}` (separate
+  locals in any declaration order gave id/k swapped), and `int kk = t.k;` before the call to get lw a1 before lw a0.
+  Passing `c->unk90.x` directly to the lane helpers (no local u128) gives the original register choice.

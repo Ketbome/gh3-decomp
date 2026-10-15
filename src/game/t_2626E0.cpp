@@ -496,12 +496,6 @@ extern "C" int CFunc_SetViewportProperties(int params) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewport2DPosFrom3D);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewportCameraPos);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewportCameraOrient);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraPos);
-
 typedef unsigned int u128 __attribute__((mode(TI)));
 struct S2626_M4 {
     u128 a, b, c, d;
@@ -529,4 +523,75 @@ S2626_Node *func_001D4AC0(int, u32);
 int func_0027D2D8(int, u32, u128 *, int);
 extern int D_0036D3B0;
 }
+
+static inline f32 Get262X(u128 q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get262Y(u128 q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get262Z(u128 q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+extern "C" void func_0027C4D8(int, int, f32, f32, f32);
+
+extern "C" int CFunc_GetViewportCameraPos(int params, S2626_Script *script) {
+    struct { int id; int k; int i; } t;
+    S2626_VP *vp;
+    t.id = 0;
+    if (func_0027D1F8(params, 0x76F7AF65, &t.k, 0)) {
+        func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 1);
+        int kk = t.k;
+        vp = func_0015D568(t.id, kk);
+    } else if (func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 0)) {
+        vp = (S2626_VP *)func_0015D2E8(t.id, 1);
+    } else {
+        t.i = 0;
+        func_0027D1F8(params, 0x9FD29151, &t.i, 0);
+        vp = func_0015DB00(t.i);
+    }
+    S2626_Cam *c = vp->unk34;
+    if (c) {
+        u128 q = *(u128 *)((char *)c + 0x80);
+        func_0027C4D8(script->unk20, 0x7F261953, Get262X(q), Get262Y(q), Get262Z(q));
+    }
+    return 1;
+}
+
+extern "C" int CFunc_GetViewportCameraOrient(int params, S2626_Script *script) {
+    struct { int id; int k; int i; } t;
+    S2626_VP *vp;
+    t.id = 0;
+    if (func_0027D1F8(params, 0x76F7AF65, &t.k, 0)) {
+        func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 1);
+        int kk = t.k;
+        vp = func_0015D568(t.id, kk);
+    } else if (func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 0)) {
+        vp = (S2626_VP *)func_0015D2E8(t.id, 1);
+    } else {
+        t.i = 0;
+        func_0027D1F8(params, 0x9FD29151, &t.i, 0);
+        vp = func_0015DB00(t.i);
+    }
+    S2626_Cam *c = vp->unk34;
+    if (c) {
+        func_0027C4D8(script->unk20, 0x95A802C3, Get262X(c->unk90.c), Get262Y(c->unk90.c), Get262Z(c->unk90.c));
+        func_0027C4D8(script->unk20, 0x85981897, Get262X(c->unk90.a), Get262Y(c->unk90.a), Get262Z(c->unk90.a));
+        func_0027C4D8(script->unk20, 0xBC6B118F, Get262X(c->unk90.b), Get262Y(c->unk90.b), Get262Z(c->unk90.b));
+    }
+    return 1;
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraPos);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraOrient);
