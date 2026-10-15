@@ -333,7 +333,43 @@ extern "C" int func_0015BCA8(u32 key) {
     return v[1];
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15B258", func_0015BD40);
+struct V15B { int unk0; float x, y, z, w; };
+
+static inline V15B Mk15B(float x, float y, float z, float w) {
+    V15B v;
+    v.x = x;
+    v.y = y;
+    v.z = z;
+    v.w = w;
+    return v;
+}
+
+extern "C" int func_0027DD88(int, int);
+extern "C" float func_0027EFA0(int, int);
+
+extern "C" int func_0015BD40(int s, V15B* out, int type, int key) {
+    if (type == 1 || func_0027DD88(s, key)) {
+        int t;
+        if (func_0027CC30(s, key, 12, &t)) {
+            s = t;
+        } else {
+            func_0027F1E0(s, 0, 1);
+            s = 0;
+        }
+        float x = func_0027EFA0(s, 0);
+        float y = func_0027EFA0(s, 1);
+        float z = func_0027EFA0(s, 2);
+        float w = func_0027EFA0(s, 3);
+        V15B v;
+        v.x = x;
+        v.y = y;
+        v.z = z;
+        v.w = w;
+        *out = v;
+        return 1;
+    }
+    return 0;
+}
 
 static inline int Get_15B(int s, u32 key, int type) {
     int t;
