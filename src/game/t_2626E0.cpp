@@ -521,7 +521,7 @@ S2626_VP *func_0015D568(int, int);
 S2626_VP *func_0015DB00(int);
 S2626_Node *func_001D4AC0(int, u32);
 int func_0027D2D8(int, u32, u128 *, int);
-extern int D_0036D3B0;
+extern int D_0036D3B0[] __attribute__((section(".sdata")));
 }
 
 static inline f32 Get262X(u128 q) {

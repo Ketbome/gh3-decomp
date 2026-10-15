@@ -266,6 +266,17 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016CD28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016CDF0);
 
+struct R16CF { char pad0[0x50]; void* unk50; };
+struct VT16CF { char pad0[8]; s16 delta; s16 unkA; void (*fn)(void*, int); };
+struct O16CF { char pad0[8]; VT16CF* unk8; char padC[8]; int unk14; };
+struct N16CF { N16CF* unk0; N16CF* unk4; O16CF* unk8; };
+struct It16CF { int unk0; N16CF* unk4; };
+struct A16CF { char pad0[0x14]; int unk14; };
+struct L16CF { char pad0[4]; char unk4[4]; N16CF* unk8; };
+
+extern "C" R16CF* func_0016C4E8_r(void*) __asm__("func_0016C4E8");
+extern "C" void func_0016C5C0_r(void*, int) __asm__("func_0016C5C0");
+
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016CF48);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16C498", func_0016D060);

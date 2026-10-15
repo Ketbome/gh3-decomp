@@ -280,6 +280,25 @@ extern "C" void func_001D36D8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D36E0);
 
+struct It1D36 {
+    s32 unk0;
+    s32 unk4;
+    void* unk8;
+};
+
+typedef unsigned int TI1D36 __attribute__((mode(TI)));
+
+extern "C" {
+char* func_001DCF90(It1D36* it, void* a, u32 key);
+char* func_001DD018(It1D36* it);
+extern u8 D_0034B820[];
+}
+
+struct O1D36 {
+    char pad0[0x2C];
+    VEnt* unk2C;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D36E8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3810);
