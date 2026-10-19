@@ -107,7 +107,51 @@ extern "C" void CFunc_CrowdDecrease(int arg0, int arg1) {
     func_002C5FF0(arg1, func_002763E0(out, 1));
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C57B8", CFunc_GemArrayStepperCompressedBroadcastEvent);
+extern "C" char *func_0027D828(int, u32);
+extern "C" void func_002B4A18(int, int);
+extern "C" char D_00362BB0[];
+
+extern "C" int CFunc_GemArrayStepperCompressedBroadcastEvent(int a0, int *o) {
+    u8 c[4];
+    char buf[0x100];
+    c[0] = 0xFF;
+    c[1] = 0xFF;
+    c[2] = 0xFF;
+    c[3] = 0xFF;
+    char *q = D_00362BB0;
+    char *s1 = func_0027D828(o[8], 0x666E080B);
+    char *s2 = func_0027D828(o[8], 0x75040615);
+    char *s3 = func_0027D828(o[8], 0x818AF862);
+    char *d = buf;
+    if (D_00362BB0[0] != 0) {
+        do {
+            *d = *q;
+            q++;
+            d++;
+        } while (*q != 0);
+    }
+    q = s1;
+    while (*q != 0) {
+        *d = *q;
+        q++;
+        d++;
+    }
+    q = s2;
+    while (*q != 0) {
+        *d = *q;
+        q++;
+        d++;
+    }
+    q = s3;
+    while (*q != 0) {
+        *d = *q;
+        q++;
+        d++;
+    }
+    *d = 0;
+    func_002B4A18(CrcFromPathLowercase(buf), o[8]);
+    return 1;
+}
 
 extern "C" void func_002C6B20(int name, int idx, int arg) {
     char buf[64];
