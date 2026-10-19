@@ -494,7 +494,42 @@ extern "C" int CFunc_SetViewportProperties(int params) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_GetViewport2DPosFrom3D);
+typedef unsigned int u128_v __attribute__((mode(TI)));
+
+extern "C" {
+int func_001230D0(int, void *, f32 *, f32 *, int *, int);
+int func_0015DB00_v(int) asm("func_0015DB00");
+int func_0027D2D8_v(int, u32, u128_v *, int) asm("func_0027D2D8");
+void func_0027C1F8_v(int, u32, f32) asm("func_0027C1F8");
+}
+
+extern "C" int CFunc_GetViewport2DPosFrom3D(int params, S2626_Script *script) {
+    int id;
+    int idx;
+    u128_v v;
+    f32 x;
+    f32 y;
+    int z;
+    int vp;
+    id = 0;
+    if (func_0027D870(params, 0x9FD29151, (u32 *)&id, 0)) {
+        vp = (int)func_0015D2E8(id, 1);
+    } else {
+        idx = 0;
+        func_0027D1F8(params, 0x9FD29151, &idx, 0);
+        vp = func_0015DB00_v(idx);
+    }
+    func_0027D2D8_v(params, 0x7F261953, &v, 1);
+    if (vp) {
+        func_001230D0(vp, &v, &x, &y, &z, 1);
+        func_0027C1F8_v(script->unk20, 0xACC3DF59, x);
+        func_0027C1F8_v(script->unk20, 0xDBC4EFCF, y);
+        int st = script->unk20;
+        register u32 key asm("$5") = 0x42CDBE75;
+        func_0027C1F8_v(st, key, (f32)(u32)z);
+    }
+    return 1;
+}
 
 typedef unsigned int u128 __attribute__((mode(TI)));
 struct S2626_M4 {
