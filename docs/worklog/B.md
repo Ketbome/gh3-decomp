@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 6 matches / 19 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 8 matches / 21 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1089,3 +1089,7 @@ Also func_0022F6D8 (same family, 0x98-byte char struct, no second call).
 ## t_1F3840 (round 5)
 
 Near miss: func_001F3E68 (nonmatching/func_001F3E68.cpp), static init of a global object: 8-byte unaligned copy through a stack temp is `B8 t = D_src; ... o->unk8 = t;` with `struct B8 { char b[8]; }`; the original does not fold `(o+0x10)+8` into o+0x18 (it increments the pointer in place and calls memset with `addiu a0,v0,8`) and keeps the first field store through the `lui` base.
+
+## t_21DA40 / t_221BC8 (round 5)
+
+Matched func_0021DED8 and func_00222F10: static-init of one table entry: `E* e = &D; V t; memset(&t, 0, 8); e->key = 0; e->type = H; e->v = t;` with `struct V { char b[8]; }` (the 8-byte copy is ldl/ldr/sdl/sdr). `e` must be declared before `t` so its %hi lives in $s0 across the memset. Same shape as func_00208778 (t_208310). Siblings left: func_001D09C0 func_001D3818 func_001F2468 func_001F86D8 func_001FA348 func_001FC718 func_00204AD8 func_00214AB8 func_00217A80 func_0021A750 func_00221318 (big tables), func_00222470 (vector variant).

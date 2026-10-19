@@ -247,7 +247,29 @@ extern "C" void func_0021DEA0(void* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DEC0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021DED8);
+struct V21DE {
+    char b[8];
+};
+
+struct E21DE {
+    u32 key;
+    u32 type;
+    V21DE v;
+};
+
+extern E21DE D_00390570;
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_0021DED8(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E21DE* e = &D_00390570;
+        V21DE t;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x9738C23B;
+        e->v = t;
+    }
+}
 
 extern "C" void func_0021DF38(void) {
     func_0021DED8(1, 0xFFFF);
