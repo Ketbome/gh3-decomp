@@ -187,7 +187,25 @@ extern "C" int CFunc_DoesWaypointExist(int params) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", func_002A3818);
+static inline void P2A38_Set(int &r, int v, int k) {
+    if (v == k) {
+        r = 0xDA99B63B;
+    }
+}
+
+extern "C" int func_002A3818(int arg0) {
+    int a;
+    int b;
+    int r = 0xA8398C67;
+    if (CFunc_CheckFlexibleParticleStructure(arg0, 0) || CFunc_CheckSplineParticleStructure(arg0, 0)) {
+        if (func_0027D870(arg0, 0x984D6421, &a, 1)) {
+            P2A38_Set(r, a, 0xEEA355B6);
+        } else if (func_0027D870(arg0, 0x12B4E660, &b, 1)) {
+            P2A38_Set(r, b, 0x9E7D469E);
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A32E0", CFunc_CreateParticleSystem_Fast);
 
