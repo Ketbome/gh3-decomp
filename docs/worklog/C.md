@@ -1014,3 +1014,9 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   three lookup temporaries (id=0, key, i) only matched as one local struct `{int id; int k; int i;}` (separate
   locals in any declaration order gave id/k swapped), and `int kk = t.k;` before the call to get lw a1 before lw a0.
   Passing `c->unk90.x` directly to the lane helpers (no local u128) gives the original register choice.
+
+### Round 4 (twins and pool allocators)
+- Matched: func_0024D068 (t_24BA88), func_00288000 (t_286A60), func_00276720 (t_2754A0), func_002AEB48 (t_2AD528),
+  func_00266E08 (t_266800, hash Get via asm-label alias of the int global), func_002DE578 (t_2DCE78).
+- `dk twins` failed on these only for declaration/type clashes; writing the twin by hand with the local types works.
+- Skipped (tiny loops): func_00276620, func_00276668, func_00276698 (t_2754A0).

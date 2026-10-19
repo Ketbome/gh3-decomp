@@ -515,22 +515,37 @@ extern "C" int CFunc_GetBuildVersion(int params, S24B_Script *script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D060);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24BA88", func_0024D068);
-
 struct SB12_Pool {
     u32 unk0;
     u32 unk4;
     int Has(u32 p) { return !(p < unk0) && p < unk4; }
 };
 
-extern "C" int D_00370FB8;
-extern "C" SB12_Pool* D_00370FA8[2];
+extern "C" int D_00370FD0;
+extern "C" SB12_Pool* D_00370FC0[2];
 extern "C" int D_00368A38;
 extern "C" void* func_0011C2A8(SB12_Pool*);
 extern "C" int func_00119610(int, int);
 extern "C" void func_00119490(int, int);
 extern "C" void* Heap_Alloc(int, u32, int, int);
 extern "C" void func_001194B8(int);
+extern "C" void* func_0024D068(u32 size) {
+    SB12_Pool* pool = D_00370FC0[D_00370FD0];
+    if (pool) {
+        void* r = func_0011C2A8(pool);
+        if (!r) {
+            int heap = D_00368A38;
+            func_00119490(heap, func_00119610(heap, 1));
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return r;
+    }
+    return Heap_Alloc(D_00368A38, size, 1, 0);
+}
+
+extern "C" int D_00370FB8;
+extern "C" SB12_Pool* D_00370FA8[2];
 extern "C" void* func_0024D128(u32 size) {
     SB12_Pool* pool = D_00370FA8[D_00370FB8];
     if (pool) {
