@@ -414,7 +414,51 @@ extern "C" void func_002143F8(int pp, int a1) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_00214498);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2131A8", func_002145C8);
+extern "C" {
+void func_001CE218(void*, int);
+void func_001CE248(void*, u32);
+void func_00214498(void*, void*, int, int, u32, u32, void*);
+int func_002765E0(u32, int);
+void func_002145C8_d(char*, char*) __asm__("func_002145C8");
+}
+
+extern "C" void func_002145C8_d(char* self, char* a) {
+    int t = *(int*)(self + 0x20);
+    *(int*)(self + 0x20) = 0;
+    *(int*)(self + 0x1C) = t;
+    if (func_002765E0(0xF3E055E1, 1) != 0 && (*(u32*)(a + 0x34) & 0x100)) {
+        func_001CE218(a, -0x101);
+        func_001CE248(a, 0xDFFFFFFF);
+    }
+    if (*(int*)(self + 0xB0C) != 0 && *(int*)(self + 0xB04) == 0) {
+        func_00214498(self, a, 6, 0x40, 0x5C8FAA09, 0xB27804A2, self + 0x28);
+        func_00214498(self, a, 7, 0x80, 0xD26ADAE9, 0xAEF7DFD3, self + 0x4C);
+        func_00214498(self, a, 5, 0x20, 0xB4F2ADBA, 0xC86FA880, self + 0x70);
+        func_00214498(self, a, 4, 0x10, 0x0EDBBC2B, 0xC8ABF89C, self + 0x94);
+        func_00214498(self, a, 9, 0x200, 0xB069B600, 0xE5AAE06B, self + 0x190);
+        func_00214498(self, a, 0xB, 0x800, 0xA93DBBD0, 0xFCFEEDBB, self + 0x1B4);
+        func_00214498(self, a, 8, 0x100, 0x7F695A77, 0x7B684919, self + 0x1D8);
+        func_00214498(self, a, 0xA, 0x400, 0x42717176, 0xBBBEF674, self + 0x1FC);
+        func_00214498(self, a, 0xC, 0x1000, 0xC6547217, 0x28A3DCBC, self + 0xB8);
+        func_00214498(self, a, 0xE, 0x4000, 0x5F5D23AD, 0xB1AA8D06, self + 0xDC);
+        func_00214498(self, a, 0x10, 0x10000, 0x285A133B, 0xC6ADBD90, self + 0x100);
+        func_00214498(self, a, 0xD, 0x2000, 0x12154DC8, 0xFCE2E363, self + 0x124);
+        func_00214498(self, a, 0xF, 0x8000, 0x8B1C1C72, 0x65EBB2D9, self + 0x148);
+        func_00214498(self, a, 0x11, 0x20000, 0xFC1B2CE4, 0x12EC824F, self + 0x16C);
+        func_00214498(self, a, 0x1A, 0x04000000, 0x33947317, 0xF5E437A0, 0);
+        func_00214498(self, a, 0x1B, 0x08000000, 0xF8DE049B, 0x3EAE402C, 0);
+        func_00214498(self, a, 0x1D, 0x20000000, 0x2F2C39B9, 0x7AEF6FD2, self + 0x244);
+        func_00214498(self, a, 0x1C, 0x10000000, 0xAC7F105A, 0x55B09758, 0);
+        func_00214498(self, a, 0x14, 0x100000, 0xC61BDD1D, 0xC71B4373, self + 0x268);
+        func_00214498(self, a, 0x15, 0x200000, 0x32A573B7, 0xDE6C8ADD, self + 0x28C);
+        func_00214498(self, a, 0x13, 0x80000, 0x543D04E4, 0xB8F4FD8E, self + 0x2B0);
+        func_00214498(self, a, 0x12, 0x40000, 0x82E80F71, 0x2F634ECE, self + 0x2D4);
+        func_00214498(self, a, 0x18, 0x01000000, 0x9E4CBA43, 0x45A3D202, self + 0x2F8);
+        func_00214498(self, a, 0x19, 0x02000000, 0xC54BAFC1, 0x6F40E300, self + 0x31C);
+        func_00214498(self, a, 0x17, 0x800000, 0xA3D3D892, 0x09D89453, self + 0x340);
+        func_00214498(self, a, 0x16, 0x400000, 0x3B7935A4, 0xD7B0CCCE, self + 0x364);
+    }
+}
 
 extern "C" void func_00214A68(S213* self) {
     func_00214350(self->unk2C, self->unk1C);
