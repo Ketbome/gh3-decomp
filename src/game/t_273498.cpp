@@ -106,7 +106,17 @@ void func_001B3B00(void);
 }
 
 GP_DATA(D_00370DA0);
-INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00273498);
+extern "C" int func_00273498(void) {
+    int ok = 1;
+    int i = 0;
+    if (D_00370DA0 > 0) {
+        do {
+            int r = func_00273308(i++, -1.0f);
+            ok = r && ok;
+        } while (i < D_00370DA0);
+    }
+    return ok;
+}
 
 extern "C" int func_00273510(int a) {
     if (func_00273D88() == 1 && D_003A92CC[0]) {
