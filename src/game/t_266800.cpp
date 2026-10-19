@@ -223,7 +223,46 @@ extern "C" int func_00266CE0(S266CE0 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266D20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_00266E08);
+struct S266E08_N {
+    u32 key;
+    void *val;
+    S266E08_N *next;
+};
+
+struct S266E08_T {
+    s32 bits;
+    S266E08_N *buckets;
+    s32 unk8;
+    s32 unkC;
+    S266E08_N *unk10;
+    u8 unk14;
+    u8 unk15;
+
+    void *Get(const u32 &key) {
+        if (!buckets) {
+            return 0;
+        }
+        S266E08_N *n = &buckets[key & ((1 << bits) - 1)];
+        if (!n) {
+            return 0;
+        }
+        do {
+            if (n->key == key) {
+                if (unk15 || n->val) {
+                    return n->val;
+                }
+            }
+            n = n->next;
+        } while (n);
+        return 0;
+    }
+};
+
+extern S266E08_T *D_00370B10_t asm("D_00370B10");
+
+extern "C" void *func_00266E08(u32 key) {
+    return D_00370B10_t->Get(key);
+}
 
 extern "C" int func_00266E90(int arg0) {
     if (func_00266778() == 0) {
