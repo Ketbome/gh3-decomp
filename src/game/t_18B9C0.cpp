@@ -243,7 +243,32 @@ extern "C" void func_0018C3F8(S_18B9C0* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C428);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C658);
+struct P18C { float unk0; float unk4; float unk8; float unkC; };
+
+extern "C" {
+void func_001AD048(void*, int);
+int func_001ACF30_p(void*) __asm__("func_001ACF30");
+}
+
+extern "C" void func_0018C658(S_18B9C0* self, int a1, int a2, P18C* p) {
+    u8 col[4] __attribute__((aligned(4)));
+    col[0] = (int)(p->unkC * p->unk0 * 128.0f);
+    col[1] = (int)(p->unkC * p->unk4 * 128.0f);
+    col[2] = (int)(p->unkC * p->unk8 * 128.0f);
+    col[3] = (int)(p->unkC * 128.0f);
+    void* obj = self->unk24;
+    func_001ACE58(obj, 1);
+    func_001AD048(obj, *(int*)col);
+    P_0018D050* e = func_001ACF70(obj);
+    if (!func_001ACD28(e) && e) {
+        do {
+            if (func_001ACF30_p(e) == 0x42C5B45D || func_001ACF30_p(e) == 0x4D812080 ||
+                func_001ACF30_p(e) == 0xD488713A || func_001ACF30_p(e) == 0xF500D04E)
+                func_001AD048(e, *(int*)col);
+            e = func_001AD008(e);
+        } while (e);
+    }
+}
 
 struct S_0018C7B8 { char pad0[0x24]; P_0018D050* unk24; };
 struct O_0018C7B8 { float unk0; float unk4; float unk8; float unkC; };
