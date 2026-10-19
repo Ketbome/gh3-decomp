@@ -762,6 +762,12 @@ def cmd_twins(args):
                     flat = lambda d, f=flat: f(re.sub(rf"\b(?:{re.escape(a)}|{re.escape(b)})\b", "N",
                                                       re.sub(r"(?<=[\w*&])\s+\w+(?=\s*[,)\[])", "", d)))
                     if mine and theirs_d and flat(mine) != flat(theirs_d):
+                        if "__asm__" not in theirs_d:
+                            alias = f"{b}__{name}"
+                            decls.append(re.sub(rf"\b{re.escape(a)}\b", alias, re.sub(r";\s*(//.*)?$", "", theirs_d.strip()))
+                                         + f' __asm__("{b}");\n')
+                            body = re.sub(rf"\b{re.escape(b)}\b", alias, body)
+                            continue
                         conflicts.append(f"{b}: file has `{mine.strip()}`, twin has `{theirs_d.strip()}`")
                     if mine and theirs_d and "(" not in mine.split("__")[0] and "(" not in theirs_d.split("__")[0]:
                         shape = lambda d: re.match(rf"^(.*?)\b{re.escape(b if d is mine else a)}\s*(\[[^\]]*\])?",
