@@ -121,7 +121,87 @@ extern "C" int func_0013FEE0(void* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_0013FF78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00140270);
+struct S1402;
+
+extern "C" {
+void func_001CE868(void*, void*);
+void func_001CE888(void*, void*);
+void func_00139D50(S1402*, S13F_C*, int);
+void func_00139840(S1402*, float, float);
+void func_001395D8(S1402*, int, float, float);
+void func_00140408(void*);
+}
+
+struct Ref1402 {
+    S1402* p;
+    int unk4;
+    int unk8;
+    Ref1402(S1402* x) {
+        unk4 = 0;
+        unk8 = 0;
+        p = x;
+        if (p) {
+            func_001CE868(p, this);
+        }
+    }
+    ~Ref1402() {
+        if (p) {
+            func_001CE888(p, this);
+            p = 0;
+        }
+    }
+    Ref1402& operator=(S1402* x) {
+        if (p) {
+            func_001CE888(p, this);
+            p = 0;
+        }
+        p = x;
+        if (p) {
+            func_001CE868(p, this);
+        }
+        return *this;
+    }
+};
+
+struct S1402 {
+    char pad0[0x8];
+    union { u64 q; u32 w[2]; } unk8;
+    char pad10[0x68];
+    S1402* unk78;
+    char pad7C[8];
+    S1402* unk84;
+    char pad88[0x60];
+    S13F_C unkE8;
+    char padEC[0x104];
+    float unk1F0;
+    float unk1F4;
+    char pad1F8[0x64];
+    float unk25C;
+    float unk260;
+    float unk264;
+    float unk268;
+    float unk26C;
+    int unk270;
+};
+
+extern "C" void func_00140270(S1402* self) {
+    if (self->unk8.w[1] & 0x1000) {
+        float y = (self->unk260 + 1.0f) * (self->unk1F4 - self->unk26C) * 0.5f;
+        Ref1402 r(self->unk78);
+        for (int i = 0; i < self->unk270; i++) {
+            S13F_C c = self->unkE8;
+            func_00139D50(r.p, &c, 1);
+            func_00139840(r.p, self->unk25C, -1.0f);
+            func_001395D8(r.p, 0, (self->unk25C + 1.0f) * self->unk1F0 * 0.5f, y);
+            S1402* next = r.p->unk84;
+            y += r.p->unk1F4 * self->unk264 * self->unk268;
+            r = next;
+        }
+    }
+    if (self->unk8.q & ((u64)0xC000 << 29)) {
+        func_00140408(self);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13FEE0", func_00140408);
 
