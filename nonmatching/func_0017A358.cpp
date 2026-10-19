@@ -1,0 +1,373 @@
+#include "common.h"
+
+struct S0017A620 {
+    char pad[0x18];
+    int unk18;
+    int unk1C;
+};
+
+struct S001794F8 {
+    char pad0[0x1C];
+    int unk1C;
+    char pad20[0xC];
+    int unk2C;
+};
+
+struct S00179148 {
+    char pad[0x14];
+    void* unk14;
+};
+
+struct S00179BB0 {
+    char pad[0x18];
+    void* unk18;
+};
+
+extern "C" {
+int func_00172CC0(void*, u32, int);
+void func_0017D658(void*, int, int);
+int func_0027D268(int, int, void*, int);
+int func_0027D870(int, int, void*, int);
+void func_0017D580(void*, int);
+extern u8 D_003424C8[];
+extern u8 D_00342638[];
+void func_00179518(int, int);
+extern u8 D_00341B18[];
+void func_00172A00(void*);
+void func_00172A00_2(void*, int) __asm__("func_00172A00");
+extern u8 D_00341AB8[];
+extern u8 D_00341A58[];
+extern u8 D_00341FB8[];
+extern u8 D_00342338[];
+extern u8 D_00342398[];
+void func_00113F38(void*);
+extern u8 D_003427A8[];
+}
+
+extern "C" void func_00178FE8(void) {
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00178FF0);
+
+struct S179110 { char pad0[0x18]; float unk18; };
+
+extern "C" void func_00179110(S179110* self, float* p) {
+    *p *= self->unk18;
+}
+
+extern "C" void func_00179128(void) {
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179130);
+
+extern "C" void func_00179148(S00179148* self) {
+    self->unk14 = D_00341B18;
+    func_00172A00(self);
+}
+
+extern "C" u32 func_00179170(void) {
+    return 0xC876ADF3 /* ROTATE */;
+}
+
+extern "C" void func_00179180(S00179148* self) {
+    self->unk14 = D_00341AB8;
+    func_00172A00(self);
+}
+
+extern "C" u32 func_001791A8(void) {
+    return 0x74E4BBA5 /* adjustspeed */;
+}
+
+extern "C" void func_001791B8(S00179148* self) {
+    self->unk14 = D_00341A58;
+    func_00172A00(self);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_001791E0);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179360);
+
+extern "C" u32 func_001793D8(void) {
+    return 0x3267C5D6 /* framefactoroffset */;
+}
+
+extern "C" void func_001793E8(S00179148* self) {
+    self->unk14 = D_00341FB8;
+    func_00172A00(self);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179410);
+
+extern "C" void func_001794F0(void) {
+}
+
+extern "C" void func_001794F8(S001794F8* self) {
+    func_00179518(self->unk2C, self->unk1C);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179518);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179590);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179818);
+
+extern "C" void func_00179AF8(S00179148* self) {
+    self->unk14 = D_00342338;
+    func_00172A00(self);
+}
+
+extern "C" u32 func_00179B20(void) {
+    return 0xED05B9D3 /* blenddebugtwo */;
+}
+
+extern "C" void func_00179B30(S00179148* self) {
+    self->unk14 = D_00342338;
+    func_00172A00(self);
+}
+
+extern "C" u32 func_00179B58(void) {
+    return 0x217E0D2E /* blenddebugthree */;
+}
+
+extern "C" void func_00179B68(S00179148* self) {
+    self->unk14 = D_00342338;
+    func_00172A00(self);
+}
+
+struct S001CC050 {
+    char pad0[0x1C];
+    void (*unk1C)(void);
+    char pad20[0x8];
+    void (*unk28)(void);
+};
+
+extern "C" void func_00179B90(S001CC050* p) {
+    p->unk28();
+}
+
+extern "C" void func_00179BB0(S00179BB0* self) {
+    self->unk18 = D_00342398;
+    func_00113F38(self);
+}
+
+extern "C" void func_00179BD8(S00179BB0* self) {
+    self->unk18 = D_00342398;
+    func_00113F38(self);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179C00);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179DE0);
+
+struct S17A060 { char pad0[0xC]; int unkC; char pad10[8]; char unk18[0x1C]; int unk34; float unk38; };
+
+extern "C" int func_0017A060(S17A060* self, u32 key, int p) {
+    int b;
+    int a;
+    int k;
+    void* d;
+    int fl;
+    int pp;
+    switch (key) {
+    case 0x4779AF46:
+        func_0027D870(p, 0, &a, 1);
+        {
+            u32 kk = 0xF649D637;
+            self->unk34 = a != kk;
+        }
+        return 1;
+    case 0x8C73A2F1:
+        func_0027D870(p, 0x98549BA4, &b, 1);
+        func_0017D658(self->unk18, self->unkC, b);
+        d = &self->unk38;
+        self->unk38 = 1.0f;
+        k = 0x54628ED7;
+        pp = p;
+        asm("" : "+r"(pp));
+        fl = 0;
+        goto call;
+    case 0x4F770C95:
+        d = &self->unk38;
+        k = 0;
+        fl = 1;
+        pp = p;
+        asm("" : "+r"(pp));
+    call:
+        func_0027D268(pp, k, d, fl);
+        return 1;
+    default:
+        return func_00172CC0(self, key, p);
+    }
+}
+
+extern "C" void func_0017A178(void) {
+}
+
+extern "C" u32 func_0017A180(void) {
+    return 0x4600C341 /* overlay */;
+}
+
+struct S17A190 { char pad0[0x14]; void* unk14; char unk18[1]; };
+
+extern "C" void func_0017A190(S17A190* self, int a) {
+    self->unk14 = D_003424C8;
+    func_0017D580(self->unk18, 2);
+    func_00172A00_2(self, a);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A1E0);
+
+typedef unsigned int TI17A __attribute__((mode(TI)));
+
+struct VT17A { char pad0[0x38]; s16 delta; s16 unk3A; void (*fn)(void*); };
+struct O17A { char pad0[0x14]; VT17A* vt; };
+struct N17A { char pad0[4]; N17A* unk4; O17A* unk8; };
+struct It17A {
+    int unk0;
+    N17A* cur;
+    It17A(N17A* n) : cur(n) {}
+};
+struct B17A { char pad0[4]; int unk4; };
+struct S17A { char pad0[8]; N17A* unk8; char padC[0xC]; B17A unk18; };
+struct P17A { TI17A q[130]; TI17A p[130]; float w[130]; };
+
+extern "C" {
+void* memset(void*, int, unsigned int);
+void func_0017D6D0(void*, P17A*, float);
+extern u32 D_0036AA90;
+}
+
+extern "C" void func_0017A358(S17A* self, P17A* out, float t) {
+    It17A it(self->unk8);
+    O17A* o = it.cur->unk8;
+    o->vt->fn((char*)o + o->vt->delta);
+    B17A* b = &self->unk18;
+    if (b->unk4 != 0) {
+        P17A pose;
+        int i;
+        for (i = 0x81; i != -1; i -= 10) {
+        }
+        for (i = 0x81; i != -1; i -= 10) {
+        }
+        memset(pose.w, 0, 0x208);
+        P17A* ps = &pose;
+        func_0017D6D0(b, ps, t);
+        register TI17A v5 asm("vf5");
+        register TI17A v4 asm("vf4");
+        asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v5));
+        asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v4));
+        u32 n = D_0036AA90 - 1;
+        if (n != 0xFFFFFFFF) {
+            float* pw = ps->w + n;
+            float* ow = out->w + n;
+            TI17A* pq = ps->q + n;
+            TI17A* oq = out->q + n;
+            TI17A* pp = ps->p + n;
+            TI17A* op = out->p + n;
+            do {
+                float w = *pw;
+                if (w != 0.0f) {
+                    if (*ow != 0.0f) {
+                        register TI17A v3 asm("vf3") = *oq;
+                        register TI17A v2 asm("vf2") = *pq;
+                        register TI17A v1 asm("vf1");
+                        int bits;
+                        float d;
+                        asm volatile("vmul.xyzw %0,%1,%2" : "=j"(v1) : "j"(v3), "j"(v2));
+                        asm("mfc1 %0,%1" : "=r"(bits) : "f"(w));
+                        asm volatile("vadday.x $ACC,%0,%0y" : : "j"(v1));
+                        asm volatile("ctc2.ni %0,$vi21" : : "r"(bits));
+                        asm volatile("vmaddaz.x $ACC,%1,%0z\n\tvmaddw.x %0,%1,%0w" : "+j"(v1) : "j"(v5));
+                        asm volatile("qmfc2.ni %0,%1" : "=r"(bits) : "j"(v1));
+                        asm("mtc1 %1,%0" : "=f"(d) : "r"(bits));
+                        if (d < 0.0f)
+                            asm volatile("vsuba.xyzw $ACC,$vf0,%0\n\tvmsub.xyzw %0,$vf0,$vf0" : "+j"(v2));
+                        asm volatile("vaddax.xyzw $ACC,%0,$vf0x" : : "j"(v3));
+                        asm volatile("vsub.xyzw %0,%1,%2" : "=j"(v1) : "j"(v2), "j"(v3));
+                        asm volatile("vmaddi.xyzw %0,%1,$I" : "+j"(v2) : "j"(v1));
+                        float one = 1.0f;
+                        asm("mfc1 %0,%1" : "=r"(bits) : "f"(one));
+                        asm("qmtc2.ni %1,%0" : "=j"(v3) : "r"(bits));
+                        asm("vmul.xyzw %0,%1,%1" : "=j"(v1) : "j"(v2));
+                        asm volatile("vadday.x $ACC,%0,%0y" : : "j"(v1));
+                        asm volatile("vmaddaz.x $ACC,%1,%0z\n\tvmaddw.x %0,%1,%0w" : "+j"(v1) : "j"(v4));
+                        asm volatile("qmfc2.ni %0,%1" : "=r"(bits) : "j"(v1));
+                        asm("mtc1 %1,%0" : "=f"(d) : "r"(bits));
+                        if (d > 0.0f)
+                            asm volatile("nop\n\tnop\n\tvrsqrt $Q,%0x,%1x\n\tvwaitq\n\tvmulq.xyzw %2,%2,$Q" : : "j"(v3), "j"(v1), "j"(v2));
+                        *oq = v2;
+                        v2 = *pp;
+                        asm("mfc1 %0,%1" : "=r"(bits) : "f"(w), "j"(v2));
+                        v3 = *op;
+                        asm("qmtc2.ni %1,%0" : "=j"(v1) : "r"(bits));
+                        asm volatile("vsub.xyzw %0,%0,%1" : "+j"(v2) : "j"(v3));
+                        asm volatile("vmulx.xyzw %0,%0,%1x" : "+j"(v2) : "j"(v1));
+                        asm volatile("vadd.xyzw %0,%0,%1" : "+j"(v3) : "j"(v2));
+                        *op = v3;
+                    } else {
+                        oq[0] = pq[0];
+                        oq[0x82] = pq[0x82];
+                    }
+                    *ow-- = 1.0f;
+                } else {
+                    ow--;
+                }
+                pq--;
+                pp--;
+                op--;
+                oq--;
+                pw--;
+            } while (--n != 0xFFFFFFFF);
+        }
+    }
+}
+
+extern "C" void func_0017A5B8(void) {
+}
+
+extern "C" u32 func_0017A5C0(void) {
+    return 0xBA560054 /* mappedmappedoverlay */;
+}
+
+extern "C" void func_0017A5D0(S17A190* self, int a) {
+    self->unk14 = D_00342638;
+    func_0017D580(self->unk18, 2);
+    func_00172A00_2(self, a);
+}
+
+extern "C" int func_0017A620(S0017A620* self) {
+    self->unk1C = 0;
+    self->unk18 = 1;
+    return 1;
+}
+
+extern "C" int func_0027DF00(int, u32);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A630);
+
+extern "C" void func_0017A6D8(S0017A620* self, float* out) {
+    switch (self->unk1C) {
+    case 1:
+        *out = 0.016666668f;
+        self->unk1C = 2;
+        break;
+    case 2:
+        *out = 0.0f;
+        self->unk18 = 1;
+        break;
+    }
+    if (self->unk18 == 0) *out = -*out;
+}
+
+extern "C" u32 func_0017A738(void) {
+    return 0x48D89FC1 /* modelviewer */;
+}
+
+extern "C" void func_0017A748(S00179148* self) {
+    self->unk14 = D_003427A8;
+    func_00172A00(self);
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017A770);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_0017AA10);
