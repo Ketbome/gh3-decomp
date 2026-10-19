@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 8 matches / 26 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 8 matches / 27 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1113,3 +1113,7 @@ Near miss: func_002350B0 (nonmatching/func_002350B0.cpp): shape complete (three 
 ## t_1D6598 (round 5)
 
 Near miss: func_001D6598 (nonmatching/func_001D6598.cpp): two local objects (A: ctor inline vptr D_0034BC18/+4=0, dtor vptr D_0034BCD8; B: ctor func_001D5570, dtor vptr D_0034BD78), shape and the three exits identical; the original hoists `lui $s5,%hi(D_0034BCD8)` before the first call (one more saved register), ours does not, so every saved-register number shifts by one.
+
+## t_1E0AE8 (round 5)
+
+Near miss: func_001E2260 (nonmatching/func_001E2260.cpp): ten `v = 0; if (x < y) Ff(v); f(q, v)` threshold tests (Ff = static inline helper writing `v = 0xFF` through an `s32&` keeps the branch), `f32 t; s32 ok = f(..., &t); f32 a = t; if (!ok) { a = 0.0f; ... }` keeps the value in $f20 (not in the stack slot), the pointer `q = p + K` computed before the compare. Remaining: order of the two `swc1 f20/f21` saves around the jal delay slot and the `mtc1 zero,$f20` slot (28 insns, all scheduling).
