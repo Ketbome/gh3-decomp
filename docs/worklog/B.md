@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 2 matches / 12 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 2 matches / 13 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1068,3 +1068,7 @@ Near miss: func_002305C0 (nonmatching/func_002305C0.cpp): six list-search blocks
 ## t_1C7AA0 (round 5)
 
 Given up: func_001C8F08 (two copies of an iterate-and-sprintf block over a local iterator object whose ctor/dtor store D_0034ACA8 at +8, inside a 2-iteration outer loop). Structure written (do/while with j = i+1, struct Ctx{unk4=0; unk8=vtbl} with dtor, char buf[0x400]); the original is register-starved (9 saved regs full: it spills the loop counter to 0x414(sp) and `o` to 0x410(sp) and keeps the `+0x206C`/`+0x288C` bases and the format address in $s1/$s3/$s5), ours does not reproduce that pressure (95 differing insns).
+
+## t_1F9A48 (round 5)
+
+Near miss: func_001FB480 (nonmatching/func_001FB480.cpp): cvt.w.s works; `register f32 zero asm("$f20")`; the p->e[i] check is `*(p + i*0x38 + 0x40)` with the entry pointer computed afterwards; `if (o) {...} q->unk4 = 0;` as a common tail. Remaining: the original loads the two float call arguments before `lw t0` and keeps `unk24` in $f1 (ours $f0, or reloads it when written inline).
