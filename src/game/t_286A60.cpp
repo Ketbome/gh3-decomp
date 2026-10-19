@@ -208,7 +208,20 @@ extern "C" void func_00287F50(void *p) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288000);
+extern "C" void *func_00288000(int size) {
+    S2867_Pool *pl = D_00371330[D_00371340];
+    if (pl) {
+        void *r = func_0011C2A8(pl);
+        if (!r) {
+            int h = D_00368A38;
+            func_00119490(h, func_00119610(h, 1));
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return r;
+    }
+    return Heap_Alloc(D_00368A38, size, 1, 0);
+}
 
 extern "C" void func_002880B8(void *p) {
     S2867_Pool *pl = D_00371088[D_00371098];
