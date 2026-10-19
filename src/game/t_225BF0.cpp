@@ -434,7 +434,99 @@ extern "C" void func_00227268(int a, int b, int c, int d) {
     func_001D83D0(D_0036D3B0[0], func_00228820, v);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_002272C0);
+extern "C" {
+char* func_0014E1B8(int);
+int func_0027DF00(int, u32);
+void func_0027AA70(void*);
+void func_0027C448(void*, u32, int);
+void func_00152D30(char*, int);
+void func_00152CE0(char*, u32);
+void func_00153020(char*, int);
+void func_00153080(char*, int);
+void func_0014EAE8(int, int);
+int func_0027D268(int, u32, void*, int);
+int func_0027D470(int, u32, void*, int);
+void func_00152C78(char*, int);
+int func_002765E0(u32, int);
+int func_0027D870_i(int, int, int*, int) __asm__("func_0027D870");
+extern int D_00368748;
+extern int D_00372B58;
+}
+
+struct VE227 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, int);
+};
+
+struct VF227 {
+    char pad0[0x10];
+    s16 delta;
+    s16 pad12;
+    void (*fn)(void*, int, int);
+};
+
+extern "C" void func_002272C0(char* self, int cfg, int* a) {
+    char tmp[0x10];
+    int s10;
+    int s14;
+    int s18;
+    int s1c;
+    int s20;
+    int s24;
+    int s28;
+    int c = a[4];
+    char* o = func_0014E1B8(a[0]);
+    if (o != 0) {
+        if (func_0027DF00(cfg, 0x0165B66D) != 0) {
+            func_0027AA70(tmp);
+            func_0027C448(tmp, 0xA1DC81F9, a[0]);
+            func_0027C448(tmp, 0xA7F6519E, a[0]);
+            func_0027AC90((int)tmp);
+        }
+        if (func_0027DF00(cfg, 0x393282E4) != 0) {
+            char* p = *(char**)(o + 0x10);
+            if (p != 0) {
+                VE227* e = (VE227*)(*(char**)(p + 0x18) + 0x48);
+                e->fn(p + e->delta, 1);
+            }
+        }
+        if (a[3] == 0 || c != 0) {
+            func_00152D30(o, 0);
+        } else {
+            func_00152CE0(o, 0xFFFFFFFF);
+            func_00152D30(o, 1);
+            func_00153020(o, 1);
+        }
+        if (func_0027DF00(cfg, 0x4E549FE1) != 0) {
+            func_00153080(o, 1);
+            func_00152D30(o, 0);
+            if (a[3] == 0) func_0014EAE8(a[0], 0);
+        }
+        s10 = 0;
+        func_0027D870_i(cfg, 0xAF1E0CF4, &s10, 0);
+        if (s10 == 0x51404A70) {
+            func_0027D268(cfg, 0x88E4D286, &s14, 0);
+            func_0027D470(cfg, 0x5999FB1E, &s18, 0);
+            func_0027D268(cfg, 0x27A4DBE7, &s1c, 0);
+            func_0027D870(cfg, 0x257D1BDD, &s20, 0);
+            func_0027D268(cfg, 0x1DF32087, &s24, 0);
+        }
+        s28 = 0;
+        func_0027D870_i(cfg, 0x7E4813A7, &s28, 0);
+        if (s28 == 0) s28 = D_00372B58;
+        func_00152C78(o, s28);
+    }
+    if (c == 0) {
+        if (a[3] != 0) {
+            VF227* v = *(VF227**)self;
+            v->fn(self + v->delta, cfg, (int)a);
+        }
+        if (D_00368748 == 0) {
+            if (func_002765E0(0xB675F8F6, 0) != 0) a[6] = 1;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00227570);
 
