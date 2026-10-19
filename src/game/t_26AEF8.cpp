@@ -330,7 +330,52 @@ extern "C" f32 func_0026CA70(void) {
     return D_00370C20;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026CA78);
+struct S26CA_R {
+    char b[0x12];
+};
+
+extern "C" {
+extern char D_003A47B0[];
+extern S26CA_R D_00358940;
+unsigned int strlen(const char *);
+char *strcpy(char *, const char *);
+int func_00274178(char *, int);
+void func_0030ADA0(void *, int, int);
+}
+
+extern "C" void func_0026CA78(char *name, int idx, int data) {
+    if (func_0026ABA8() == 0) {
+        char *e = D_003A66F0 + idx * 0xCB0;
+        int n = *(int *)(e + 0xC80);
+        if (n < 0x50) {
+            u32 i = 0;
+            char *dst = e + n * 0x28;
+            strcpy(dst, name);
+            char *p = dst;
+            while (i < strlen(dst)) {
+                u8 c = *p;
+                if ((u8)(c - 0x61) < 0x1A) {
+                    *p = c - 0x20;
+                }
+                p++;
+                i++;
+            }
+            if (idx == 0) {
+                char *r = D_003A47B0 + *(int *)(e + 0xC80) * 0x64;
+                if (data) {
+                    func_0030ADA0(r, data, 0x64);
+                    r[0x63] = 0;
+                } else {
+                    *(S26CA_R *)r = D_00358940;
+                }
+            }
+            if (func_00274178(dst, 1)) {
+                *(int *)(e + 0xCA8) = 0;
+                *(int *)(e + 0xC80) = *(int *)(e + 0xC80) + 1;
+            }
+        }
+    }
+}
 
 extern "C" void func_0026CBE8(int a) {
     if (func_0026ABA8() == 0) {
