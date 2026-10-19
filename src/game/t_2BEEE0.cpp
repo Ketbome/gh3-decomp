@@ -75,7 +75,26 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", func_002BF900);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_CreateGemMover);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_DestroyGem);
+static inline void Gem_Pick(int &v, int arg0) {
+    int b;
+    if (func_0027D870(arg0, 0x385D13E4, &b, 0)) {
+        v = b;
+    }
+}
+
+extern "C" int CFunc_DestroyGem(int arg0) {
+    int a;
+    if (func_0027D870(arg0, 0xA1DC81F9, &a, 0)) {
+        if (func_002B5888(a)) {
+            int v = a;
+            Gem_Pick(v, arg0);
+            func_00144FC0(D_00369798, v, 1, 0, 0);
+            return 1;
+        }
+        return 0;
+    }
+    return 0;
+}
 
 extern "C" int CFunc_MakeDeadWhammy(int arg0) {
     int a;
