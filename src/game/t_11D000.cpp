@@ -610,7 +610,46 @@ extern "C" void func_0011EB98(void) {
 extern "C" void func_0011EBA0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011EBA8);
+struct T11EBA8 { long unk0; long unk8; int pad10; float unk14; float unk18; };
+
+extern "C" {
+extern T11EBA8 D_00376510;
+int func_002F4E68(int);
+float func_0011ED20(void);
+void func_002F4D20(int, int);
+void func_002F5030(int, int*, int*);
+}
+
+GP_DATA(D_00368CF0);
+GP_DATA(D_00368CEC);
+GP_DATA(D_00368CE8);
+GP_DATA(D_00368D04);
+GP_DATA(D_00368D00);
+extern "C" void func_0011EBA8(void) {
+    D_00368CE8 = D_00368CEC;
+    D_00368CF0 += 1;
+    D_00376510.unk8 = D_00376510.unk0;
+    D_00376510.unk0 = func_0011ECF0();
+    float f = (int)(D_00376510.unk0 - D_00376510.unk8);
+    D_00376510.unk14 = f;
+    D_00376510.unk18 = f;
+    int t = D_00368D10;
+    if (t != -1) {
+        int h = func_002F4E68(t);
+        func_002F4D20(D_00368D10, 0);
+        int a[2];
+        a[0] = 0;
+        a[1] = 0;
+        func_002F5030(h, &a[0], &a[1]);
+        D_00368D00 = D_00368D04;
+        D_00368D04 = (float)(unsigned)a[1] * 1e-6f;
+    } else {
+        D_00368D00 = D_00368D04;
+        D_00368D04 = 0.016666668f;
+    }
+    D_00368D08 = D_00368D04;
+    D_00368D04 = D_00368D04 * func_0011ED20();
+}
 
 extern "C" long func_0011ECE8(void) {
     return D_00368CF0;
