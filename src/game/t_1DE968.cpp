@@ -192,7 +192,88 @@ cc:
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF9C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DFD28);
+struct G1DFD {
+    char pad0[0x18];
+    s32 unk18;
+    s32 arr[1];
+};
+
+struct VE1DFD {
+    char pad0[0x58];
+    s16 delta;
+    s16 pad5A;
+    void (*fn)(void*, s32, s32);
+};
+
+struct O1DFD {
+    char pad0[8];
+    VE1DFD* unk8;
+    char pad0C[0x48];
+    s32 unk54;
+};
+
+extern "C" {
+void func_0027AA98(s32);
+void func_0027AE70(s32, u32);
+s32 func_0027D188(s32, u32, s32*, int);
+s32 func_0030E650(s32, void*);
+extern char D_0036D838[];
+extern G1DFD* D_0036F658;
+}
+
+static inline void Send1DFD(O1DFD* o, s32 sp) {
+    VE1DFD* e = o->unk8;
+    e->fn((char*)o + e->delta, sp, 0);
+}
+
+extern "C" void func_001DFD28(void* op, s32 unused) {
+    O1DFD* o = (O1DFD*)op;
+    s32 spv[4];
+    s32 sp10;
+    s32 sp14;
+    func_0027AA98((s32)spv);
+    s32 id = o->unk54;
+    G1DFD* g = D_0036F658;
+    s32 n = g->unk18 + 1;
+    g->unk18 = n;
+    s32* slot = &g->arr[n];
+    *slot = id;
+    if (func_0027DD88((s32)spv, 0xBAA84D21) != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x1D5B1AE6);
+        Send1DFD(o, (s32)spv);
+    }
+    if (func_0027DD88((s32)spv, 0x6D09024A) != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x5CB5CB7E);
+        func_0027C448((s32)spv, 0, 0xD443A2BC);
+        Send1DFD(o, (s32)spv);
+        func_0027AE70((s32)spv, 0xD443A2BC);
+    }
+    if (func_0027DD88((s32)spv, 0xC97AAF04) != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x0A015E17);
+        Send1DFD(o, (s32)spv);
+    }
+    sp10 = 0;
+    if (func_0027D870((s32)spv, 0xDB616875, &sp10, 0) != 0) {
+        if (sp10 == 0xC4A072C8) {
+            func_0027C448((s32)spv, 0xB6015EA8, 0x59381F65);
+            Send1DFD(o, (s32)spv);
+        }
+    }
+    s32 flag = 0;
+    sp14 = 0;
+    if (func_0027D188((s32)spv, 0x286A8D26, &sp14, 0) != 0) {
+        flag = func_0030E650(sp14, D_0036D838) == 0;
+    }
+    if (flag == 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x286A8D26);
+        func_0027C448((s32)spv, 0, 0x10079F2D);
+        func_0027C448((s32)spv, 0, 0x94851832);
+        func_0027C160((s32)spv, 0xD223B8BD, 0);
+        Send1DFD(o, (s32)spv);
+    }
+    D_0036F658->unk18 = D_0036F658->unk18 - 1;
+    func_0027AC90(spv);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DFFB0);
 
