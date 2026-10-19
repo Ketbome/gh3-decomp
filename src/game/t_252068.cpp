@@ -75,7 +75,77 @@ extern "C" int CFunc_ShowCamOffset(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", CFunc_GetCamOffset);
+struct S252_Scr {
+    char pad0[0x20];
+    int unk20;
+};
+
+struct S252_GCO {
+    int a;
+    int b;
+    int c;
+    int d;
+    u128_252 v1;
+    f32 f1;
+    int pad34[3];
+    u128_252 v2;
+    f32 f2;
+    f32 f3;
+};
+
+static inline f32 S252_X(u128_252 q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 S252_Y(u128_252 q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 S252_Z(u128_252 q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+
+extern "C" {
+int func_00252090(int, int *, int *, u128_252 *, f32 *, u128_252 *, int *, int *, f32 *, f32 *);
+void func_0027C4D8(int, u32, f32, f32, f32);
+void func_0027C5B0(int, u32, f32, f32);
+void func_0027C1F8(int, u32, float);
+void func_0027C448(int, u32, int);
+}
+
+extern "C" int CFunc_GetCamOffset(int params, S252_Scr *script) {
+    S252_GCO g;
+    g.a = 0;
+    g.b = 0;
+    g.c = 0;
+    g.d = 0;
+    if (func_00252090(params, &g.a, &g.b, &g.v1, &g.f1, &g.v2, &g.c, &g.d, &g.f2, &g.f3)) {
+        func_0027C448(script->unk20, 0xD126CDF6, g.a);
+        if (g.b) {
+            func_0027C448(script->unk20, 0x1C724D65, g.b);
+        }
+        func_0027C4D8(script->unk20, 0x7F261953, S252_X(g.v1), S252_Y(g.v1), S252_Z(g.v1));
+        func_0027C4D8(script->unk20, 0x748CA262, S252_X(g.v2), S252_Y(g.v2), S252_Z(g.v2));
+        func_0027C1F8(script->unk20, 0x17E7321E, (f32)(int)(g.f1 + 0.499999f));
+        if (g.c) {
+            func_0027C448(script->unk20, 0x26205DB6, g.c);
+            if (g.d) {
+                func_0027C448(script->unk20, 0x0FF66D91, g.d);
+            }
+            func_0027C5B0(script->unk20, 0x51CAF9F7, g.f2, g.f3);
+        }
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" void CFunc_HasMovieStarted(void) {
     func_001E19F8(D_0036CDB4[0]->unk308);
