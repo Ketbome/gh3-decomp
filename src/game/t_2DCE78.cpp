@@ -540,7 +540,33 @@ extern "C" void func_002DE530(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE538);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE578);
+struct S2DE578_Node {
+    int unk0;
+    int unk4;
+    char pad8[0x4];
+    S2DE578_Node *unkC;
+};
+
+struct S2DE578_It {
+    int unk0;
+    S2DE578_Node *cur;
+};
+
+static inline S2DE578_Node *S2DE578_Valid(S2DE578_Node *n) {
+    if (n->unk4 == -1) {
+        return 0;
+    }
+    return n;
+}
+
+extern "C" int func_002DE578(int unused, S2DE578_It *it) {
+    S2DE578_Node *n = S2DE578_Valid(it->cur->unkC);
+    it->cur = n;
+    if (n) {
+        return n->unk4;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE5A8);
 
