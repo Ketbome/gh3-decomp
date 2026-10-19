@@ -109,7 +109,77 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB858);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB970);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBA98);
+struct S2EBA_E {
+    int unk0;
+    int unk4;
+    int unk8;
+    char padC[0x10];
+    u32 unk1C;
+    S2EB_L *unk20;
+    S2EBA_E *unk24;
+};
+
+extern "C" {
+void func_002EBFF8_e(void *, int *) asm("func_002EBFF8");
+void func_0028A300(int *);
+void func_0026A660(int *);
+u32 func_0011EF10(void *);
+extern S2EBA_E *D_003729C4;
+extern S2EBA_E *D_003729C8;
+extern int D_003729CC;
+}
+
+GP_DATA(D_003729D0);
+GP_DATA(D_003729C8);
+GP_DATA(D_003729C4);
+GP_DATA(D_003729CC);
+extern "C" void func_002EBA98(S2EBA_E *e) {
+    int t = e->unk0;
+    func_002EBFF8_e(D_003729D0, &t);
+    S2EB_L *it = e->unk20;
+    S2EBA_E *cur = D_003729C8;
+    if (it) {
+        do {
+            S2EB_L *p = it;
+            it = it->next;
+            switch (p->type) {
+            case 0:
+                func_0028A300(p->unk4);
+                break;
+            case 1:
+                func_0026A660(p->unk4);
+                break;
+            case 2:
+                func_002EB680(e->unk0, p->unk4);
+                break;
+            }
+            p->next = D_003729D4;
+            D_003729D4 = p;
+            D_003729D8 -= 1;
+        } while (it);
+        cur = D_003729C8;
+    }
+    int found = 0;
+    while (cur) {
+        if (cur->unk4 == e->unk4) {
+            u32 ec = e->unk1C;
+            found = 1;
+            if (cur->unk1C < ec) {
+                cur->unk1C = ec;
+            }
+        }
+        cur = cur->unk24;
+    }
+    u32 now = func_0011EF10(cur);
+    if (found == 0 && now < e->unk1C + e->unk8) {
+        e->unk24 = D_003729C8;
+        D_003729C8 = e;
+    } else {
+        e->unk24 = D_003729C4;
+        D_003729C4 = e;
+    }
+    D_003729CC -= 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBC18);
 
