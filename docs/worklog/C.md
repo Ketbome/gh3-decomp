@@ -1020,3 +1020,8 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   func_00266E08 (t_266800, hash Get via asm-label alias of the int global), func_002DE578 (t_2DCE78).
 - `dk twins` failed on these only for declaration/type clashes; writing the twin by hand with the local types works.
 - Skipped (tiny loops): func_00276620, func_00276668, func_00276698 (t_2754A0).
+- func_002DD3E0 (t_2DCE78): sin/cos + MakeVec store; near (0xb4 vs 0xb0): original does two separate idx*0x30 mults, dsrl32 hoisted first, w=0x3F800000 as u32 GPR (lui), y=0.0f via mtc1; ours CSEs the mult. Given up.
+- func_00269D38 (t_268EB8): hash Get (as t_1E95C0 HTable::Get, const u32& key) + first-free-of-4 slot insert; hash part never gets the original's separate `!n` test when the result is consumed afterwards (0x10c vs 0x114). Given up.
+- CFunc_RemoveFromCutsceneDestroyList (t_260658) MATCH: stack list iterators `It end, it, b, c, d, e` (16 bytes, cur at +4), read
+  `it` from the list before `end`; `void *hp = D_00368A38[0]` read right before the unlink stores (as in func_00225FA0).
+- CFunc_AddToCutsceneDestroyList: ldl/ldr struct copy into a list node, not attempted.

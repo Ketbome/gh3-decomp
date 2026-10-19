@@ -609,7 +609,72 @@ extern "C" int CFunc_GetTerritory(int params, S2606_Script *script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_AddToCutsceneDestroyList);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_RemoveFromCutsceneDestroyList);
+extern "C" void Heap_Free(void *, void *);
+extern int D_003707C0;
+
+GP_DATA(D_003707C0);
+struct S2619_P {
+    char pad0[4];
+    int unk4;
+    char pad8[4];
+    void *unkC;
+};
+
+struct S2619_N {
+    S2619_N *unk0;
+    S2619_N *unk4;
+    S2619_P *unk8;
+};
+
+struct S2619_It {
+    int unk0;
+    S2619_N *unk4;
+    int unk8;
+    int unkC;
+};
+
+GP_DATA(D_003707C0);
+extern "C" int CFunc_RemoveFromCutsceneDestroyList(int params) {
+    S2619_It end, it, b, c, d, e;
+    u32 key;
+    if (D_003707C0 == 0) {
+        func_0027D870(params, 0xA1DC81F9, &key, 1);
+        it.unk4 = (S2619_N *)D_0039A3C8.unk4.unk4;
+        end.unk4 = (S2619_N *)&D_0039A3C8.unk4;
+        if (it.unk4 != end.unk4) {
+            do {
+                S2619_P *p = it.unk4->unk8;
+                if (p->unk4 == key) {
+                    if (p) {
+                        void *q = p->unkC;
+                        void *h = D_00368A38[0];
+                        if (q) {
+                            func_0027AC90(q);
+                            func_00113250(q);
+                            p->unkC = 0;
+                            h = D_00368A38[0];
+                        }
+                        Heap_Free(h, p);
+                    }
+                    S2619_N *n = it.unk4;
+                    void *hp = D_00368A38[0];
+                    c.unk4 = n;
+                    e.unk4 = n;
+                    S2619_N *nx = n->unk4;
+                    d.unk4 = n;
+                    c.unk4 = nx;
+                    n->unk0->unk4 = n->unk4;
+                    n->unk4->unk0 = n->unk0;
+                    Heap_Free(hp, n);
+                    b.unk4 = c.unk4;
+                    return 1;
+                }
+                it.unk4 = it.unk4->unk4;
+            } while (it.unk4 != end.unk4);
+        }
+    }
+    return 0;
+}
 
 struct S260_Item {
     char pad0[8];
@@ -628,10 +693,6 @@ struct S260_It {
     S260_Node *p;
 };
 
-extern "C" void Heap_Free(void *, void *);
-extern int D_003707C0;
-
-GP_DATA(D_003707C0);
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_FlushCutsceneDestroyList);
 
 extern "C" int CFunc_CutsceneDestroyListActive(void) {
