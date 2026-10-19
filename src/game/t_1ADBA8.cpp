@@ -23,7 +23,56 @@ struct S001AFAC8 {
     f32* unk34;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001ADBA8);
+struct T1ADB {
+    char pad0[0x20];
+    T1ADB* unk20;
+    char pad24[4];
+    T1ADB* unk28;
+    char pad2C[0xC];
+    void* unk38;
+    char pad3C[0x10];
+    s32 unk4C;
+};
+
+extern "C" {
+void func_0019ECE8(void);
+s32 func_001A9A98(void* p, char* q);
+void func_001A9B08(void* p, char* q);
+void func_001A0380(s32 p, s32 f);
+void Heap_Free(s32 h, void* p);
+extern char D_0038C9A0[];
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+}
+
+extern "C" void func_001ADBA8(T1ADB* p, s32 a) {
+    func_0019ECE8();
+    if (a != 0) {
+        if (func_001A9A98(p, D_0038C9A0) == 0) {
+            func_001A9B08(p, D_0038C9A0);
+        }
+    }
+    if (func_001ACD28(p) != 0) {
+        if (p->unk20 != 0) {
+            Heap_Free(D_00368A38[0], p->unk20);
+        }
+        if (p->unk38 != 0) {
+            Heap_Free(D_00368A38[0], p->unk38);
+        }
+    } else {
+        T1ADB* c = p->unk20;
+        while (c != 0) {
+            T1ADB* n = c;
+            c = c->unk28;
+            func_001ADBA8(n, 0);
+        }
+    }
+    if (p != 0) {
+        if (p->unk4C != 0) {
+            func_001A0380(p->unk4C, 3);
+        }
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001ADC90);
 
