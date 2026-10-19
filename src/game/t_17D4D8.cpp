@@ -214,7 +214,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E878);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017E9B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F1A8);
+extern "C" {
+void* memset(void*, int, unsigned int);
+void func_0017D6D0(void*, void*, float);
+}
+
+struct P17F1 { u128_17D q[0x104]; char w[0x208]; };
+
+extern "C" void func_0017F1A8(void* a, u128_17D* o1, u128_17D* o2, float f) {
+    P17F1 pose;
+    int i;
+    char* w = (char*)&pose;
+    for (i = 0x81; i != -1; i -= 10) {
+    }
+    w += 0x1040;
+    for (i = 0x81; i != -1; i -= 10) {
+    }
+    memset(w, 0, 0x208);
+    func_0017D6D0(a, &pose, f);
+    *o1 = pose.q[0];
+    *o2 = *(u128_17D*)((char*)&pose + 0x820);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_17D4D8", func_0017F268);
 
