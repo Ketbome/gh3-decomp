@@ -134,7 +134,43 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AF608);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AF7C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AF990);
+typedef unsigned int u128_1AF __attribute__((mode(TI)));
+struct V1AF {
+    f32 x, y, z, w;
+} __attribute__((aligned(16)));
+struct N1AF {
+    V1AF p;
+    f32 r[3];
+    u32 flags;
+    N1AF* next;
+};
+extern "C" {
+void func_0010F690(void*);
+void func_0014F958(void* dst, u128_1AF a, u128_1AF b);
+}
+
+extern "C" void* func_001AF990(void* dst, N1AF* n) {
+    V1AF lo, hi;
+    while (!(n->flags & 2) && n->p.w >= 1e10f) n = n->next;
+    lo = n->p;
+    hi = n->p;
+    f32* l = &lo.x;
+    l[0] -= n->r[0];
+    l[1] -= n->r[1];
+    l[2] -= n->r[2];
+    lo.w = 1.0f;
+    f32* h = &hi.x;
+    h[0] += n->r[0];
+    h[1] += n->r[1];
+    h[2] += n->r[2];
+    lo.w = 1.0f;
+    u128_1AF a = *(u128_1AF*)&lo;
+    u128_1AF b = *(u128_1AF*)&hi;
+    func_0010F690(dst);
+    func_0010F690((char*)dst + 0x10);
+    func_0014F958(dst, a, b);
+    return dst;
+}
 
 extern "C" void func_001AFAC8(S001AFAC8* p, f32 a, f32 b, f32 c, f32 d, f32 e, f32 f, f32 g, f32 h) {
     p->unk34[0] = a;
