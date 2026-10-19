@@ -119,4 +119,64 @@ extern "C" void func_0021CE10(S21B* self, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21BA08", func_0021CE38);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21BA08", func_0021D8F8);
+typedef int TI21B __attribute__((mode(TI)));
+
+struct O21D {
+    s32 unk0;
+    char pad4[0x34];
+    s32 unk38;
+    char pad3C[4];
+    TI21B unk40;
+};
+
+struct N21D {
+    N21D* unk0;
+    N21D* unk4;
+    O21D* unk8;
+};
+
+struct I21D {
+    s32 unk0;
+    N21D* unk4;
+};
+
+struct S21D {
+    char pad0[0x20];
+    N21D unk20;
+};
+
+extern "C" {
+void func_0027D870_d(void* a, u32 k, s32* v, s32 r) __asm__("func_0027D870");
+void func_0027D2D8_d(void* a, u32 k, TI21B* v, s32 r) __asm__("func_0027D2D8");
+s32 func_0027D1F8_d(void* a, u32 k, s32* v, s32 r) __asm__("func_0027D1F8");
+s32 func_0027DF00_d(void* a, u32 k) __asm__("func_0027DF00");
+}
+
+extern "C" s32 func_0021D8F8(S21D* p, void* a) {
+    s32 key = 0;
+    func_0027D870_d(a, 0x62BF8E3F, &key, 1);
+    s32 k = key;
+    TI21B vec;
+    func_0027D2D8_d(a, 0xEC13B28C, &vec, 1);
+    I21D it;
+    I21D e;
+    it.unk4 = p->unk20.unk4;
+    e.unk4 = &p->unk20;
+    while (it.unk4 != e.unk4) {
+        if (it.unk4->unk8->unk0 == k) {
+            s32 idx = 0;
+            if ((func_0027D1F8_d(a, 0xD037C420, &idx, 0) ^ 1) != 0) {
+                if (func_0027DF00_d(a, 0x3EA1D93A)) {
+                    idx = 0;
+                } else if ((func_0027DF00_d(a, 0x5F78A252) ^ 1) != 0) {
+                    idx = it.unk4->unk8->unk38 - 1;
+                }
+            }
+            O21D* o = (O21D*)(idx * 0x50 + (s32)it.unk4->unk8);
+            o->unk40 = vec;
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk20;
+    }
+    return 1;
+}
