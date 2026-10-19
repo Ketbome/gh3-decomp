@@ -446,7 +446,63 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5EB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5F60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D6030);
+extern "C" {
+int func_0027D1F8(s32, u32, void*, int);
+int func_0027D268(s32, u32, void*, int);
+int func_0027D870(s32, u32, void*, int);
+int func_0027D188(s32, u32, void*, int);
+s32 func_00275F08(u32, int);
+void func_0011A560(s32, int, int);
+void func_0011A568(void);
+int func_001D7718(void*, s32, s32);
+}
+
+extern "C" void func_001D6030(char* self, s32 a, s32 b, s32 cfg) {
+    f32 sp0;
+    s32 sp4;
+    *(s32*)(self + 0x2C) = b;
+    *(s32*)(self + 0x1C) = a;
+    if ((func_0027D1F8(cfg, 0xB5527B89, self + 0x30, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x30) = func_00275F08(0xB5527B89, 0);
+    }
+    if ((func_0027D1F8(cfg, 0xB87C390F, self + 0x34, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x34) = *(s32*)(self + 0x30);
+    }
+    if ((func_0027D1F8(cfg, 0xD84C26CF, self + 0x28, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x28) = func_00275F08(0xD84C26CF, 0);
+    }
+    if ((func_0027D268(cfg, 0x96378DF2, &sp0, 0) ^ 1) != 0) {
+        sp0 = func_00275DE0(0x96378DF2, 0);
+    }
+    *(f32*)(self + 0x4C) = sp0 * sp0;
+    if ((func_0027D1F8(cfg, 0x6CE0D40A, self + 0x40, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x40) = func_00275F08(0x6CE0D40A, 0);
+    }
+    if ((func_0027D268(cfg, 0xE7E2D23A, self + 0x44, 0) ^ 1) != 0) {
+        *(f32*)(self + 0x44) = func_00275DE0(0xE7E2D23A, 0);
+    }
+    if ((func_0027D1F8(cfg, 0x40196482, self + 0x54, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x54) = func_00275F08(0x40196482, 1);
+    }
+    if ((func_0027D268(cfg, 0xE01221ED, self + 0x58, 0) ^ 1) != 0) {
+        *(f32*)(self + 0x58) = func_00275DE0(0xE01221ED, 1);
+    }
+    func_0027D1F8(cfg, 0xA8735078, self + 0x38, 0);
+    if ((func_0027D1F8(cfg, 0xBC9B5600, self + 0x78, 0) ^ 1) != 0) {
+        *(s32*)(self + 0x78) = -1;
+    }
+    *(s32*)(self + 0x74) = 0x69B05E2C;
+    func_0027D870(cfg, 0x4C321E58, self + 0x74, 0);
+    sp4 = 0;
+    func_0027D188(cfg, 0x474882A6, &sp4, 0);
+    if (sp4 != 0) {
+        func_0011A560(sp4, 0, 0);
+    }
+    func_001D7718(self, a, sp4);
+    if (sp4 != 0) {
+        func_0011A568();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D62D0);
 
