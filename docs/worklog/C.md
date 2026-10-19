@@ -1025,3 +1025,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - CFunc_RemoveFromCutsceneDestroyList (t_260658) MATCH: stack list iterators `It end, it, b, c, d, e` (16 bytes, cur at +4), read
   `it` from the list before `end`; `void *hp = D_00368A38[0]` read right before the unlink stores (as in func_00225FA0).
 - CFunc_AddToCutsceneDestroyList: ldl/ldr struct copy into a list node, not attempted.
+- func_002AEA30 (t_2AD528): near miss, nonmatching/func_002AEA30.cpp: stack-iterator unlink inside a dtor; all slots/stores right except gcc tail-merges the final `it = x` store of then/else (original keeps then: it, d; else: it).
