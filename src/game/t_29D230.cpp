@@ -111,7 +111,80 @@ extern "C" void func_0029D238(char *obj, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029D2A0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029D370);
+struct S29D370_Self {
+    char pad0[0x1820];
+    int unk1820;
+    char pad1824[0x186C - 0x1824];
+    char unk186C[0xA28];
+    int unk2294;
+    char pad2298[0x2418 - 0x2298];
+    virtual void v1();
+    virtual void v2();
+    virtual int v3(int);
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8(void *, int);
+};
+struct S29D370_P {
+    s16 unk0;
+    s16 unk2;
+    int unk4;
+};
+extern "C" {
+int func_002FF0D8(int);
+int func_002FEE38(int, void *, int, int, void *, int);
+void func_0030A2F4(void *, void *, int);
+int Heap_Alloc(s32, int, int, int);
+int memset_(void *, int, int) __asm__("memset");
+}
+static inline void S29D370_Pick(int &c, int flags, u32 a6) {
+    if (flags & 0x80) {
+        c = a6 != 0;
+    }
+}
+
+extern "C" int func_0029D370(S29D370_Self *o, int x, u32 key, char *src, int len, int a5, u32 a6) {
+    char buf[0x10];
+    S29D370_P *pk = (S29D370_P *)buf;
+    u32 k = key & 0xFFFF;
+    o->v8(buf, 0x10);
+    memset_(buf, 0, 0x10);
+    pk->unk0 = 2;
+    pk->unk2 = func_002FF0D8(k);
+    int r;
+    pk->unk4 = x;
+    if (o->unk2294 & 0x20) {
+        int t;
+        func_0029A7B8((char *)o, (int)src, o->unk186C, len, &t);
+        r = func_002FEE38(o->unk1820, o->unk186C, t, a5, buf, 0x10);
+    } else {
+        int heaped = 0;
+        char *ptr = src;
+        int c = 0;
+        S29D370_Pick(c, o->unk2294, a6);
+        if (c != 0) {
+            int l2 = len + 2;
+            heaped = 1;
+            ptr = (char *)Heap_Alloc(D_00368A38[0], l2, 1, 0);
+            *(s16 *)ptr = len;
+            func_0030A2F4(ptr + 2, src, len);
+            len = l2;
+        }
+        r = func_002FEE38(o->unk1820, ptr, len, a5, buf, 0x10);
+        if (heaped && ptr) {
+            Heap_Free(D_00368A38[0], ptr);
+        }
+    }
+    if (r < 0) {
+        int t = o->v3(r);
+        if (t != 0) {
+            return 0;
+        }
+    }
+    return 1;
+}
 
 extern "C" int func_0029D530(char *obj, int a, int b, int c) {
     if (!*(int *)(obj + 0x183C)) {
