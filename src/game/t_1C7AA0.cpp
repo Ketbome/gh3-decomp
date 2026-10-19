@@ -140,7 +140,101 @@ extern "C" void func_001C7B98(char* s, char* d) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C7BE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C8040);
+struct VE1C80 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, s32);
+};
+
+struct C1C80 {
+    char pad0[0x18];
+    VE1C80* unk18;
+};
+
+struct N1C80 {
+    char pad0[0xC];
+    N1C80* unkC;
+    N1C80* unk10;
+    void* unk14;
+};
+
+struct T1C80 {
+    char pad0[8];
+    C1C80* unk8;
+    C1C80* unkC;
+    C1C80* unk10;
+    C1C80* unk14;
+    char pad18[8];
+    C1C80* unk20;
+    C1C80* unk24;
+    C1C80* unk28;
+    C1C80* unk2C;
+    char pad30[0x10];
+    char unk40[0x10];
+    N1C80 unk50;
+    N1C80 unk68;
+    N1C80 unk80;
+    N1C80 unk98;
+    char padB0[0xEE00 - 0xB0];
+    void* unkEE00;
+};
+
+extern "C" {
+extern char D_0034ACC0[];
+extern char D_0034AF30[];
+extern char D_0034AFD0[];
+extern char D_0034AFE8[];
+void func_0029FD40(void* a, s32 b);
+}
+
+#define KILL1C80(f) \
+    { \
+        C1C80* c_ = (f); \
+        if (c_ != 0) { \
+            VE1C80* e_ = (VE1C80*)((char*)c_->unk18 + 0x10); \
+            e_->fn((char*)c_ + e_->delta, 3); \
+        } \
+    }
+
+extern "C" void func_001C8040(T1C80* p, s32 flags) {
+    p->unkEE00 = D_0034ACC0;
+    KILL1C80(p->unk10)
+    KILL1C80(p->unk8)
+    KILL1C80(p->unkC)
+    KILL1C80(p->unk14)
+    KILL1C80(p->unk20)
+    KILL1C80(p->unk24)
+    KILL1C80(p->unk28)
+    KILL1C80(p->unk2C)
+    N1C80* a = &p->unk98;
+    N1C80* b = &p->unk80;
+    N1C80* c = &p->unk68;
+    N1C80* d = &p->unk50;
+    a->unk14 = D_0034AF30;
+    a->unk10->unkC = a->unkC;
+    a->unkC->unk10 = a->unk10;
+    a->unkC = a;
+    a->unk10 = a;
+    b->unk14 = D_0034AF30;
+    b->unk10->unkC = b->unkC;
+    b->unkC->unk10 = b->unk10;
+    b->unkC = b;
+    b->unk10 = b;
+    c->unk14 = D_0034AFD0;
+    c->unk10->unkC = c->unkC;
+    c->unkC->unk10 = c->unk10;
+    c->unkC = c;
+    c->unk10 = c;
+    d->unk14 = D_0034AFE8;
+    d->unk10->unkC = d->unkC;
+    d->unkC->unk10 = d->unk10;
+    d->unkC = d;
+    d->unk10 = d;
+    func_0029FD40(p->unk40, 2);
+    if (flags & 1) {
+        Heap_Free(D_00368A38, p);
+    }
+}
 
 extern "C" s32 func_001C8258(char* p) {
     if (func_001C82D8((S001C82D8*)p) != 0) {
