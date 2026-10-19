@@ -6,7 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Fifth rounds integrated (A 14, B 25, C 25 matches); sixth rounds of A, B, C running (2026-10-19), same priorities: functions with `lqc2`/`sqc2`
+Fifth rounds integrated (A 14, B 25, C 25 matches); sixth rounds B 12/36 and C 4/20 integrated, both stopped
+early: easy functions under 0x1000 are running out in B and C (yield drop). Running: A round 6, and a forensics
+agent (scratch copy) on movz/movn if-conversion and `cvt.w.s` rejected by our assembler (func_001ADC90).
+B and C are not relaunched in the same focus., same priorities: functions with `lqc2`/`sqc2`
 in branch-likely slots (VU0 register-variable pattern), B first func_001DC788 (hash-table constructor, 6 twins),
 then `dk next --untried` 0x100..0x1000, limit 25 matches or 60 attempted.
 Ranges:
@@ -54,7 +57,8 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Integrate rounds A, B, C when they report (`scripts/integrate.sh`).
-2. With no worker running: permuter batch overnight (`permute.py --batch --timeout 360 -j 4`) on ~85 near misses.
-3. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
+1. Integrate A round 6 and the forensics result (apply its fix, `dk all`, retry the give-ups it unblocks).
+2. When A is done: permuter batch with no worker (254 files in nonmatching/).
+3. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
+4. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
    Ghidra), results into docs/worklog/names_pending.md. REA does not do matching.
