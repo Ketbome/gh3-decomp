@@ -91,7 +91,7 @@ s32 func_0027AA70(s32 a);
 void func_0027C0D0(s32 a, u32 k, u32 v);
 void func_0027C1F8(s32 a, u32 k, f32 v);
 void func_0027C898(s32 a, u32 k, s32 v);
-void func_0021E4E8(s32 a, s32 b, s32 c);
+s32 func_0021E4E8(s32 a, s32 b, s32 c);
 void func_00113250(void* p);
 struct S21D;
 void func_0021E2E0(S21D* p);
@@ -380,7 +380,62 @@ extern "C" void func_0021E4C8(void) {
     func_0027AC90(&D_00372E28);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E4E8);
+struct VE21E {
+    char pad0[0x20];
+    s16 delta;
+    s16 pad22;
+    s32 (*fn)(void*, s32, s32, s32);
+};
+
+struct O21E {
+    char pad0[0x14];
+    VE21E* unk14;
+};
+
+extern "C" {
+void func_0030C458(void (*)(void));
+s32 func_001C8258(s32);
+extern s32 D_00369A60;
+extern s32 D_00372E30;
+extern void (*D_0036F290)(s32, s32);
+}
+
+GP_DATA(D_00372E30);
+GP_DATA(D_0036F290);
+extern "C" s32 func_0021E4E8(s32 selfi, s32 cfg, s32 c) {
+    char* self = (char*)selfi;
+    s32 sp0;
+    s32 sp4;
+    char* sp8;
+    s32 flag = 1;
+    sp0 = *(s32*)(self + 0x2C);
+    func_0027D870(cfg, 0xB990D003, &sp0, 0);
+    s32 d = D_00369A60;
+    func_0027D870(cfg, 0x7135152B, &sp4, 1);
+    sp8 = 0;
+    func_0027D400(cfg, 0x7031F10C, &sp8, 0);
+    if (D_00372E30 == 0) {
+        func_0027AA70((s32)&D_00372E28);
+        D_00372E30 = 1;
+        func_0030C458(func_0021E4C8);
+    }
+    sp8 = sp8 == 0 ? (char*)&D_00372E28 : sp8;
+    if (func_0027DF00(cfg, 0xB35B3D28) != 0) flag = 0;
+    if (func_001C8258(d) != 0 && (func_0027DF00(cfg, 0x6B743) ^ 1) != 0) {
+        if (D_0036F290 != 0) {
+            D_0036F290(*(s32*)(self + 0xC), cfg);
+        }
+    }
+    O21E* o = (O21E*)func_00220FE8((s32)self, sp0, flag ^ 1);
+    s32 r;
+    if (o != 0) {
+        VE21E* e = o->unk14;
+        r = e->fn((char*)o + e->delta, sp4, (s32)sp8, c) != 0;
+    } else {
+        r = 0;
+    }
+    return r;
+}
 
 extern "C" int func_0021E658(int* p, int s) {
     int v = 1;
