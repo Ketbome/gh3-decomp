@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_00116610 { char pad0[0x1C]; void (*unk1C)(void); };
@@ -96,7 +97,26 @@ extern "C" u32 func_001150B8(const char* s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_001150D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115170);
+extern "C" {
+int func_00119610(int, int);
+void* Heap_Alloc_p(int, int, int, int) __asm__("Heap_Alloc");
+}
+
+extern "C" void func_00115170(void) {
+    int h = D_00368A38;
+    func_00119490((void*)h, func_00119610(h, 0));
+    D_00372AA0 = (int)Heap_Alloc_p(D_00368A38, 0x1011, 1, 0);
+    D_00372AA4 = (int)Heap_Alloc_p(D_00368A38, 0x4004, 1, 0);
+    D_00372AA8 = (int)Heap_Alloc_p(D_00368A38, 0x4404, 1, 0);
+    D_00372AAC = (int)Heap_Alloc_p(D_00368A38, 0x4004, 1, 0);
+    func_001194B8(D_00368A38);
+    for (int i = 0x1001; i < 0x1101; i++) {
+        ((int*)D_00372AA8)[i] = 0x1000;
+    }
+    for (int i = 0; i < 0x1000; i++) {
+        ((int*)D_00372AAC)[i] = 0x1000;
+    }
+}
 
 extern "C" void func_001153C8(void) {
     if (D_00372AAC) Heap_Free(D_00368A38, D_00372AAC);
