@@ -372,3 +372,15 @@ int func_0015AF80_d(int h, const char* name) {
     }
     return r;
 }
+
+struct S_0015B0B8 { char pad0[6]; u16 unk6; int unk8; };
+
+INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015B0B8);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015B168);
+
+extern "C" int func_0015B218(int a, int b, int c) {
+    void* r = func_0015AF80();
+    if (r) return func_00157710(r, c);
+    return 0;
+}
