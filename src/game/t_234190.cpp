@@ -210,7 +210,71 @@ extern "C" void func_002342B0(int a, int b, C2342* c, P2342* d, int e) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_002343E8);
+struct A2343 {
+    char pad0[8];
+    int unk8;
+    int unkC;
+    char pad10[0xC];
+    int unk1C;
+};
+
+struct B2343 {
+    char pad0[0x84];
+    int unk84;
+};
+
+extern "C" void func_002343E8(u32 key, A2343* a, B2343* b) {
+    if (a->unk1C & 2) {
+        D_0036FD58 += a->unk8;
+    } else if (a->unk1C & 4) {
+        D_0036FD54 += a->unk8;
+    } else {
+        switch (key) {
+        case 0x745DCD45:
+        case 0x7330095C:
+            D_0036FD30 += a->unk8;
+            break;
+        case 0x6613EACD:
+        case 0x6290993B:
+        case 0x64112E85:
+        case 0x4BC1E85E:
+        case 0x2F1A6A09:
+        case 0x2B0A3095:
+        case 0x9BCC234D:
+            D_0036FD3C += a->unk8;
+            break;
+        case 0x8BFA5E8E:
+            D_0036FD40 += a->unk8;
+            break;
+        case 0x8A20E0F8:
+            D_0036FD44 += a->unk8;
+            break;
+        case 0x2C3B5ADC:
+            D_0036FD34 += a->unk8;
+            break;
+        case 0x91E1028D:
+        case 0xA7F505C4:
+        case 0xFF2D0E91:
+        case 0xA7DEA591:
+        case 0x49875607:
+        case 0x5D796624:
+        case 0x33180544:
+            D_0036FD38 += a->unk8;
+            break;
+        case 0xDAD5E950:
+            D_0036FD48 += a->unk8;
+            break;
+        default:
+            D_0036FD48 += a->unk8;
+            break;
+        }
+    }
+    if (key != 0x49875607) {
+        if (key == 0x5D796624) {
+            b->unk84 = a->unkC;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234668);
 
