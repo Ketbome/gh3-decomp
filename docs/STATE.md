@@ -6,12 +6,12 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-19: running forensics (movz/movn, `cvt.w.s`), A round 6b (untried, no size ceiling), B on
+Resumed 2026-10-19: running A round 6b (untried, no size ceiling), B on
 functions over 0x1000 (limit 12/30). Last results: fifth rounds
 A 14, B 25, C 25 matches; sixth rounds B 12/36 and C 4/20 (stopped early: easy functions under 0x1000 running out
-in B and C, yield drop); A's sixth round was stopped mid-way (its commits are in). The forensics agent on
-movz/movn if-conversion and `cvt.w.s` rejected by our assembler (func_001ADC90) was stopped before reporting
-and is relaunched.
+in B and C, yield drop); A's sixth round was stopped mid-way (its commits are in). Forensics result: movz/movn is C shape (inline helper writing
+through a reference keeps the branch, decomp_guide.md), `cvt.w.s` already works; B was asked to apply the
+func_0021F020 match. Stale worklog notes to fix when A and B are idle: A.md:11, B.md:17 (`cvt.w.s`).
 Ranges:
 
 | Range | Files | Worklog | Last focus |
@@ -42,8 +42,6 @@ never mentioned in a worklog on 2026-10-14).
   differs from the file's prototype (func_00276720).
 - Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): CFunc_GetViewportCameraPos, CFunc_GetWaypointDir,
   CFunc_NormalizeVector; source construct unknown.
-- func_001E1B28: our gcc always folds `r = 0; if (x == C) r = 1;` to `xor`+`sltiu`, the original branches.
-- `if (c) r = v` becomes `movz` where the original branches (func_002251F8).
 - Short empty loops: the original has nop padding our gas does not emit (func_00226B28).
 - QB alias-lookup family (func_00282268 and six others): one gcc shape never reproduced; also hash-iterator and
   stack list-iterator functions (range C).
@@ -57,7 +55,8 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Relaunch the forensics agent (movz/movn, `cvt.w.s`); apply its fix, `dk all`, retry the give-ups it unblocks.
+1. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
+   worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
 2. Permuter batch with no worker (254 files in nonmatching/).
 3. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
 4. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in

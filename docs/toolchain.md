@@ -104,6 +104,16 @@ Branch-likely vs plain branch elsewhere is not a toolchain matter: 22 flag varia
 the same choice, and the 1255 branch-likely in matched functions reproduce; it follows register liveness in reorg
 (C shape or permuter). Checked: `dk all` 5856 match, func_001FDC60 matches with it.
 
+## If-conversion (`movz`/`movn`)
+
+Not a toolchain matter. The original uses `movz`/`movn` 1365 times in 663 functions (187 of 225 files); all five SN
+compilers and 2.96 convert the same test cases. Of 18 flag variants only `-O1` and `-fno-rerun-cse-after-loop` keep
+the branch, and the latter breaks 209 of 5947 matched functions (`dk all` in a scratch copy) without fixing
+func_0014E1B8. Cause: gcc 2.95's jump.c converts `if (c) x = v` only when `x` is a register; a value written
+through a reference parameter of an inline function is still in memory at that pass, so the branch stays (source
+pattern in decomp_guide.md; func_0021F020 matches with it). `cvt.w.s` is handled by the prelude macro
+(`include/gcc_prelude.inc:8-12`, since 85ecf94; 25 matched functions use it).
+
 ## Open questions
 
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets

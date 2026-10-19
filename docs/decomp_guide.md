@@ -118,6 +118,12 @@ To survive a crash without losing work:
   such values). It is not a toolchain gap.
 - **Compiler habits** (SN ee-gcc 2.95.3, `-O2 -G8`): register moves are `daddu rd, rs, $0`; constructors return
   `this`; no tail calls; `bool` is one byte; `new` is `func_00113D20(size)` and `delete` is `func_00297CF0(p)`.
+- **`movz`/`movn` where the original branches** (`if (c) x = v;`): gcc 2.95 if-converts only when `x` lives in a
+  register at that pass. Write `x` through a reference parameter of a `static inline` helper
+  (`static inline void Pick(u32& out, ...) { if (c) out = v; }`) and the branch stays; also try the inverted test
+  and the order of the statements around it. Not a flag: the original has 1365 `movz`/`movn` in 663 functions.
+  Verified by func_0021F020 (match), func_001E1B28 (branches right, registers differ).
+- **`cvt.w.s`** works: `include/gcc_prelude.inc` has a macro for it (older worklog notes say otherwise).
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
   standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
