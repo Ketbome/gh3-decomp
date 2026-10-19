@@ -307,7 +307,53 @@ INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012C980);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CAA8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CBD0);
+struct VT12D { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
+struct O12D { char pad0[0x64]; VT12D* unk64; };
+struct N12D { N12D* unk0; N12D* unk4; O12D* unk8; };
+struct I12D {
+    int unk0; N12D* cur; int unk8; int unkC;
+    I12D() {}
+    I12D(N12D* n) : cur(n) {}
+    bool operator!=(const I12D& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct L12D { int unk0; N12D unk4; };
+
+extern "C" {
+void func_0012A778_d(void*) __asm__("func_0012A778");
+}
+
+extern "C" void func_0012CBD0(void* self) {
+    L12D* l = (L12D*)((char*)self + 4);
+    N12D* sent = (N12D*)((char*)self + 8);
+    I12D A, B, C, R, c, x, d, e;
+    I12D* px = &x;
+    L12D* l2 = (L12D*)((char*)sent - 4);
+    for (;;) {
+        B.cur = sent;
+        A.cur = l->unk4.unk4;
+        C.cur = A.cur;
+        unsigned cnt = 0;
+        for (; C != B; ++C) cnt++;
+        if (cnt < 2) break;
+        A.cur = *(N12D**)((char*)self + 8);
+        O12D* o = A.cur->unk8;
+        if (o) o->unk64->fn((char*)o + o->unk64->delta, 3);
+        x.cur = *(N12D**)((char*)self + 8);
+        N12D* n = px->cur;
+        c.cur = n;
+        e.cur = n;
+        N12D* nx = n->unk4;
+        d.cur = n;
+        c.cur = nx;
+        n->unk0->unk4 = n->unk4;
+        n->unk4->unk0 = n->unk0;
+        Heap_Free(D_00368A38, n);
+        R.cur = c.cur;
+    }
+    A.cur = l2->unk4.unk4;
+    func_0012A778_d(A.cur->unk8);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CCF0);
 
