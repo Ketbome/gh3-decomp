@@ -313,7 +313,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CCF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CCF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CDE8);
+struct N12C { N12C* prev; N12C* next; int val; };
+struct It12C { int unk0; N12C* cur; int pad8[2]; };
+struct L12C { char pad0[8]; N12C sent; };
+extern "C" int func_0012A648_i(void*, int, int, int) __asm__("func_0012A648");
+
+extern "C" int func_0012CDE8(L12C* self, int a1, int a2, int a3) {
+    N12C* sp = &self->sent;
+    int v = func_0012A648_i(Heap_Alloc(D_00368A38, 0x68, 1, 0), a1, a2, a3);
+    N12C* tail = self->sent.prev;
+    It12C r, end, e2;
+    end.cur = sp;
+    e2.cur = sp;
+    N12C* n = (N12C*)Heap_Alloc(D_00368A38, 0xC, 1, 0);
+    N12C t;
+    t.prev = tail;
+    t.next = sp;
+    t.val = v;
+    if (n) *n = t;
+    self->sent.prev = n;
+    n->prev->next = n;
+    end.cur = end.cur->prev;
+    r.cur = self->sent.prev;
+    return r.cur->val;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CEE0);
 
