@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Fifth rounds of A, C running (started 2026-10-19); B's fifth round integrated (25 matches), sixth running, same priorities: functions with `lqc2`/`sqc2`
+A's fifth round running (started 2026-10-19); B and C fifth rounds integrated (25 matches each), sixth rounds running, same priorities: functions with `lqc2`/`sqc2`
 in branch-likely slots (VU0 register-variable pattern), B first func_001DC788 (hash-table constructor, 6 twins),
 then `dk next --untried` 0x100..0x1000, limit 25 matches or 60 attempted.
 Ranges:
@@ -23,7 +23,7 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Pending integrator tasks
 
-- Permuter when no worker runs: ~100 new near misses (B round 5 added 12) this session (mostly register numbering, s1/s2 save order,
+- Permuter when no worker runs: ~100 new near misses (B round 5 added 12, C round 5 ~20) this session (mostly register numbering, s1/s2 save order,
   one scheduled instruction): run `permute.py --batch --timeout 360 -j 4` overnight with no worker.
 - Permuter: `--batch --timeout 120` stopped after ~15 of 74 (too slow with workers running), no score 0. Best:
   CFunc_DisplayLoadingScreen 175, func_00114660 225, CFunc_GetAngle 225, CFunc_SetStreamParams 260. Earlier 360 s
@@ -34,14 +34,17 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Open toolchain questions (see docs/toolchain.md)
 
-- `dk twins` fixed in skill 1.5.1 (4 of 5 hand-done twins now automatic); func_001D0848 still needs casts (file
-  declares Heap_Alloc, func_0011C2A8, D_0036D0F0 with other types than its twin's file). Workers A and C were told
-  to run it on their 13 candidates.
+- `dk twins` (skill 1.6.5) declares conflicting symbols through `__asm__` aliases: func_001D0848, func_00288000,
+  func_00266E08 now come out automatically (tested on a reverted copy). Still skipped: a twin whose own return type
+  differs from the file's prototype (func_00276720).
 - Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): CFunc_GetViewportCameraPos, CFunc_GetWaypointDir,
   CFunc_NormalizeVector; source construct unknown.
 - func_001E1B28: our gcc always folds `r = 0; if (x == C) r = 1;` to `xor`+`sltiu`, the original branches.
 - `if (c) r = v` becomes `movz` where the original branches (func_002251F8).
 - Short empty loops: the original has nop padding our gas does not emit (func_00226B28).
+- QB alias-lookup family (func_00282268 and six others): one gcc shape never reproduced; also hash-iterator and
+  stack list-iterator functions (range C).
+- Unknown COP1 opcodes `c1 0x544` / `c1 0x10004` in some functions (range C).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
