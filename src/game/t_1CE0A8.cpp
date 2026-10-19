@@ -400,7 +400,84 @@ struct LH1CE {
     void* unk14;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1CE0A8", func_001CE990);
+struct VE1CE9 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, void*);
+};
+
+struct O1CE9 {
+    char pad0[0x2C];
+    char* unk2C;
+};
+
+struct L1CE9 {
+    char pad0[8];
+    L1CE9* unk8;
+};
+
+struct N1CE9 {
+    char pad0[0xC];
+    N1CE9* unkC;
+    N1CE9* unk10;
+    void* unk14;
+};
+
+struct T1CE9 {
+    char pad0[8];
+    void* unk8;
+    char padC[4];
+    O1CE9* unk10;
+    s32 unk14;
+    L1CE9* unk18;
+    char pad1C[0xC];
+    s32 unk28;
+    char pad2C[0xC];
+    N1CE9 unk38;
+};
+
+extern "C" void func_001CE990(T1CE9* p, s32 flags) {
+    p->unk8 = (void*)D_0034B618;
+    func_0028DB28(p);
+    s32 m = p->unk28;
+    if (m != 0) {
+        func_0027AC90(m);
+        func_00113250(m);
+        p->unk28 = 0;
+    }
+    func_001CE810((L4*)((char*)p + 0x5C));
+    O1CE9* o = p->unk10;
+    if (o != 0) {
+        VE1CE9* e = (VE1CE9*)(o->unk2C + 0x18);
+        e->fn((char*)o + e->delta, p);
+    }
+    s32 k = p->unk14;
+    if (k != 0) {
+        func_0028E278(k);
+        s32 k2 = p->unk14;
+        if (k2 != 0) {
+            func_00289B40(k2, 3);
+        }
+        p->unk14 = 0;
+    }
+    L1CE9* n = p->unk18;
+    N1CE9* nd = &p->unk38;
+    if (n != 0) {
+        do {
+            L1CE9* c = n;
+            n = n->unk8;
+            func_001D0798((N8*)c);
+        } while (n != 0);
+    }
+    p->unk18 = 0;
+    func_001CE7C0((L4*)((char*)p + 0x5C), 2);
+    nd->unk14 = (void*)D_0033B510;
+    nd->unk10->unkC = nd->unkC;
+    nd->unkC->unk10 = nd->unk10;
+    nd->unkC = nd;
+    nd->unk10 = nd;
+    func_001CE7C0((L4*)p, flags);
+}
 
 extern "C" void func_001CEAD0(S001CE0A8* p, s32 v) {
     NV* n = (NV*)p->unk18;
