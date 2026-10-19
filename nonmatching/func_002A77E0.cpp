@@ -118,13 +118,16 @@ extern "C" void func_002A77E0(S2A77_Arr *a, int key) {
             i++;
         } while (i < a->size);
     }
-    S2A77_HN *b = &D_003AC7A0.items[key & ((1 << D_003AC7A0.bits) - 1)];
+    int h2 = key;
+    asm("" : "+r"(h2));
+    S2A77_HT *t = &D_003AC7A0;
+    S2A77_HN *b = &t->items[key & ((1 << t->bits) - 1)];
     if (b->val != 0 || b->key != 0) {
         S2A77_HN *n = (S2A77_HN *)func_0011C3A8_h(0);
         if (n) {
             n = func_002AE0A0(n);
         }
-        n->key = key;
+        n->key = h2;
         n->val = obj;
         n->next = b->next;
         b->next = n;
@@ -132,11 +135,12 @@ extern "C" void func_002A77E0(S2A77_Arr *a, int key) {
         b->key = key;
         b->val = obj;
     }
-    D_003AC7A0.count++;
+    t->count++;
     D_00368A38_h->unk188 = 1;
     func_0011AEB0(func_00119500(D_00368A38_h));
     func_001194B8(D_00368A38_h);
 }
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A74C0", func_002A79A8);
 
