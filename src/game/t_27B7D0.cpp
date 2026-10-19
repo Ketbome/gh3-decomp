@@ -260,7 +260,58 @@ extern "C" void func_0027C928(void *p, u32 key, void *src, int size) {
     func_0027BDB0(p, c, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027CA28);
+typedef unsigned int u128_27B __attribute__((mode(TI)));
+
+static inline f32 Get27BX(u128_27B q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get27BY(u128_27B q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get27BZ(u128_27B q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get27BW(u128_27B q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(t));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+
+extern "C" void func_0027CA28(void *p, u32 key, u128_27B *src) {
+    S27B_Comp *c = (S27B_Comp *)func_001D0900(0x10, 1);
+    c->b8 = 0;
+    c->type = 0;
+    c->unk2 = 0;
+    c->key = key;
+    c->next = 0;
+    c->val = 0;
+    c->type = 6;
+    f32 *v = func_002755F0(func_0024D128(0x10, 1));
+    if (Get27BW(*src) >= 0.0f) {
+        v[1] = Get27BX(*src);
+        v[2] = Get27BY(*src);
+        v[3] = Get27BZ(*src);
+    } else {
+        v[1] = -Get27BX(*src);
+        v[2] = -Get27BY(*src);
+        v[3] = -Get27BZ(*src);
+    }
+    c->val = (u32)v;
+    func_0027BDB0(p, c, 0);
+}
 
 extern "C" void func_0027CB80(void *p, u32 key, int b) {
     S27B_Comp *c = (S27B_Comp *)func_001D0900(0x10, 1);
