@@ -324,7 +324,71 @@ extern "C" S1D7F20* func_001D7F20(S1D7F20* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D7F68);
+struct N1D7F {
+    s32 unk0;
+    u32 unk4;
+    s32 unk8;
+    N1D7F* unkC;
+    N1D7F* unk10;
+    N1D7F* Get() { return unk4 == 0xFFFFFFFF ? 0 : this; }
+};
+
+struct P1D7F {
+    char pad0[4];
+    N1D7F unk4;
+    char pad18[8];
+    u32 unk20;
+};
+
+struct Q1D7F {
+    char pad0[0x10];
+    P1D7F* unk10;
+    char pad14[0x18];
+    s32 unk2C;
+    char pad30[8];
+    N1D7F unk38;
+};
+
+extern "C" {
+extern s32 D_00372DA8;
+void func_001CED20(void* p, s32 v);
+s32 func_001DAB18(s32 h, void* a, void* b, void* c, s32 d);
+void func_001DA1F8(s32 h, void* p);
+}
+
+extern "C" void func_001D7F68(P1D7F* p, Q1D7F* q) {
+    N1D7F* sent = &p->unk4;
+    N1D7F* node = &q->unk38;
+    s32 h = D_0036D554[0];
+    q->unk10 = p;
+    N1D7F* n = sent->unkC;
+    s32 key = node->unk8;
+    N1D7F* f;
+    while ((f = n->Get()) != 0) {
+        if (!(key < f->unk8)) {
+            N1D7F* last = f->unk10;
+            node->unkC = f;
+            node->unk10 = last;
+            f->unk10->unkC = node;
+            f->unk10 = node;
+            goto done;
+        }
+        n = f->unkC;
+    }
+    {
+        N1D7F* last = sent->unk10;
+        node->unkC = sent;
+        node->unk10 = last;
+        sent->unk10->unkC = node;
+        sent->unk10 = node;
+    }
+done:
+    p->unk20 = 0xFFFFFFFF;
+    if (q->unk2C == D_00372DA8) {
+        func_001CED20(q, func_001DAB18(h, node, sent, p, key));
+    }
+    func_001DA1F8(h, q);
+}
 
 extern "C" void func_001D8058(S1D80D8* p, S1D8150_Q* q) {
     func_001DA368(D_0036D554[0], q, p->unk24, p->unk28);
