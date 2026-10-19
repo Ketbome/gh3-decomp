@@ -124,7 +124,37 @@ INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BA98);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BCA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_19B448", func_0019BE48);
+typedef unsigned int u128_19B __attribute__((mode(TI)));
+struct P_0019BE48 { char pad0[0x28]; int unk28; char* unk2C; };
+struct K_0019BE48 { u32 unk0; char* unk4; };
+extern "C" {
+extern P_0019BE48* D_00373294;
+extern K_0019BE48* D_0037327C;
+}
+
+extern "C" void func_0019BE48(P_0019BE48* a) {
+    if (D_00373294) {
+        u32 t = D_0037327C->unk0 >> 28;
+        if (t == 5 || t == 3) {
+            char* p = D_00373270;
+            D_0037327C = (K_0019BE48*)p;
+            D_00373270 = p + 16;
+            *(u128_19B*)p = (u128_19B)0x20000000;
+        } else if (t == 1) {
+            ((char*)D_0037327C)[3] = 0x20;
+        }
+        D_00373294->unk28 = D_00373284;
+        D_00373294->unk2C = (char*)D_0037327C;
+    }
+    D_00373294 = a;
+    if (a) {
+        int w = a->unk28;
+        char* p = a->unk2C;
+        D_00373284 = w;
+        D_0037327C = (K_0019BE48*)p;
+        ((K_0019BE48*)p)->unk4 = D_00373270;
+    }
+}
 
 extern "C" int func_0019BF10(u16* p) {
     return (*p + 1) << 4;
