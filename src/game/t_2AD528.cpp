@@ -213,7 +213,51 @@ extern "C" S2AE5_C *func_002AE5E8(S2AE5_C *self, S2AE5_C *o) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE6C8);
+struct S2AE6C8 {
+    char *unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+};
+extern "C" {
+void func_0027AA70(void *);
+void func_0027AC90(void *);
+void func_002AE6C8(S2AE6C8 *, int);
+}
+extern "C" void func_002AE6C8(S2AE6C8 *p, int n) {
+    if (!p->unk0) {
+        p->unk10 = n;
+        int cnt = n + 1;
+        int *m = Heap_Alloc(D_00368A38, cnt * 0xC + 0x10, 1, 0);
+        *m = cnt;
+        char *q = (char *)m + 0x10;
+        char *b = q;
+        for (int i = n; i != -1; i--) {
+            func_0027AA70(q + 4);
+            q += 0xC;
+        }
+        p->unk0 = b;
+        p->unkC = 0;
+        p->unk8 = 0;
+        p->unk4 = p->unk10 + 1;
+    } else {
+        char *e = p->unk0 + *(int *)(p->unk0 - 0x10) * 0xC;
+        if (p->unk0 != e) {
+            do {
+                e -= 0xC;
+                func_0027AC90(e + 4);
+            } while (p->unk0 != e);
+        }
+        Heap_Free(D_00368A38, p->unk0 - 0x10);
+        p->unk0 = 0;
+        p->unk10 = 0;
+        p->unk4 = 0;
+        p->unk8 = 0;
+        p->unkC = 0;
+        func_002AE6C8(p, n);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AE870);
 
