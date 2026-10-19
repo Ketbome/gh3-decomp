@@ -327,7 +327,34 @@ extern "C" int func_00267048(int a, int b) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_266800", func_002670B0);
+struct S2670_E {
+    int unk0;
+    int unk4;
+    char pad8[0x50];
+};
+
+extern "C" {
+extern S2670_E D_003A1900G[44] asm("D_003A1900");
+int func_00270E40(int);
+int func_00275EE8_r(u32, int) asm("func_00275EE8");
+}
+
+extern "C" int func_002670B0(int unused, int key) {
+    for (int i = 0; i < 0x2C; i++) {
+        if (D_003A1900G[i].unk0 == key && func_00270E40(i) != 0) {
+            return i;
+        }
+    }
+    for (int i = 0; i < 0x2C; i++) {
+        if (D_003A1900G[i].unk4 == key && func_00270E40(i) != 0) {
+            if (func_00275EE8_r(0x6D2E270E, 0) == 0) {
+                func_00275EE8(0xD7BB618D, 0);
+            }
+            return i;
+        }
+    }
+    return -1;
+}
 
 extern "C" int func_002672C0(int a, int b) {
     while (func_00267048(a, b) == 0) {
