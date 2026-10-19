@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S_14A { char pad0[0x8]; void* unk8; char padC[0x14]; u32 unk20; char pad24[0x22C]; int unk250; int unk254; void* unk258; char pad25C[0x2C]; int unk288; };
@@ -100,7 +101,52 @@ extern "C" void func_0014A910(void* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014A940);
+struct E14B { float unk0; char pad4[0x1C]; float unk20; float unk24; char pad28[0xC]; float unk34; float unk38; char pad3C[0x14]; };
+struct S14B {
+    E14B e[16];
+    char pad500x[1];
+};
+struct P24_14B { float f[6]; } __attribute__((packed));
+struct B14B { char pad0[0x500]; float a[6]; float b[6]; u32 unk530; u32 unk534; };
+
+extern "C" {
+u32 func_0011EF10_u(void) __asm__("func_0011EF10");
+}
+
+extern "C" void func_0014A940(B14B* self) {
+    u32 now = func_0011EF10_u();
+    float f12 = 1.0f;
+    if (self->unk534 != 0) {
+        f12 = (float)(now - self->unk530) / (float)self->unk534;
+    }
+    u32 t = now - self->unk530;
+    if (t < self->unk534) self->unk534 = self->unk534 - t;
+    else self->unk534 = 0;
+    self->unk530 = now;
+    if (self->unk534) {
+        self->b[0] = self->b[0] + (self->a[0] - self->b[0]) * f12;
+        self->b[1] = self->b[1] + (self->a[1] - self->b[1]) * f12;
+        self->b[2] = self->b[2] + (self->a[2] - self->b[2]) * f12;
+        self->b[3] = self->b[3] + (self->a[3] - self->b[3]) * f12;
+        self->b[4] = self->b[4] + (self->a[4] - self->b[4]) * f12;
+        self->b[5] = self->b[5] + (self->a[5] - self->b[5]) * f12;
+    } else {
+        *(P24_14B*)self->b = *(P24_14B*)self->a;
+    }
+    for (int i = 0; i < 16; i++) {
+        E14B* p = &((E14B*)self)[i];
+        float t2 = (float)i * 0.0625f;
+        float x1 = self->b[4] * t2;
+        float y1 = self->b[5] * t2;
+        p->unk20 = x1;
+        p->unk24 = y1;
+        float x2 = (self->b[2] - 1.0f) * t2 + 1.0f;
+        float y2 = (self->b[3] - 1.0f) * t2 + 1.0f;
+        p->unk34 = x2;
+        p->unk38 = y2;
+        p->unk0 = (self->b[0] + (self->b[1] - self->b[0]) * t2) * 0.0625f;
+    }
+}
 
 extern "C" S_0014ABF8* func_0014ABF8(S_0014ABF8* p, int i) {
     return &p[i];
