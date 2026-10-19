@@ -592,6 +592,37 @@ extern "C" int CFunc_GetViewportCameraOrient(int params, S2626_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraPos);
+extern "C" int CFunc_SetViewportCameraPos(int params) {
+    struct { int id; int k; int i; } t;
+    S2626_VP *vp;
+    u128 v;
+    t.id = 0;
+    if (func_0027D1F8(params, 0x76F7AF65, &t.k, 0)) {
+        func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 1);
+        int kk = t.k;
+        vp = func_0015D568(t.id, kk);
+    } else if (func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 0)) {
+        vp = (S2626_VP *)func_0015D2E8(t.id, 1);
+    } else {
+        t.i = 0;
+        func_0027D1F8(params, 0x9FD29151, &t.i, 0);
+        vp = func_0015DB00(t.i);
+    }
+    S2626_Cam *c = vp->unk34;
+    if (c) {
+        func_0027D2D8(params, 0x7F261953, &v, 1);
+        int d = D_0036D3B0[0];
+        register u128 q asm("$3") = v;
+        *(u128 *)((char *)c + 0x80) = q;
+        S2626_Node *n = func_001D4AC0(d, 0xC4E311FA);
+        while (n) {
+            if (n->unk1C == c) {
+                *(u128 *)(n->unkC + 0x80) = v;
+            }
+            n = n->unk14;
+        }
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraOrient);

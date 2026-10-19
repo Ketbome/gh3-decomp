@@ -1034,3 +1034,9 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   swc1 store), W = pcpyud + dsrl32 + mtc1, `if (w >= 0) v = src else v = -src`.
 - func_0027D560 (t_27B7D0): skipped, `c1 0x10004` (unknown COP1 encoding after vaddy/vaddz/qmfc2, 1 - len^2 clamped at 0).
 - CFunc_GetValueFromVolume: skipped (cvt.w.s `.word` + div by 10 + mfc1 hazard).
+- CFunc_SetViewportCameraPos (t_2626E0) MATCH: same lookup as the Get* siblings; `int d = D_0036D3B0[0]` read before the quad store so the
+  sq lands in the jal delay slot; the copy temp needs `register u128 q asm("$3") = v` (original uses v1 there, pin = last resort).
+- CFunc_SetViewportCameraOrient: near miss (nonmatching/CFunc_SetViewportCameraOrient.cpp). VU0 pattern: `register u128 vf3/vf2/vf1 asm(..)
+  = x/y/z; asm("vsub.w %0,$vf0,$vf0" : "+j"(..))` x3 then stores back; node copy of 0x40 bytes twice with `struct B64{char b[0x40];}
+  __attribute__((aligned(16)))`, `S* src = &c->unk90` and separate `d1`/`d2` dest pointers (this gives the original base registers). Only
+  the position of `lui/lw D_0036D3B0` vs `lq 0x20(sp)` differs (original reads D before the lq, ours after).
