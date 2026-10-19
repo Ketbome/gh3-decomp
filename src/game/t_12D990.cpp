@@ -263,7 +263,51 @@ extern "C" void func_0012E870(S12D_E* self, void* params) {
     func_0012E668(self, params);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012E890);
+struct P12E8 { char pad0[0x20]; float unk20; char pad24[0x14]; int unk38; };
+struct O12E8 { char pad0[0x20]; int unk20; };
+struct S12E8 { char pad0[4]; P12E8* unk4; char pad8[0x14]; O12E8* unk1C; int unk20; int unk24; int unk28; };
+
+extern "C" {
+int func_0012E6F0_s(S12E8*) __asm__("func_0012E6F0");
+O12E8* func_0015FAA0_o(int, int, int) __asm__("func_0015FAA0");
+O12E8* func_0016E810_o(int, int, int) __asm__("func_0016E810");
+O12E8* func_0016E7A8_o(int, int) __asm__("func_0016E7A8");
+int func_00124630_o(O12E8*) __asm__("func_00124630");
+void func_00126588_o(O12E8*, int, int, int, int, int, int, float) __asm__("func_00126588");
+}
+
+extern "C" int func_0012E890(S12E8* self, int x) {
+    if (self->unk28 == -1) {
+        if (self->unk1C == 0) {
+            int t = self->unk4->unk38;
+            self->unk1C = func_0015FAA0_o(self->unk24 + t, 1, t != 0);
+        }
+        if (self->unk20 == 0) {
+            self->unk20 = func_0014EBA8();
+            int t = self->unk4->unk38;
+            self->unk1C = func_0016E810_o(self->unk20, self->unk24 + t, t);
+            self->unk1C = func_0016E7A8_o(self->unk20, 0);
+        }
+        O12E8* o = self->unk1C;
+        if (o->unk20 != 0) {
+            self->unk28 = func_00124630_o(o);
+        } else {
+            if (self->unk20 != 0) {
+                self->unk1C = func_0016E7A8_o(self->unk20, 0);
+            }
+        }
+    } else {
+        if (self->unk20 != 0) {
+            func_0014EBC8(self->unk20);
+            self->unk20 = 0;
+        }
+    }
+    func_00126588_o(self->unk1C, x, x + 0x800, func_0012E6F0_s(self) + 0xC, 0, self->unk28, self->unk20, self->unk4->unk20);
+    if (self->unk20 != 0) {
+        func_0016E7A8_o(self->unk20, 1);
+    }
+    return 1;
+}
 
 struct O12E9E0 { char pad0[4]; char unk4[1]; char pad5[0x1B]; float unk20; char pad24[0x14]; int unk38; };
 struct S12E9E0 { char pad0[4]; O12E9E0* unk4; char pad8[0x14]; int unk1C; int unk20; int unk24; };
