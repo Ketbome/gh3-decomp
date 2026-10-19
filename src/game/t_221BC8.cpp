@@ -506,7 +506,29 @@ extern "C" int func_00222F00(void) {
 extern "C" void func_00222F08(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00222F10);
+struct V2229 {
+    char b[8];
+};
+
+struct E2229 {
+    u32 key;
+    u32 type;
+    V2229 v;
+};
+
+extern E2229 D_00390820;
+extern "C" void* memset(void*, int, unsigned int);
+
+extern "C" void func_00222F10(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        E2229* e = &D_00390820;
+        V2229 t;
+        memset(&t, 0, 8);
+        e->key = 0;
+        e->type = 0x8B5D73B0;
+        e->v = t;
+    }
+}
 
 extern "C" void func_00222F70(void) {
     func_00222F10(1, 0xFFFF);
