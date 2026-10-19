@@ -1026,3 +1026,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   `it` from the list before `end`; `void *hp = D_00368A38[0]` read right before the unlink stores (as in func_00225FA0).
 - CFunc_AddToCutsceneDestroyList: ldl/ldr struct copy into a list node, not attempted.
 - func_002AEA30 (t_2AD528): near miss, nonmatching/func_002AEA30.cpp: stack-iterator unlink inside a dtor; all slots/stores right except gcc tail-merges the final `it = x` store of then/else (original keeps then: it, d; else: it).
+- CFunc_LightShow_OverrideColor (t_2AD528): near miss, nonmatching/CFunc_LightShow_OverrideColor.cpp; everything matches (MakeVec with `pextlw %0,%2,%1` operands (x,y)/(z,w), `sc` stack int + separate `c` copy) except one swap: original `move a0,s0` before `li a2,6` for the func_0027CC30 call (ours li first); 6 forms.
