@@ -421,6 +421,72 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D8180);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D8208);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D82D8);
+struct N1D82 {
+    char pad0[0xC];
+    N1D82* unkC;
+    N1D82* unk10;
+    void* unk14;
+};
+
+struct VE1D82 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, s32);
+};
+
+struct V1D82 {
+    char pad0[0x10];
+    VE1D82 unk10;
+};
+
+struct O1D82 {
+    char pad0[0x18];
+    V1D82* unk18;
+};
+
+struct T1D82 {
+    char pad0[4];
+    N1D82 unk4;
+    char pad1C[0x10];
+    void* unk2C;
+    N1D82 unk30;
+    O1D82* unk48;
+};
+
+extern "C" {
+extern char D_0034BF40[];
+extern char D_0033B510[];
+extern char func_001D0548_d[] __asm__("func_001D0548");
+extern char func_001D0518_d[] __asm__("func_001D0518");
+void func_001D83D0(void* a, void* b, s32 c);
+}
+
+extern "C" void func_001D82D8(T1D82* p, s32 flags) {
+    p->unk2C = D_0034BF40;
+    func_001D83D0(p, func_001D0548_d + 0x10, 0);
+    func_001D83D0(p, func_001D0518_d + 0x10, 0);
+    O1D82* o = p->unk48;
+    if (o != 0) {
+        VE1D82* e = &o->unk18->unk10;
+        e->fn((char*)o + e->delta, 3);
+    }
+    N1D82* n = &p->unk30;
+    n->unk14 = D_0033B510;
+    n->unk10->unkC = n->unkC;
+    N1D82* m = &p->unk4;
+    s32 f = flags & 1;
+    n->unkC->unk10 = n->unk10;
+    n->unkC = n;
+    n->unk10 = n;
+    p->unk2C = D_0034BFA8;
+    m->unk14 = D_0033B510;
+    m->unk10->unkC = m->unkC;
+    m->unkC->unk10 = m->unk10;
+    m->unkC = m;
+    m->unk10 = m;
+    if (f != 0) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D83D0);
