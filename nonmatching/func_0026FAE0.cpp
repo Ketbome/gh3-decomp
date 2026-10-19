@@ -75,6 +75,7 @@ u32 func_00271180(int);
 void func_00266928(void*, f32);
 void func_0026FAE0(int, int, f32, f32);
 void func_0026FC80(int, int, f32);
+void func_00271590(int *, int);
 void func_002733E0(int);
 extern int D_0032D838[];
 int func_00270E10(int, int);
@@ -177,16 +178,19 @@ extern "C" void func_0026FAE0(int a, int b, f32 x, f32 y) {
     else if (vy <= -0x4000) vy = -0x3FFF;
     if (vx < 0) vx += 0x7FFF;
     if (vy < 0) vy += 0x7FFF;
-    b = a | (b << 1);
     if ((e->unkC >> 2) & 1) {
-        s8 hi = e->unkF;
+        b <<= 1;
+        b |= a;
         s8 lo = e->unkE;
+        s8 hi = e->unkF;
         func_00271198(0x8010, b, vx);
         func_00271198(0x8010, b | 0x100, 0);
         int k2 = lo | (hi << 1);
         func_00271198(0x8010, k2, 0);
         func_00271198(0x8010, k2 | 0x100, vy);
     } else {
+        b <<= 1;
+        b |= a;
         func_00271198(0x8010, b, vx);
         func_00271198(0x8010, b | 0x100, vy);
     }
@@ -210,7 +214,36 @@ extern "C" void func_0026FD70(int a, int b, f32* v, int c, f32 f) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026FE70);
+extern "C" int func_0026FE70(int a, int key) {
+    int k = key;
+    if (a == 0) {
+        key = func_00270DB8(1);
+        for (int i = 12; i < 22; i++) {
+            if ((key >> i) & 1) {
+                if (i + 22 != k) {
+                    return i + 22;
+                }
+            }
+        }
+    }
+    key = func_00270DB8(0);
+    for (int i = 0; i < 22; i++) {
+        if ((key >> i) & 1) {
+            if (i != k) {
+                return i;
+            }
+        }
+    }
+    key = func_00270DB8(1);
+    for (int i = 0; i < 22; i++) {
+        if ((key >> i) & 1) {
+            if (i + 22 != k) {
+                return i + 22;
+            }
+        }
+    }
+    return -1;
+}
 
 extern "C" void func_0026FFE8(int a, int b, f32 *v, int d, f32 f) {
     func_002705A0(b, a, -1, d, v[0], v[1], f);
