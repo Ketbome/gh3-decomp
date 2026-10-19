@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 1 matches / 4 attempted (limit 12/30); counted: integrator-assigned func_0021F020 (matched), func_001CDA60 (given up), func_001CCE08 (near miss), func_001E6030 (given up)
+Round 2026-10-19: 2 matches / 5 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08; given up func_001CDA60 func_001E6030
 
 ## t_1ABAA0
 
@@ -1038,3 +1038,7 @@ Near miss: func_001CCE08 (nonmatching/func_001CCE08.cpp): only the branch-likely
 Given up: func_001E6030 (list<int> find + insert, inlined). Everything but the iterator temporaries matches in structure: the original keeps `end`
 in memory and writes it through a pointer register (`addiu s3,sp,16; sw head,4(s3)`, then `lw 20(sp)` for the compare), ours forwards the store and
 keeps head in a register; static inline helpers taking `I*`/`const I&` did not reproduce it (the helper `Not1E60(int& c, const int& f)` does keep the branch).
+
+## t_221BC8
+
+Matched func_00221E88 (pad input flags, plain if chains, no tricks).

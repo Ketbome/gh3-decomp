@@ -154,7 +154,95 @@ extern "C" void func_00221DF0(S222* p) {
     if (t && func_00162070(*(int*)(t + 0x210))) func_00221DE8_p(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_00221E88);
+struct P221E {
+    char pad0[0x34];
+    u32 unk34;
+    u32 unk38;
+};
+
+struct Q221E {
+    char pad0[0x24];
+    u32 unk24;
+};
+
+struct O221E {
+    char pad0[0x1C];
+    P221E* unk1C;
+    char pad20[0xC];
+    Q221E* unk2C;
+};
+
+extern "C" {
+s32 func_00275F08(u32, s32);
+void func_0028CC70(char*, s32, s32, s32);
+extern char D_00351EE0[];
+extern char D_00351EF0[];
+extern s32 D_00372E38;
+extern s32 D_00372E3C;
+}
+
+GP_DATA(D_00372E3C);
+GP_DATA(D_00372E38);
+extern "C" void func_00221E88(O221E* o) {
+    Q221E* q = o->unk2C;
+    s32 a = func_00275F08(0xE60442D5, 0);
+    s32 b = func_00275F08(0x2DA212E5, 0);
+    if (D_00372E3C == 0) {
+        D_00372E38 = a;
+        D_00372E3C = 1;
+    }
+    u32 t = o->unk1C->unk38;
+    if (t & 0x8000) {
+        q->unk24 |= 0x200;
+        D_00372E38 = a;
+    } else if (t & 0x2000) {
+        q->unk24 |= 0x100;
+        D_00372E38 = a;
+    } else {
+        u32 u = o->unk1C->unk34;
+        if (u & 0x8000) {
+            if (--D_00372E38 <= 0) {
+                q->unk24 |= 0x200;
+                D_00372E38 = b;
+            }
+        } else if (u & 0x2000) {
+            if (--D_00372E38 <= 0) {
+                q->unk24 |= 0x100;
+                D_00372E38 = b;
+            }
+        } else {
+            D_00372E38 = a;
+        }
+    }
+    u32 v = o->unk1C->unk34;
+    if (v & 8) {
+        if ((v & 2) == 0) q->unk24 |= 0x2000;
+    } else if (v & 2) {
+        q->unk24 |= 0x4000;
+    }
+    u32 w = o->unk1C->unk38;
+    if (w & 0x1000) {
+        q->unk24 |= 0x40;
+    } else if (w & 0x4000) {
+        q->unk24 |= 0x80;
+    }
+    u32 x = o->unk1C->unk34;
+    if (x & 0x20) {
+        if (x & 4) {
+            if ((x ^ 1) & 1) q->unk24 |= 0x80000;
+        } else if (x & 1) {
+            q->unk24 |= 0x40000;
+        }
+    }
+    P221E* p = o->unk1C;
+    u32 y = p->unk34;
+    if (!(y & 0x100)) {
+        if (!(y & 0x20)) {
+            if (p->unk38 & 4) func_0028CC70(D_00351EE0, 0, 0, 0);
+            if (o->unk1C->unk38 & 1) func_0028CC70(D_00351EF0, 0, 0, 0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_221BC8", func_002220B0);
 
