@@ -131,105 +131,105 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F7F30);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F86D0);
 
-struct V86D8 {
+struct V1F86 {
     int a;
     int b;
 };
 
-struct E86D8 {
+struct E1F86 {
     u32 key;
     u32 type;
-    V86D8 v;
+    V1F86 v;
 };
 
-extern E86D8 T86D8[] __asm__("D_0038F260");
-extern V86D8 S86D8_0[] __asm__("D_0036E468");
-extern V86D8 S86D8_1[] __asm__("D_0036E470");
-extern V86D8 S86D8_2[] __asm__("D_0036E478");
-extern V86D8 S86D8_3[] __asm__("D_0036E480");
-extern V86D8 S86D8_4[] __asm__("D_0036E488");
-extern V86D8 S86D8_5[] __asm__("D_0036E490");
-extern V86D8 S86D8_6[] __asm__("D_0036E498");
-extern V86D8 S86D8_7[] __asm__("D_0036E4A0");
-extern V86D8 S86D8_8[] __asm__("D_0036E4A8");
-extern V86D8 S86D8_9[] __asm__("D_0036E4B0");
-extern V86D8 S86D8_10[] __asm__("D_0036E4B8");
-extern V86D8 S86D8_11[] __asm__("D_0036E4C0");
-extern V86D8 S86D8_12[] __asm__("D_0036E4C8");
-extern V86D8 S86D8_13[] __asm__("D_0036E4D0");
+extern E1F86 T1F86[] __asm__("D_0038F260");
+extern V1F86 S1F86_0[] __asm__("D_0036E468");
+extern V1F86 S1F86_1[] __asm__("D_0036E470");
+extern V1F86 S1F86_2[] __asm__("D_0036E478");
+extern V1F86 S1F86_3[] __asm__("D_0036E480");
+extern V1F86 S1F86_4[] __asm__("D_0036E488");
+extern V1F86 S1F86_5[] __asm__("D_0036E490");
+extern V1F86 S1F86_6[] __asm__("D_0036E498");
+extern V1F86 S1F86_7[] __asm__("D_0036E4A0");
+extern V1F86 S1F86_8[] __asm__("D_0036E4A8");
+extern V1F86 S1F86_9[] __asm__("D_0036E4B0");
+extern V1F86 S1F86_10[] __asm__("D_0036E4B8");
+extern V1F86 S1F86_11[] __asm__("D_0036E4C0");
+extern V1F86 S1F86_12[] __asm__("D_0036E4C8");
+extern V1F86 S1F86_13[] __asm__("D_0036E4D0");
 extern "C" void* memset(void*, int, unsigned int);
 
 extern "C" void func_001F86D8(int a, int b) {
     if (b == 0xFFFF && a != 0) {
-        E86D8* e = T86D8;
-        V86D8 t;
+        E1F86* e = T1F86;
+        V1F86 t;
         e->key = 0x20F7B992;
-        t = *S86D8_0;
+        t = *S1F86_0;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x613831F2;
-        t = *S86D8_1;
+        t = *S1F86_1;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x6E26E771;
-        t = *S86D8_2;
+        t = *S1F86_2;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0xBE1C58CA;
-        t = *S86D8_3;
+        t = *S1F86_3;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0xE3DC4090;
-        t = *S86D8_4;
+        t = *S1F86_4;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0xEC2F19ED;
-        t = *S86D8_5;
+        t = *S1F86_5;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x22D9E993;
-        t = *S86D8_6;
+        t = *S1F86_6;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0xB244C9CF;
-        t = *S86D8_7;
+        t = *S1F86_7;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0xF99F9FAF;
-        t = *S86D8_8;
+        t = *S1F86_8;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x7757F7F9;
-        t = *S86D8_9;
+        t = *S1F86_9;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x59F986B3;
-        t = *S86D8_10;
+        t = *S1F86_10;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x731281D5;
-        t = *S86D8_11;
+        t = *S1F86_11;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x36E5DAF4;
-        t = *S86D8_12;
+        t = *S1F86_12;
         e->type = 0x222756D5;
         e->v = t;
         e++;
         e->key = 0x204AB493;
-        t = *S86D8_13;
+        t = *S1F86_13;
         e->type = 0x222756D5;
         e->v = t;
         e++;
@@ -298,6 +298,43 @@ extern "C" s32 func_001F8D90(S1F8D90* p, void* u, void* a) {
     return 0;
 }
 
+struct N1F90 {
+    N1F90* unk0;
+    N1F90* unk4;
+    s32 unk8;
+};
+
+struct I1F90 {
+    s32 unk0;
+    N1F90* unk4;
+};
+
+struct S1F90 {
+    char pad0[0x3C];
+    N1F90 unk3C;
+};
+
+extern "C" {
+s32 func_0012CEE8(void* p, u32 k);
+void func_0012C758(s32 o, f32 a, f32 b);
+}
+
+static inline s32 Find1F90(S1F90* p, u32 key) {
+    I1F90 it;
+    I1F90 e;
+    it.unk4 = p->unk3C.unk4;
+    e.unk4 = &p->unk3C;
+    while (it.unk4 != e.unk4) {
+        s32 r = func_0012CEE8(&it.unk4->unk8, key);
+        if (r != 0) {
+            return r;
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk3C;
+    }
+    return 0;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F8EA8);
 
 extern "C" s32 func_001F9028(void* p, void* u, void* a, void** b) {
@@ -310,7 +347,19 @@ extern "C" s32 func_001F9028(void* p, void* u, void* a, void** b) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F90A0);
+extern "C" s32 func_001F90A0(S1F90* p, void* u, void* a) {
+    s32 v1 = Find1F90(p, 0x6D8E11A8);
+    s32 v2 = Find1F90(p, 0x49E0EE96);
+    f32 y = 0.0f;
+    func_0027D268(a, 0xBF237659, &y, 0);
+    if (v1 != 0) {
+        func_0012C758(v1, 1.0f, y);
+    }
+    if (v2 != 0) {
+        func_0012C758(v2, 0.0f, y);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F91E8);
 
