@@ -221,7 +221,42 @@ extern "C" float func_0014DC38(int i) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC60);
+typedef unsigned int u128_14C __attribute__((mode(TI)));
+extern "C" {
+int func_0027DD88(int, int);
+int func_0027D268(int, int, float*, int);
+int func_0027D2D8(int, int, void*, int);
+}
+
+extern "C" int func_0014DC60(float* self, int args) {
+    float v[4];
+    if (func_0027DD88(args, 0x13B9DA7B)) {
+        if (func_0027D268(args, 0x13B9DA7B, v, 0)) {
+            int x = *(int*)v;
+            int one = 0x3F800000;
+            u128_14C lo, hi;
+            asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(one), "r"(x));
+            asm("pextlw %0, %1, %2" : "=&r"(lo) : "r"(x), "r"(x));
+            asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
+            *(u128_14C*)self = lo;
+            return 1;
+        }
+        if (func_0027D2D8(args, 0x13B9DA7B, self, 0)) return 1;
+    }
+    float zero = 0.0f;
+    v[1] = zero;
+    v[2] = zero;
+    v[3] = zero;
+    int a = func_0027D268(args, 0x7323E97C, &v[1], 0);
+    int b = func_0027D268(args, 0x0424D9EA, &v[2], 0);
+    int c = func_0027D268(args, 0x9D2D8850, &v[3], 0);
+    if (a) self[0] = v[1];
+    if (b) self[1] = v[2];
+    if (c) self[2] = v[3];
+    int r = 0;
+    if (a || b || c) r = 1;
+    return r;
+}
 
 extern "C" int func_0014DDB0(int* out, int s) {
     *out = 0;
