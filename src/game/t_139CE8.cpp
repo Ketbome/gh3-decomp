@@ -175,7 +175,58 @@ INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A100);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A288);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A770);
+struct N13A { char pad0[2]; u8 unk2; char pad3; int unk4; int* unk8; };
+struct O13A { u32 unk0; char pad4[4]; N13A* unk8; };
+
+extern "C" float func_0027EFA0_n(N13A*, int) __asm__("func_0027EFA0");
+
+extern "C" int func_0013A770(O13A* self, float* a, float* b) {
+    if ((self->unk0 & 0xFE00) == 0x1800) {
+        N13A* n = self->unk8;
+        switch (n->unk2) {
+        case 2:
+            *a = func_0027EFA0_n(n, 0);
+            *b = func_0027EFA0_n(n, 1);
+            break;
+        case 13: {
+            float t[2];
+            int i = 0;
+            do {
+                int v;
+                if (n->unk4 == 1) {
+                    v = (int)n->unk8;
+                } else {
+                    v = n->unk8[i];
+                }
+                int f1 = 0;
+                if (v == (int)0x85981897 || v == (int)0xE126E035) {
+                    f1 = 1;
+                }
+                if (f1 != 0) {
+                    t[i] = -1.0f;
+                } else {
+                    int f2 = 0;
+                    if (v == 0x4B358AEB || v == 0x76A08D5B) {
+                        f2 = 1;
+                    }
+                    if (f2 != 0) {
+                        t[i] = 1.0f;
+                    } else {
+                        *(int*)&t[i] = 0;
+                    }
+                }
+                i++;
+            } while (i < 2);
+            *a = t[0];
+            *b = t[1];
+            break;
+        }
+        default:
+            return 1;
+        }
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013A8C0);
 
