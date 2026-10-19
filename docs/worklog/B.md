@@ -970,3 +970,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - Given up: func_0020B8B8 (matches except `move a0,sp` / `move a1,s0` order around the call to func_0020B7B0: original sets a1 first and a0=sp in the jal slot; struct-return form gives the right `$2` for self+0xA0 but not the order; 6 tries).
 - Given up: func_001D36E8 (virtual call + iterator + vf1 reloaded in bnel slot; ours puts lqc2 in the null-check bnezl slot and the D_0034B838 address/lui splitting uses 2 more saved regs than ours; 6 tries).
 - func_001DC788: 4 more forms (copy of ext in items var, inlined helper loop, while form), same register numbering miss; stays with the permuter.
+- func_001D1FA0: vector (-1,1,1,1) built by pextlw: original has y=z in one register and w loaded separately (two lui 1.0), ours CSEs all three; rest matches modulo that and jal-slot order. 3 tries.

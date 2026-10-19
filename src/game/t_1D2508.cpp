@@ -97,8 +97,16 @@ extern "C" s32 func_001D29E8(char* p, void* a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2A30);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2A78);
-
+extern "C" s32 func_001D2A78(char* self, void* a, char* script) {
+    f32 d;
+    s32 st;
+    asm volatile("lqc2 $vf2, 0xE0(%1)\n\tvmul.xyzw $vf2, $vf2, $vf2" : "=r"(st) : "r"(self));
+    s32 sc = *(s32*)(script + 0x20);
+    asm volatile("vaddy.x $vf1, $vf2, $vf2y\n\tvaddz.x $vf1, $vf1, $vf2z\n\tqmfc2.ni $2, $vf1\n\tmtc1 $2, %0\n\tnop\n\tnop\n\tsqrt.s %0, %0"
+        : "=f"(d) : "r"(st) : "$2");
+    func_0027C1F8(sc, 0xF0D90109, d);
+    return 1;
+}
 extern "C" int func_001D2AC8(void* p) {
     func_001D1438(p, 1);
     return 1;
@@ -117,7 +125,34 @@ extern "C" bool func_001D2B18(S001D2B08* p) {
     return p->Test(0x20);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2B28);
+static inline void AddScaled1D(char* self, s32 off, f32 k) {
+    register TI128 v1 asm("vf1") = *(TI128*)(self + off);
+    register TI128 v3 asm("vf3");
+    asm("qmtc2.ni %1, %0" : "=j"(v3) : "r"(k));
+    register TI128 v2 asm("vf2") = *(TI128*)(self + 0x80);
+    asm("vmulx.xyzw %0, %0, %1x" : "+j"(v1) : "j"(v3));
+    asm("vadd.xyzw %0, %0, %1" : "+j"(v2) : "j"(v1));
+    *(TI128*)(self + 0x80) = v2;
+}
+
+extern "C" s32 func_001D2B28(char* self, s32 a) {
+    f32 sp0 = 0.0f;
+    func_0027D268(a, 0x7323E97C, &sp0, 0);
+    AddScaled1D(self, 0xA0, sp0);
+    sp0 = 0.0f;
+    func_0027D268(a, 0x0424D9EA, &sp0, 0);
+    AddScaled1D(self, 0xB0, sp0);
+    sp0 = 0.0f;
+    func_0027D268(a, 0x9D2D8850, &sp0, 0);
+    register TI128 v2 asm("vf2") = *(TI128*)(self + 0xC0);
+    register TI128 v3 asm("vf3");
+    asm("qmtc2.ni %1, %0" : "=j"(v3) : "r"(sp0));
+    register TI128 v1 asm("vf1") = *(TI128*)(self + 0x80);
+    asm("vmulx.xyzw %0, %0, %1x" : "+j"(v2) : "j"(v3));
+    asm("vadd.xyzw %0, %0, %1" : "+j"(v1) : "j"(v2));
+    *(TI128*)(self + 0x80) = v1;
+    return 1;
+}
 
 extern "C" int func_001D2C18(void* p) {
     func_001D14C0(p, 1);
