@@ -254,7 +254,23 @@ extern "C" void func_0022E9E8(char* p, int a, int b, int c, int d, int e) {
     func_0022BCE0(p, v, rb, rc, d, e);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022EA70);
+struct T22EA {
+    char b[0x90];
+};
+
+extern "C" {
+void* func_0022C3C8(void);
+void func_0022EBE0_p(void*) __asm__("func_0022EBE0");
+}
+
+extern "C" void func_0022EA70(char* self, T22EA* src) {
+    T22EA* d = (T22EA*)func_0022C3C8();
+    *(T22EA**)(self + 0x18) = d;
+    func_0022EBE0_p(d);
+    if (src) {
+        **(T22EA**)(self + 0x18) = *src;
+    }
+}
 
 extern "C" void func_0022EB68(char* p) {
     VE22D* e = (VE22D*)(*(char**)(p + 0x34) + 0x10);
