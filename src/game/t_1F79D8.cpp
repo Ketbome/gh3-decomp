@@ -203,7 +203,56 @@ extern "C" s32 func_001F9028(void* p, void* u, void* a, void** b) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F90A0);
+struct N1F90 {
+    N1F90* unk0;
+    N1F90* unk4;
+    s32 unk8;
+};
+
+struct I1F90 {
+    s32 unk0;
+    N1F90* unk4;
+};
+
+struct S1F90 {
+    char pad0[0x3C];
+    N1F90 unk3C;
+};
+
+extern "C" {
+s32 func_0012CEE8(void* p, u32 k);
+void func_0012C758(s32 o, f32 a, f32 b);
+}
+
+static inline s32 Find1F90(S1F90* p, u32 key) {
+    I1F90 it;
+    I1F90 e;
+    it.unk4 = p->unk3C.unk4;
+    e.unk4 = &p->unk3C;
+    while (it.unk4 != e.unk4) {
+        s32 r = func_0012CEE8(&it.unk4->unk8, key);
+        if (r != 0) {
+            return r;
+        }
+        it.unk4 = it.unk4->unk4;
+        e.unk4 = &p->unk3C;
+    }
+    return 0;
+}
+
+extern "C" s32 func_001F90A0(S1F90* p, void* u, void* a) {
+    s32 v1 = Find1F90(p, 0x6D8E11A8);
+    s32 v2 = Find1F90(p, 0x49E0EE96);
+    f32 y = 0.0f;
+    func_0027D268(a, 0xBF237659, &y, 0);
+    if (v1 != 0) {
+        func_0012C758(v1, 1.0f, y);
+    }
+    if (v2 != 0) {
+        func_0012C758(v2, 0.0f, y);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F91E8);
 
