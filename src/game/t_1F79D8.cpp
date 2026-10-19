@@ -191,18 +191,6 @@ extern "C" s32 func_001F8D90(S1F8D90* p, void* u, void* a) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F8EA8);
-
-extern "C" s32 func_001F9028(void* p, void* u, void* a, void** b) {
-    s32 v = 0;
-    func_0027D870(a, 0x5CFCCF35, &v, 0);
-    if (func_001F9EC8(p, v)) {
-        func_0027C448(b[8], 0, 0xC7C6228C);
-        return 1;
-    }
-    return 0;
-}
-
 struct N1F90 {
     N1F90* unk0;
     N1F90* unk4;
@@ -236,6 +224,18 @@ static inline s32 Find1F90(S1F90* p, u32 key) {
         }
         it.unk4 = it.unk4->unk4;
         e.unk4 = &p->unk3C;
+    }
+    return 0;
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_1F79D8", func_001F8EA8);
+
+extern "C" s32 func_001F9028(void* p, void* u, void* a, void** b) {
+    s32 v = 0;
+    func_0027D870(a, 0x5CFCCF35, &v, 0);
+    if (func_001F9EC8(p, v)) {
+        func_0027C448(b[8], 0, 0xC7C6228C);
+        return 1;
     }
     return 0;
 }
