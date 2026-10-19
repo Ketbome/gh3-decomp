@@ -718,7 +718,62 @@ extern "C" void func_00261CC8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_260658", func_00261CE8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_CenterCamera);
+struct S260C_VC {
+    char pad0[0xC];
+    int unkC;
+    int B7() {
+        int t = unkC >> 7;
+        return t & 1;
+    }
+};
+struct S260C_Node {
+    int unk0;
+    S260C_VC *unk4;
+    int unk8;
+    S260C_Node *unkC;
+    int unk4i() { return (int)unk4; }
+};
+
+extern "C" {
+extern int D_0037222C[] __attribute__((section(".sdata")));
+S260C_Node *func_0014E948(void);
+void func_00261CE8(S260C_VC *, f32, f32, f32, f32, int);
+}
+
+static inline S260C_Node *S260C_Valid2(S260C_Node *n) {
+    if (n->unk4i() != -1) {
+        return n;
+    }
+    return 0;
+}
+
+extern "C" int CFunc_CenterCamera(int params) {
+    if (D_0037222C[0] == 0) {
+        return 0;
+    }
+    f32 a = 0.9f;
+    func_0027D268(params, 0x13B9DA7B, &a, 0);
+    f32 b = -45.0f;
+    func_0027D268(params, 0x7323E97C, &b, 0);
+    f32 c = 45.0f;
+    func_0027D268(params, 0x0424D9EA, &c, 0);
+    f32 d = 0.0f;
+    func_0027D268(params, 0x9D2D8850, &d, 0);
+    u32 e;
+    func_0027D870(params, 0x40C698AF, &e, 0);
+    S260C_Node *cur = func_0014E948();
+    if (cur) {
+        do {
+            S260C_Node *next = S260C_Valid2(cur->unkC);
+            S260C_VC *vc = cur->unk4;
+            if (vc->B7()) {
+                func_00261CE8(vc, a, b, c, d, e);
+            }
+            cur = next;
+        } while (cur);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_SetMovementVelocity(int params) {
     f32 v = 10.0f;
