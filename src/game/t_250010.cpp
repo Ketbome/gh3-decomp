@@ -363,7 +363,52 @@ extern "C" int CFunc_UnloadTexture(int params) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", func_00250C30);
+extern "C" {
+void func_00138B00(void *, void *, u32, u32, int);
+f32 func_002EC100(f32);
+f32 func_002EC118(f32);
+}
+
+static inline f32 Get250X(u128_250 q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get250Y(u128_250 q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get250Z(u128_250 q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline u128_250 Vec250(f32 x, f32 y, f32 z, f32 w) {
+    u128_250 lo, hi;
+    asm("pextlw %0, %2, %1" : "=r"(lo) : "r"(x), "r"(y));
+    asm("pextlw %0, %2, %1" : "=r"(hi) : "r"(z), "r"(w));
+    asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
+    return lo;
+}
+
+extern "C" void func_00250C30(u128_250 v, u8 *col, f32 a, f32 b) {
+    f32 px = Get250X(v);
+    f32 py = Get250Y(v) + 75.0f;
+    f32 pz = Get250Z(v);
+    f32 y = func_002EC100(b) * 50.0f + py;
+    f32 t = func_002EC118(b) * 50.0f;
+    f32 x = func_002EC118(a) * t + px;
+    f32 z = func_002EC100(a) * t + pz;
+    u128_250 p = Vec250(px, py, pz, 0.0f);
+    u128_250 q = Vec250(x, y, z, 0.0f);
+    u32 c = 0xFF000000 | (col[2] << 16) | (col[1] << 8) | col[0];
+    func_00138B00(&p, &q, c, c, 1);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_DrawDirectionalLightLines);
 

@@ -1027,3 +1027,10 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
 - CFunc_AddToCutsceneDestroyList: ldl/ldr struct copy into a list node, not attempted.
 - func_002AEA30 (t_2AD528): near miss, nonmatching/func_002AEA30.cpp: stack-iterator unlink inside a dtor; all slots/stores right except gcc tail-merges the final `it = x` store of then/else (original keeps then: it, d; else: it).
 - CFunc_LightShow_OverrideColor (t_2AD528): near miss, nonmatching/CFunc_LightShow_OverrideColor.cpp; everything matches (MakeVec with `pextlw %0,%2,%1` operands (x,y)/(z,w), `sc` stack int + separate `c` copy) except one swap: original `move a0,s0` before `li a2,6` for the func_0027CC30 call (ours li first); 6 forms.
+- func_00250C30 (t_250010) MATCH: lane getters (mtc1 / dsrl32+mtc1 / pcpyud+mtc1) and `Vec(x,y,z,w)` as `pextlw %0,%2,%1` with operands (x,y)/(z,w)
+  (this operand order gives the original's register choice; `%1,%2` with (y,x) swaps the mfc1 targets); color word
+  `0xFF000000 | (c[2] << 16) | (c[1] << 8) | c[0]` computed after the two vectors; vectors p then q.
+- func_0027CA28 (t_27B7D0) MATCH: compound value type 6 with a vec4 source `u128*`: `Get(*src)` reloaded each use (lq again after a
+  swc1 store), W = pcpyud + dsrl32 + mtc1, `if (w >= 0) v = src else v = -src`.
+- func_0027D560 (t_27B7D0): skipped, `c1 0x10004` (unknown COP1 encoding after vaddy/vaddz/qmfc2, 1 - len^2 clamped at 0).
+- CFunc_GetValueFromVolume: skipped (cvt.w.s `.word` + div by 10 + mfc1 hazard).
