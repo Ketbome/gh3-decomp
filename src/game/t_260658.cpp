@@ -501,7 +501,52 @@ extern "C" int CFunc_IsSurveying(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_260658", CFunc_SkatersAreReady);
+struct S260S_Ent {
+    s16 delta;
+    s16 index;
+    int (*fn)(char *);
+};
+struct S260S_N {
+    int unk0;
+    int unk4;
+    int unk8;
+    S260S_N *unkC;
+};
+struct S260S_L {
+    char pad0[0x31C];
+    S260S_N *unk31C;
+};
+
+extern "C" {
+extern S260S_L *D_0036CDB4[] __attribute__((section(".sdata")));
+int CFunc_IsObserving_2(int, int) asm("CFunc_IsObserving");
+}
+
+static inline S260S_N *S260S_Valid1(S260S_N *n) {
+    if (n->unk4 == -1) {
+        return 0;
+    }
+    return n;
+}
+
+extern "C" int CFunc_SkatersAreReady(void) {
+    char *d = (char *)D_00372580[0];
+    S260S_L *l = D_0036CDB4[0];
+    S260S_Ent *e = (S260S_Ent *)(*(char **)(d + 0xEE00) + 0x148);
+    if (e->fn(d + e->delta)) {
+        int n = 0;
+        S260S_N *p = l->unk31C;
+        S260S_N *q;
+        while ((q = S260S_Valid1(p))) {
+            n++;
+            p = q->unkC;
+        }
+        if (n != 0 || CFunc_IsObserving_2(0, 0)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 extern "C" int CFunc_SetServerMode(int params) {
     int d = D_00372580_gp;
