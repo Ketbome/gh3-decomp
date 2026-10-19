@@ -417,7 +417,59 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F248);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F5F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F6E0);
+struct VT16F { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
+struct O16F { char pad0[0x14]; VT16F* unk14; };
+struct N16F { N16F* unk0; N16F* unk4; O16F* unk8; O16F* unkC; char pad10[4]; int unk14; };
+struct I16F { int unk0; N16F* cur; int unk8; int unkC; };
+struct L16F { char pad0[4]; char unk4[4]; N16F* unk8; };
+
+extern "C" {
+int func_0027D870_f(int, u32, int*, int) __asm__("func_0027D870");
+void Heap_Free_f(int, void*) __asm__("Heap_Free");
+extern int D_00368A38_f __asm__("D_00368A38");
+int func_0016F6E0_d(L16F** self, int params) __asm__("func_0016F6E0");
+}
+
+int func_0016F6E0_d(L16F** self, int params) {
+    int key = 0;
+    int r = 0;
+    I16F it, end, c, d, e;
+    func_0027D870_f(params, 0xA1DC81F9, &key, 1);
+    it.cur = (*self)->unk8;
+    end.cur = (N16F*)(*self)->unk4;
+    if (it.cur != end.cur) {
+        do {
+            if (it.cur->unk14 == key) {
+                O16F* o = it.cur->unk8;
+                if (o) {
+                    o->unk14->fn((char*)o + o->unk14->delta, 3);
+                }
+                it.cur->unk8 = 0;
+                O16F* o2 = it.cur->unkC;
+                if (o2) {
+                    o2->unk14->fn((char*)o2 + o2->unk14->delta, 3);
+                }
+                r = 1;
+                it.cur->unkC = 0;
+                N16F* n = it.cur;
+                c.cur = n;
+                e.cur = n;
+                N16F* nx = n->unk4;
+                d.cur = n;
+                c.cur = nx;
+                n->unk0->unk4 = n->unk4;
+                n->unk4->unk0 = n->unk0;
+                Heap_Free_f(D_00368A38_f, n);
+                end.cur = c.cur;
+                it.cur = c.cur;
+            } else {
+                it.cur = it.cur->unk4;
+            }
+            end.cur = (N16F*)(*self)->unk4;
+        } while (it.cur != end.cur);
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F820);
 
