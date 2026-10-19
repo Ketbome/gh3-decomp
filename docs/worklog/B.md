@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 2 matches / 6 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08; given up func_001CDA60 func_001E6030 func_001EBCE0
+Round 2026-10-19: 2 matches / 7 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98; given up func_001CDA60 func_001E6030 func_001EBCE0
 
 ## t_1ABAA0
 
@@ -1046,3 +1046,7 @@ Matched func_00221E88 (pad input flags, plain if chains, no tricks).
 ## t_1EB630
 
 Given up: func_001EBCE0 (erase-by-value then compact; outer loop x2 unrolled in the original while the inner find loops are NOT unrolled and are peeled once). The structure (Get(i), find, first-zero, compact) is clear; our gcc either unrolls the inner loops too (for/while/do-while, inline helper with return) or none of them (goto form). 10 variants.
+
+## t_1B4190 (round 5)
+
+Near miss: func_001B4A98 (nonmatching/func_001B4A98.cpp): everything matches except the original hoists the constant 0x80000 into $s7 out of the loops (`lui $s7,8` before the inner for, `or v0,v0,s7`), ours emits it inline (8 bytes shorter). Two switches on hashes: cases must be listed in the order of the bodies in the asm (8BB6EEE0 first; 70ACD9BB first in the second) for the labels to land. The 64-bit GS words are u64 expressions.
