@@ -190,7 +190,39 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156790);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156870);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156878);
+static inline u128_155 MakeVec155(f32 x, f32 y, f32 z, f32 w) {
+    u128_155 lo, hi;
+    asm("pextlw %0, %1, %2" : "=r"(lo) : "r"(y), "r"(x));
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(w), "r"(z));
+    asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
+    return lo;
+}
+
+struct F9_155 { char pad0[0x90]; int unk90; float unk94; int unk98; int unk9C; char padA0[4]; char unkA4; char padA5[0xB]; };
+extern "C" {
+extern int D_00372B58;
+extern u8 D_00372B60[];
+void func_00154420(void*);
+}
+
+extern "C" void func_00156878(int a, int b) {
+    if (b == 0xFFFF && a) {
+        D_00378210 = MakeVec155(0.0f, 1.0f, 0.0f, 1.0f);
+        F9_155* p = (F9_155*)D_00378220;
+        for (int i = 0x7F; i != -1; i--, p++) {
+            for (int j = 3; j != -1; j--) {
+            }
+            p->unk94 = 1.0f;
+            p->unk9C = 0;
+            p->unk98 = 0;
+            p->unk90 = 0;
+            p->unkA4 = 0;
+        }
+        D_00372B58 = 0x806FFF30;
+        func_00154420(D_00372B60);
+    }
+}
+TEXT_PAD(16);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1550C0", func_00156978);
 
