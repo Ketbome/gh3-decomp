@@ -141,7 +141,76 @@ extern "C" void func_001498D0(S_148* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149930);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149AC0);
+struct E149 { u32 unk0; char pad4[0xC]; int unk10; };
+struct VT149 { char pad0[0x68]; s16 delta; s16 pad6A; void (*fn)(void*); };
+struct T149 { char pad0[0x2C]; int unk2C; };
+struct S149 {
+    char pad0[8];
+    VT149* unk8;
+    char padC[4];
+    int unk10;
+    char pad14[0x18];
+    int unk2C;
+    char pad30[0x22C];
+    T149* unk25C;
+    char pad260[0xC];
+    int unk26C;
+    int unk270;
+};
+
+extern "C" {
+int func_00146E68_n(int) __asm__("func_00146E68");
+int func_001468A8_n(int, u32) __asm__("func_001468A8");
+int func_0013CF78_n(S149*) __asm__("func_0013CF78");
+int func_00146E78_n(int, int) __asm__("func_00146E78");
+int func_001D00B0_n(S149*, E149*) __asm__("func_001D00B0");
+void func_00149E78(S149*);
+void func_001D8A08_n(E149*, int, int) __asm__("func_001D8A08");
+void func_001DAC78_n(int, u32, int, int, int, int, float) __asm__("func_001DAC78");
+extern int D_0036D554;
+}
+
+extern "C" int func_00149AC0(S149* self, E149* ev) {
+    int a = 0;
+    int h = self->unk10;
+    if (func_00146E68_n(h) != 0 && func_001468A8_n(h, ev->unk0) != 0 && (func_0013CF78_n(self) == 0 || func_00146E78_n(h, self->unk2C) == 0)) {
+        a = 1;
+    }
+    if (a != 0) {
+        return 0;
+    }
+    if (func_001D00B0_n(self, ev) == 0) {
+        return 0;
+    }
+    int g = D_0036D554;
+    if (ev->unk0 == 0x3056434F) {
+        func_00149E78(self);
+        self->unk270 = 1;
+        self->unk8->fn((char*)self + self->unk8->delta);
+        func_001D8A08_n(ev, self->unk2C, 0);
+    }
+    if (ev->unk0 == 0x9D3FB516) {
+        if (self->unk25C == 0) {
+            func_00149E78(self);
+        }
+        if (self->unk26C == 0) {
+            self->unk26C = 1;
+            func_001DAC78_n(g, 0x9D3FB516, self->unk25C->unk2C, 0x36B2EE74, ev->unk10, 0, -1.0f);
+            func_001D8A08_n(ev, self->unk2C, 0);
+        }
+    }
+    int k = 0;
+    if (ev->unk0 == 0x4ADF0CD3) {
+        k = self->unk26C != 0;
+    }
+    if (k != 0) {
+        func_00149E78(self);
+        self->unk26C = 0;
+        func_001DAC78_n(g, 0x4ADF0CD3, self->unk25C->unk2C, 0x36B2EE74, 0, 0, -1.0f);
+        func_001D8A08_n(ev, self->unk2C, 0);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_148688", func_00149CA8);
 
