@@ -73,41 +73,7 @@ extern "C" int CFunc_FirstTimeThisIsCalled(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_StringToCharArray);
 
-extern "C" {
-unsigned int strlen(const char *);
-char *strcpy(char *, const char *);
-void func_0030A554(char *, char *);
-int func_0030B550(char *, const char *, ...);
-void func_0027C028(int, u32, char *);
-extern char D_003704B8[];
-extern char D_00370548[];
-}
-
-extern "C" int CFunc_AppendSuffix(int params, S25A_Script *script) {
-    char buf[112];
-    char suf[32];
-    char *path = D_003704B8;
-    int len;
-    int cap;
-    int num;
-    u32 key;
-    func_0027D188(params, 0xC4745838, &path, 0);
-    len = strlen(path);
-    strcpy(buf, path);
-    cap = 15;
-    func_0027D1F8(params, 0xA6931595, &cap, 0);
-    num = 1;
-    func_0027D1F8(params, 0x4A4F7821, &num, 0);
-    func_0030B550(suf, D_00370548, num);
-    int sl = strlen(suf);
-    if (cap < len + sl) {
-        buf[cap - sl] = 0;
-    }
-    func_0030A554(buf, suf);
-    func_0027D870(params, 0x50060694, &key, 0);
-    func_0027C028(script->unk20, key, buf);
-    return 1;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_AppendSuffix);
 
 extern "C" int CFunc_IsObjectScript(int a, int b) {
     return func_00289E08(b) != 0;
@@ -328,7 +294,37 @@ bool func_0027D470_b(int, u32, void *, int) asm("func_0027D470");
 bool func_0027D400_b(int, u32, void *, int) asm("func_0027D400");
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Push);
+extern "C" int CFunc_Push(int params, S25A_Script *script) {
+    S25A_PushL l;
+    func_0027D870(params, 0, &l.key, 1);
+    S25B238 *it;
+    for (it = func_0027B300(script->unk20, 0); it; it = func_0027B300(script->unk20, it)) {
+        if (*(u32 *)((char *)it + 4) == l.key) break;
+    }
+    if (it == 0) return 0;
+    l.a = 0;
+    bool miss = !func_0027D400_b(script->unk20, D_00372E70, &l.a, 0);
+    if (miss) {
+        int o = func_0027AA70(func_001287F0(8, 1));
+        l.a = o;
+        func_0027C898(script->unk20, D_00372E70, o);
+    }
+    l.arr = 0;
+    if (func_0027D470_b(l.a, l.key, &l.arr, 0)) {
+        int n = ((S25A_PushArr *)l.arr)->unk4;
+        func_0027EB78(l.arr, n + 1);
+        func_0025B238(l.arr, n, it);
+    } else {
+        l.arr = func_0027E698(func_00138790(0xC, 1));
+        func_0027E760(l.arr, 1, (it->unk0 >> 9) & 0x7F);
+        int ta = l.a;
+        int tarr = l.arr;
+        int tkey = l.key;
+        func_0027C740(ta, tkey, tarr);
+        func_0025B238(l.arr, 0, it);
+    }
+    return 1;
+}
 
 struct S25A_Arr {
     char pad0[2];
@@ -371,48 +367,7 @@ extern "C" int CFunc_StringLength(int params, S25A_Script *script) {
     return 1;
 }
 
-struct S25A_RArr {
-    int unk0;
-    u32 unk4;
-    int unk8;
-};
-
-struct S25A_Req {
-    S25A_RArr *unk0;
-    u32 unk4;
-    int unk8;
-};
-
-extern "C" {
-void func_0027B4D0(void *, void *, void *, int);
-extern char func_0025C6F8[];
-}
-
-extern "C" int CFunc_RequireParams(int params, S25A_Script *script) {
-    int sp10;
-    S25A_RArr *arr = 0;
-    if (func_0027D870(params, 0x90FEC815, &sp10, 0)) {
-        func_0027D400(script->unk20, sp10, &arr, 1);
-    } else if ((func_0027D400(params, 0x90FEC815, &arr, 0) ^ 1) != 0) {
-        arr = (S25A_RArr *)script->unk20;
-    }
-    if (arr == 0) return 0;
-    S25A_Req r;
-    r.unk0 = 0;
-    r.unk4 = 0;
-    r.unk8 = 0;
-    if ((func_0027D470(params, 0, &r, 0) ^ 1) != 0) {
-        return arr->unk4 == 0;
-    }
-    int c = 0;
-    func_0027B4D0(arr, func_0025C6F8, &r, 1);
-    if (func_0027DF00(params, 0x1F26CCAF)) c = r.unk8 != 0;
-    if (c) return 0;
-    int d = 0;
-    if (func_0027DF00(params, 0xC4E78E22)) d = r.unk4 < r.unk0->unk4;
-    if (d) return 0;
-    return r.unk4 != 0;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_RequireParams);
 
 extern "C" {
 extern int D_00368A38;
