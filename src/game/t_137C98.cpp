@@ -335,7 +335,38 @@ extern "C" void func_001397A8(S137_X* self, float a, float b, int flag) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00139840);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00139960);
+struct Q139 { char pad0[0x30]; s16 s30; s16 s32; };
+struct O139 { char pad0[0xC]; u32 unkC; };
+
+extern "C" void func_00139960(char* self, int flag, float x, float y) {
+    Q139* p0 = (Q139*)(self + 0xF0);
+    if ((float)p0->s30 * 0.001f != x || (float)p0->s32 * 0.001f != y) {
+        Q139* p1 = (Q139*)(self + 0xA0);
+        Q139* p2 = (Q139*)(self + 0x140);
+        int xi = (int)(x * 1000.0f);
+        int yi = (int)(y * 1000.0f);
+        float b = (float)p1->s30 * 0.001f * 1000.0f;
+        float a = (float)p1->s32 * 0.001f * 1000.0f;
+        p2->s32 = (int)a;
+        p2->s30 = (int)b;
+        p0->s30 = xi;
+        p0->s32 = yi;
+        ((O139*)self)->unkC |= 0x400;
+    }
+    if (flag) {
+        Q139* p1 = (Q139*)(self + 0xA0);
+        if ((float)p1->s30 * 0.001f != x || (float)p1->s32 * 0.001f != y) {
+            Q139* p2 = (Q139*)(self + 0x140);
+            int xi = (int)(x * 1000.0f);
+            int yi = (int)(y * 1000.0f);
+            p1->s32 = yi;
+            p1->s30 = xi;
+            p2->s30 = xi;
+            p2->s32 = yi;
+            ((O139*)self)->unkC |= 0x400;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_137C98", func_00139AE8);
 
