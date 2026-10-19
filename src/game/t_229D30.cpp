@@ -296,7 +296,97 @@ extern "C" void func_0022A9B8(S229* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022A9C8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022ABE8);
+struct VE229 {
+    s16 delta;
+    s16 pad;
+    void* fn;
+};
+
+struct P229 {
+    s32 unk0;
+    s32 unk4;
+    char pad8[0x18];
+    s32 unk20;
+    char pad24[0x10];
+    char* unk34;
+};
+
+struct R229 {
+    char pad0[0x80];
+    s32 unk80;
+    s32 unk84;
+    s32 unk88;
+    s32 unk8C;
+};
+
+struct G229 {
+    char pad0[0x18];
+    s32 unk18;
+    s32 unk1C[1];
+    char pad20[0x84];
+    s32 unkA4;
+    char padA8[0x10];
+    s32 unkB8;
+    s32 unkBC;
+    s32 unkC0;
+    s32 unkC4;
+};
+
+extern "C" {
+s32 CrcFromPathLowercase_l(s32 n) __asm__("CrcFromPathLowercase");
+s32 func_0022A8F8_l(G229* g, s32 n) __asm__("func_0022A8F8");
+void func_0022A9B8_l(G229* g) __asm__("func_0022A9B8");
+void func_0022C558(s32 a, s32 b, s32 c, void* d);
+void func_001342E8_l(void* a, void* b) __asm__("func_001342E8");
+s32 func_00275F08(u32 a, s32 b);
+}
+
+extern "C" s32* func_0022ABE8(s32* out, G229* g, s32 name, s32 sz, s32 crc, s32 flag, R229* o, s32 x) {
+    if (crc == 0) {
+        crc = CrcFromPathLowercase_l(name);
+    }
+    s32 v = sz;
+    if (v == 0) {
+        v = func_0022A8F8_l(g, name);
+    }
+    P229* n = (P229*)func_0022A330(g, v);
+    n->unk0 = crc;
+    n->unk20 = n->unk20 & 0x80FFFFFF;
+    n->unk4 = *(s32*)((char*)g + g->unk18 * 4 + 0x1C);
+    if (o != 0) {
+        o->unk80 = g->unkB8;
+        o->unk84 = g->unkBC;
+        s32 t = g->unkC0;
+        o->unk8C = 0;
+        o->unk88 = t;
+        if (g->unkC4 != 0) {
+            func_0022A9B8_l(g);
+        }
+    }
+    if (flag != 0) {
+        func_0022C0D8(n, (s32)func_0022C768(g->unkA4, flag, *(s32*)((char*)g + g->unk18 * 4 + 0x1C)));
+    }
+    VE229* e = (VE229*)(n->unk34 + 0x20);
+    s32 r = ((s32 (*)(void*, s32, s32, s32, void*, s32))e->fn)((char*)n + e->delta, name, 0, 0, o, x);
+    if (r != 0) {
+        if (func_00275F08(0x25DC7904, 0) == 0) {
+            if (n != 0) {
+                VE229* d = (VE229*)(n->unk34 + 0x18);
+                ((void (*)(void*, s32))d->fn)((char*)n + d->delta, 3);
+            }
+        }
+        out[0] = 0;
+        out[1] = 0;
+        out[2] = 0;
+    } else {
+        func_0022C558(g->unkA4, crc, *(s32*)((char*)g + g->unk18 * 4 + 0x1C), n);
+        out[0] = 0;
+        out[1] = 0;
+        out[2] = 0;
+        func_001342E8_l(out, n);
+    }
+    return out;
+}
 
 extern "C" void func_0022ADD0(int a, int** b) {
     int* t = *b;
