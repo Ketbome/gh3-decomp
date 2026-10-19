@@ -388,7 +388,38 @@ extern "C" void* func_0011DF78(int a, int b, int c, int d) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E008);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011E050);
+extern "C" {
+void func_0011E960(const char*, ...);
+int func_0011E160(void);
+extern char D_00338B30[];
+extern char D_00338B50[];
+extern int D_00368C08;
+}
+
+GP_DATA(D_00368C04);
+GP_DATA(D_00368C08);
+extern "C" void func_0011E050(int a) {
+    func_0011E960(D_00338B30, D_00338B50, D_00368C04, D_00368C08);
+    int ok = func_0011E160() ^ 1;
+    if (ok == 0) {
+        do {
+            while (D_00368C08 == 0) func_0011E540();
+            func_0011E560();
+            ok = 1;
+            if (a) {
+                int i = 0;
+                int* p = D_00414FB0;
+                for (; i < 16; p++, i++) {
+                    if (func_0011DAA0((S_0011DAA0*)*p) != 0) {
+                        (void)*(volatile int*)&D_00368C04;
+                        ok = 0;
+                        break;
+                    }
+                }
+            }
+        } while (!ok);
+    }
+}
 
 GP_DATA(D_00368C1C);
 extern "C" void func_0011E130(void) {
