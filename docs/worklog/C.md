@@ -1040,3 +1040,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   = x/y/z; asm("vsub.w %0,$vf0,$vf0" : "+j"(..))` x3 then stores back; node copy of 0x40 bytes twice with `struct B64{char b[0x40];}
   __attribute__((aligned(16)))`, `S* src = &c->unk90` and separate `d1`/`d2` dest pointers (this gives the original base registers). Only
   the position of `lui/lw D_0036D3B0` vs `lq 0x20(sp)` differs (original reads D before the lq, ours after).
+- func_0026BA48 (t_26AEF8): near miss (0x164 vs 0x160), nonmatching/func_0026BA48.cpp: everything matches (in-place `if (e == 0) e = a` gives movz, array-indexed `D[r].f` each time to avoid CSE, `&= 0xFFFFFFFB` for lui/ori) except the r == -1 return: original is `bne; lui; b L; move v0,zero` inline, ours `beq L'` to a separate zero block; 6 structural forms.
