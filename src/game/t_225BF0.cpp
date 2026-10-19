@@ -300,15 +300,39 @@ extern "C" void func_00226C78(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226CA0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226CD0);
-
 extern "C" s32 D_00372E40;
 extern "C" s32 D_00372E48;
 
 struct S226a { s32 unk0; s32 unk4; s32 unk8; s32 unkC; s32 unk10; };
 struct S226b { s32 unk0; s32 unk4; s32 unk8; };
 
+struct S226c { s32 unk0; s32 unk4; s8 unk8; s8 unk9; };
+
 GP_DATA(D_00372E40);
+extern "C" void func_00226CD0(int ai, int bi) {
+    S226c* a = (S226c*)ai;
+    S226b* b = (S226b*)bi;
+    s32 t = b->unk4;
+    if (t == 0) {
+        if (b->unk8 == 0x7C2552B9) a->unk0 = 1;
+    } else if (t == D_00372E40) {
+        s32 i;
+        if (Find226(b->unk8, &i)) {
+            u8 v = D_003938D8[i];
+            a->unk4 = 1;
+            a->unk8 = v;
+        }
+    } else if (t == D_00372E48) {
+        s32 i;
+        if (Find226(b->unk8, &i)) {
+            u8 v = D_003938D8[i];
+            a->unk4 = 1;
+            a->unk9 = v;
+        }
+    }
+}
+TEXT_PAD(8);
+
 extern "C" void func_00226E30(int ai, int bi) {
     S226a* a = (S226a*)ai;
     S226b* b = (S226b*)bi;
