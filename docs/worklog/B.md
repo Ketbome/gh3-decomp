@@ -972,3 +972,5 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_001DC788: 4 more forms (copy of ext in items var, inlined helper loop, while form), same register numbering miss; stays with the permuter.
 - func_001D1FA0: vector (-1,1,1,1) built by pextlw: original has y=z in one register and w loaded separately (two lui 1.0), ours CSEs all three; rest matches modulo that and jal-slot order. 3 tries.
 - func_0020CAE8: matches except saved-register numbering (original: a1 in s0, this in s1; ours opposite) and the second vmul scheduled before the epilogue ld; pins made it worse. 3 tries.
+- func_001DD9A8: near miss (only 'move a0,v0' vs 'swc1 f1,0xC0' order before the final jal differ); nonmatching/func_001DD9A8.cpp. Needs asm volatile stages + sqc2 inside the vmul asm to get the rest.
+- func_001DDFD8: near miss (body matches with asm volatile stages; only the tail differs: original cross-jumps the shared 'sw flags' after 'li v0,1' in both paths, ours keeps sw in the b delay slot); nonmatching/func_001DDFD8.cpp.

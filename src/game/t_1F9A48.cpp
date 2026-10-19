@@ -444,7 +444,33 @@ extern "C" void func_001FB6C0(s32 self, s32 params) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB820);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001FB938);
+struct A1FB9 {
+    s32 unk0;
+    f32 unk4;
+    f32 unk8;
+    f32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+};
+
+extern "C" void func_00268F40(s32 heap, s32 e, A1FB9* a, s32 b, s32 c, s32 d);
+
+extern "C" void func_001FB938(s32 a0, s32 a1, s32 a2, s32 a3, s32 t0, s32 t1, s32 t2, s32 t3, f32 x, f32 y, f32 z) {
+    A1FB9 l;
+    l.unk8 = x;
+    l.unk4 = y;
+    l.unkC = z;
+    l.unk10 = t0;
+    l.unk14 = a2;
+    l.unk18 = a3;
+    s32 h = D_00370AE0;
+    l.unk0 = 0;
+    if (t2 != 0) {
+        l.unk0 = 1;
+    }
+    func_00268F40(h, a1, &l, a0, t1, t3);
+}
 
 struct V1FB9 {
     int a;
