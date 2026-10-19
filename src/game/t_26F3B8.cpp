@@ -184,7 +184,36 @@ extern "C" void func_0026FD70(int a, int b, f32* v, int c, f32 f) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026FE70);
+extern "C" int func_0026FE70(int a, int key) {
+    int k = key;
+    if (a == 0) {
+        key = func_00270DB8(1);
+        for (int i = 12; i < 22; i++) {
+            if ((key >> i) & 1) {
+                if (i + 22 != k) {
+                    return i + 22;
+                }
+            }
+        }
+    }
+    key = func_00270DB8(0);
+    for (int i = 0; i < 22; i++) {
+        if ((key >> i) & 1) {
+            if (i != k) {
+                return i;
+            }
+        }
+    }
+    key = func_00270DB8(1);
+    for (int i = 0; i < 22; i++) {
+        if ((key >> i) & 1) {
+            if (i + 22 != k) {
+                return i + 22;
+            }
+        }
+    }
+    return -1;
+}
 
 extern "C" void func_0026FFE8(int a, int b, f32 *v, int d, f32 f) {
     func_002705A0(b, a, -1, d, v[0], v[1], f);
