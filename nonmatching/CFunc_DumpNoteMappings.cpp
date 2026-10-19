@@ -1,0 +1,193 @@
+// cflags: -funroll-loops
+#include "common.h"
+
+extern "C" {
+extern int D_00369798;
+int func_002B5888(int);
+void func_00144FC0(int, int, int, int, int);
+int func_00119610(int, int);
+void func_001194B8(int);
+void func_00119490(int, int);
+int Heap_Alloc(int, int, int, int);
+extern int D_003720E8;
+int func_0027DF00(int, u32);
+void Heap_Free(int, int);
+extern int D_003720E4;
+extern int D_00368A38;
+extern int D_00368744;
+int func_002B5C08(int, int);
+int func_002B5CA8(int, int);
+int func_0027D870(int, int, int *, int);
+int func_002B5BC8(int, int);
+int func_0027D1F8(int, int, int *, int);
+int func_002DCA40(int);
+void func_0027C160(int, int, int);
+}
+
+struct S2BEE_N {
+    int key;
+    int val;
+    S2BEE_N *next;
+};
+
+struct S2BEE_T {
+    int bits;
+    S2BEE_N *buckets;
+    int count;
+    int iterIdx;
+    S2BEE_N *iterNode;
+
+    bool Scan(int size) {
+        for (;;) {
+            if (!(++iterIdx < size)) {
+                return false;
+            }
+            iterNode = &buckets[iterIdx];
+            if (iterNode->val) {
+                return true;
+            }
+            S2BEE_N *nx = iterNode->next;
+            if (nx) {
+                iterNode = nx;
+                return true;
+            }
+        }
+    }
+
+    bool Next() {
+        int size = 1 << bits;
+        if (iterNode) {
+            iterNode = iterNode->next;
+        } else if (iterIdx >= 0) {
+            return false;
+        }
+        if (iterNode) {
+            return true;
+        }
+        return Scan(size);
+    }
+
+    int GetNext() {
+        int r;
+        if (!Next()) {
+            r = 0;
+        } else {
+            S2BEE_N *n = iterNode;
+            r = n ? n->val : 0;
+        }
+        return r;
+    }
+
+    void Start() {
+        iterIdx = -1;
+        iterNode = 0;
+    }
+};
+
+extern "C" S2BEE_T *D_003720E0;
+
+GP_DATA(D_003720E0);
+extern "C" int CFunc_DumpNoteMappings(void) {
+    S2BEE_T *t = D_003720E0;
+    if (t) {
+        t->Start();
+        if (t->GetNext()) {
+            while (D_003720E0->GetNext()) {
+            }
+        }
+    }
+    return 1;
+}
+
+GP_DATA(D_003720E8);
+extern "C" int CFunc_TextOutputStart(void) {
+    if (D_00368744 != 0) {
+        int h = D_00368A38;
+        func_00119490(h, func_00119610(h, 0x3B));
+    }
+    int m = Heap_Alloc(D_00368A38, 0x200000, 1, 0);
+    D_003720E4 = m;
+    D_003720E8 = m;
+    if (D_00368744 != 0) {
+        func_001194B8(D_00368A38);
+    }
+    return 1;
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutput);
+
+GP_DATA(D_003720E4);
+extern "C" int CFunc_TextOutputEnd(int params) {
+    char buf[0x200];
+    if (func_0027DF00(params, 0xC844F1E2)) {
+        char *p = (char *)D_003720E4;
+        while (*p) {
+            char *o = buf;
+            while (*p != '\n') {
+                *o = *p;
+                p++;
+                o++;
+            }
+            *o = *p;
+            o[1] = 0;
+            p++;
+        }
+    }
+    if (D_003720E4)
+        Heap_Free(D_00368A38, D_003720E4);
+    D_003720E8 = 0;
+    D_003720E4 = 0;
+    return 1;
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_ApplyBossBattleGemMisses);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_DebugTransform);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", func_002BF900);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_CreateGemMover);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_DestroyGem);
+
+extern "C" int CFunc_MakeDeadWhammy(int arg0) {
+    int a;
+    int b;
+    if (func_0027D870(arg0, 0xA1DC81F9, &a, 0) != 0 && func_0027D1F8(arg0, 0x67E6859A, &b, 0) != 0) {
+        return func_002B5BC8(a, b - 1);
+    }
+    return 0;
+}
+
+extern "C" int CFunc_MakeStarWhammy(int arg0) {
+    int a;
+    int b;
+    if (func_0027D870(arg0, 0xA1DC81F9, &a, 0) != 0 && func_0027D1F8(arg0, 0x67E6859A, &b, 0) != 0) {
+        return func_002B5C08(a, b - 1);
+    }
+    return 0;
+}
+
+extern "C" int CFunc_MakeNormalWhammy(int arg0) {
+    int a;
+    int b;
+    if (func_0027D870(arg0, 0xA1DC81F9, &a, 0) != 0 && func_0027D1F8(arg0, 0x67E6859A, &b, 0) != 0) {
+        return func_002B5CA8(a, b - 1);
+    }
+    return 0;
+}
+
+struct SGIHBI {
+    char pad0[0x20];
+    int unk20;
+};
+extern "C" s32 CFunc_GetInputHandlerBotIndex(int arg0, SGIHBI *arg1) {
+    int out;
+    func_0027D1F8(arg0, 0x67E6859A, &out, 1);
+    func_0027C160(arg1->unk20, 0xB30D9965, func_002DCA40(out - 1));
+    return 1;
+}
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_UpdateGemMovers);
+
+INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", func_002C07E8);
