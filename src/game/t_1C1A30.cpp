@@ -315,7 +315,54 @@ extern "C" s32 func_001C3648(char* p) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3718);
+struct P1C37 {
+    char pad0[8];
+    u32 unk8;
+    s32 unkC;
+    char pad10[0x18];
+    char* unk28;
+};
+
+extern "C" {
+void func_001A31D8(char* d, s32 w, s32 h, char* a, char* b);
+void func_001A28C8(char* d, s32 w, s32 h, char* a, char* b);
+void func_001A2D28(char* d, s32 w, s32 h, char* a, char* b);
+void func_0030A2F4(char* d, char* s, u32 n);
+}
+
+extern "C" void func_001C3718(P1C37* p, char* src) {
+    u32 i = 0;
+    s32 bpp = func_001C3578((char*)p);
+    s32 w0 = func_001C3538((S001C3538*)p);
+    s32 h0 = func_001C3558((S001C3538*)p);
+    char* dst = p->unk28;
+    do {
+        s32 h = h0 >> i;
+        s32 flags = p->unkC;
+        s32 w = w0 >> i;
+        s32 bit1 = flags & (0x40000 << i);
+        s32 bit2 = flags & (0x2000000 << i);
+        i++;
+        u32 bytes = (u32)(w * h * bpp) >> 3;
+        if (bit1) {
+            if (bpp == 4) {
+                func_001A31D8(D_0038D080, w, h, src, dst);
+            }
+        } else if (bit2 != 0) {
+            if (bpp != 4) {
+                if (bpp == 8) {
+                    func_001A2D28(D_0038D080, w, h, src, dst);
+                }
+            } else {
+                func_001A28C8(D_0038D080, w, h, src, dst);
+            }
+        } else {
+            func_0030A2F4(dst, src, bytes);
+        }
+        dst += bytes;
+        src += bytes;
+    } while (p->unk8 >= i);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C1A30", func_001C3888);
 
