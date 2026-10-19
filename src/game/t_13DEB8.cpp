@@ -33,6 +33,7 @@ struct S13D_X {
 
 extern "C" {
 extern u8 D_0033AD98[];
+extern u8 D_00369660[];
 void func_0014A910(int, int);
 void func_00139420(S13D_X*, int);
 void func_0013EB38(S13D_X*, int);
@@ -184,7 +185,47 @@ INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013ED80);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013F258);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013F3E8);
+struct S13F3 {
+    char pad0[0xC];
+    u32 unkC;
+    char pad10[0x1E4];
+    float unk1F4;
+    char pad1F8[0x48];
+    int unk240;
+    char pad244[0x14];
+    int unk258;
+    char pad25C[8];
+    float unk264;
+};
+
+extern "C" {
+int func_0014CD98_h(int, int) __asm__("func_0014CD98");
+int func_0014CF50(int);
+void func_001534C0(int, int, int);
+void func_001535C0(int, u8*, float*, float*, int);
+int func_00276008_h(int, int) __asm__("func_00276008");
+}
+
+extern "C" void func_0013F3E8(S13F3* self, int key) {
+    self->unk240 = key;
+    if (key == 0x0D53096F || key == 0x0A77F6AE) {
+        self->unk240 = 0x7D70C638;
+    }
+    int h = func_0014CD98_h(self->unk240, 1);
+    if (func_0014CF50(self->unk240) == 0) {
+        int t = func_00276008_h(0x8751015E, 0);
+        self->unk240 = t;
+        if (t == 0) {
+            self->unk240 = 0x35C0114B;
+        }
+        h = func_0014CD98_h(self->unk240, 1);
+    }
+    func_001534C0(h, 1, 0);
+    float a, b;
+    func_001535C0(h, D_00369660, &a, &b, -1);
+    self->unkC |= 0x1000;
+    self->unk258 = (int)self->unk1F4 / (int)(b * self->unk264);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013F4F8);
 

@@ -1248,3 +1248,4 @@ Matched (A18): func_00160C58 (t_15F2F8; script-manager style search: vcall 11, c
 ## Round 4 (VU0 branch-likely, static tables, untried)
 Matched (A19): func_001343B0 (t_133A98; walk of a script node list: `n = next(list, 0); if (n) do { next = next(list, n); if ((n->unk0 & 0xFE00) == 0x1400) { ... two lookups with the same tail } n = next; } while (n)`, first try)
 Matched (A19): func_0018C658 (t_18B9C0; four colour bytes from `(int)(a * c * 128.0f)` stored in a local `u8 col[4] __attribute__((aligned(4)))`, passed as `*(int*)col` (a union or by-value struct merges the bytes in registers); list walk with four `key(e) ==` tests, constants hoisted by gcc)
+Matched (A19): func_0013F3E8 (t_13DEB8; key remap + two lookups, then `float a, b;` out-params `&a, &b` (two scalars give the `ori $7,$sp,4` for &b, an array `&a[1]` gives addiu) and `unk258 = (int)unk1F4 / (int)(b * unk264)` integer division of two truncated floats, `unkC |= 0x1000` before it)
