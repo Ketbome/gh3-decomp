@@ -190,7 +190,6 @@ cc:
     func_001E0198(v, p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF9C0);
 
 struct G1DFD {
     char pad0[0x18];
@@ -224,6 +223,72 @@ extern G1DFD* D_0036F658;
 static inline void Send1DFD(O1DFD* o, s32 sp) {
     VE1DFD* e = o->unk8;
     e->fn((char*)o + e->delta, sp, 0);
+}
+
+extern "C" {
+s32 func_001F57B8(void*);
+}
+
+extern "C" void func_001DF9C0(void* op, s32 unused) {
+    O1DFD* o = (O1DFD*)op;
+    s32 spv[4];
+    s32 sp10;
+    void* sp14;
+    s32 sp18;
+    s32 sp1C;
+    func_0027AA98((s32)spv);
+    s32 id = o->unk54;
+    G1DFD* g = D_0036F658;
+    s32 n = g->unk18 + 1;
+    g->unk18 = n;
+    s32* slot = &g->arr[n];
+    *slot = id;
+    if (func_0027DD88((s32)spv, 0x09794932) != 0) {
+        if (func_0027DD88((s32)spv, 0x48C1A123) != 0) {
+            func_0027C448((s32)spv, 0xB6015EA8, 0x8536DBA5);
+            Send1DFD(o, (s32)spv);
+        }
+        func_0027C448((s32)spv, 0xB6015EA8, 0x222756D5);
+        Send1DFD(o, (s32)spv);
+    }
+    sp10 = 0;
+    s32 f18 = 0;
+    if (func_0027D870((s32)spv, 0x12B4E660, &sp10, 0) != 0) {
+        f18 = sp10 == 0xB7B3BD86;
+    }
+    if (f18 != 0 && func_0027DF00((s32)spv, 0xFA3A3F12) != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x59381F65);
+        Send1DFD(o, (s32)spv);
+    }
+    if (func_0027D400((s32)spv, 0x7EA855F0, (s32*)&sp14, 0) != 0 && func_0027D188((s32)spv, 0x286A8D26, &sp18, 0) != 0) {
+        if (func_0030E650(sp18, D_0036D838) == 0) {
+            sp1C = 0;
+            if (func_0027D870((s32)sp14, 0x286A8D26, &sp1C, 0) != 0) {
+                func_0027C448((s32)spv, 0x286A8D26, sp1C);
+            }
+        }
+    }
+    if (func_0027DD88((s32)spv, 0x17F21AA9) != 0) {
+        s32 f17 = 0;
+        if (func_0027DF00((s32)spv, 0xC0BB7D97) == 0) {
+            f17 = func_001F57B8(spv) == 0;
+        }
+        if (f17 != 0) {
+            func_0027C448((s32)spv, 0xB6015EA8, 0x4EA42EAC);
+            Send1DFD(o, (s32)spv);
+        }
+        func_0027C448((s32)spv, 0xB6015EA8, 0xC837AA70);
+        Send1DFD(o, (s32)spv);
+    }
+    if (f18 != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x286A8D26);
+        Send1DFD(o, (s32)spv);
+    } else if (func_0027D188((s32)spv, 0x286A8D26, &sp18, 0) != 0 && func_0030E650(sp18, D_0036D838) != 0) {
+        func_0027C448((s32)spv, 0xB6015EA8, 0x286A8D26);
+        Send1DFD(o, (s32)spv);
+    }
+    D_0036F658->unk18 = D_0036F658->unk18 - 1;
+    func_0027AC90(spv);
 }
 
 extern "C" void func_001DFD28(void* op, s32 unused) {
@@ -274,6 +339,7 @@ extern "C" void func_001DFD28(void* op, s32 unused) {
     D_0036F658->unk18 = D_0036F658->unk18 - 1;
     func_0027AC90(spv);
 }
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DFFB0);
 
