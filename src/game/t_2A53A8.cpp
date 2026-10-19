@@ -260,7 +260,97 @@ extern "C" int CFunc_MemCardGetUniqueFileName(int params, S2A5_Script *script) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A53A8", CFunc_MemCardFileExists);
+struct S2A5_VT {
+    char pad0[8];
+    s16 delta;
+    s16 index;
+    void (*fn)(void *, int);
+};
+
+struct S2A5_FileV {
+    char pad0[0x14];
+    S2A5_VT *vt;
+};
+
+extern "C" {
+int func_002A4A58(int, int);
+int func_00121BF0(S2A5_Card *, char *);
+int func_00116E38(void);
+void func_002A4B60(char *, int, int);
+S2A5_FileV *func_00121E40(S2A5_Card *, char *, int, int);
+int func_001224F8(S2A5_FileV *, int, int);
+void func_00122550(S2A5_FileV *);
+void func_001224F0(S2A5_FileV *);
+void func_00121BD0(S2A5_Card *, char *);
+extern char D_00362390[];
+extern char D_00371D90[];
+char *strcpy(char *, const char *);
+int func_0027D188(int, u32, int *, int);
+}
+
+extern "C" int CFunc_MemCardFileExists(int params, S2A5_Script *script) {
+    char buf[0x70];
+    char buf2[0x20];
+    int p1;
+    int p2;
+    S2A5_Card *card = func_001218A0_c(D_00368E48[0], 0, 0);
+    if (!card) {
+        return 0;
+    }
+    p1 = 0;
+    func_0027D188(params, 0xA1DC81F9, &p1, 0);
+    p2 = 0;
+    func_0027D870(params, 0x7321A8D6, (u32 *)&p2, 0);
+    if (!p1) {
+        return 0;
+    }
+    int d = p2;
+    if (!d) {
+        return 0;
+    }
+    char *s = 0;
+    func_002A4A58(d, p1);
+    buf[0] = 0;
+    switch (D_00368740[0]) {
+    case 6:
+        strcpy(buf, (char *)func_002A4A58(d, p1));
+        break;
+    case 4:
+        s = func_002A5638(d, p1);
+        {
+            int r = func_00121BF0(card, s);
+            if (!r) {
+                return 0;
+            }
+            func_0030B550(buf, D_00371D90, r, r);
+        }
+        break;
+    case 1:
+    case 2:
+    case 3:
+    case 5: {
+        int v = func_00116E38();
+        func_002A4B60(buf2, p1, d);
+        func_0030B550(buf, D_00362390, v, buf2, v, buf2);
+        break;
+    }
+    }
+    S2A5_FileV *f = func_00121E40(card, buf, 1, 0);
+    if (f) {
+        int r = func_001224F8(f, 0, 2);
+        int n = func_002A53E0(d, r);
+        func_0027C160(script->unk20, 0x3D1BCFED, n);
+        func_00122550(f);
+        func_001224F0(f);
+        register S2A5_VT *vt asm("$3") = f->vt;
+        vt->fn((char *)f + vt->delta, 3);
+        return 1;
+    }
+    if (D_00368740[0] == 4) {
+        func_00121BD0(card, s);
+    }
+    return 0;
+}
 
 extern "C" int CFunc_DeleteMemCardFile(int params) {
     u32 n;
