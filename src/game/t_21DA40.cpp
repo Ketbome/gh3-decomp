@@ -590,7 +590,89 @@ extern "C" int func_0021EFC8(void* p, int s) {
     return func_0021E970((int)p, v) != 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021F020);
+struct R21D {
+    char pad0[4];
+    int unk4;
+    int* unk8;
+};
+
+struct W21D {
+    char pad0[0xC];
+    struct W21Db* unkC;
+};
+
+struct W21Db {
+    char pad0[0x2C];
+    int unk2C;
+};
+
+struct X21D {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" {
+int func_001150E0(int, void*);
+int func_002763E0(int, int);
+int func_00275F08(u32, int);
+int func_00276008(u32, int);
+int func_0010C050(int);
+int func_0027CC30(int, int, int, R21D**);
+void func_0027F1E0(int, int, int);
+extern char D_0036F298[];
+extern char D_0036F2A0[];
+}
+
+static inline void Pick21F(u32& key, const int& sp0) {
+    if (sp0 < func_00275F08(0x9D62F4D5, 0)) {
+        key = 0x70D76F5D;
+    } else if (sp0 < func_00275F08(0xA24A3FEB, 0)) {
+        key = 0x12E4443D;
+    } else {
+        key = 0xC4685697;
+    }
+}
+
+extern "C" int func_0021F020(W21D* self, int a, X21D* s) {
+    int sp0;
+    int sp4;
+    int sp8;
+    R21D* spC;
+    func_00289C88((int)s, 4);
+    int* q = func_00289C80((int)s);
+    sp0 = 0x96;
+    func_0027D1F8(s->unk20, 0xE6503699, &sp0, 0);
+    u32 key;
+    Pick21F(key, sp0);
+    int flag = 0;
+    int h = func_002763E0(func_001150E0(self->unkC->unk2C, D_0036F298), 1);
+    ((S21F748_V*)func_0027AF38(h, 0xF6B7F1AB, 0))->unk8 = key;
+    func_0027D870(h, 0x55CC895E, &sp4, 1);
+    *q = func_002763E0(func_001150E0(sp4, D_0036F2A0), 1);
+    func_0027D870(h, 0x5D2258D2, &sp8, 1);
+    if (sp8 == 0xD43297CF || func_00276008(0xCDC86D9D, 0) == 0x0203B372) {
+        flag = 1;
+    }
+    if (flag != 0) {
+        int t = *q;
+        R21D* r;
+        if (func_0027CC30(t, key, 0xC, &spC)) {
+            r = spC;
+        } else {
+            func_0027F1E0(t, 0, 1);
+            r = 0;
+        }
+        int e = func_0010C050(r->unk4);
+        int v;
+        if (r->unk4 == 1) {
+            v = (int)r->unk8;
+        } else {
+            v = r->unk8[e];
+        }
+        func_0021E9A8((int)self, v, (int)s, 0.1f);
+    }
+    return 1;
+}
 
 extern "C" int func_0021F248(int p, int a, int s) {
     if (func_0021E970(p, 0xE4F96729)) {
