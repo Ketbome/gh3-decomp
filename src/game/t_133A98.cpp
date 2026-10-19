@@ -189,7 +189,44 @@ extern "C" int func_00134380(void* params) {
     return v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_001343B0);
+struct N1343 { u32 unk0; int unk4; char* unk8; };
+
+extern "C" {
+N1343* func_0027B300_n(char*, N1343*) __asm__("func_0027B300");
+int func_001377C8_q(int, int) __asm__("func_001377C8");
+int func_00137C98_q(int, int, int) __asm__("func_00137C98");
+int func_00134380_i(int) __asm__("func_00134380");
+int func_0027DF00_n(char*, int) __asm__("func_0027DF00");
+int func_0027D1F8_n(char*, int, int*, int) __asm__("func_0027D1F8");
+void func_0027C448_n(char*, int, int) __asm__("func_0027C448");
+}
+
+extern "C" void func_001343B0(S133_S* self) {
+    N1343* n = func_0027B300_n(self->unk6C, 0);
+    if (n) {
+        do {
+            N1343* next = func_0027B300_n(self->unk6C, n);
+            if ((n->unk0 & 0xFE00) == 0x1400) {
+                int a = n->unk4;
+                if (func_0027DF00_n(n->unk8, 0xD81C03B0) != 0) {
+                    int b = func_001377C8_q(a, 0);
+                    func_0027AC90(n->unk8);
+                    char* o = n->unk8;
+                    func_0027C448_n(o, 0x4BB2084E, func_00134380_i(b));
+                } else {
+                    int t;
+                    if (func_0027D1F8_n(n->unk8, 0x4B833E64, &t, 0) != 0) {
+                        int b = func_00137C98_q(a, t, 0);
+                        func_0027AC90(n->unk8);
+                        char* o = n->unk8;
+                        func_0027C448_n(o, 0x4BB2084E, func_00134380_i(b));
+                    }
+                }
+            }
+            n = next;
+        } while (n);
+    }
+}
 
 extern "C" void func_001344E8(S_001344E8* self) {
     func_0027ACF8(&self->unk6C);
