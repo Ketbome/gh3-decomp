@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 8 matches / 25 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 8 matches / 26 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1109,3 +1109,7 @@ Near miss: func_001BE3A0 (nonmatching/func_001BE3A0.cpp): both global loads must
 ## t_234190 (round 5)
 
 Near miss: func_002350B0 (nonmatching/func_002350B0.cpp): shape complete (three loops over a table object at p+8: build list of entries into p+0x48+n*0x10, then two s16-index loops). The original keeps the table pointer in $s4 plus two further copies ($s6 for the count read, $s5/$s6 for the call receivers) and saves 7 registers; ours saves 5 (inline accessor helpers did not create the copies).
+
+## t_1D6598 (round 5)
+
+Near miss: func_001D6598 (nonmatching/func_001D6598.cpp): two local objects (A: ctor inline vptr D_0034BC18/+4=0, dtor vptr D_0034BCD8; B: ctor func_001D5570, dtor vptr D_0034BD78), shape and the three exits identical; the original hoists `lui $s5,%hi(D_0034BCD8)` before the first call (one more saved register), ours does not, so every saved-register number shifts by one.
