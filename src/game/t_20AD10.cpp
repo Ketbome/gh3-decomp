@@ -1,5 +1,7 @@
 #include "common.h"
 
+typedef unsigned int TI20A __attribute__((mode(TI)));
+
 struct S20A {
     char pad0[0x490];
     int unk490;
@@ -135,7 +137,17 @@ extern "C" void func_0020C0D8(S20A* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C0F8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C1F0);
+extern "C" void func_0020C1F0(TI20A* p) {
+    register TI20A v1 asm("vf1") = p[0];
+    register TI20A v3 asm("vf3");
+    f32 k = -1.0f;
+    asm("qmtc2.ni %1, %0" : "=j"(v3) : "r"(k));
+    register TI20A v2 asm("vf2") = p[2];
+    asm("vmulx.xyzw %0, %0, %1x" : "+j"(v1) : "j"(v3));
+    asm("vmulx.xyzw %0, %0, %1x" : "+j"(v2) : "j"(v3));
+    p[0] = v1;
+    p[2] = v2;
+}
 
 extern "C" void func_0020C220(void* p) {
     func_00127818(p, -func_0010F698(p));
@@ -164,7 +176,18 @@ extern "C" void func_0020C268(char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C2B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C428);
+extern "C" void func_0020C428(char* p, s32 a, TI20A v, f32 f) {
+    register TI20A v2 asm("vf2") = v;
+    *(s32*)(p + 0x104) = a;
+    register TI20A v3 asm("vf3");
+    register TI20A v1 asm("vf1");
+    asm("vmul.xyzw %0, %2, %2" : "=j"(v3) : "j"(v3), "j"(v2));
+    *(TI20A*)(p + 0x110) = v2;
+    *(f32*)(p + 0x124) = f;
+    asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v3));
+    asm("vaddz.x %0, %0, %1z\n\tnop\n\tnop\n\tvrsqrt $Q, $vf0w, %0x\n\tvwaitq\n\tvmulq.xyz %2, %2, $Q" : "+j"(v1), "+j"(v3), "+j"(v2));
+    *(TI20A*)(p + 0x110) = v2;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20AD10", func_0020C460);
 

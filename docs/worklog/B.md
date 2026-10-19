@@ -963,3 +963,10 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - func_001DE2C0 (t_1DC968) matched: VU0 register variables (`register U128 v1 asm("vf1")`, `"+j"`), sqrt.s in asm with `register f32 d asm("$f0")`; the store order BC, C0, FC in source gave the target schedule (other orders move the branch-slot store).
 - func_001DC788: retried 3 forms (items copy, asm barrier); still the saved-register numbering near miss (original keeps an extra copy of ext live in the unrolled external-buffer path); left to the permuter.
 - func_001FEB48: gave up: all matches except q in $v0 instead of $v1 for the `lq` target (func_001FDC60 pattern); register pin worsens.
+
+## Session 5 (VU0 pass)
+- t_1B00D0 matched func_001B13E8 func_001B1408 func_001B1418 (whole-asm VU0 stubs: asm volatile with cfc2/vcallms).
+- t_20AD10 matched func_0020C1F0 func_0020C428 (register vf vars + "j" asms); t_1DC968 matched func_001DDE28.
+- Given up: func_0020B8B8 (matches except `move a0,sp` / `move a1,s0` order around the call to func_0020B7B0: original sets a1 first and a0=sp in the jal slot; struct-return form gives the right `$2` for self+0xA0 but not the order; 6 tries).
+- Given up: func_001D36E8 (virtual call + iterator + vf1 reloaded in bnel slot; ours puts lqc2 in the null-check bnezl slot and the D_0034B838 address/lui splitting uses 2 more saved regs than ours; 6 tries).
+- func_001DC788: 4 more forms (copy of ext in items var, inlined helper loop, while form), same register numbering miss; stays with the permuter.
