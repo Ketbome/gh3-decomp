@@ -188,7 +188,83 @@ extern "C" void func_0013B038(S139_X* self, void* list) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013B0B0);
+struct C139 { u8 r, g, b, a; };
+struct Q139 {
+    float unk0;
+    char pad4[0x1C];
+    float unk20;
+    float unk24;
+    char pad28[0xC];
+    float unk34;
+    float unk38;
+    char pad3C[8];
+    float unk44;
+};
+struct P13B {
+    char pad0[0xA0];
+    Q139 unkA0;
+    char pad_[0x48 - sizeof(Q139)];
+    C139 unkE8;
+    char padEC[0xF4];
+    float unk1E0;
+    float unk1E4;
+    char pad1E8[0x14];
+    float unk1FC;
+};
+
+extern "C" {
+void func_0027C1F8(int, u32, float);
+void func_0027C5B0(int, u32, float, float);
+void func_0027C160_b(int, u32, int) __asm__("func_0027C160");
+void* func_00138790_b(int, int) __asm__("func_00138790");
+int func_0027E698(void*);
+void func_0027E760(int, int, int);
+void func_0027EDE0(int, int, int);
+void func_0027EE08(int, int, float);
+void func_0027C678(int, u32, int);
+void func_0027C740(int, u32, int);
+void func_002798B8(int);
+void func_0027E6B0(int, int);
+int func_0013CE58(void*);
+}
+
+extern "C" void func_0013B0B0(P13B* self, int params) {
+    Q139* q = &self->unkA0;
+    func_0027C1F8(params, 0x2F1FC695, self->unkA0.unk0);
+    C139 c = self->unkE8;
+    int arr = func_0027E698(func_00138790_b(0xC, 1));
+    func_0027E760(arr, 4, 1);
+    func_0027EDE0(arr, 0, c.r);
+    func_0027EDE0(arr, 1, c.g);
+    func_0027EDE0(arr, 2, c.b);
+    func_0027EDE0(arr, 3, c.a);
+    func_0027C678(params, 0x3F6BCDBA, arr);
+    func_002798B8(arr);
+    if (arr) {
+        func_0027E6B0(arr, 3);
+    }
+    float a = q->unk34;
+    float b = q->unk38;
+    if (a == b) {
+        func_0027C1F8(params, 0x13B9DA7B, a);
+    } else {
+        func_0027C5B0(params, 0x13B9DA7B, a, b);
+    }
+    Q139* r = &self->unkA0;
+    func_0027C5B0(params, 0x7F261953, r->unk20, r->unk24);
+    func_0027C1F8(params, 0xED344E1B, r->unk44 * 57.295776f);
+    if (func_0013CE58(self) != 0) {
+        func_0027C160_b(params, 0x73CB6D65, 1);
+    } else {
+        func_0027C160_b(params, 0x73CB6D65, 0);
+    }
+    func_0027C1F8(params, 0x57710F31, self->unk1FC);
+    int arr2 = func_0027E698(func_00138790_b(0xC, 1));
+    func_0027E760(arr2, 2, 2);
+    func_0027EE08(arr2, 0, self->unk1E0);
+    func_0027EE08(arr2, 1, self->unk1E4);
+    func_0027C740(params, 0x8B60022F, arr2);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_139CE8", func_0013B2C8);
 
