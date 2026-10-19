@@ -1,3 +1,4 @@
+// cflags: -funroll-loops -ffast-math
 #include "common.h"
 
 struct S2BA998_I {
@@ -75,6 +76,44 @@ extern "C" int CFunc_MakeGemsVisibleOnAllViewports(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BA998", CFunc_CalculateGemTime);
+struct S2BA9_Arr {
+    int unk0;
+    int unk4;
+};
+struct S2BA9_Scr {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" {
+int func_0027D268_f(int, int, f32 *, int) asm("func_0027D268");
+int func_0027D470_p(int, u32, S2BA9_Arr **, int) asm("func_0027D470");
+f32 func_0027EFA0(S2BA9_Arr *, int);
+f32 func_0031B4B8(f32);
+void func_0027C1F8(int, u32, f32);
+}
+
+extern "C" int CFunc_CalculateGemTime(int params, S2BA9_Scr *script) {
+    f32 t = 0.0f;
+    f32 v = t;
+    f32 sum = t;
+    int i;
+    func_0027D268_f(params, 0, &v, 1);
+    S2BA9_Arr *arr = 0;
+    func_0027D470_p(params, 0x7CF83434, &arr, 1);
+    i = 0;
+    t = v;
+    t = t * 1024.0f;
+    int size = arr->unk4;
+    int i0 = (int)t % size;
+    int i1 = (int)(t + 1.0f) % size;
+    f32 frac = t - func_0031B4B8(t);
+    for (; i < i0; i++) {
+        sum += func_0027EFA0(arr, i);
+    }
+    f32 b = func_0027EFA0(arr, i1);
+    func_0027C1F8(script->unk20, 0x5BC938A6, sum + frac * (b - func_0027EFA0(arr, i0)));
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BA998", CFunc_UpdateWhammyBarProps);
