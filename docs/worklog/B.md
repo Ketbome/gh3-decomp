@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 8 matches / 23 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 8 matches / 24 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1101,3 +1101,7 @@ Near miss: func_001F86D8 (nonmatching/func_001F86D8.cpp): 14-entry static-init t
 ## t_1C5A68 (round 5)
 
 Near miss: func_001C5AE0 (nonmatching/func_001C5AE0.cpp): list traversal with a local iterator object whose ctor/dtor store D_0034A6A0 at +8; the `(~x != 0) ? n : 0` selections are real movn/movz in the original (plain ternaries give them). Remaining: the original reaches the iterator through a register pointer (`move s2,sp`, `sw v0,4(s2)`) and keeps `lui D_0034A6A0` in $s4; ours indexes sp directly and is 0x10 shorter.
+
+## t_1BD608 (round 5)
+
+Near miss: func_001BE3A0 (nonmatching/func_001BE3A0.cpp): both global loads must be hoisted into locals before the ternary (`u32 g1 = D_00372C30; s32 g2 = D_0036C7E8; t7 = cond ? g1 : g2;`, otherwise gcc branches and the delay-slot load turns into gp_rel). The original `movz a1,a0,a1` works in place on the argument register; ours builds the select in a new register, which costs 4 insns.
