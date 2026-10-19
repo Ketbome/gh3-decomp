@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 2 matches / 7 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98; given up func_001CDA60 func_001E6030 func_001EBCE0
+Round 2026-10-19: 2 matches / 8 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910
 
 ## t_1ABAA0
 
@@ -1050,3 +1050,7 @@ Given up: func_001EBCE0 (erase-by-value then compact; outer loop x2 unrolled in 
 ## t_1B4190 (round 5)
 
 Near miss: func_001B4A98 (nonmatching/func_001B4A98.cpp): everything matches except the original hoists the constant 0x80000 into $s7 out of the loops (`lui $s7,8` before the inner for, `or v0,v0,s7`), ours emits it inline (8 bytes shorter). Two switches on hashes: cases must be listed in the order of the bodies in the asm (8BB6EEE0 first; 70ACD9BB first in the second) for the labels to land. The 64-bit GS words are u64 expressions.
+
+## t_208310
+
+Given up: func_00208910 (150-store constructor of ten embedded list/vector sentinels). A literal translation of the m2c store order (temps `char*` = this+K) gives the right instruction mix, but the original keeps every call-argument temp directly in its argument register ($5..$11) and ends with 12 temps in $t/$a regs, ours spills 6 of them into $s2..$s7. The m2c order is the scheduler output, not the source order, so a natural per-member source order would be needed.
