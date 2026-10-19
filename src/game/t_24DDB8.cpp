@@ -99,7 +99,7 @@ void func_001628F0(void *, int, int, int);
 void func_00153178(int, f32, f32, f32, f32, f32, f32, f32, f32);
 S24D_LNode *func_0014E948(void);
 S24D_VC *func_0014E8E0(void);
-void func_0024F500(S24D_VC *, u32, f32, f32);
+void func_0024F500(S24D_VC *, f32, f32, int);
 f32 func_0031BD50(f32, f32);
 int func_0027D2D8(int, u32, S24D_Vec *, int);
 void func_00138B00(S24D_Vec *, S24D_Vec *, int, int, int);
@@ -541,6 +541,35 @@ extern "C" f32 func_0024F4B8(f32 a, f32 b, f32 t) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24DDB8", func_0024F500);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_24DDB8", CFunc_CompressVC);
+static inline S24D_LNode *S24D_Valid2(S24D_LNode *n) {
+    if (n->unk4i != -1) {
+        return n;
+    }
+    return 0;
+}
+
+extern "C" int CFunc_CompressVC(int params) {
+    f32 a = 0.0f;
+    func_0027D268(params, 0xB990D003, &a, 1);
+    f32 b = 0.0f;
+    func_0027D268(params, 0x9E497FC6, &b, 0);
+    b = (100.0f - b) * 0.01f;
+    int c = 0;
+    func_0027D870(params, 0x7E4813A7, &c, 0);
+    S24D_LNode *cur = func_0014E948();
+    while (cur) {
+        S24D_LNode *next = S24D_Valid2(cur->unkC);
+        S24D_VC *vc = cur->unk4;
+        if (!vc->B1()) {
+            func_0024F500(vc, a, b, c);
+        }
+        cur = next;
+    }
+    S24D_VC *last = func_0014E8E0();
+    if (last) {
+        func_0024F500(last, a, b, c);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_24DDB8", func_0024FAD8);
