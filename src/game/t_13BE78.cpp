@@ -167,7 +167,60 @@ extern "C" void func_0013CC98(S13B_X* self, void* params) {
     func_0013A100(self, params);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013CCE8);
+struct E13C { u32 unk0; char pad4[0xC]; int unk10; };
+struct S13C { char pad0[0x10]; int unk10; char pad14[0x18]; int unk2C; char pad30[0x210]; int unk240; };
+struct P13C { char pad[0x10]; };
+
+extern "C" {
+int func_00146E68(int);
+int func_001468A8(int, u32);
+int func_0013CF78(S13C*);
+int func_00146E78(int, int);
+int func_001D00B0(S13C*, E13C*);
+int func_001D8A50(E13C*);
+void func_0027AA70_c(P13C*) __asm__("func_0027AA70");
+void func_0027ABB0(P13C*, int);
+void func_0027C160_c(P13C*, u32, int) __asm__("func_0027C160");
+void func_001DAC78_c(int, u32, int, int, P13C*, int, float) __asm__("func_001DAC78");
+void func_0027AC90_c(P13C*) __asm__("func_0027AC90");
+void func_001D8A08(E13C*, int, int);
+extern int D_0036D554;
+}
+
+extern "C" int func_0013CCE8(S13C* self, E13C* ev) {
+    int a = 0;
+    int h = self->unk10;
+    if (func_00146E68(h) != 0 && func_001468A8(h, ev->unk0) != 0 && (func_0013CF78(self) == 0 || func_00146E78(h, self->unk2C) == 0)) {
+        a = 1;
+    }
+    int r = 0;
+    if (a == 0) {
+        if (func_001D00B0(self, ev) == 0) {
+            return 0;
+        }
+        int k = 0;
+        if (ev->unk0 == 0x9D3FB516 || ev->unk0 == 0x4ADF0CD3) {
+            k = 1;
+        }
+        r = 1;
+        if (k != 0) {
+            if (self->unk240 != 0) {
+                P13C par;
+                int v = func_001D8A50(ev);
+                func_0027AA70_c(&par);
+                if (ev->unk10 != 0) {
+                    func_0027ABB0(&par, ev->unk10);
+                }
+                func_0027C160_c(&par, 0xB30D9965, v);
+                func_001DAC78_c(D_0036D554, ev->unk0, self->unk240, 0x36B2EE74, &par, 0, -1.0f);
+                func_0027AC90_c(&par);
+            }
+            func_001D8A08(ev, self->unk2C, 0);
+            r = 1;
+        }
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013CE58);
 
