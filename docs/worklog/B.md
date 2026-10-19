@@ -971,3 +971,4 @@ Given up: func_00237BE0 (inner empty loops keep memory reloads), func_001DD568/f
 - Given up: func_001D36E8 (virtual call + iterator + vf1 reloaded in bnel slot; ours puts lqc2 in the null-check bnezl slot and the D_0034B838 address/lui splitting uses 2 more saved regs than ours; 6 tries).
 - func_001DC788: 4 more forms (copy of ext in items var, inlined helper loop, while form), same register numbering miss; stays with the permuter.
 - func_001D1FA0: vector (-1,1,1,1) built by pextlw: original has y=z in one register and w loaded separately (two lui 1.0), ours CSEs all three; rest matches modulo that and jal-slot order. 3 tries.
+- func_0020CAE8: matches except saved-register numbering (original: a1 in s0, this in s1; ours opposite) and the second vmul scheduled before the epilogue ld; pins made it worse. 3 tries.

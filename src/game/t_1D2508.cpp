@@ -74,6 +74,8 @@ char* func_001D36E8(void* p, u32 key);
 s32 func_0027D268(s32 a, u32 b, void* v, s32 c);
 f32 func_0010D5C8(void* a, void* v, s32 b, s32 c);
 void func_0027C1F8(s32 a, u32 key, f32 v);
+void func_0027C4D8(s32 a, u32 b, f32 x, f32 y, f32 z);
+f32 func_0010C1A0(f32 x);
 void* func_00224220(s32 a, s32 b);
 void func_00223590(void* a, void* v);
 void* func_001D0680(s32 a);
@@ -178,7 +180,27 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2C88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2E60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D2F00);
+static inline void NormOut1D(char* self, s32 off, char* script, u32 key) {
+    register TI128 v3 asm("vf3") = *(TI128*)(self + off);
+    register TI128 v2 asm("vf2");
+    register TI128 v1 asm("vf1");
+    register f32 x asm("$f12");
+    register f32 y asm("$f13");
+    register f32 z asm("$f14");
+    asm("vmul.xyzw %0, %1, %1" : "=j"(v2) : "j"(v3));
+    s32 sc = *(s32*)(script + 0x20);
+    asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v2));
+    asm("vaddz.x %1, %1, %2z\n\tnop\n\tnop\n\tvrsqrt $Q, $vf0w, %1x\n\tvwaitq\n\tvmulq.xyz %0, %0, $Q\n\tqmfc2.ni $2, %0\n\tdsrl32 $3, $2, 0\n\tpcpyud $6, $2, $2\n\tmtc1 $2, %3\n\tmtc1 $3, %4\n\tmtc1 $6, %5"
+        : "+j"(v3), "+j"(v1), "+j"(v2), "=f"(x), "=f"(y), "=f"(z) : : "$2", "$3", "$6");
+    func_0027C4D8(sc, key, x, y, z);
+}
+
+extern "C" s32 func_001D2F00(char* self, void* a, char* script) {
+    NormOut1D(self, 0x120, script, 0x066DF14D);
+    NormOut1D(self, 0x100, script, 0x812A923A);
+    NormOut1D(self, 0x110, script, 0x70A38CFD);
+    return 1;
+}
 
 extern "C" s32 func_001D3020(char* self, void* a, char* script) {
     s32 id;
@@ -209,7 +231,54 @@ extern "C" s32 func_001D30B8(char* self, void* a, char* script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3150);
+struct F3150 {
+    s32 id;
+    char pad[12];
+    TI128 a;
+    TI128 b;
+};
+
+extern "C" s32 func_001D3150(char* self, void* arg, char* script) {
+    F3150 l;
+    func_0027D870(arg, 0, &l, 1);
+    f32 f21 = 0.0f;
+    char* o = (char*)func_001D0680(l.id);
+    f32 f20 = f21;
+    if (o) {
+        register TI128 v5 asm("vf5");
+        register TI128 v4 asm("vf4");
+        register TI128 v3 asm("vf3");
+        register TI128 v2 asm("vf2");
+        register TI128 v1 asm("vf1");
+        l.a = *(TI128*)(self + 0xA0);
+        v5 = *(TI128*)(self + 0x80);
+        *(f32*)((char*)&l.a + 0xC) = f21;
+        v2 = l.a;
+        asm("vmul.xyzw %0, %1, %1" : "=j"(v3) : "j"(v2));
+        asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v3));
+        asm("vaddz.x %0, %0, %1z\n\tnop\n\tnop\n\tvrsqrt $Q, $vf0w, %0x\n\tvwaitq\n\tvmulq.xyz %2, %2, $Q" : "+j"(v1), "+j"(v3), "+j"(v2));
+        l.a = v2;
+        v1 = *(TI128*)(o + 0x80);
+        asm("vsub.xyzw %0, %0, %1" : "+j"(v1) : "j"(v5));
+        v4 = *(volatile TI128*)&l.a;
+        l.b = v1;
+        *(f32*)((char*)&l.b + 0xC) = f21;
+        v2 = l.b;
+        asm("vmul.xyzw %0, %1, %1" : "=j"(v3) : "j"(v2));
+        asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v3));
+        asm("vaddz.x %0, %0, %1z\n\tnop\n\tnop\n\tvrsqrt $Q, $vf0w, %0x\n\tvwaitq\n\tvmulq.xyz %2, %2, $Q" : "+j"(v1), "+j"(v3), "+j"(v2));
+        asm("vmul.xyzw %0, %0, %1" : "+j"(v4) : "j"(v2));
+        l.b = v2;
+        asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v4));
+        s32 t;
+        asm("vaddz.x %0, %0, %1z\n\tqmfc2.ni %2, %0\n\tmtc1 %2, %3" : "+j"(v1), "+j"(v4), "=&r"(t), "=f"(f20));
+        f32 r = func_0010C1A0(f20);
+        f21 = r * 57.295776f - 90.0f;
+    }
+    func_0027C1F8(*(s32*)(script + 0x20), 0x7C6A7D7C, f20);
+    func_0027C1F8(*(s32*)(script + 0x20), 0xC97F3AA9, f21);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D2508", func_001D3298);
 
