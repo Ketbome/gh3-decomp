@@ -322,4 +322,80 @@ INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116878);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116B20);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00116C60);
+extern "C" {
+void func_00116E48(u8*);
+void func_00122AC8(int, char**);
+int func_00116B20_a(u8*, int, char**) __asm__("func_00116B20");
+char* func_00116878_a(u8*, int, char**) __asm__("func_00116878");
+int strcmp(char*, u8*);
+void func_0030B550(char*, u8*);
+extern u8 D_003686F0[];
+extern u8 D_00368780[];
+extern u8 D_00368788[];
+extern u8 D_00368790[];
+extern u8 D_003382A0[];
+extern u8 D_003382B0[];
+extern u8 D_003382C0[];
+extern u8 D_003382D0[];
+extern u8 D_003687A0[];
+extern u8 D_003687A8[];
+extern u8 D_003687B0[];
+extern u8 D_003687B8[];
+extern u8 D_00368798[];
+extern char D_00375208[];
+extern char D_00375288[];
+extern int D_00368748;
+extern int D_0036874C;
+extern int D_00368744;
+extern int D_00368750;
+extern int D_0036876C;
+}
+
+GP_DATA(D_00368748);
+GP_DATA(D_0036874C);
+GP_DATA(D_0036876C);
+extern "C" void func_00116C60(int argc, char** argv) {
+    func_00116E48(D_003686F0);
+    func_00122AC8(argc, argv);
+    if (func_00116B20_a(D_00368780, argc, argv) != 0) {
+        D_00368748 = 1;
+    }
+    if (func_00116B20_a(D_00368788, argc, argv) != 0) {
+        D_00368748 = 0;
+    }
+    if (func_00116B20_a(D_00368790, argc, argv) != 0) {
+        D_0036874C = 1;
+    }
+    if (func_00116B20_a(D_003382A0, argc, argv) != 0) {
+        D_00368744 = 0;
+    }
+    if (func_00116B20_a(D_003382B0, argc, argv) != 0) {
+        D_00368750 = 1;
+        if (argc >= 3) {
+            strcpy(D_00375208, argv[2]);
+            if (argc >= 4) {
+                strcpy(D_00375288, argv[3]);
+            } else {
+                func_0030B550(D_00375288, D_00368798);
+            }
+        }
+    }
+    if (func_00116B20_a(D_003382C0, argc, argv) != 0) {
+        D_00368750 = 0;
+    }
+    if (func_00116B20_a(D_003687A0, argc, argv) != 0) {
+        D_00368768 = 0;
+    }
+    if (func_00116B20_a(D_003687A8, argc, argv) != 0) {
+        D_00368768 = 1;
+    }
+    char* v = func_00116878_a(D_003382D0, argc, argv);
+    if (v != 0) {
+        if (strcmp(v, D_003687B0) == 0) {
+            D_0036876C = 0x32;
+        }
+        if (strcmp(v, D_003687B8) == 0) {
+            D_0036876C = 0x3C;
+        }
+    }
+}
