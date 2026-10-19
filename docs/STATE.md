@@ -6,12 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Paused (2026-10-15) at the user's request: no agent running, work in progress rescued. Fourth rounds of A, B, C
-were cut short by a rate limit and the pause; restart them with the same priorities: functions with `lqc2`/`sqc2`
+Fifth rounds of A, B, C running (started 2026-10-19), same priorities: functions with `lqc2`/`sqc2`
 in branch-likely slots (VU0 register-variable pattern), B first func_001DC788 (hash-table constructor, 6 twins),
-then `dk next --untried` 0x100..0x1000, limit 25 matches or 60 attempted (B tends to stop early: repeat the stop
-rule in its prompt).
-Ranges for the next workers:
+then `dk next --untried` 0x100..0x1000, limit 25 matches or 60 attempted.
+Ranges:
 
 | Range | Files | Worklog | Last focus |
 |---|---|---|---|
@@ -50,7 +48,7 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Relaunch workers A, B, C (priorities above).
+1. Integrate rounds A, B, C when they report (`scripts/integrate.sh`).
 2. With no worker running: permuter batch overnight (`permute.py --batch --timeout 360 -j 4`) on ~85 near misses.
 3. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
    Ghidra), results into docs/worklog/names_pending.md. REA does not do matching.
