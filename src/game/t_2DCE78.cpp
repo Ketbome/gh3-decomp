@@ -460,7 +460,78 @@ extern "C" void func_002DDDA8(void) {
     func_002DDBD8(1, 0xFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DDDC8);
+extern "C" {
+void func_001ED9F8(void);
+void func_001EDA20(void);
+void func_001F3240(void);
+void func_001F5EA0(void);
+void func_001F5ED8(void);
+void func_001FAC38(void);
+void func_001FAC60(void);
+void func_001FCA38(void);
+void func_001FDD68(void);
+void func_001FDD90(void);
+void func_00200328(void);
+void func_00200350(void);
+void func_002056D8(void);
+void func_00205700(void);
+void func_00206FA0(void);
+void func_00206FC8(void);
+void func_00208010(void);
+void func_00208330(void);
+void func_00208358(void);
+void func_002088B8(void);
+void func_002088E0(void);
+void func_002135E8(void);
+void func_00213620(void);
+void func_00215038(void);
+void func_00215078(void);
+void func_00218030(void);
+void func_00218058(void);
+void func_0021C2C0(void);
+void func_0021C2E8(void);
+void func_0021DD90(void);
+void func_0021DF58(void);
+void func_0021DF80(void);
+void func_00221A30(void);
+void func_00221A58(void);
+void func_00222DB0(void);
+void func_00222DD8(void);
+void func_002DE0C8(void);
+void func_002DE0F0(void);
+void func_002DE120(void);
+void func_002DE148(void);
+void func_002DE178(void);
+void func_002DE1A0(void);
+void func_001D4600_r(int, u32, void *, void *) __asm__("func_001D4600");
+extern int D_0036D3B0;
+}
+extern "C" void func_002DDDC8(void) {
+    int h = D_0036D3B0;
+    func_001D4600_r(h, 0x8536DBA5, func_0021DF58, func_0021DF80);
+    func_001D4600_r(h, 0xB38129F1, func_00221A30, func_00221A58);
+    func_001D4600_r(h, 0x286A8D26, func_001ED9F8, func_001EDA20);
+    func_001D4600_r(h, 0x222756D5, (char *)func_001F5EA0 + 0x10, func_001F5ED8);
+    func_001D4600_r(h, 0x07713C7B, func_001FAC38, func_001FAC60);
+    func_001D4600_r(h, 0x5CB5CB7E, func_001FDD68, func_001FDD90);
+    func_001D4600_r(h, 0x2136837E, (char *)func_001FCA38 + 0x30, 0);
+    func_001D4600_r(h, 0x0A015E17, func_00200328, func_00200350);
+    func_001D4600_r(h, 0xCE0CA665, func_002056D8, func_00205700);
+    func_001D4600_r(h, 0x6DCFEC46, func_0021C2C0, func_0021C2E8);
+    func_001D4600_r(h, 0x8A897DD2, func_00206FA0, func_00206FC8);
+    func_001D4600_r(h, 0xC472ECC5, func_00208010, 0);
+    func_001D4600_r(h, 0xC4E311FA, func_00208330, func_00208358);
+    func_001D4600_r(h, 0x27D7CD28, (char *)func_002135E8 + 0x10, func_00213620);
+    func_001D4600_r(h, 0xA9DB601E, (char *)func_00215038 + 0x18, func_00215078);
+    func_001D4600_r(h, 0xC5BCEB9E, func_00218030, func_00218058);
+    func_001D4600_r(h, 0x1BBF844D, func_0021DD90, 0);
+    func_001D4600_r(h, 0x03AC8065, func_001F3240, 0);
+    func_001D4600_r(h, 0xEA0EEAFB, func_002088B8, func_002088E0);
+    func_001D4600_r(h, 0x8B5D73B0, func_00222DB0, func_00222DD8);
+    func_001D4600_r(h, D_00372E10[0], func_002DE0C8, func_002DE0F0);
+    func_001D4600_r(h, D_00372DF8[0], func_002DE120, func_002DE148);
+    func_001D4600_r(h, D_00372DC8[0], func_002DE178, func_002DE1A0);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE0C0);
 
