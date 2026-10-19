@@ -403,9 +403,108 @@ extern "C" void func_00297528(S296A10_N *x, S296A10_N **root) {
     x->unk4 = y;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00297578);
+extern "C" void func_00297578(S296A10_N *x, S296A10_N **root) {
+    x->unk0 = 0;
+    while (x != *root && x->unk4->unk0 == 0) {
+        if (x->unk4 == x->unk4->unk4->unk8) {
+            S296A10_N *y = x->unk4->unk4->unkC;
+            if (y && y->unk0 == 0) {
+                x->unk4->unk0 = 1;
+                y->unk0 = 1;
+                x->unk4->unk4->unk0 = 0;
+                x = x->unk4->unk4;
+            } else {
+                if (x == x->unk4->unkC) {
+                    x = x->unk4;
+                    func_002974D8(x, root);
+                }
+                x->unk4->unk0 = 1;
+                x->unk4->unk4->unk0 = 0;
+                func_00297528(x->unk4->unk4, root);
+            }
+        } else {
+            S296A10_N *y = x->unk4->unk4->unk8;
+            if (y && y->unk0 == 0) {
+                x->unk4->unk0 = 1;
+                y->unk0 = 1;
+                x->unk4->unk4->unk0 = 0;
+                x = x->unk4->unk4;
+            } else {
+                if (x == x->unk4->unk8) {
+                    x = x->unk4;
+                    func_00297528(x, root);
+                }
+                x->unk4->unk0 = 1;
+                x->unk4->unk4->unk0 = 0;
+                func_002974D8(x->unk4->unk4, root);
+            }
+        }
+    }
+    (*root)->unk0 = 1;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002976E8);
+struct S2976_P {
+    int a;
+    int b;
+};
+
+struct S2976_V {
+    int key;
+    S2976_P second;
+};
+
+struct S2976_N {
+    int unk0;
+    S2976_N *unk4;
+    S2976_N *unk8;
+    S2976_N *unkC;
+    S2976_V value;
+};
+
+struct S2976_T {
+    char pad0[4];
+    S2976_N *header;
+    int count;
+};
+
+extern "C" int func_00297CC0(int);
+
+extern "C" S2976_N **func_002976E8(S2976_N **ret, S2976_T *t, int x, S2976_N *y, S2976_V *v, int flag) {
+    S2976_N *z;
+    if (y == t->header || (flag == 0 && (x != 0 || v->key < y->value.key))) {
+        S2976_N *n = (S2976_N *)func_00297CC0(0x1C);
+        if (&n->value != 0) {
+            n->value.key = v->key;
+            n->value.second = v->second;
+        }
+        z = n;
+        y->unk8 = z;
+        if (y == t->header) {
+            y->unk4 = z;
+            t->header->unkC = z;
+        } else if (y == t->header->unk8) {
+            t->header->unk8 = z;
+        }
+    } else {
+        S2976_N *n = (S2976_N *)func_00297CC0(0x1C);
+        if (&n->value != 0) {
+            n->value.key = v->key;
+            n->value.second = v->second;
+        }
+        z = n;
+        y->unkC = z;
+        if (y == t->header->unkC) {
+            t->header->unkC = z;
+        }
+    }
+    z->unk4 = y;
+    z->unk8 = 0;
+    z->unkC = 0;
+    func_00297578((S296A10_N *)z, (S296A10_N **)&t->header->unk4);
+    t->count++;
+    *ret = z;
+    return ret;
+}
 
 extern "C" S296A10_N *RbTreeDecrement(S296A10_N *x) {
     if (x->unk0 == 0 && x->unk4->unk4 == x) {
