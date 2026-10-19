@@ -370,7 +370,24 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276668);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276698);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00276720);
+extern "C" void *func_0011C2A8(void *);
+
+GP_DATA(D_00371098);
+GP_DATA(D_00371088);
+extern "C" S2754A0_F *func_00276720(int size, int) {
+    void *pl = D_00371088[D_00371098];
+    if (pl) {
+        void *r = func_0011C2A8(pl);
+        if (!r) {
+            int h = D_00368A38;
+            func_00119490(h, func_00119610(h, 1));
+            r = Heap_Alloc(D_00368A38, size, 1, 0);
+            func_001194B8(D_00368A38);
+        }
+        return (S2754A0_F *)r;
+    }
+    return (S2754A0_F *)Heap_Alloc(D_00368A38, size, 1, 0);
+}
 
 extern "C" {
 void func_0011A558(u32, int, int);
@@ -502,10 +519,17 @@ extern "C" void func_00276F30(int a, int b) {
     D_00371290[D_00371298] = 1;
 }
 
+asm(".set D_00371088_lui, D_00371088");
+asm(".set D_00371090_lui, D_00371090");
+asm(".set D_00371098_lui, D_00371098");
+extern void *D_00371088_lui[] asm("D_00371088_lui") __attribute__((section(".sdata")));
+extern int D_00371090_lui[] asm("D_00371090_lui") __attribute__((section(".sdata")));
+extern int D_00371098_lui asm("D_00371098_lui");
+
 extern "C" void func_00276FD8(int a, int b) {
-    void **slot = &D_00371088[D_00371098];
+    void **slot = &D_00371088_lui[D_00371098_lui];
     *slot = func_0011C130(Heap_Alloc(D_00368A38, 0x70, 1, 0), 0x14, a, b, 1, 0);
-    D_00371090[D_00371098] = 1;
+    D_00371090_lui[D_00371098_lui] = 1;
 }
 
 extern "C" void func_00277080(int a, int b) {
