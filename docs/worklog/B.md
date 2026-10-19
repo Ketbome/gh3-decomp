@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 9 matches / 29 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 9 matches / 30 attempted (limit 12/30); DONE (limit 30 attempted reached). matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss (nonmatching/): func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040 func_00232A58; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1125,3 +1125,7 @@ Matched func_0021FEF0 (recursive walk over child entries): `bool missing = !f(..
 ## t_1CE0A8 (round 5)
 
 Near miss: func_001CF040 (nonmatching/func_001CF040.cpp): array-or-single Get(i) loop (`unk4 == 1 ? unk8 : unk8[i]`, same helper as t_1EB630) plus `q->unk4 == 0` delete. With `u32 i = 0; while (i < arr->unk4) {...}` the saved-register numbering is right (i=$s1, arr=$s2, self=$s3) but the guard load is shared with the loop test (`lw v1` hoisted, no branch-likely reload); the do-while with an explicit `!= 0` guard reloads like the original but numbers i/arr/self as $s3/$s1/$s2.
+
+## t_2320A0 (round 5)
+
+Near miss (structure only): func_00232A58 (nonmatching/func_00232A58.cpp): a loop with calls is not unrolled by gcc, so the x3 body is written by hand (three `if (e->flag && e->obj == o) {...; return 1;}` per 0xA8-byte step, counter += 3 to 0x30); the original keeps `&D+0x34` in $s1 with negative offsets and the 2nd/3rd entry pointers in $s0 (5 saved regs), sizes 0x164 vs 0x16c.
