@@ -34,6 +34,12 @@ struct S2562_Arr {
         }
         return ((S2562_Arr **)data)[i];
     }
+    int GetI(int i) {
+        if (size == 1) {
+            return data;
+        }
+        return ((int *)data)[i];
+    }
 };
 
 struct S2562_Comp {
@@ -432,7 +438,55 @@ extern "C" int CFunc_AddParams(int params, S2562_Script *script) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_AddParam);
+extern "C" {
+void func_0027C028(int, u32, int);
+void func_0027C448(int, u32, int);
+}
+
+extern "C" int CFunc_AddParam(int params, S2562_Script *script) {
+    u32 name;
+    u32 key;
+    int target;
+    func_0027D870(params, 0xA1DC81F9, &name, 1);
+    target = 0;
+    if (func_0027D870(params, 0x10C6F3DB, &key, 0)) {
+        func_0027D400(script->unk20, key, &target, 0);
+        if (target == 0) {
+            target = func_0027AA70(func_001287F0(8, 1));
+            func_0027C898(script->unk20, key, target);
+        }
+    } else {
+        target = script->unk20;
+    }
+    S2562_Comp *p = func_0027B300(params, 0);
+    while (p) {
+        S2562_Comp *next = func_0027B300(params, p);
+        if (p->key == 0xE288A7CB) {
+            switch (p->type) {
+            case 1:
+                func_0027C160(target, name, p->val);
+                break;
+            case 2:
+                func_0027C1F8(target, name, *(f32 *)&p->val);
+                break;
+            case 13:
+                func_0027C448(target, name, p->val);
+                break;
+            case 3:
+                func_0027C028(target, name, p->val);
+                break;
+            case 10:
+                func_0027C7D0(target, name, p->val);
+                break;
+            case 12:
+                func_0027C678(target, name, p->val);
+                break;
+            }
+        }
+        p = next;
+    }
+    return 1;
+}
 
 extern "C" int CFunc_RemoveComponent(int params, S2562_Script *script) {
     u32 name;
@@ -501,4 +555,65 @@ INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_ForEachIn);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetElement);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_GetNextArrayElement);
+extern "C" f32 func_0027EFA0(S2562_Arr *, int);
+
+extern "C" int CFunc_GetNextArrayElement(int params, S2562_Script *script) {
+    S2562_Arr *r = func_00256848(params, script, 0);
+    int idx = -1;
+    func_0027D1F8(script->unk20, 0x7F8C98FE, &idx, 0);
+    func_0027ACF8(script->unk20, 0x7F8C98FE);
+    func_0027ACF8(script->unk20, 0xBEBFA1C6);
+    if (!r) {
+        return 0;
+    }
+    int n = r->size;
+    if (idx < 0) {
+        idx = 0;
+        if (n == 0) {
+            return 0;
+        }
+    } else {
+        idx++;
+        if (!(idx < n)) {
+            return 0;
+        }
+    }
+    switch (r->type) {
+    case 10: {
+        int st = script->unk20;
+        register u32 key asm("$5") = 0xBEBFA1C6;
+        func_0027C7D0(st, key, r->GetI(idx));
+        break;
+    }
+    case 12: {
+        int st = script->unk20;
+        register u32 key asm("$5") = 0xBEBFA1C6;
+        func_0027C678(st, key, r->GetI(idx));
+        break;
+    }
+    case 1: {
+        int st = script->unk20;
+        register u32 key asm("$5") = 0xBEBFA1C6;
+        func_0027C160(st, key, r->GetI(idx));
+        break;
+    }
+    case 2: {
+        int st = script->unk20;
+        func_0027C1F8(st, 0xBEBFA1C6, func_0027EFA0(r, idx));
+        break;
+    }
+    case 13: {
+        int st = script->unk20;
+        register u32 key asm("$5") = 0xBEBFA1C6;
+        func_0027C448(st, key, r->GetI(idx));
+        break;
+    }
+    case 3: {
+        int st = script->unk20;
+        func_0027C028(st, 0xBEBFA1C6, (int)func_0027EF60(r, idx));
+        break;
+    }
+    }
+    func_0027C160(script->unk20, 0x7F8C98FE, idx);
+    return 1;
+}
