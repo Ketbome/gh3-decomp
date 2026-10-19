@@ -93,7 +93,90 @@ INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FB88);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FDB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_0021FEF0);
+struct O21FE {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+};
+
+struct C21FE {
+    s32 unk0;
+    char pad4[4];
+    s32 unk8;
+};
+
+struct P21FE {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    u32 unk4;
+    s32 unk8;
+};
+
+extern "C" {
+bool func_0027D870_b(s32, u32, s32*, s32) __asm__("func_0027D870");
+s32 func_0022B168_s(s32, s32) __asm__("func_0022B168");
+C21FE* func_0027B300_c(s32, C21FE*) __asm__("func_0027B300");
+s32 func_0021FEF0(s32 ctx, O21FE* o);
+}
+
+extern "C" s32 func_0021FEF0(s32 ctx, O21FE* o) {
+    s32 ok = 1;
+    s32 key = 0;
+    s32* kp = &key;
+    s32 k2;
+    bool missing = !func_0027D870_b(o->unk0, 0x98549BA4, kp, 0);
+    s32 r;
+    if (missing) {
+        r = 0;
+    } else {
+        for (;;) {
+            if (o->unk8 != 0) {
+                bool m1 = !func_0027D870_b(o->unk8, *kp, &k2, 0);
+                if (!m1) goto upd;
+            }
+            if (o->unk4 != 0) {
+                bool m2 = !func_0027D870_b(o->unk4, *kp, &k2, 0);
+                if (!m2) goto upd;
+            }
+            break;
+        upd:
+            *kp = k2;
+        }
+        r = 1;
+    }
+    s32 d = (s32)D_0036F658[0];
+    if (r != 0 && func_0022B168_s(d, key) == 0 && func_0022B168_s(d, key) == 0) return 0;
+    C21FE* c = func_0027B300_c(o->unk0, 0);
+    while (c) {
+        s32 t = c->unk0 & 0xFE00;
+        if (t == 0x1400) {
+            O21FE n;
+            n.unk0 = c->unk8;
+            n.unk4 = o->unk4;
+            n.unk8 = 0;
+            if (func_0021FEF0(ctx, &n) == 0) ok = 0;
+        } else if (t == 0x1800) {
+            P21FE* pp = (P21FE*)c->unk8;
+            if (pp->unk2 == 0xA) {
+                u32 i = 0;
+                if (pp->unk4 != 0) {
+                    do {
+                        s32 q = pp->unk4 == 1 ? pp->unk8 : ((s32*)pp->unk8)[i];
+                        O21FE n;
+                        n.unk0 = q;
+                        n.unk4 = o->unk4;
+                        n.unk8 = 0;
+                        i++;
+                        if (func_0021FEF0(ctx, &n) == 0) ok = 0;
+                    } while (i < pp->unk4);
+                }
+            }
+        }
+        c = func_0027B300_c(o->unk0, c);
+    }
+    return ok;
+}
 
 extern "C" void func_00220108(void) {
 }
