@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 1 matches / 2 attempted (limit 12/30); 1 = integrator-assigned func_0021F020 (matched), 2 = func_001CDA60 (given up)
+Round 2026-10-19: 1 matches / 3 attempted (limit 12/30); counted: integrator-assigned func_0021F020 (matched), func_001CDA60 (given up), func_001CCE08 (near miss)
 
 ## t_1ABAA0
 
@@ -1030,3 +1030,5 @@ the 0x24-byte copies need `// cflags: -funroll-loops` and a hoisted `u8*` base).
 `lui/lw` (macro form, its object never saw the extern) but GP_DATA(D_0036D020) earlier in this merged file makes every later use `%gp_rel`;
 the last call passes a garbage `$a1` (register `f` pinned with `asm("$5")`, which then shifts other registers); store order of the 5-store
 init block (0x38,0x3C,0x44,0x40,0x34) is not reproduced by any permutation.
+
+Near miss: func_001CCE08 (nonmatching/func_001CCE08.cpp): only the branch-likely vs plain `beq` + delay slot at 0x1CCF80 and the order of `move a3,v0` in the 9-arg call differ.
