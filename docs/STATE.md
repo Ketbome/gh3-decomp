@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-A's fifth round running (started 2026-10-19); B and C fifth rounds integrated (25 matches each), sixth rounds running, same priorities: functions with `lqc2`/`sqc2`
+Fifth rounds integrated (A 14, B 25, C 25 matches); sixth rounds of A, B, C running (2026-10-19), same priorities: functions with `lqc2`/`sqc2`
 in branch-likely slots (VU0 register-variable pattern), B first func_001DC788 (hash-table constructor, 6 twins),
 then `dk next --untried` 0x100..0x1000, limit 25 matches or 60 attempted.
 Ranges:
@@ -45,6 +45,8 @@ never mentioned in a worklog on 2026-10-14).
 - QB alias-lookup family (func_00282268 and six others): one gcc shape never reproduced; also hash-iterator and
   stack list-iterator functions (range C).
 - Unknown COP1 opcodes `c1 0x544` / `c1 0x10004` in some functions (range C).
+- Same global reached through `$gp` and through `lui` in one function (func_0011F238).
+- GS register constants built from bitfields (func_001A0710, func_001A04A0).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
