@@ -174,7 +174,58 @@ extern "C" void func_0015D3F0(int m) {
     D_00369E68 &= ~m;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015D408);
+struct E408 { char pad0[0x2C]; int unk2C; int unk30; int unk34; };
+struct N408 { char pad0[4]; N408* next; E408* unk8; };
+struct O408 { E408* unk0; char pad4[8]; N408* unkC; char pad10[0x18]; s64 unk28; };
+struct It408 { int x; N408* q; };
+
+extern "C" {
+void func_00123018_k(E408*, int) __asm__("func_00123018");
+void func_00123040_k(E408*) __asm__("func_00123040");
+void func_001CE888_k(int, int*) __asm__("func_001CE888");
+void func_0015D2E0_k(int) __asm__("func_0015D2E0");
+s64 func_0011ECE8(void);
+int func_0015C0F8_k(int, O408**) __asm__("func_0015C0F8");
+}
+
+extern "C" void func_0015D408(int a) {
+    O408* o;
+    if (func_0015C0F8_k(a, &o)) {
+        N408* sent = (N408*)((char*)o + 8);
+        N408* first = o->unkC;
+        if (first != sent) {
+            It408 it, end, tmp;
+            it.q = first;
+            end.q = sent;
+            do {
+                tmp.q = o->unkC;
+                if (it.q == tmp.q) {
+                    E408* x = it.q->unk8;
+                    func_00123018_k(x, x->unk34);
+                } else {
+                    E408* x = it.q->unk8;
+                    func_00123040_k(x);
+                    int* r = &x->unk34;
+                    if (*r) {
+                        func_001CE888_k(*r, r);
+                        *r = 0;
+                    }
+                    *r = 0;
+                }
+                it.q->unk8->unk2C &= ~0x10;
+                it.q->unk8->unk2C |= 0x20;
+                func_0015D3F0(it.q->unk8->unk30);
+                it.q = it.q->next;
+            } while (it.q != end.q);
+        }
+        func_0015D2E0_k(a);
+        o->unk0->unk2C &= ~0x10;
+        o->unk0->unk2C |= 0x20;
+        func_00123040_k(o->unk0);
+        func_0015D3F0(o->unk0->unk30);
+        o->unk28 = func_0011ECE8();
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15D2E0", func_0015D560);
 
