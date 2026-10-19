@@ -305,11 +305,11 @@ extern "C" SB12_List* func_0012C958(SB12_List* self, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012C980);
 
-struct VT12C { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
-struct O12C { char pad0[0x64]; VT12C* unk64; };
-struct N12C { N12C* unk0; N12C* unk4; O12C* unk8; };
-struct I12C { int unk0; N12C* cur; int unk8; int unkC; };
-struct L12C { int unk0; N12C unk4; };
+struct VT12E { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
+struct O12E { char pad0[0x64]; VT12E* unk64; };
+struct N12E { N12E* unk0; N12E* unk4; O12E* unk8; };
+struct I12E { int unk0; N12E* cur; int unk8; int unkC; };
+struct L12E { int unk0; N12E unk4; };
 
 extern "C" {
 void Heap_Free_c(int, void*) __asm__("Heap_Free");
@@ -318,39 +318,41 @@ void func_0012CAA8_d(void*, int) __asm__("func_0012CAA8");
 }
 
 void func_0012CAA8_d(void* self, int flags) {
-    I12C a, b, c, d, e;
-    L12C* l0 = (L12C*)((char*)self + 4);
-    N12C* sent0 = (N12C*)((char*)self + 8);
+    I12E a, b, c, d, e;
+    L12E* l0 = (L12E*)((char*)self + 4);
+    N12E* sent0 = (N12E*)((char*)self + 8);
     if (l0->unk4.unk4 != sent0) {
-        L12C* l = l0;
-        N12C* sent = sent0;
-        do {
-            N12C* n = l->unk4.unk4;
+        L12E* l = (L12E*)((char*)sent0 - 4);
+        N12E* sent = (N12E*)((char*)l0 + 4);
+        N12E* n = l->unk4.unk4;
+        for (;;) {
             a.cur = n;
-            O12C* o = n->unk8;
+            O12E* o = n->unk8;
             if (o) {
                 o->unk64->fn((char*)o + o->unk64->delta, 3);
             }
             n = l->unk4.unk4;
             c.cur = n;
             e.cur = n;
-            N12C* nx = n->unk4;
+            N12E* nx = n->unk4;
             d.cur = n;
             c.cur = nx;
             n->unk0->unk4 = n->unk4;
             n->unk4->unk0 = n->unk0;
             Heap_Free_c(D_00368A38_c, n);
             b.cur = c.cur;
-        } while (l->unk4.unk4 != sent);
+            if (l->unk4.unk4 == sent) break;
+            n = l->unk4.unk4;
+        }
     }
-    L12C* l2 = (L12C*)((char*)self + 4);
-    N12C* s2 = (N12C*)((char*)self + 8);
-    N12C* p = l2->unk4.unk4;
+    L12E* l2 = (L12E*)((char*)self + 4);
+    N12E* s2 = (N12E*)((char*)self + 8);
+    N12E* p = l2->unk4.unk4;
     l2->unk4.unk0 = s2;
     l2->unk4.unk4 = s2;
     if (p != s2) {
         do {
-            N12C* q = p;
+            N12E* q = p;
             p = p->unk4;
             Heap_Free_c(D_00368A38_c, q);
         } while (p != s2);
@@ -360,13 +362,82 @@ void func_0012CAA8_d(void* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CBD0);
+struct VT12D { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
+struct O12D { char pad0[0x64]; VT12D* unk64; };
+struct N12D { N12D* unk0; N12D* unk4; O12D* unk8; };
+struct I12D {
+    int unk0; N12D* cur; int unk8; int unkC;
+    I12D() {}
+    I12D(N12D* n) : cur(n) {}
+    bool operator!=(const I12D& o) const { return cur != o.cur; }
+    void operator++() { cur = cur->unk4; }
+};
+struct L12D { int unk0; N12D unk4; };
+
+extern "C" {
+void func_0012A778_d(void*) __asm__("func_0012A778");
+}
+
+extern "C" void func_0012CBD0(void* self) {
+    L12D* l = (L12D*)((char*)self + 4);
+    N12D* sent = (N12D*)((char*)self + 8);
+    I12D A, B, C, R, c, x, d, e;
+    I12D* px = &x;
+    L12D* l2 = (L12D*)((char*)sent - 4);
+    for (;;) {
+        B.cur = sent;
+        A.cur = l->unk4.unk4;
+        C.cur = A.cur;
+        unsigned cnt = 0;
+        for (; C != B; ++C) cnt++;
+        if (cnt < 2) break;
+        A.cur = *(N12D**)((char*)self + 8);
+        O12D* o = A.cur->unk8;
+        if (o) o->unk64->fn((char*)o + o->unk64->delta, 3);
+        x.cur = *(N12D**)((char*)self + 8);
+        N12D* n = px->cur;
+        c.cur = n;
+        e.cur = n;
+        N12D* nx = n->unk4;
+        d.cur = n;
+        c.cur = nx;
+        n->unk0->unk4 = n->unk4;
+        n->unk4->unk0 = n->unk0;
+        Heap_Free(D_00368A38, n);
+        R.cur = c.cur;
+    }
+    A.cur = l2->unk4.unk4;
+    func_0012A778_d(A.cur->unk8);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CCF0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CCF8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CDE8);
+struct N12C { N12C* prev; N12C* next; int val; };
+struct It12C { int unk0; N12C* cur; int pad8[2]; };
+struct L12C { char pad0[8]; N12C sent; };
+extern "C" int func_0012A648_i(void*, int, int, int) __asm__("func_0012A648");
+
+extern "C" int func_0012CDE8(L12C* self, int a1, int a2, int a3) {
+    N12C* sp = &self->sent;
+    int v = func_0012A648_i(Heap_Alloc(D_00368A38, 0x68, 1, 0), a1, a2, a3);
+    N12C* tail = self->sent.prev;
+    It12C r, end, e2;
+    end.cur = sp;
+    e2.cur = sp;
+    N12C* n = (N12C*)Heap_Alloc(D_00368A38, 0xC, 1, 0);
+    N12C t;
+    t.prev = tail;
+    t.next = sp;
+    t.val = v;
+    if (n) *n = t;
+    self->sent.prev = n;
+    n->prev->next = n;
+    end.cur = end.cur->prev;
+    r.cur = self->sent.prev;
+    return r.cur->val;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CEE0);
 
