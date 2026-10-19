@@ -32,6 +32,10 @@ Stop only at the limit your prompt gives (matches and functions attempted; count
 you have not tried. Running out of easy candidates is not a reason: raise `--max-size`, take twins, retry give-ups
 whose reason a toolchain fix has removed.
 
+Keep the count in your worklog, not in memory: at the start write a line `Round <date>: 0 matches / 0 attempted
+(limit <M>/<N>)` and update it every time you commit. Your context may be compacted mid-round; after that, re-read
+this line and carry on. A lost count or a long run of give-ups is not a reason to stop: only the limit is.
+
 Before stopping, `git status` must show none of your files modified.
 
 ## Never
