@@ -535,6 +535,9 @@ typedef unsigned int u128 __attribute__((mode(TI)));
 struct S2626_M4 {
     u128 a, b, c, d;
 };
+struct S2626_B64 {
+    char b[0x40];
+} __attribute__((aligned(16)));
 struct S2626_Cam {
     char pad0[0x90];
     S2626_M4 unk90;
@@ -660,4 +663,53 @@ extern "C" int CFunc_SetViewportCameraPos(int params) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2626E0", CFunc_SetViewportCameraOrient);
+extern "C" int CFunc_SetViewportCameraOrient(int params) {
+    struct { int id; int k; int i; } t;
+    S2626_VP *vp;
+    u128 x, y, z;
+    t.id = 0;
+    if (func_0027D1F8(params, 0x76F7AF65, &t.k, 0)) {
+        func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 1);
+        int kk = t.k;
+        vp = func_0015D568(t.id, kk);
+    } else if (func_0027D870(params, 0x9FD29151, (u32 *)&t.id, 0)) {
+        vp = (S2626_VP *)func_0015D2E8(t.id, 1);
+    } else {
+        t.i = 0;
+        func_0027D1F8(params, 0x9FD29151, &t.i, 0);
+        vp = func_0015DB00(t.i);
+    }
+    S2626_Cam *c = vp->unk34;
+    if (c) {
+        func_0027D2D8(params, 0x95A802C3, &x, 1);
+        func_0027D2D8(params, 0x85981897, &y, 1);
+        func_0027D2D8(params, 0xBC6B118F, &z, 1);
+        register u128 v3 asm("vf3") = x;
+        register u128 v2 asm("vf2") = y;
+        register u128 v1 asm("vf1") = z;
+        asm("vsub.w %0, $vf0, $vf0" : "+j"(v3));
+        asm("vsub.w %0, $vf0, $vf0" : "+j"(v2));
+        asm("vsub.w %0, $vf0, $vf0" : "+j"(v1));
+        y = v2;
+        z = v1;
+        x = v3;
+        c->unk90.c = v3;
+        int d = *(volatile int *)&D_0036D3B0[0];
+        register u128 ya asm("$2") = *(volatile u128 *)&y;
+        c->unk90.a = ya;
+        register u128 za asm("$3") = z;
+        c->unk90.b = za;
+        S2626_Node *n = func_001D4AC0(d, 0xC4E311FA);
+        while (n) {
+            if (n->unk1C == c) {
+                S2626_B64 *src = (S2626_B64 *)&c->unk90;
+                S2626_B64 *d1 = (S2626_B64 *)(n->unkC + 0xA0);
+                *d1 = *src;
+                S2626_B64 *d2 = (S2626_B64 *)(n->unkC + 0x100);
+                *d2 = *src;
+            }
+            n = n->unk14;
+        }
+    }
+    return 1;
+}
