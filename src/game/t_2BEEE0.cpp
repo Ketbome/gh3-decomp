@@ -73,7 +73,59 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_DebugTransform);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", func_002BF900);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_CreateGemMover);
+extern "C" {
+int func_0027D378(int, u32, f32 *, f32 *, int);
+int func_0027D268(int, u32, f32 *, int);
+int func_0027CC30(int, u32, int, f32 *);
+int func_002763E0(int, int);
+void func_0027F1E0(int, int, int);
+void func_002BF900(int, int, f32, f32, f32, f32, f32, f32, f32, int, f32, int, int, int, f32);
+}
+extern "C" int CFunc_CreateGemMover(int params) {
+    int a;
+    int b;
+    f32 f0, f1;
+    f32 f2, f3;
+    f32 f4;
+    f32 f5;
+    f32 f6;
+    int c;
+    int d;
+    int e;
+    f32 w;
+    int g;
+    f32 f7;
+    if (func_0027D870(params, 0xA1DC81F9, &a, 0)) {
+        int *pb = &b;
+        b = 0;
+        func_0027D378(params, 0x734D06F5, &f0, &f1, 1);
+        func_0027D378(params, 0x09A7DC2E, &f2, &f3, 1);
+        func_0027D268(params, 0x66ECC08A, &f4, 1);
+        func_0027D268(params, 0x62269D7E, &f5, 1);
+        func_0027D268(params, 0xA6F5352F, &f6, 1);
+        func_0027D870(params, 0x7321A8D6, &c, 1);
+        func_0027D1F8(params, 0x67E6859A, &d, 1);
+        func_0027D870(params, 0x99A9B716, pb, 0);
+        func_0027D870(params, 0x1BFF0C3D, &e, 1);
+        int h = func_002763E0(e, 1);
+        int ok = func_0027CC30(h, 0x6FF009E0, 2, &w);
+        f32 v = w;
+        if (!ok) {
+            func_0027F1E0(h, 0, 1);
+            v = 0.0f;
+        }
+        int flag = 0;
+        g = 0;
+        f7 = 0;
+        if (func_0027D870(params, 0x385D13E4, &g, 0)) {
+            flag = 1;
+            func_0027D268(params, 0xFE82614D, &f7, 1);
+        }
+        func_002BF900(a, flag, f0, f1, f2, f3, f4, f5, f6, g, f7, c, d - 1, b, v);
+        return 1;
+    }
+    return 0;
+}
 
 static inline void Gem_Pick(int &v, int arg0) {
     int b;
@@ -95,6 +147,7 @@ extern "C" int CFunc_DestroyGem(int arg0) {
     }
     return 0;
 }
+
 
 extern "C" int CFunc_MakeDeadWhammy(int arg0) {
     int a;
