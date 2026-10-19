@@ -147,7 +147,73 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C110);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C120);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C250);
+struct S26C2_I {
+    int unk0;
+    int unk4;
+};
+
+struct S26C2_E {
+    int unk0;
+    char pad4[0xC];
+    int unk10;
+    char pad14[8];
+    int unk1C;
+    char pad20[4];
+    int unk24;
+    int unk28;
+    int unk2C;
+    char pad30[0xC];
+    S26C2_I items[2];
+    char pad4C[0x34];
+};
+
+extern "C" {
+extern S26C2_E D_003A44B0_d[] asm("D_003A44B0");
+int func_0026AD48(int, int);
+int func_0026DC68(int);
+}
+
+extern "C" int func_0026C250(int a, int b, int c) {
+    if (func_0026ABB0() == 0) {
+        int idx = -1;
+        if (c != 0) {
+            for (int i = 0; i < D_00372E98; i++) {
+                if (D_003A44B0_d[i].unk1C == c && D_003A44B0_d[i].unk0 == a && func_0026DC68(D_003A44B0_d[i].unk10) != 1) {
+                    idx = i;
+                    break;
+                }
+            }
+        } else {
+            idx = func_0026AD48(a, 1);
+        }
+        if (idx >= 0) {
+            S26C2_E *e = &D_003A44B0_d[idx];
+            int n0 = e->unk2C;
+            if (n0 > 0) {
+                if (e->items[0].unk0 == b) {
+                    for (int j = 1; j < e->unk2C; j++) {
+                        e->items[j - 1] = e->items[j];
+                    }
+                    int n = e->unk2C;
+                    int t = e->unk28;
+                    e->unk2C = n - 1;
+                    if (t >= 0) {
+                        e->unk28 = t - 1;
+                        if (t - 1 < 0) {
+                            e->unk28 = n - 2;
+                            if (e->unk24 >= 0) {
+                                e->unk24 = e->unk24 + 1;
+                            }
+                        }
+                    }
+                    return 1;
+                }
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C3D8);
 
