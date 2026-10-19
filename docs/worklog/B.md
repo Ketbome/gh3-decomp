@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 1 matches / 3 attempted (limit 12/30); counted: integrator-assigned func_0021F020 (matched), func_001CDA60 (given up), func_001CCE08 (near miss)
+Round 2026-10-19: 1 matches / 4 attempted (limit 12/30); counted: integrator-assigned func_0021F020 (matched), func_001CDA60 (given up), func_001CCE08 (near miss), func_001E6030 (given up)
 
 ## t_1ABAA0
 
@@ -1032,3 +1032,9 @@ the last call passes a garbage `$a1` (register `f` pinned with `asm("$5")`, whic
 init block (0x38,0x3C,0x44,0x40,0x34) is not reproduced by any permutation.
 
 Near miss: func_001CCE08 (nonmatching/func_001CCE08.cpp): only the branch-likely vs plain `beq` + delay slot at 0x1CCF80 and the order of `move a3,v0` in the 9-arg call differ.
+
+## t_1E4E10
+
+Given up: func_001E6030 (list<int> find + insert, inlined). Everything but the iterator temporaries matches in structure: the original keeps `end`
+in memory and writes it through a pointer register (`addiu s3,sp,16; sw head,4(s3)`, then `lw 20(sp)` for the compare), ours forwards the store and
+keeps head in a register; static inline helpers taking `I*`/`const I&` did not reproduce it (the helper `Not1E60(int& c, const int& f)` does keep the branch).
