@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 2 matches / 10 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910
+Round 2026-10-19: 2 matches / 11 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910
 
 ## t_1ABAA0
 
@@ -1060,3 +1060,7 @@ Given up: func_00208910 (150-store constructor of ten embedded list/vector senti
 Near miss: func_002024B0 (nonmatching/func_002024B0.cpp): shape right (switch(i) over 0,1,2 gives the original compare tree, arrays are f32[4] fields at 0x160..0x1B0, three hoisted base pointers); the original computes the three bases into temps and copies them to $s6..$s8 (`move s7,v0`), ours allocates them straight into $s regs, and differs in the (p+0x180)+k address association. `(t & ~0x40) & ~7` stays two ands only through a `Clr(s32&, mask)` inline helper.
 
 Near miss: func_001CC400 (nonmatching/func_001CC400.cpp): complete and structurally identical (local object with ctor/dtor storing D_0034AC90 at +8, Rec/ents/buf/name stack layout fixed by declaration order rec, ents, buf, name); only the pair `o` ($s3 in the original) / `q = a->unk0` ($s2) is swapped in register allocation.
+
+## t_22FD98 (round 5)
+
+Near miss: func_002305C0 (nonmatching/func_002305C0.cpp): six list-search blocks `n = D->field; if (n && n->unk4 != K) { do n = n->unk10; while (n && n->unk4 != K); } if (n) f(n, K)`. The big offset (0x8F10) stays `ori; addu; lw 0` only if the pointer goes through an inline helper `Get(N**)`. Remaining difference: the original passes the key to the call in the same register as the first compare ($a1, no re-load), ours rebuilds the constant before the jal, and the shared `lw $v1,gp(D)` delay slot differs.
