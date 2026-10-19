@@ -97,7 +97,48 @@ extern "C" void func_001BD9C8(S001BD998* p, s32 flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDA28);
+struct F1BDA {
+    char pad0[8];
+    u32 unk8;
+    char padC[4];
+    void* unk10;
+    char pad14[0x18];
+    void* unk2C;
+};
+
+extern "C" {
+char* strcpy(char*, const char*);
+void* func_0011D530(char*, char*, s32, s32);
+void func_0030A554(char*, char*);
+extern char D_00349CB0[];
+}
+
+GP_DATA(D_0036CBC0);
+extern "C" F1BDA* func_001BDA28(const char* name, s32 a, s32 b, s32 c) {
+    char buf[0x80];
+    char buf2[0x10];
+    if (a != 0) {
+        strcpy(buf, name);
+    } else {
+        strcpy(buf, name);
+    }
+    func_0030A554(buf, D_00349CB0);
+    F1BDA* f = (F1BDA*)func_0011D530(buf, buf2, 0, 0);
+    f->unk10 = f;
+    if (c != 0) f->unk8 |= 1;
+    if (a != 0) {
+        u32 t = f->unk8;
+        f->unk8 = t | 8;
+        if (b != 0 && c == 0) f->unk8 = t | 0xA;
+    }
+    func_001BE3A0(f, 0);
+    if (a != 0 && c == 0) {
+        f->unk2C = D_0036CBC0;
+        D_0036CBC0 = f;
+    }
+    if (c != 0) func_001BF0B8(f);
+    return f;
+}
 
 struct S1BDB {
     char pad0[8];
