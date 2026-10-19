@@ -21,7 +21,50 @@ INCLUDE_ASM("asm/nonmatchings/game/t_163750", func_00163868);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_163750", func_00163938);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_163750", func_00163A08);
+union V163 { u128_163 q; float f[4]; };
+
+struct S_00163A08 {
+    char pad0[0x30];
+    u128_163 unk30;
+    char pad40[0x40];
+    V163 unk80;
+    char pad90[0x38];
+    float unkC8;
+    float unkCC;
+    float unkD0;
+    float unkD4;
+    char padD8[0x1C];
+    float unkF4;
+    float unkF8;
+    float unkFC;
+    char pad100[0x28];
+    float unk128;
+};
+
+static inline float* Mf163(float* a, float* b) {
+    return *a < *b ? b : a;
+}
+
+static inline float* Ms163(float* a, float* b) {
+    if (*b < *a)
+        return a;
+    return b;
+}
+
+extern "C" void func_00163A08(S_00163A08* self) {
+    float s0, s1, s2;
+    s0 = __builtin_fabsf(self->unkF8);
+    s1 = __builtin_fabsf(self->unkFC);
+    s2 = __builtin_fabsf(self->unkF4);
+    float* p = Ms163(&s0, &s1);
+    p = Mf163(p, &s2);
+    float h = self->unk128;
+    float t = self->unkC8 + h * *p;
+    self->unk80.q = self->unk30;
+    float* q = Ms163(&self->unkD0, &self->unkD4);
+    q = Mf163(q, &self->unkCC);
+    self->unk80.f[3] = t * h * 60.0f + *q;
+}
 
 extern "C" void func_00163AD8(S_00163AD8* self, u128_163* v) {
     if (self->unk2D8 & 0x10000) {
