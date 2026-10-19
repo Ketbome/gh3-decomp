@@ -1049,3 +1049,4 @@ func_0029DA40 / func_0029A0E8 (stack iterator with vptr + virtual calls, not tri
   `GetI(i)` member (`size == 1 ? data : ((int*)data)[i]`, early return form) gives the `lw a2,idx` delay-slot shape; the
   int/name/pair cases need `int st = script->unk20; register u32 key asm("$5") = 0xBEBFA1C6;` (pin: without it gcc rematerialises the constant
   after the branches, the original loads lui/ori before the size test), float/string cases `int st = script->unk20;` before the inner call.
+- CFunc_GetElement (t_256260): near miss, nonmatching/CFunc_GetElement.cpp: structure (return 1 if no array, 0 if idx out of range, switch 10/12/1 in that source order, `int n = r->size`, `int st = script->unk20` first in the 12/1 cases) matches except two scheduling swaps: case 10 tail `lui a1` before `lw a0` (original beqz+nop, ours beqzl) and case 1 `move a0,s0` before `move a2,v0`; pins on $4/$5 do not change it.
