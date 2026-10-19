@@ -145,7 +145,98 @@ extern "C" void func_001D67C8(S1D67C8* p, S1D67C8_Q* q) {
     func_001194B8(h, d);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D6840);
+struct P1D68 {
+    char pad0[8];
+    s16 pad8;
+    char pad0A[0x6A];
+    s32 unk74;
+};
+
+struct VE1D68 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*, void*, void*);
+};
+
+struct VF1D68 {
+    s16 delta;
+    s16 pad;
+    void (*fn)(void*);
+};
+
+struct G1D68 {
+    char pad0[0x18];
+    s32 unk18;
+    s32 unk1C[1];
+};
+
+struct Q1D68 {
+    char pad0[8];
+    char* unk8;
+    char pad0C[0x48];
+    s32 unk54;
+};
+
+struct S1D68 {
+    char pad0[0x2C];
+    char* unk2C;
+};
+
+extern "C" {
+s32 func_001D6598_b(void* p, s32 b, s32 c, s32 d) __asm__("func_001D6598");
+void* func_001D6738_r(void* p, s32 a) __asm__("func_001D6738");
+void func_001D6BA0_a(void* p, s32 a) __asm__("func_001D6BA0");
+void func_001D6BA8_a(void* p, s32 a) __asm__("func_001D6BA8");
+void func_001CEDE0(void* p, s32 k);
+void func_001D1998(void* p, s32 a);
+void func_001D17B0(void* p, s32 a, s32 b);
+void func_001D54D8(void* p);
+void func_001D67C8_r(void* p, void* q) __asm__("func_001D67C8");
+extern G1D68* D_0036F658[] __attribute__((section(".sdata")));
+extern S1D68* D_0036D3B0[] __attribute__((section(".sdata")));
+}
+
+extern "C" void* func_001D6840(P1D68* p, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5) {
+    if ((func_001D6598_b(p, a3, 0, 0) ^ 1) != 0) {
+        if (a5 == 0) {
+            if (a3 != 0) {
+                return 0;
+            }
+            s32 t = p->unk74;
+            s32 b = 0;
+            if (t == 0x3B5737A6 || t == 0x69B05E2C) {
+                b = 1;
+            }
+            if (b == 0) {
+                goto out;
+            }
+        }
+        func_001D6BA0_a(p, 0);
+        func_001D6BA8_a(p, 0);
+    out:
+        return 0;
+    }
+    Q1D68* o = (Q1D68*)func_001D6738_r(p, a3);
+    func_001CEDE0(o, 0xCDEB9229);
+    func_001D1998(o, a2);
+    G1D68* g = D_0036F658[0];
+    register S1D68* sg asm("$6") = D_0036D3B0[0];
+    s32 t54 = o->unk54;
+    s32 n = g->unk18 + 1;
+    g->unk18 = n;
+    *(s32*)(n * 4 + (s32)g + 0x1C) = t54;
+    VE1D68* e = (VE1D68*)(sg->unk2C + 0x10);
+    e->fn((char*)sg + e->delta, o, sg);
+    func_001D17B0(o, a1, a2);
+    if (a4 != 0) {
+        VF1D68* f = (VF1D68*)(o->unk8 + 0x50);
+        f->fn((char*)o + f->delta);
+        func_001D54D8(o);
+        func_001D67C8_r(p, o);
+    }
+    g->unk18 = g->unk18 - 1;
+    return o;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D6598", func_001D69D0);
 
