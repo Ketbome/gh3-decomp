@@ -231,16 +231,24 @@ extern "C" void func_002AE9F8(S2AE9F8 *p) {
 INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEA30);
 
 struct S2AEB48_V {
-    char pad0[0x18];
-    s16 delta;
-    s16 index;
-    void (*fn)(void *, int, void *);
+    virtual void v1();
+    virtual void v2();
+    virtual void v3(void *q);
 };
-struct S2AEB48 {
-    S2AEB48_V *unk0;
-    int unk4;
+
+struct S2AEB48 : S2AEB48_V {
+    void *unk4;
 };
-INCLUDE_ASM("asm/nonmatchings/game/t_2AD528", func_002AEB48);
+
+extern "C" void func_00289F90_1(void *) asm("func_00289F90");
+
+extern "C" void func_002AEB48(S2AEB48 *p, void *q) {
+    if (p->unk4 == 0) {
+        func_00289F90_1(q);
+    } else {
+        p->v3(q);
+    }
+}
 
 struct S2AEB98_P {
     int unk0;
