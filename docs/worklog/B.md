@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 1 matches / 2 attempted (limit 12/30); 1 = integrator-assigned func_0021F020 (matched), 2 = func_001CDA60 (in progress, uncommitted)
+Round 2026-10-19: 1 matches / 2 attempted (limit 12/30); 1 = integrator-assigned func_0021F020 (matched), 2 = func_001CDA60 (given up)
 
 ## t_1ABAA0
 
@@ -1022,3 +1022,11 @@ Toolchain notes: movn if-conversion in func_0021F020 (original keeps branches); 
 ## t_21DA40
 
 Matched func_0021F020 (integrator-assigned; helper Pick21F keeps the branch).
+
+## t_1CBB50
+
+Given up: func_001CDA60 (gamepad poll, 0x648). Structure and the switch tree reproduced (the tree needs gotos: `==6; <7; ==4; >4; ==0x100; >=0x101; >=9`;
+the 0x24-byte copies need `// cflags: -funroll-loops` and a hoisted `u8*` base). Blocked by the toolchain: the original loads D_0036D020 as
+`lui/lw` (macro form, its object never saw the extern) but GP_DATA(D_0036D020) earlier in this merged file makes every later use `%gp_rel`;
+the last call passes a garbage `$a1` (register `f` pinned with `asm("$5")`, which then shifts other registers); store order of the 5-store
+init block (0x38,0x3C,0x44,0x40,0x34) is not reproduced by any permutation.
