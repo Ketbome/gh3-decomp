@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct VEntry {
@@ -339,7 +340,31 @@ extern "C" int func_00162BA8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162BB0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_00162E08);
+static inline u128_161 MakeVec161(f32 x, f32 y, f32 z, f32 w) {
+    u128_161 lo, hi;
+    asm("pextlw %0, %1, %2" : "=r"(lo) : "r"(y), "r"(x));
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(w), "r"(z));
+    u128_161 r;
+    asm("pcpyld %0, %1, %2" : "=r"(r) : "r"(hi), "r"(lo));
+    return r;
+}
+
+struct S210_161 { char pad0[0x210]; u128_161 unk210[9]; int unk2A0; };
+
+extern "C" void func_00162E08(S210_161* self, void* src, int n) {
+    if (n >= 10) {
+        n = 9;
+    }
+    if (!src) {
+        for (int i = 0; i < n; i++) {
+            u128_161 v = MakeVec161(0.0f, 0.0f, 0.0f, 1.0f);
+            self->unk210[i] = v;
+        }
+    } else {
+        func_0030A2F4(self->unk210, src, n * 16);
+    }
+    self->unk2A0 = n;
+}
 
 extern "C" void func_00162EE8(S2A4_161* self, void* src, int n) {
     if (n >= 10) {
