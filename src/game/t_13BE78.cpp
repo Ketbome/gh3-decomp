@@ -135,7 +135,61 @@ extern "C" void func_0013C678(S13B_X* self, int v) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C6E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013C948);
+struct N13C { char pad0[2]; u8 unk2; char pad3; int unk4; int* unk8; };
+
+extern "C" {
+int func_0027D470_n(int, int, N13C**, int) __asm__("func_0027D470");
+float func_0027EFA0_n(N13C*, int) __asm__("func_0027EFA0");
+}
+
+extern "C" int func_0013C948(int self, int params, int key, float* a, float* b) {
+    N13C* arr;
+    if (func_0027D470_n(params, key, &arr, 0) != 0) {
+        switch (arr->unk2) {
+        case 2:
+            *a = func_0027EFA0_n(arr, 0);
+            *b = func_0027EFA0_n(arr, 1);
+            break;
+        case 13: {
+            float t[2];
+            int i = 0;
+            do {
+                int v;
+                if (arr->unk4 == 1) {
+                    v = (int)arr->unk8;
+                } else {
+                    v = arr->unk8[i];
+                }
+                int f1 = 0;
+                if (v == (int)0x85981897 || v == (int)0xE126E035) {
+                    f1 = 1;
+                }
+                if (f1 != 0) {
+                    t[i] = -1.0f;
+                } else {
+                    int f2 = 0;
+                    if (v == 0x4B358AEB || v == 0x76A08D5B) {
+                        f2 = 1;
+                    }
+                    if (f2 != 0) {
+                        t[i] = 1.0f;
+                    } else {
+                        *(int*)&t[i] = 0;
+                    }
+                }
+                i++;
+            } while (i < 2);
+            *a = t[0];
+            *b = t[1];
+            break;
+        }
+        default:
+            return 1;
+        }
+        return 1;
+    }
+    return 0;
+}
 
 extern "C" int func_0013CAA0(S13B_X* self, void* params, int key, float* a, float* b) {
     void* arr;
