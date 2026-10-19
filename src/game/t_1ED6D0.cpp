@@ -221,7 +221,80 @@ extern "C" void func_001EDB00(S1EE6F8* p, int a) {
     func_001D0F90(p, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EDB50);
+struct S1EDB5_O {
+    char pad0[0xC];
+    char* unkC;
+    char pad10[0x200];
+    void* unk210;
+};
+
+struct S1EDB5_T {
+    char pad0[0x30];
+    s32 unk30;
+};
+
+extern "C" {
+s32 func_00160858(void*);
+void func_00157258(s32, s32);
+s32 func_00157248(s32, s32);
+void func_001571F0(s32, s32);
+void func_001571F8(s32, s32);
+void func_00157220(s32, u32, s32);
+s32 func_00276008(u32, s32);
+s32 func_0027D870(s32, u32, void*, s32);
+s32 func_0027D1F8(s32, u32, void*, s32);
+s32 func_0027D2D8(s32, u32, void*, s32);
+s32 func_0027DF00(s32, u32);
+void func_0015FD88(void*, s32);
+void func_00162358(void*, s32);
+void func_001EDD30(void*, s32);
+extern u32 D_00369BE4;
+}
+
+extern "C" void func_001EDB50(S1EDB5_O* p, s32 a) {
+    s32 sp0;
+    s32 sp4;
+    s32 sp8;
+    if (((S1EDB5_T*)p->unk210)->unk30 == 0) {
+        func_00160858(p->unk210);
+        s32 h = ((S1EDB5_T*)p->unk210)->unk30;
+        sp0 = 0;
+        if ((func_0027D870(a, 0x7E4813A7, &sp0, 0) ^ 1) != 0) {
+            s32 t = func_00276008(0x42A6DC41, 0);
+            sp0 = t;
+            if (t == 0) {
+                sp0 = 0xE3714DC1;
+            }
+        }
+        func_00157258(h, sp0);
+        func_00157248(h, (s32)(p->unkC + 0x80));
+        sp4 = 3;
+        func_0027D1F8(a, 0xD223B8BD, &sp4, 0);
+        func_001571F0(h, sp4);
+        if (func_0027DF00(a, 0xFAC5F83D) != 0) {
+            if (func_001D1CF8(p->unkC, 0x222756D5) == 0) {
+                func_001571F8(h, 1);
+                u32 i = 0;
+                if (D_00369BE4 != 0) {
+                    do {
+                        u32 j = i;
+                        i++;
+                        func_00157220(h, j, 1);
+                    } while (i < D_00369BE4);
+                }
+            }
+        }
+    }
+    char* q = (char*)func_001D1CF8(p->unkC, 0x222756D5);
+    if (q != 0) {
+        func_0015FD88(p->unk210, *(s32*)(q + 0x1C));
+    }
+    sp8 = 0;
+    func_0027D1F8(a, 0x2A1F92C0, &sp8, 0);
+    func_00162358(p->unk210, sp8 != 0);
+    func_0027D2D8(a, 0xA6F5352F, (char*)p + 0x200, 0);
+    func_001EDD30(p, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ED6D0", func_001EDD30);
 
