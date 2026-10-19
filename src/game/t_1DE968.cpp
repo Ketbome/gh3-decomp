@@ -87,7 +87,60 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DE9C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DEC40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DE968", func_001DF390);
+extern "C" void* func_001E24B0(char*, s32);
+
+extern "C" void* func_001DF390(char* p, s32 id) {
+    char* m;
+    m = p + 0x4;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x28;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x4C;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x70;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x190;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x16C;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x1B4;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x1D8;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x94;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0xB8;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0xDC;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x100;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x124;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x148;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x1FC;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x220;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x244;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x268;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x28C;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x2B0;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x2D4;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x2F8;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x31C;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    m = p + 0x340;
+    if (*(s32*)(m + 0x1C) == id) return m;
+    return func_001E24B0(p + 0x3A0, id);
+}
 
 extern "C" float func_002EC118(float);
 

@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19: 2 matches / 13 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
+Round 2026-10-19: 3 matches / 14 attempted (limit 12/30); matched: func_0021F020 (assigned), func_00221E88, func_001DF390; near miss func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
 
@@ -1072,3 +1072,7 @@ Given up: func_001C8F08 (two copies of an iterate-and-sprintf block over a local
 ## t_1F9A48 (round 5)
 
 Near miss: func_001FB480 (nonmatching/func_001FB480.cpp): cvt.w.s works; `register f32 zero asm("$f20")`; the p->e[i] check is `*(p + i*0x38 + 0x40)` with the entry pointer computed afterwards; `if (o) {...} q->unk4 = 0;` as a common tail. Remaining: the original loads the two float call arguments before `lw t0` and keeps `unk24` in $f1 (ours $f0, or reloads it when written inline).
+
+## t_1DE968 (round 5)
+
+Matched func_001DF390 (find member by id: 24 `m = p + K; if (*(s32*)(m + 0x1C) == id) return m;` then a tail call-like `return f(p + 0x3A0, id)`).
