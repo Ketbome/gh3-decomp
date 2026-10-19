@@ -241,8 +241,8 @@ extern "C" void func_0017A358(S17A* self, P17A* out, float t) {
     It17A it(self->unk8);
     O17A* o = it.cur->unk8;
     o->vt->fn((char*)o + o->vt->delta);
-    B17A* b = &self->unk18;
-    if (b->unk4 != 0) {
+    if (self->unk18.unk4 != 0) {
+        B17A* b = &self->unk18;
         P17A pose;
         int i;
         for (i = 0x81; i != -1; i -= 10) {
@@ -252,18 +252,21 @@ extern "C" void func_0017A358(S17A* self, P17A* out, float t) {
         memset(pose.w, 0, 0x208);
         P17A* ps = &pose;
         func_0017D6D0(b, ps, t);
-        register TI17A v5 asm("vf5");
-        register TI17A v4 asm("vf4");
-        asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v5));
-        asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v4));
-        u32 n = D_0036AA90 - 1;
-        if (n != 0xFFFFFFFF) {
-            float* pw = ps->w + n;
-            float* ow = out->w + n;
-            TI17A* pq = ps->q + n;
-            TI17A* oq = out->q + n;
-            TI17A* pp = ps->p + n;
-            TI17A* op = out->p + n;
+        u32 n = D_0036AA90;
+        if (n-- != 0) {
+            register TI17A v5 asm("vf5");
+            register TI17A v4 asm("vf4");
+            int q16 = n * 16;
+            int w4 = n * 4 + 0x1040;
+            int p16 = q16 + 0x820;
+            TI17A* pp = (TI17A*)(p16 + (int)ps);
+            TI17A* op = (TI17A*)(p16 + (int)out);
+            asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v5));
+            asm("vaddw.x %0,$vf0,$vf0w" : "=j"(v4));
+            float* ow = (float*)(w4 + (int)out);
+            TI17A* pq = (TI17A*)(q16 + (int)ps);
+            TI17A* oq = (TI17A*)(q16 + (int)out);
+            float* pw = (float*)(w4 + (int)ps);
             do {
                 float w = *pw;
                 if (w != 0.0f) {
@@ -276,8 +279,8 @@ extern "C" void func_0017A358(S17A* self, P17A* out, float t) {
                         asm volatile("vmul.xyzw %0,%1,%2" : "=j"(v1) : "j"(v3), "j"(v2));
                         asm("mfc1 %0,%1" : "=r"(bits) : "f"(w));
                         asm volatile("vadday.x $ACC,%0,%0y" : : "j"(v1));
-                        asm volatile("ctc2.ni %0,$vi21" : : "r"(bits));
-                        asm volatile("vmaddaz.x $ACC,%1,%0z\n\tvmaddw.x %0,%1,%0w" : "+j"(v1) : "j"(v5));
+                        asm volatile(".set push\n\t.set noreorder\n\tctc2.ni %0,$vi21" : : "r"(bits));
+                        asm volatile("vmaddaz.x $ACC,%1,%0z\n\t.set pop\n\tvmaddw.x %0,%1,%0w" : "+j"(v1) : "j"(v5));
                         asm volatile("qmfc2.ni %0,%1" : "=r"(bits) : "j"(v1));
                         asm("mtc1 %1,%0" : "=f"(d) : "r"(bits));
                         if (d < 0.0f)
@@ -299,7 +302,7 @@ extern "C" void func_0017A358(S17A* self, P17A* out, float t) {
                         v2 = *pp;
                         asm("mfc1 %0,%1" : "=r"(bits) : "f"(w), "j"(v2));
                         v3 = *op;
-                        asm("qmtc2.ni %1,%0" : "=j"(v1) : "r"(bits));
+                        asm("qmtc2.ni %1,%0" : "=j"(v1) : "r"(bits), "j"(v3));
                         asm volatile("vsub.xyzw %0,%0,%1" : "+j"(v2) : "j"(v3));
                         asm volatile("vmulx.xyzw %0,%0,%1x" : "+j"(v2) : "j"(v1));
                         asm volatile("vadd.xyzw %0,%0,%1" : "+j"(v3) : "j"(v2));
