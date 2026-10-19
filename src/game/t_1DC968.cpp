@@ -340,7 +340,30 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DD9A8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DDA68);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DDE28);
+struct S1DDE {
+    char pad0[0x10];
+    U128_1DC968 unk10;
+    char pad20[0x60];
+    U128_1DC968 unk80;
+    U128_1DC968 unk90;
+    char padA0[0x1C];
+    f32 unkBC;
+    f32 unkC0;
+};
+
+extern "C" void func_001DDE28(void* q) {
+    S1DDE* p = (S1DDE*)q;
+    f32 d = p->unkC0 / p->unkBC;
+    register U128_1DC968 v3 asm("vf3") = p->unk80;
+    register U128_1DC968 v1 asm("vf1") = p->unk90;
+    register U128_1DC968 v2 asm("vf2");
+    asm("vsub.xyzw %0, %0, %1" : "+j"(v1) : "j"(v3));
+    p->unk10 = v3;
+    asm("qmtc2.ni %1, %0" : "=j"(v2) : "r"(d));
+    asm("vmulx.xyzw %0, %0, %1x" : "+j"(v1) : "j"(v2));
+    asm("vadd.xyzw %0, %0, %1" : "+j"(v3) : "j"(v1));
+    p->unk10 = v3;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DC968", func_001DDE68);
 
@@ -444,7 +467,7 @@ extern "C" {
 int func_001DDA68(S1DE2C* p);
 void func_00201CF0(void* a, void* b);
 void func_001DD9A8(S1DE2C* p);
-void func_001DDE28(S1DE2C* p);
+void func_001DDE28(void* p);
 }
 
 extern "C" void func_001DE2C0(S1DE2C* p) {
