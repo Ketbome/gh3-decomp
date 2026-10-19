@@ -294,7 +294,53 @@ extern "C" int CFunc_LoadAnim(int arg0) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_ReloadAnim);
+extern "C" {
+extern char D_00370628[];
+extern int D_00368744;
+extern int D_00368A38;
+int func_00119610(int, int);
+void func_00119490(int, int);
+void func_001194B8(int);
+void func_0028C9D0(int, int, int, int, int, int);
+}
+
+static inline void S25E_Pick(int &h, int crc, const int &name) {
+    h = crc;
+    if (name) {
+        h = name;
+    }
+}
+
+extern "C" int CFunc_ReloadAnim(int arg0) {
+    S25E_Buf b;
+    S25E_Buf c;
+    int name = 0;
+    int path;
+    func_0027D870(arg0, 0x98549BA4, &name, 0);
+    path = (int)D_00370628;
+    func_0027D188(arg0, 0xC3F4169A, &path, 0);
+    int h;
+    S25E_Obj *obj = D_0036F658;
+    S25E_Pick(h, CrcFromPathLowercase(path), name);
+    func_0022B0D0(&b, (int)obj, h, 0);
+    if (b.unk0 == 0) {
+        func_00134340(&b);
+        return 0;
+    }
+    func_0028C9D0(0x08F3020E, 0, 0, 0, 0, 0);
+    func_0022ADD0(obj, &b);
+    if (D_00368744 != 0) {
+        int m = D_00368A38;
+        func_00119490(m, func_00119610(m, 0x3B));
+    }
+    func_0022ABE8(&c, obj, path, 6, h, 0, 0, 0);
+    func_00134340(&c);
+    if (D_00368744 != 0) {
+        func_001194B8(D_00368A38);
+    }
+    func_00134340(&b);
+    return 1;
+}
 
 extern "C" int CFunc_LoadSkeleton(void) {
     return 0;
