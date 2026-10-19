@@ -732,7 +732,42 @@ extern "C" void func_0011A680(S_0011A680* self, S_0011A680_b* o) {
     self->unk18[(o->unk38 >> 1) & 1] = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_118E40", func_0011A6A0);
+struct T11A6A0 { char pad0[0x38]; int unk38; u32 unk3C; };
+struct S11A6A0 { char pad0[4]; u32 unk4; char pad8[4]; int unkC; char pad10[4]; u32 unk14; T11A6A0* unk18[2]; };
+extern "C" int func_0011A8A8_a(S11A6A0*) __asm__("func_0011A8A8");
+extern "C" void func_001C41F8_2(void*, int) __asm__("func_001C41F8");
+
+extern "C" u32 func_0011A6A0(S11A6A0* self, T11A6A0* o, int idx, int a3) {
+    int sz = o->unk38;
+    int step = idx * sz;
+    int flag = (sz & 2) >> 1;
+    T11A6A0* nb = self->unk18[flag ^ 1];
+    u32 end = o->unk3C + step;
+    int bad;
+    if (nb) {
+        u32 v = nb->unk3C;
+        if (flag == 0) {
+            bad = v < end;
+        } else {
+            if (end < v) {
+                if (a3) func_001C41F8_2(o, 0);
+                return 0;
+            }
+            goto ok;
+        }
+    } else {
+        if (flag == 0) bad = self->unk14 < end;
+        else bad = end < self->unk4;
+    }
+    if (bad) return 0;
+ok:
+    u32 old = end;
+    if (!flag) old = o->unk3C;
+    o->unk3C = end;
+    int r = func_0011A8A8_a(self);
+    if (r < self->unkC) self->unkC = r;
+    return old;
+}
 
 struct S11A788 { char pad0[0x20]; void* unk20; };
 extern "C" void func_0011A620_1(void*) __asm__("func_0011A620");
