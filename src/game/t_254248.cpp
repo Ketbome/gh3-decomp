@@ -9,6 +9,9 @@ struct S254248_A {
 };
 
 extern "C" {
+f32 func_0026C9E0(void);
+f32 func_0026CA70(void);
+f32 func_00268328(int);
 void func_002682B8_f(int, f32, int, int) asm("func_002682B8");
 void func_00268330_f(int, f32, int, int) asm("func_00268330");
 int func_0027D470(int, int, int **, int);
@@ -708,7 +711,36 @@ extern "C" s32 CFunc_GetCurrentTrack(int arg0, SGCT *arg1) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetValueFromVolume);
+struct SVolArg {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" int CFunc_GetValueFromVolume(int arg0, SVolArg *arg1) {
+    u32 k;
+    int h;
+    f32 f;
+    func_0027C160(arg1->unk20, 0xE288A7CB, 0);
+    func_0027D870(arg0, 0, &k, 1);
+    switch (k) {
+    case 0x8D6F6554:
+        h = arg1->unk20;
+        f = func_00268328(D_00370AE0[0]);
+        goto set;
+    case 0xA5162BD2:
+        h = arg1->unk20;
+        f = func_0026C9E0();
+    set:
+        func_0027C160(h, 0xE288A7CB, (int)f / 10);
+        break;
+    case 0xE32F3525:
+        h = arg1->unk20;
+        f = func_0026CA70();
+        func_0027C160(h, 0xE288A7CB, (int)f / 10);
+        break;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PreLoadStream);
 
