@@ -195,11 +195,24 @@ extern "C" void func_001B1380(s32 a, s32 b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B13E0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B13E8);
+extern "C" void func_001B13E8(char* p) {
+    char* q = *(char**)(p + 0x28);
+    if (q) {
+        asm volatile("lqc2 $vf15, 0x10(%0)\n\tlqc2 $vf14, 0(%0)\n\tvcallms 0xAF0" : : "r"(q));
+    }
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1408);
+extern "C" s32 func_001B1408(void) {
+    s32 r;
+    asm volatile("vnop\n\tcfc2.ni %0, $vi12" : "=r"(r));
+    return r != 0;
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B1418);
+extern "C" s32 func_001B1418(void) {
+    s32 r;
+    asm volatile("cfc2.ni %0, $vi11" : "=r"(r));
+    return r != 0;
+}
 
 extern "C" void func_001B1428(char* p, s32 flags) {
     *(void**)(p + 0xC) = D_00348E30;
