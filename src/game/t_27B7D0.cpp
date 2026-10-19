@@ -59,7 +59,68 @@ INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027B848);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027BA18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027BBF8);
+struct S27B_HN {
+    int key;
+    S27B_Comp *val;
+    S27B_HN *next;
+};
+
+struct S27B_HT {
+    int bits;
+    S27B_HN *items;
+    int count;
+};
+
+extern "C" {
+void *Heap_Alloc(int, int, int, int);
+S27B_HT *func_0027E4B0(void *, int, int);
+S27B_Comp *func_0027B300(void *, S27B_Comp *);
+void *func_0011C3A8_h(int) asm("func_0011C3A8");
+S27B_HN *func_0027E488(void *);
+}
+
+extern "C" void func_0027BBF8(S27B_Struct *p) {
+    int heap = D_00368A38[0];
+    func_00119490(heap, func_00119610(heap, 5));
+    S27B_HT *t = func_0027E4B0(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0), 8, 0);
+    func_001194B8(D_00368A38[0]);
+    S27B_Comp *c = func_0027B300(p, 0);
+    while (c) {
+        int bt = t->bits;
+        int k = c->key;
+        register int key asm("$18") = k;
+        asm("" : "+r"(key));
+        register int ix asm("$2") = key & ((1 << bt) - 1);
+        register S27B_HN *it asm("$4") = t->items;
+        S27B_HN *b = &it[ix];
+        register S27B_Comp *bv asm("$3") = b->val;
+        if (bv != 0 || b->key != 0) {
+            S27B_HN *n = (S27B_HN *)func_0011C3A8_h(0);
+            if (n) {
+                n = func_0027E488(n);
+            }
+            n->key = key;
+            n->val = c;
+            n->next = b->next;
+            b->next = n;
+        } else {
+            b->key = k;
+            b->val = c;
+        }
+        t->count++;
+        c = func_0027B300(p, c);
+    }
+    S27B_Comp *r = (S27B_Comp *)func_001D0900(0x10, 1);
+    r->val = (u32)t;
+    r->next = 0;
+    r->b8 = 0;
+    r->type = 0;
+    r->unk2 = 0;
+    r->key = 0;
+    r->type = 0x1B;
+    r->next = p->unk4;
+    p->unk4 = r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_27B7D0", func_0027BDB0);
 
