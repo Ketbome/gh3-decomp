@@ -92,7 +92,70 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_UpdateAtoms);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_ClearGlobalTags);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_SetGlobalTags);
+struct S2BD_N {
+    int key;
+    int val;
+    S2BD_N *next;
+};
+
+struct S2BD_T {
+    int bits;
+    S2BD_N *tab;
+    int count;
+};
+
+extern "C" {
+void *func_0011C3A8_g(int) __asm__("func_0011C3A8");
+S2BD_N *func_002D5C88(void *);
+int func_0027D400(int, int, int *, int);
+void func_0027BFD0(int, int);
+void func_0027ABB0(int, int);
+int func_0027AA70(void *);
+void *func_001287F0(int, int);
+}
+
+extern "C" int CFunc_SetGlobalTags(int params) {
+    int name;
+    int sp4;
+    func_0027D870(params, 0, &name, 1);
+    sp4 = 0;
+    func_0027D400(params, 0x7031F10C, &sp4, 1);
+    int k = name;
+    int f = SHT_Find(&D_003AD040, k);
+    int v = f;
+    if (v) {
+        if (sp4) {
+            func_0027ABB0(v, sp4);
+        }
+    } else {
+        v = func_0027AA70(func_001287F0(8, 1));
+        if (sp4) {
+            func_0027ABB0(v, sp4);
+        }
+        int h = name;
+        S2BD_T *t = (S2BD_T *)&D_003AD040;
+        S2BD_N *b = &t->tab[h & ((1 << D_003AD040.bits) - 1)];
+        if (b->val != 0 || b->key != 0) {
+            S2BD_N *n = (S2BD_N *)func_0011C3A8_g(0);
+            if (n) {
+                n = func_002D5C88(n);
+            }
+            n->key = h;
+            n->val = v;
+            n->next = b->next;
+            b->next = n;
+        } else {
+            b->key = h;
+            b->val = v;
+        }
+        t->count = t->count + 1;
+    }
+    if (name == 0x77C71B72) {
+        func_0027BFD0(v, 0x32BA3FA2);
+        *((char *)v + 3) = 1;
+    }
+    return 1;
+}
 
 struct S2BD_Comp {
     u32 b0 : 8;
@@ -148,6 +211,7 @@ extern "C" int CFunc_GetGlobalTags(int params, S2BD_Script *script) {
     func_0027ABB0(script->unk20, v);
     return 1;
 }
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_PushGlobalTags);
 
