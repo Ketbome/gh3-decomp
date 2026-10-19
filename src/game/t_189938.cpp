@@ -148,7 +148,59 @@ extern "C" int func_0018A088(S0018A088* self) {
     return self->unkA8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_189938", func_0018A090);
+struct HE189 { int unk0; int unk4; HE189* unk8; };
+struct HT189 { int unk0; HE189* unk4; char pad8[0xD]; u8 unk15; };
+struct B189 { char pad0[0x24]; void* unk24; };
+struct W189 { char pad0[0x58]; HT189* unk58; };
+
+extern "C" {
+int func_001ACD38(void*);
+int func_001ACF30(void*);
+void* func_001AD008(void*);
+void func_00152C58(void*, int);
+void func_00152C68(void*, void*);
+void func_0014FF20(void*, void*);
+void* operator_new(unsigned int);
+void* func_0018B070(void*, int);
+}
+
+static inline int SHT189_Find(HT189* t, const int& k) {
+    HE189* n;
+    if (t->unk4 == 0) return 0;
+    n = &t->unk4[k & ((1 << t->unk0) - 1)];
+    if (n == 0) return 0;
+    do {
+        if (n->unk0 == k) {
+            int v = n->unk4;
+            if (t->unk15 != 0 || v != 0) return v;
+        }
+        n = n->unk8;
+    } while (n);
+    return 0;
+}
+
+extern "C" void func_0018A090(S_189* s, void* node) {
+    if (node) {
+        do {
+            if (func_001ACD38(node)) {
+                int k0 = func_001ACF30(node);
+                HT189* t = ((W189*)s)->unk58;
+                int k = k0;
+                if (!SHT189_Find(t, k)) {
+                    void* obj = func_001836F0(Heap_Alloc(D_00368A38[0], 0x1C, 1, 0));
+                    func_00152C58(obj, func_001ACF30(node));
+                    B189* b = (B189*)func_0018B070(operator_new(0x30), 0);
+                    b->unk24 = node;
+                    func_00152C68(obj, b);
+                    func_0014FF20(s, obj);
+                }
+            } else {
+                func_0018A090(s, func_001ACF70(node));
+            }
+            node = func_001AD008(node);
+        } while (node);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_189938", func_0018A1F0);
 
