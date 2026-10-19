@@ -117,7 +117,54 @@ extern "C" S1DB9C0* func_001DB9C0(S1DB9C0* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DB9F0);
+struct S1DB9F0_N {
+    s32 unk0;
+    u32 unk4;
+    s32 unk8;
+    S1DB9F0_N* unkC;
+    S1DB9F0_N* unk10;
+    void* unk14;
+    S1DB9F0_N* Get() { return unk4 == 0xFFFFFFFF ? 0 : this; }
+};
+
+struct S1DB9F0 {
+    s32 unk0;
+    S1DB9F0_N unk4;
+};
+
+extern "C" {
+void func_00119490(s32 h, s32 v);
+void func_001194B8(s32 h);
+s32 func_00119610(s32 h, s32 v);
+void* operator_new(u32 size);
+extern char D_0034C290[];
+}
+
+extern "C" void func_001DB9F0(S1DB9F0* p, u32 key) {
+    S1DB9F0_N* n = p->unk4.unkC;
+    while ((n = n->Get()) != 0) {
+        if (n->unk4 == key) {
+            return;
+        }
+        n = n->unkC;
+    }
+    s32 h = D_00368A38[0];
+    func_00119490(h, func_00119610(h, 5));
+    S1DB9F0_N* o = (S1DB9F0_N*)operator_new(0x18);
+    s32 h3 = D_00368A38[0];
+    o->unk4 = key;
+    o->unk8 = 0;
+    o->unkC = o;
+    o->unk10 = o;
+    o->unk14 = D_0034C290;
+    func_001194B8(h3);
+    S1DB9F0_N* h2 = &p->unk4;
+    S1DB9F0_N* last = h2->unk10;
+    o->unkC = h2;
+    o->unk10 = last;
+    h2->unk10->unkC = o;
+    h2->unk10 = o;
+}
 
 extern "C" void func_001DBAC0(S1DBAC0* p, u32 key) {
     S1DBAC0_N* found = 0;
