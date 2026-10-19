@@ -459,7 +459,59 @@ extern "C" void func_001F4B90(S1F41D8* p) {
     *(s32*)(p->unk2C + 0x2C0) = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F3840", func_001F4BE0);
+extern "C" {
+s32 func_00156ED0(void*);
+s32 func_0014E9E8(s32);
+void* Heap_Alloc(s32, s32, s32, s32);
+extern s32 D_00368A38;
+void func_001F5510(void*, void*, void*);
+s32 func_0027DF00(void*, u32);
+bool func_001F57B8(void*);
+}
+
+extern "C" void func_001F4BE0(void* selfp, void* a) {
+    char* self = (char*)selfp;
+    s32 k;
+    s32 b;
+    s32 c;
+    s32 d;
+    func_0027D870(a, 0x17F21AA9, &k, 1);
+    s32 kk = k;
+    if (kk == 0x4AAF5961) {
+        *(s32*)(self + 0x1C) = 0;
+    } else {
+        void* dd = D_00369A54;
+        *(s32*)(self + 0x1C) = 1;
+        *(s32*)(self + 0x24) = func_00156ED0(dd);
+        char* r = (char*)func_001F4748((S1F41D8*)self);
+        func_0027D870(a, 0x7A3D4B, &b, 1);
+        s32 bb = b;
+        s32 flag = func_0027DF00(a, 0x78DD2F7E);
+        if (flag != 0) {
+            func_0027D870(a, 0xADDE3534, &c, 1);
+            if (c == 0x806FFF30) {
+                flag = 0;
+            } else {
+                *(s32*)(r + 0x150) = func_0014E9E8(c);
+            }
+        }
+        s32* pd = &d;
+        d = 0;
+        func_0027D870(func_002763E0(0x124DB732, 1), *(s32*)(*(char**)(self + 0xC) + 0x2C), pd, 0);
+        *(s32*)(r + 0x38) = d;
+        u64 f = (*(u64*)r & ~0x10ULL) | ((u64)(func_0027DF00(a, 0x0FCA8BFB) & 1) << 4);
+        *(s32*)(r + 0x30) = kk;
+        *(s32*)(r + 0x34) = bb;
+        *(u64*)r = (f & ~4ULL) | ((u64)(flag & 1) << 2) | 2;
+        char* o = *(char**)(self + 0xC);
+        *(s32*)(r + 0x2C) = *(s32*)(o + 0x2C);
+        *(s32*)(self + 0x20) = (bb != 0x806FFF30);
+        func_001F5510(self + 0x40, r, o);
+    }
+    if (func_001F57B8(a)) {
+        *(s32*)(self + 0x158) = (s32)func_001F47A8((char*)Heap_Alloc(D_00368A38, 0x170, 1, 0), a);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F3840", func_001F4DE0);
 
