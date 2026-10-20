@@ -29,12 +29,10 @@
 - A `$gp` scalar and a `%hi/%lo` access to the same symbol can coexist: declare the extra view with an asm label
   (`extern T name_x asm("D_...")`), but gas decides `$gp` per symbol, so macro-form `lw $4,D` uses cannot mix.
 
-- **Volatile accesses and delay slots (toolchain finding, not fixed: scripts/ is not mine).** gcc prints
-  `#.set volatile` / `#.set novolatile` (commented out) around every volatile load/store; SN's assembler kept those
-  out of branch delay slots, our gas fills `jal`/`jr` delay slots with them. Rewriting them in
-  `scripts/asm_filter.py` as `.set noreorder` / `.set reorder` makes t_292928 func_00293C00, func_00293C70 and
-  func_00293218 (fields 8 and C volatile) MATCH, and every matched function of that file still matches (checked
-  with a private fcheck copy). Likely also t_292928 func_002931F0 and t_26F3B8 func_00270FC0.
+- **Volatile accesses and delay slots (fixed).** gcc prints `#.set volatile` / `#.set novolatile` around every volatile
+  load/store and SN's assembler kept those out of branch delay slots; `delay_slots()` in `scripts/asm_filter.py` now
+  reproduces that. t_292928 func_00293C00, func_00293C70 and func_00293218 (volatile fields 8 and C) MATCH with it.
+  Volatile globals such as D_00371784/88/90/94 (func_00295BB8) work the same way.
 - **Systematic v0/v1 swap.** Many simple read-modify-write functions (`f = (f & ~0xF) | n`, `p->a += n; p->b += n`,
   `(x + 0x7FF) / 2048 * 2048`) get the loaded value in v1 and the constant in v0 in the original, the other way in
   ours; no source form or `-f` flag tried (-O3, -fno-schedule-insns[2], -fno-regmove, -fno-gcse, ...) changes it.
@@ -1230,6 +1228,8 @@ Round 2026-10-20 (C9): 15 matches / 27 attempted (limit 15/40) FINAL
 - func_002774D8 (t_2774B8) MATCH: bucket lookup `if (D_00368744 == 0) return 0; n = D_00371178[key & 0xFFFF]; for (; n; n = n->next) if (n->key == key) return n->val; return 0;` ({key, val, next} nodes, table pointer in $gp). The file declares it as `char *func_002774D8(void)` for its caller (which passes its own a0 through untouched), so the definition goes through an asm-label alias (`char *func_002774D8_k(int) __asm__("func_002774D8")`).
 - func_002704E0 (t_26F3B8) MATCH: link of two table cells (partner of func_00270540): `int a, b, c, d` parameters (an s8 parameter adds sll/sra), `S26F3B8_A *o = &D_003A8D40[a][b]; S26F3B8_A *e = &D_003A8D40[c][d]; e->unkE = a; e->unkF = b; o->unkE = c; o->unkF = d; e->unkC |= 2;`. Found by brute force over the statement order (2 address orders x positions x 24 store orders); the saved s0 in the frame comes out by itself.
 - func_00295278 (t_2949F0): not matched, no near miss kept (0x64 vs 0x60): ring-buffer window (`sz = *(int *)(base + 0x50008); end = base + sz; cur = a->unk8 + 4; if (cur >= end) cur -= sz; len = a->unkC - 4; n = min(end - cur, len)`, `> 0`) has every instruction and the movz/movn pair; only the register numbering (original keeps base copy in a3, sz in v1, len in t0, n in a3 via `movn a3,t0`; ours base v1, len in a3 and `movz a3,v1`): all orders of the four statements, ternary forms and pointer-typed `end` tried.
-Round 2026-10-20 (C10): 1 matches / 1 attempted (limit 15/40)
+Round 2026-10-20 (C10): 4 matches / 8 attempted (limit 15/40)
 - Callee-return sweep (flip2.py, singles and pairs) over the 34 range C near misses that the earlier sweep had not covered: no match; only CFunc_GetElement improves (6 -> 4 diff lines with func_0027C160 declared void).
 - func_00295BB8 (t_2949F0) MATCH: interrupt-safe poll: `D_00371790 = (int)((*(volatile unsigned long *)0x12001000 >> 13) & 1);`, then `if (D_00371784 != 0) { D_00371788++; D_00371794 = f(1, 0); if (D_00371794 == 0) { p = lookup(D_00370E44 + 0x6F1700); if (!p) { D_00372ED0++; asm volatile("sync\n\tei"); return 0; } ... } } asm volatile("sync\n\tei")`. D_00371784, D_00371788, D_00371790, D_00371794 are all volatile (re-read after store, nop in the beqz slot, load order after the store); D_00371784 through an asm-label alias because the file declares it plain.
+- func_00293768 (t_292928) not matched: the loop (b L930, 9 saved registers, a 128-bit loop-invariant 0x6F0000 kept in t1 and spilled with sq/lq around the calls, 5-argument func_00295630: the $9 is not an argument) comes out right except the register allocation: ours puts the 128-bit base in s8 and the counter in t1 (original i in s0, base in t1); declaration order of the six locals (all 720 orders sampled 100) and a function-level base do not change it.
+- func_00293C00, func_00293C70, func_00293218 (t_292928) MATCH: integrator's forensics sources (volatile fields, hardware register stores) after the delay_slots() filter fix.

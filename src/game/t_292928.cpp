@@ -271,7 +271,14 @@ struct S293_VQ {
     int unk10;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293218);
+struct S293218 { char pad0[4]; int base; volatile int idx; volatile int cnt; int size; };
+extern "C" void func_00293218(S293218* s) {
+    func_002F3B80();
+    *(int*)(s->idx * 0x4CE40 + s->base) = 2;
+    s->cnt = s->cnt + 1;
+    s->idx = (s->idx + 1) % s->size;
+    func_002F3BD0();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293288);
 
@@ -402,9 +409,21 @@ extern "C" u32 func_00293BB8(S00292928 *p, u32 x) {
     return (x - p->unk0) >> 11;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293C00);
+extern "C" void func_00293C00(int x) {
+    func_002F3B80();
+    *(volatile u32*)0x1000F590 = *(volatile u32*)0x1000F520 | 0x10000;
+    *(volatile u32*)0x1000B000 = x;
+    *(volatile u32*)0x1000F590 = *(volatile u32*)0x1000F520 & ~0x10000;
+    func_002F3BD0();
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_00293C70);
+extern "C" void func_00293C70(u32 x) {
+    func_002F3B80();
+    *(volatile u32*)0x1000F590 = *(volatile u32*)0x1000F520 | 0x10000;
+    *(volatile u32*)0x1000B400 = x;
+    *(volatile u32*)0x1000F590 = *(volatile u32*)0x1000F520 & ~0x10000;
+    func_002F3BD0();
+}
 
 extern "C" void func_00293CE0(u64* p, u32 b, u32 c, u32 d) {
     *p = ((u64)b << 32) | ((u64)c << 28) | (u64)d;
