@@ -167,7 +167,77 @@ extern "C" void* func_0012E3B8(int size) {
     return Heap_Alloc(D_00368A38[0], size, 1, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012E410);
+struct VT_12E410 { char pad0[0x20]; s16 delta; s16 pad22; int (*fn)(void*, u32, int, int); };
+struct C_12E410 { char pad0[0x14]; VT_12E410* unk14; };
+struct S_12E410 { char pad0[0x1C]; int unk1C; float unk20; float unk24; char pad28[0x10]; int unk38; char pad3C[4]; C_12E410* unk40[6]; int unk58; };
+extern "C" {
+void func_0012D380(void*, int);
+void func_0012D6B0(void*, int);
+int func_0012D790(void*, int);
+void func_0012DF30_p(void*) __asm__("func_0012DF30");
+void func_0012DFC8(void*, int);
+void func_0012A4B0(void*, float);
+int func_0027DF00(int, u32);
+}
+
+extern "C" int func_0012E410(S_12E410* self, u32 key, int params, int a3) {
+    int sp0;
+    int sp4;
+    float sp8;
+    int r;
+    switch (key) {
+    case 0x83654874:
+        func_0012D380(self, params);
+        return 1;
+    case 0x986D274E: {
+        sp0 = 0;
+        func_0027D870_i(params, 0x40C698AF, &sp0, 1);
+        int t = func_0012D790(self, sp0);
+        if (t != 0) {
+            func_0012D6B0(self, t);
+        }
+        break;
+    }
+    case 0xC68365EB: {
+        sp4 = 0;
+        func_0027D870_i(params, 0x98549BA4, &sp4, 1);
+        int v = sp4;
+        func_0027D268_i(params, 0x79A07F3F, &sp8, 1);
+        int e = func_0027DF00(params, 0xD3D40A85);
+        self->unk38 = v;
+        func_0012DF30_p(self);
+        func_0012DFC8(self, self->unk38);
+        float f;
+        if (e != 0) {
+            float q = self->unk20 / self->unk24;
+            self->unk20 = 0.0f;
+            f = q * sp8;
+        } else {
+            f = 0.0f;
+        }
+        self->unk1C = 0;
+        self->unk24 = sp8;
+        func_0012A4B0((char*)self + 4, f);
+        break;
+    }
+    default:
+        break;
+    }
+    int i = 0;
+    if (self->unk58 > 0) {
+        int two = 2;
+        C_12E410** p = self->unk40;
+        do {
+            C_12E410* c = *p;
+            VT_12E410* vt = c->unk14;
+            r = vt->fn((char*)c + vt->delta, key, params, a3);
+            if (r != two) return r;
+            i++;
+            p++;
+        } while (i < self->unk58);
+    }
+    return 2;
+}
 
 extern "C" int func_0012E5F0(S_0012E5F0* self) {
     return self->unk68;
