@@ -150,9 +150,39 @@ struct Own23F {
     Tab23F* unk8;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F700);
+struct T23F7 {
+    char pad0[0xA];
+    u8 unkA;
+    char padB;
+    char* unkC;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F738);
+struct O23F7 {
+    char pad0[8];
+    T23F7* unk8;
+};
+
+static inline u16 Get23F7(T23F7& t, s32 i) {
+    if (t.unkA != 0) {
+        return *(u16*)(t.unkC + i * 8);
+    }
+    return *(u16*)(t.unkC + i * 10);
+}
+
+extern "C" u16 func_0023F700(O23F7* o, s32 i) {
+    return Get23F7(*o->unk8, i);
+}
+
+static inline u16 Get23F7b(T23F7& t, s32 i) {
+    if (t.unkA != 0) {
+        return *(u16*)(t.unkC + i * 8 + 2);
+    }
+    return *(u16*)(t.unkC + i * 10 + 2);
+}
+
+extern "C" u16 func_0023F738(O23F7* o, s32 i) {
+    return Get23F7b(*o->unk8, i);
+}
 
 extern "C" void func_0023F770(char* p, TI128* v) {
     struct VE {
