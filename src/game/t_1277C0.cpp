@@ -471,7 +471,51 @@ extern "C" SA127_Z* func_00128B08(SA127_Z* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128B40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128D48);
+struct S128D48 {
+    char pad0[4]; int unk4; char pad8[4]; void* unkC; int unk10; int unk14; int unk18; int unk1C;
+    void (*unk20)(int); int unk24; SA127_Z* unk28[18]; u8 unk70; u8 unk71; char pad72[0x402];
+    u16 unk474; u8 unk476; char pad477; int unk478; int unk47C; int unk480;
+};
+extern "C" int func_0011A208(int, int, int);
+
+extern "C" int func_00128D48(S128D48* self) {
+    self->unk47C = 1;
+    if (self->unk20 != 0) {
+        self->unk20(self->unk24);
+        self->unk20 = 0;
+    }
+    int heap;
+    if (self->unkC != 0) {
+        heap = D_00368A38[0];
+        func_00119490(heap, func_0011A208(heap, 0x8F21A798, 1));
+        if (self->unkC != 0) {
+            Heap_Free(D_00368A38[0], self->unkC);
+        }
+        func_001194B8(D_00368A38[0]);
+        self->unkC = 0;
+    }
+    int ret = self->unk10;
+    SA127_Z** p = self->unk28;
+    self->unk18 = 0;
+    self->unk1C = 0;
+    self->unk4 = 0;
+    self->unk476 = 0;
+    self->unk70 = 0;
+    self->unk71 = 0;
+    self->unk14 = 0;
+    self->unk10 = 0;
+    self->unk474 = 0;
+    self->unk478 = 0;
+    for (int i = 0; i < 18; i++) {
+        if (p[i] != 0) {
+            func_00128AC0(p[i]);
+            if (p[i] != 0) func_00128A90(p[i], 3);
+            p[i] = 0;
+        }
+    }
+    self->unk480 = 0;
+    return ret;
+}
 
 extern "C" void func_00128F40(void) {
 }
@@ -607,7 +651,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001294B8);
 
 struct O_1294C0 { char pad0[0x20]; void (*unk20)(int); int unk24; };
 struct S_1294C0 { char pad0[8]; O_1294C0* objs[50]; u32 ids[50]; char pad198[8]; int unk1A0; int unk1A4; };
-extern "C" int func_00128D48(O_1294C0*);
 
 extern "C" void func_001294C0_x(S_1294C0* self, u32 key) __asm__("func_001294C0");
 void func_001294C0_x(S_1294C0* self, u32 key) {
@@ -616,7 +659,7 @@ void func_001294C0_x(S_1294C0* self, u32 key) {
         if (self->ids[i] == key) {
             self->ids[i] = 0xFFFFFFFF;
             self->unk1A0 = self->unk1A0 - 1;
-            self->unk1A4 = self->unk1A4 - func_00128D48(self->objs[i]);
+            self->unk1A4 = self->unk1A4 - func_00128D48((S128D48*)self->objs[i]);
             found = 1;
             self->ids[i] = 0xFFFFFFFF;
         }
