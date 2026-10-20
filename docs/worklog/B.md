@@ -36,6 +36,8 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
+Round 2026-10-19b: 0 matches / 4 attempted (limit 15/40)
+
 Round 2026-10-19: 9 matches / 30 attempted (limit 12/30); DONE (limit 30 attempted reached). matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss (nonmatching/): func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040 func_00232A58; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
 ## t_1ABAA0
@@ -1129,3 +1131,10 @@ Near miss: func_001CF040 (nonmatching/func_001CF040.cpp): array-or-single Get(i)
 ## t_2320A0 (round 5)
 
 Near miss (structure only): func_00232A58 (nonmatching/func_00232A58.cpp): a loop with calls is not unrolled by gcc, so the x3 body is written by hand (three `if (e->flag && e->obj == o) {...; return 1;}` per 0xA8-byte step, counter += 3 to 0x30); the original keeps `&D+0x34` in $s1 with negative offsets and the 2nd/3rd entry pointers in $s0 (5 saved regs), sizes 0x164 vs 0x16c.
+
+## Round 2026-10-19b (movz/movn retry)
+
+- func_001F95C8 (retry): inline `Fix(Nd*&)` / out-param helper still if-converts (movz); not solved, 5 more forms.
+- func_0021FB88: if/else constant selection through ref helper (const ref, inverted, init-outside, separate vars), ternary and call-per-arm: all movz or worse; given up.
+- func_001EA578: ref helper puts the local in memory (sw/lw), plain form gives movn; original branch-likely; given up (8 forms).
+- func_0022C130: near miss, nonmatching/func_0022C130.cpp: list push-front with pool node (`volatile s32* pv = &v` to force the spilled arg read, three stack iterator structs declared it/end/pos, last store first); only register numbering of the temporaries differs.
