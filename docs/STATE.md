@@ -6,13 +6,15 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), A round 8 (func_001207A0 from the `dk protos` sweep,
-which found 1 match in 328 near misses; movn sentinel family). Forensics 4: delay-slot loads and movn/movz
-polarity are C shape (decomp_guide.md); C got the three volatile t_292928 matches. B retrying near misses blocked by register copies (forensics: C shape, recompute the loop invariant; decomp_guide.md), forensics on GP_DATA done: `OBJECT_END()`
-marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
-func_002DCD68. A round 7: 15/39. B and C were told about their OBJECT_END functions. Earlier today: forensics showed
-movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
-works; C round 7 hit 15 matches with that pattern. B's movz retry round: 16/32.
+Paused (2026-10-20) at the user's request: no agent running, work in progress rescued. Stopped mid-round: A round 8
+(had just started: func_001207A0 from the `dk protos` sweep, then the movn sentinel family), B retrying near misses
+blocked by kept register copies (forensics starting points in scratchpad/forensics3/x/), C round 10 (was given the
+three volatile t_292928 matches func_00293C00/3C70/3218 from scratchpad/forensics4/exp/t_292928.cpp and asked to
+fix the stale "Volatile accesses and delay slots" note at the top of C.md). The scratchpad paths belong to the
+session that wrote them and may be gone in a new one.
+Today's forensics (all C shape, in decomp_guide.md and toolchain.md): movz/movn if-conversion, kept register
+copies, movn/movz select polarity, gp loads in delay slots; toolchain fix: OBJECT_END() resets GP_DATA at object
+ends; fix_padding resolves alias-defined functions.
 Ranges:
 
 | Range | Files | Worklog | Last focus |
