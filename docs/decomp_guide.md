@@ -131,6 +131,13 @@ To survive a crash without losing work:
 - **`$v0`/`$v1` swapped around a call**: the callee's declared return type decides it. A `void` callee declared
   `int` (or the reverse) fixes most cases; when the file already declares it otherwise, add a second declaration
   under an alias: `extern "C" int f_i(int) __asm__("f");`. Reported by B and C (CFunc_LoadScene, func_00271280).
+- **Register copies the original keeps** (`move a0,v1` before a loop, `move s1,a0`): the original recomputes a
+  loop-invariant value inside the loop; gcc hoists it and turns it into a copy of the value computed before the
+  guard. Recompute it from the same base pointer in the condition/body (`while (n != (N*)((char*)a + 4))`,
+  `l2->End()`) instead of reusing a variable, with a new variable per reload. `move v1,v0` before a `jal`: read the
+  iterator through an inline `operator++` returning `*this` by reference (`d.unk4 = (++b).unk4;`). Not a flag (no
+  flag changes it; `register asm("$N")` pins are ignored by gcc 2.95). func_0012CAA8 matches this way; 55 matched
+  functions show the shape.
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
   standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants

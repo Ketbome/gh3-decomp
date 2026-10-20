@@ -121,6 +121,14 @@ through a reference parameter of an inline function is still in memory at that p
 pattern in decomp_guide.md; func_0021F020 matches with it). `cvt.w.s` is handled by the prelude macro
 (`include/gcc_prelude.inc:8-12`, since 85ecf94; 25 matched functions use it).
 
+## Register copies kept by the original
+
+Not a toolchain matter: no flag reproduces the `move` copies the original keeps before loops and calls. gcc's loop
+pass hoists an invariant the source recomputes inside the loop (`.loop` dump: "Insn 56 ... moved to 97") and then
+turns it into a copy of the value computed before the guard; the source pattern is in decomp_guide.md. Verified:
+func_0012CAA8 matches; func_001E8170's `asm("" : "+r"(end))` replaced by the recomputed form, file 39/39;
+`dk all` 6030 match, 0 differ.
+
 ## Open questions
 
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets
