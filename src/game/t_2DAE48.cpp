@@ -337,7 +337,127 @@ extern "C" void func_002DB510(S2DAE48_E *p) {
     func_00298448(p->unk60 + 4);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DB580);
+struct S2DB5_N {
+    char pad0[0x18];
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+};
+
+struct S2DB5_C {
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+    void Set(u8 r_, u8 g_, u8 b_, u8 a_) {
+        r = r_;
+        g = g_;
+        b = b_;
+        a = a_;
+    }
+};
+
+struct S2DB5_O {
+    char pad0[0x14];
+    int unk14;
+    S2DB5_N *unk18;
+    S2DB5_N *unk1C;
+    S2DB5_N *unk20;
+    S2DB5_N *unk24;
+    char pad28[0x28];
+    int unk50;
+    int unk54;
+    int unk58;
+    int unk5C;
+    int unk60;
+};
+
+extern "C" {
+int func_001C55A8_n(S2DB5_O *) asm("func_001C55A8");
+int func_002FF118_n(int) asm("func_002FF118");
+int func_00296598_n(int) asm("func_00296598");
+int func_00119610_n(int, int) asm("func_00119610");
+int func_00119490_n(int, int) asm("func_00119490");
+int func_001194B8_n(int) asm("func_001194B8");
+int func_00295E50_n(int, int, int, int, int, int, int) asm("func_00295E50");
+int func_0029DB90_n(int, int, int) asm("func_0029DB90");
+int func_002765E0_n(u32, int) asm("func_002765E0");
+void *operator_new_n(u32, ...) asm("operator_new");
+void *func_00113EA8_n(void *, int) asm("func_00113EA8");
+extern char D_003630C8[];
+extern char D_003630E8[];
+extern char D_00363110[];
+extern char D_00363130[];
+extern int D_00368748;
+extern int D_003717E0;
+extern f32 D_003733CC;
+extern f32 D_003733D0;
+void func_002D8398(void);
+void func_002D8450(void);
+void func_002D8880(void);
+void func_002DA050(void);
+}
+
+GP_DATA(D_00372230);
+extern "C" S2DB5_O *func_002DB580(S2DB5_O *p) {
+    func_001C55A8_n(p);
+    p->unk50 = 0;
+    p->unk14 = (int)D_003630E8;
+    p->unk54 = 0;
+    if (D_00368748 == 0) {
+        int a = D_003717E0;
+        int b = a + 0x28;
+        func_002FF118_n(b);
+        func_00296598_n(a);
+        int h = D_00368A38;
+        func_00119490_n(h, func_00119610_n(h, 0x2C));
+        p->unk60 = func_00295E50_n(a, 0, (int)D_003630C8, 4, 0x2710, func_002FF118_n(b), 0x50);
+        func_001194B8_n(D_00368A38);
+        func_0029DB90_n(p->unk60, 0x22, 0);
+    }
+    int t21 = func_002765E0_n(0x702247A5, 0);
+    S2DB5_C c;
+    S2DB5_N *n1 = (S2DB5_N *)operator_new_n(0x24);
+    int fa = (int)func_002D8880;
+    func_00113EA8_n(n1, 0);
+    n1->unk1C = fa;
+    n1->unk20 = (int)p;
+    n1->unk18 = (int)D_00363130;
+    p->unk20 = n1;
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    S2DB5_N *n2 = (S2DB5_N *)operator_new_n(0x30);
+    int fb = (int)func_002D8450;
+    func_00113EA8_n(n2, 0);
+    n2->unk28 = fb;
+    n2->unk24 = t21;
+    n2->unk18 = (int)D_00363110;
+    n2->unk2C = (int)p;
+    p->unk18 = n2;
+    D_003733D0 = 10.0f;
+    D_003733CC = 120.0f;
+    S2DB5_N *n3 = (S2DB5_N *)operator_new_n(0x24);
+    int fc = (int)func_002DA050;
+    func_00113EA8_n(n3, 0);
+    n3->unk18 = (int)D_00363130;
+    n3->unk1C = fc;
+    n3->unk20 = (int)p;
+    p->unk24 = n3;
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    S2DB5_N *n4 = (S2DB5_N *)operator_new_n(0x30);
+    int fd = (int)func_002D8398;
+    func_00113EA8_n(n4, 0x3E8);
+    n4->unk24 = t21;
+    n4->unk18 = (int)D_00363110;
+    n4->unk28 = fd;
+    n4->unk2C = (int)p;
+    p->unk1C = n4;
+    D_00372230 = (int)p;
+    p->unk5C = 0;
+    return p;
+}
 
 extern "C" void func_002DB7B8(S2DAE48_H *p, int v) {
     p->unk14 = D_003630E8;
