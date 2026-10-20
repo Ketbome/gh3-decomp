@@ -6,12 +6,12 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-19: running A round 6b (untried, no size ceiling), C round 8 (15/40; round 7 hit 15 matches with the movz pattern), B on
-functions over 0x1000 (limit 12/30). Last results: fifth rounds
-A 14, B 25, C 25 matches; sixth rounds B 12/36 and C 4/20 (stopped early: easy functions under 0x1000 running out
-in B and C, yield drop); A's sixth round was stopped mid-way (its commits are in). Forensics result: movz/movn is C shape (inline helper writing
-through a reference keeps the branch, decomp_guide.md), `cvt.w.s` already works; B was asked to apply the
-func_0021F020 match. Stale worklog notes to fix when A and B are idle: A.md:11, B.md:17 (`cvt.w.s`).
+Running (2026-10-19): A round 6b, C round 8 (both resumed after a rate limit), forensics on globals reached both
+through `$gp` and `lui` after a GP_DATA (func_001CDA60, func_0011F238; scratch copy). B is idle (round on functions
+over 0x1000: 9/30, plus func_0021F020); relaunch it after the forensics result. Earlier today: forensics showed
+movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
+works; C round 7 hit 15 matches with that pattern. Stale worklog notes to fix when A and B are idle: A.md:11,
+B.md:17 (`cvt.w.s`).
 Ranges:
 
 | Range | Files | Worklog | Last focus |
@@ -55,9 +55,10 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
+1. Apply the GP_DATA forensics fix, `dk all`, relaunch B.
+2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
    worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
-2. Permuter batch with no worker (254 files in nonmatching/).
-3. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
-4. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
+3. Permuter batch with no worker (254 files in nonmatching/).
+4. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
+5. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
    Ghidra), results into docs/worklog/names_pending.md. REA does not do matching.
