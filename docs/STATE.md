@@ -6,7 +6,8 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), forensics on register copies the original keeps and gcc coalesces (A, B report it; scratch copy), forensics on GP_DATA done: `OBJECT_END()`
+Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), a runner sweeping all near misses with the new
+`dk protos` (skill 1.7.0; copies in scratchpad/protos_sweep, matches to hand to the range owners), forensics on register copies the original keeps and gcc coalesces (A, B report it; scratch copy), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
 func_002DCD68. A retrying its movz give-ups + func_00120180 (15/40). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
@@ -54,8 +55,6 @@ never mentioned in a worklog on 2026-10-14).
   t_292928 func_00293C00/3C70/3218): C found rewriting gcc's `#.set volatile`/`#.set novolatile` comments as
   `.set noreorder`/`.set reorder` matched them; check whether delay_slots() in asm_filter.py already covers it
   and whether gcc's own noreorder blocks can contain those markers before applying. Next forensics task.
-- Tool idea (C): a sweep that flips each callee's declared return type void/int over all near misses found 4
-  matches; candidate for dk/skill.
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
