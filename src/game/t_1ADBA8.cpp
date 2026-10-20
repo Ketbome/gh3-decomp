@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -74,7 +75,67 @@ extern "C" void func_001ADBA8(T1ADB* p, s32 a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001ADC90);
+struct V1ADC {
+    f32 x;
+    f32 y;
+    f32 z;
+    char pad0C[0x14];
+    V1ADC* unk20;
+    char pad24[4];
+    V1ADC* unk28;
+};
+
+struct H1ADC {
+    char pad0[0x1DC];
+    s32 unk1DC;
+};
+
+extern "C" {
+s32 func_0019C648(void* p);
+s32 func_0019BF20_c(void* p) __asm__("func_0019BF20");
+void* Heap_Alloc(s32 h, s32 n, s32 a, s32 b);
+void func_00119490(s32 h, s32 v);
+void func_001194B8(s32 h);
+void func_0019C700(void* p, void* q);
+void func_0019C908(void* p, void* q, s32 z);
+}
+
+extern "C" void func_001ADC90(V1ADC* o, V1ADC* d) {
+    o->x = o->x + d->x;
+    o->y = o->y + d->y;
+    o->z = o->z + d->z;
+    if (func_001ACD28(o) != 0) {
+        if (func_0019C648(o->unk20) == 0x20) {
+            f32 s = 4096.0f;
+            s32 ix = (s32)(d->x * s);
+            s32 iy = (s32)(d->y * s);
+            s32 iz = (s32)(d->z * s);
+            s32 n = func_0019BF20_c(o->unk20);
+            func_00119490(D_00368A38[0], ((H1ADC*)D_00368A38[0])->unk1DC);
+            s32* b = (s32*)Heap_Alloc(D_00368A38[0], n * 16, 1, 0);
+            func_0019C700(o->unk20, b);
+            s32 i;
+            for (i = 0; i < n; i++) {
+                b[i * 4] += ix;
+                b[i * 4 + 1] += iy;
+                b[i * 4 + 2] += iz;
+            }
+            func_0019C908(o->unk20, b, 0);
+            if (b != 0) {
+                Heap_Free(D_00368A38[0], b);
+            }
+            func_001194B8(D_00368A38[0]);
+        }
+    } else {
+        V1ADC* c = o->unk20;
+        if (c != 0) {
+            do {
+                func_001ADC90(c, d);
+                c = c->unk28;
+            } while (c != 0);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001ADF60);
 
