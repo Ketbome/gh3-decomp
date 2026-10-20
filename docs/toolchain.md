@@ -52,6 +52,13 @@ inline `lui`/`ori`/`mtc1` SN's assembler produced (the modern gas would use `.li
 loads/stores the way SN's one-pass assembler did: ee-gcc writes the `.extern sym,size` at the end of the file, so
 outside delay slots the size was not known yet (`lui`+`%lo`), while in a delay slot (`nomacro`) it used `%gp_rel`.
 Data the object defined itself was known small (`GP_DATA` in the source). Verified on 1,471 matched functions.
+SN's assembler forgot those sizes at the start of the next original object: our source files merge several objects,
+so `TEXT_PAD` (padding at an object end) and `OBJECT_END()` (an object that ended on a 16-byte boundary, no padding
+left) reset what GP_DATA declared, in `asm_filter.py` and `fix_gp_data.py`; an INCLUDE_ASM function whose assembly
+ends in 2+ nops counts as an object end too. Evidence: 139 symbols are reached both ways; 654 `lui` uses after a
+`%gp_rel` one, all across object boundaries; the 4 left inside one file sit at 16-byte-aligned function starts
+(func_00120180, func_001CDA60, func_00276FD8, func_002DCD68) and match with `OBJECT_END();` in front;
+`dk all` 5983 match, 0 differ.
 Switch jump tables: the compiler's table is dropped and the code is pointed at the game's `jtbl_` (k-th table of a
 function = k-th `jtbl_` of its original assembly); the case labels are defined in `build/jlabels.ld`.
 Short loops are padded with nops before the backward branch up to 6 instructions (the R5900 short-loop erratum,

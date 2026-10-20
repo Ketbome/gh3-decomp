@@ -26,6 +26,15 @@ def asm_of(stem, name):
     return None
 
 
+def included_object_end(line):
+    m = re.match(r'^INCLUDE_ASM\("([^"]+)",\s*(\w+)\)', line)
+    path = m and ROOT / m.group(1) / f"{m.group(2)}.s"
+    if not path or not path.exists():
+        return False
+    tail = path.read_text().split("endlabel", 1)
+    return len(tail) > 1 and len(re.findall(r"\*/\s+nop\s*$", tail[1], re.M)) >= 2
+
+
 def fix(path):
     text = path.read_text()
     lines = text.splitlines(keepends=True)
@@ -34,6 +43,8 @@ def fix(path):
     out = []
     added = 0
     for i, line in enumerate(lines):
+        if re.match(r"^(TEXT_PAD|OBJECT_END)\(", line) or included_object_end(line):
+            declared.clear()
         m = re.match(r"^GP_DATA\((\w+)\);", line)
         if m:
             declared.add(m.group(1))

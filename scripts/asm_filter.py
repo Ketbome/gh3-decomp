@@ -47,6 +47,18 @@ USD = re.compile(r"^(\s*)usd\s+(\$\d+),\s*(-?\d+)\((\$\d+)\)\s*$")
 EXTERN = re.compile(r"^\s*\.extern\s+([\w.$]+)\s*,\s*(\d+)")
 
 
+INCLUDE = re.compile(r'^\.include\s+"(asm/\S+\.s)"')
+
+
+def object_end(stripped):
+    """An included function followed by 8 or more bytes of nops ends an original object (see fix_padding.py)."""
+    m = INCLUDE.match(stripped)
+    if not m or not (Path(__file__).resolve().parent.parent / m.group(1)).exists():
+        return False
+    tail = (Path(__file__).resolve().parent.parent / m.group(1)).read_text().split("endlabel", 1)
+    return len(tail) > 1 and len(re.findall(r"\*/\s+nop\s*$", tail[1], re.M)) >= 2
+
+
 def memory_macros(text):
     out = []
     nomacro = False
@@ -58,6 +70,8 @@ def memory_macros(text):
                 nomacro = True
             elif stripped.split()[-1] == "macro":
                 nomacro = False
+        if stripped == "#object_end" or object_end(stripped):
+            small.clear()
         m = EXTERN.match(line)
         if m and int(m.group(2)) <= 8:
             small.add(m.group(1))

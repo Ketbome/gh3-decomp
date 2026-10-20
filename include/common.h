@@ -9,7 +9,11 @@
  * through $gp everywhere after this point (scripts/asm_filter.py, scripts/fix_gp_data.py). */
 #define GP_DATA(sym) __asm__(".extern " #sym ", 4\n")
 
-#define TEXT_PAD(n) __asm__(".section .text\n    .space " #n "\n")
+#define TEXT_PAD(n) __asm__("#object_end\n.section .text\n    .space " #n "\n")
+
+/* The end of an original object file that left no padding (its code ended on a 16-byte boundary): sizes known from
+ * GP_DATA are forgotten, as by SN's assembler at the start of the next object (scripts/asm_filter.py). */
+#define OBJECT_END() __asm__("#object_end\n")
 
 typedef signed char s8;
 typedef unsigned char u8;

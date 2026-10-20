@@ -124,6 +124,10 @@ To survive a crash without losing work:
   and the order of the statements around it. Not a flag: the original has 1365 `movz`/`movn` in 663 functions.
   Verified by func_0021F020 (match), func_001E1B28 (branches right, registers differ).
 - **`cvt.w.s`** works: `include/gcc_prelude.inc` has a macro for it (older worklog notes say otherwise).
+- **A global reached with `lui` where an earlier `GP_DATA` makes ours `%gp_rel`**: an original object ended
+  between them without padding. Put `OBJECT_END();` on the line before the first function of the new object (the
+  16-byte-aligned function start where the `lui` uses begin). Not for a second read of the same global inside one
+  function (one in a delay slot, one outside): that is the source reading it twice.
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
   standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
