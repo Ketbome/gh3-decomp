@@ -270,7 +270,37 @@ extern "C" S1D8BF0* func_001D8BF0(S1D8BF0* p) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D8C10);
+struct E1D8C {
+    char pad0[0xC];
+    void* unkC;
+    char pad10[4];
+};
+
+struct S1D8C {
+    s32 unk0;
+    s32 unk4;
+};
+
+extern "C" void func_001D8C10(S1D8C* p0, s32 f0) {
+    S1D8C* p = p0;
+    s32 f = f0;
+    if (p->unk0 != 0) {
+        s32 i;
+        for (i = 0; i < p->unk4; i++) {
+            void* o = ((E1D8C*)p->unk0)[i].unkC;
+            if (o != 0) {
+                func_0027AC90(o);
+                func_00113250(o);
+            }
+        }
+        if (p->unk0 != 0) {
+            Heap_Free(D_00368A38[0], (void*)p->unk0);
+        }
+    }
+    if (f & 1) {
+        Heap_Free(D_00368A38[0], p);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D85E8", func_001D8CD0);
 
