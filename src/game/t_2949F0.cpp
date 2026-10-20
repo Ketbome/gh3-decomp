@@ -167,7 +167,27 @@ struct S295140 {
     u64 unk18;
 };
 
+struct S2949F0_Ev {
+    s64 unk0;
+    s64 unk8;
+    int unk10;
+    int unk14;
+};
+
+struct S2949F0_Qu {
+    char pad0[0x40];
+    int unk40;
+    char pad44[0xC];
+    S2949F0_Ev *unk50;
+    int unk54;
+    int unk58;
+    int unk5C;
+};
+
 extern "C" {
+void func_002948C0(S2949F0_Qu *, S2949F0_Ev *);
+int func_002EE6A0(int);
+void func_002EE680(int);
 extern int D_00370E44;
 void func_00293488(int, int *, int *, int *, int *);
 void func_002934A8(int, int);
@@ -206,7 +226,25 @@ void func_00297400(void *);
 void func_0029FEA8(S2949F0_R *);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_002949F0);
+extern "C" int func_002949F0(S2949F0_Qu *q, S2949F0_Ev *e) {
+    int r = 0;
+    func_002EE6A0(q->unk40);
+    int c = q->unk58; if (c < q->unk54) {
+        func_002948C0(q, e);
+        if (e->unk0 >= 0 || e->unk8 >= 0) {
+            q->unk50[q->unk5C].unk0 = e->unk0;
+            q->unk50[q->unk5C].unk8 = e->unk8;
+            q->unk50[q->unk5C].unk10 = e->unk10;
+            q->unk50[q->unk5C].unk14 = e->unk14;
+            q->unk5C = (q->unk5C + 1) % q->unk54;
+            q->unk58 = q->unk58 + 1;
+        }
+        r = 1;
+    }
+    func_002EE680(q->unk40);
+    return r;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00294AF8);
 
