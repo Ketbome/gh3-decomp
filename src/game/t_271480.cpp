@@ -103,6 +103,7 @@ extern float D_0032E158[];
 extern u8 D_0032E1D8[];
 void func_00272058(void *, int, int);
 int func_0011DF78(int, int, int, int);
+int func_0011DBB8(int, int, int, int);
 void func_0011DC18(int);
 void func_0011E008(int);
 void func_0026AC60(void *, int);
@@ -423,7 +424,60 @@ extern "C" void func_00272020(S272020 *p) {
     func_00271A98((p->unk0 - 1) | 0x1D0, p->unk1C, p->unk34, 0, 0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272058);
+struct S272_B {
+    int unk0;
+    char pad4[8];
+    int unkC;
+    S272_B *unk10;
+    int unk14;
+    char pad18[4];
+    volatile int unk1C;
+    volatile int unk20;
+    char pad24[0x14];
+    int unk38;
+    int unk3C;
+};
+
+extern "C" void func_00272058(void *vp, int a, int b) {
+    S272_B *p = (S272_B *)vp;
+    if (p->unk14 != 0) {
+        int v;
+        if (p->unk0 == 0) {
+            int h = p->unk3C >> 1;
+            func_0011DBB8(p->unk14, p->unk38 + h * a, 1, h);
+            int h2 = p->unk3C >> 1;
+            int u = p->unk20;
+            v = u + h2;
+        } else {
+            int n;
+            int off;
+            if ((p->unkC >> 2) & 1) {
+                if (a == 0)
+                    off = p->unk38;
+                else
+                    off = p->unk10->unk38;
+                n = p->unk3C;
+            } else {
+                int h = p->unk3C >> 1;
+                off = p->unk38 + h * a;
+                n = h;
+            }
+            if (b != 0) {
+                int r = p->unk20 % n;
+                off += r;
+                n = r == 0 ? 0 : n - r;
+            }
+            if (n > 0)
+                func_0011DBB8(p->unk14, off, 1, n);
+            v = p->unk20 + n;
+        }
+        p->unk20 = v;
+        int x = p->unk20;
+        int y = p->unk1C;
+        if (y < x) x = y;
+        p->unk20 = x;
+    }
+}
 
 extern "C" int func_00272160(int *p) {
     int r = 0;
