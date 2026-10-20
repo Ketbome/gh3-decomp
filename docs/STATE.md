@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-20): C round 9 (round 8: 11/40), forensics on register copies the original keeps and gcc coalesces (A, B report it; scratch copy), forensics on GP_DATA done: `OBJECT_END()`
+Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), forensics on register copies the original keeps and gcc coalesces (A, B report it; scratch copy), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
 func_002DCD68. A retrying its movz give-ups + func_00120180 (15/40). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
@@ -50,6 +50,12 @@ never mentioned in a worklog on 2026-10-14).
 - asm_filter: label/hazard-nop position after `c.cond.s` before `bc1t/f` (func_00127ED0: only two `b` targets
   differ); two extra nops before a loop head after `li.s` (func_00160E80); unroll 4x where the original is 2x
   (func_00142398, func_00123D08, func_00137C98).
+- Volatile loads/stores in `jal`/`jr` delay slots where the original keeps them out (C.md notes, func_0026EAA0,
+  t_292928 func_00293C00/3C70/3218): C found rewriting gcc's `#.set volatile`/`#.set novolatile` comments as
+  `.set noreorder`/`.set reorder` matched them; check whether delay_slots() in asm_filter.py already covers it
+  and whether gcc's own noreorder blocks can contain those markers before applying. Next forensics task.
+- Tool idea (C): a sweep that flips each callee's declared return type void/int over all near misses found 4
+  matches; candidate for dk/skill.
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
