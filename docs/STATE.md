@@ -8,7 +8,7 @@ so no progress figures or hashes are written by hand here.
 
 Running (2026-10-19): C round 8, B retrying its movz/cvt.w.s give-ups (15/40), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
-func_002DCD68. A is idle (round 6b: 15/53). Earlier today: forensics showed
+func_002DCD68. A retrying its movz give-ups + func_00120180 (15/40). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
 works; C round 7 hit 15 matches with that pattern. Stale `cvt.w.s` note B.md:17 to fix when B is idle.
 Ranges:
@@ -57,8 +57,7 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Relaunch A on its movz give-ups (23 worklog lines) and func_00120180 (OBJECT_END); tell B/C about
-   func_001CDA60 / func_00276FD8, func_002DCD68.
+1. Integrate the rounds as they report.
    Quiet point (no worker): split the cpp subsegment of t_152E18 at 0x153958 (func_001535E8 needs `-funroll-loops`,
    func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
