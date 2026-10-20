@@ -222,56 +222,130 @@ extern "C" int func_0022C120(S22B* self) {
     return self->unk20_24;
 }
 
-struct N22C {
-    N22C* unk0;
-    N22C* unk4;
+struct N22C1 {
+    N22C1* unk0;
+    N22C1* unk4;
     s32 unk8;
 };
 
-struct H22C {
+struct H22C1 {
     u16 unk0;
     u16 unk2;
     u16 unk4;
 };
 
-extern "C" void func_0022C130(char* p, s32 v) {
-    LI22C it;
-    LI22C end;
-    LI22C pos;
+struct I22C1 {
+    s32 unk0;
+    N22C1* unk4;
+};
+
+extern "C" void func_0022C130(s32 P, s32 v) {
+    I22C1 it;
+    I22C1 end;
+    I22C1 pos;
+    N22C1 t;
     func_00116320(&D_00372E50);
-    char* pool = *(char**)(p + 0x28);
-    N22C* first = *(N22C**)(p + 0x2C);
-    s32* hd = (s32*)(p + 0x2C);
+    s32 pool = *(s32*)(P + 0x28);
+    N22C1* first = *(N22C1**)(P + 0x2C);
+    N22C1* hd = (N22C1*)(P + 0x2C);
     end.unk4 = hd;
     pos.unk4 = hd;
     volatile s32* pv = &v;
-    H22C* h = (H22C*)(pool + 2);
-    N22C* arr = (N22C*)(pool + 8);
+    H22C1* h = (H22C1*)(pool + 2);
     u16 i0 = h->unk2;
     u16 i1 = h->unk4;
-    N22C* n = arr + i0;
+    N22C1* n = (N22C1*)(pool + 8) + i0;
     if (i1 == i0) {
         h->unk4 = i1 + 1;
         h->unk2 = i1 + 1;
     } else {
         h->unk2 = *(u16*)n;
     }
-    N22C t;
     t.unk0 = first;
-    t.unk4 = (N22C*)hd;
+    t.unk4 = hd;
     t.unk8 = *pv;
     if (n) {
         *n = t;
     }
-    *(N22C**)hd = n;
+    *(N22C1**)hd = n;
     n->unk0->unk4 = n;
-    s32* nx = *(s32**)end.unk4;
-    end.unk4 = nx;
+    N22C1* nx = *(N22C1**)end.unk4;
     it.unk4 = nx;
+    end.unk4 = nx;
     func_00116340(&D_00372E50);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022C210);
+struct N22C2 {
+    N22C2* unk0;
+    N22C2* unk4;
+    s32 unk8;
+};
+
+struct H22C2 {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+};
+
+struct PL22C2 {
+    u16 unk0;
+    u16 unk2;
+    u16 unk4;
+    u16 unk6;
+    N22C2 nodes[1];
+};
+
+struct P22C2 {
+    u8 unk0;
+    u8 unk1;
+    char pad2[2];
+    s32 unk4;
+};
+
+struct I22C2 {
+    s32 unk0;
+    N22C2* unk4;
+};
+
+extern "C" void func_0022C210(s32 p, s32 key) {
+    P22C2 pr;
+    I22C2 end;
+    I22C2 cur;
+    I22C2 c1;
+    I22C2 c2;
+    I22C2 c3;
+    I22C2 c4;
+    func_00116320(&D_00372E50);
+    s32 hd = p + 0x24;
+    pr.unk4 = key;
+    s32 e = p + 0x2C;
+    pr.unk1 = 0;
+    end.unk4 = (N22C2*)e;
+    cur.unk4 = *(N22C2**)(hd + 0xC);
+    if (cur.unk4 != end.unk4) {
+        do {
+            N22C2* n = cur.unk4;
+            if (n->unk8 == pr.unk4) {
+                c2.unk4 = n;
+                c4.unk4 = n;
+                c2.unk4 = n->unk4;
+                c3.unk4 = n;
+                n->unk0->unk4 = n->unk4;
+                n->unk4->unk0 = n->unk0;
+                s32 pool = *(s32*)(hd + 4);
+                H22C2* h = (H22C2*)(pool + 2);
+                N22C2* base = (N22C2*)(pool + 8);
+                *(u16*)n = h->unk2;
+                h->unk2 = n - base;
+                c1.unk4 = c2.unk4;
+                cur.unk4 = c2.unk4;
+            } else {
+                cur.unk4 = cur.unk4->unk4;
+            }
+        } while (cur.unk4 != end.unk4);
+    }
+    func_00116340(&D_00372E50);
+}
 
 extern "C" void func_0022C308(char* p) {
     LI22C it;
