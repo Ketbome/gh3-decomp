@@ -257,7 +257,10 @@ extern "C" void func_00293120(S293120 *p, int a, S293120_E *b, int n) {
 extern "C" void func_002931E8(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_292928", func_002931F0);
+extern "C" void func_002931F0(S293120 *p) {
+    p->unkC = 0;
+    p->unk8 = 0;
+}
 
 extern "C" int func_00293200(S00292928* p) {
     return p->unkC == p->unk10;
