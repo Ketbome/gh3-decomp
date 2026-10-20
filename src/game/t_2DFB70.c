@@ -546,6 +546,7 @@ int func_002E0B60(int a, int b, int c, int d) {
 }
 TEXT_PAD(20);
 
+GP_DATA(D_003727A4);
 int func_002E0CD0(void) {
     int i;
 
@@ -692,6 +693,7 @@ int func_002E1488(int a) {
 
 GP_DATA(D_0037272C);
 GP_DATA(D_00372744);
+GP_DATA(D_003727A8);
 void func_002E1518(int a, int b) {
     if (a != -1) {
         D_0037272C = 1;
@@ -710,6 +712,9 @@ void func_002E15B8(void) {
     SndDrv_CmdEnd();
 }
 
+GP_DATA(D_00372720);
+GP_DATA(D_0037281C);
+GP_DATA(D_0037280C);
 int func_002E15F8(int a, int b, int c) {
     SndDrv_CmdBegin(0xC);
     SndDrv_Push16((short)a);
@@ -731,6 +736,7 @@ int func_002E15F8(int a, int b, int c) {
 }
 TEXT_PAD(12);
 
+GP_DATA(D_003727A4);
 int func_002E16F8(unsigned int a) {
     if (a >= 0x30) {
         return -1;
@@ -808,6 +814,7 @@ int func_002E19E8(int a, unsigned int b) {
 }
 
 GP_DATA(D_003727D8);
+GP_DATA(D_00372730);
 void func_002E1B50(int a) {
     D_003727D8 = 1;
     D_00372730 = a;
@@ -855,6 +862,8 @@ GP_DATA(D_003726F4);
 GP_DATA(D_003726F8);
 GP_DATA(D_00372794);
 GP_DATA(D_00372798);
+GP_DATA(D_00372744);
+GP_DATA(D_0037272C);
 void SndDrv_ParseIopState(void) {
     int i;
     int w;
@@ -1100,6 +1109,10 @@ GP_DATA(D_003726E4);
 GP_DATA(D_003726DC);
 GP_DATA(D_00372700);
 GP_DATA(D_00372838);
+GP_DATA(D_003727A8);
+GP_DATA(D_003726E0);
+GP_DATA(D_003727F8);
+GP_DATA(D_003726D8);
 int SndDrv_FlushCommands(int a) {
     int ret;
     int r;
@@ -1248,6 +1261,9 @@ int func_002E3908(int a, char *b, int c) {
 }
 TEXT_PAD(12);
 
+GP_DATA(D_0037281C);
+GP_DATA(D_0037280C);
+GP_DATA(D_00372814);
 int func_002E39C8(int a) {
     if (a < 0 || a >= D_0037281C) {
         return -1;
@@ -1337,6 +1353,7 @@ int func_002E3CD8(int a, int b, unsigned int c, int d) {
     return 0;
 }
 
+GP_DATA(D_003727A4);
 int func_002E3E50(int a) {
     if (a >= D_003727A4) {
         return -1;
@@ -1366,6 +1383,7 @@ GP_DATA(D_00372781);
 GP_DATA(D_003727AC);
 GP_DATA(D_003727B0);
 GP_DATA(D_003727C8);
+GP_DATA(D_0037272C);
 int func_002E3F50(int a, struct S3F50 *s) {
     unsigned int t;
 
@@ -1441,6 +1459,7 @@ void func_002E43A8(struct S43A8 *s) {
     }
 }
 
+GP_DATA(D_00372818);
 unsigned char func_002E4548(void) {
     unsigned char r;
 
@@ -1450,6 +1469,9 @@ unsigned char func_002E4548(void) {
 }
 
 GP_DATA(D_00372810);
+GP_DATA(D_0037281C);
+GP_DATA(D_0037280C);
+GP_DATA(D_00372814);
 int func_002E4590(void) {
     int i;
 
@@ -1519,6 +1541,9 @@ GP_DATA(D_0037284C);
 GP_DATA(D_00372844);
 GP_DATA(D_00372848);
 GP_DATA(D_003726F4);
+GP_DATA(D_00372780);
+GP_DATA(D_00372782);
+GP_DATA(D_00372781);
 int func_002E4850(void) {
     int a = -1;
     int b = 0;
@@ -1590,6 +1615,7 @@ int func_002E4AC0(int a) {
 }
 TEXT_PAD(12);
 
+GP_DATA(D_003727A4);
 int func_002E4B58(int a, int b, int c, int d) {
     int e;
 
@@ -1633,6 +1659,8 @@ void func_002E4DD8(int a, int b) {
     D_00330CF8[a] = b;
 }
 
+GP_DATA(D_003727E0);
+GP_DATA(D_003727E8);
 void func_002E4E20(int a, int b) {
     a = a >> 16;
     a -= 1;
@@ -1698,6 +1726,7 @@ void func_002E5138(void) {
     SndDrv_CmdEnd();
 }
 
+GP_DATA(D_003727A4);
 int func_002E5188(int a, int b) {
     struct S3F50 s;
     struct S3F50 *p;
@@ -1760,6 +1789,7 @@ TEXT_PAD(8);
 
 GP_DATA(D_00372758);
 GP_DATA(D_003727CC);
+GP_DATA(D_00372744);
 int func_002E5408(void) {
     struct S43A8 s;
     struct S43A8 *p;
@@ -1817,15 +1847,18 @@ short b;
 }
 TEXT_PAD(28);
 
+GP_DATA(D_00372744);
 int func_002E56E8(void) {
     return D_00372744;
 }
 
+GP_DATA(D_00372730);
 int func_002E5718(void) {
     return D_00372730;
 }
 TEXT_PAD(16);
 
+GP_DATA(D_00372700);
 int func_002E5758(void) {
     return D_00372700;
 }
@@ -2011,6 +2044,10 @@ void func_002E6160(short a, short b) {
     SndDrv_CmdEnd();
 }
 
+GP_DATA(D_0037281C);
+GP_DATA(D_0037280C);
+GP_DATA(D_00372814);
+GP_DATA(D_00372808);
 void func_002E61D0(void) {
     int i;
 

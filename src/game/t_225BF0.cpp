@@ -333,6 +333,7 @@ extern "C" void func_00226CD0(int ai, int bi) {
 }
 TEXT_PAD(8);
 
+GP_DATA(D_00372E40);
 extern "C" void func_00226E30(int ai, int bi) {
     S226a* a = (S226a*)ai;
     S226b* b = (S226b*)bi;
