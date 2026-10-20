@@ -469,14 +469,53 @@ extern "C" SA127_Z* func_00128B08(SA127_Z* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00128B40);
-
 struct S128D48 {
     char pad0[4]; int unk4; char pad8[4]; void* unkC; int unk10; int unk14; int unk18; int unk1C;
     void (*unk20)(int); int unk24; SA127_Z* unk28[18]; u8 unk70; u8 unk71; char pad72[0x402];
     u16 unk474; u8 unk476; char pad477; int unk478; int unk47C; int unk480;
 };
 extern "C" int func_0011A208(int, int, int);
+
+extern "C" void func_00128B40_s(S128D48* self, int flags) __asm__("func_00128B40");
+void func_00128B40_s(S128D48* self, int flags) {
+    self->unk18 = 0;
+    self->unk1C = 0;
+    self->unk20 = 0;
+    self->unk4 = 0;
+    self->unk476 = 0;
+    self->unk70 = 0;
+    self->unk71 = 0;
+    self->unk14 = 0;
+    self->unk10 = 0;
+    self->unk478 = 0;
+    if (self->unkC != 0) {
+        int heap = D_00368A38[0];
+        func_00119490(heap, func_0011A208(heap, 0x8F21A798, 1));
+        if (self->unkC != 0) {
+            Heap_Free(D_00368A38[0], self->unkC);
+        }
+        func_001194B8(D_00368A38[0]);
+        self->unkC = 0;
+    }
+    if (self->unk20 != 0) {
+        self->unk20(self->unk24);
+        self->unk20 = 0;
+    }
+    int del = flags & 1;
+    SA127_Z** p = self->unk28;
+    for (int i = 0; i < 18; i++) {
+        if (p[i] != 0) {
+            func_00128AC0(p[i]);
+            if (p[i] != 0) func_00128A90(p[i], 3);
+            p[i] = 0;
+        }
+    }
+    self->unk480 = 0;
+    if (del != 0) {
+        Heap_Free(D_00368A38[0], self);
+    }
+}
+
 
 extern "C" int func_00128D48(S128D48* self) {
     self->unk47C = 1;
