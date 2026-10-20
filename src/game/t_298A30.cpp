@@ -71,7 +71,9 @@ struct S298_Peer {
     int unk2068;
     char pad206C[0x10B8];
     int unk3124;
-    char pad3128[0x1C];
+    int unk3128;
+    u16 unk312C;
+    char pad312E[0x16];
     int unk3144;
 };
 
@@ -80,6 +82,7 @@ struct S298_Task {
     char pad4[0xC];
     int *unk10;
     S298_Peer *unk14;
+    int unk18;
 };
 
 extern "C" {
@@ -89,6 +92,9 @@ extern u32 D_003718C0;
 extern char D_0034ACA8[];
 void func_00114958(char *, int);
 void func_00296AF0(S298_Msg *);
+int func_00296AF0_i(S298_Msg *) __asm__("func_00296AF0");
+int func_0029D8E0(int *);
+void func_0029D2A0(int *, int, int, int, int, u16, int);
 void func_0029C4C0(int *, int, S298_Msg *);
 void func_002961C8(char *, int);
 int func_0029D5C8(int *, S298_It *);
@@ -195,7 +201,33 @@ extern "C" int func_002998E8(S002998C0* p) {
     return 2;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00299910);
+struct S298_Small {
+    u8 b0;
+    char pad1[7];
+    int unk8;
+    int unkC;
+    char pad10[0x20];
+};
+
+extern "C" int func_00299910(S298_Task *t) {
+    S298_Small m;
+    func_00296AF0_i((S298_Msg *)(void *)&m);
+    if (t->unk18 & 1) {
+        if (!func_0029D8E0(t->unk10)) goto fail;
+        S298_Peer *q = t->unk14;
+        func_0029D2A0(t->unk10, 4, 0, 0, q->unk3128, q->unk312C, 0);
+        return 1;
+    }
+    if (!func_0029F5A8(t->unk14)) {
+fail:
+        return 4;
+    }
+    m.b0 = 4;
+    m.unk8 = 0xFF;
+    m.unkC = 1;
+    func_0029C4C0(t->unk10, t->unk14->unk3124, (S298_Msg *)(void *)&m);
+    return 1;
+}
 
 extern "C" void func_002999C8(S298_D8 *p, int flags) {
     p->vptr = D_0035C540;
