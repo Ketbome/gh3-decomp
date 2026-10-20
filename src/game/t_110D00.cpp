@@ -124,7 +124,33 @@ extern "C" float func_00112A58(S_00112A38* self, int i) {
     return *p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112A70);
+struct FB_112A70 { FA_111860 a; int pad; FA_111860 b; };
+extern "C" {
+u32 func_00112A30_u(int) __asm__("func_00112A30");
+float func_00112A38_f(int, u32) __asm__("func_00112A38");
+u32 func_00112A50_u(int) __asm__("func_00112A50");
+float func_00112A58_f(int, u32) __asm__("func_00112A58");
+}
+
+extern "C" void func_00112A70_s(int src, FB_112A70* dst) __asm__("func_00112A70");
+void func_00112A70_s(int src, FB_112A70* dst) {
+    Set_111860(&dst->a, func_00112A30_u(src));
+    u32 ia = 0;
+    while (ia < func_00112A30_u(src)) {
+        float v = func_00112A38_f(src, ia);
+        int off = ia * 4;
+        ia++;
+        *(float*)((char*)dst->a.unk0 + off) = v;
+    }
+    Set_111860(&dst->b, func_00112A50_u(src));
+    u32 ib = 0;
+    while (ib < func_00112A50_u(src)) {
+        float v = func_00112A58_f(src, ib);
+        int off = ib * 4;
+        ib++;
+        *(float*)((char*)dst->b.unk0 + off) = v;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CB0);
 
