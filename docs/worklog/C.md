@@ -1213,3 +1213,4 @@ Round 2026-10-19 (C8): 4 matches / 17 attempted (limit 15/40)
 Round 2026-10-19 (C8) final: 11 matches / 40 attempted.
 Round 2026-10-20 (C9): 0 matches / 0 attempted (limit 15/40)
 - func_00277220 (t_2754A0) MATCH (near miss resolved, nonmatching copy removed): nested compare `if (c1 == c2) { if (c2 == 0) return 1; } else return 0;` in the for(;;) (instead of `if (c1 != c2) return 0; if (c2 == 0) return 1;`) puts `v0 = 0` in the bne delay slot as the original.
+- func_0028C8F8 (t_28AB28) MATCH (near miss resolved, nonmatching copy removed): only `func_00296AF0` (void, result unused) declared `int` fixed the -1 in v1.

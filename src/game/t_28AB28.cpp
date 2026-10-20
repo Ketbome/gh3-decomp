@@ -110,7 +110,11 @@ struct S28AB_Tab {
 extern "C" {
 extern S28AB_Ctx *D_0036F658;
 extern int D_00372580;
-void func_001C8258(int);
+int func_001C8258(int);
+int func_00296AF0(void *);
+int func_0027FAC8(int, void *, int, int, int);
+int func_001CA020(int, int);
+void func_0029D238(int, void *, int, int);
 void *func_001D1CF8(void *, u32);
 u8 *func_00283A08(u8 *);
 void func_0028B840(S28AB_Scr *);
@@ -427,7 +431,47 @@ extern "C" int func_0028C8D0(S0028C8D0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C8F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C8F8);
+struct S28C8_Obj {
+    char pad0[0x2C];
+    int unk2C;
+};
+
+struct S28C8_Pk {
+    int unk0;
+    int unk4;
+    char data[0x408];
+    u8 hdrType;
+    char pad411;
+    s16 hdrLen;
+    void *hdrData;
+    char pad418[4];
+    int hdrC;
+    u8 hdr10;
+    char pad421[0x1F];
+};
+
+extern "C" void func_0028C8F8(int a, int b, S28C8_Obj *obj) {
+    S28C8_Pk l;
+    int g = D_00372580;
+    if (func_001C8258(g)) {
+        func_00296AF0(&l.hdrType);
+        l.unk4 = -1;
+        l.unk0 = a;
+        if (obj)
+            l.unk4 = obj->unk2C;
+        int n = func_0027FAC8(b, l.data, 0x400, 1, 0);
+        int h = func_001CA020(g, 0);
+        l.hdrLen = n + 8;
+        l.hdrType = 0x4C;
+        int two = 2;
+        int eight = 8;
+        l.hdrC = two;
+        l.hdr10 = eight;
+        l.hdrData = &l;
+        func_0029D238(h, &l.hdrType, two, eight);
+    }
+}
+
 
 extern "C" void func_0028C9D0(void) {
     func_0028C9F0();
