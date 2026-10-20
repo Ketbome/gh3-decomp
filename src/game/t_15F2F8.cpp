@@ -575,7 +575,55 @@ extern "C" int func_00160A40(L15F* self, int key) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160A90);
+extern "C" {
+char* strcpy(char*, char*);
+void func_00113528(char*);
+char* func_0030E720(char*, char*);
+void func_0030A554(char*, char*);
+extern char D_00369FF0[];
+int func_0015B218(int, char*, int);
+void func_00275F08(int, int);
+}
+
+struct S160A90 { char pad0[0x14]; N15F unk14; char pad20[0x38]; VEntry* unk58; };
+extern char D_00369FF8[];
+extern "C" int func_0015B168(int, char*, char*);
+
+extern "C" int func_00160A90(S160A90* self, int key, char* name, char* name2) {
+    int all = key == (int)0xC4E78E22;
+    VEntry* e = &self->unk58[11];
+    ((int (*)(void*))e->fn)((char*)self + e->delta);
+    char buf[0x200];
+    strcpy(buf, name);
+    int ret = 0;
+    func_00113528(buf);
+    if (func_0030E720(buf, D_00369FF0) == 0 && func_0030E720(buf, D_00369FF8) == 0) {
+        func_0030A554(buf, D_00369FF0);
+    }
+    char buf2[0x200];
+    strcpy(buf2, name2);
+    func_00113528(buf2);
+    char* p = func_0030E720(buf2, D_00369FF0);
+    if (p != 0 || (p = func_0030E720(buf2, D_00369FF8), p != 0)) {
+        *p = 0;
+    }
+    It15F end(&self->unk14);
+    It15F it(self->unk14.unk4);
+    for (; it != end; ++it) {
+        int k = it.cur->unk8->unk8;
+        if (key == k || all || k == 0) {
+            if (it.cur->unk8->unk4 != 0) {
+                if (func_0015B168(it.cur->unk8->unk4, buf, buf2) != 0) ret = 1;
+            }
+        }
+    }
+    if (ret == 0) {
+        func_00275F08(0x2A648514, 0);
+    }
+    e = &self->unk58[12];
+    ((int (*)(void*))e->fn)((char*)self + e->delta);
+    return ret;
+}
 
 static inline int Q_160C58(int a) {
     H15F h;
@@ -592,16 +640,6 @@ static inline int Q_160C58(int a) {
 }
 
 struct S160C58 { char pad0[0x14]; N15F unk14; char pad20[0x38]; VEntry* unk58; };
-
-extern "C" {
-char* strcpy(char*, char*);
-void func_00113528(char*);
-char* func_0030E720(char*, char*);
-void func_0030A554(char*, char*);
-extern char D_00369FF0[];
-int func_0015B218(int, char*, int);
-void func_00275F08(int, int);
-}
 
 extern "C" int func_00160C58(S160C58* self, int key, char* name, int hkey) {
     int ret = 0;
