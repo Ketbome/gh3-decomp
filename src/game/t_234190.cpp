@@ -436,7 +436,69 @@ INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_CreatePakManMap);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_DestroyPakManMap);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", CFunc_PendingPakManLoads);
+extern "C" {
+extern int D_00368A38;
+extern int D_0036F658;
+extern int D_0036F608;
+void func_00119490(int, int);
+int func_00119610(int, int);
+void func_001194B8(int);
+void func_0011E130(void);
+void func_00229718(int);
+void func_0022B2E8(int);
+void func_002302D0(void);
+void func_002EA460(void);
+void func_002DD0D0(void);
+int func_002DD108(void);
+int func_00234E18_2(int, int) __asm__("func_00234E18");
+int func_00234DD0_2(int, int) __asm__("func_00234DD0");
+}
+
+
+extern "C" int CFunc_PendingPakManLoads(int params, char* script) {
+    int sp0 = 0;
+    int sp4 = 0;
+    int sp8 = 0;
+    int spC = -1;
+    func_0027D870(params, 0x6C525544, &sp0, 1);
+    func_0027D1F8(params, 0x58C29C3F, &sp4, 0);
+    func_0027D1F8(params, 0x544FD9C3, &sp8, 0);
+    func_0027D1F8(params, 0x53F1DF98, &spC, 0);
+    if (sp4 != 0) {
+        int h = D_00368A38;
+        func_00119490(h, func_00119610(h, 1));
+        while (func_00234E18_2(sp0, spC) != 0) {
+            func_0022B2E8(D_0036F658);
+            func_002302D0();
+            func_002EA460();
+            func_0011E130();
+            func_00229718(D_0036F608);
+            func_00234CB8();
+        }
+        if (sp8 == 0) {
+            func_002DD0D0();
+        }
+        func_001194B8(D_00368A38);
+        return 0;
+    }
+    if (func_00234DD0_2(sp0, spC) != 0) {
+        func_0027C160(*(int*)(script + 0x20), 0x8F316A87, 1);
+    }
+    if (func_00234E18_2(sp0, spC) != 0) {
+        return 1;
+    }
+    if (sp8 != 0) {
+        goto zero;
+    }
+    {
+        int t = func_002DD108();
+        if (t != 0) {
+            return 1;
+        }
+    }
+zero:
+    return 0;
+}
 
 extern "C" int CFunc_ExistsPakManMap(int a) {
     int tmp = 0;
