@@ -550,7 +550,26 @@ extern "C" void func_00277208(void) {
 }
 TEXT_PAD(16);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00277220);
+extern "C" int func_00277220(char *a, char *b) {
+    for (;;) {
+        char c1 = *a++;
+        if ((u32)(c1 - 0x41) < 0x1A)
+            c1 += 0x20;
+        if (c1 == '/')
+            c1 = '\\';
+        char c2 = *b++;
+        if ((u32)(c2 - 0x41) < 0x1A)
+            c2 += 0x20;
+        if (c2 == '/')
+            c2 = '\\';
+        if (c1 == c2) {
+            if (c2 == 0)
+                return 1;
+        } else {
+            return 0;
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2754A0", func_00277298);
 

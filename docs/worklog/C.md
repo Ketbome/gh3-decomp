@@ -1211,3 +1211,5 @@ Round 2026-10-19 (C8): 4 matches / 17 attempted (limit 15/40)
 - func_002DE280 (t_2DCE78): near miss (0x19c vs 0x194), nonmatching/func_002DE280.cpp: the ctor recipe (3 nodes, handler address in a local before each ctor call, `S2DCF_Col c; c.Set(0xFF,0xFF,0xFF,0xFF)` before the 2nd and 3rd `operator_new` and at the end, `0xFFFFFFFF` as a `u32` literal (`lui/ori`, not `li -1`), `s3 = 0xFF` comes out) gets everything but the register of `p + 0x8000` (original s5 with p in s4, ours s6) and the constant 0xFFFFFFFF, which the original builds once into a2 and uses for both the store at +4 and the 3rd argument of func_0029FD08 (ours builds it twice; a local, or re-reading the stored field, does not merge them).
 
 Round 2026-10-19 (C8) final: 11 matches / 40 attempted.
+Round 2026-10-20 (C9): 0 matches / 0 attempted (limit 15/40)
+- func_00277220 (t_2754A0) MATCH (near miss resolved, nonmatching copy removed): nested compare `if (c1 == c2) { if (c2 == 0) return 1; } else return 0;` in the for(;;) (instead of `if (c1 != c2) return 0; if (c2 == 0) return 1;`) puts `v0 = 0` in the bne delay slot as the original.
