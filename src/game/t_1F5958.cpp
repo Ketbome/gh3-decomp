@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct S1F5958_V {
@@ -184,7 +185,45 @@ extern "C" void func_001F5FE0(char* p, void* a) {
     func_001D0F90(p, a);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F5958", func_001F6038);
+extern "C" {
+extern f32 D_0032C6D0[];
+extern s32 D_0036D3B0;
+s32 func_002764E8(u32, s32);
+f32 func_0027EFA0(s32, u32);
+s32 func_001D8618(s32, s32);
+bool func_0027DF00(void*, u32);
+void* func_001313E8(void*, s32);
+}
+
+extern "C" void func_001F6038(char* p, void* a) {
+    s32 sp4 = 0;
+    s32 sp0 = 0;
+    if (D_0032C6D0[0] == 0.0f) {
+        s32 h = func_002764E8(0xD7405ABF, 0);
+        u32 i;
+        for (i = 0; i < 11; i++) {
+            f32 v = func_0027EFA0(h, i);
+            D_0032C6D0[i] = v * v;
+        }
+    }
+    *(s32*)(p + 0x24) = 10;
+    func_0027D1F8(a, 0xBE22694E, (s32*)(p + 0x24), 0);
+    *(s32*)(p + 0x28) = 0;
+    func_0027D1F8(a, 0x99990E7F, (s32*)(p + 0x28), 0);
+    if (func_0027D870(a, 0xA81F615C, &sp0, 0)) {
+        char* q = (char*)func_001D1CF8((void*)func_001D8618(D_0036D3B0, sp0), 0x222756D5);
+        *(void**)(p + 0x1C) = func_001313E8(Heap_Alloc(D_00368A38[0], 0x234, 1, 0), *(s32*)(q + 0x1C));
+    } else {
+        func_0027D870(a, 0x09794932, &sp4, 1);
+        func_001F5F08(p, sp4);
+        s32 r = -1;
+        if (func_0027DF00(a, 0x7594231C)) {
+            s32* t = *(s32**)(p + 0x1C);
+            *t &= 0xFDFFFFFF;
+        }
+        *(s32*)(p + 0x2C) = r;
+    }
+}
 
 extern "C" void func_001F6268(char* p) {
     *(void**)(p + 0x20) = func_001D1CF8(*(void**)(p + 0xC), 0xCE0CA665);
