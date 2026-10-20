@@ -179,7 +179,58 @@ extern "C" void func_001AE520(V1ADC* o, s32 out, s32 first) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AE7A0);
+extern "C" s32 D_00372C18;
+extern "C" void func_001AEB80(V1ADC* o, s32 out, s32 n);
+extern "C" s32 func_001AD230(V1ADC* o, s32 z);
+
+GP_DATA(D_00372C18);
+extern "C" void func_001AE7A0(V1ADC* o, s32 out, s32 first) {
+    if (first != 0) {
+        D_00372C18 = 0;
+    }
+    if (func_001ACD28(o) != 0) {
+        s32 n = func_0019BF20_c(o->unk20);
+        func_001AEB80(o, out + D_00372C18 * 16, n);
+        func_00119490(D_00368A38[0], ((H1ADC*)D_00368A38[0])->unk1DC);
+        s32* b = (s32*)Heap_Alloc(D_00368A38[0], n * 16, 1, 0);
+        s32 off[3];
+        if (func_0019C648(o->unk20) < 0x20) {
+            f32 s = 4096.0f;
+            off[0] = (s32)(o->x * s);
+            off[1] = (s32)(o->y * s);
+            off[2] = (s32)(o->z * s);
+        }
+        s32 i;
+        for (i = 0; i < n; i++) {
+            if (func_0019C648(o->unk20) == 0x20) {
+                f32* r = (f32*)(D_00372C18 * 16 + out);
+                b[i * 4] = (s32)(r[0] * 4096.0f);
+                b[i * 4 + 1] = (s32)(r[1] * 4096.0f);
+                b[i * 4 + 2] = (s32)(r[2] * 4096.0f);
+            } else {
+                f32* r = (f32*)(D_00372C18 * 16 + out);
+                b[i * 4] = (s32)(r[0] * 4096.0f) - off[0];
+                b[i * 4 + 1] = (s32)(r[1] * 4096.0f) - off[1];
+                b[i * 4 + 2] = (s32)(r[2] * 4096.0f) - off[2];
+            }
+            D_00372C18 += 1;
+        }
+        func_0019C908(o->unk20, b, 1);
+        if (b != 0) {
+            Heap_Free(D_00368A38[0], b);
+        }
+        func_001194B8(D_00368A38[0]);
+    } else {
+        V1ADC* c = o->unk20;
+        if (c != 0) {
+            do {
+                func_001AE7A0(c, out, 0);
+                c = c->unk28;
+            } while (c != 0);
+        }
+        func_001AEB80(o, out, func_001AD230(o, 0));
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1ADBA8", func_001AEB80);
 
