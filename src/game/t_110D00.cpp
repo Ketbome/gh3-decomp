@@ -51,7 +51,36 @@ extern "C" O_1117* func_001117F8(O_1117* self) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00111860);
+struct FA_111860 { float* unk0; u32 unk4; u32 unk8; };
+extern "C" {
+void* Heap_Alloc_f(int, int, int, int) __asm__("Heap_Alloc");
+void Heap_Free_f(int, void*) __asm__("Heap_Free");
+}
+
+static inline void Set_111860(FA_111860* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free_f(D_00368A38[0], a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        float* t = (float*)Heap_Alloc_f(D_00368A38[0], n * 4, 1, 0);
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free_f(D_00368A38[0], a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+extern "C" void func_00111860_s(FA_111860* self, u32 n) __asm__("func_00111860");
+void func_00111860_s(FA_111860* self, u32 n) {
+    Set_111860(self, n);
+    Set_111860((FA_111860*)((char*)self + 0x10), n);
+}
 
 extern "C" void func_00111A08(SA110* self, int i, float* v) {
     float* p = self->unk0;
