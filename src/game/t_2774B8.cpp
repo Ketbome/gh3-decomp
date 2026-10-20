@@ -23,7 +23,31 @@ extern "C" void func_002774B8(void) {
     func_00277378();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_002774D8);
+struct S2774D8_N {
+    int key;
+    char *val;
+    S2774D8_N *next;
+};
+
+extern "C" {
+extern int D_00368744;
+extern S2774D8_N **D_00371178;
+char *func_002774D8_k(int) __asm__("func_002774D8");
+}
+
+extern "C" char *func_002774D8_k(int key) {
+    if (D_00368744 == 0) {
+        return 0;
+    }
+    S2774D8_N *n = D_00371178[key & 0xFFFF];
+    for (; n; n = n->next) {
+        if (n->key == key) {
+            return n->val;
+        }
+    }
+    return 0;
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2774B8", func_00277538);
 
