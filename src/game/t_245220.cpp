@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 typedef int TI128 __attribute__((mode(TI)));
@@ -148,7 +149,21 @@ extern "C" int func_00246DE0(char* p, int a, int b) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_245220", func_00246E30);
+extern "C" int func_00246E30(char* p, int v) {
+    s32 n = *(s32*)(p + 0x18);
+    s32 i = 0;
+    if (n > 0) {
+        s32 m = n;
+        asm("" : "+r"(m));
+        s32* a = *(s32**)(p + 0x1C);
+        do {
+            if (*a == v) return 1;
+            a++;
+            i++;
+        } while (i < m);
+    }
+    return 0;
+}
 
 GP_DATA(D_00370044);
 extern "C" int func_00246EF0(void) {
