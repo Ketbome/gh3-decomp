@@ -33,6 +33,12 @@ struct S26E008 {
     char unk10[1];
 };
 
+struct S26D_P7 {
+    int a;
+    short b;
+    char c;
+};
+
 extern "C" {
 void func_0030B550(char *, const char *, ...);
 extern char D_00358958[];
@@ -66,6 +72,7 @@ extern int D_00370C14;
 void func_00273498(void);
 int func_0026E0B8(int *);
 extern S0026D660 D_003A66F0;
+extern S26D_P7 D_00370C68[2];
 int func_002741F8(int, int);
 void func_0026E1B0(int, int);
 extern int D_00370C18;
@@ -165,7 +172,27 @@ extern "C" int func_0026DAB0(int i) {
     return (&D_003A66F0)[i].unkC80;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026DAF8);
+extern "C" char *func_0026DAF8(int a, int b) {
+    if (func_0026ABA8()) {
+        S26D_P7 *d = (S26D_P7 *)&D_003A66F0;
+        d->a = D_00370C68[0].a;
+        d->b = D_00370C68[0].b;
+        d->c = D_00370C68[0].c;
+        return (char *)d;
+    }
+    char *q = (char *)&D_003A66F0 + b * 0xCB0;
+    char *path = q + a * 0x28;
+    char *p = path;
+    int n = strlen(path);
+    int i = 0;
+    while (i < n) {
+        char c = path[i];
+        if (c == '\\' || c == '/')
+            p = path + (i + 1);
+        i++;
+    }
+    return p;
+}
 
 extern "C" void func_0026DBD8(int a) {
     if (func_0026ABA8() == 0) {
