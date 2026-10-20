@@ -169,7 +169,30 @@ extern "C" void func_002873A0(S2873A0 *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00287498);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002874A8);
+extern "C" {
+u8 *func_00283A08(u8 *);
+int func_00283EE8(u8 *);
+}
+
+extern "C" void func_002874A8(u8 *p) {
+    int b = 0, a = 0, c = 0;
+    for (;;) {
+        u8 t = *p;
+        if (t == 3) b++;
+        if (t == 5) a++;
+        if (t == 14) c++;
+        if (t == 4) b--;
+        if (t == 6) a--;
+        if (t == 15) c--;
+        if (b != 0 || a != 0 || c != 0 || !func_00283EE8(p)) {
+            p = func_00283A08(p);
+            continue;
+        }
+        func_00283A08(p);
+        return;
+    }
+}
+
 
 extern "C" int func_00287578(char *name, int a, int b, int c) {
     int t = CrcFromPathLowercase();
