@@ -87,7 +87,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159AB8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_00159E08);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A1B8);
+struct VG_15A1B8 { s16 unk0; s16 unk2; int (*unk4)(void*); };
+struct VH_15A1B8 { s16 unk0; s16 unk2; void (*unk4)(void*, int, int, int, int, int); };
+struct V_15A1B8 {
+    char pad0[0x18]; VG_15A1B8 unk18;
+    char pad20[0xB0]; VG_15A1B8 unkD0;
+    char padD8[0x58]; VH_15A1B8 unk130;
+};
+struct S_15A1B8 { char pad0[8]; V_15A1B8* unk8; };
+extern "C" void func_0030A2F4(int, int, int);
+
+extern "C" void func_0015A1B8(S_15A1B8* self, int buf, u16 ua, u16 ub, u16 uc, u16 ud) {
+    if (self->unk8->unk18.unk4((char*)self + self->unk8->unk18.unk0) != 0) {
+        u32 i = 0;
+        int w = self->unk8->unkD0.unk4((char*)self + self->unk8->unkD0.unk0);
+        int src = self->unk8->unk18.unk4((char*)self + self->unk8->unk18.unk0) + (ub * w + ua) * 4;
+        if (ud != 0) {
+            do {
+                func_0030A2F4(buf, src, uc * 4);
+                buf += uc * 4;
+                src += w * 4;
+                i++;
+            } while (i < (u32)ud);
+        }
+    } else {
+        self->unk8->unk130.unk4((char*)self + self->unk8->unk130.unk0, buf, ua, ub, uc, ud);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_159258", func_0015A3A8);
 
