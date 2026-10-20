@@ -1344,7 +1344,7 @@ Matched (A35): func_0014A940 (t_14A6B0; needs `// cflags: -funroll-loops` (the f
 
 ## Round 7 (movz helper retries, OBJECT_END, untried)
 
-Round 2026-10-19 (7th): 6 matches / 20 attempted (limit 15/40)
+Round 2026-10-19 (7th): 7 matches / 21 attempted (limit 15/40)
 - func_00120180 (t_11F000; open-file variant of func_001203A8; OBJECT_END + GP_DATA(D_00368D78) before it fixes the gp/lui split and the first-branch delay slot; `sb 0x67` must be written once after the if/else (gcc copies it into the `b` slot); structure matches): left: the original keeps `la D_00368D98` as a pointer (lui; addiu v1; lw a1,lo(v0); lhu 4(v1)) while ours folds it into two luis (q = &D, asm barrier, struct copy all tried), plus `move s3,zero` ahead of `sd ra`; ~16 forms, reverted
 - func_0014E1B8: Get/First helpers writing through a reference (3 forms) still give movz for the first test (original `bnez; move v1,zero`); reverted
 - func_0019B448: constant 1 kept in a register: `asm("" : "+r"(one))` keeps it but hoists the shifts out of the loop (original shifts inside); helper `Bit(u32& v, ...)` for the if-converted bits works for movn; reverted
@@ -1367,3 +1367,4 @@ Matched (A7-4): func_00158578 (t_157100; outline of a w*h box in a pixel buffer:
 Matched (A7-5): func_0015A1B8 (t_159258; read a w*h rectangle from the screen buffer (vcalls 0x18/0xD0, fallback vcall 0x130) into a buffer row by row with func_0030A2F4; u16 parameters (`u16 ua, ub, uc, ud`) instead of `& 0xFFFF` copies (those cost a 9th saved register); `u32 i = 0` inside the then-branch (the zero lands in the beqz slot); `do { ...; i++; } while (i < (u32)ud)` under `if (ud != 0)` (a for loop swaps s4/s5))
 Matched (A7-6): func_0015A3A8 (t_159258; twin of func_0015A1B8 writing the buffer to the screen, fallback vcall at 0x138; same template, copy direction swapped)
 - func_001598F0 (t_159258; clipped blit with bpp = 9th stack arg u16, rows copied with func_0030A2F4): original saves s0..s5 with `sq` (frame 0x70): the arguments live in 128-bit registers there (not understood; plain ints give a 0x40 frame with `sd`); 2 forms
+Matched (A7-7): func_001294C0 (t_1277C0; remove a key from the 50-entry slot tables (objs at +8, ids at +0xD0, unrolled 5x by the file flag): `found = 1` AFTER the func_00128D48 call (before it the flag lives in a callee-saved register; the original keeps it in a0 because it is never live across a call), `ids` as u32 with 0xFFFFFFFF (lui/ori), second loop `o->unk20(o->unk24)` (passes the loaded field, not the key), alias for the old `void(void*, int)` prototype)

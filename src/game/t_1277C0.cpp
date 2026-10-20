@@ -605,7 +605,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001293A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001294B8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_001294C0);
+struct O_1294C0 { char pad0[0x20]; void (*unk20)(int); int unk24; };
+struct S_1294C0 { char pad0[8]; O_1294C0* objs[50]; u32 ids[50]; char pad198[8]; int unk1A0; int unk1A4; };
+extern "C" int func_00128D48(O_1294C0*);
+
+extern "C" void func_001294C0_x(S_1294C0* self, u32 key) __asm__("func_001294C0");
+void func_001294C0_x(S_1294C0* self, u32 key) {
+    int found = 0;
+    for (int i = 0; i < 50; i++) {
+        if (self->ids[i] == key) {
+            self->ids[i] = 0xFFFFFFFF;
+            self->unk1A0 = self->unk1A0 - 1;
+            self->unk1A4 = self->unk1A4 - func_00128D48(self->objs[i]);
+            found = 1;
+            self->ids[i] = 0xFFFFFFFF;
+        }
+    }
+    if (found == 0) {
+        for (int i = 0; i < 50; i++) {
+            O_1294C0* o = self->objs[i];
+            if (o != 0 && o->unk24 == key) {
+                o->unk20(o->unk24);
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1277C0", func_00129710);
 
