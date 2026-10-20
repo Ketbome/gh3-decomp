@@ -113,7 +113,81 @@ extern "C" void func_002E9510(int i, int a, int b, int n, int *out) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E95C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E9818);
+struct S2E98_B {
+    int unk0;
+    int unk4;
+    char *unk8;
+    int pad0C;
+    char *unk10;
+    int pad14;
+    int pad18;
+};
+struct S2E98_R {
+    int unk0;
+    int pad4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    int unk18;
+    int pad1C;
+    int pad20;
+    int pad24;
+    S2E98_B unk28[2];
+};
+
+extern "C" {
+extern S2E98_R D_003EB210;
+extern S2E98_B D_003EB238[];
+extern char D_00372948[];
+int func_0011DAA0_i(int) asm("func_0011DAA0");
+void func_00294FD0_r(S2E98_R *) asm("func_00294FD0");
+int func_00295010_r(S2E98_R *, char *, int) asm("func_00295010");
+int func_0030A260(char *, char *, int);
+void *memset(void *, int, unsigned int);
+}
+
+extern "C" int func_002E9818(void) {
+    int r;
+    func_002E62C0(1);
+    if (D_003EB210.unk14 != 0 || D_003EB210.unk8 == 0 || D_003EB210.unk0 == 0) {
+        func_002E62C0(0);
+        return 0;
+    }
+    {
+        S2E98_B *b = &D_003EB238[D_003EB210.unk10];
+        if (D_003EB210.unk18 != 0 && func_0011DAA0_i(D_003EB210.unk8) == 0) {
+            if (func_0030A260(D_00372948, b->unk8, 4) == 0) {
+                memset(b->unk8, 0, 0x30);
+            }
+            char *p = b->unk8 + 0x20000;
+            b->unk4 -= 0x20000;
+            b->unk8 = p;
+            if (p == b->unk10 + b->unk0) {
+                b->unk8 = b->unk10;
+            }
+            int t = D_003EB210.unk10 ^ 1;
+            D_003EB210.unk18 = 0;
+            D_003EB210.unkC += 0x20000;
+            D_003EB210.unk10 = t;
+            b = &D_003EB238[t];
+        }
+        if (D_003EB210.unk18 == 0) {
+            if (b->unk4 > 0x1FFFF && D_003EB210.unkC < D_003EB210.unk0) {
+                func_00295010_r(&D_003EB210, b->unk8, 0x20000);
+                D_003EB210.unk18 = 1;
+            }
+        }
+        r = 1;
+        if (D_003EB210.unkC >= D_003EB210.unk0) {
+            r = 0;
+            func_00294FD0_r(&D_003EB210);
+            memset(&D_003EB210, 0, 0x1C);
+        }
+        func_002E62C0(0);
+        return r;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2E90B0", func_002E99D0);
 
