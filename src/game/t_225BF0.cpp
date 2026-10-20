@@ -51,7 +51,9 @@ int func_00226918(int);
 int func_00225E20(int);
 void func_00225A78(void*, int);
 void memset(void*, int, int);
-void func_00225CA8(int, void*);
+int func_00225CA8(int, void*);
+extern char D_00352460[];
+void* func_0030B550(char*, char*);
 extern u8 D_00352470[];
 u32 CrcFromPathLowercase(const char*);
 extern int D_003918C8[];
@@ -98,7 +100,17 @@ extern "C" s32 func_00225C28(char* a, s32 k) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225CA8);
+extern "C" int func_00225CA8(int pathi, void* outv) {
+    char* path = (char*)pathi;
+    char* out = (char*)outv;
+    char* p = path + (strlen(path) - 1);
+    while (*p != '\\' && *p != '/') p--;
+    strcpy(out, p + 1);
+    char* q = out;
+    while (*q != 0 && *q != '.') q++;
+    func_0030B550(q, D_00352460);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00225D78);
 

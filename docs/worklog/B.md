@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-20: 5 matches / 14 attempted (limit 15/40); matched: func_001E8838 func_001D8C10 func_001E8CA8 func_001E45C8 func_00246E30; near miss: func_0022AE78 func_001DB580 (list insert family: all stop at the loaded-iterator register v0/a0, see below); given up: func_001E29F0 func_0022C130 func_00221178 func_001DFFB0
+Round 2026-10-20: 6 matches / 20 attempted (limit 15/40); matched: func_001E8838 func_001D8C10 func_001E8CA8 func_001E45C8 func_00246E30 func_00225CA8; near miss: func_0022AE78 func_001DB580 (list insert family: all stop at the loaded-iterator register v0/a0, see below); given up: func_001E29F0 func_0022C130 func_00221178 func_001DFFB0
 
 Round 2026-10-19b: 16 matches / 32 attempted (limit 15/40); DONE (limit 15 matches reached). matched: func_001ADC90 func_001AE520 func_001AE7A0 func_0022C210 func_001F6038 CFunc_PendingPakManLoads CFunc_IsHost func_001FBE50 func_001FBEA8 func_0022B168 CFunc_EnterSurveyorMode func_001C95D8 func_0023F700 func_0023F738 func_00241040 func_00241078; near miss (nonmatching/): func_0022C130 func_0021FB88 func_001CDA60 func_00221178 func_001D62D0 func_001E29F0 func_001DFFB0 func_001D3620 func_00233E10
 
