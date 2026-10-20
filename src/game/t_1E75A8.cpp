@@ -535,7 +535,52 @@ extern "C" void func_001E8C98(void) {
 extern "C" void func_001E8CA0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8CA8);
+struct Arr1E8C {
+    s32 pad0;
+    s32 unk4;
+    s32* unk8;
+};
+
+extern "C" {
+int func_0027D470(int, u32, void*, int);
+void* Heap_Alloc(s32, s32, s32, s32);
+extern char D_0034D6A8[];
+extern s32 D_00368A38_m __asm__("D_00368A38");
+}
+
+extern "C" char *func_001E8CA8(char *self, int *a)
+{
+  char *new_var;
+  Arr1E8C *arr;
+  *((char **) (self + 0xC)) = D_0034D6A8;
+  *((s32 *) self) = 0x0F636D0D;
+  new_var = self + 8;
+  *((s32 *) (self + 4)) = 0;
+  *((s32 *) new_var) = 0;
+  if (func_0027D470(*a, 0x1F645AF6, &arr, 0) != 0)
+  {
+    s32 h = D_00368A38_m;
+    s32 v;
+    s32 n = arr->unk4;
+    *((s32 *) new_var) = n;
+    *((void **) (self + 4)) = Heap_Alloc(h, n * 4, 1, 0);
+    s32 i = 0;
+    n = *((s32 *) (self + 8));
+    for (; i < *((s32 *) (self + 8)); i++)
+    {
+      if (arr->unk4 == 1)
+      {
+        v = (s32) arr->unk8;
+      }
+      else
+      {
+        v = arr->unk8[i];
+      }
+      (*((s32 **) (self + 4)))[i] = v;
+    }
+  }
+  return self;
+}
 
 extern "C" void func_001E8D88(O1E8D* p) {
     if (p->v2() != 0) {
