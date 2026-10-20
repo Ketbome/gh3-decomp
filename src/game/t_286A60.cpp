@@ -367,4 +367,38 @@ extern "C" void func_00288998(S2867_Val *v, int type, S2867_V *obj, int d) {
     v->b6 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_00288A20);
+struct S2867_R {
+    int unk0;
+    int unk4;
+    int unk8;
+    virtual ~S2867_R();
+};
+
+extern "C" {
+int func_00288E30(S2867_Val *, int);
+int func_002892B0(S2867_Val *, int, S2867_R *);
+void func_002891A8(S2867_Val *);
+extern char D_0035AF80[];
+}
+
+extern "C" void func_00288A20(S2867_Val *v, int arg) {
+    if (func_00288E30(v, arg)) {
+        S2867_R *r = (S2867_R *)Heap_Alloc(D_00368A38, 0x10, 1, 0);
+        r->unk0 = 0;
+        r->unk4 = 0;
+        *(char **)((char *)r + 0xC) = D_0035AF80;
+        r->unk8 = 0;
+        v->value = (int)r;
+        v->b4 = func_002892B0(v, arg, r);
+        S2867_R *p = (S2867_R *)v->value;
+        if (p->unk4 == 0) {
+            delete p;
+            v->value = 0;
+        }
+        if (v->type == 4) {
+            func_002891A8(v);
+        }
+        v->b7 = 1;
+    }
+}
+
