@@ -24,7 +24,7 @@ int func_0027D1F8(int, int, int *, int);
 int func_0027D870(int, int, int *, int);
 int func_0027D400(int, int, int *, int);
 void func_002532C8(int, int);
-void func_00269998(int, int);
+int func_00269998(int, int);
 struct S252_N { u32 unk0; int unk4; int unk8; };
 struct S252_L { int unk0; u32 unk4; int unk8; };
 S252_N *func_0027B300(int, S252_N *);
@@ -264,7 +264,29 @@ INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002532A0);
 extern "C" void func_002532C0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_252068", func_002532C8);
+extern "C" void func_002532C8(int a, int b) {
+    S252_N *n = 0;
+    while ((n = func_0027B300(b, n))) {
+        u32 t = n->unk0 & 0xFE00;
+        if (t == 0x1400) {
+            func_00269998(a, n->unk4);
+            func_002532C8(n->unk4, n->unk8);
+        } else if (t == 0x1800) {
+            S252_L *l = (S252_L*)n->unk8;
+            u32 i = 0;
+            if (l->unk4 != 0) {
+                do {
+                    int v;
+                    if (l->unk4 == 1) v = l->unk8;
+                    else v = ((int*)l->unk8)[i];
+                    func_00269998(a, v);
+                    i++;
+                } while (i < l->unk4);
+            }
+        }
+    }
+}
+
 
 extern "C" int CFunc_CreateBussSystem(int arg0) {
     int out;
