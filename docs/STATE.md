@@ -6,11 +6,11 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-20): C round 9 (round 8: 11/40), B retrying its movz/cvt.w.s give-ups (15/40), forensics on GP_DATA done: `OBJECT_END()`
+Running (2026-10-20): C round 9 (round 8: 11/40), forensics on register copies the original keeps and gcc coalesces (A, B report it; scratch copy), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
 func_002DCD68. A retrying its movz give-ups + func_00120180 (15/40). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
-works; C round 7 hit 15 matches with that pattern. Stale `cvt.w.s` note B.md:17 to fix when B is idle.
+works; C round 7 hit 15 matches with that pattern. B's retry round: 16/32 (movz pattern, OBJECT_END work); B idle until the forensics result.
 Ranges:
 
 | Range | Files | Worklog | Last focus |
