@@ -669,7 +669,29 @@ extern "C" void func_002DCB40(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DAE48", func_002DCB98);
+extern "C" {
+void func_002DCE78(void);
+extern char D_00363488[];
+extern char D_003634B0[];
+}
+
+extern "C" s32 func_002DCB98(s32 a) {
+    S2DB5_O *p = (S2DB5_O *)a;
+    func_001C55A8_n(p);
+    p->unk14 = (int)D_00363488;
+    S2DB5_N *n = (S2DB5_N *)operator_new_n(0x24);
+    int fa = (int)func_002DCE78;
+    func_00113EA8_n(n, -0x7D0);
+    n->unk1C = fa;
+    n->unk20 = (int)p;
+    n->unk18 = (int)D_003634B0;
+    p->unk18 = n;
+    S2DB5_C c;
+    c.Set(0xFF, 0, 0, 0xFF);
+    p->unk1C = 0;
+    p->unk20 = 0;
+    return a;
+}
 
 extern "C" void func_002DCC30(S2DAE48_E *p, int v) {
     p->unk14 = D_00363488;
