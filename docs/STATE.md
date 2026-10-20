@@ -52,7 +52,6 @@ never mentioned in a worklog on 2026-10-14).
 - asm_filter: label/hazard-nop position after `c.cond.s` before `bc1t/f` (func_00127ED0: only two `b` targets
   differ); two extra nops before a loop head after `li.s` (func_00160E80); unroll 4x where the original is 2x
   (func_00142398, func_00123D08, func_00137C98).
-- Loads kept out of delay slots, movn/movz sentinel polarity: forensics running.
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).

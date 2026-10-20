@@ -129,6 +129,13 @@ turns it into a copy of the value computed before the guard; the source pattern 
 func_0012CAA8 matches; func_001E8170's `asm("" : "+r"(end))` replaced by the recomputed form, file 39/39;
 `dk all` 6030 match, 0 differ.
 
+## Loads in delay slots, select polarity
+
+gcc's reorg never puts a volatile access in a slot; gas did, and `delay_slots()` in asm_filter.py (cf046cf) stops it:
+func_00293C00, func_00293C70, func_00293218 match. Small-global `%gp_rel` loads in slots are SN gcc's own choice
+(1058 in branch slots, 421 in `jal` slots in the original), so a load kept out is source shape. `movn` vs `movz` in
+sentinel selects is reload's register choice for the same `if_then_else`, steered by the source (decomp_guide.md).
+
 ## Open questions
 
 - 26 functions (scattered, e.g. func_002AFE38) save every register including `$ra` with `sq`, at the offsets

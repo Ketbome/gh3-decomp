@@ -138,6 +138,13 @@ To survive a crash without losing work:
   iterator through an inline `operator++` returning `*this` by reference (`d.unk4 = (++b).unk4;`). Not a flag (no
   flag changes it; `register asm("$N")` pins are ignored by gcc 2.95). func_0012CAA8 matches this way; 55 matched
   functions show the shape.
+- **Sentinel select `movn` vs `movz`** (`x` if `~x->f != 0`, else 0, in list walks): gcc always builds the same
+  select; reload picks `movn` into a new register when the destination differs from the condition register (the
+  `nor` result), else `movz` on `x` plus a `move`. Give the result its own variable declared at function level:
+  `N* nn; ... nn = 0; if (~x->unk4 != 0) nn = x; ... n = nn;`. func_00150190 gets the inner `movn` this way
+  (rest is register allocation: permuter).
+- **A `%gp_rel` global load in a `jal` delay slot is normal** (the original has 421); a load kept out of the slot is
+  C shape, not the assembler. Volatile accesses are already kept out of slots by asm_filter.py.
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
   standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
