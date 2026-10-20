@@ -128,6 +128,9 @@ To survive a crash without losing work:
   between them without padding. Put `OBJECT_END();` on the line before the first function of the new object (the
   16-byte-aligned function start where the `lui` uses begin). Not for a second read of the same global inside one
   function (one in a delay slot, one outside): that is the source reading it twice.
+- **`$v0`/`$v1` swapped around a call**: the callee's declared return type decides it. A `void` callee declared
+  `int` (or the reverse) fixes most cases; when the file already declares it otherwise, add a second declaration
+  under an alias: `extern "C" int f_i(int) __asm__("f");`. Reported by B and C (CFunc_LoadScene, func_00271280).
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
   standard signatures (`unsigned int strlen(const char*)`), or gcc warns that they conflict with its built-ins.
 - Neversoft names things by checksums of their names (`0x0A015E17` is `"Motion"`): keep them as hex constants
