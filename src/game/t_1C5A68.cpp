@@ -154,6 +154,40 @@ extern "C" void func_001C5AB8(S001C5A68* p, S001C5A68_B* b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C5AD8);
 
+struct VE1C5 {
+    s16 delta;
+    s16 unk2;
+    void (*fn)(char*);
+};
+
+struct N1C5 {
+    char pad0[4];
+    N1C5* unk4;
+    s32 unk8;
+    N1C5* unkC;
+};
+
+struct It1C5 {
+    s32 unk0;
+    N1C5* unk4;
+    u8* unk8;
+
+    It1C5() {
+        unk8 = D_0034A6A0;
+    }
+    ~It1C5() {
+        unk8 = D_0034A6A0;
+    }
+};
+
+struct O1C5 {
+    char pad0[4];
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
+    VE1C5* unk14;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C5AE0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C5A68", func_001C5BE0);
