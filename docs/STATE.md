@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-19): C round 8, B retrying its movz/cvt.w.s give-ups (15/40), forensics on GP_DATA done: `OBJECT_END()`
+Running (2026-10-20): C round 9 (round 8: 11/40), B retrying its movz/cvt.w.s give-ups (15/40), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
 func_002DCD68. A retrying its movz give-ups + func_00120180 (15/40). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
@@ -62,7 +62,7 @@ never mentioned in a worklog on 2026-10-14).
    func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
    worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
-3. Permuter batch with no worker (254 files in nonmatching/).
+3. Permuter batch with no worker (327 files in nonmatching/): next quiet point (e.g. overnight).
 4. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
 5. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
    Ghidra), results into docs/worklog/names_pending.md. REA does not do matching.
