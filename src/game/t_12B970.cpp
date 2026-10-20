@@ -305,7 +305,57 @@ extern "C" SB12_List* func_0012C958(SB12_List* self, int a) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012C980);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012CAA8);
+struct VT12E { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
+struct O12E { char pad0[0x64]; VT12E* unk64; };
+struct N12E { N12E* unk0; N12E* unk4; O12E* unk8; };
+struct I12E { int unk0; N12E* cur; int unk8; int unkC; };
+struct L12E { int unk0; N12E unk4; N12E* First() { return unk4.unk4; } N12E* End() { return &unk4; } };
+
+extern "C" {
+void Heap_Free_c(int, void*) __asm__("Heap_Free");
+extern int D_00368A38_c __asm__("D_00368A38");
+void func_0012CAA8_d(void*, int) __asm__("func_0012CAA8");
+}
+
+void func_0012CAA8_d(void* self, int flags) {
+    I12E a, b, c, d, e;
+    L12E* l0 = (L12E*)((char*)self + 4);
+    if (l0->First() != l0->End()) {
+        do {
+            N12E* n = ((L12E*)((char*)self + 4))->First();
+            a.cur = n;
+            O12E* o = n->unk8;
+            if (o) {
+                o->unk64->fn((char*)o + o->unk64->delta, 3);
+            }
+            N12E* m = ((L12E*)((char*)self + 4))->First();
+            c.cur = m;
+            e.cur = m;
+            N12E* nx = m->unk4;
+            d.cur = m;
+            c.cur = nx;
+            m->unk0->unk4 = m->unk4;
+            m->unk4->unk0 = m->unk0;
+            Heap_Free_c(D_00368A38_c, m);
+            b.cur = c.cur;
+        } while (((L12E*)((char*)self + 4))->First() != ((L12E*)((char*)self + 4))->End());
+    }
+    L12E* l2 = (L12E*)((char*)self + 4);
+    N12E* s2 = l2->End();
+    N12E* p = l2->unk4.unk4;
+    l2->unk4.unk4 = s2;
+    l2->unk4.unk0 = s2;
+    if (p != s2) {
+        do {
+            N12E* q = p;
+            p = p->unk4;
+            Heap_Free_c(D_00368A38_c, q);
+        } while (p != l2->End());
+    }
+    if (flags & 1) {
+        Heap_Free_c(D_00368A38_c, self);
+    }
+}
 
 struct VT12D { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
 struct O12D { char pad0[0x64]; VT12D* unk64; };
