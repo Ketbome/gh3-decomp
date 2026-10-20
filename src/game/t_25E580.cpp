@@ -368,7 +368,86 @@ extern "C" int CFunc_SetScenePermanent(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25E580", CFunc_LoadScene);
+struct S25E_VT {
+    char pad0[0x10];
+    short delta;
+    short pad12;
+    int (*fn)(void *);
+};
+
+struct S25E_Z {
+    char pad0[0x34];
+    S25E_VT *vptr;
+};
+
+extern "C" {
+extern char D_00357560[];
+extern char D_00370670[];
+extern char D_00370678[];
+int func_0027DF00(int, u32);
+void func_0027AA70(S25E_Buf *);
+void func_0027C448(S25E_Buf *, int, int);
+void func_0027AC90(S25E_Buf *);
+int func_00113438(char *, char *);
+int func_0030B550(char *, char *, char *, char *, char *);
+}
+
+extern "C" int CFunc_LoadScene(int arg0) {
+    char buf[0x80];
+    S25E_Buf a;
+    S25E_Buf b;
+    S25E_Buf c;
+    char *name;
+    int t22 = func_0027DF00(arg0, 0x3D559E7D);
+    int t18 = func_0027DF00(arg0, 0xB5BD28D8);
+    int t21 = func_0027DF00(arg0, 0x417149C8);
+    func_0027DF00(arg0, 0x8943DBD8);
+    name = 0;
+    func_0027D188(arg0, 0x26861025, (int *)&name, 1);
+    char *fmt = D_00357560;
+    char *nm = name;
+    char *v8;
+    if (t21 != 0) {
+        v8 = D_00370670;
+    } else {
+        v8 = D_00370628;
+    }
+    func_0030B550(buf, fmt, nm, nm, v8);
+    func_0027AA70(&a);
+    func_0027C448(&a, 0, 0xE6237329);
+    S25E_Obj *obj = D_0036F658;
+    func_0022ABE8(&b, obj, (int)buf, 4, 0, 0, 0, (int)&a);
+    if (b.unk0 != 0) {
+        S25E_Z *z = (S25E_Z *)b.unk0;
+        char *th = (char *)z + z->vptr->delta;
+        z->vptr->fn(th);
+    }
+    func_00134340(&b);
+    func_0027AA70(&b);
+    func_0027C448(&b, 0xDC8116B2, func_0028DAB8((int)buf));
+    if (func_00113438(name, D_00370678) != 0) {
+        t18 = 1;
+    }
+    if (t18 != 0) {
+        func_0027C448(&b, 0, 0xB5BD28D8);
+    }
+    if (t22 != 0) {
+        func_0027C448(&b, 0, 0x3D559E7D);
+    }
+    if (t21 != 0) {
+        func_0027C448(&b, 0, 0x417149C8);
+    }
+    func_0022ABE8(&c, obj, (int)name, 3, 0, func_0028DAB8((int)buf), 0, (int)&b);
+    if (c.unk0 != 0) {
+        S25E_Z *z = (S25E_Z *)c.unk0;
+        char *th = (char *)z + z->vptr->delta;
+        z->vptr->fn(th);
+    }
+    func_00134340(&c);
+    func_0027AC90(&b);
+    func_0027AC90(&a);
+    return 1;
+}
 
 extern "C" int CFunc_UnloadScene(int arg0) {
     S25E_Buf a;
