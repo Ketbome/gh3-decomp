@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19b: 11 matches / 26 attempted (limit 15/40)
+Round 2026-10-19b: 12 matches / 27 attempted (limit 15/40)
 
 Round 2026-10-19: 9 matches / 30 attempted (limit 12/30); DONE (limit 30 attempted reached). matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss (nonmatching/): func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040 func_00232A58; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
@@ -1160,3 +1160,4 @@ Near miss (structure only): func_00232A58 (nonmatching/func_00232A58.cpp): a loo
 - t_1C9B30 CFunc_EnterSurveyorMode MATCH (old give-up, bnezl vs bnez): `s32 res; if (A) res = 0; else if (B) res = 0; else { ...; res = 1; } return res;` (each false path its own `res = 0`, so the two zero tails are not cross-jumped into one likely-branch block); the flag word is read into a local, `D_00368A38[0]` into another, then `*(s32*)(r+0x38) = fl | 0x400; func_001194B8(hh);` so the macro load stays out of the jal slot.
 - func_0022A8F8 (t_229D30, retried): inlined strrchr('.') + table scan `{name, value}[]` with strcmp-like func_0030E650; the m2c goto layout compiles to the right shape but the original keeps the string in s1 and the cursor in s0 (ours swapped: s0 string) and the table pointer reuses s1; `ext = e + 1` as a variable made it worse; not solved (4 forms).
 - func_001FB450 (t_1F9A48, retried): two-field lookup returning `p+0x3C`, `p+0x74` or 0; direct returns, goto-shared return and if/else chains all make the last compare `xor` + `movn` (the shared `move v0,v1` return block of the original is kept only when both pointer returns jump to it, but the final `return 0` is still merged into a conditional move); 7 forms.
+- t_1C7AA0 func_001C95D8 MATCH (movz give-up, hash -> enum chain 0 / 2 / 3-or-4): early returns for the first two, and the last selection through `static inline void Pick(s32& r, const s32& v) { if (v == K) r = 3; else r = 4; }` (literal arms inside the reference helper; `const s32&` of the stack word the getter filled).

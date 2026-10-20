@@ -508,7 +508,28 @@ extern "C" int func_001C94F0(int a) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C95D8);
+static inline void Pick1C95(s32& r, const s32& v) {
+    if (v == 0x4D04DFA7) {
+        r = 3;
+    } else {
+        r = 4;
+    }
+}
+
+extern "C" s32 func_001C95D8(s32 a) {
+    s32 h = func_0029FDA8(a + 0x40, 0xB9D44C2F);
+    s32 sp0 = 0;
+    func_0027D870(h, 0x21902065, &sp0, 1);
+    if (sp0 == 0x6A220326) {
+        return 0;
+    }
+    if (sp0 == 0x768E5A1D) {
+        return 2;
+    }
+    s32 r;
+    Pick1C95(r, sp0);
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C7AA0", func_001C9658);
 
