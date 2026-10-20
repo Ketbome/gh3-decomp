@@ -554,7 +554,46 @@ extern "C" void func_001CB708(char* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", func_001CB750);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_EnterSurveyorMode);
+struct VE1C9B_E {
+    s16 delta;
+    s16 pad;
+    void (*fn)(char*);
+};
+
+struct H1C9B {
+    char pad0[0x21C];
+    s32 unk21C;
+};
+
+extern "C" {
+s32 func_001CC0C0(void*);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+void func_00119490(s32, s32);
+void func_001194B8(s32);
+void func_001C9298(s32, s32);
+}
+
+extern "C" s32 CFunc_EnterSurveyorMode(void) {
+    s32 g = D_00369A60[0];
+    char* r = (char*)func_001CA768(g);
+    s32 res;
+    if (func_001CC0B0(r) != 0) {
+        res = 0;
+    } else if (func_001CC0C0(r) != 0) {
+        res = 0;
+    } else {
+        func_00119490(D_00368A38[0], ((H1C9B*)D_00368A38[0])->unk21C);
+        VE1C9B_E* e = (VE1C9B_E*)(*(char**)(r + 0x14) + 0x38);
+        e->fn(r + e->delta);
+        func_001C9298(g, -1000);
+        s32 fl = *(s32*)(r + 0x38);
+        s32 hh = D_00368A38[0];
+        *(s32*)(r + 0x38) = fl | 0x400;
+        func_001194B8(hh);
+        res = 1;
+    }
+    return res;
+}
 
 struct VE1C9B {
     s16 delta;
