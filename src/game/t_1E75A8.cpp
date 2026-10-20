@@ -379,7 +379,44 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E82F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8660);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E8838);
+struct N8838 {
+    N8838* unk0;
+    N8838* unk4;
+    char* unk8;
+};
+
+struct It8838 {
+    s32 unk0;
+    N8838* unk4;
+    s32 unk8;
+    s32 unkC;
+};
+
+extern "C" void func_001E8D88_v(char*) __asm__("func_001E8D88");
+s32 func_001E8838_d(char* self) __asm__("func_001E8838");
+s32 func_001E8838_d(char* self) {
+    It8838 it, end;
+    it.unk4 = *(N8838**)(self + 0x1C);
+    end.unk4 = (N8838*)(self + 0x18);
+    if (it.unk4 != end.unk4) {
+        do {
+            func_001E8D88_v(it.unk4->unk8);
+            char* o = it.unk4->unk8;
+            s32 ok;
+            if (*(s32*)(o + 4) != 0 && *(s32*)(*(char**)(o + 4) + GetProgressionDifficulty() * 4) == 0) {
+                ok = 1;
+            } else {
+                ok = (*(s32*)o == 0x4E29E602);
+            }
+            if (ok == 0) {
+                return 0;
+            }
+            it.unk4 = it.unk4->unk4;
+            end.unk4 = (N8838*)(self + 0x18);
+        } while (it.unk4 != end.unk4);
+    }
+    return 1;
+}
 
 extern "C" void func_001E88F8(S1E88F8* p) {
     S1E88F8_I it;
