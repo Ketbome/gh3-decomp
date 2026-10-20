@@ -12,7 +12,7 @@ that release; the build checks its result against it.
 <!-- dk:progress -->
 | Binary | Code in matching C++ | Functions in C++ | Functions still in assembly |
 |---|---|---|---|
-| `SLUS_216.72` (game code, 9,002 functions) | 26.77% | 6,053 | 2,949 |
+| `SLUS_216.72` (game code, 9,002 functions) | 26.77% | 6,054 | 2,948 |
 <!-- /dk:progress -->
 
 The rebuilt executable is byte-identical to the original. The table is regenerated at every integration
