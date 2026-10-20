@@ -6,11 +6,11 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), forensics on loads kept out of delay slots + movn/movz
-sentinel polarity (A and C report them; scratch copy). `dk protos` sweep over 328 near misses: 1 match
-(func_001207A0, range A; file in scratchpad/protos_sweep): hand it to A. B retrying near misses blocked by register copies (forensics: C shape, recompute the loop invariant; decomp_guide.md), forensics on GP_DATA done: `OBJECT_END()`
+Running (2026-10-20): C round 10 (rounds 8: 11/40, 9: 15/27), A round 8 (func_001207A0 from the `dk protos` sweep,
+which found 1 match in 328 near misses; movn sentinel family). Forensics 4: delay-slot loads and movn/movz
+polarity are C shape (decomp_guide.md); C got the three volatile t_292928 matches. B retrying near misses blocked by register copies (forensics: C shape, recompute the loop invariant; decomp_guide.md), forensics on GP_DATA done: `OBJECT_END()`
 marks an object end without padding (decomp_guide.md); unblocks func_001CDA60, func_00120180, func_00276FD8,
-func_002DCD68. A idle (round 7: 15/39). B and C were told about their OBJECT_END functions. Earlier today: forensics showed
+func_002DCD68. A round 7: 15/39. B and C were told about their OBJECT_END functions. Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
 works; C round 7 hit 15 matches with that pattern. B's movz retry round: 16/32.
 Ranges:
