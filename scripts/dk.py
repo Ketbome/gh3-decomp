@@ -16,6 +16,10 @@ Configured by a `decomp.toml` at the project root (see templates/decomp.toml). C
   dk all [<src>...]                   check every C/C++ function (regression check after a toolchain change)
   dk twins [--list] [<src>...]        copy matched functions onto functions with identical assembly (symbols renamed,
                                       local types copied), keep only what matches
+  dk protos <src> <func>              redeclare the functions <func> calls with the other return type (void <-> int,
+                                      through `__asm__` aliases used only by <func>), one and two at a time; writes a
+                                      combination that matches into <src>, else reports the closest (registers around
+                                      a call follow the callee's declared return type)
   dk state                            recovery report: the session state file, last commits, uncommitted sources
                                       and whether they match, progress, worklog activity, stale documents
   dk docs [--commit]                  rewrite the generated blocks of the documents (<!-- dk:NAME --> ... <!-- /dk:NAME -->)
@@ -29,6 +33,7 @@ PSP). Requires Python 3.9+, pyelftools, and tomllib (3.11+) or tomli.
 
 import fnmatch
 import glob
+import itertools
 import os
 import re
 import shlex
@@ -830,8 +835,61 @@ def cmd_twins(args):
     print(f"{total} candidates" if listing else f"{ok} of {total} twins matched")
 
 
+def cmd_protos(args):
+    src, name = Path(args[0]), args[1]
+    text = src.read_text()
+    body = function_text(text, name)
+    if not body:
+        sys.exit(f"{name}: not defined in {rel(src)}")
+    called = set(re.findall(r"\b(\w+)\s*\(", body)) - {name}
+    decl = re.compile(r'^(?:extern "C"\s+)?(void|int|s32|u32|unsigned int)\s+(\w+)\s*(\([^;{]*\))[^;{]*;')
+    decls = {}
+    for line in text.splitlines():
+        m = decl.match(line)
+        if m and m.group(2) in called:
+            label = re.search(r'(?:__asm__|asm)\("([\w.$]+)"\)', line)
+            decls[m.group(2)] = (m.group(1), m.group(3), label.group(1) if label else m.group(2))
+    image = IMAGE.read_bytes()
+
+    def variant(combo):
+        head, new = "", body
+        for n in combo:
+            ret, params, label = decls[n]
+            head += f'extern "C" {"int" if ret == "void" else "void"} {n}__r{params} __asm__("{label}");\n'
+            new = re.sub(rf"\b{re.escape(n)}(?=\s*\()", f"{n}__r", new)
+        return text.replace(body, head + new, 1)
+
+    def score(candidate):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / src.name
+            path.write_text(candidate)
+            try:
+                obj = compile_object(path, Path(tmp))
+            except RuntimeError:
+                return None
+            r = check_function(obj, name, image)
+        return 0 if r.endswith(": MATCH") else len(r.splitlines())
+
+    base = score(text)
+    print(f"{name}: {len(decls)} callees to try, {base} difference lines now")
+    best = None
+    for k in (1, 2):
+        for combo in itertools.combinations(sorted(decls), k):
+            candidate = variant(combo)
+            sc = score(candidate)
+            flips = ", ".join(f'{n} as {"int" if decls[n][0] == "void" else "void"}' for n in combo)
+            if sc == 0:
+                src.write_text(candidate)
+                print(f"{name}: MATCH with {flips} (alias declarations written to {rel(src)})")
+                return
+            if sc is not None and base is not None and sc < base and (best is None or sc < best[0]):
+                best = (sc, flips)
+    print(f"{name}: no match; closest: {best[1]} ({best[0]} lines)" if best else f"{name}: no flip gets closer")
+    sys.exit(1)
+
+
 COMMANDS = {"show": cmd_show, "next": cmd_next, "check": cmd_check, "try": cmd_try, "revert": cmd_revert,
-            "done": cmd_done, "all": cmd_all, "twins": cmd_twins, "state": cmd_state, "rescue": cmd_rescue,
+            "done": cmd_done, "all": cmd_all, "twins": cmd_twins, "protos": cmd_protos, "state": cmd_state, "rescue": cmd_rescue,
             "docs": cmd_docs}
 
 

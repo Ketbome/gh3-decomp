@@ -16,7 +16,9 @@ Your worklog: read only the notes at its top (before the first `## ` file sectio
 3. Write the C++ in place of that function's `INCLUDE_ASM` line only (never touch neighbouring lines). `extern "C"`,
    same name; declarations in the file's `extern "C" { }` block; structs local to the file, fields named by offset.
 4. Check: `dk try <file> <func>` (adds needed GP_DATA lines, then compares). Iterate.
-5. Near miss (only registers or instruction order differ)? Save your best attempt as
+5. Near miss (only registers or instruction order differ)? First `dk protos <file> <func>`: it redeclares each
+   callee with the other return type (void <-> int, alias used only by your function) and writes the fix if one
+   matches. Still not matching? Save your best attempt as
    `nonmatching/<func>.cpp` (a copy of the whole source file with your attempt in place) and list it in the worklog
    as `near miss`, and commit it (`git add nonmatching/<func>.cpp && git commit -m "near miss: <func>"`): the
    integrator runs the permuter on those (`scripts/permute.py`). Do not run it yourself.

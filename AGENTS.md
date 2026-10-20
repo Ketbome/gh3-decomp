@@ -59,6 +59,7 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
 - `dk show <func>`: asm + m2c draft; `dk try <file> <func>`: GP_DATA + compare (no link, safe in parallel)
 - `dk revert <file> <func>`; `dk done <file> <worklog> <msg>`: padding, full file check, commit
 - `dk twins [--list] [files]`: decompile functions identical to an already matched one
+- `dk protos <file> <func>`: near miss around calls: try each callee with the other return type (void <-> int)
 - `dk all`: check every C++ function (regression check after toolchain changes)
 - `dk docs [--commit]`: regenerate the `<!-- dk:... -->` blocks of README.md
 - `.venv/bin/python scripts/progress.py`: progress
