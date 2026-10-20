@@ -227,7 +227,48 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E4448);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E45C0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E2B90", func_001E45C8);
+struct VE1E45 {
+    s16 delta;
+    s16 pad;
+    s32 (*fn)(void*, s32);
+};
+
+extern "C" {
+void* func_00121E40(s32 a, char* b, s32 c, s32 d);
+s32 func_00121F28(s32 a, char* b);
+void func_001224F0(void* p);
+void func_00122550(void* p);
+unsigned int strlen(const char*);
+char* strcpy(char*, const char*);
+}
+
+extern "C" int func_00122550__r(void* p) __asm__("func_00122550");
+extern "C" s32 func_001E45C8(s32 a, s32 b, s32 c, s32* d) {
+    char buf[0x70];
+    buf[0] = 0;
+    if (D_00368740[0] < 9) {
+        if (D_00368740[0] >= 6) {
+            strcpy(buf, (char*)func_001E3220(b, c));
+        }
+    }
+    s32 r;
+    if (d != 0) {
+        void* o = func_00121E40(a, buf, 1, 0);
+        if (o != 0) {
+            *d = func_001E3310((void*)b, func_001E32D8((void*)b));
+            func_00122550__r(o);
+            func_001224F0(o);
+            VE1E45* e = (VE1E45*)(*(char**)((char*)o + 0x14) + 8);
+            e->fn((char*)o + e->delta, 3);
+            r = 1;
+        } else {
+            r = 0;
+        }
+    } else {
+        r = func_00121F28(a, buf);
+    }
+    return r;
+}
 
 extern "C" s32 func_001E46B0(s32 a) {
     char buf[0x10];
