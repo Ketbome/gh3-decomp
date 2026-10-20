@@ -1344,7 +1344,7 @@ Matched (A35): func_0014A940 (t_14A6B0; needs `// cflags: -funroll-loops` (the f
 
 ## Round 7 (movz helper retries, OBJECT_END, untried)
 
-Round 2026-10-19 (7th): 1 matches / 8 attempted (limit 15/40)
+Round 2026-10-19 (7th): 2 matches / 9 attempted (limit 15/40)
 - func_00120180 (t_11F000; open-file variant of func_001203A8; OBJECT_END + GP_DATA(D_00368D78) before it fixes the gp/lui split and the first-branch delay slot; `sb 0x67` must be written once after the if/else (gcc copies it into the `b` slot); structure matches): left: the original keeps `la D_00368D98` as a pointer (lui; addiu v1; lw a1,lo(v0); lhu 4(v1)) while ours folds it into two luis (q = &D, asm barrier, struct copy all tried), plus `move s3,zero` ahead of `sd ra`; ~16 forms, reverted
 - func_0014E1B8: Get/First helpers writing through a reference (3 forms) still give movz for the first test (original `bnez; move v1,zero`); reverted
 - func_0019B448: constant 1 kept in a register: `asm("" : "+r"(one))` keeps it but hoists the shifts out of the loop (original shifts inside); helper `Bit(u32& v, ...)` for the if-converted bits works for movn; reverted
@@ -1355,3 +1355,4 @@ Matched (A7-1): func_001621A0 (t_161580; two 0x38-byte color/rect copies on the 
 - func_00191310 (t_18FE28; twin func_00191DF0): `f` must be the parameter variable (`F_191* f` as 4th arg: shares s0), but gcc folds the bit-test tail (`(fl>>2)&1` twice) and the vcall arg setup differs (0x138 vs 0x150); 9 forms
 - func_00134288: original `move v0,a1` in the bne slot then `movn v0,zero,x`; every form gives movz or sltiu; 8 forms
 - near miss: func_0011FDC0 (t_11F000; buffer setup like func_001203A8: `a & 0xF` flag, `a & 0x3F` remainder, aligned alloc via func_00120628((n + 0x7E) & ~0x3F, a), stack param struct, vcall; ints not s16, `s20 = t4; if (s20) s20 = 0x40 - s20`): everything matches except the param `a` (a1) which ours copies to t0 at entry (original keeps it in a1 and assigns `move a1,v1` after the alloc); 12 forms; nonmatching/func_0011FDC0.cpp
+Matched (A7-2): func_00117F50 (t_116E38; 0xE0 status poll: early `if (poll <= 0) { func_00118388(); return; }`, sp0 byte bitmask loop; movz case: the original branches for `v = 4; if (c) { v = 5; if (x == 0) v = 4; } self->unkC = v`: the reference helper did NOT stop the if-conversion here, writing the field in every branch (`if (c) { if (x == 0) self->unkC = 4; else self->unkC = 5; } else self->unkC = 4;`) did: gcc cross-jumps the stores back into one `sw`)

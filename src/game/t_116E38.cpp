@@ -345,7 +345,75 @@ extern "C" void func_00117F18(void* self) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_116E38", func_00117F50);
+struct S_117F50 {
+    char pad0[0xC]; int unkC; char pad10[8]; int unk18; char pad1C[0xA]; u8 unk26; char pad27[0x5D]; u8 unk84[0x54];
+    int unkD8; int unkDC; u32 unkE0; int unkE4; char padE8[4]; int unkEC;
+};
+extern "C" {
+int func_002ED250(int, void*);
+int func_002ED718(int, void*, u32);
+}
+
+extern "C" void func_00117F50(void* pp) {
+    S_117F50* self = (S_117F50*)pp;
+    u8 sp0;
+    if (func_002ED250(self->unk18, &self->unkE0) <= 0) {
+        func_00118388((S118388*)self);
+        return;
+    }
+    {
+        u32 e = self->unkE0;
+        self->unkDC = 0;
+        self->unkE4 = 0;
+        if ((e & 0xFFFF) == 0xFFFF) {
+            int f = self->unkD8;
+            self->unkC = 7;
+            self->unkD8 = f | 1;
+            if ((e & 0xFFFF0000) == 0xFFFF0000) {
+                self->unkD8 = f | 5;
+            }
+            if (func_002ED718(self->unk18, &sp0, e) > 0) {
+                if (sp0 != 0) {
+                    int i = 0;
+                    do {
+                        if ((sp0 >> i) & 1) {
+                            if (i == 0) {
+                                self->unk84[0] = 1;
+                            } else {
+                                self->unk84[i] = 0xFF;
+                            }
+                            sp0 = sp0 & ~(1 << i);
+                            self->unkE4 = self->unkE4 + 1;
+                        }
+                        i++;
+                    } while (sp0 != 0);
+                    self->unkD8 = self->unkD8 | 2;
+                }
+            }
+            self->unk26 = self->unk26 | 0x80;
+            func_00117E10(self);
+            u8 g = self->unk26;
+            if (!(g & 0x80)) {
+                self->unk26 = g | 0x80;
+                self->unkC = 8;
+            }
+        } else {
+            if ((e & 0xFFFF) == 0xFFF9) {
+                if (((u8*)self)[0xE2] == 0) {
+                    self->unkC = 4;
+                } else {
+                    self->unkC = 5;
+                }
+            } else {
+                self->unkC = 4;
+            }
+        }
+        self->unkEC = 2;
+        if (self->unkC == 4) {
+            self->unkEC = 1;
+        }
+    }
+}
 
 struct S1180D8 { char pad0[0x18]; int unk18; char pad1C[0xDC]; int unkF8; };
 
