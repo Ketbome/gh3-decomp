@@ -479,7 +479,60 @@ extern "C" void func_0013DA80(S_0013DA80* self) {
     func_00113900(self->unk240);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13BE78", func_0013DAA0);
+struct I_13DAA0 { int unk0; };
+struct S_13DAA0 { char pad0[0x240]; int unk240; char pad244[8]; I_13DAA0* unk24C; I_13DAA0* unk250; char pad254[8]; int unk25C; };
+struct P_13DAA0 { char pad0[4]; u32 unk4; int unk8; };
+extern "C" {
+void func_00153DE0(int, int);
+int func_0027D1F8(int, u32, void*, int);
+int func_0027D268(int, u32, float*, int);
+int func_0027D378(int, u32, float*, float*, int);
+void func_00153C28(int, int, float);
+void func_00153958(int, int, int, int);
+void func_00153AB0(int, int, float, float);
+}
+
+extern "C" void func_0013DAA0(S_13DAA0* self, P_13DAA0* pr) {
+    u32 i = 0;
+    func_00153DE0(self->unk24C->unk0, self->unk240);
+    if (pr->unk4 != 0) {
+        do {
+            int o;
+            if (pr->unk4 == 1) {
+                o = pr->unk8;
+            } else {
+                o = ((int*)pr->unk8)[i];
+            }
+            int id = 0;
+            func_0027D1F8(o, 0x7F8C98FE, &id, 1);
+            float a = 0.0f;
+            if (func_0027D268(o, 0xED344E1B, &a, 0)) {
+                a = a * 0.017453294f;
+                func_00153C28(self->unk24C->unk0, id, a);
+                if (self->unk25C) {
+                    func_00153C28(self->unk250->unk0, id, a);
+                }
+            }
+            float b = 0.0f;
+            float c = 0.0f;
+            if (func_0027D378(o, 0xA6F5352F, &b, &c, 0)) {
+                func_00153958(self->unk24C->unk0, id, (int)b, (int)c);
+                if (self->unk25C) {
+                    func_00153958(self->unk250->unk0, id, (int)b, (int)c);
+                }
+            }
+            float d = 0.0f;
+            float e = 0.0f;
+            if (func_0027D378(o, 0x13B9DA7B, &d, &e, 0)) {
+                func_00153AB0(self->unk24C->unk0, id, d, e);
+                if (self->unk25C) {
+                    func_00153AB0(self->unk250->unk0, id, d, e);
+                }
+            }
+            i++;
+        } while (i < pr->unk4);
+    }
+}
 
 struct S_0013DCA8 { char pad0[0x240]; int unk240; };
 
