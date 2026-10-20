@@ -8,9 +8,9 @@ so no progress figures or hashes are written by hand here.
 
 Paused (2026-10-20) at the user's request: no agent running, work in progress rescued. Stopped mid-round: A round 8
 (had just started: func_001207A0 from the `dk protos` sweep, then the movn sentinel family), B retrying near misses
-blocked by kept register copies (forensics starting points in scratchpad/forensics3/x/), C round 10 (was given the
-three volatile t_292928 matches func_00293C00/3C70/3218 from scratchpad/forensics4/exp/t_292928.cpp and asked to
-fix the stale "Volatile accesses and delay slots" note at the top of C.md). The scratchpad paths belong to the
+blocked by kept register copies (forensics starting points in scratchpad/forensics3/x/), C round 10 (committed the
+three volatile t_292928 matches; the stale "Volatile accesses and delay slots" note at the top of C.md still needs
+correcting: delay_slots() in asm_filter.py already handles it). The scratchpad paths belong to the
 session that wrote them and may be gone in a new one.
 Today's forensics (all C shape, in decomp_guide.md and toolchain.md): movz/movn if-conversion, kept register
 copies, movn/movz select polarity, gp loads in delay slots; toolchain fix: OBJECT_END() resets GP_DATA at object
