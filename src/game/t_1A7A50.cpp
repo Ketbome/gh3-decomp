@@ -80,7 +80,51 @@ extern "C" void func_001A8810(int key, int val) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1A7A50", func_001A88E8);
+struct E_1A88E8 { int unk0; int unk4; int unk8; char padC[0x54]; } __attribute__((aligned(16)));
+extern "C" {
+extern int D_0036C650;
+int func_00222F90(int);
+}
+
+GP_DATA(D_0036C658);
+GP_DATA(D_0036C650);
+extern "C" void func_001A88E8(int a) {
+    int changed = 0;
+    if (a != 0) {
+        int j = (int)D_0036C654 - 1;
+        int i = 0;
+        if (j >= 0) {
+            do {
+                E_1A88E8* e = &((E_1A88E8*)D_00386450)[i];
+                if ((func_00222F90(e->unk8) ^ 1) != 0) {
+                    D_0036C654 -= 1;
+                    *e = ((E_1A88E8*)D_00386450)[j];
+                    i--;
+                    j--;
+                    changed = 1;
+                }
+                i++;
+            } while (j >= i);
+        }
+    } else {
+        D_0036C654 = 0;
+        changed = 1;
+    }
+    if (changed != 0) {
+        if ((int)D_0036C654 >= 0) {
+            int n = D_0036C654 + 1;
+            E_1A88E8* p = (E_1A88E8*)D_00386450;
+            do {
+                p->unk0 = 0;
+                p++;
+                n--;
+            } while (n != 0);
+        }
+        D_0036C65C = 0;
+        D_0036C658 = 0;
+        D_0036C650 = 0;
+    }
+}
 
 
 GP_DATA(D_0036C654);
