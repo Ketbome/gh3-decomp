@@ -16,9 +16,39 @@ extern s32 D_00368A38[] __attribute__((section(".sdata")));
 
 typedef int TI128 __attribute__((mode(TI)));
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241040);
+struct T2410 {
+    char pad0[0xA];
+    u8 unkA;
+    char padB;
+    char* unkC;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_241040", func_00241078);
+struct O2410 {
+    char pad0[8];
+    T2410* unk8;
+};
+
+static inline u16 Get2410(T2410& t, s32 i) {
+    if (t.unkA != 0) {
+        return *(u16*)(t.unkC + i * 8);
+    }
+    return *(u16*)(t.unkC + i * 10);
+}
+
+extern "C" u16 func_00241040(O2410* o, s32 i) {
+    return Get2410(*o->unk8, i);
+}
+
+static inline u16 Get2410b(T2410& t, s32 i) {
+    if (t.unkA != 0) {
+        return *(u16*)(t.unkC + i * 8 + 2);
+    }
+    return *(u16*)(t.unkC + i * 10 + 2);
+}
+
+extern "C" u16 func_00241078(O2410* o, s32 i) {
+    return Get2410b(*o->unk8, i);
+}
 
 extern "C" void func_002410B0(void* p) {
     func_0023F270(p);
