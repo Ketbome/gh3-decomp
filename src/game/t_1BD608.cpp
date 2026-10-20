@@ -224,7 +224,41 @@ extern "C" S1BDD* func_001BDD90(S1BDD* o) {
 }
 
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDE38);
+struct D1BDE {
+    char pad0[8];
+    int unk8;
+    int unkC;
+    int unk10;
+    char pad14[0x18];
+    D1BDE* unk2C;
+};
+
+extern "C" void func_0011A470(int);
+
+extern "C" void func_001BDE38(D1BDE* p) {
+    D1BDE* h = (D1BDE*)D_0036CBC0;
+    if (h == p) {
+        D_0036CBC0 = p->unk2C;
+    } else if (h != 0) {
+        D1BDE* n = h;
+        for (;;) {
+            D1BDE* nx = n->unk2C;
+            if (nx == 0) break;
+            if (nx == p) {
+                n->unk2C = p->unk2C;
+                break;
+            }
+            n = n->unk2C;
+        }
+    }
+    int a = p->unkC;
+    int fl = p->unk8;
+    if (a != 0 && ((fl >> 9) & 1)) func_0011A470(a);
+    int b = p->unk10;
+    if (b != 0 && !(p->unk8 & 0x80)) func_0011A470(b);
+    if ((fl & 0x100) && p) func_001BD9C8((S001BD998*)p, 3);
+    func_001BB068();
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1BD608", func_001BDF08);
 
