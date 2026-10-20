@@ -8,7 +8,9 @@ Notes:
   expansion, `$at` for stores); declare them `extern T D[] __attribute__((section(".sdata")))`. Inside a delay slot
   they are `%gp_rel`: declare them as scalars. A symbol used both ways in one file can't be matched with one declaration.
 - Divisions: the original has no divide-by-zero `break` checks; ours needs `-mno-check-zero-division` ("nozdiv").
-- `cvt.w.s` (float->int, `.word 0x46..` in the asm) is rejected by the assembler for r5900: skipped ("cvt.w.s").
+- `cvt.w.s` (float->int, `.word 0x46..` in the asm) works through the prelude macro (`include/gcc_prelude.inc`): retry
+  entries skipped as "cvt.w.s".
+- movz/movn where the original branches: C shape, see decomp_guide.md (inline helper writing through a reference).
 - fcheck nop bug (false DIFFERS after an operand-less nop) fixed in 85ecf94: retry those entries.
 - Virtual calls whose result is returned (`return fn(...)`) allocate vt/delta/fn registers differently from void
   calls: if the registers are off, try returning the result.

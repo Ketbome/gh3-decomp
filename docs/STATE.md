@@ -6,12 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Running (2026-10-19): A round 6b, C round 8 (both resumed after a rate limit), forensics on globals reached both
-through `$gp` and `lui` after a GP_DATA (func_001CDA60, func_0011F238; scratch copy). B is idle (round on functions
-over 0x1000: 9/30, plus func_0021F020); relaunch it after the forensics result. Earlier today: forensics showed
+Running (2026-10-19): C round 8, B retrying its movz/cvt.w.s give-ups (15/40), forensics on globals reached both
+through `$gp` and `lui` after a GP_DATA (func_001CDA60, func_0011F238; scratch copy). A is idle (round 6b: 15/53). Earlier today: forensics showed
 movz/movn is C shape (inline helper writing through a reference keeps the branch, decomp_guide.md) and `cvt.w.s`
-works; C round 7 hit 15 matches with that pattern. Stale worklog notes to fix when A and B are idle: A.md:11,
-B.md:17 (`cvt.w.s`).
+works; C round 7 hit 15 matches with that pattern. Stale `cvt.w.s` note B.md:17 to fix when B is idle.
 Ranges:
 
 | Range | Files | Worklog | Last focus |
@@ -48,6 +46,9 @@ never mentioned in a worklog on 2026-10-14).
 - Unknown COP1 opcodes `c1 0x544` / `c1 0x10004` in some functions (range C).
 - Same global reached through `$gp` and through `lui` in one function (func_0011F238).
 - GS register constants built from bitfields (func_001A0710, func_001A04A0).
+- asm_filter: label/hazard-nop position after `c.cond.s` before `bc1t/f` (func_00127ED0: only two `b` targets
+  differ); two extra nops before a loop head after `li.s` (func_00160E80); unroll 4x where the original is 2x
+  (func_00142398, func_00123D08, func_00137C98).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
@@ -55,7 +56,9 @@ never mentioned in a worklog on 2026-10-14).
 
 ## Next step
 
-1. Apply the GP_DATA forensics fix, `dk all`, relaunch B.
+1. Apply the GP_DATA forensics fix, `dk all`, relaunch A on its movz give-ups (23 worklog lines).
+   Quiet point (no worker): split the cpp subsegment of t_152E18 at 0x153958 (func_001535E8 needs `-funroll-loops`,
+   func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
    worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
 3. Permuter batch with no worker (254 files in nonmatching/).
