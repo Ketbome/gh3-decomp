@@ -1218,3 +1218,4 @@ Round 2026-10-20 (C9): 0 matches / 0 attempted (limit 15/40)
 - func_002532C8 (t_252068) MATCH (near miss resolved, nonmatching removed): `func_00269998` (void, result unused) declared `int`.
 - func_00299910 (t_298A30) MATCH (near miss resolved, nonmatching removed): `func_00296AF0` (void, result unused) called through an `int` alias (`func_00296AF0_i`, the file keeps the void declaration for others); local `S298_Small` message struct.
 - func_002949F0 (t_2949F0) MATCH (near miss resolved, nonmatching removed): `func_002EE6A0` (void, result unused) declared `int` swapped the v0/v1 of the count compare.
+- func_002DE738 (t_2DCE78) MATCH (near miss resolved, nonmatching removed): the registration helper `func_002981A0` (void, result unused) called through an `int` alias (`func_002981A0_i`; the file's other users keep the void alias). Found by an automatic sweep: flip each callee's declared void/int return in every near miss (singles and pairs) and recompile.

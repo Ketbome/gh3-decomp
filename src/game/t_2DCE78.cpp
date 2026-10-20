@@ -745,7 +745,55 @@ extern "C" s32 func_002DE730(void) {
     return 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DE738);
+extern "C" {
+void func_001C98F0(int);
+int func_001CA010(int);
+struct S2DE7_O {
+    int unk0;
+    char sub[4];
+};
+int func_002981A0_i(void *, int, void *, int, int, int) asm("func_002981A0");
+S2DE7_O *func_001CA010_p(int) asm("func_001CA010");
+void func_002DE5B0_i(int) asm("func_002DE5B0");
+void func_002DF4C0(void);
+void func_002DF4F8(void);
+void func_002DF518(void);
+void func_002DF520(void);
+void func_002DF528(void);
+void func_002DF548(void);
+void func_002DF550(void);
+void func_002DF560(void);
+void func_002DF570(void);
+void func_002DF588(void);
+void func_002DF5C0(void);
+void func_002DF5C8(void);
+void func_002DF5D0(void);
+}
+
+extern "C" void func_002DE738(int self) {
+    func_001C98F0(self);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x56, (void *)func_002DF4C0, 0, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xBB, (void *)func_002DF548, 0, self, 0xFF);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x8C, (void *)func_002DF550, 0, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x90, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x91, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x92, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x93, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x94, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x95, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x96, (void *)func_002DF4F8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x97, (void *)func_002DF5C8, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x5C, (void *)func_002DF518, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x9B, (void *)func_002DF560, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x9C, (void *)func_002DF570, 0x2, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0x5D, (void *)func_002DF520, 0, self, 0xFF);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xB3, (void *)func_002DF528, 0, self, 0xFF);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xA8, (void *)func_002DF5C0, 0, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xAC, (void *)func_002DF5D0, 0, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xB6, (void *)func_002DF588, 0, self, 0x80);
+    func_002981A0_i(func_001CA010_p(self)->sub, 0xB5, (void *)func_002DF588, 0, self, 0x80);
+    func_002DE5B0_i(self);
+}
 
 extern "C" {
 void func_002DF4C8(void);
