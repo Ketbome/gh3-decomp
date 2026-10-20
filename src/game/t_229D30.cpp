@@ -435,7 +435,30 @@ extern "C" void* func_0022B040(char* p, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B0D0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_229D30", func_0022B168);
+struct VE22B168 {
+    s16 delta;
+    s16 pad;
+    u64 (*fn)(char*);
+};
+
+extern "C" {
+char* func_0022B040_v(void) __asm__("func_0022B040");
+}
+
+extern "C" int func_0022B168(void) {
+    char* o = func_0022B040_v();
+    if (o == 0) {
+        goto zero;
+    }
+    {
+        VE22B168* e = (VE22B168*)(*(char**)(o + 0x34) + 0x38);
+        if (e->fn(o + e->delta) != 0) {
+            return 1;
+        }
+    }
+zero:
+    return 0;
+}
 
 struct N22B {
     N22B* unk0;
