@@ -330,7 +330,51 @@ INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295408);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295630);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295BB8);
+extern "C" {
+int func_002EDB50(int);
+int func_0030A1C8(int, int);
+int *func_002932E0(int);
+void func_002EDE38(int, int *);
+extern int D_0037178C, D_00370E44;
+extern volatile int D_00371788;
+extern volatile int D_00371784_v asm("D_00371784");
+extern volatile int D_00371790, D_00371794;
+}
+
+GP_DATA(D_00371790);
+GP_DATA(D_00371784);
+GP_DATA(D_00371788);
+GP_DATA(D_00371794);
+GP_DATA(D_0037178C);
+extern "C" int func_00295BB8(void) {
+    int h = func_002EDB50(2);
+    D_00371790 = (int)((*(volatile unsigned long *)0x12001000 >> 13) & 1);
+    if (D_00371784_v != 0) {
+        D_00371788 = D_00371788 + 1;
+        D_00371794 = func_0030A1C8(1, 0);
+        if (D_00371794 == 0) {
+            int *p = func_002932E0(D_00370E44 + 0x6F1700);
+            if (p == 0) {
+                D_00372ED0 = D_00372ED0 + 1;
+                asm volatile("sync\n\tei");
+                return 0;
+            }
+            int t = *p;
+            if (t == 2) {
+                func_0030A1C8(0, 0);
+                func_002EDE38(h, p + 0x10);
+                *p = 1;
+            } else if (t == 1) {
+                func_0030A1C8(0, 0);
+                func_002EDE38(h, p + 0x99D0);
+                *p = 0;
+                D_0037178C = t;
+            }
+        }
+    }
+    asm volatile("sync\n\tei");
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2949F0", func_00295CF8);
 
