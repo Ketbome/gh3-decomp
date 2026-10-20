@@ -157,7 +157,51 @@ extern "C" void func_002DCE78(S2DCE78 *p) {
     func_001194B8(D_00368A38);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DCF10);
+struct S2DCF_Col {
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 a;
+    void Set(u8 r_, u8 g_, u8 b_, u8 a_) {
+        r = r_;
+        g = g_;
+        b = b_;
+        a = a_;
+    }
+};
+
+extern "C" {
+int func_002EA460(void);
+int func_0028CF40(void);
+int func_0028D1D8(int, int, int, int, int, int, int, int, int, int);
+int func_0028C200(int);
+extern int D_00372228;
+}
+
+extern "C" void func_002DCF10(S2DCE78_T *unused, int flag) {
+    S2DCF_Col c;
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    func_002EA460();
+    if (flag == 0) {
+        int t = D_00368A38;
+        func_00119490(t, func_00119610(t, 1));
+        func_001194B8(D_00368A38);
+    }
+    int h = D_00368A38;
+    func_00119490(h, func_00119610(h, 1));
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    func_0028C9F0(0xE8B7F73A, 0, 0, 0, 0, 0);
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    func_0028CF40();
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    func_0028C9F0(0xEF54EC55, 0, 0, 0, 0, 0);
+    c.Set(0xFF, 0xFF, 0xFF, 0xFF);
+    if (D_00372228 != 0) {
+        D_00372228 = 0;
+        func_0028C200(func_0028D1D8(0xFB11E6CD, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+    }
+    func_001194B8(D_00368A38);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2DCE78", func_002DD080);
 
