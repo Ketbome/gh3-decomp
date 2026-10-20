@@ -3,7 +3,8 @@
 
 The padding behind a function is kept in its asm/(non)matchings file (the nops after `endlabel`). The compiler
 reproduces up to 4 bytes of it (the next function is 8-byte aligned); more than that marks the end of an original
-object file, whose code the linker aligned to 16 bytes, and has to be written out. Idempotent.
+object file, whose code the linker aligned to 16 bytes, and has to be written out. A function defined under an alias
+(`f_s(...) __asm__("f")`) is looked up as `f`. Idempotent.
 
 Usage: .venv/bin/python scripts/fix_padding.py [src files...]   (default: all of src/game)
 """
@@ -24,7 +25,9 @@ def trailing_padding(asm_path):
 
 def fix(path):
     folders = [ROOT / "asm" / d / "game" / path.stem for d in ("matchings", "nonmatchings")]
-    lines = path.read_text().splitlines(keepends=True)
+    text = path.read_text()
+    alias = dict(re.findall(r"\b(\w+)\s*\([^;{]*?\)\s*__asm__\(\"(\w+)\"\)", text))
+    lines = text.splitlines(keepends=True)
     out = []
     i = 0
     added = 0
@@ -32,7 +35,7 @@ def fix(path):
         line = lines[i]
         out.append(line)
         m = DEF.match(line)
-        name = m and m.group(1)
+        name = m and alias.get(m.group(1), m.group(1))
         asm = next((f / f"{name}.s" for f in folders if (f / f"{name}.s").exists()), None) if name else None
         if asm and asm.exists() and ("{" in line or (i + 1 < len(lines) and lines[i + 1].startswith("{"))):
             j = i

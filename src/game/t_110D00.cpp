@@ -151,6 +151,7 @@ void func_00112A70_s(int src, FB_112A70* dst) {
         *(float*)((char*)dst->b.unk0 + off) = v;
     }
 }
+TEXT_PAD(20);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_110D00", func_00112CB0);
 
