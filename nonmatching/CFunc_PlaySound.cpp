@@ -1,6 +1,7 @@
 #include "common.h"
 
 asm(".set D_00370AE0_gp, D_00370AE0");
+asm(".set D_00368A38_lui, D_00368A38");
 
 struct S254248_A {
     char pad0[0x1E0];
@@ -8,6 +9,9 @@ struct S254248_A {
 };
 
 extern "C" {
+f32 func_0026C9E0(void);
+f32 func_0026CA70(void);
+f32 func_00268328(int);
 void func_002682B8_f(int, f32, int, int) asm("func_002682B8");
 void func_00268330_f(int, f32, int, int) asm("func_00268330");
 int func_0027D470(int, int, int **, int);
@@ -81,6 +85,8 @@ void func_002EBA98(int);
 void func_002EA740(int);
 int func_0027D188(int, u32, void*, int);
 extern S254248_A *D_00368A38;
+extern S254248_A *D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
+int func_0026DC20(int);
 void func_00119490(S254248_A *, int);
 void func_001194B8(S254248_A *);
 int func_00266E08(int);
@@ -382,7 +388,7 @@ void func_00266898(void *);
 void func_00266BE8(void *);
 void func_002668F8(void *, int);
 void func_00256340(void *, int);
-void func_0026A488(int, int, int, f32, f32, f32);
+void func_0026A488(int, f32, int, int, f32, f32);
 int func_0027D400(int, u32, void *, int);
 }
 
@@ -390,7 +396,10 @@ extern "C" int CFunc_PlaySound(int params, int sc) {
     S254_Script *script = (S254_Script *)sc;
     S254_PF f;
     f.l.sp60 = 0;
-    f.l.sp4C = f.l.sp48 = f.l.sp50 = f.l.sp54 = 100.0f;
+    f.l.sp54 = 100.0f;
+    f.l.sp50 = 100.0f;
+    f.l.sp48 = 100.0f;
+    f.l.sp4C = 100.0f;
     f.l.sp40 = 0;
     int *p40 = &f.l.sp40;
     if (script) func_0027D870(script->unk20, 0x92ECB746, p40, 0);
@@ -399,7 +408,8 @@ extern "C" int CFunc_PlaySound(int params, int sc) {
     func_0027D268(params, 0x5E285A66, &f.l.sp48, 0);
     func_0027D268(params, 0xA4276705, &f.l.sp4C, 0);
     if (func_0027D268(params, 0xF6A36814, &f.l.sp50, 0)) {
-        f.l.sp48 = f.l.sp4C = f.l.sp50;
+        f.l.sp4C = f.l.sp50;
+        f.l.sp48 = f.l.sp50;
     }
     func_0027D268(params, 0xD8604126, &f.l.sp54, 0);
     f.l.sp58 = 0;
@@ -418,7 +428,7 @@ extern "C" int CFunc_PlaySound(int params, int sc) {
     if (func_0027D400(params, 0x756A8797, &f.l.sp64, 0)) func_00256340(&f.o2, f.l.sp64);
     f.l.sp68 = 0;
     if (func_0027D870(params, 0, &f.l.sp68, 0)) {
-        func_0026A488(f.l.sp68, f.l.sp60, f.l.sp40, f.l.sp48 * 0.01f, f.l.sp4C * 0.01f, f.l.sp54);
+        func_0026A488(f.l.sp68, f.l.sp48 * 0.01f, f.l.sp60, f.l.sp40, f.l.sp4C * 0.01f, f.l.sp54);
     }
     func_002668F8(&f.o1, 2);
     return 1;
@@ -663,7 +673,17 @@ extern "C" int CFunc_PauseStreamID(int arg0) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_LoadMusicHeader);
+extern "C" int CFunc_LoadMusicHeader(int a) {
+    int x = 0;
+    func_0027D188(a, 0, &x, 0);
+    if (x) {
+        func_00119490(D_00368A38, D_00368A38->unk1E0);
+        int r = func_0026DC20(x);
+        func_001194B8(D_00368A38_lui[0]);
+        return r;
+    }
+    return 0;
+}
 
 extern "C" int CFunc_LoadStreamHeader(int a) {
     int x = 0;
@@ -731,7 +751,36 @@ extern "C" s32 CFunc_GetCurrentTrack(int arg0, SGCT *arg1) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_GetValueFromVolume);
+struct SVolArg {
+    char pad0[0x20];
+    int unk20;
+};
+
+extern "C" int CFunc_GetValueFromVolume(int arg0, SVolArg *arg1) {
+    u32 k;
+    int h;
+    f32 f;
+    func_0027C160(arg1->unk20, 0xE288A7CB, 0);
+    func_0027D870(arg0, 0, &k, 1);
+    switch (k) {
+    case 0x8D6F6554:
+        h = arg1->unk20;
+        f = func_00268328(D_00370AE0[0]);
+        goto set;
+    case 0xA5162BD2:
+        h = arg1->unk20;
+        f = func_0026C9E0();
+    set:
+        func_0027C160(h, 0xE288A7CB, (int)f / 10);
+        break;
+    case 0xE32F3525:
+        h = arg1->unk20;
+        f = func_0026CA70();
+        func_0027C160(h, 0xE288A7CB, (int)f / 10);
+        break;
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_254248", CFunc_PreLoadStream);
 
