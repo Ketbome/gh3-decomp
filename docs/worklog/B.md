@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19b: 11 matches / 24 attempted (limit 15/40)
+Round 2026-10-19b: 11 matches / 25 attempted (limit 15/40)
 
 Round 2026-10-19: 9 matches / 30 attempted (limit 12/30); DONE (limit 30 attempted reached). matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss (nonmatching/): func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040 func_00232A58; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
@@ -1158,3 +1158,4 @@ Near miss (structure only): func_00232A58 (nonmatching/func_00232A58.cpp): a loo
 - t_229D30 func_0022B168 MATCH (bool-tail give-up): same shared-zero recipe with a virtual call whose function pointer returns `u64` (`u64 (*fn)(char*)`): `if (o == 0) goto zero; if (e->fn(o + e->delta) != 0) return 1; zero: return 0;`; callee without arguments declared through an `__asm__` alias.
 - func_001D3620 (t_1D2508, retry): near miss nonmatching/func_001D3620.cpp (0xb8 vs 0xb4): list walk `n = *(p+0x150)`, vcall entry at vtable+0x60 (`s32 (*fn)(char*, a, b, c)`), `r == 0` -> `goto zero` (zero block at the end of the function so the beql keeps the `move v0,zero` slot), `r == 1` -> return 1, tail call func_001CFF58. Left: ours folds `bne r,1; li v0,1; b end` into `beq r,s5,end` (slot li) and keeps a duplicated epilogue `ld s0` in the tail `b` slot; the original keeps the separate `b end; li v0,1` block.
 - t_1C9B30 CFunc_EnterSurveyorMode MATCH (old give-up, bnezl vs bnez): `s32 res; if (A) res = 0; else if (B) res = 0; else { ...; res = 1; } return res;` (each false path its own `res = 0`, so the two zero tails are not cross-jumped into one likely-branch block); the flag word is read into a local, `D_00368A38[0]` into another, then `*(s32*)(r+0x38) = fl | 0x400; func_001194B8(hh);` so the macro load stays out of the jal slot.
+- func_0022A8F8 (t_229D30, retried): inlined strrchr('.') + table scan `{name, value}[]` with strcmp-like func_0030E650; the m2c goto layout compiles to the right shape but the original keeps the string in s1 and the cursor in s0 (ours swapped: s0 string) and the table pointer reuses s1; `ext = e + 1` as a variable made it worse; not solved (4 forms).
