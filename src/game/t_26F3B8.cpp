@@ -386,4 +386,103 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002711D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00271228);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00271280);
+struct S2712_Q {
+    char pad0[0x10];
+    int unk10;
+    s16 unk14;
+    s16 unk16;
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+};
+
+struct S2712_A {
+    int unk0;
+    int unk4;
+    s16 unk8;
+    s16 unkA;
+    int unkC;
+    int unk10;
+};
+
+GP_DATA(D_00370D40);
+extern "C" {
+extern volatile int D_00373398;
+extern int D_003733B4;
+extern volatile int D_00370D40;
+extern S2712_Q D_004278B0[];
+extern char D_00358AA0[];
+extern char D_00358AD0[];
+int func_002EEA00(int);
+int func_002F0AB0(int, S2712_Q *, int, int, int, int);
+void func_002F0488(char *);
+void func_00271480(u16, void *);
+int func_002F3B80(void);
+int func_002F3BD0(void);
+}
+
+static inline int S2712_Next(int &c) {
+    int o = c;
+    c = o + 1;
+    return o;
+}
+
+extern "C" int func_00271280_r(u16 arg0, u16 arg1, S2712_A *arg2, int arg3, int arg4, int arg5, int *arg6) asm("func_00271280");
+
+extern "C" int func_00271280_r(u16 arg0, u16 arg1, S2712_A *arg2, int arg3, int arg4, int arg5, int *arg6) {
+    int t20 = arg0;
+    int t21 = arg1;
+    int sp0 = arg3;
+    int sp4 = arg4;
+    int sp8 = arg5;
+    if (t20 == 0x8030) {
+        func_00271480(t21, arg2);
+    }
+    int t23 = (D_00373398 + 1) % 32;
+    S2712_Q *q = &D_004278B0[D_00373398];
+    if (q->unk28 != 0) {
+        int n = 0;
+        while (func_002EEA00(q->unk28) >= 0) {
+            if (n++ % 1000 == 0) {
+                func_002F0488(D_00358AD0);
+            }
+        }
+    }
+    q->unk14 = t20;
+    if (t20 == 0x8130) {
+        q->unk16 = t21;
+        q->unk18 = arg2->unk4;
+        q->unk1C = (arg2->unk8 << 16) | arg2->unkA;
+        q->unk20 = arg2->unkC;
+        q->unk24 = arg2->unk10;
+    } else {
+        q->unk16 = t21;
+        q->unk18 = (int)arg2;
+        q->unk1C = sp0;
+        q->unk20 = sp4;
+        q->unk24 = sp8;
+    }
+    func_002F3B80();
+    int id = D_003733B4++;
+    func_002F3BD0();
+    q->unk10 = id;
+    if (arg6 != 0) {
+        *arg6 = id;
+    }
+    int m = 0;
+    D_00370D40 += 1;
+    q->unk2C = D_00370D40;
+    for (;;) {
+        int r = func_002F0AB0(3, q, 0x30, 0, 0, 0);
+        q->unk28 = r;
+        if (r != 0) break;
+        if (m++ % 1000 == 0) {
+            func_002F0488(D_00358AA0);
+        }
+    }
+    D_00373398 = t23;
+    return 1;
+}
