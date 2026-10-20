@@ -578,7 +578,35 @@ extern "C" void func_0028A020(int a, int b, int c, int d, int e) {
     func_00289E10((void *)a, e);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A140);
+struct S28A140_B {
+    int unk0;
+    char *unk4;
+};
+struct S28A140_A {
+    char pad0[0x10];
+    char *unk10;
+};
+extern "C" {
+int func_00286160(char *);
+}
+
+extern "C" void func_0028A140(S28A140_A *a, S28A140_B *b, int c, int d) {
+    int n = func_00286160(b->unk4) - (int)b->unk4;
+    int h = D_00368A38_lui[0];
+    func_00119490(h, func_00119610(h, 5));
+    char *buf = (char *)func_0011A380(n);
+    func_001194B8(D_00368A38_lui[0]);
+    char *src = b->unk4;
+    char *dst = buf;
+    u32 i = 0;
+    while (i < (u32)n) {
+        *dst++ = *src++;
+        i++;
+    }
+    func_0028A020((int)a, b->unk0, (int)buf, c, d);
+    a->unk10 = buf;
+}
+
 
 extern "C" void func_0028A2A8(int a, int b, int c, int d) {
     func_0028A020(a, b, 0, c, d);
