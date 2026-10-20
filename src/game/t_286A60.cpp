@@ -290,7 +290,33 @@ INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002882D8);
 extern "C" void func_002882E0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_286A60", func_002882E8);
+extern "C" {
+char *func_00117030(void);
+int func_0030E650(char *, char *);
+int func_00119730(int, int, int);
+int func_0011D000(char *, int, int, int, int);
+void func_0011D348(char *);
+void func_002882E0_a(int) __asm__("func_002882E0");
+}
+
+extern "C" void func_002882E8(char *name, int a, int b, int c) {
+    int len = strlen(name);
+    char *ext = func_00117030();
+    if (name[len - 4] == '.' && func_0030E650(name + len - 3, ext) == 0) {
+        func_00119490(D_00368A38, func_00119730(D_00368A38, c, 1));
+        int h = func_0011D000(name, 0, 0, 0, 0);
+        func_001194B8(D_00368A38);
+        func_00287EB0(name, (int *)h, a);
+    } else {
+        func_00119490(D_00368A38, *(int *)(D_00368A38 + 0x1DC));
+        int h = func_0011D000(name, 0, 0, 0, 0);
+        func_001194B8(D_00368A38);
+        func_00287578(name, h, a, 0);
+        func_0011D348(name);
+    }
+    func_002882E0_a(1);
+}
+
 
 extern "C" int func_00288410(char *name, int a, int b, int c) {
     if (strcmp(name + strlen(name) - 3, D_003713C0)) {
