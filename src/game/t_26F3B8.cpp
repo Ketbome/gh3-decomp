@@ -233,7 +233,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002700A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270340);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002704E0);
+extern "C" void func_002704E0(int a, int b, int c, int d) {
+    S26F3B8_A *o = &D_003A8D40[a][b];
+    S26F3B8_A *e = &D_003A8D40[c][d];
+    e->unkE = a;
+    e->unkF = b;
+    o->unkE = c;
+    o->unkF = d;
+    e->unkC |= 2;
+}
+
 
 extern "C" void func_00270540(int a, int b) {
     S26F3B8_A *e = &D_003A8D40[a][b];
