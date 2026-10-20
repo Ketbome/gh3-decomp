@@ -47,7 +47,62 @@ extern S2C79_Row D_003CDFC8[];
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", func_002C7900);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2C7900", CFunc_WhammyFXOn);
+extern "C" {
+int func_0027CC30_i(int, u32, int, int *) asm("func_0027CC30");
+void func_0027D378(int, u32, f32 *, f32 *, int);
+void func_002C7688(int, int, f32, f32);
+extern int D_003AC850[];
+}
+
+extern "C" int CFunc_WhammyFXOn(int arg0) {
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int f;
+    int g;
+    f32 x;
+    f32 y;
+    int i;
+    int mask;
+    S2C79_Arr *arr;
+    S2C79_Arr *t;
+    int *tmp;
+    func_0027D870(arg0, 0xCC12115E, &a, 1);
+    func_0027D1F8(arg0, 0x5CA15C8F, &b, 1);
+    t = func_002764E8(a, 1);
+    arr = (S2C79_Arr *)t->Get(b);
+    mask = 0x10000;
+    int h = func_002763E0(0x9766DE59, 0);
+    func_0027D870(arg0, 0x1BFF0C3D, &c, 1);
+    int o = func_002763E0(c, 1);
+    func_0027D1F8(o, 0x96354210, &d, 1);
+    func_0027D1F8(o, 0x67E6859A, &e, 1);
+    e -= 1;
+    func_0027D1F8(arg0, 0x5C430371, &f, 1);
+    for (i = 0; i < 5; i++) {
+        if (f & mask) {
+            if (arr->Get(i + 1) > 0) {
+                int ok = func_0027CC30_i(h, D_003AC850[i], 10, &g);
+                int v = g;
+                if (ok == 0) {
+                    func_0027F1E0(h, 0, 1);
+                    v = 0;
+                }
+                if (d == 1) {
+                    func_0027D378(v, 0x82030150, &x, &y, 1);
+                } else {
+                    func_0027D378(v, 0xE7B824CE, &x, &y, 1);
+                }
+                func_002C7900(e, i, 0);
+                func_002C7688(e, i, x, y);
+            }
+        }
+        mask >>= 4;
+    }
+    return 1;
+}
 
 extern "C" int CFunc_WhammyFXOff(int arg0) {
     int a;
