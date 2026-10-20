@@ -189,7 +189,39 @@ extern float D_0032DCD8[];
 extern float D_0032DED8[];
 extern "C" int func_003174C0(float, float);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271708);
+static inline void S271_Zero(int &n) {
+    if (n <= -1) n = 0;
+}
+
+extern "C" void func_00271708(void *pp, float a, float b, int sel) {
+    S271708 *p = (S271708 *)pp;
+    float t = b * 16.0f;
+    int n;
+    int idx = 0;
+    int hi = 0;
+    n = func_003174C0(t - 1.0f, t);
+    int m = n; if (m >= 0x10) m = 0xF; n = m;
+    S271_Zero(n);
+    switch (sel) {
+    case 0:
+        idx = func_00271910(D_0032DCD8, 0x80, a);
+        hi = 0x4000;
+        break;
+    case 1:
+        idx = func_00271910(D_0032D8D8, 0x80, a);
+        break;
+    case 2:
+        idx = func_00271910(D_0032DED8, 0x80, a);
+        hi = 0xC000;
+        break;
+    case 3:
+        idx = func_00271910(D_0032DAD8, 0x80, a);
+        hi = 0x8000;
+        break;
+    }
+    p->unk0 = (p->unk0 & 0xFFFFFFF0) | (n & 0xF);
+    p->unk4 = (p->unk4 & 0xFFFF003F) | (((idx & 0x7F) << 6) | hi);
+}
 
 extern "C" void func_00271880(u32 *p, float v, int mode) {
     int idx = 0;
