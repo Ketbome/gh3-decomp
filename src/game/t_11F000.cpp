@@ -269,7 +269,45 @@ extern "C" void func_001206D0(int key) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_00120710);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_001207A0);
+struct E207 { void* unk0; volatile int unk4; volatile int unk8; volatile int unkC; volatile int unk10; };
+struct A207 { char pad0[0xC]; int unkC; int unk10; int unk14; char pad18[0xC]; s16 unk24; s16 unk26; };
+struct V207 { s16 delta; s16 pad2; void (* volatile fn)(void*, int, int, int, void*); };
+struct O207 { char pad0[0x44]; char* unk44; };
+extern "C" {
+E207* func_001208C0_e(int) __asm__("func_001208C0");
+void func_0011F768_3(void*, void*, int) __asm__("func_0011F768");
+void func_0011FA98(void*, int);
+}
+
+extern "C" int func_0011FA98__r(void*, int) __asm__("func_0011FA98");
+extern "C" void func_001207A0(A207* a) {
+    int key = a->unkC;
+    E207* e = func_001208C0_e(key);
+    e->unk10 = a->unk10;
+    e->unkC = a->unk14;
+    if (e && e->unk0) {
+        if (a->unk24 > 0 || a->unk26 != 0) {
+            func_0011F768_3(e->unk0, a, e->unkC != 0);
+        }
+        if (e->unkC != 0) {
+            O207* o = (O207*)e->unk0;
+            V207* v = (V207*)(o->unk44 + 0x18);
+            char* self = (char*)o + v->delta;
+            int x = func_0011F8D0((S_11F8D0*)o, key);
+            int c = e->unkC;
+            int t = c ^ 2;
+            int u = e->unk10;
+            v->fn(self, x, t == 0, u, a);
+            func_0011FA98__r(e->unk0, key);
+            e->unkC = 1;
+            e->unk10 = -1;
+            *(void* volatile*)&e->unk0 = 0;
+            e->unk4 = -1;
+            e->unk8 = -1;
+        }
+    }
+    __asm__ volatile("sync\n\tei");
+}
 
 GP_DATA(D_00368DA4);
 extern "C" E_1208C0* func_001208C0(int id) {

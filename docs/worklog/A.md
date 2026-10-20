@@ -1387,3 +1387,8 @@ Matched (A7-12): func_0013DAA0 (t_13BE78; for each element of the params list (c
 Matched (A7-13): func_00111860 (t_110D00; resize two float arrays {data, size, cap} at +0 and +0x10 to n: an inline `Set(A*, n)` called twice, `Set(self, n); Set((A*)((char*)self + 0x10), n)` (the second pointer is not hoisted into a variable); inside: `n == 0` frees (size = 0 first), else Heap_Alloc(n*4), `for (u32 i = 0; i < n && i < a->unk4; i++) t[i] = a->unk0[i];` (a for loop keeps the redundant `n != 0` guard of the original, a do-while drops it), free the old data, set data/size/cap)
 Matched (A7-14, integrator forensics copy): func_0012CAA8 (t_12B970; list destructor with recomputed `((L*)((char*)self + 4))->First()` in each condition; nonmatching file removed)
 Matched (A7-15): func_00112A70 (t_110D00; copy two float arrays from a source object: reuse of the Set_111860 resize helper, then `while (i < count(src)) { float v = get(src, i); int off = i * 4; i++; *(float*)((char*)arr + off) = v; }` (off/v as separate locals gives the original register order); second array at +0x10 needs `int pad` after the 12-byte array struct; old prototypes need asm-name aliases)
+
+## Round 8 (protos alias, sentinel select, register copies, untried)
+
+Round 2026-10-20 (8th): 1 matches / 1 attempted (limit 15/40)
+- Matched (A8-1): func_001207A0 (t_11F000; protos alias func_0011FA98__r returning int; nonmatching file removed)
