@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-19b: 7 matches / 19 attempted (limit 15/40)
+Round 2026-10-19b: 9 matches / 21 attempted (limit 15/40)
 
 Round 2026-10-19: 9 matches / 30 attempted (limit 12/30); DONE (limit 30 attempted reached). matched: func_0021F020 (assigned), func_00221E88, func_001DF390, func_0022DC38, func_0022EA70, func_0022F6D8, func_0021DED8, func_00222F10, func_0021FEF0; near miss (nonmatching/): func_001CCE08 func_001B4A98 func_002024B0 func_001CC400 func_002305C0 func_001FB480 func_002080C0 func_0022FEE0 func_001F3E68 func_001F86D8 func_001C5AE0 func_001BE3A0 func_002350B0 func_001D6598 func_001E2260 func_001CF040 func_00232A58; given up func_001CDA60 func_001E6030 func_001EBCE0 func_00208910 func_001C8F08
 
@@ -1154,3 +1154,4 @@ Near miss (structure only): func_00232A58 (nonmatching/func_00232A58.cpp): a loo
 - t_234190 CFunc_PendingPakManLoads MATCH (was a movz near miss): the last two returns share one zero block: `if (sp8 != 0) goto zero; { int t = func_002DD108(); if (t != 0) return 1; } zero: return 0;` (the original branch to the shared `move v0,zero` becomes a branch-likely with the copied slot; `r = 1; if (!t) r = 0` and ternaries if-convert). nonmatching/ file removed.
 - t_1C9B30 CFunc_IsHost MATCH (movz give-up): same pattern as CFunc_PendingPakManLoads: `if (t == 0) goto zero; if (f(t) != 0) return 1; zero: return 0;` (shared zero return, literal returns; no `x ? 1 : 0`).
 - func_001C74F8 (t_1C5A68, retried): `f(a) || f(b)` returning 1/0 still comes out as `bnezl` + `sltu` in every form (direct returns, goto zero, if/else chain, ref helper, callee typed bool/u8/u64): the shared-zero-block trick of CFunc_IsHost needs a second jump to the zero block, which this function does not have.
+- t_1FBAF0 func_001FBE50, func_001FBEA8 MATCH (the `move v1,v0; bnez v1; li v0,1 / v0 = 0` bool-return give-ups): `if (a(key, &sp0) == 0) goto zero; if (b(sp0) != 0) return 1; zero: return 0;` with the second callee declared to return `u64` through an `__asm__("name")` alias (the u64 compare is what keeps the branch and gives the `move v1,v0`; with an int result gcc folds to sltu).

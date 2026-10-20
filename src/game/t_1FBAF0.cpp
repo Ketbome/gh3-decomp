@@ -154,9 +154,34 @@ extern "C" int func_001FBDE0(S1FB* p) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBE50);
+extern "C" {
+u64 func_0026DD48_u(int, void*) __asm__("func_0026DD48");
+u64 func_001FBB70_u(int) __asm__("func_001FBB70");
+}
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1FBAF0", func_001FBEA8);
+extern "C" int func_001FBE50(void* self, int key) {
+    int sp0;
+    if (func_0027DC58(key, 0, &sp0, 0) == 0) {
+        goto zero;
+    }
+    if (func_0026DD48_u(sp0, self) != 0) {
+        return 1;
+    }
+zero:
+    return 0;
+}
+
+extern "C" int func_001FBEA8(void* self, int key) {
+    int sp0;
+    if (func_0027DC58(key, 0, &sp0, 0) == 0) {
+        goto zero;
+    }
+    if (func_001FBB70_u(sp0) != 0) {
+        return 1;
+    }
+zero:
+    return 0;
+}
 
 extern "C" int func_001FBEF0(S1FB* self, int s) {
     return func_001FC468(self, s) != 0;
