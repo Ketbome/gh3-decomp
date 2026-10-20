@@ -522,7 +522,26 @@ extern "C" int CFunc_SetHostMode(void* params) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1C9B30", CFunc_IsHost);
+extern "C" int CFunc_IsHost(void) {
+    s32 g = D_00369A60[0];
+    if (func_001C8258(g) == 0) {
+        return 0;
+    }
+    if (func_001C94D8(g) != 0) {
+        return func_001C9458(g) == 0;
+    }
+    {
+        void* t = func_001CA768(g);
+        if (t == 0) {
+            goto zero;
+        }
+        if (func_001CC0A0(t) != 0) {
+            return 1;
+        }
+    }
+zero:
+    return 0;
+}
 
 extern "C" s32 CFunc_ChangeLevelPending(void) {
     return func_00114030(D_00369A60_lv[0]->unk28);
