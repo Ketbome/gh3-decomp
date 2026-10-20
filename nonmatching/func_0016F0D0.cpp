@@ -411,7 +411,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F030);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_16E670", func_0016F0B0);
 
-struct VT_16F { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int, void*); };
+struct VT_16F { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
 struct Ob_16F { char pad0[0x14]; VT_16F* unk14; };
 struct No_16F { int unk0; No_16F* unk4; Ob_16F* unk8; Ob_16F* unkC; };
 struct Li_16F { int unk0; No_16F sent; };
@@ -425,7 +425,7 @@ struct It_16F {
 
 static inline void Kill_16F(Ob_16F*& o) {
     if (o) {
-        o->unk14->fn((char*)o + o->unk14->delta, 3, o);
+        o->unk14->fn((char*)o + o->unk14->delta, 3);
         o = 0;
     }
 }
@@ -436,12 +436,12 @@ void func_0016F0D0_x(Li_16F** self, int flags) {
         for (It_16F it((*self)->sent.unk4); it != It_16F(&(*self)->sent); ++it) {
             if (it.cur->unk8) {
                 Ob_16F* o = it.cur->unk8;
-                o->unk14->fn((char*)o + o->unk14->delta, 3, o);
+                o->unk14->fn((char*)o + o->unk14->delta, 3);
                 it.cur->unk8 = 0;
             }
             if (it.cur->unkC) {
                 Ob_16F* o = it.cur->unkC;
-                o->unk14->fn((char*)o + o->unk14->delta, 3, o);
+                o->unk14->fn((char*)o + o->unk14->delta, 3);
                 it.cur->unkC = 0;
             }
         }
@@ -449,26 +449,32 @@ void func_0016F0D0_x(Li_16F** self, int flags) {
             Li_16F* l = *self;
             No_16F* sent = &l->sent;
             No_16F* f = l->sent.unk4;
-            l->sent.unk0 = (int)sent;
             l->sent.unk4 = sent;
-            while (f != sent) {
-                No_16F* n = f->unk4;
-                Heap_Free(D_00368A38, f);
-                f = n;
+            l->sent.unk0 = (int)sent;
+            if (f != sent) {
+                No_16F* d = f;
+                do {
+                    f = f->unk4;
+                    Heap_Free(D_00368A38, d);
+                    d = f;
+                } while (f != sent);
             }
         }
-        Li_16F* l = *self;
-        No_16F* sent = &l->sent;
-        if (l) {
-            No_16F* f = l->sent.unk4;
-            l->sent.unk4 = sent;
-            l->sent.unk0 = (int)sent;
-            while (f != sent) {
-                No_16F* n = f->unk4;
-                Heap_Free(D_00368A38, f);
-                f = n;
+        Li_16F* l2 = *self;
+        No_16F* sent2 = &l2->sent;
+        if (l2) {
+            No_16F* f = l2->sent.unk4;
+            l2->sent.unk4 = sent2;
+            l2->sent.unk0 = (int)sent2;
+            if (f != sent2) {
+                No_16F* d = f;
+                do {
+                    f = f->unk4;
+                    Heap_Free(D_00368A38, d);
+                    d = f;
+                } while (f != sent2);
             }
-            Heap_Free(D_00368A38, l);
+            Heap_Free(D_00368A38, l2);
         }
         *self = 0;
     }

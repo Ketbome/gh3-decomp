@@ -211,20 +211,38 @@ extern "C" void func_00153278(S_00153268* self, int v) {
     self->unk4 &= ~v;
 }
 
-struct VA_153290 { s16 unk0; s16 unk2; void* (*unk4)(void*, int, int); };
-struct VC_153290 { s16 unk0; s16 unk2; void* (*unk4)(void*, int, void*); };
-struct VB_153290 { s16 unk0; s16 unk2; void (*unk4)(void*, int); };
-struct VT1_153290 { char pad0[0x28]; VA_153290 unk28; };
-struct VT2_153290 { char pad0[0x10]; VB_153290 unk10; char pad18[0x58]; VC_153290 unk70; };
-struct C_153290 { char pad0[8]; int unk8x; VT2_153290* unkC; };
-struct S_153290 { int unk0; u32 unk4; int unk8; int unkC; int unk10; C_153290* unk14; VT1_153290* unk18; };
+struct C_153290 {
+    char pad0[8]; int unk8x;
+    virtual void vx();
+    virtual void v0(int);
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual void v7();
+    virtual void v8();
+    virtual void v9();
+    virtual void v10();
+    virtual void v11();
+    virtual C_153290* v12(int);
+};
+struct S_153290 {
+    int unk0; u32 unk4; int unk8; int unkC; int unk10; C_153290* unk14;
+    virtual void vx();
+    virtual void v0();
+    virtual void v1();
+    virtual void v2();
+    virtual S_153290* v3(int, int);
+};
 extern "C" {
 int func_0014F0E8(void);
 int func_0015F070(int, int, int);
 }
 
 extern "C" S_153290* func_00153290(S_153290* self, int a1, int a2, int a3) {
-    S_153290* o = (S_153290*)self->unk18->unk28.unk4((char*)self + self->unk18->unk28.unk0, a1, a3);
+    S_153290* o = self->v3(a1, a3);
     S_153290* r = 0;
     if (o) {
         o->unk0 = func_0014F0E8();
@@ -235,13 +253,10 @@ extern "C" S_153290* func_00153290(S_153290* self, int a1, int a2, int a3) {
         }
         if (self->unk14) {
             C_153290* c = self->unk14;
-            VC_153290* e = &c->unkC->unk70;
-            void* fn = (void*)e->unk4;
-            int d = e->unk0;
-            C_153290* n = (C_153290*)((void* (*)(void*, int, void*))fn)((char*)c + d, a1, c);
+            C_153290* n = c->v12(a1);
             if (n) {
                 o->unk14 = n;
-                n->unkC->unk10.unk4((char*)n + n->unkC->unk10.unk0, o->unk0);
+                n->v0(o->unk0);
                 o->unk4 = o->unk4 & 0xFFFFFFBF;
                 if (a2) o->unk4 = o->unk4 | 4;
                 if (o->unk10) {
