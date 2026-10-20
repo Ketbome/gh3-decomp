@@ -1344,9 +1344,13 @@ Matched (A35): func_0014A940 (t_14A6B0; needs `// cflags: -funroll-loops` (the f
 
 ## Round 7 (movz helper retries, OBJECT_END, untried)
 
-Round 2026-10-19 (7th): 0 matches / 4 attempted (limit 15/40)
+Round 2026-10-19 (7th): 1 matches / 7 attempted (limit 15/40)
 - func_00120180 (t_11F000; open-file variant of func_001203A8; OBJECT_END + GP_DATA(D_00368D78) before it fixes the gp/lui split and the first-branch delay slot; `sb 0x67` must be written once after the if/else (gcc copies it into the `b` slot); structure matches): left: the original keeps `la D_00368D98` as a pointer (lui; addiu v1; lw a1,lo(v0); lhu 4(v1)) while ours folds it into two luis (q = &D, asm barrier, struct copy all tried), plus `move s3,zero` ahead of `sd ra`; ~16 forms, reverted
 - func_0014E1B8: Get/First helpers writing through a reference (3 forms) still give movz for the first test (original `bnez; move v1,zero`); reverted
 - func_0019B448: constant 1 kept in a register: `asm("" : "+r"(one))` keeps it but hoists the shifts out of the loop (original shifts inside); helper `Bit(u32& v, ...)` for the if-converted bits works for movn; reverted
 - near miss: func_001207A0 (t_11F000; entry lookup + vcall dispatch, `sync; ei` as `asm volatile("sync\n\tei")`; E207 fields volatile (so loads are re-read), final stores in order need `*(void* volatile*)&e->unk0 = 0`): everything matches except the original computes `xori a2,a2,2` before loading the vcall pointer (`lw v0,4(s0)`), ours after (volatile fn / local order forms: 6); nonmatching/func_001207A0.cpp
 
+Matched (A7-1): func_001621A0 (t_161580; two 0x38-byte color/rect copies on the stack (func_00138978 copies), `int c = col.unk20` read before the second copy, then `col[0..3] = 0x80` in index order)
+- func_001707C0 (t_1707C0 constructor with empty unrolled loops), func_0015D1A0, func_00145EF8, func_00114150, func_0016C7B0/func_00114048 (fragment heads): skipped as too complex or split tails
+- func_00191310 (t_18FE28; twin func_00191DF0): `f` must be the parameter variable (`F_191* f` as 4th arg: shares s0), but gcc folds the bit-test tail (`(fl>>2)&1` twice) and the vcall arg setup differs (0x138 vs 0x150); 9 forms
+- func_00134288: original `move v0,a1` in the bne slot then `movn v0,zero,x`; every form gives movz or sltiu; 8 forms

@@ -263,7 +263,55 @@ extern "C" void func_00162178(S001619B0* self) {
     ((void (*)(void*))e->fn)((char*)self + e->delta);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_161580", func_001621A0);
+struct H_1621A0 { char pad0[0x1DC]; int unk1DC; };
+struct B_1621A0 { char pad0[0x40]; };
+struct X_1621A0 { u8 col[4]; char pad4[0x1C]; int unk20; char pad24[0x14]; };
+struct S38_1621A0 { char pad0[0x38]; };
+extern "C" {
+void func_00119490(void*, int);
+void func_001194B8(void*);
+void func_00137EB0(void*);
+void func_00137F30(int);
+void func_00137F38(int, void*, int, int, void*);
+void func_001384F8(void*, int);
+int func_00138968(int);
+int func_00138970(int);
+void func_00138978(void*, int);
+int func_00138A10(int);
+int func_001596E0(int);
+int func_0015AAA0(int, int, int, int, int);
+int func_0015ABD8(int, int, int, int, int, int, int, int);
+void func_0015ADF8(int, int);
+int func_00160C58_i(int, int, int, int) __asm__("func_00160C58");
+int func_002763C0(int, int);
+extern int D_00372B88;
+}
+
+extern "C" int func_001621A0(int a0, int a1, int a2, int a3) {
+    B_1621A0 b;
+    X_1621A0 col;
+    X_1621A0 buf;
+    func_00119490((void*)D_00368A38, ((H_1621A0*)D_00368A38)->unk1DC);
+    int t = func_00138968(a1);
+    int c20 = func_0015ABD8(D_00372B88, t, func_00138970(a1), 0xB00B0DC0, 1, 1, 0, 1);
+    int c21 = func_0015AAA0(D_00372B88, func_00138A10(a1), 1, 1, 0);
+    func_001194B8((void*)D_00368A38);
+    func_001384F8(&b, func_002763C0(0xA435752C, 1));
+    func_00137EB0(&b);
+    func_00137F30(c21);
+    func_00138978(&col, a1);
+    int c = col.unk20;
+    col.col[0] = 0x80;
+    col.col[1] = 0x80;
+    col.col[2] = 0x80;
+    col.col[3] = 0x80;
+    func_00138978(&buf, a1);
+    func_00137F38(c20, &buf, c, 0, &col);
+    int r = func_00160C58_i(a0, a3, a2, func_001596E0(c20));
+    func_0015ADF8(D_00372B88, c20);
+    func_0015ADF8(D_00372B88, c21);
+    return r;
+}
 
 extern "C" void func_00162358(S50_161* self, int v) {
     self->unk50.f5 = v;
