@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct V2208 {
@@ -206,6 +207,49 @@ extern "C" f32 func_00220270(P2202* p, s32 k) {
     }
     g->unk18 = g->unk18 - 1;
     return r;
+}
+
+typedef int TI220 __attribute__((mode(TI)));
+
+struct V220 {
+    TI220 v;
+};
+
+struct Buf220 {
+    int d[130];
+    int n;
+};
+
+struct Ctx220 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    int unk14;
+    int unk18;
+    int unk1C;
+};
+
+struct W220 {
+    TI220 a[260];
+    int c[130];
+};
+
+struct S220P {
+    char pad0[0x3C];
+    char* unk3C;
+};
+
+extern "C" {
+void func_0030A2F4(void*, void*, int);
+void func_0017B528(void*, int);
+void func_0017D658(void*, void*, int);
+void func_0017D6D0(void*, void*, f32);
+void func_0017D580(void*, int);
+extern int D_0036AA90;
+extern void* D_0036AA94;
+void* memset(void*, int, unsigned int);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21FB88", func_00220318);
