@@ -314,22 +314,25 @@ struct S1D81 {
 
 extern "C" void* func_001D8180(void* pv) {
     S1D81* p = (S1D81*)pv;
-    N1D81* cur = 0;
+    N1D81* nn = 0;
     N1D81* h = p->unk3C;
     if (~h->unk4 != 0) {
-        cur = h;
+        nn = h;
     }
-    if (cur) {
+    if (nn) {
         do {
+            N1D81* cur = nn;
             N1D81* a = cur->unkC;
             cur->unk10->unkC = a;
-            N1D81* next = ~a->unk4 != 0 ? a : 0;
+            nn = 0;
+            if (~a->unk4 != 0) {
+                nn = a;
+            }
             cur->unkC->unk10 = cur->unk10;
             cur->unkC = cur;
             cur->unk10 = cur;
             func_001CEBE0_x(cur->unk4);
-            cur = next;
-        } while (cur);
+        } while (nn);
     }
 }
 
