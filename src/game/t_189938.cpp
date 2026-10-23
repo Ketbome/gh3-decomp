@@ -133,7 +133,100 @@ extern "C" S3_189* func_00189E90(S3_189* s) {
     return s;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_189938", func_00189ED8);
+struct HN189 { u32 key; void* val; HN189* next; };
+struct HI189 {
+    s32 bits;
+    HN189* buckets;
+    s32 unk8;
+    s32 iterIdx;
+    HN189* iterNode;
+    u8 unk14;
+    u8 unk15;
+
+    bool Scan(s32 size) {
+        for (;;) {
+            if (!(++iterIdx < size)) {
+                return false;
+            }
+            iterNode = &buckets[iterIdx];
+            if (iterNode->val) {
+                return true;
+            }
+            HN189* nx = iterNode->next;
+            if (nx) {
+                iterNode = nx;
+                return true;
+            }
+        }
+    }
+
+    bool Next() {
+        s32 size = 1 << bits;
+        if (iterNode) {
+            iterNode = iterNode->next;
+        } else if (iterIdx >= 0) {
+            return false;
+        }
+        if (iterNode) {
+            return true;
+        }
+        return Scan(size);
+    }
+
+    void* GetNext() {
+        void* r;
+        if (!Next()) {
+            r = 0;
+        } else {
+            HN189* n = iterNode;
+            r = n ? n->val : 0;
+        }
+        return r;
+    }
+
+    void Start() {
+        iterIdx = -1;
+        iterNode = 0;
+    }
+};
+struct Ob189 { char pad0[0x18]; VEntry_189* unk18; char pad1C[0x30]; void* unk4C; };
+struct S189D { char pad0[0x58]; HI189* unk58; char pad5C[0x34]; void* unk90; char pad94[0x14]; Ob189* unkA8; };
+
+extern "C" {
+void func_00153278(void*, int);
+void func_00152908(void*, int);
+void func_001A0380(void*, int);
+void func_0014FB78(void*, int);
+}
+
+extern "C" void func_00189ED8(S189D* self, int flags) {
+    self->unk90 = D_00344A68;
+    if (self->unkA8) {
+        self->unk58->Start();
+        for (;;) {
+            Ob189* o = (Ob189*)self->unk58->GetNext();
+            if (!o) {
+                break;
+            }
+            func_00153278(o, 0x40);
+            VEntry_189* e = &o->unk18[1];
+            ((void (*)(void*, int))e->fn)((char*)o + e->delta, 3);
+        }
+        if (self->unk58) {
+            func_00152908(self->unk58, 3);
+        }
+        self->unk58 = 0;
+        func_001AD7B8(self->unkA8);
+        Ob189* s = self->unkA8;
+        if (s) {
+            if (s->unk4C) {
+                func_001A0380(s->unk4C, 3);
+            }
+            Heap_Free(D_00368A38[0], s);
+        }
+    }
+    func_0014FB78(self, flags);
+}
 
 extern "C" int func_0018A070(S0018A070* self) {
     return self->unkA0;
