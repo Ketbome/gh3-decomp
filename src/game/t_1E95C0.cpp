@@ -284,7 +284,16 @@ extern "C" void func_001E9A00(char* p, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001E9A68);
+extern "C" void func_001E9A68(void* pp) {
+    S1E9DA8* p = (S1E9DA8*)pp;
+    p->unk0->Start();
+    void* v = p->unk0->GetNext();
+    while (v) {
+        void* n = p->unk0->GetNext();
+        Heap_Free(D_00368A38[0], v);
+        v = n;
+    }
+}
 
 extern "C" bool func_001E9C08(S1E9DA8* p, u32 key) {
     u32* v = (u32*)p->unk0->Get(key);
