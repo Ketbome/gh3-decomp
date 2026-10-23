@@ -157,7 +157,43 @@ TEXT_PAD(8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B0410);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B00D0", func_001B05B8);
+struct O1B05 {
+    char pad0[0x1C];
+    s32 unk1C;
+};
+
+extern "C" {
+s32 func_001ACD28(void* p);
+void* func_001ACF70(void* p);
+void* func_001AD008(void* p);
+void func_001B0410(char* p, u32 a, int b);
+}
+
+extern "C" void func_001B05B8(void* obj0, s32 a1, u32 a2, s32 a3) {
+    O1B05* obj = (O1B05*)obj0;
+    while (func_001ACD28(obj) == 0) {
+        obj = (O1B05*)func_001ACF70(obj);
+    }
+    if (obj) {
+        u32 k1 = a2 + 1;
+        do {
+            if ((obj->unk1C >> 10) & 1) {
+                if (a3 == 0) {
+                    func_001B0410((char*)obj, a1, a2);
+                } else {
+                    func_001B0410((char*)obj, a1, a2);
+                    u32 cnt = func_001B00D0((char*)obj, a1);
+                    s32 t1 = func_001B01D8((char*)obj, a1, a2);
+                    s32 delta = a3 - (func_001B01D8((char*)obj, a1, k1) - t1);
+                    for (u32 j = k1; j < cnt; j++) {
+                        func_001B02F0((char*)obj, a1, j, func_001B01D8((char*)obj, a1, j) + delta);
+                    }
+                }
+            }
+            obj = (O1B05*)func_001AD008(obj);
+        } while (obj);
+    }
+}
 
 extern "C" void func_001B0850(S001B08F0* p) {
     if (p->unk1C & 0x100000) {
