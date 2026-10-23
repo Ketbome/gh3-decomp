@@ -22,6 +22,42 @@ extern "C" void func_00243208(void** p) {
     func_00244930_1(p[2]);
 }
 
+typedef int TI243 __attribute__((mode(TI)));
+
+struct M243 {
+    TI243 r[4];
+};
+
+struct S243 {
+    char pad0[8];
+    void* unk8;
+    char pad0C[4];
+    TI243 unk10;
+    M243 unk20;
+};
+
+extern "C" void func_00246B10_m(void*, M243*, int, int, int) __asm__("func_00246B10");
+
+static inline f32 Get243X(TI243 q) {
+    f32 f;
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(q));
+    return f;
+}
+static inline f32 Get243Y(TI243 q) {
+    u32 t;
+    f32 f;
+    asm("dsrl32 %0, %1, 0" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+static inline f32 Get243Z(TI243 q) {
+    u32 t;
+    f32 f;
+    asm("pcpyud %0, %1, %1" : "=r"(t) : "r"(q));
+    asm("mtc1 %1, %0" : "=f"(f) : "r"(t));
+    return f;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00243228);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002432C0);
