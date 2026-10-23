@@ -276,7 +276,31 @@ extern "C" u8 func_0029F648(char *base) {
     return m;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029F790);
+struct S29F7_E {
+    char pad0[0x1A];
+    s8 unk1A;
+};
+
+extern "C" int func_0029F790(char *base) {
+    S29F6_Lk *n1, *nn;
+    S29F6_ItB *pa;
+    S29F6_ItB b((S29F6_Lk *)(base + 0x310C));
+    S29F7_E *e;
+    int cnt = 0;
+    S29F6_Adv(b);
+    e = (S29F7_E *)S29F6_Get0(b);
+    if (e) {
+        pa = &b;
+        do {
+            n1 = b.cur->unkC;
+            if (e->unk1A != 0) cnt++;
+            nn = (~n1->unk4 == 0) ? 0 : n1;
+            pa->cur = nn;
+            S29F6_Pick((S29F6_El *&)e, nn);
+        } while (e);
+    }
+    return cnt;
+}
 
 extern "C" void func_0029F840(char *base) {
     S29F6_Lk *n1, *n2, *nn, *l2;
