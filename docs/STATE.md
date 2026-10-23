@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-23: A round 8, C round 11 running; B's register-copy round integrated (3/33: range B is mostly
+Resumed 2026-10-23: A round 9 (round 8: 15/33), C round 11 running; B's register-copy round integrated (3/33: range B is mostly
 blocked), forensics on short-loop nop padding that short_loops() still misses (6+ B functions) in its slot. Were stopped
 mid-round on 2026-10-20: A round 8
 (had just started: func_001207A0 from the `dk protos` sweep, then the movn sentinel family), B retrying near misses
@@ -66,7 +66,7 @@ never mentioned in a worklog on 2026-10-14).
 ## Next step
 
 1. Integrate the rounds as they report.
-   Quiet point (no worker): split t_223BE8 between func_002243A0 and func_00224E10 (func_00224E10 matches with
+   Quiet point (no worker): split t_17D4D8 around func_0017F298 (needs `-funroll-loops`, neighbours break), split t_223BE8 between func_002243A0 and func_00224E10 (func_00224E10 matches with
    `-funroll-loops`, nonmatching/func_00224E10.cpp; func_002243A0 needs it off), and the cpp subsegment of t_152E18 at 0x153958 (func_001535E8 needs `-funroll-loops`,
    func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
