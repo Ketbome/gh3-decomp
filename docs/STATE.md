@@ -6,7 +6,8 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-23: A round 8, B (register copies), C round 11 running with the priorities below. Were stopped
+Resumed 2026-10-23: A round 8, C round 11 running; B's register-copy round integrated (3/33: range B is mostly
+blocked), forensics on short-loop nop padding that short_loops() still misses (6+ B functions) in its slot. Were stopped
 mid-round on 2026-10-20: A round 8
 (had just started: func_001207A0 from the `dk protos` sweep, then the movn sentinel family), B retrying near misses
 blocked by kept register copies (forensics starting points in scratchpad/forensics3/x/), C round 10 (committed the
@@ -44,8 +45,8 @@ never mentioned in a worklog on 2026-10-14).
 - `dk twins` (skill 1.6.5) declares conflicting symbols through `__asm__` aliases: func_001D0848, func_00288000,
   func_00266E08 now come out automatically (tested on a reverted copy). Still skipped: a twin whose own return type
   differs from the file's prototype (func_00276720).
-- Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): CFunc_GetViewportCameraPos, CFunc_GetWaypointDir,
-  CFunc_NormalizeVector; source construct unknown.
+- Vector to three floats (`lq; dsrl32; pcpyud; mtc1`): solved in C with lane helpers (t_24BA88, C.md:1011);
+  B still blocked on func_00217618, func_00243228: point B at that helper.
 - Short empty loops: the original has nop padding our gas does not emit (func_00226B28).
 - QB alias-lookup family (func_00282268 and six others): one gcc shape never reproduced; also hash-iterator and
   stack list-iterator functions (range C).
@@ -55,6 +56,8 @@ never mentioned in a worklog on 2026-10-14).
 - asm_filter: label/hazard-nop position after `c.cond.s` before `bc1t/f` (func_00127ED0: only two `b` targets
   differ); two extra nops before a loop head after `li.s` (func_00160E80); unroll 4x where the original is 2x
   (func_00142398, func_00123D08, func_00137C98).
+- `x = 0; if (n) x = n->f;` after a call: original keeps `move x,zero` in the branch delay slot (func_0022F7D8,
+  func_001C5AE0).
 - 26 functions saving `$ra` with `sq`.
 - Large static-table initialisers (>12 entries): register numbers differ from the 2nd entry (func_001F86D8).
 - A leading `move` before `addiu $sp` (func_0022CB18, func_0022F3A0, func_001D55F8).
@@ -63,7 +66,8 @@ never mentioned in a worklog on 2026-10-14).
 ## Next step
 
 1. Integrate the rounds as they report.
-   Quiet point (no worker): split the cpp subsegment of t_152E18 at 0x153958 (func_001535E8 needs `-funroll-loops`,
+   Quiet point (no worker): split t_223BE8 between func_002243A0 and func_00224E10 (func_00224E10 matches with
+   `-funroll-loops`, nonmatching/func_00224E10.cpp; func_002243A0 needs it off), and the cpp subsegment of t_152E18 at 0x153958 (func_001535E8 needs `-funroll-loops`,
    func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
    worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
