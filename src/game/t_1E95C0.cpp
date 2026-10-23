@@ -561,7 +561,55 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAA68);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EABC0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAD28);
+typedef int TI1EA __attribute__((mode(TI)));
+
+extern "C" {
+f32 func_0010F698(void*);
+f32 func_0010F6A8(void*);
+f32 func_0010F6C0(void*);
+}
+
+extern "C" s32 func_001EAD28(char* p, TI1EA* pt) {
+    register TI1EA v3 asm("vf3") = *pt;
+    register TI1EA v2 asm("vf2") = *(TI1EA*)(p + 0x10);
+    register TI1EA v1 asm("vf1");
+    s32 r = 0;
+    u32 u;
+    f32 d;
+    asm("vsub.xyzw %0, %1, %0" : "+j"(v2) : "j"(v3));
+    s32 t = *(s32*)(p + 0x34);
+    asm("vmul.xyzw %0, %0, %0" : "+j"(v2));
+    asm("vaddy.x %0, %1, %1y" : "=j"(v1) : "j"(v2));
+    asm("vaddz.x %0, %0, %1z" : "+j"(v1) : "j"(v2));
+    asm("qmfc2.ni %0, %1" : "=r"(u) : "j"(v1));
+    asm("mtc1 %1, %0" : "=f"(d) : "r"(u));
+    if (t != 0) {
+        if (t == 2) {
+            r = 1;
+            if (!(d <= *(f32*)(p + 0x3C))) r = 0;
+        }
+    } else {
+        TI1EA tmp = v3;
+        char* a = p + 0x50;
+        s32 k = 0;
+        if (func_0010F698(&tmp) >= func_0010F698(a)) {
+            if (func_0010F6A8(&tmp) >= func_0010F6A8(a)) {
+                if (func_0010F6C0(&tmp) >= func_0010F6C0(a)) {
+                    char* b = p + 0x60;
+                    if (func_0010F698(&tmp) <= func_0010F698(b)) {
+                        if (func_0010F6A8(&tmp) <= func_0010F6A8(b)) {
+                            if (func_0010F6C0(&tmp) <= func_0010F6C0(b)) {
+                                k = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        r = k;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAEA0);
 
