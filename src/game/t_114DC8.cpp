@@ -125,6 +125,8 @@ extern "C" void func_001153C8(void) {
     if (D_00372AA0) Heap_Free(D_00368A38, D_00372AA0);
 }
 
+extern "C" void func_00115438(int);
+
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115438);
 
 #define LSON ((int*)D_00372AA4)
@@ -163,7 +165,94 @@ extern "C" void func_00115660(int p) {
     DAD[p] = 0x1000;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115850);
+extern long D_00368500;
+extern long D_00368508;
+extern long D_00368510;
+extern int D_00372A98;
+extern int D_00372A9C;
+
+GP_DATA(D_00368500);
+GP_DATA(D_00368508);
+GP_DATA(D_00368510);
+extern "C" int func_00115850(char* in, unsigned char* out, int inlen) {
+    int i, c, len, r, s, last_match_length, code_buf_ptr;
+    unsigned char code_buf[17], mask;
+    D_00368500 = 0;
+    D_00368508 = 0;
+    code_buf_ptr = mask = 1;
+    D_00368510 = 0;
+    func_00115170();
+    code_buf[0] = 0;
+    s = 0;
+    r = 0xFEE;
+    for (i = s; i < r; i++) {
+        ((unsigned char*)D_00372AA0)[i] = ' ';
+    }
+    for (len = 0; len < 18 && inlen != 0; len++) {
+        c = *in++;
+        inlen--;
+        ((unsigned char*)D_00372AA0)[r + len] = c;
+    }
+    if ((D_00368500 = len) == 0) {
+        func_001153C8();
+        return 0;
+    }
+    for (i = 1; i <= 18; i++) {
+        func_00115438(r - i);
+    }
+    func_00115438(r);
+    do {
+        if (D_00372A9C > len) {
+            D_00372A9C = len;
+        }
+        if (D_00372A9C <= 2) {
+            D_00372A9C = 1;
+            code_buf[0] |= mask;
+            code_buf[code_buf_ptr++] = ((unsigned char*)D_00372AA0)[r];
+        } else {
+            code_buf[code_buf_ptr++] = (unsigned char)D_00372A98;
+            code_buf[code_buf_ptr++] = (unsigned char)(((D_00372A98 >> 4) & 0xF0) | (D_00372A9C - 3));
+        }
+        if ((mask <<= 1) == 0) {
+            for (i = 0; i < code_buf_ptr; i++) {
+                *out++ = code_buf[i];
+            }
+            D_00368508 += code_buf_ptr;
+            code_buf[0] = 0;
+            code_buf_ptr = mask = 1;
+        }
+        last_match_length = D_00372A9C;
+        for (i = 0; i < last_match_length && inlen != 0; i++) {
+            c = *in++;
+            inlen--;
+            func_00115660(s);
+            ((unsigned char*)D_00372AA0)[s] = c;
+            if (s < 17) {
+                ((unsigned char*)D_00372AA0)[s + 0x1000] = c;
+            }
+            s = (s + 1) & 0xFFF;
+            r = (r + 1) & 0xFFF;
+            func_00115438(r);
+        }
+        D_00368500 += i;
+        while (i++ < last_match_length) {
+            func_00115660(s);
+            s = (s + 1) & 0xFFF;
+            r = (r + 1) & 0xFFF;
+            if (--len) {
+                func_00115438(r);
+            }
+        }
+    } while (len > 0);
+    if (code_buf_ptr > 1) {
+        for (i = 0; i < code_buf_ptr; i++) {
+            *out++ = code_buf[i];
+        }
+        D_00368508 += code_buf_ptr;
+    }
+    func_001153C8();
+    return (int)D_00368508;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115EE8);
 
