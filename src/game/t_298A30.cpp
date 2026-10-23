@@ -192,6 +192,12 @@ void func_00296EC0(void *, int);
 int func_0029F5B8(S298_Peer *);
 }
 
+struct S298A_Pl {
+    int pad0;
+    S298A_Lk *cur;
+    char *vptr;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00298AD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00298DA8);
@@ -355,12 +361,6 @@ struct S299E_Msg {
     int f28;
     char pad2C[0x230 - 0x1C];
 };
-struct S298A_Pl {
-    int pad0;
-    S298A_Lk *cur;
-    char *vptr;
-};
-
 extern "C" {
 void func_00296F18(S299E_Msg *);
 int func_00298858(char *, S299E_Msg *);
