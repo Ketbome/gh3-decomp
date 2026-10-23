@@ -78,7 +78,63 @@ extern "C" int func_001364C8(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_001364F0);
+extern "C" {
+int func_00134A20_g(int, int) __asm__("func_00134A20");
+int func_001349D0_g(int, int) __asm__("func_001349D0");
+int func_0027DD88_g(int, u32) __asm__("func_0027DD88");
+int func_0027D1F8_g(int, u32, int*, int) __asm__("func_0027D1F8");
+void func_001611C0_g(int, int, float, float, float) __asm__("func_001611C0");
+void func_00161580_g(int, int) __asm__("func_00161580");
+}
+
+extern "C" int func_001364F0(int self, int params) {
+    int a;
+    func_0027D870_i(params, 0xB6F08F39, &a, 1);
+    int o = func_00134A20_g((int)D_00369428, a);
+    if (o != 0) {
+        int b = 0;
+        func_0027D870_i(o, 0x4BB2084E, &b, 0);
+        int isb = 0;
+        if (b == 0x64E9DAEF || b == 0x92986E0D) {
+            isb = 1;
+        }
+        if (isb != 0) {
+            return 0;
+        }
+        int c = 0;
+        if (func_0027DD88_g(o, 0x97DBDDE6) == 0) {
+            c = 1;
+        } else {
+            func_0027D1F8_g(o, 0x97DBDDE6, &c, 0);
+        }
+        if (c != 0) {
+            int found = 0;
+            int o2 = func_001349D0_g((int)D_00369428, a);
+            int d, e, f;
+            if (o2 != 0 && func_0027D1F8_g(o2, 0xC6CC7F7F, &d, 0) != 0 && func_0027D1F8_g(o2, 0x4CA9B693, &e, 0) != 0) {
+                found = func_0027D1F8_g(o2, 0x3CC3421C, &f, 0) != 0;
+            }
+            if (found != 0) {
+                float fe = (float)e * 0.01f;
+                float fd = (float)d;
+                float ff = (float)f * 0.01f;
+                func_001611C0_g(D_00369420, params, fd, fe, ff);
+                return 0;
+            }
+            func_00161580_g(D_00369420, params);
+            return 0;
+        }
+        int found = 0;
+        int g, h, i;
+        if (func_0027D1F8_g(o, 0x6E94F918, &g, 0) != 0 && func_0027D1F8_g(o, 0xE4F130F4, &h, 0) != 0) {
+            found = func_0027D1F8_g(o, 0x949BC47B, &i, 0) != 0;
+        }
+        if (found != 0) {
+            func_001611C0_g(D_00369420, params, (float)g, (float)h * 0.01f, (float)i * 0.01f);
+        }
+    }
+    return 1;
+}
 
 extern "C" int func_00136740(void) {
     func_00161138(D_00369420);
