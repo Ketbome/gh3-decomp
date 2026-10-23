@@ -235,6 +235,14 @@ extern "C" int func_0029BDA0(void* a, S0029BDA0* p) {
     return p->unk313C > p->unk3138;
 }
 
+struct S29BD_ElA : S29A_Base {
+    u32 unk18;
+};
+struct S29BD_ElB : S29A_Base {
+    char pad18[8];
+    u32 unk20;
+};
+
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BDB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BF58);
