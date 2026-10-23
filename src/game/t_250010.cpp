@@ -410,7 +410,110 @@ extern "C" void func_00250C30(u128_250 v, u8 *col, f32 a, f32 b) {
     func_00138B00(&p, &q, c, c, 1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_250010", CFunc_DrawDirectionalLightLines);
+struct S250D_Mgr {
+    char pad0[0x2C];
+    virtual void v1();
+    virtual void v2();
+    virtual void v3();
+    virtual void v4();
+    virtual void v5();
+    virtual void v6();
+    virtual S250D_Mgr *v7();
+};
+struct S250D_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S250D_Lk *unkC;
+};
+struct S250D_El {
+    char pad0[0x80];
+    u128_250 unk80;
+};
+extern "C" char D_0034B838[];
+struct S250D_It {
+    int pad0;
+    S250D_Lk *cur;
+    char *vptr;
+    S250D_It(S250D_Lk *l) { cur = l; vptr = D_0034B838; }
+    ~S250D_It() { vptr = D_0034B838; }
+};
+struct S250D_Pl {
+    int pad0;
+    S250D_Lk *cur;
+    char *vptr;
+};
+struct S250D_All {
+    f32 pitch;
+    f32 yaw;
+    u8 r;
+    int g;
+    int b;
+    int idx;
+};
+struct S250D_Col {
+    u8 r, g, b, a;
+};
+struct S250D_Q {
+    u8 r;
+    int g;
+    int b;
+};
+
+static inline void S250D_Pick(S250D_El *&o, S250D_Lk *c) {
+    if (!c) o = 0;
+    else o = (S250D_El *)c->unk4;
+}
+
+static inline S250D_El *S250D_Get0(S250D_Lk *c) {
+    S250D_El *r;
+    S250D_Pick(r, c);
+    return r;
+}
+
+extern "C" int CFunc_DrawDirectionalLightLines(int params) {
+    S250D_Col c;
+    S250D_Pl it;
+    S250D_All v;
+    func_0027D268(params, 0xFD4BC03E, &v.pitch, 1);
+    func_0027D268(params, 0xD8604126, &v.yaw, 1);
+    v.yaw = -v.yaw * 0.017453294f;
+    v.pitch = (90.0f - v.pitch) * 0.017453294f;
+    func_0027D1F8(params, 0x93F60062, &v.r, 1);
+    func_0027D1F8(params, 0xFE2BE489, &v.g, 1);
+    func_0027D1F8(params, 0x8E411006, &v.b, 1);
+    u8 rt = v.r;
+    int gt = v.g;
+    int bt = v.b;
+    c.r = rt;
+    c.g = gt;
+    c.b = bt;
+    c.a = 0x80;
+    if (func_0027DF00(params, 0xD7DE6342)) {
+        S250D_Lk *n, *nn, *m, *mm;
+        S250D_El *e;
+        it.cur = 0;
+        it.vptr = D_0034B838;
+        it.cur = (S250D_Lk *)((S250D_Mgr *)D_0036D3B0)->v7();
+        n = it.cur->unkC;
+        it.cur = (~n->unk4 == 0) ? 0 : n;
+        e = S250D_Get0(it.cur);
+        while (e) {
+            func_00250C30(e->unk80, (u8 *)&c, v.pitch, v.yaw);
+            m = it.cur->unkC;
+            mm = 0;
+            if (~m->unk4 != 0) mm = m;
+            it.cur = mm;
+            S250D_Pick(e, mm);
+        }
+        it.vptr = D_0034B838;
+    } else {
+        v.idx = 0;
+        func_0027D870(params, 0xA1DC81F9, &v.idx, 0);
+        func_00250C30(((S250D_El *)func_001D8618(D_0036D3B0, v.idx))->unk80, (u8 *)&c, v.pitch, v.yaw);
+    }
+    return 1;
+}
 
 extern "C" int CFunc_IsTextureLoaded(int params) {
     u32 name = 0;
