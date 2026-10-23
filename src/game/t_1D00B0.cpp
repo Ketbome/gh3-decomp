@@ -536,7 +536,70 @@ extern "C" void func_001D1998(void* self, s32 a) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1B28);
+struct E1B28 {
+    u32 key;
+    N1548* node;
+};
+
+struct E1B28P { u64 v; } __attribute__((packed));
+
+struct S1B28 {
+    char pad0[0x6C];
+    E1B28* unk6C;
+    s32 unk70;
+    char pad74[0xDC];
+    N1548* unk150;
+    s32 unk154;
+};
+
+extern "C" void func_001D1B28(S1B28* p) {
+    N1548* n = p->unk150;
+    p->unk70 = 0;
+    while (n != 0) {
+        VEnt* e = (VEnt*)(n->vt + 0x20);
+        ((void (*)(char*))e->fn)((char*)n + e->delta);
+        p->unk70++;
+        n = n->next;
+    }
+    p->unk154 |= 0x20;
+    s32 cnt = p->unk70;
+    if (cnt != 0) {
+        E1B28* a = (E1B28*)Heap_Alloc(D_00368A38[0], cnt * 8, 1, 0);
+        for (s32 i = cnt - 1; i != -1; i--) {
+        }
+        n = p->unk150;
+        p->unk6C = a;
+        E1B28* q = a;
+        while (n != 0) {
+            q->key = *(u32*)((char*)n + 4);
+            q->node = n;
+            n = n->next;
+            q++;
+        }
+        s32 sw;
+        do {
+            sw = 0;
+            for (s32 i = 0; i < p->unk70 - 1; i++) {
+                E1B28* e = (E1B28*)(i * 8 + (int)p->unk6C);
+                E1B28* f = e + 1;
+                if (e->key > f->key) {
+                    E1B28 t;
+                    *(E1B28P*)&t = *(E1B28P*)e;
+                    sw = 1;
+                    e->key = f->key;
+                    e->node = f->node;
+                    E1B28* g = (E1B28*)(i * 8 + (int)p->unk6C);
+                    g++;
+                    g->key = t.key;
+                    g->node = t.node;
+                }
+            }
+        } while (sw);
+    }
+    p->unk154 |= 0x40;
+    func_001D1548(p);
+}
+
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1D00B0", func_001D1CF0);
 
