@@ -135,6 +135,158 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BDB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BF58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029C1C0);
+struct S29A_Base {
+    char pad0[0x14];
+    virtual ~S29A_Base();
+};
+struct S29A_Obj {
+    u8 unk0;
+};
+struct S29A_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S29A_Lk *unkC;
+};
+struct S29A_El0 : S29A_Base {
+    S29A_Obj *unk18;
+};
+struct S29A_El1 : S29A_Base {
+    char pad18[4];
+    S29A_Obj *unk1C;
+};
+struct S29A_El2 : S29A_Base {
+    char pad18[0x14];
+    S29A_Obj *unk2C;
+};
+extern "C" char D_0035C528[];
+extern "C" char D_0035C540[];
+extern "C" char D_0035C5B0[];
+struct S29A_ItA {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItA(S29A_Lk *l) { cur = l; vptr = D_0035C540; }
+    ~S29A_ItA() { vptr = D_0035C540; }
+};
+struct S29A_ItB {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItB(S29A_Lk *l) { cur = l; vptr = D_0035C528; }
+    ~S29A_ItB() { vptr = D_0035C528; }
+};
+struct S29A_ItC {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItC(S29A_Lk *l) { cur = l; vptr = D_0035C5B0; }
+    ~S29A_ItC() { vptr = D_0035C5B0; }
+};
+
+static inline void S29A_Pick(void *&o, S29A_Lk *c) {
+    if (!c) o = 0;
+    else o = (void *)c->unk4;
+}
+
+static inline void *S29A_Get0(S29A_Lk *c) {
+    void *r;
+    S29A_Pick(r, c);
+    return r;
+}
+
+extern "C" void func_00296D88(S29A_Obj *, int);
+extern "C" void func_00296EC0(S29A_Obj *, int);
+
+extern "C" void func_0029C1C0(void *self, char *base, int which, u32 key0) {
+    u8 key = key0;
+    S29A_Lk *n0, *n1, *nn, *nf;
+    S29A_Lk *p0, *p1, *pn, *pf;
+    S29A_Lk *q0, *q1, *qn, *qf;
+    switch (which) {
+    case 0: {
+        S29A_ItC *pa;
+        S29A_ItC it((S29A_Lk *)(base + 0x30DC));
+        S29A_El0 *e, *nx;
+        n0 = it.cur->unkC;
+        it.cur = ((u32)which < (u32)~n0->unk4) ? n0 : 0;
+        e = (S29A_El0 *)S29A_Get0(it.cur);
+        if (e) {
+            pa = &it;
+            while (e) {
+                n1 = it.cur->unkC;
+                nn = 0;
+                if (~n1->unk4 != 0) nn = n1;
+                pa->cur = nn;
+                nx = (S29A_El0 *)S29A_Get0(nn);
+                S29A_Obj *o = e->unk18;
+                if (o->unk0 == key) {
+                    int *rc = (int *)((char *)o + 8);
+                    if (--rc[1] == 0 && o) func_00296D88(o, 3);
+                    delete e;
+                }
+                e = nx;
+            }
+        }
+        break;
+    }
+    case 1: {
+        S29A_ItA *pa;
+        S29A_ItA it((S29A_Lk *)(base + 0x30F4));
+        S29A_El1 *e, *nx;
+        p0 = it.cur->unkC;
+        pf = 0;
+        if (~p0->unk4 != 0) pf = p0;
+        it.cur = pf;
+        e = (S29A_El1 *)S29A_Get0(it.cur);
+        if (e) {
+            pa = &it;
+            while (e) {
+                p1 = it.cur->unkC;
+                pn = 0;
+                if (~p1->unk4 != 0) pn = p1;
+                pa->cur = pn;
+                nx = (S29A_El1 *)S29A_Get0(pn);
+                S29A_Obj *o = e->unk1C;
+                if (o->unk0 == key) {
+                    int *rc = (int *)((char *)o + 8);
+                    if (--rc[1] == 0 && o) func_00296D88(o, 3);
+                    delete e;
+                }
+                e = nx;
+            }
+        }
+        break;
+    }
+    case 2: {
+        S29A_ItB *pa;
+        S29A_ItB it((S29A_Lk *)(base + 0x310C));
+        S29A_El2 *e, *nx;
+        q0 = it.cur->unkC;
+        qf = 0;
+        if (~q0->unk4 != 0) qf = q0;
+        it.cur = qf;
+        e = (S29A_El2 *)S29A_Get0(it.cur);
+        if (e) {
+            pa = &it;
+            while (e) {
+                q1 = it.cur->unkC;
+                qn = 0;
+                if (~q1->unk4 != 0) qn = q1;
+                pa->cur = qn;
+                nx = (S29A_El2 *)S29A_Get0(qn);
+                S29A_Obj *o = e->unk2C;
+                if (o->unk0 == key) {
+                    int *rc = (int *)((char *)o + 0xC);
+                    if (--rc[1] == 0 && o) func_00296EC0(o, 3);
+                    delete e;
+                }
+                e = nx;
+            }
+        }
+        break;
+    }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029C4C0);
