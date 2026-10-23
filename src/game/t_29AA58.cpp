@@ -1,6 +1,66 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+struct S29A_Base {
+    char pad0[0x14];
+    virtual ~S29A_Base();
+};
+struct S29A_Obj {
+    u8 unk0;
+};
+struct S29A_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S29A_Lk *unkC;
+};
+struct S29A_El0 : S29A_Base {
+    S29A_Obj *unk18;
+};
+struct S29A_El1 : S29A_Base {
+    char pad18[4];
+    S29A_Obj *unk1C;
+};
+struct S29A_El2 : S29A_Base {
+    char pad18[0x14];
+    S29A_Obj *unk2C;
+};
+extern "C" char D_0035C528[];
+extern "C" char D_0035C540[];
+extern "C" char D_0035C5B0[];
+struct S29A_ItA {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItA(S29A_Lk *l) { cur = l; vptr = D_0035C540; }
+    ~S29A_ItA() { vptr = D_0035C540; }
+};
+struct S29A_ItB {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItB(S29A_Lk *l) { cur = l; vptr = D_0035C528; }
+    ~S29A_ItB() { vptr = D_0035C528; }
+};
+struct S29A_ItC {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+    S29A_ItC(S29A_Lk *l) { cur = l; vptr = D_0035C5B0; }
+    ~S29A_ItC() { vptr = D_0035C5B0; }
+};
+
+static inline void S29A_Pick(void *&o, S29A_Lk *c) {
+    if (!c) o = 0;
+    else o = (void *)c->unk4;
+}
+
+static inline void *S29A_Get0(S29A_Lk *c) {
+    void *r;
+    S29A_Pick(r, c);
+    return r;
+}
+
 struct S29B510_H {
     char pad0[0x21C];
     int unk21C;
@@ -121,8 +181,52 @@ extern "C" void func_0029B5F8(int a, u8 b, u16 c, int d, u8 e, s8 f) {
     func_00296DE0(Heap_Alloc(D_00368A38, 0x14, 1, 0), b, c, d, e, f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B680);
-
+struct S29B_Pkt {
+    u8 unk0;
+    char pad1;
+    union {
+        u16 unk2;
+        s8 sb[2];
+    };
+    char *unk4;
+    int unk8;
+    int unkC;
+};
+struct S29B_El : S29A_Base {
+    S29B_Pkt *unk18;
+    u32 unk1C;
+};
+struct S29B_Self {
+    u32 unk0;
+    char pad4[0x2290];
+    u8 unk2294;
+    char pad2295[0x17F];
+    int unk2414;
+};
+struct S29B_Dst {
+    char pad0[0x288C];
+    char unk288C[0x8A4];
+    signed char *unk3130;
+    signed char *unk3134;
+    char pad3138[0x9C];
+    int unk30D4;
+};
+struct S29B8_El : S29A_Base {
+    u32 unk18;
+    S29B_Pkt *unk1C;
+    int unk20;
+    u8 unk24;
+    char pad25[3];
+    u32 unk28;
+};
+extern "C" {
+int func_0029DA40(S29B_Self *, S29B_Dst *);
+int func_0029DB80(S29B_Self *, u8);
+void func_0030A2F4(signed char *, char *, u16);
+void func_00296280(char *, u8, u16);
+void func_00296D88(void *, int);
+u32 func_0029F5C8(S29B_Dst *);
+}
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B8D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BB28);
@@ -135,67 +239,6 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BDB0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BF58);
 
-struct S29A_Base {
-    char pad0[0x14];
-    virtual ~S29A_Base();
-};
-struct S29A_Obj {
-    u8 unk0;
-};
-struct S29A_Lk {
-    int unk0;
-    int unk4;
-    int unk8;
-    S29A_Lk *unkC;
-};
-struct S29A_El0 : S29A_Base {
-    S29A_Obj *unk18;
-};
-struct S29A_El1 : S29A_Base {
-    char pad18[4];
-    S29A_Obj *unk1C;
-};
-struct S29A_El2 : S29A_Base {
-    char pad18[0x14];
-    S29A_Obj *unk2C;
-};
-extern "C" char D_0035C528[];
-extern "C" char D_0035C540[];
-extern "C" char D_0035C5B0[];
-struct S29A_ItA {
-    int pad0;
-    S29A_Lk *cur;
-    char *vptr;
-    S29A_ItA(S29A_Lk *l) { cur = l; vptr = D_0035C540; }
-    ~S29A_ItA() { vptr = D_0035C540; }
-};
-struct S29A_ItB {
-    int pad0;
-    S29A_Lk *cur;
-    char *vptr;
-    S29A_ItB(S29A_Lk *l) { cur = l; vptr = D_0035C528; }
-    ~S29A_ItB() { vptr = D_0035C528; }
-};
-struct S29A_ItC {
-    int pad0;
-    S29A_Lk *cur;
-    char *vptr;
-    S29A_ItC(S29A_Lk *l) { cur = l; vptr = D_0035C5B0; }
-    ~S29A_ItC() { vptr = D_0035C5B0; }
-};
-
-static inline void S29A_Pick(void *&o, S29A_Lk *c) {
-    if (!c) o = 0;
-    else o = (void *)c->unk4;
-}
-
-static inline void *S29A_Get0(S29A_Lk *c) {
-    void *r;
-    S29A_Pick(r, c);
-    return r;
-}
-
-extern "C" void func_00296D88(S29A_Obj *, int);
 extern "C" void func_00296EC0(S29A_Obj *, int);
 
 extern "C" void func_0029C1C0(void *self, char *base, int which, u32 key0) {
