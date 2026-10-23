@@ -1,6 +1,50 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+extern "C" char D_0035C4B8[];
+
+struct S298_Ev {
+    char pad0[4];
+    u8 unk4;
+    char pad5[0x13];
+    int unk18;
+    int unk1C;
+};
+struct S298_El;
+typedef int (*S298_Fn)(S298_Ev *, S298_El *);
+struct S298_El {
+    int pad0;
+    S298_El *unk4;
+    char pad8[0x10];
+    S298_Fn unk18;
+    int unk1C;
+    int unk20;
+};
+struct S298_Lk {
+    int unk0;
+    S298_El *unk4;
+    int unk8;
+    S298_Lk *unkC;
+};
+struct S298_It {
+    int pad0;
+    S298_Lk *cur;
+    char *vptr;
+    S298_It(S298_Lk *l) { cur = l; vptr = D_0035C4B8; }
+    ~S298_It() { vptr = D_0035C4B8; }
+};
+
+static inline void S298_Pick(S298_El *&o, S298_Lk *c) {
+    if (!c) o = 0;
+    else o = c->unk4;
+}
+
+static inline S298_El *S298_Get0(S298_Lk *c) {
+    S298_El *r;
+    S298_Pick(r, c);
+    return r;
+}
+
 struct S00297458 {
     int unk0;
     int unk4;
@@ -714,66 +758,70 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002982B8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298390);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298448);
-
-INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298558);
-
-extern "C" char D_0035C4B8[];
-
-struct S298_Ev {
-    char pad0[4];
-    u8 unk4;
-    char pad5[0x13];
-    int unk18;
-    int unk1C;
+struct S298_Base {
+    char pad0[0x14];
+    virtual ~S298_Base();
 };
-struct S298_El;
-typedef int (*S298_Fn)(S298_Ev *, S298_El *);
-struct S298_El {
-    int pad0;
-    S298_El *unk4;
-    char pad8[0x10];
-    S298_Fn unk18;
-    int unk1C;
-    int unk20;
-};
-struct S298_Lk {
-    int unk0;
-    S298_El *unk4;
-    int unk8;
-    S298_Lk *unkC;
-};
-struct S298_It {
+
+struct S298_Pl {
     int pad0;
     S298_Lk *cur;
     char *vptr;
-    S298_It(S298_Lk *l) { cur = l; vptr = D_0035C4B8; }
-    ~S298_It() { vptr = D_0035C4B8; }
 };
 
-static inline void S298_Pick(S298_El *&o, S298_Lk *c) {
-    if (!c) o = 0;
-    else o = c->unk4;
+extern "C" void func_00298448(char *base) {
+    S298_Lk *n1, *nn, *n0, *nf;
+    S298_Base *e, *nx;
+    S298_Pl it;
+    S298_Pl *pa, *po;
+    int i = 0;
+    po = &it;
+    do {
+        it.vptr = D_0035C4B8;
+        it.cur = (S298_Lk *)(base + i * 0x18);
+        n0 = it.cur->unkC;
+        nf = 0;
+        if (~(int)n0->unk4 != 0) nf = n0;
+        po->cur = nf;
+        e = (S298_Base *)S298_Get0(nf);
+        if (e) {
+            pa = &it;
+            do {
+                nx = 0;
+                n1 = it.cur->unkC;
+                nn = (~(int)n1->unk4 == 0) ? 0 : n1;
+                pa->cur = nn;
+                if (nn) nx = (S298_Base *)nn->unk4;
+                delete e;
+                e = nx;
+            } while (e);
+        }
+        i++;
+        it.vptr = D_0035C4B8;
+    } while (i < 0xFF);
 }
 
-static inline S298_El *S298_Get0(S298_Lk *c) {
-    S298_El *r;
-    S298_Pick(r, c);
-    return r;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298558);
+
+asm(".set D_0035C4B8_v, D_0035C4B8");
+extern "C" char D_0035C4B8_v[] asm("D_0035C4B8_v");
 
 extern "C" int func_00298858(char *base, S298_Ev *ev) {
     S298_Lk *n0, *n1, *nn;
     S298_El *e, *nx;
-    S298_It *pa;
+    char *vp;
+    S298_Pl it;
+    S298_Pl *pa;
     int r;
-    S298_It it((S298_Lk *)(base + ev->unk4 * 0x18));
+    it.cur = (S298_Lk *)(base + ev->unk4 * 0x18);
+    it.vptr = D_0035C4B8;
     n0 = it.cur->unkC;
     it.cur = (~(int)n0->unk4 == 0) ? 0 : n0;
     e = S298_Get0(it.cur);
     if (e) {
+        vp = D_0035C4B8_v;
         pa = &it;
-        while (e) {
+        do {
             n1 = it.cur->unkC;
             nn = 0;
             if (~(int)n1->unk4 != 0) nn = n1;
@@ -782,12 +830,13 @@ extern "C" int func_00298858(char *base, S298_Ev *ev) {
             if ((e->unk20 & ev->unk18) == ev->unk18) {
                 ev->unk1C = e->unk1C;
                 r = e->unk18(ev, e);
-                if (r == 0 || r == 2 || r == 5 || r == 3) return r;
+                if (r == 0 || r == 2 || r == 5 || r == 3) { it.vptr = vp; return r; }
                 if (r == 4) break;
             }
             e = nx;
-        }
+        } while (e);
     }
+    it.vptr = D_0035C4B8;
     return 1;
 }
 
