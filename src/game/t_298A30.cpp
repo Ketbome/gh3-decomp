@@ -133,6 +133,65 @@ extern "C" void func_00298A70(S298_DL *p, int flags) {
     }
 }
 
+struct S298A_Base {
+    char pad0[0x14];
+    virtual ~S298A_Base();
+};
+struct S298A_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S298A_Lk *unkC;
+};
+struct S298A_ElA : S298A_Base {
+    int unk18;
+    int *unk1C;
+    u16 unk20;
+};
+struct S298A_ElB : S298A_Base {
+    int pad18;
+    u16 unk1C;
+    char pad1E[2];
+    int unk20;
+    char pad24[8];
+    int *unk2C;
+};
+struct S298A_ItA {
+    int pad0;
+    S298A_Lk *cur;
+    char *vptr;
+    S298A_ItA(S298A_Lk *l) { cur = l; vptr = D_0035C540; }
+    ~S298A_ItA() { vptr = D_0035C540; }
+};
+struct S298A_ItB {
+    int pad0;
+    S298A_Lk *cur;
+    char *vptr;
+    S298A_ItB(S298A_Lk *l) { cur = l; vptr = D_0035C528; }
+    ~S298A_ItB() { vptr = D_0035C528; }
+};
+struct S298A_One {
+    int v;
+    S298A_One(int x) { v = x; }
+};
+
+static inline void S298A_Pick(void *&o, S298A_Lk *c) {
+    if (!c) o = 0;
+    else o = (void *)c->unk4;
+}
+
+static inline void *S298A_Get0(S298A_Lk *c) {
+    void *r;
+    S298A_Pick(r, c);
+    return r;
+}
+
+extern "C" {
+void func_00296D88(void *, int);
+void func_00296EC0(void *, int);
+int func_0029F5B8(S298_Peer *);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00298AD0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00298DA8);
