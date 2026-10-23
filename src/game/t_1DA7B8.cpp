@@ -103,6 +103,76 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DB580);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DB638);
 
+extern "C" {
+void func_00119490(s32 h, s32 v);
+void func_001194B8(s32 h);
+s32 func_00119610(s32 h, s32 v);
+}
+
+struct HI1DB7 {
+    u32 key;
+    void* val;
+    HI1DB7* next;
+};
+
+struct HT1DB7 {
+    s32 bits;
+    HI1DB7* items;
+    s32 count;
+    s32 pad0C;
+    s32 pad10;
+    u8 pad14;
+    u8 unk15;
+
+    void* Get(const u32& key) {
+        if (!items) {
+            return 0;
+        }
+        HI1DB7* n = &items[key & ((1 << bits) - 1)];
+        if (!n) {
+            return 0;
+        }
+        do {
+            if (n->key == key) {
+                if (unk15 || n->val) {
+                    return n->val;
+                }
+            }
+            n = n->next;
+        } while (n);
+        return 0;
+    }
+};
+
+struct O1DB7 {
+    char pad0[0x10];
+    HT1DB7* unk10;
+};
+
+extern "C" {
+void* PoolAlloc_2(s32, s32) __asm__("PoolAlloc");
+void* func_0011C3A8_h(int) __asm__("func_0011C3A8");
+HI1DB7* func_001DC978_h(void*) __asm__("func_001DC978");
+S1DB9C0* func_001DB9C0_h(S1DB9C0*) __asm__("func_001DB9C0");
+void func_001DB9F0_h(void*, u32) __asm__("func_001DB9F0");
+}
+
+static inline void Insert1DB7(HT1DB7* t, u32 k, void* v) {
+    HI1DB7* e = &t->items[k & ((1 << t->bits) - 1)];
+    if (e->val != 0 || e->key != 0) {
+        HI1DB7* x = (HI1DB7*)func_0011C3A8_h(0);
+        if (x) x = func_001DC978_h(x);
+        x->key = k;
+        x->val = v;
+        x->next = e->next;
+        e->next = x;
+    } else {
+        e->key = k;
+        e->val = v;
+    }
+    t->count++;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DB708);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1DA7B8", func_001DB8A8);
