@@ -106,7 +106,6 @@ void func_001B3B00(void);
 }
 
 GP_DATA(D_00370DA0);
-GP_DATA(D_00372EC8);
 extern "C" int func_00273498(void) {
     int ok = 1;
     int i = 0;
@@ -424,96 +423,7 @@ extern "C" void func_00274B08(char *dst, int n) {
     }
 }
 
-struct S274_Th {
-    int pad0;
-    void *func;
-    int stack;
-    int size;
-    void *gp;
-    int prio;
-    int pad18[2];
-    int opt;
-};
-
-extern "C" {
-int func_00274BF8_a(int) __asm__("func_00274BF8");
-void func_00295048(int, int, int);
-void func_00300D18(void);
-void func_00293360(int, int, int, int, int, int, int, int);
-extern int D_00370E38;
-void func_002E8D68(int, int, int, int);
-void func_00293468(int, int, int, void *, int);
-void func_00293120(int, int, int, int);
-int func_002EE460(S274_Th *);
-void func_002EF108(int, int);
-int func_00294C90(int, char *);
-void func_0011ED68(void);
-int func_002EE340(int, void *, int);
-int func_002EE370(int, void *, int);
-void func_002EED70(int);
-extern char D_00370070[];
-extern char D_00358F08[];
-void func_00295140(void);
-void func_00295278(void);
-void func_00275010(void);
-void func_002936C0(void);
-void func_00295BB8(void);
-void func_00295CF8(void);
-}
-
-GP_DATA(D_00370E44);
-extern "C" int func_00274BF8_a(int arg0) {
-    S274_Th th;
-    char buf[0x100];
-    *(int *)0x1000E000 |= 3;
-    func_00295048(D_00370E44 + 0x6A1580, 0x1000E010, *(int *)0x1000E010 = 4);
-    func_00300D18();
-    func_00293360(D_00370E44 + 0x6F1600, D_00370E44 + 0x3C6600, 0x1CA200, D_00370E44 + 0x597100,
-                  D_00370E44 + 0x3C45C0, 0x200, D_00370E44 + 0x69B540, 0x400);
-    if (D_00370E38) {
-        func_002E8D68(D_00370E44 + 0x591080, D_00370E44 + 0x5940C0, 0x3000, D_00370E44 + 0x6F16C0);
-    }
-    func_00293468(D_00370E44 + 0x6F1600, 0, 0, (void *)func_00295140, D_00370E44 + 0x6A1580);
-    if (D_00370E38) {
-        func_00293468(D_00370E44 + 0x6F1600, 3, 0, (void *)func_00295278, D_00370E44 + 0x6A1580);
-    }
-    func_00293120(D_00370E44 + 0x6F1700, ((D_00370E44 + 0x8C0) & 0x0FFFFFFF) | 0x20000000, D_00370E44 + 0x32A900, 2);
-    int ok = 0;
-    int i = 0;
-    th.func = (void *)func_00275010;
-    th.stack = D_00370E44 + 0x590840;
-    th.gp = D_00370070;
-    th.size = 0x800;
-    th.prio = 1;
-    th.opt = 0;
-    D_00372ECC = func_002EE460(&th);
-    func_002EF108(D_00372ECC, 0);
-    th.stack = D_00370E44 + 0x697500;
-    th.gp = D_00370070;
-    th.func = (void *)func_002936C0;
-    th.size = 0x4000;
-    th.prio = 1;
-    th.opt = 0;
-    D_00372EC8 = func_002EE460(&th);
-    func_002EF108(D_00372EC8, 0);
-    func_00274B08(buf, arg0);
-    for (; i < 1000; i++) {
-        if (func_00294C90(D_00370E44 + 0x6F15C0, buf)) {
-            ok = 1;
-            break;
-        }
-        func_0011ED68();
-    }
-    if (!ok) {
-        func_00274B08(buf, (int)D_00358F08);
-        ok = func_00294C90(D_00370E44 + 0x6F15C0, buf) != 0;
-    }
-    *(int *)(D_00370E44 + 0x6F16B4) = func_002EE340(2, (void *)func_00295BB8, 0);
-    func_002EECA0(2);
-    *(int *)(D_00370E44 + 0x6F16B0) = func_002EE370(2, (void *)func_00295CF8, 0);
-    func_002EED70(2);
-    return ok;
-}
+INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00274BF8);
 
 GP_DATA(D_00370E44);
 INCLUDE_ASM("asm/nonmatchings/game/t_273498", func_00274F08);
