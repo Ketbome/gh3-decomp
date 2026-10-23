@@ -98,7 +98,58 @@ extern "C" void func_00144FC0(int sys, int id, int a, int b, void* script) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145068);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_001451C0);
+struct X144 { char pad0[0x4C]; void* unk4C; char pad50[0x1C]; X144* unk6C; };
+struct Hd144 {
+    void* p;
+    int unk4;
+    int unk8;
+    Hd144(X144** pp) : unk4(0) {
+        X144* o = *pp;
+        unk8 = 0;
+        p = o->unk6C;
+        if (p) func_001CE868(p, (R_144*)this);
+    }
+    ~Hd144() {
+        if (p) {
+            func_001CE888(p, (R_144*)this);
+            p = 0;
+        }
+    }
+};
+extern "C" {
+void func_00139EE0(void*, int);
+void func_0013C280(void*, void*, int);
+void func_00146580_a(void*, void*, int, int) __asm__("func_00146580");
+}
+
+extern "C" void func_001451C0(X144* self, X144** a1, X144** a2, int a3) {
+    Hd144 h(a2);
+    if (h.p) func_00139EE0(h.p, 0);
+    X144* t = *a1;
+    if (t) {
+        X144* cur = (X144*)self->unk4C;
+        R_144* r = (R_144*)&self->unk4C;
+        if (cur == *a2 || cur == 0) {
+            if (cur) {
+                func_001CE888(cur, r);
+                self->unk4C = 0;
+            }
+            self->unk4C = t;
+            func_001CE868(t, r);
+            while (((X144*)self->unk4C)->unk6C) {
+                X144* c = (X144*)self->unk4C;
+                if (c) {
+                    func_001CE888(c, r);
+                    self->unk4C = 0;
+                }
+                self->unk4C = c->unk6C;
+                if (self->unk4C) func_001CE868(self->unk4C, r);
+            }
+        }
+    }
+    func_00146580_a(self, a2, 0, 0);
+    func_0013C280(*a2, a1, a3);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1443D0", func_00145310);
 
