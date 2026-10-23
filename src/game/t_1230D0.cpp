@@ -273,7 +273,31 @@ extern "C" SA123_C* func_00123948(SA123_C* self) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123998);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1230D0", func_00123AB0);
+struct N123 { N123* prev; N123* next; int val; };
+struct It123 { int unk0; N123* cur; int pad8[2]; It123& operator--() { cur = cur->prev; return *this; } };
+struct L123 { char pad0[0x14]; N123 sent; };
+
+extern "C" int func_0015F8C8(int);
+extern "C" void* Heap_Alloc(int, int, int, int);
+
+extern "C" N123* func_00123AB0(L123* self, int a1) {
+    int v = func_0015F8C8(a1);
+    N123* sp = &self->sent;
+    N123* tail = self->sent.prev;
+    It123 r, end, e2;
+    end.cur = sp;
+    e2.cur = sp;
+    N123* n = (N123*)Heap_Alloc(D_00368A38[0], 0xC, 1, 0);
+    N123 t;
+    t.prev = tail;
+    t.next = sp;
+    t.val = v;
+    if (n) *n = t;
+    self->sent.prev = n;
+    n->prev->next = n;
+    r.cur = (--end).cur;
+    return r.cur;
+}
 
 struct N_00123B68 { int unk0; N_00123B68* unk4; struct O_00123B68* unk8; };
 struct O_00123B68 { int unk0; int unk4; };
