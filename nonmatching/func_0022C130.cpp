@@ -237,6 +237,7 @@ struct H22C1 {
 struct I22C1 {
     s32 unk0;
     N22C1* unk4;
+    I22C1& operator++() { unk4 = *(N22C1**)unk4; return *this; }
 };
 
 extern "C" void func_0022C130(s32 P, s32 v) {
@@ -269,9 +270,7 @@ extern "C" void func_0022C130(s32 P, s32 v) {
     }
     *(N22C1**)hd = n;
     n->unk0->unk4 = n;
-    N22C1* nx = *(N22C1**)end.unk4;
-    it.unk4 = nx;
-    end.unk4 = nx;
+    it.unk4 = (++end).unk4;
     func_00116340(&D_00372E50);
 }
 
