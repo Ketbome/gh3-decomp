@@ -127,7 +127,41 @@ extern "C" void func_001153C8(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115438);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115660);
+#define LSON ((int*)D_00372AA4)
+#define RSON ((int*)D_00372AA8)
+#define DAD ((int*)D_00372AAC)
+
+extern "C" void func_00115660(int p) {
+    int q;
+    if (DAD[p] == 0x1000) {
+        return;
+    }
+    if (RSON[p] == 0x1000) {
+        q = LSON[p];
+    } else if (LSON[p] == 0x1000) {
+        q = RSON[p];
+    } else {
+        q = LSON[p];
+        if (RSON[q] != 0x1000) {
+            do {
+                q = RSON[q];
+            } while (RSON[q] != 0x1000);
+            RSON[DAD[q]] = LSON[q];
+            DAD[LSON[q]] = DAD[q];
+            LSON[q] = LSON[p];
+            DAD[LSON[p]] = q;
+        }
+        RSON[q] = RSON[p];
+        DAD[RSON[p]] = q;
+    }
+    DAD[q] = DAD[p];
+    if (RSON[DAD[p]] == p) {
+        RSON[DAD[p]] = q;
+    } else {
+        LSON[DAD[p]] = q;
+    }
+    DAD[p] = 0x1000;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115850);
 
