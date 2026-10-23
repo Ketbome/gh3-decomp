@@ -36,7 +36,7 @@ the pointer from a call (`return r;`) gives the `move $v1,$v0` copy; arguments p
 live) show as the virtual-call temporaries moving to `$a2`/`$t0`, so declare and pass them; returning a virtual
 call's result puts the function pointer in `$v0`; `(int)x & ~1` gives `li -2` where a u32 gives `lui/ori`.
 
-Round 2026-10-23b: 1 matches / 2 attempted (limit 15/40); matched: func_001D1B28; near miss: func_001E95F0 (reg alloc s0/s1, load schedule)
+Round 2026-10-23b: 2 matches / 3 attempted (limit 15/40); matched: func_001D1B28 func_00226B28; near miss: func_001E95F0
 
 Round 2026-10-23: 3 matches / 33 attempted (limit 15/40); matched: func_001E29F0 func_001B05B8 func_0023F7D8; matched under -funroll-loops but blocked by the per-file flag: func_00224E10 (nonmatching/func_00224E10.cpp, needs t_223BE8 split: func_002243A0 matches only WITHOUT the flag); near miss (nonmatching/): func_0022C130 func_00221178 func_0022AE78 func_001DB580 func_00216BD8 func_0022F7D8 func_001D8180 func_001B9E90 func_001B0410 func_001AF608 func_001AF3C8 func_001BB500 func_001BD608 func_0023F1A0 func_00228408 func_002333F8 func_001E2B90 func_002455A0 func_001EAEA0; given up: func_00231510 func_001C5AE0 func_001B9D78 func_001EE608 func_001DD9A8 func_001DFFB0 func_001B58B0 func_0024A308 func_001C58C0
 Round 2026-10-20: 7 matches / 22 attempted (limit 15/40); matched: func_001E8838 func_001D8C10 func_001E8CA8 func_001E45C8 func_00246E30 func_00225CA8 func_001BDE38; near miss: func_0022AE78 func_001DB580 (list insert family: all stop at the loaded-iterator register v0/a0, see below); given up: func_001E29F0 func_0022C130 func_00221178 func_001DFFB0

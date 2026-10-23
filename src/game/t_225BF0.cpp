@@ -305,7 +305,33 @@ extern "C" int CFunc_DumpNodeFlags(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_225BF0", func_00226B28);
+GP_DATA(D_00372E40);
+GP_DATA(D_00372E48);
+struct N226 {
+    N226* a;
+    N226* b;
+    int c;
+};
+
+extern "C" void func_00226B28(int a, int b) {
+    if (b == 0xFFFF && a != 0) {
+        D_00372E40 = 0x3E69DF29;
+        D_00372E48 = 0x1FECF05F;
+        for (int i = 0x1FF; i != -1; i--) {
+        }
+        H225* h = D_003920C8;
+        for (int i = 0x1FF; i != -1; i--) {
+            N226* n = (N226*)((char*)h + 4);
+            n->a = n;
+            n->b = n;
+            h++;
+        }
+        List225* d = &D_003938C8;
+        N226* e = (N226*)((char*)d + 4);
+        d->unk4 = (int)e;
+        e->b = e;
+    }
+}
 
 extern "C" void func_00226C78(int a, int b) {
     func_00226CD0(b, a);
