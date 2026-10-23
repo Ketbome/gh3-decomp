@@ -364,7 +364,88 @@ extern "C" int func_00134A20(S133_S* self, int key) {
     return v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_133A98", func_00134A50);
+struct P_00134A50 { char pad0[0x20]; int unk20; };
+extern "C" {
+int func_0027D870_c(int, u32, int*, int) __asm__("func_0027D870");
+void func_001344E8_c(void*, int) __asm__("func_001344E8");
+void func_00134508_c(void*, int, int, int) __asm__("func_00134508");
+void func_001346E0_c(void*, int, int) __asm__("func_001346E0");
+int func_001349B0_c(void*, int, int*) __asm__("func_001349B0");
+int func_001349D0_c(void*, int) __asm__("func_001349D0");
+int func_00134A20_c(void*, int) __asm__("func_00134A20");
+void func_0027ABB0_c(int, int) __asm__("func_0027ABB0");
+void func_0027C448_c(int, int, int) __asm__("func_0027C448");
+int func_0027DF00_c(int, int) __asm__("func_0027DF00");
+int func_001CFF58_c(void*, u32, int, P_00134A50*) __asm__("func_001CFF58");
+}
+
+extern "C" int func_00134A50(void* self, u32 key, int params, P_00134A50* a3) {
+    switch (key) {
+    case 0xA23400C: {
+        int a = 0;
+        func_0027D870_c(params, 0xB6F08F39, &a, 1);
+        func_001344E8_c(self, a);
+        return 1;
+    }
+    case 0x83339D0B: {
+        int a = 0;
+        int b;
+        func_0027D870_c(params, 0xB6F08F39, &a, 1);
+        func_0027D870_c(params, 0x4BB2084E, &b, 1);
+        func_00134508_c(self, a, b, params);
+        return 1;
+    }
+    case 0x10A225D6: {
+        int a = 0;
+        func_0027D870_c(params, 0xB6F08F39, &a, 1);
+        int r = func_00134A20_c(self, a);
+        if (r == 0) {
+            goto fail;
+        }
+        func_0027ABB0_c(a3->unk20, r);
+        return 1;
+    }
+    case 0xD27427FF: {
+        int a = 0;
+        func_0027D870_c(params, 0xA40ABAA7, &a, 1);
+        int b = 0;
+        func_0027D870_c(params, 0xE288A7CB, &b, 1);
+        func_001346E0_c(self, a, b);
+        return 1;
+    }
+    case 0xCC5B90B6: {
+        int a;
+        int b;
+        func_0027D870_c(params, 0xA40ABAA7, &a, 1);
+        int v = a;
+        if (func_001349B0_c(self, v, &b) != 0) {
+            func_0027C448_c(a3->unk20, v, b);
+            return 1;
+        }
+        goto fail;
+    }
+    case 0xB13906B0: {
+        int a = 0;
+        func_0027D870_c(params, 0xB6F08F39, &a, 1);
+        return func_001349D0_c(self, a) != 0;
+    }
+    case 0xE961BAFA: {
+        int a = 0;
+        int b;
+        func_0027D870_c(params, 0xB6F08F39, &a, 1);
+        func_0027D870_c(params, 0x2E0B1465, &b, 1);
+        int r = func_001349D0_c(self, a);
+        if (r != 0) {
+            return func_0027DF00_c(r, b);
+        }
+        goto fail;
+    }
+fail:
+    return 0;
+    default:
+        return func_001CFF58_c(self, key, params, a3);
+    }
+}
 
 extern "C" int func_00134D20(S_00134D20* self) {
     return self->unk74;
