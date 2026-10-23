@@ -12,7 +12,8 @@ Configured by a `decomp.toml` at the project root (see templates/decomp.toml). C
                                       relocated fields are compared by symbol (+ addend), not by value
   dk try <src> <func...>              run the configured pre-check hooks on <src>, then `check`
   dk revert <src> <func...>           put functions back to their INCLUDE_ASM line
-  dk done <src> <worklog> <message>   pre-commit hooks, every function of <src> must match, commit <src> + <worklog>
+  dk done <src> <worklog> <message>   pre-commit hooks, every function of <src> must match and none it had at HEAD
+                                      may be missing (neither written nor INCLUDE_ASM), commit <src> + <worklog>
   dk all [<src>...]                   check every C/C++ function (regression check after a toolchain change)
   dk twins [--list] [<src>...]        copy matched functions onto functions with identical assembly (symbols renamed,
                                       local types copied), keep only what matches
@@ -287,11 +288,43 @@ def check_function(obj, name, image):
     return f"{name}: MATCH" if not problems else f"{name}: DIFFERS\n" + "\n".join(problems[:40])
 
 
+def aliases(text):
+    """{C name: symbol} for functions declared under another name (`f_s(...) __asm__("f")`)."""
+    return dict(re.findall(r"\b(\w+)\s*\([^;{]*?\)\s*(?:__asm__|asm)\(\"([\w.$]+)\"\)", text))
+
+
+def defined_names(text):
+    """Symbols of the functions a source text defines (column-0 definitions, K&R parameter lists included)."""
+    names = re.findall(rf"^(?!\s)(?!{INCLUDE_ASM})(?!#).*?\b(\w+)\s*\([^;{{]*\)\s*(?:const\s*)?"
+                       rf"(?:\n[^{{}};\n]*;)*\s*\{{", text, re.M)
+    alias = aliases(text)
+    return list(dict.fromkeys(alias.get(n, n) for n in names))
+
+
 def defined_functions(src):
-    """Functions written in C/C++ in a source file (definitions in column 0 that have an original .s)."""
-    text = Path(src).read_text()
-    names = re.findall(rf"^(?!\s)(?!{INCLUDE_ASM})(?!#).*?\b(\w+)\s*\([^;{{]*\)\s*(?:const\s*)?\{{", text, re.M)
-    return [n for n in dict.fromkeys(names) if find_asm(n)]
+    """Functions written in C/C++ in a source file that have an original .s, by symbol."""
+    return [n for n in defined_names(Path(src).read_text()) if find_asm(n)]
+
+
+def missing_functions(text):
+    """Functions of a source text's original assembly folders that it neither defines nor includes."""
+    included = re.findall(rf'^{INCLUDE_ASM}\("([^"]+)",\s*(\w+)\);', text, re.M)
+    defined = [n for n in defined_names(text) if find_asm(n)]
+    dirs = {cfg_path(f) for f, _ in included} | {find_asm(n).parent for n in defined}
+    for d in list(dirs):
+        for root in ASM_DIRS:
+            if root and d.is_relative_to(root):
+                dirs |= {r / d.relative_to(root) for r in ASM_DIRS if r}
+    names = {p.stem for d in dirs if d.exists() for p in d.glob("*.s")}
+    return set(names) - {n for _, n in included} - set(defined)
+
+
+def lost_functions(src):
+    """Functions the committed version of a source defines or includes and the working copy has lost."""
+    head = git("show", f"HEAD:{rel(src)}")
+    if head.returncode:
+        return []
+    return sorted(missing_functions(Path(src).read_text()) - missing_functions(head.stdout))
 
 
 def run_check(src, names, quiet=False):
@@ -334,10 +367,14 @@ def include_line(src, name):
 def revert(src, names):
     lines = Path(src).read_text().splitlines(keepends=True)
     done = []
+    alias = aliases("".join(lines))
     for name in names:
+        if any(re.match(rf"^{INCLUDE_ASM}\([^)]*\b{name}\);", line) for line in lines):
+            continue
+        spelled = "|".join(re.escape(n) for n in [name] + [c for c, sym in alias.items() if sym == name])
         start = next((i for i, line in enumerate(lines)
-                      if re.match(rf"^(?!\s)(?!{INCLUDE_ASM}).*\b{name}\s*\([^;]*$", line)
-                      and "{" in "".join(lines[i:i + 3])), None)
+                      if re.match(rf"^(?!\s)(?!{INCLUDE_ASM}).*\b(?:{spelled})\s*\([^;]*$", line)
+                      and "{" in "".join(lines[i:i + 3]) and ";" not in "".join(lines[i:i + 3]).split("{")[0]), None)
         if start is None:
             continue
         end = next(i for i in range(start, len(lines)) if lines[i].startswith("}"))
@@ -467,8 +504,9 @@ def cmd_try(args):
 
 
 def cmd_revert(args):
-    for name in revert(Path(args[0]), args[1:]):
-        print(f"{name}: reverted")
+    done = revert(Path(args[0]), args[1:])
+    for name in args[1:]:
+        print(f"{name}: reverted" if name in done else f"{name}: no definition found, nothing changed")
 
 
 def cmd_done(args):
@@ -478,6 +516,10 @@ def cmd_done(args):
     ok, good, bad = run_check(src, defined_functions(src), quiet=True)
     if not ok:
         print("NOT COMMITTED: does not match or does not compile: " + " ".join(bad))
+        sys.exit(1)
+    lost = lost_functions(src)
+    if lost:
+        print("NOT COMMITTED: neither defined nor INCLUDE_ASM (a lost line?): " + " ".join(lost))
         sys.exit(1)
     print(f"{len(good)} functions match")
     line = commit([src, log] if log.exists() else [src], message)
