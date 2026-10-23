@@ -524,4 +524,74 @@ extern "C" s32 func_001E2968(s32* p, s32 k) {
     return D_00370F40 + func_00275570();
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E0AE8", func_001E29F0);
+extern "C" {
+s32 func_0027D268(s32 a, u32 key, f32* v, s32 req);
+s32 func_003174C0(f32 f);
+void Heap_Free(s32 h, void* p);
+extern s32 D_00368A38[] __attribute__((section(".sdata")));
+}
+
+static inline void Free1E29(S1E0AE8_N* n, S1E0AE8_N* sent) {
+    do {
+        S1E0AE8_N* nx = n->unk4;
+        Heap_Free(D_00368A38[0], n);
+        n = nx;
+    } while (n != sent);
+}
+
+extern "C" void func_001E29F0(char* p, s32 a) {
+    u32 h;
+    f32 f;
+    h = 0;
+    if (func_0027D870(a, 0x0A015E17, (s32*)&h, 0)) {
+        switch (h) {
+        case 0xB3EAF72E:
+            *(s32*)(p + 4) = 2;
+            break;
+        case 0x26B6E535:
+            *(s32*)(p + 4) = 3;
+            break;
+        case 0x8ADDAC1F:
+            *(s32*)(p + 4) = 1;
+            break;
+        case 0xF221474C:
+            *(s32*)(p + 4) = 0;
+            break;
+        }
+    }
+    f = 0.0f;
+    func_0027D268(a, 0x906B67BA, &f, 0);
+    f32 sec = f;
+    *(s32*)(p + 8) = func_001E2968((s32*)p, 0);
+    S1E0AE8_N* first = *(S1E0AE8_N**)(p + 0x24);
+    S1E0AE8_N* e = (S1E0AE8_N*)(p + 0x20);
+    char* l = p + 0x18;
+    *(f32*)(p + 0x14) = 0.0f;
+    *(s32*)(p + 0x10) = 0;
+    S1E0AE8_I cur;
+    S1E0AE8_I end;
+    cur.unk4 = first;
+    end.unk4 = e;
+    if (first != e) {
+        S1E0AE8_N* nx;
+        do {
+            ((S1E0AE8_N*)cur.unk4->unk8)->unk4 = 0;
+            nx = cur.unk4->unk4;
+            end.unk4 = (S1E0AE8_N*)(l + 8);
+            cur.unk4 = nx;
+        } while (nx != (S1E0AE8_N*)(l + 8));
+    }
+    S1E0AE8_N** lp = (S1E0AE8_N**)(l + 4);
+    S1E0AE8_N* sent = (S1E0AE8_N*)((char*)lp + 4);
+    S1E0AE8_N* n = (S1E0AE8_N*)lp[2];
+    lp[2] = sent;
+    lp[1] = sent;
+    if (n != sent) {
+        do {
+            S1E0AE8_N* nx = n->unk4;
+            Heap_Free(D_00368A38[0], n);
+            n = nx;
+        } while (n != (S1E0AE8_N*)((char*)lp + 4));
+    }
+    *(s32*)(p + 0xC) = func_003174C0(sec * 1000.0f);
+}
