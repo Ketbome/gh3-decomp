@@ -181,8 +181,6 @@ extern "C" void func_0029B5F8(int a, u8 b, u16 c, int d, u8 e, s8 f) {
     func_00296DE0(Heap_Alloc(D_00368A38, 0x14, 1, 0), b, c, d, e, f);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B680);
-
 struct S29B_Pkt {
     u8 unk0;
     char pad1;
@@ -229,6 +227,63 @@ void func_00296280(char *, u8, u16);
 void func_00296D88(void *, int);
 u32 func_0029F5C8(S29B_Dst *);
 }
+struct S29B_H2 {
+    s8 a;
+    s8 b;
+};
+
+extern "C" int func_0029B680(S29B_Self *self, char *dst0) {
+    S29B_Dst *dst = (S29B_Dst *)dst0;
+    S29A_Lk *n1, *nn;
+    S29B_El *e, *nx;
+    S29A_ItC *pa;
+    int ok = 1;
+    int lim;
+    u64 w = self->unk2294;
+    if (w >> 7) lim = 0x512 - self->unk2414;
+    else lim = 0x512;
+    S29A_ItC it((S29A_Lk *)(dst0 + 0x30DC));
+    S29A_Lk *n0 = it.cur->unkC;
+    it.cur = (~n0->unk4 == 0) ? 0 : n0;
+    e = (S29B_El *)S29A_Get0(it.cur);
+    if (e) {
+        pa = &it;
+        do {
+            n1 = it.cur->unkC;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            pa->cur = nn;
+            nx = (S29B_El *)S29A_Get0(nn);
+            if (self->unk0 >= e->unk1C) {
+                if (func_0029DA40(self, dst)) break;
+                S29B_Pkt *p = e->unk18;
+                int hdr = (func_0029DB80(self, p->unk0) & 1) ? 1 : 3;
+                if ((dst->unk3134 - dst->unk3130) + ((p->unk2 + hdr) & 0xFFFF) < lim) {
+                    *dst->unk3134 = p->unk0;
+                    dst->unk3134 += 1;
+                    int odd = func_0029DB80(self, p->unk0) & 1;
+                    if (!odd) {
+                        *(S29B_H2 *)dst->unk3134 = *(S29B_H2 *)&p->sb[0];
+                        dst->unk3134 += 2;
+                    }
+                    if (p->unk2) {
+                        func_0030A2F4(dst->unk3134, p->unk4, p->unk2);
+                        dst->unk3134 += p->unk2;
+                    }
+                    func_00296280(dst->unk288C, p->unk0, p->unk2);
+                    int *rc = &p->unk8;
+                    if (--rc[1] == 0 && p) func_00296D88(p, 3);
+                    delete e;
+                } else {
+                    ok = 0;
+                }
+            }
+            e = nx;
+        } while (e);
+    }
+    return ok;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B8D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BB28);
