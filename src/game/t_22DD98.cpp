@@ -392,6 +392,49 @@ extern "C" int func_0022F398(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022F3A0);
 
+struct HN22 {
+    char pad0[2];
+    u8 unk2;
+    char pad3[1];
+    int unk4;
+    char pad8[4];
+    int unkC;
+    HN22* unk10;
+};
+
+struct O22F {
+    char pad0[0x18];
+    char* unk18;
+    char pad1C[0x18];
+    char* unk34;
+    int unk38;
+    int unk3C;
+    int unk40;
+};
+
+extern "C" {
+extern HN22** D_003710A4[] __attribute__((section(".sdata")));
+extern u8 D_00354020[];
+extern int D_0036F520;
+void func_0028DAB8(void*);
+int func_001150E0(int, void*);
+void func_00225CA8(void*, void*);
+void func_002A6BD0(void*, int, int, int);
+void func_002255E8(int, int, int, int, int, int);
+int func_002764E8(int, int);
+void func_0022BE60_f(void*, int, int) __asm__("func_0022BE60");
+}
+
+static inline HN22* Find22F(int k) {
+    HN22* n = D_003710A4[0][k & 0x7FFF];
+    if (n != 0 && n->unk4 != k) {
+        do {
+            n = n->unk10;
+        } while (n != 0 && n->unk4 != k);
+    }
+    return n;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_22DD98", func_0022F3D0);
 
 extern "C" void func_0022F588(char* p, int a1, int a2, int a3, int a4, int a5) {
