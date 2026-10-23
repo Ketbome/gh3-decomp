@@ -248,7 +248,44 @@ extern "C" void func_00175D48(S00175D48* self) {
     func_00172A00(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175D70);
+struct P_00175D70 { int unk0; int unk4; int unk8; };
+struct S_00175D70 { char pad0[0xC]; int unkC; char pad10[8]; float unk18; char pad1C[4]; char unk20[1]; };
+extern "C" int func_0027D268(int, int, float*, int);
+
+static inline void Follow175(P_00175D70* p, int* k) {
+    int t;
+    while ((p->unk8 && (func_0027D870(p->unk8, *k, &t, 0) ^ 1) == 0) ||
+           (p->unk4 && (func_0027D870(p->unk4, *k, &t, 0) ^ 1) == 0)) {
+        *k = t;
+    }
+}
+
+extern "C" void func_00175D70(S_00175D70* self, P_00175D70* p) {
+    int key;
+    int key2;
+    float* f = &self->unk18;
+    *f = 1.0f;
+    if (func_0027D268(p->unk0, 0x29461E27, f, 0) == 0) {
+        int ok;
+        if ((func_0027D870(p->unk0, 0x29461E27, &key, 0) ^ 1) != 0) {
+            ok = 0;
+        } else {
+            Follow175(p, &key);
+            ok = 1;
+        }
+        if ((ok ^ 1) == 0) {
+            if (!p->unk8 || func_0027D268(p->unk8, key, f, 0) == 0) {
+                if (p->unk4) {
+                    func_0027D268(p->unk4, key, f, 0);
+                }
+            }
+        }
+    }
+    if ((func_0027D870(p->unk0, 0x98549BA4, &key2, 1) ^ 1) == 0) {
+        Follow175(p, &key2);
+    }
+    func_0017D658(self->unk20, self->unkC, key2);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_174C20", func_00175F40);
 
