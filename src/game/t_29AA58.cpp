@@ -242,6 +242,11 @@ struct S29BD_ElB : S29A_Base {
     char pad18[8];
     u32 unk20;
 };
+struct S29BD_Pl {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BDB0);
 
