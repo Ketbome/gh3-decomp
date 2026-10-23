@@ -62,7 +62,10 @@ ends in 2+ nops counts as an object end too. Evidence: 139 symbols are reached b
 Switch jump tables: the compiler's table is dropped and the code is pointed at the game's `jtbl_` (k-th table of a
 function = k-th `jtbl_` of its original assembly); the case labels are defined in `build/jlabels.ld`.
 Short loops are padded with nops before the backward branch up to 6 instructions (the R5900 short-loop erratum,
-which SN's assembler worked around). The prelude also stops gas from adding a hazard nop after `mfc1` (SN's assembler kept the ones after `mtc1` and
+which SN's assembler worked around). A pending `mtc1` hazard is not flushed at a `.p2align` either (func_0013F258 matches with that, `dk all` 6072/0).
+Short-loop padding itself is complete: no loop in the original is shorter than 6 instructions (717 of exactly 6);
+functions that seem to miss it need per-file `-funroll-loops` (unrolled empty constructor loops) or another loop shape.
+The prelude also stops gas from adding a hazard nop after `mfc1` (SN's assembler kept the ones after `mtc1` and
 between an FPU compare and `bc1t`/`bc1f`). `scripts/set_eabi64.py` then sets the object's ABI flags
 back to EABI64 so the linker accepts it next to the assembly.
 

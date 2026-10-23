@@ -25,6 +25,7 @@
   in the slot. A local label right before the branch stops gas from swapping without changing its hazard nops.
 - Hazard nop at a label: between `mtc1 ..,$fN` and a label followed by a read of `$fN`, SN's assembler put the nop
   after the label (29 times in the game, never before it); the modern gas puts it before. Written out after the label.
+  The modern gas also flushes a pending `mtc1` hazard nop at a `.p2align` (before a loop head); SN's did not.
 
 - VU0 registers: ee-gcc allocates them itself for `register TI v asm("vf1")` operands (constraint `"j"`), and writes
   them without `$` (`lqc2 vf1,...`), which the modern gas rejects; written as `$vfN`. gcc then also copies such
@@ -334,6 +335,10 @@ def label_hazards(text):
                 noreorder = True
             elif code.endswith("reorder"):
                 noreorder = False
+            continue
+        if code.startswith(".p2align") and fpr and not noreorder:
+            # gas emits the pending mtc1 hazard nop at an alignment directive; SN's assembler did not
+            out.insert(len(out) - 1, "\t__gp_forget")
             continue
         if not code or code.startswith("."):
             continue
