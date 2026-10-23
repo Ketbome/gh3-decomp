@@ -440,4 +440,28 @@ extern "C" void func_0029A7B8(int self, u8 *src, s8 *dst, int n, int *out) {
 
 extern "C" void func_0030A2F4(u8 *, u8 *, int);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A8E8);
+extern "C" int func_0029A8E8(char *self, u8 *src, u8 *dst, int n) {
+    if (n < 3) return 0;
+    if (!(*(int *)(self + 0x2294) & 0x20)) {
+        func_0030A2F4(dst, src, n);
+        return 1;
+    }
+    u8 buf[0x520];
+    S29A_P2 h;
+    h = *(S29A_P2 *)src;
+    int m = n - 2;
+    int len = m;
+    func_0030A2F4(buf, src + 2, m);
+    u8 key = *(u8 *)&h;
+    u8 *p = buf;
+    if (len > 0) {
+        int i = len;
+        do {
+            *p++ ^= key;
+        } while (--i);
+    }
+    u32 c = func_00114C50(buf, len);
+    if ((u16)((c >> 16) + c) != *(u16 *)&h) return 0;
+    func_0030A2F4(dst, buf, len);
+    return 1;
+}
