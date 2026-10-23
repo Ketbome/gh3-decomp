@@ -153,7 +153,79 @@ extern "C" void func_0011D4F8(const char* s) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D520);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_11D000", func_0011D530);
+extern "C" {
+unsigned int strlen(const char*);
+char* strcpy(char*, const char*);
+char* func_00117030(void);
+int func_00113438(char*, char*);
+void* func_00231510(int, u32, int*);
+void func_0030A2F4_d(void*, void*, int) __asm__("func_0030A2F4");
+int func_0011E170_i(void) __asm__("func_0011E170");
+unsigned int func_0011EF20_u(int) __asm__("func_0011EF20");
+int func_0011EF78_i(int, int) __asm__("func_0011EF78");
+void func_0011A470_v(int) __asm__("func_0011A470");
+}
+
+extern "C" void* func_0011D530(const char* name, int* outSize, void* buf) {
+    char path[0x80];
+    int size = 0;
+    char* r;
+    strcpy(path, name);
+    if (func_00113438(path, func_00117030())) {
+        int n = strlen(path);
+        n -= strlen(func_00117030());
+        path[n - 1] = 0;
+    }
+    void* data = func_00231510(0, func_001150B8(path), &size);
+    if (data) {
+        if (!buf) {
+            buf = (void*)func_0011A380(size);
+        }
+        func_0030A2F4_d(buf, data, size);
+        r = (char*)buf;
+        goto done;
+    }
+    size = func_0011EF20_u((int)name);
+    if (size) {
+        if (!buf) {
+            r = (char*)func_0011A380((size + 0x7FF) & ~0x7FF);
+        } else {
+            r = (char*)buf;
+        }
+        if (!func_0011EF78_i((int)name, (int)r)) {
+            if (!buf) {
+                func_0011A470_v((int)r);
+            }
+            r = 0;
+        }
+    } else {
+        void* h = func_0011DF78((int)name, 1, 0x64, 0);
+        if (!h) {
+            if (outSize) {
+                *outSize = 0;
+            }
+            return 0;
+        }
+        size = func_0011DB60_v(h);
+        if (!buf) {
+            int a = func_0011E170_i();
+            int m = size - 1;
+            r = (char*)func_0011A380((m + a) & -a);
+        } else {
+            r = (char*)buf;
+        }
+        func_0011DBB8_v(h, (int)r, 1, size);
+        func_0011E008(h);
+    }
+    if (!buf && r) {
+        func_0011A440(size, (int)r);
+    }
+done:
+    if (outSize) {
+        *outSize = size;
+    }
+    return r;
+}
 
 struct S11D720 { char pad0[0x10]; int unk10; };
 
