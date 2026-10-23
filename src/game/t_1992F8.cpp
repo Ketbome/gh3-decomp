@@ -217,7 +217,44 @@ extern "C" int func_00199D90(int root, S199_M* node, u32 key, int depth) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1992F8", func_00199EA8);
+struct S199_R { char pad0[8]; S199_M* unk8; };
+
+extern "C" int func_00199CB8(S199_K*);
+
+extern "C" void func_00199EA8(S199_R* self, int* src, int w, int h, int fmt, float wgt) {
+    w = w * h;
+    switch (fmt / 8) {
+    case 3:
+        break;
+    case 4:
+        if (w > 0) {
+            int* sp = src;
+            int n = w;
+            do {
+                S199_K k;
+                float v[4];
+                *(int*)&k = *sp++;
+                S199_K k2 = k;
+                S199_F* f = (S199_F*)func_00199D90((int)self, self->unk8, func_00199CB8(&k), 5);
+                v[0] = k.c[0] * 0.003921569f;
+                v[1] = k.c[1] * 0.003921569f;
+                v[2] = k.c[2] * 0.003921569f;
+                v[3] = k.c[3] * 0.003921569f;
+                f->unk0 += wgt;
+                v[0] *= wgt;
+                v[1] *= wgt;
+                v[2] *= wgt;
+                v[3] *= wgt;
+                f->unk4 += v[0];
+                f->unk8 += v[1];
+                f->unkC += v[2];
+                f->unk10 += v[3];
+                f->unk14 += wgt * (v[0] * v[0] + v[1] * v[1] + v[2] * v[2] + v[3] * v[3]);
+            } while (--n);
+        }
+        break;
+    }
+}
 
 struct Q_0019A088 { u8 a[4]; u8 b[4]; };
 
