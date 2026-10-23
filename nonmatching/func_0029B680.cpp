@@ -206,9 +206,18 @@ struct S29B_Self {
 struct S29B_Dst {
     char pad0[0x288C];
     char unk288C[0x8A4];
-    char pad3130[0];
     signed char *unk3130;
     signed char *unk3134;
+    char pad3138[0x9C];
+    int unk30D4;
+};
+struct S29B8_El : S29A_Base {
+    u32 unk18;
+    S29B_Pkt *unk1C;
+    int unk20;
+    u8 unk24;
+    char pad25[3];
+    u32 unk28;
 };
 extern "C" {
 int func_0029DA40(S29B_Self *, S29B_Dst *);
@@ -216,8 +225,8 @@ int func_0029DB80(S29B_Self *, u8);
 void func_0030A2F4(signed char *, char *, u16);
 void func_00296280(char *, u8, u16);
 void func_00296D88(void *, int);
+u32 func_0029F5C8(S29B_Dst *);
 }
-
 extern "C" int func_0029B680(S29B_Self *self, char *dst0) {
     S29B_Dst *dst = (S29B_Dst *)dst0;
     S29A_Lk *n1, *nn;
@@ -249,8 +258,8 @@ extern "C" int func_0029B680(S29B_Self *self, char *dst0) {
                     dst->unk3134 += 1;
                     int odd = func_0029DB80(self, p->unk0) & 1;
                     if (!odd) {
-                        signed char *q = dst->unk3134;
                         int b2 = p->sb[0];
+                        signed char *q = dst->unk3134;
                         int b3 = p->sb[1];
                         q[0] = b2;
                         q[1] = b3;
@@ -281,6 +290,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BB28);
 extern "C" int func_0029BDA0(void* a, S0029BDA0* p) {
     return p->unk313C > p->unk3138;
 }
+
+struct S29BD_ElA : S29A_Base {
+    u32 unk18;
+};
+struct S29BD_ElB : S29A_Base {
+    char pad18[8];
+    u32 unk20;
+};
+struct S29BD_Pl {
+    int pad0;
+    S29A_Lk *cur;
+    char *vptr;
+};
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BDB0);
 
