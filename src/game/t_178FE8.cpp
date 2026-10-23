@@ -155,7 +155,56 @@ extern "C" void func_00179BD8(S00179BB0* self) {
     func_00113F38(self);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179C00);
+struct P_00179C00 { int unk0; int unk4; int unk8; };
+struct S_00179C00 { char pad0[0xC]; int unkC; char pad10[8]; char unk18[0x1C]; int unk34; float unk38; };
+extern "C" {
+int func_0027D268_g(int, int, float*, int) __asm__("func_0027D268");
+int func_0027D870_g(int, int, int*, int) __asm__("func_0027D870");
+}
+
+static inline void Follow179(P_00179C00* p, int* k) {
+    int t;
+    while ((p->unk8 && (func_0027D870_g(p->unk8, *k, &t, 0) ^ 1) == 0) ||
+           (p->unk4 && (func_0027D870_g(p->unk4, *k, &t, 0) ^ 1) == 0)) {
+        *k = t;
+    }
+}
+
+extern "C" void func_00179C00(S_00179C00* self, P_00179C00* p) {
+    int key;
+    int key2;
+    float* f = &self->unk38;
+    *f = 1.0f;
+    if (func_0027D268_g(p->unk0, 0x64242046, f, 0) == 0) {
+        int ok;
+        if ((func_0027D870_g(p->unk0, 0x64242046, &key, 0) ^ 1) != 0) {
+            ok = 0;
+        } else {
+            Follow179(p, &key);
+            ok = 1;
+        }
+        if ((ok ^ 1) == 0) {
+            if (!p->unk8 || func_0027D268_g(p->unk8, key, f, 0) == 0) {
+                if (p->unk4) {
+                    func_0027D268_g(p->unk4, key, f, 0);
+                }
+            }
+        }
+    }
+    int ok2;
+    if ((func_0027D870_g(p->unk0, 0x98549BA4, &key2, 0) ^ 1) != 0) {
+        ok2 = 0;
+    } else {
+        Follow179(p, &key2);
+        ok2 = 1;
+    }
+    if (ok2 != 0) {
+        func_0017D658(self->unk18, self->unkC, key2);
+        self->unk34 = 0;
+        return;
+    }
+    self->unk34 = 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_178FE8", func_00179DE0);
 
