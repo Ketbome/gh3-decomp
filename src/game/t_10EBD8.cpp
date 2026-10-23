@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 typedef unsigned int u128_10E __attribute__((mode(TI)));
@@ -138,7 +139,59 @@ extern "C" void func_0010FE60(int op, int* x, int unused, int* y) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FF48);
+struct V16_10E { u128_10E q; V16_10E() {} };
+struct FA16_10E { V16_10E* unk0; u32 unk4; u32 unk8; };
+struct FA4_10E { float* unk0; u32 unk4; u32 unk8; };
+extern "C" {
+void* Heap_Alloc_10E(int, int, int, int) __asm__("Heap_Alloc");
+void Heap_Free_10E(int, void*) __asm__("Heap_Free");
+extern int D_00368A38[] __attribute__((section(".sdata")));
+}
+
+static inline void Set16_10E(FA16_10E* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free_10E(D_00368A38[0], a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        V16_10E* t = (V16_10E*)Heap_Alloc_10E(D_00368A38[0], n * 16, 1, 0);
+        for (int i = n - 1; i != -1; i--) {
+        }
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free_10E(D_00368A38[0], a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+static inline void Set4_10E(FA4_10E* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free_10E(D_00368A38[0], a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        float* t = (float*)Heap_Alloc_10E(D_00368A38[0], n * 4, 1, 0);
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free_10E(D_00368A38[0], a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+extern "C" void func_0010FF48(FA16_10E* self, u32 n) {
+    Set16_10E(self, n);
+    Set4_10E((FA4_10E*)((char*)self + 0x10), n);
+}
 
 extern "C" int func_00110150(S_00110150* self) {
     return self->unk4;
