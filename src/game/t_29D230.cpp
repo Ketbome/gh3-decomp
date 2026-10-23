@@ -87,6 +87,7 @@ extern int D_0035C4E8[];
 extern int D_0035C5B0[];
 extern char D_0035C528[];
 extern char D_0035C540[];
+extern char D_0035C510[];
 extern int D_0035C5C8[];
 extern int D_0035C720[];
 extern int D_0035C768[];
@@ -528,8 +529,6 @@ extern "C" void func_0029EC08(void *p) {
     func_0029EC40(p);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029EC40);
-
 struct S29F_RcA {
     char pad0[0xC];
     int unkC;
@@ -564,6 +563,119 @@ struct S29F_ItC {
 static inline void S29F_Adv(S29E_Lk *&cur) {
     S29E_Lk *n = cur->unkC;
     cur = (~n->unk4 == 0) ? 0 : n;
+}
+
+struct S29G_ItD {
+    int pad0;
+    S29E_Lk *cur;
+    char *vptr;
+    S29G_ItD(S29E_Lk *l) { cur = l; vptr = D_0035C510; }
+    ~S29G_ItD() { vptr = D_0035C510; }
+};
+struct S29G_ElD : S29E_Base {
+    int *unk18;
+};
+
+extern "C" void func_00296A90(void *, int);
+
+extern "C" void func_0029EC40(void *obj) {
+    char *base = (char *)obj;
+    S29E_Lk *n1, *nn, *m1, *mm, *k1, *kk, *p1, *pp, *q1, *qq, *r1, *rr, *n0, *nf, *l2, *l3, *l4, *l5;
+    S29F_ItC *pa;
+    S29F_ItC c((S29E_Lk *)(base + 0x30DC));
+    S29F_ItA a(0);
+    S29E_It b(0);
+    S29G_ItD d(0);
+    S29E_Base *e, *nx, *f, *fx, *g, *gx, *h, *hx;
+    S29G_ElD *x, *xx, *y, *yx;
+    int i;
+    S29F_Adv(c.cur);
+    e = (S29E_Base *)S29E_Get0(c.cur);
+    l2 = (S29E_Lk *)(base + 0x30F4);
+    l3 = (S29E_Lk *)(base + 0x310C);
+    l4 = (S29E_Lk *)(base + 0x2004);
+    l5 = (S29E_Lk *)(base + 0x201C);
+    if (e) {
+        pa = &c;
+        while (e) {
+            n1 = c.cur->unkC;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            pa->cur = nn;
+            S29E_Pick((S29E_El *&)nx, nn);
+            delete e;
+            e = nx;
+        }
+    }
+    a.cur = l2;
+    S29F_Adv(a.cur);
+    f = (S29E_Base *)S29E_Get0(a.cur);
+    while (f) {
+        m1 = a.cur->unkC;
+        mm = 0;
+        if (~m1->unk4 != 0) mm = m1;
+        a.cur = mm;
+        S29E_Pick((S29E_El *&)fx, mm);
+        delete f;
+        f = fx;
+    }
+    b.cur = l3;
+    S29F_Adv(b.cur);
+    g = (S29E_Base *)S29E_Get0(b.cur);
+    while (g) {
+        k1 = b.cur->unkC;
+        kk = 0;
+        if (~k1->unk4 != 0) kk = k1;
+        b.cur = kk;
+        S29E_Pick((S29E_El *&)gx, kk);
+        delete g;
+        g = gx;
+    }
+    i = 0;
+    do {
+        b.cur = (S29E_Lk *)(base + i * 0x18 + 0x804);
+        n0 = b.cur->unkC;
+        nf = 0;
+        if (~n0->unk4 != 0) nf = n0;
+        b.cur = nf;
+        h = (S29E_Base *)S29E_Get0(nf);
+        while (h) {
+            p1 = b.cur->unkC;
+            pp = 0;
+            if (~p1->unk4 != 0) pp = p1;
+            b.cur = pp;
+            S29E_Pick((S29E_El *&)hx, pp);
+            delete h;
+            h = hx;
+        }
+        i++;
+    } while (i < 0x100);
+    d.cur = l4;
+    S29F_Adv(d.cur);
+    x = (S29G_ElD *)S29E_Get0(d.cur);
+    while (x) {
+        q1 = d.cur->unkC;
+        qq = 0;
+        if (~q1->unk4 != 0) qq = q1;
+        d.cur = qq;
+        S29E_Pick((S29E_El *&)xx, qq);
+        if (x->unk18) func_00296A90(x->unk18, 3);
+        delete x;
+        x = xx;
+    }
+    d.cur = l5;
+    S29F_Adv(d.cur);
+    y = (S29G_ElD *)S29E_Get0(d.cur);
+    while (y) {
+        r1 = d.cur->unkC;
+        rr = 0;
+        if (~r1->unk4 != 0) rr = r1;
+        d.cur = rr;
+        S29E_Pick((S29E_El *&)yx, rr);
+        if (y->unk18) func_00296A90(y->unk18, 3);
+        delete y;
+        y = yx;
+    }
 }
 
 extern "C" void func_00296D88(void *, int);
