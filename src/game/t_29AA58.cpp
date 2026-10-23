@@ -284,7 +284,62 @@ extern "C" int func_0029B680(S29B_Self *self, char *dst0) {
     return ok;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B8D0);
+extern "C" int func_0029B8D0(S29B_Self *self, char *dst0, int flag) {
+    S29B_Dst *dst = (S29B_Dst *)dst0;
+    S29A_Lk *n0, *n1, *nn;
+    S29B8_El *e, *nx;
+    int ok = 1;
+    int lim;
+    u64 w = self->unk2294;
+    if (w >> 7) lim = 0x512 - self->unk2414;
+    else lim = 0x512;
+    S29A_ItA it((S29A_Lk *)(dst0 + 0x30F4));
+    n0 = it.cur->unkC;
+    it.cur = (~n0->unk4 == 0) ? 0 : n0;
+    e = (S29B8_El *)S29A_Get0(it.cur);
+    while (e) {
+        if (self->unk0 >= e->unk28) {
+            if (func_0029DA40(self, dst)) break;
+            u32 t = e->unk18;
+            if (t == 0) {
+                if (flag != 0) goto adv;
+            } else {
+                u32 d = self->unk0 - t;
+                if (func_0029F5C8(dst) >= d) goto adv;
+            }
+            {
+                S29B_Pkt *p = e->unk1C;
+                int hdr = (func_0029DB80(self, p->unk0) & 1) ? 1 : 3;
+                if ((dst->unk3134 - dst->unk3130) + ((p->unk2 + hdr) & 0xFFFF) < lim) {
+                    *dst->unk3134 = p->unk0;
+                    dst->unk3134 += 1;
+                    int odd = func_0029DB80(self, p->unk0) & 1;
+                    if (!odd) {
+                        *(S29B_H2 *)dst->unk3134 = *(S29B_H2 *)&p->sb[0];
+                        dst->unk3134 += 2;
+                    }
+                    if (p->unk2) {
+                        func_0030A2F4(dst->unk3134, p->unk4, p->unk2);
+                        dst->unk3134 += p->unk2;
+                    }
+                    func_00296280(dst->unk288C, p->unk0, p->unk2);
+                    if (e->unk18 != 0) e->unk24 += 1;
+                    e->unk18 = self->unk0;
+                    e->unk20 = *(int *)(dst0 + 0x30D4);
+                } else {
+                    ok = 0;
+                }
+            }
+        }
+    adv:
+        n1 = it.cur->unkC;
+        nn = 0;
+        if (~n1->unk4 != 0) nn = n1;
+        it.cur = nn;
+        S29A_Pick((void *&)e, nn);
+    }
+    return ok;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029BB28);
 
