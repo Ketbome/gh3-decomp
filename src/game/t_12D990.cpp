@@ -574,7 +574,99 @@ extern "C" void func_0012F5B0(S12D_E* self) {
 extern "C" void func_0012F618(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12D990", func_0012F620);
+struct O_0012F620 { char pad0[0x1C]; float unk1C; char pad20[4]; float unk24; };
+struct S_0012F620 {
+    char pad0[4];
+    O_0012F620* unk4;
+    char pad8[0x10];
+    float unk18;
+    float unk1C;
+    float unk20;
+    float unk24;
+    float unk28;
+    float unk2C;
+    int unk30;
+    int unk34;
+    int unk38;
+};
+extern "C" {
+int func_0027D870_g(int, u32, int*, int) __asm__("func_0027D870");
+int func_0027D268_g(int, u32, float*, int) __asm__("func_0027D268");
+int func_0027D1F8_g(int, u32, int*, int) __asm__("func_0027D1F8");
+void func_0012A590_g(void*, int, int, float, float, float) __asm__("func_0012A590");
+int func_0016E7A8_g(int, int) __asm__("func_0016E7A8");
+int func_0016E810_g(int, int, int) __asm__("func_0016E810");
+int func_0015FAA0_g(int, int, int) __asm__("func_0015FAA0");
+}
+
+extern "C" int func_0012F620(S_0012F620* self, u32 key, int params) {
+    switch (key) {
+    case 0x5F495AE0:
+        self->unk34 = func_0016E7A8_g(self->unk30, 0);
+        return 2;
+    case 0xAF2FAE19: {
+        int a = 0;
+        int v;
+        float b;
+        float c;
+        int d;
+        float e;
+        func_0027D870_g(params, 0x6C2BFB7F, &a, 1);
+        v = a;
+        func_0027D268_g(params, 0xD16B61E6, &b, 1);
+        func_0027D268_g(params, 0xAB81BB3D, &c, 1);
+        func_0027D1F8_g(params, 0xCD8D7C1B, &d, 1);
+        func_0027D268_g(params, 0xF0D90109, &e, 1);
+        float fb = b;
+        float fc = c;
+        int dd = d;
+        func_0012A590_g((char*)self->unk4 + 4, v, dd, fb, fc, e);
+        if (self->unk30) {
+            self->unk34 = func_0016E810_g(self->unk30, self->unk38 + v, v);
+        } else {
+            self->unk34 = func_0015FAA0_g(self->unk38 + v, 1, v != 0);
+        }
+        break;
+    }
+    case 0xD0209498: {
+        float t;
+        if (func_0027D268_g(params, 0x4D747FA0, &t, 0)) {
+            if (t < 0.0f) {
+                t = 0.0f;
+            }
+            if (t > 1.0f) {
+                t = 1.0f;
+            }
+            O_0012F620* o = self->unk4;
+            self->unk2C = o->unk1C + (o->unk24 - o->unk1C) * t;
+        }
+        break;
+    }
+    case 0xEA6D0EFD: {
+        int found = 0;
+        float a;
+        float b;
+        float c;
+        float d;
+        float e;
+        if (func_0027D268_g(params, 0xFD266A26, &a, 0) && func_0027D268_g(params, 0x642F3B9C, &b, 0) &&
+            func_0027D268_g(params, 0x0F43FD49, &c, 0) && func_0027D268_g(params, 0x964AACF3, &d, 0)) {
+            found = func_0027D268_g(params, 0xF90B0824, &e, 0) != 0;
+        }
+        if (found) {
+            self->unk18 = a;
+            self->unk1C = b;
+            self->unk20 = c;
+            self->unk24 = d;
+            self->unk28 = e;
+        }
+        break;
+    }
+    default:
+        return 2;
+    }
+    return 1;
+}
 
 extern "C" S12D_E* func_0012F8D0(S12D_E* self, int a) {
     func_0012E600((S_0012E600*)self, a);
