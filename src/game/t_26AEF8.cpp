@@ -141,7 +141,96 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BDF8);
 GP_DATA(D_00370C10);
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BE00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BEA8);
+typedef unsigned int u128_26B __attribute__((mode(TI)));
+
+struct S26BE_Ob {
+    char pad0[0xC];
+    int unkC;
+    char pad10[0xC];
+    int items[3];
+};
+struct S26BE_E {
+    char pad0[8];
+    f32 unk8;
+    f32 unkC;
+    char pad10[8];
+    u32 unk18;
+    S26BE_Ob *unk1C;
+    int unk20;
+    char pad24[0x10];
+    int unk34;
+    char pad38[0x48];
+};
+struct S26BE_O1 {
+    f32 a;
+    f32 b;
+    char pad[0x18];
+};
+
+extern "C" {
+extern S26BE_E D_003A44B0_f[] asm("D_003A44B0");
+extern int D_00370C10_f asm("D_00370C10");
+extern int D_00370AE0_f asm("D_00370AE0");
+int func_0026ABB0_f(void) __asm__("func_0026ABB0");
+int func_00267628_f(int) __asm__("func_00267628");
+void func_00266898_f(void *) __asm__("func_00266898");
+void func_00266BE8_f(void *) __asm__("func_00266BE8");
+void func_002668F8_f(void *, int) __asm__("func_002668F8");
+int func_0015D5C0_f(int, int) __asm__("func_0015D5C0");
+int func_001FC030_f(void *, int, char *) __asm__("func_001FC030");
+u128_26B func_001FBFD0_f(void *, int) __asm__("func_001FBFD0");
+void func_002687F0_f(int, void *, u128_26B *, f32, int, int, int, char *) __asm__("func_002687F0");
+int func_0026BE00_f(f32, int, void *, int, int) __asm__("func_0026BE00");
+}
+
+extern "C" int func_0026BEA8(S26BE_Ob *obj, int a1, int a2, int a3, int a4, f32 fa, f32 fb, f32 fc) {
+    S26BE_O1 o1;
+    char buf[0x10];
+    u128_26B v;
+    int res;
+    if (func_0026ABB0_f() != 0) return 0;
+    int o = D_00370AE0_f;
+    if (func_00267628_f(o) != 0) return 0;
+    int flag = a3 & 1;
+    func_00266898_f(&o1);
+    func_00266BE8_f(&o1);
+    if (flag) {
+        int r = func_0015D5C0_f(obj->unkC + 0x80, 0);
+        if (r) {
+            char *q = func_001FC030_f(obj, r, buf) ? buf : 0;
+            v = func_001FBFD0_f(obj, r);
+            func_002687F0_f(o, &o1, &v, fa, a4, 0, r, q);
+        } else {
+            func_00266BE8_f(&o1);
+        }
+    } else {
+        o1.b = o1.a = fb;
+    }
+    res = func_0026BE00_f(fc, a1, &o1, a2, a3);
+    if (res) {
+        S26BE_E *e = &D_003A44B0_f[D_00370C10_f];
+        if (e->unk1C) e->unk1C->items[e->unk20] = 0;
+        e->unk1C = obj;
+        for (int i = 0; i < 3; i++) {
+            if (obj->items[i] == 0) {
+                obj->items[i] = a1;
+                e->unk20 = i;
+                break;
+            }
+        }
+        if (fb != 0.0f) e->unk8 = e->unk8 * fb * 0.01f;
+        if (flag) {
+            e->unkC = fa;
+            e->unk34 = a4;
+            e->unk18 |= 1;
+        } else {
+            e->unk18 &= 0xFFFFFFFE;
+        }
+    }
+    int ok = res != 0;
+    func_002668F8_f(&o1, 2);
+    return ok;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C110);
 
