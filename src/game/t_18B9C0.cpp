@@ -241,7 +241,64 @@ extern "C" void func_0018C3F8(S_18B9C0* self) {
     if (self->unk8 != 2) func_001AD020(self->unk24, self->unk28);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_18B9C0", func_0018C428);
+struct O_0018C428 { char pad0[0x4C]; void* unk4C; };
+struct S_0018C428 { char pad0[0x24]; O_0018C428* unk24; };
+extern "C" {
+void* func_001ACF70_v(void*) __asm__("func_001ACF70");
+void* func_001AD008_v(void*) __asm__("func_001AD008");
+int func_001ACF30_k(void*) __asm__("func_001ACF30");
+void func_001ACE58_v(void*, int) __asm__("func_001ACE58");
+void func_001ACF38_v(void*, int) __asm__("func_001ACF38");
+void func_001ACDF0_v(void*, int) __asm__("func_001ACDF0");
+void* func_001A0220_v(void*, int, void*) __asm__("func_001A0220");
+}
+
+extern "C" void func_0018C428(S_0018C428* self) {
+    int a = 0;
+    int b = 0;
+    void* e = func_001ACF70_v(self->unk24);
+    if (e) {
+        int k0 = 0x4D812080;
+        do {
+            if (func_001ACF30_k(e) == k0) {
+                a = 1;
+                func_001ACE58_v(e, 1);
+            }
+            if (func_001ACF30_k(e) == 0x66B17396 || func_001ACF30_k(e) == 0xFFB8222C ||
+                func_001ACF30_k(e) == 0x88BF12BA || func_001ACF30_k(e) == 0x16DB8719 ||
+                func_001ACF30_k(e) == 0x61DCB78F || func_001ACF30_k(e) == 0xF8D5E635 ||
+                func_001ACF30_k(e) == 0x8FD2D6A3) {
+                func_001ACF38_v(e, 0xF500D04E);
+                func_001ACE58_v(e, 1);
+            }
+            if (func_001ACF30_k(e) == 0x42C5B45D) {
+                b = 1;
+                func_001ACE58_v(e, 1);
+            }
+            if (func_001ACF30_k(e) == 0xD488713A) {
+                func_001ACE58_v(e, 1);
+            }
+            e = func_001AD008_v(e);
+        } while (e);
+    }
+    if (a) {
+        void* o = self->unk24;
+        func_001ACDF0_v(o, 1);
+        e = func_001ACF70_v(o);
+        if (e) {
+            do {
+                func_001ACDF0_v(e, 1);
+                e = func_001AD008_v(e);
+            } while (e);
+        }
+    }
+    if (b) {
+        O_0018C428* o = self->unk24;
+        if (o->unk4C == 0) {
+            o->unk4C = func_001A0220_v(Heap_Alloc(D_00368A38, 0x60, 1, 0), 1, self);
+        }
+    }
+}
 
 struct P18C { float unk0; float unk4; float unk8; float unkC; };
 
