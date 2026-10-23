@@ -85,6 +85,8 @@ int func_0029F640(void *);
 int func_0029D5C8(char *, S29D_It *);
 extern int D_0035C4E8[];
 extern int D_0035C5B0[];
+extern char D_0035C528[];
+extern char D_0035C540[];
 extern int D_0035C5C8[];
 extern int D_0035C720[];
 extern int D_0035C768[];
@@ -451,7 +453,74 @@ INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029E578);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029E818);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029EAC8);
+struct S29E_Obj {
+    char pad0[0x14];
+    virtual ~S29E_Obj();
+};
+struct S29E_Base {
+    char pad0[0x14];
+    virtual ~S29E_Base();
+};
+struct S29E_El : S29E_Base {
+    char pad18[0x14];
+    S29E_Obj *unk2C;
+};
+struct S29E_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S29E_Lk *unkC;
+};
+struct S29E_It {
+    int pad0;
+    S29E_Lk *cur;
+    char *vptr;
+    S29E_It(S29E_Lk *l) { cur = l; vptr = D_0035C528; }
+    ~S29E_It() { vptr = D_0035C528; }
+};
+
+static inline void S29E_Pick(S29E_El *&o, S29E_Lk *c) {
+    if (!c) o = 0;
+    else o = (S29E_El *)c->unk4;
+}
+
+static inline S29E_El *S29E_Get0(S29E_Lk *c) {
+    S29E_El *r;
+    S29E_Pick(r, c);
+    return r;
+}
+
+extern "C" void func_00296EC0(S29E_Obj *, int);
+
+extern "C" void func_0029EAC8(void *obj) {
+    char *base = (char *)obj;
+    S29E_Lk *m1, *mm, *n1, *nn;
+    S29E_El *e, *nx;
+    S29E_It *pa, *pb;
+    S29E_It it(0);
+    pa = &it;
+    for (int i = 0; i < 0x100; i++) {
+        it.cur = (S29E_Lk *)(base + i * 0x18 + 0x804);
+        n1 = it.cur->unkC;
+        nn = 0;
+        if (~n1->unk4 != 0) nn = n1;
+        pa->cur = nn;
+        e = S29E_Get0(nn);
+        if (e) {
+            pb = &it;
+            while (e) {
+                m1 = it.cur->unkC;
+                mm = 0;
+                if (~m1->unk4 != 0) mm = m1;
+                pb->cur = mm;
+                S29E_Pick(nx, mm);
+                if (e->unk2C) func_00296EC0(e->unk2C, 3);
+                delete e;
+                e = nx;
+            }
+        }
+    }
+}
 
 extern "C" void func_0029EC08(void *p) {
     func_0029EAC8(p);
@@ -461,4 +530,81 @@ extern "C" void func_0029EC08(void *p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029EC40);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29D230", func_0029F090);
+struct S29F_RcA {
+    char pad0[0xC];
+    int unkC;
+};
+struct S29F_RcB {
+    char pad0[0x10];
+    int unk10;
+};
+struct S29F_ElA : S29E_Base {
+    char pad18[4];
+    S29F_RcA *unk1C;
+};
+struct S29F_ElB : S29E_Base {
+    char pad18[0x14];
+    S29F_RcB *unk2C;
+};
+struct S29F_ItA {
+    int pad0;
+    S29E_Lk *cur;
+    char *vptr;
+    S29F_ItA(S29E_Lk *l) { cur = l; vptr = D_0035C540; }
+    ~S29F_ItA() { vptr = D_0035C540; }
+};
+struct S29F_ItC {
+    int pad0;
+    S29E_Lk *cur;
+    char *vptr;
+    S29F_ItC(S29E_Lk *l) { cur = l; vptr = (char *)D_0035C5B0; }
+    ~S29F_ItC() { vptr = (char *)D_0035C5B0; }
+};
+
+static inline void S29F_Adv(S29E_Lk *&cur) {
+    S29E_Lk *n = cur->unkC;
+    cur = (~n->unk4 == 0) ? 0 : n;
+}
+
+extern "C" void func_00296D88(void *, int);
+
+extern "C" void func_0029F090(char *base) {
+    S29E_Lk *n1, *n2, *nn, *l2;
+    S29F_ItC c(0);
+    S29F_ItA a((S29E_Lk *)(base + 0x30F4));
+    S29E_It b(0);
+    S29F_ElA *e, *nx;
+    S29F_ElB *f, *fx;
+    S29F_Adv(a.cur);
+    e = (S29F_ElA *)S29E_Get0(a.cur);
+    if (e) {
+        while (e) {
+            n1 = a.cur->unkC;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            a.cur = nn;
+            nx = (S29F_ElA *)S29E_Get0(nn);
+            S29F_RcA *o = e->unk1C;
+            int *rc = (int *)((char *)o + 8);
+            if (--rc[1] == 0 && o) func_00296D88(o, 3);
+            delete e;
+            e = nx;
+        }
+    }
+    l2 = (S29E_Lk *)(base + 0x310C);
+    b.cur = l2;
+    S29F_Adv(b.cur);
+    f = (S29F_ElB *)S29E_Get0(b.cur);
+    while (f) {
+        n2 = b.cur->unkC;
+        nn = 0;
+        if (~n2->unk4 != 0) nn = n2;
+        b.cur = nn;
+        fx = (S29F_ElB *)S29E_Get0(nn);
+        S29F_RcB *o = f->unk2C;
+        int *rc = (int *)((char *)o + 0xC);
+        if (--rc[1] == 0 && o) func_00296EC0((S29E_Obj *)o, 3);
+        delete f;
+        f = fx;
+    }
+}
