@@ -718,6 +718,50 @@ INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298448);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298558);
 
+extern "C" char D_0035C4B8[];
+
+struct S298_Ev {
+    char pad0[4];
+    u8 unk4;
+    char pad5[0x13];
+    int unk18;
+    int unk1C;
+};
+struct S298_El;
+typedef int (*S298_Fn)(S298_Ev *, S298_El *);
+struct S298_El {
+    int pad0;
+    S298_El *unk4;
+    char pad8[0x10];
+    S298_Fn unk18;
+    int unk1C;
+    int unk20;
+};
+struct S298_Lk {
+    int unk0;
+    S298_El *unk4;
+    int unk8;
+    S298_Lk *unkC;
+};
+struct S298_It {
+    int pad0;
+    S298_Lk *cur;
+    char *vptr;
+    S298_It(S298_Lk *l) { cur = l; vptr = D_0035C4B8; }
+    ~S298_It() { vptr = D_0035C4B8; }
+};
+
+static inline void S298_Pick(S298_El *&o, S298_Lk *c) {
+    if (!c) o = 0;
+    else o = c->unk4;
+}
+
+static inline S298_El *S298_Get0(S298_Lk *c) {
+    S298_El *r;
+    S298_Pick(r, c);
+    return r;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_00298858);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_296A10", func_002989C8);
