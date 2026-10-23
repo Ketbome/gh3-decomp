@@ -9,7 +9,9 @@ struct S13D_X {
     S13D_X* unk78;
     char pad7C[0x8];
     S13D_X* unk84;
-    char pad88[0x1B8];
+    char pad88[0x16C];
+    float unk1F4;
+    char pad1F8[0x48];
     int unk240;
     char pad244[0x8];
     int* unk24C;
@@ -70,6 +72,17 @@ struct S13D_Ref {
             func_001CE888(p, this);
             p = 0;
         }
+    }
+    S13D_Ref& operator=(S13D_X* x) {
+        if (p) {
+            func_001CE888(p, this);
+            p = 0;
+        }
+        p = x;
+        if (p) {
+            func_001CE868(p, this);
+        }
+        return *this;
     }
     S13D_Ref& operator=(const S13D_Ref& o) {
         if (p) {
@@ -184,7 +197,38 @@ extern "C" void func_0013ED28(S13D_X* self, int flags) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013ED80);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013F258);
+struct V3_13F { s16 unk0; s16 unk2; void (*fn)(void*); };
+struct V_13F { char pad0[0x68]; V3_13F unk68; };
+struct Q_13F { char pad0[0xC]; float unkC; char pad10[8]; };
+struct R_13F { char pad0[0x14]; float unk14; };
+extern "C" {
+Q_13F* func_0014ACB8(int, int, int*);
+void func_00139590(S13D_X*, int*, float*);
+void func_0014AC08(int, R_13F*, int);
+void func_0013B2C8(S13D_X*, int);
+}
+
+extern "C" void func_0013F258(S13D_X* self, int arg) {
+    if (self->unk274) {
+        V_13F* vt = (V_13F*)self->unk8;
+        vt->unk68.fn((char*)self + vt->unk68.unk0);
+        int sp30;
+        Q_13F* p = func_0014ACB8(self->unk274, arg, &sp30);
+        S13D_Ref r(self->unk78);
+        while (r.p) {
+            R_13F q = *(R_13F*)p;
+            int sp34;
+            float sp38;
+            func_00139590(r.p, &sp34, &sp38);
+            sp38 = sp38 + r.p->unk1F4 * 0.5f;
+            float t = self->unk1F4 * 0.5f - sp38;
+            q.unk14 = q.unk14 + (p->unkC * t - t);
+            func_0014AC08(r.p->unk258, &q, sp30);
+            r = r.p->unk84;
+        }
+    }
+    func_0013B2C8(self, arg);
+}
 
 struct S13F3 {
     char pad0[0xC];
