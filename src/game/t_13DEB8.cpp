@@ -34,6 +34,7 @@ struct S13D_X {
 extern "C" {
 extern u8 D_0033AD98[];
 extern u8 D_00369660[];
+extern u8 D_00369668[];
 void func_0014A910(int, int);
 void func_00139420(S13D_X*, int);
 void func_0013EB38(S13D_X*, int);
@@ -233,7 +234,34 @@ extern "C" void func_0013FC50(void* self, int v) {
     func_0013F4F8(self, &v, 1);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_13DEB8", func_0013FC78);
+extern "C" {
+int func_00113900(char*);
+void func_00113AC8(char*, int, char*);
+}
+
+extern "C" int func_0013FC78(S13D_X* self, char* buf, int cap) {
+    int len = 0;
+    *buf = 0;
+    S13D_Ref r(self->unk78);
+    while (r.p) {
+        S13D_Ref next(r.p->unk84);
+        char* s = (char*)r.p->unk240;
+        len += func_00113900(s);
+        if (next.p) {
+            len++;
+        }
+        if (len < cap) {
+            func_00113AC8(buf, cap, s);
+            if (next.p) {
+                func_00113AC8(buf, cap, (char*)D_00369668);
+            }
+        } else {
+            return 0;
+        }
+        r = next;
+    }
+    return 1;
+}
 
 extern "C" int func_0013FE00(S13D_X* self) {
     int n = 0;
