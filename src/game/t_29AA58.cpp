@@ -181,6 +181,8 @@ extern "C" void func_0029B5F8(int a, u8 b, u16 c, int d, u8 e, s8 f) {
     func_00296DE0(Heap_Alloc(D_00368A38, 0x14, 1, 0), b, c, d, e, f);
 }
 
+INCLUDE_ASM("asm/nonmatchings/game/t_29AA58", func_0029B680);
+
 struct S29B_Pkt {
     u8 unk0;
     char pad1;
