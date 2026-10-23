@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-23: A round 9 (round 8: 15/33), C round 11 running; B running on per-file `-funroll-loops` for t_1E95C0,
+Resumed 2026-10-23: A round 9 (round 8: 15/33), C round 12 (round 11: 15/25, stack-iterator family) running; B running on per-file `-funroll-loops` for t_1E95C0,
 t_1D00B0, t_225BF0, t_1D4540, t_1BB500 (forensics 5: the "short-loop padding" give-ups were unrolling; mtc1
 hazard at `.p2align` fixed in asm_filter.py, func_0013F258 given to A). Were stopped
 mid-round on 2026-10-20: A round 8
