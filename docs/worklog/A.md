@@ -1423,6 +1423,7 @@ Round 2026-10-20 (8th): 15 matches / 33 attempted (limit 15/40)
 
 ## Round 9 (near-miss variant scan, movn sentinel family, untried)
 
-Round 2026-10-23 (9th): 1 matches / 6 attempted (limit 15/40)
+Round 2026-10-23 (9th): 1 matches / 7 attempted (limit 15/40)
 - Variant scan (word-diff score over nonmatching/, A range): 0-6 words left on func_001535E8, func_00127ED0 (asm_filter), func_0014CD98, func_0017F298, func_0019B880, func_00137070, func_00140558, func_0018BD68, func_0019BA98; retried func_0019B880 (7 forms), func_00137070 (11 compare forms), func_0014DE30 (3 forms): unchanged
 - Matched (A9-1): func_00189ED8 (t_189938; owner dtor: walk of the hash table at +0x58 with the B template `Start()/GetNext()` (HI189 = HTable of t_1E95C0), per entry func_00153278(o, 0x40) + vcall entry [1] with 3, then func_00152908(table, 3), free of unkA8 (func_001A0380 when unk4C), func_0014FB78; first try)
+- near miss (blocked by the file): func_0019D0B0 (t_19B448; find the entry with key at +8 in a GS list: `do { if ((*p & 0x7F000000) == 0x68000000) { n = (u8)(b[2]-1)+1; for (i < n) { 12-byte entries from p+4: if (e->unk8 == key) { unk0 = (int)val; unk4 = (int)(val >> 32); return 1; } } return 0; } p = func_0019E978(p); } while (p < end)`): MATCHES with `// cflags: -funroll-loops` on the file (first try), but then func_0019B550, func_0019B778, func_0019B7E0 of the same file stop matching: needs a file split at the object boundary before func_0019D0B0; nonmatching/func_0019D0B0.cpp (flag in the copy's first line)
