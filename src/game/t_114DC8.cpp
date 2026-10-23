@@ -66,7 +66,26 @@ extern int D_00372AA8;
 extern int D_00372AAC;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00114DC8);
+extern "C" u32 func_00114DC8(const char* s, int n) {
+    u32 crc;
+    char c;
+    int i;
+    if (!s || n <= 0) {
+        return 0;
+    }
+    crc = 0xFFFFFFFF;
+    for (i = 0; i < n; i++) {
+        c = s[i];
+        if (c >= 'A' && c <= 'Z') {
+            c += 0x20;
+        }
+        if (c == '/') {
+            c = '\\';
+        }
+        crc = D_0032A080[(crc ^ c) & 0xFF] ^ ((crc >> 8) & 0xFFFFFF);
+    }
+    return crc;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_114DC8", func_00115020);
 
