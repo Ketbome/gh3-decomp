@@ -97,7 +97,12 @@ int func_002E7BC8(void);
 int func_002E7BE8(void);
 void func_00256740(int, int);
 int func_0028C470(int, int);
+int func_0028C490(int, int);
+int func_0028C4B0(int, int, int);
+int func_0028C518(int, int);
+int func_003174C0(f32);
 bool func_0027DF00(int, u32);
+int func_0027DF00_i(int, u32) __asm__("func_0027DF00");
 void func_002E9C00(int);
 }
 
@@ -256,7 +261,43 @@ done:
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_256260", CFunc_Wait);
+extern "C" int CFunc_Wait(int params, int self) {
+    f32 t = 0.0f;
+    int g, g2, g3;
+    bool s3, s4;
+    func_0027D268(params, 0, &t, 0);
+    g = 0;
+    s3 = func_0027DF00(params, 0xC847F2B9);
+    s4 = func_0027DF00_i(params, 0xB32979F7) != 0;
+    if (func_0027DF00(params, 0xD029F619) || func_0027DF00(params, 0x49E0EE96)) g = 1;
+    if (g) {
+        int n = (int)(t * 1000.0f);
+        if (!s3) func_0028C4B0(self, n, s4);
+        else func_0028C518(self, n);
+        return 1;
+    }
+    g2 = 0;
+    if (func_0027DF00(params, 0xFC37DF05) || func_0027DF00(params, 0xB99AE3D6) || func_0027DF00(params, 0xDCD4CE73)) g2 = 1;
+    if (g2) {
+        func_0028C470(self, (int)t);
+        return 1;
+    }
+    g3 = 0;
+    if (func_0027DF00(params, 0x4A07C332) || func_0027DF00(params, 0x019176C5)) g3 = 1;
+    if (g3) {
+        int n = (int)(t * 16.666668f);
+        if (!s3) func_0028C4B0(self, n, s4);
+        else func_0028C518(self, n);
+        return 1;
+    }
+    if (func_0027DF00(params, 0xECAA3345)) {
+        func_0028C490(self, (int)t);
+        return 1;
+    }
+    if (!s3) func_0028C4B0(self, func_003174C0(t), s4);
+    else func_0028C518(self, func_003174C0(t));
+    return 1;
+}
 
 extern "C" int CFunc_WaitOneGameFrame(int a, int b) {
     func_0028C470(b, 1);
