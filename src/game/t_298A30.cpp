@@ -331,6 +331,41 @@ extern "C" int func_00299E18(int a) {
     return 0;
 }
 
+struct S299E_P {
+    u8 unk0;
+    char pad1;
+    u16 unk2;
+    int unk4;
+};
+struct S299E_El : S298A_Base {
+    char pad18;
+    u8 unk19;
+    char pad1A[0xA];
+    int unk24;
+    char pad28[4];
+    S299E_P *unk2C;
+};
+struct S299E_Msg {
+    int a;
+    u8 b;
+    char pad15[3];
+    long c;
+    int f20;
+    int f24;
+    int f28;
+    char pad2C[0x230 - 0x1C];
+};
+struct S298A_Pl {
+    int pad0;
+    S298A_Lk *cur;
+    char *vptr;
+};
+
+extern "C" {
+void func_00296F18(S299E_Msg *);
+int func_00298858(char *, S299E_Msg *);
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00299ED0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A0E8);
