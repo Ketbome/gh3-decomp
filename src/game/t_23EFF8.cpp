@@ -205,7 +205,75 @@ extern "C" void func_0023F770(char* p, TI128* v) {
 extern "C" void func_0023F7D0(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23EFF8", func_0023F7D8);
+struct B23F {
+    s32 w0, w1, w2, w3;
+};
+
+struct H23F {
+    char pad0[0x1E0];
+    s32 unk1E0;
+};
+
+extern "C" {
+void* func_00244970(void* p, s32 a, s32 b);
+void* func_00240F78(void* p);
+void func_00241640(void* a, void* b);
+void func_0011A558(u32 a, s32 b, s32 c);
+void func_0011A568(void);
+s32 func_0011A380(u16 n);
+void func_0030A2F4(s32 d, s32 s, u16 n);
+void func_00119490(void* h, s32 v);
+void func_001194B8(void* h);
+void* Heap_Alloc(void* h, s32 n, s32 a, s32 b);
+extern H23F* D_00368A38;
+}
+
+extern "C" int func_001194B8__r(void* h) __asm__("func_001194B8");
+extern "C" void* func_0023F7D8(char* p, s32 flag) {
+    char* v;
+    if (flag != 0) {
+        v = *(char**)(p + 8);
+    } else {
+        v = (char*)func_00244970(*(void**)(p + 8), 0, 1);
+    }
+    char* o18 = 0;
+    if (v == 0) {
+        return 0;
+    }
+    char* o20 = 0;
+    char* n;
+    if (flag != 0) {
+        n = (char*)func_00240F78(Heap_Alloc(D_00368A38, 0xD0, 1, 0));
+        o20 = n;
+    } else {
+        n = (char*)func_0023F628((char*)Heap_Alloc(D_00368A38, 0x18, 1, 0));
+        o18 = n;
+    }
+    volatile s32 keep = *(s32*)(n + 0xC);
+    *(B23F*)n = *(B23F*)p;
+    *(s32*)(n + 0xC) = keep;
+    if (o20 != 0) {
+        func_00241640(o20, v);
+        return n;
+    }
+    if (o18 != 0) {
+        *(char**)(o18 + 8) = v;
+        *(u16*)(o18 + 4) |= 0x8000;
+        if (flag == 0 && *(s32*)(p + 0x10) != 0) {
+            u16 sz = *(u16*)(*(char**)(p + 8) + 8);
+            func_0011A558(0xD5215935, 0, 0);
+            func_00119490(D_00368A38, D_00368A38->unk1E0);
+            s32 buf = func_0011A380(sz);
+            *(s32*)(o18 + 0x10) = buf;
+            func_0030A2F4(buf, *(s32*)(p + 0x10), sz);
+            func_001194B8__r(D_00368A38);
+            func_0011A568();
+        } else {
+            *(s32*)(o18 + 0x10) = 0;
+        }
+    }
+    return n;
+}
 
 extern "C" void func_0023F988(void** p) {
     func_00244C40(p[2]);
