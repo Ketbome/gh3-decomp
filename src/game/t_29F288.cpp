@@ -117,11 +117,119 @@ extern "C" s32 func_0029F640(S29F638_0 *arg0) {
     return arg0->unk30AC;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029F648);
+struct S29F6_El {
+    char pad0[0x18];
+    u8 unk18;
+    char pad19[0xB];
+    u8 unk24;
+};
+struct S29F6_Lk {
+    int unk0;
+    int unk4;
+    int unk8;
+    S29F6_Lk *unkC;
+};
+extern "C" char D_0035C528[];
+extern "C" char D_0035C540[];
+struct S29F6_ItA {
+    int pad0;
+    S29F6_Lk *cur;
+    char *vptr;
+    S29F6_ItA(S29F6_Lk *l) { cur = l; vptr = D_0035C540; }
+    ~S29F6_ItA() { vptr = D_0035C540; }
+};
+struct S29F6_ItB {
+    int pad0;
+    S29F6_Lk *cur;
+    char *vptr;
+    S29F6_ItB(S29F6_Lk *l) { cur = l; vptr = D_0035C528; }
+    ~S29F6_ItB() { vptr = D_0035C528; }
+};
+
+template <class T> static inline void S29F6_Adv(T &it) {
+    S29F6_Lk *n = it.cur->unkC;
+    it.cur = (~n->unk4 == 0) ? 0 : n;
+}
+
+static inline void S29F6_Pick(S29F6_El *&o, S29F6_Lk *c) {
+    if (!c) o = 0;
+    else o = (S29F6_El *)c->unk4;
+}
+
+template <class T> static inline S29F6_El *S29F6_Get0(T &it) {
+    S29F6_El *r;
+    S29F6_Pick(r, it.cur);
+    return r;
+}
+
+extern "C" u8 func_0029F648(char *base) {
+    S29F6_Lk *n1, *n2, *nn;
+    S29F6_ItA *pa;
+    S29F6_ItA a((S29F6_Lk *)(base + 0x30F4));
+    S29F6_ItB b(0);
+    u8 m = 0;
+    S29F6_Adv(a);
+    S29F6_El *e = S29F6_Get0(a);
+    if (e) {
+        pa = &a;
+        while (e) {
+            int v = e->unk24;
+            n1 = a.cur->unkC;
+            if (m < v) m = v;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            pa->cur = nn;
+            S29F6_Pick((S29F6_El *&)e, nn);
+        }
+    }
+    b.cur = (S29F6_Lk *)(base + 0x310C);
+    S29F6_Adv(b);
+    S29F6_El *f = S29F6_Get0(b);
+    while (f) {
+        int v = f->unk18;
+        n2 = b.cur->unkC;
+        if (m < v) m = v;
+        nn = 0;
+        if (~n2->unk4 != 0) nn = n2;
+        b.cur = nn;
+        S29F6_Pick(f, nn);
+    }
+    return m;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029F790);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029F840);
+extern "C" void func_0029F840(char *base) {
+    S29F6_Lk *n1, *n2, *nn, *l2;
+    S29F6_ItA *pa;
+    S29F6_ItA a((S29F6_Lk *)(base + 0x30F4));
+    S29F6_ItB b(0);
+    S29F6_Adv(a);
+    S29F6_El *e = S29F6_Get0(a);
+    if (e) {
+        pa = &a;
+        while (e) {
+            e->unk24 = 0;
+            n1 = a.cur->unkC;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            pa->cur = nn;
+            S29F6_Pick(e, nn);
+        }
+    }
+    l2 = (S29F6_Lk *)(base + 0x310C);
+    b.cur = l2;
+    S29F6_Adv(b);
+    S29F6_El *f = S29F6_Get0(b);
+    while (f) {
+        f->unk18 = 0;
+        n2 = b.cur->unkC;
+        nn = 0;
+        if (~n2->unk4 != 0) nn = n2;
+        b.cur = nn;
+        S29F6_Pick(f, nn);
+    }
+}
 
 extern "C" s32 func_0029F970(S29F970_0 *arg0) {
     return arg0->unk30CC;
@@ -150,7 +258,39 @@ extern "C" s32 func_0029FA00(S29FA00_0 *arg0) {
     return arg0->unk30D8;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FA08);
+struct S29FA_El {
+    char pad0[0x18];
+    int unk18, unk1C, unk20;
+};
+
+extern "C" void func_0029FA08(char *base, int key) {
+    S29F6_Lk *n1, *n2, *nn;
+    S29F6_ItA a((S29F6_Lk *)(base + 0x30F4));
+    S29F6_ItB b(0);
+    S29F6_Adv(a);
+    S29FA_El *e = (S29FA_El *)S29F6_Get0(a);
+    if (e) {
+        while (e) {
+            if (e->unk20 == key) e->unk18 = 0;
+            n1 = a.cur->unkC;
+            nn = 0;
+            if (~n1->unk4 != 0) nn = n1;
+            a.cur = nn;
+            S29F6_Pick((S29F6_El *&)e, nn);
+        }
+    }
+    b.cur = (S29F6_Lk *)(base + 0x310C);
+    S29F6_Adv(b);
+    S29FA_El *f = (S29FA_El *)S29F6_Get0(b);
+    while (f) {
+        if (f->unk1C == key) f->unk20 = 0;
+        n2 = b.cur->unkC;
+        nn = 0;
+        if (~n2->unk4 != 0) nn = n2;
+        b.cur = nn;
+        S29F6_Pick((S29F6_El *&)f, nn);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_29F288", func_0029FB40);
 
