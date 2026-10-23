@@ -1390,5 +1390,7 @@ Matched (A7-15): func_00112A70 (t_110D00; copy two float arrays from a source ob
 
 ## Round 8 (protos alias, sentinel select, register copies, untried)
 
-Round 2026-10-20 (8th): 1 matches / 1 attempted (limit 15/40)
+Round 2026-10-20 (8th): 1 matches / 4 attempted (limit 15/40)
 - Matched (A8-1): func_001207A0 (t_11F000; protos alias func_0011FA98__r returning int; nonmatching file removed)
+- func_0014E1B8, func_0014E6A8 retried with the guide's `nn` sentinel-select forms (reference helper, function-level vars, barrier): head still movz (only `asm("" : "+r"(n))` after `n = 0` gives movn, then n lands in a0 instead of v0; barrier not acceptable); reverted
+- near miss: func_0016ADD8 (t_16A2F0; ctor: vtable at +0x38, `func_00275F08(key,0)` size or 0x5000, operator_new(0x24)+func_0011A7C0, func_001198F0(D_00368A38, o, 1, tbl) with the store `self->unk0 = o` after a separate `int h = D_00368A38[0]` (puts the store in the jal slot), sentinel node operator_new(0x18), 128-bit (1,1,1,1) through the MakeVec inline with `pcpyld` tied to `lo` ("0"(lo)), `f = func_00275DE0(); D = f; if (f == 0.0f) r = 60.0f; else r = 60.0f / f; D = r;` (the else-first form keeps the second 60.0f load; `r = 60; if (f != 0)` CSEs it)): only the register rotation of -1/D/hi in the node block (original a2/a3/a1, ours a1/a2/a3) and the lui at/swc1 vs lui a0 order at the end; 20 forms; nonmatching/func_0016ADD8.cpp
