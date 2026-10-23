@@ -59,9 +59,11 @@ struct N15F { N15F* unk0; N15F* unk4; Y15F* unk8; };
 struct It15F {
     int unk0;
     N15F* cur;
+    It15F() {}
     It15F(N15F* n) : cur(n) {}
     bool operator!=(const It15F& o) const { return cur != o.cur; }
     void operator++() { cur = cur->unk4; }
+    It15F& operator--() { cur = cur->unk0; return *this; }
 };
 struct L15F { char pad0[0x14]; N15F unk14; };
 struct B50_15F {
@@ -462,7 +464,74 @@ INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160168);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160170);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_15F2F8", func_00160458);
+struct Y160 { int unk0; int unk4; int unk8; char padC[0xC]; int unk18; };
+struct B160 {
+    u64 f0 : 1;
+    u64 f1 : 3;
+    u64 f4 : 1;
+    u64 f5 : 59;
+};
+struct S160 {
+    char pad0[0x14];
+    N15F unk14;
+    char pad20[0x10];
+    int unk30;
+    int unk34;
+    char pad38[0x18];
+    B160 unk50;
+};
+extern "C" {
+void* Heap_Alloc(int, int, int, int);
+extern int D_003689E8[] __attribute__((section(".sdata")));
+void* func_00162378(void*);
+int func_0015F558_r(int, int) __asm__("func_0015F558");
+void func_0015F490_r(int, int) __asm__("func_0015F490");
+int func_001608D0_r(S160*, int) __asm__("func_001608D0");
+}
+
+extern "C" int func_00160458(S160* self, int a1, int a2, int a3) {
+    It15F c;
+    self->unk50.f0 = 0;
+    Y160* y;
+    if (a3 != 0) {
+        y = (Y160*)func_00162378(Heap_Alloc(D_00368A38, 0x1C, 1, 0));
+    } else {
+        y = (Y160*)Heap_Alloc(D_00368A38, 0x1C, D_003689E8[0], 0);
+        y = y ? (Y160*)func_00162378(y) : y;
+        if (!y) {
+            return 0;
+        }
+    }
+    y->unk0 = a1;
+    func_0015F558_r(a1, (int)(*(s64*)&self->unk50 >> 4) & 1);
+    y->unk8 = a2;
+    *(int*)&self->unk14.unk8 |= 1 << *(s16*)((char*)self + 0x52);
+    y->unk4 = 0;
+    if (self->unk30) {
+        func_0015F490_r(y->unk0, self->unk30);
+    }
+    y->unk18 = 0;
+    It15F a(&self->unk14);
+    It15F b(&self->unk14);
+    N15F* last = self->unk14.unk0;
+    N15F* n = (N15F*)Heap_Alloc(D_00368A38, 0xC, 1, 0);
+    N15F tmp;
+    tmp.unk0 = last;
+    tmp.unk4 = &self->unk14;
+    tmp.unk8 = (Y15F*)y;
+    if (n) {
+        *n = tmp;
+    }
+    self->unk14.unk0 = n;
+    n->unk0->unk4 = n;
+    c.cur = (--a).cur;
+    (*(u16*)((char*)self + 0x52))++;
+    func_001608D0_r(self, 0);
+    if (*(s16*)((char*)self + 0x52) == 1) {
+        self->unk34 = 0;
+    }
+    return y->unk0;
+}
 
 extern "C" void func_00160610(L15F* self, S15F_D* o) {
     if (self->unk14.unk4 != &self->unk14) {
