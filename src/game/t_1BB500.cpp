@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
