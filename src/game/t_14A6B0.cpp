@@ -229,7 +229,83 @@ extern "C" void func_0014AE80(S_14A* self, int flags) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14A6B0", func_0014AEF8);
+struct S_0014AEF8 { char pad0[0x2C]; int unk2C; char pad30[0x220]; int unk250; int unk254; };
+
+extern "C" {
+int func_001287F0(int, int);
+int func_0027AA98(int, int);
+void func_00140AC8(void*, int);
+void func_0027AC90(int);
+void func_00113250(int);
+int func_0015DB20(void);
+void func_00123310(void*, int);
+void func_001235E0(void*, int);
+int func_0027D870_q(int, u32, int*, int) __asm__("func_0027D870");
+int func_0027DD88_q(int, u32) __asm__("func_0027DD88");
+int func_0027CC30_q(int, u32, int, int*) __asm__("func_0027CC30");
+void func_0027F1E0(int, int, int);
+S9_14A* func_0015D0D0(int, int, int, int);
+void func_001CE868(void*, void*);
+}
+
+extern "C" void func_0014AEF8(S_0014AEF8* self, int params) {
+    int sp0, sp4, sp8, spC;
+    int t = func_0027AA98(func_001287F0(8, 1), params);
+    func_00140AC8(self, t);
+    if (t) {
+        func_0027AC90(t);
+        func_00113250(t);
+    }
+    if (self->unk254 == 0) {
+        void* h = (char*)self + 0x260;
+        int r = func_0015DB20();
+        if (r) {
+            func_00123310(h, r);
+        }
+        func_001235E0(h, params);
+        sp0 = D_00372B40;
+        func_0027D870_q(params, 0xCC424795, &sp0, 0);
+        int* p4 = &sp4;
+        sp4 = 0;
+        if (func_0027DD88_q(params, 0x889ECDC3)) {
+            self->unk250 = 0;
+            if ((func_0027D870_q(params, 0x889ECDC3, p4, 0) ^ 1) != 0) {
+                int x;
+                if (func_0027CC30_q(params, 0x889ECDC3, 1, &sp8) == 0) {
+                    func_0027F1E0(params, 0, 1);
+                    x = 0;
+                } else {
+                    x = sp8;
+                }
+                sp4 = x;
+            }
+        } else {
+            self->unk250 = 1;
+            int v = 5;
+            if (func_0027DD88_q(params, 0xFC00DA49)) {
+                if (func_0027CC30_q(params, 0xFC00DA49, 1, &spC) != 0) {
+                    v = spC;
+                } else {
+                    func_0027F1E0(params, 0, 1);
+                    v = 0;
+                }
+            }
+            int u = self->unk2C;
+            sp4 = u;
+            S9_14A* o = func_0015D0D0(u, v, sp0, params);
+            func_00123040(o);
+            void** q = &o->unk34;
+            if (*q) {
+                func_001CE888(*q, q);
+                *q = 0;
+            }
+            *q = h;
+            if (h) {
+                func_001CE868(h, q);
+            }
+        }
+    }
+}
 
 extern "C" int func_0014B0F8(S8_14A* self, u32 key) {
     if (key == 0x6D09B0BE) {
