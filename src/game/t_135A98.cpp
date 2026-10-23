@@ -71,7 +71,57 @@ extern "C" int func_00135F28(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00135F78);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_135A98", func_00136318);
+typedef unsigned int u128_135 __attribute__((mode(TI)));
+
+static inline u128_135 MakeVec135(f32 x, f32 y, f32 z, int w) {
+    u128_135 lo, hi;
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(w), "r"(z));
+    asm("pextlw %0, %1, %2" : "=&r"(lo) : "r"(y), "r"(x));
+    asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
+    return lo;
+}
+
+extern "C" {
+int func_0014DC60(float*, int);
+int func_00134A20_h(int, int) __asm__("func_00134A20");
+int func_0027DD88_h(int, u32) __asm__("func_0027DD88");
+int func_0027D1F8_h(int, u32, int*, int) __asm__("func_0027D1F8");
+void func_00161F48(int, void*);
+}
+
+extern "C" int func_00136318(void) {
+    u128_135 v = MakeVec135(1.0f, 1.0f, 1.0f, 0x3F800000);
+    int sp10;
+    int sp14, sp18, sp1C, sp20;
+    if (func_0014DC60((float*)&v, (int)&D_00369428->unk6C) != 0 ||
+        (sp10 = 0, func_0027D400(&D_00369428->unk6C, 0x812684EF, &sp10, 0)) && func_0014DC60((float*)&v, sp10)) {
+        func_00161F48(D_00369420, &v);
+        return 1;
+    }
+    int o = func_00134A20_h((int)D_00369428, 0x8B314358);
+    if (o) {
+        if (func_0027DD88_h(o, 0x5A96985D)) {
+            func_0027D1F8_h(o, 0x5A96985D, &sp14, 0);
+            if (sp14 == 0) {
+                int ok = 0;
+                if (func_0027D1F8_h(o, 0x7323E97C, &sp18, 0) && func_0027D1F8_h(o, 0x0424D9EA, &sp1C, 0)) {
+                    ok = func_0027D1F8_h(o, 0x9D2D8850, &sp20, 0) != 0;
+                }
+                if (ok) {
+                    u128_135 wv;
+                    float* w = (float*)&wv;
+                    w[0] = (float)sp18 * 0.01f;
+                    w[1] = (float)sp1C * 0.01f;
+                    w[2] = (float)sp20 * 0.01f;
+                    w[3] = 1.0f;
+                    func_00161F48(D_00369420, &wv);
+                }
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
 
 extern "C" int func_001364C8(void) {
     func_00160730(D_00369420);
