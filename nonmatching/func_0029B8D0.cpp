@@ -269,8 +269,8 @@ extern "C" int func_0029B8D0(S29B_Self *self, char *dst0, int flag) {
                     dst->unk3134 += 1;
                     int odd = func_0029DB80(self, p->unk0) & 1;
                     if (!odd) {
-                        signed char *q = dst->unk3134;
                         int b2 = p->sb[0];
+                        signed char *q = dst->unk3134;
                         int b3 = p->sb[1];
                         q[0] = b2;
                         q[1] = b3;
