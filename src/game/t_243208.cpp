@@ -372,9 +372,44 @@ extern u16* D_0036FF04;
 void func_002441D0_r(O244*, u8*, Box244*) __asm__("func_002441D0");
 }
 
+static inline bool Ge244(int a, int b) { return a >= b; }
+
 GP_DATA(D_0036FF08);
 GP_DATA(D_0036FF04);
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002441D0);
+extern "C" void func_002441D0(O244* self, u8* node, Box244* b) {
+    int t = node[0] & 3;
+    if (t == 3) {
+        u32 n = *(u16*)(node + 2);
+        u16* src = *(u16**)(node + 4);
+        u16* dst = D_0036FF04 + D_0036FF08;
+        int e = D_0036FF08 + n;
+        D_0036FF08 = e;
+        if ((int)self->unk8 < e) {
+            D_0036FF08 = -1;
+            return;
+        }
+        for (u32 i = 0; i < n; i++) {
+            *dst++ = *src++;
+        }
+    } else {
+        int off = t * 4;
+        Box244 box;
+        box.lo = b->lo;
+        f32 plane = (f32)(*(int*)node >> 2) * 0.000244140625f;
+        bool c = ((f32*)&box)[t] < plane;
+        if (c) {
+            func_002441D0_r(self, func_00246B30(node + 4), b);
+        }
+        box.hi = b->hi;
+        bool d = 0;
+        if (plane <= *(f32*)((char*)&box + off + 16)) {
+            d = Ge244(D_0036FF08, 0);
+        }
+        if (d) {
+            func_002441D0_r(self, func_00246B78(node + 4), b);
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002443C0);
 
