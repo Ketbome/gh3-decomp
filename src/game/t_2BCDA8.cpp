@@ -391,7 +391,83 @@ extern int D_00369798;
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_DoScreenElementMorphList);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_SetNoteMappings);
+GP_DATA(D_003720E0);
+struct S2BE9D8_E {
+    int unk0;
+    int unk4;
+    int unk8;
+};
+struct S2BE9D8_A {
+    char pad0[4];
+    u32 unk4;
+    int *unk8;
+};
+extern "C" {
+extern S2BD_T *D_003720E0;
+S2BD_T *func_002D5CE8(void *, int, int);
+S2BD_N *func_002D5CC0(void *);
+int func_0027AA98(void *, int);
+int func_0027D470_n(int, u32, S2BE9D8_A **, int) __asm__("func_0027D470");
+int func_0027D1F8_n(int, u32, int *, int) __asm__("func_0027D1F8");
+int func_0027D870_n(int, u32, int *, int) __asm__("func_0027D870");
+void *Heap_Alloc_n(int, int, int, int) __asm__("Heap_Alloc");
+void *func_001287F0_n(int, int) __asm__("func_001287F0");
+void *func_0011C3A8_n(int) __asm__("func_0011C3A8");
+}
+GP_DATA(D_003720E0);
+extern "C" int CFunc_SetNoteMappings(int params) {
+    if (D_003720E0 == 0) {
+        D_003720E0 = func_002D5CE8(Heap_Alloc_n(D_00368A38[0], 0x1C, 1, 0), 4, 0);
+    }
+    u32 i = 0;
+    int a;
+    S2BE9D8_A *arr;
+    func_0027D870_n(params, 0xD28C8510, &a, 1);
+    func_0027D470_n(params, 0xB619D375, &arr, 1);
+    if (arr->unk4 != 0) {
+        do {
+            int v;
+            if (arr->unk4 == 1) {
+                v = (int)arr->unk8;
+            } else {
+                v = arr->unk8[i];
+            }
+            int c;
+            func_0027D1F8_n(v, 0x26A3E1B2, &c, 1);
+            int ta = a;
+            int key = c + ta;
+            S2BE9D8_E *e = (S2BE9D8_E *)Heap_Alloc_n(D_00368A38[0], 0xC, 1, 0);
+            register int cc asm("$3") = c;
+            e->unk4 = cc;
+            e->unk0 = a;
+            register int h asm("$20") = key;
+            asm("" : "+r"(h));
+            void *ob = func_001287F0_n(8, 1);
+            e->unk8 = func_0027AA98(ob, v);
+            S2BD_T *t = D_003720E0;
+            register int mk asm("$2") = (1 << t->bits) - 1;
+            register S2BD_N *tb asm("$4") = t->tab;
+            S2BD_N *b = &tb[h & mk];
+            register int bv asm("$3") = b->val;
+            if (bv != 0 || b->key != 0) {
+                S2BD_N *n = (S2BD_N *)func_0011C3A8_n(0);
+                if (n) {
+                    n = func_002D5CC0(n);
+                }
+                n->key = h;
+                n->val = (int)e;
+                n->next = b->next;
+                b->next = n;
+            } else {
+                b->key = key;
+                b->val = (int)e;
+            }
+            i++;
+            t->count = t->count + 1;
+        } while (i < arr->unk4);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_GetNoteMapping);
 
