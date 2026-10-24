@@ -129,7 +129,7 @@ extern "C" void func_0026D280(void) {
                 func_0026C5E8_b(D_003A8050, 1);
             } else {
                 int n = e->unkC80;
-                int k = 0;
+                register int k asm("$16") = 0;
                 int t;
                 u64 b;
                 int h;
