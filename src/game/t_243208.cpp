@@ -355,6 +355,25 @@ extern "C" int func_00244128(char* p) {
     return r;
 }
 
+typedef int TI244 __attribute__((mode(TI)));
+
+struct Box244 {
+    TI244 lo;
+    TI244 hi;
+};
+
+struct O244 {
+    char pad0[8];
+    u16 unk8;
+};
+
+extern "C" {
+extern u16* D_0036FF04;
+void func_002441D0_r(O244*, u8*, Box244*) __asm__("func_002441D0");
+}
+
+GP_DATA(D_0036FF08);
+GP_DATA(D_0036FF04);
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002441D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_002443C0);
