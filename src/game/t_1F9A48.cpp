@@ -77,7 +77,58 @@ extern "C" s32 func_001F9A50(s32 a, u32 k) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9AA8);
+struct Nd1F9 {
+    Nd1F9* prev;
+    Nd1F9* next;
+    s32 val;
+};
+
+struct It1F9 {
+    s32 pad;
+    Nd1F9* p;
+    s32 pad8;
+    s32 padC;
+    It1F9& operator++() { p = p->prev; return *this; }
+};
+
+extern "C" {
+void* Heap_Alloc(void*, s32, s32, s32);
+s32 func_0012ED80(void*, s32, s32);
+extern void* D_00368A38;
+}
+
+static inline Nd1F9* Adv1F9(It1F9& i) {
+    Nd1F9* t = i.p->prev;
+    i.p = t;
+    return t;
+}
+
+s32 func_001F9AA8_d(char* self) __asm__("func_001F9AA8");
+s32 func_001F9AA8_d(char* self) {
+    volatile s32 v;
+    s32 x;
+    It1F9 i14;
+    It1F9 i24;
+    It1F9 i34;
+    Nd1F9 tmp;
+    Nd1F9* sent = (Nd1F9*)(self + 0x48);
+    x = func_0012ED80(operator_new(0x28), 0, *(s32*)(self + 0xC));
+    v = x;
+    Nd1F9* first = *(Nd1F9**)(self + 0x48);
+    i24.p = sent;
+    i34.p = sent;
+    Nd1F9* n = (Nd1F9*)Heap_Alloc(D_00368A38, 0xC, 1, 0);
+    tmp.prev = first;
+    tmp.next = sent;
+    tmp.val = v;
+    if (n) {
+        *n = tmp;
+    }
+    *(Nd1F9**)(self + 0x48) = n;
+    n->prev->next = n;
+    i14.p = (++i24).p;
+    return x;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1F9A48", func_001F9B80);
 
