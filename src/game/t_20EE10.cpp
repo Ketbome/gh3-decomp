@@ -222,7 +222,36 @@ extern "C" int func_00210408(S210* self) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210428);
+static inline u128_20E MakeVec20E(f32 x, f32 y, f32 z, f32 w) {
+    u128_20E lo, hi;
+    asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(w), "r"(z));
+    asm("pextlw %0, %1, %2" : "=r"(lo) : "r"(y), "r"(x));
+    asm("pcpyld %0, %1, %2" : "=r"(hi) : "r"(lo), "r"(hi));
+    return hi;
+}
+
+extern "C" {
+void func_0020C428(int, int, u128_20E, f32);
+int func_0027D268(int, u32, void*, int);
+int func_0027D2D8(int, u32, void*, int);
+int func_0027DF00(int, u32);
+}
+
+int func_00210428_d(int self, int k) __asm__("func_00210428");
+int func_00210428_d(int self, int k) {
+    f32 a;
+    u128_20E v;
+    a = 1.0f;
+    func_0027D268(k, 0xF0D90109, &a, 0);
+    self += 0x160;
+    v = MakeVec20E(0.0f, 1.0f, 0.0f, 1.0f);
+    func_0027D2D8(k, 0x7AF07905, &v, 0);
+    int fl = func_0027DF00(k, 0xD443A2BC) ^ 1;
+    f32 aa = *(volatile f32*)&a;
+    u128_20E vv = v;
+    func_0020C428(self, fl, vv, aa);
+    return 1;
+}
 
 extern "C" int func_002104E0(S210* self) {
     self->unk24 = 1;
