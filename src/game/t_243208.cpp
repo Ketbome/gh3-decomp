@@ -1,6 +1,8 @@
 // cflags: -funroll-loops
 #include "common.h"
 
+typedef unsigned int u128_244 __attribute__((mode(TI)));
+
 extern "C" {
 void func_00244930_1(void*) __asm__("func_00244930");
 extern u16 D_0032C7F8[];
@@ -428,6 +430,38 @@ extern "C" int func_00244930(char* p, int b, int c) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244970);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244B68);
+struct V244 {
+    f32 x, y, z;
+};
+
+struct S244 {
+    char pad0[6];
+    u16 unk6;
+    char pad8[3];
+    u8 unkB;
+    char padC[4];
+    u128_244 unk10;
+    char pad20[0x10];
+    V244* unk30;
+    int unk34;
+};
+
+extern "C" void func_00244B68(S244* p, V244* v) {
+    if (p->unk34) func_00243C10((u8*)p->unk34, (T243C*)v);
+    char* a = (char*)p + 0x10;
+    if (p->unkB == 0) {
+        int i;
+        for (i = 0; i < p->unk6; i++) {
+            p->unk30[i].x += v->x;
+            p->unk30[i].y += v->y;
+            p->unk30[i].z += v->z;
+        }
+    }
+    register u128_244 r1 asm("vf1");
+    register u128_244 r2 asm("vf2");
+    register u128_244 r3 asm("vf3");
+    asm volatile("lqc2 $vf3, 0(%3)\n\tlqc2 $vf2, 0x10(%4)\n\tlqc2 $vf1, 0x10(%5)\n\tvadd.xyzw $vf2, $vf2, $vf3\n\tsqc2 $vf2, 0x10(%4)\n\tvadd.xyzw $vf1, $vf1, $vf3" : "=j"(r1), "=j"(r2), "=j"(r3) : "r"(v), "r"(p), "r"(a));
+    *(u128_244*)(a + 0x10) = r1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_243208", func_00244C40);
