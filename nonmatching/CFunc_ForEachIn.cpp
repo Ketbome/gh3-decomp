@@ -577,8 +577,9 @@ extern "C" int CFunc_ForEachIn(int params, int script) {
     }
     int obj = func_0027AA70(func_001287F0(8, 1));
     switch (mode) {
-    case 12:
-        if (arr->size != 0) {
+    case 12: {
+        register S2562_Arr *a1 asm("$3") = arr;
+        if (a1->size != 0) {
             u32 i = 0;
             do {
                 func_0027AC90(obj);
@@ -597,6 +598,7 @@ extern "C" int CFunc_ForEachIn(int params, int script) {
             } while (i < (u32)arr->size);
         }
         break;
+    }
     case 10: {
         int n = 0;
         S2562_Comp *c = func_0027B300(sc, 0);

@@ -159,17 +159,19 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026FAE0);
 extern "C" void func_0026FC80(int a, int b, f32 f) {
     S26F3B8_A *e = &D_003A8D40[a][b];
     int v;
-    int n = e->unk10;
+    register int n asm("$4") = e->unk10;
     if (n) {
         func_00273428(n - 1);
         return;
     }
+    register int k3fff asm("$6") = 0x3FFF;
+    register int k1 asm("$7") = 1;
     v = (int)(f * 40.96f);
     if (v >= 0x4000) {
-        v = 0x3FFF;
+        v = k3fff;
     }
     if (v <= 0) {
-        v = 1;
+        v = k1;
     }
     func_00271198(0x8010, a | (b << 1) | 0x200, v);
     if ((e->unkC >> 2) & 1) {
