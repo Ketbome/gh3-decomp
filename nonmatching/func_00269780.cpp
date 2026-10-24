@@ -254,19 +254,20 @@ extern "C" void func_00269780(int a, int script, int b) {
         S268EB8_E *e = &D_003A3480[i];
         if (e->unk0 == 0 || (e->unk0 == key && e->unk8 == b)) {
             e->unk0 = key;
-            e->unk8 = b;
             e->unk4 = a;
+            e->unk8 = b;
             return;
         }
     }
-    D_003A3460.unk0 = 0;
-    D_003A3460.unk1C = 0;
-    D_003A3460.unk4 = 0;
-    D_003A3460.unk8 = 0;
-    D_003A3460.unkC = 0;
-    D_003A3460.unk10 = 0;
-    D_003A3460.unk14 = 0;
-    D_003A3460.unk18 = 0;
+    S269780_Q *g = &D_003A3460;
+    g->unk0 = 0;
+    g->unk1C = 0;
+    g->unk4 = 0;
+    g->unk8 = 0;
+    g->unkC = 0;
+    g->unk10 = 0;
+    g->unk14 = 0;
+    g->unk18 = 0;
 }
 
 extern "C" void func_00269888(int k) {
