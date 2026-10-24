@@ -396,10 +396,10 @@ extern "C" int CFunc_PlaySound(int params, int sc) {
     S254_Script *script = (S254_Script *)sc;
     S254_PF f;
     f.l.sp60 = 0;
-    f.l.sp54 = 100.0f;
     f.l.sp50 = 100.0f;
     f.l.sp48 = 100.0f;
     f.l.sp4C = 100.0f;
+    f.l.sp54 = 100.0f;
     f.l.sp40 = 0;
     int *p40 = &f.l.sp40;
     if (script) func_0027D870(script->unk20, 0x92ECB746, p40, 0);
@@ -408,8 +408,8 @@ extern "C" int CFunc_PlaySound(int params, int sc) {
     func_0027D268(params, 0x5E285A66, &f.l.sp48, 0);
     func_0027D268(params, 0xA4276705, &f.l.sp4C, 0);
     if (func_0027D268(params, 0xF6A36814, &f.l.sp50, 0)) {
-        f.l.sp4C = f.l.sp50;
         f.l.sp48 = f.l.sp50;
+        f.l.sp4C = f.l.sp50;
     }
     func_0027D268(params, 0xD8604126, &f.l.sp54, 0);
     f.l.sp58 = 0;
