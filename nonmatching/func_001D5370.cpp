@@ -306,7 +306,7 @@ extern "C" void func_001D5350(S1D5348* p, u8 v) {
 extern "C" {
 s32 func_001D3620(S1D5348*, u32, s32, void*);
 void func_001D5350_i(S1D5348*, s32) __asm__("func_001D5350");
-int func_0027D870(s32, u32, void*, int);
+void func_0027D870_v(s32, u32, void*, int) __asm__("func_0027D870");
 void func_0027C160(s32, u32, s32);
 s32 func_0027D1F8(s32, u32, void*, s32);
 }
@@ -330,7 +330,7 @@ extern "C" s32 func_001D5370(S1D5348* p, u32 k, s32 a, char* b) {
     }
     case 0x632E8E5D: {
         s32 v = 0;
-        func_0027D870(a, 0, &v, 1);
+        func_0027D870_v(a, 0, &v, 1);
         s32 r = 0;
         Set1D53(r, v);
         func_001D5030(&p->unk164, r);
