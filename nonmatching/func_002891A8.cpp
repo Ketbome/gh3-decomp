@@ -121,6 +121,12 @@ int func_00288998(void*);
 int func_00288888(void*);
 void func_00288D20(void*, void*, int);
 void func_0028A020(int, int, int, int, int);
+int func_001287F0(int, int);
+int func_0027AA70(int);
+void func_0027ABB0(int, int);
+int func_002870C0(int, int, int, int *);
+void func_0028A300(int);
+void func_0028A558(S288_Obj *);
 extern int D_00368A38_lui[] asm("D_00368A38_lui") __attribute__((section(".sdata")));
 extern int D_0037141C;
 int func_0027D470(int, u32, void *, int);
@@ -269,9 +275,10 @@ struct S2891_O {
     S2891_L *unk4;
 };
 
-extern "C" void func_002891A8(S2891_O *o) {
+extern "C" void func_002891A8(S2891_O *ox) {
+    register S2891_O *o asm("$17") = ox;
     if (o->unk4) {
-        u32 i = 0;
+        register u32 i asm("$16") = 0;
         if (o->unk4->unk4) {
             do {
                 int off = i * 16;
@@ -414,7 +421,83 @@ INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_002899C8);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_002899D8);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_00289B40);
+struct S289B40_Fh {
+    char pad0[8];
+    int unk8;
+    char pad0C[4];
+    int unk10;
+};
+
+struct S289B40 {
+    char pad0[8];
+    S289B40 *unk8;
+    S289B40 *unkC;
+    char pad10[0xB8];
+    int unkC8;
+    char padCC[0x1C];
+    int unkE8;
+    char padEC[4];
+    S289B40_Fh *unkF0;
+};
+
+extern "C" {
+void func_0028A558(S288_Obj *);
+void func_0027AC90(int);
+void func_00113250(int);
+void func_00285A60(void *);
+void func_001D8C10(void *, int);
+void func_001CE7C0(void *, int);
+void func_002887D8(void *, int);
+void func_00137560(void *);
+extern int D_00371490;
+}
+
+GP_DATA(D_0037148C);
+GP_DATA(D_00371490);
+extern "C" void func_00289B40(S289B40 *t, int flags) {
+    func_0028A300((int)t);
+    func_0028A558((S288_Obj *)t);
+    int h = t->unkE8;
+    if (h != 0) {
+        func_0027AC90(h);
+        func_00113250(h);
+        t->unkE8 = 0;
+    }
+    S289B40 *p = t->unkC;
+    if (p == 0) {
+        D_0037148C = (int)t->unk8;
+    }
+    S289B40 *n = t->unk8;
+    if (n != 0) n->unkC = p;
+    p = t->unkC;
+    if (p != 0) p->unk8 = t->unk8;
+    func_00285A60(t);
+    S289B40_Fh *o = t->unkF0;
+    if (o != 0) {
+        if (o->unk10 != 0) {
+            o->unk8 = 0;
+        } else {
+            func_001D8C10(o, 3);
+            t->unkF0 = 0;
+        }
+    }
+    D_00371490 = D_00371490 - 1;
+    func_001CE7C0((char *)t + 0x100, 2);
+    int *pc = &t->unkC8;
+    if (*pc != 0) {
+        func_001CE888(*pc, pc);
+        *pc = 0;
+    }
+    func_002887D8((char *)t + 0xA8, 2);
+    char *m = (char *)t + 0x44;
+    int bit = flags & 1;
+    if (m != 0 && m != (char *)t + 0xA4) {
+        for (int i = 1; i >= 0; i--) {
+            func_002887D8((char *)t + 0x60 + i * 0x30, 2);
+        }
+    }
+    if (bit) func_00137560(t);
+}
 
 extern "C" int func_00289C80(S00289C80* p) {
     return p->unkEC;
@@ -489,9 +572,75 @@ extern "C" void func_0028A010(void) {
 extern "C" void func_0028A018(void) {
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A020);
+struct S28A020 {
+    char pad0[0x14];
+    int unk14;
+    int unk18;
+    char pad1C[4];
+    int unk20;
+    char pad24[0xB0];
+    int unkD4;
+};
 
-INCLUDE_ASM("asm/nonmatchings/game/t_288B10", func_0028A140);
+extern "C" void func_0028A020(int a, int b, int c, int d, int e) {
+    S28A020 *o = (S28A020 *)a;
+    int sp[2];
+    sp[0] = b;
+    int v;
+    if (c == 0) {
+        v = func_00291230(D_003715D4[0], b, sp);
+        if (v == 0) {
+            func_0028A300(a);
+            func_0028A558((S288_Obj *)a);
+            return;
+        }
+    } else {
+        v = c;
+    }
+    int h = func_0027AA70(func_001287F0(8, 1));
+    sp[1] = 0;
+    v = func_002870C0(h, v, 0, &sp[1]);
+    if (sp[1]) func_0027ABB0(h, sp[1]);
+    if (d) func_0027ABB0(h, d);
+    func_0028A300(a);
+    o->unk20 = h;
+    o->unk14 = v;
+    int w = func_0027AA70(func_001287F0(8, 1));
+    int t = sp[0];
+    o->unk18 = w;
+    o->unkD4 = t;
+    func_00289E10((void *)a, e);
+}
+
+struct S28A140_B {
+    int unk0;
+    char *unk4;
+};
+struct S28A140_A {
+    char pad0[0x10];
+    char *unk10;
+};
+extern "C" {
+int func_00286160(char *);
+}
+
+extern "C" void func_0028A140(S28A140_A *a, S28A140_B *b, int c, int d) {
+    int n = func_00286160(b->unk4) - (int)b->unk4;
+    int h = D_00368A38_lui[0];
+    func_00119490(h, func_00119610(h, 5));
+    char *buf = (char *)func_0011A380(n);
+    func_001194B8(D_00368A38_lui[0]);
+    char *src = b->unk4;
+    char *dst = buf;
+    u32 i = 0;
+    while (i < (u32)n) {
+        *dst++ = *src++;
+        i++;
+    }
+    func_0028A020((int)a, b->unk0, (int)buf, c, d);
+    a->unk10 = buf;
+}
+
 
 extern "C" void func_0028A2A8(int a, int b, int c, int d) {
     func_0028A020(a, b, 0, c, d);
