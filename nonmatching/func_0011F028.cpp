@@ -79,15 +79,16 @@ int func_002F2578(int, int, int);
 extern S6_11F D_00368D88;
 }
 
+static inline bool Ge11F(int a, int b) { return a >= b; }
 extern "C" int func_0011F028(void* name_) {
     int name = (int)name_;
     char buf[0x100];
     if (func_0030A684(name, 0x3A)) {
         func_0030ADA0(buf, name, 0xFF);
     } else {
-        u16 b = D_00368D88.b;
-        *(int*)buf = D_00368D88.a;
-        *(u16*)(buf + 4) = b;
+        S6_11F* q = &D_00368D88;
+        *(S6_11F*)buf = *q;
+        u16 b = q->b;
         func_0030ADA0(buf + 5, name, 0xFA, b);
     }
     buf[0xFF] = 0;
@@ -99,12 +100,12 @@ extern "C" int func_0011F028(void* name_) {
         } while (*p);
     }
     int fd = func_002F2170(buf, 1);
-    if (fd >= 0) {
-        int r = func_002F2578(fd, 0, 2);
-        func_002F2400(fd);
-        return !(r < 0);
+    if (fd < 0) {
+        return 0;
     }
-    return 0;
+    int r = func_002F2578(fd, 0, 2);
+    func_002F2400(fd);
+    return Ge11F(r, 0);
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_11F000", func_0011F110);
