@@ -73,15 +73,27 @@ Replace the PS2 platform layer with portable backends while the game logic stays
 
 ## How to help
 
-Open an issue before starting, so work does not overlap with someone else's (human or agent).
+Open an issue before starting, so work does not overlap with someone else's.
 
-- **Decompile functions** (phase 1): needs your own disc image of the USA release and the toolchain
-  ([Building](README.md#building)); the loop and the rules are in [docs/decomp_guide.md](docs/decomp_guide.md).
-- **Names, types and structs** (phase 2): no compiling needed. Strings, QB scripts and a disassembler are enough;
-  proposed names go to [docs/worklog/names_pending.md](docs/worklog/names_pending.md) with the evidence for each.
-- **Tooling**: the open questions in [docs/toolchain.md](docs/toolchain.md) (compiler and assembler quirks that
-  block families of functions), the permuter setup, progress reporting.
-- **Formats** (phases 5 to 7): documenting the QB script format, archives, textures, models and audio of the PS2
+For now the code is written by AI agents, not by hand: at this stage it is compiler-shaped C++ with generated names,
+hard to follow and easy to break, and every function has to match byte for byte. Code contributions are welcome
+from your agents; by hand they are not, until phases 2 and 4 make the code readable.
+
+**With an AI agent** (needs your own disc image of the USA release and the toolchain, see
+[Building](README.md#building)):
+
+- Point the agent at [AGENTS.md](AGENTS.md): it follows the
+  [matching-decomp skill](https://github.com/Ketbome/decomp-skills), the worker protocol in
+  [docs/agent_protocol.md](docs/agent_protocol.md) and the rules in [docs/decomp_guide.md](docs/decomp_guide.md).
+  Ask in your issue for a range of files of your own.
+- Tooling: the open questions in [docs/toolchain.md](docs/toolchain.md) (compiler and assembler quirks that block
+  families of functions).
+
+**Without touching code:**
+
+- Names (phase 2): strings, QB scripts and a disassembler are enough. Post proposed names with the evidence for each
+  in an issue; they go through [docs/worklog/names_pending.md](docs/worklog/names_pending.md).
+- Formats (phases 5 to 7): documenting the QB script format, archives, textures, models and audio of the PS2
   version.
 
 What is ours here is public domain (CC0 1.0, see [LICENSE](LICENSE)); contributions are accepted under the same
