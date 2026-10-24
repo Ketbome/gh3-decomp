@@ -6,9 +6,10 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-23: A round 9 (round 8: 15/33), C idle (round 12: 5/40, yield dropping); B running on per-file `-funroll-loops` for t_1E95C0,
-t_1D00B0, t_225BF0, t_1D4540, t_1BB500 (forensics 5: the "short-loop padding" give-ups were unrolling; mtc1
-hazard at `.p2align` fixed in asm_filter.py, func_0013F258 given to A). Were stopped
+Resumed 2026-10-24: A round 9 (resumed after a rate limit), B round 7 (movz/cvt.w.s give-ups with the inline-reference
+pattern, then untried), C round 13 (retries with the new C-shape patterns, then untried), forensics 6 on `x >= 0`
+giving `nor`+`srl` where the original has `slti`+`xori` (blocks func_002441D0). B's unroll-files task is done
+(-funroll-loops added to 7 files). Were stopped
 mid-round on 2026-10-20: A round 8
 (had just started: func_001207A0 from the `dk protos` sweep, then the movn sentinel family), B retrying near misses
 blocked by kept register copies (forensics starting points in scratchpad/forensics3/x/), C round 10 (committed the
