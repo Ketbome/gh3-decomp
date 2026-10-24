@@ -83,7 +83,56 @@ extern f32 D_00370B08;
 extern f32 D_00370D18;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F3B8);
+extern "C" {
+extern signed char D_00370CC0[];
+int func_001150B8(signed char *);
+int func_0027D870(int, int, int *, int);
+int func_002763C0(u32, int);
+int func_0026F158(int, int *, int, int, int, int, int);
+int func_0026EED8(int, int, int *, int, int);
+int func_0027D400(int, u32, int *, int);
+void func_0027ABB0(int, int);
+}
+struct S26F3_K2 {
+    signed char a;
+    signed char b;
+};
+
+extern "C" int func_0026F3B8(int b0, int a1x) {
+    register int a0 asm("$20") = b0;
+    register int a1 asm("$22") = a1x;
+    int arr[26];
+    signed char k[2];
+    int tmp;
+    int n = 0;
+    *(S26F3_K2 *)k = *(S26F3_K2 *)D_00370CC0;
+    int *p = arr;
+    int i = 0;
+    do {
+        int key = func_001150B8(k);
+        tmp = 0;
+        int ok = func_0027D870(a0, key, &tmp, 0);
+        *p = tmp;
+        if (!ok) {
+            break;
+        }
+        k[0]++;
+        p++;
+        n++;
+        i++;
+    } while (i < 26);
+    int h = func_002763C0(0xC47133F3, 1);
+    int t2;
+    if (func_0026F158(h, arr, n, 0, 0, 0, a1) || (t2 = 0, func_0027D870(a0, 0x689FE07C, &t2, 0), func_0026EED8(t2, h, arr, n, a1))) {
+        int t3 = 0;
+        func_0027D400(a0, 0xB561F8FB, &t3, 0);
+        if (t3) {
+            func_0027ABB0(a1, t3);
+        }
+        return 1;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F568);
 
@@ -164,8 +213,9 @@ extern "C" int func_0026FAB8(S0026FAB8* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026FAC8);
 
-extern "C" void func_0026FAE0(int a, int b, f32 x, f32 y) {
-    S26F3B8_A *e = &D_003A8D40[a][b];
+extern "C" void func_0026FAE0(int a, int bx, f32 x, f32 y) {
+    register int b asm("$16") = bx;
+    S26F3B8_A *e = (S26F3B8_A *)((char *)D_003A8D40 + a * 0x1B8 + b * 0x14);
     if (e->unk10 != 0) {
         func_002733E0(e->unk10 - 1);
         return;
@@ -180,19 +230,23 @@ extern "C" void func_0026FAE0(int a, int b, f32 x, f32 y) {
     if (vy < 0) vy += 0x7FFF;
     if ((e->unkC >> 2) & 1) {
         b <<= 1;
-        b |= a;
-        s8 lo = e->unkE;
-        s8 hi = e->unkF;
+        b = a | b;
+        int lo = e->unkE;
+        int hi = e->unkF;
         func_00271198(0x8010, b, vx);
-        func_00271198(0x8010, b | 0x100, 0);
-        int k2 = lo | (hi << 1);
-        func_00271198(0x8010, k2, 0);
-        func_00271198(0x8010, k2 | 0x100, vy);
+        b |= 0x100;
+        func_00271198(0x8010, b, 0);
+        hi <<= 1;
+        lo |= hi;
+        func_00271198(0x8010, lo, 0);
+        lo |= 0x100;
+        func_00271198(0x8010, lo, vy);
     } else {
         b <<= 1;
-        b |= a;
+        b = a | b;
         func_00271198(0x8010, b, vx);
-        func_00271198(0x8010, b | 0x100, vy);
+        b |= 0x100;
+        func_00271198(0x8010, b, vy);
     }
 }
 
@@ -263,7 +317,16 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002700A0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00270340);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002704E0);
+extern "C" void func_002704E0(int a, int b, int c, int d) {
+    S26F3B8_A *o = &D_003A8D40[a][b];
+    S26F3B8_A *e = &D_003A8D40[c][d];
+    e->unkE = a;
+    e->unkF = b;
+    o->unkE = c;
+    o->unkF = d;
+    e->unkC |= 2;
+}
+
 
 extern "C" void func_00270540(int a, int b) {
     S26F3B8_A *e = &D_003A8D40[a][b];
@@ -416,4 +479,103 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_002711D0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00271228);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_00271280);
+struct S2712_Q {
+    char pad0[0x10];
+    int unk10;
+    s16 unk14;
+    s16 unk16;
+    int unk18;
+    int unk1C;
+    int unk20;
+    int unk24;
+    int unk28;
+    int unk2C;
+};
+
+struct S2712_A {
+    int unk0;
+    int unk4;
+    s16 unk8;
+    s16 unkA;
+    int unkC;
+    int unk10;
+};
+
+GP_DATA(D_00370D40);
+extern "C" {
+extern volatile int D_00373398;
+extern int D_003733B4;
+extern volatile int D_00370D40;
+extern S2712_Q D_004278B0[];
+extern char D_00358AA0[];
+extern char D_00358AD0[];
+int func_002EEA00(int);
+int func_002F0AB0(int, S2712_Q *, int, int, int, int);
+void func_002F0488(char *);
+void func_00271480(u16, void *);
+int func_002F3B80(void);
+int func_002F3BD0(void);
+}
+
+static inline int S2712_Next(int &c) {
+    int o = c;
+    c = o + 1;
+    return o;
+}
+
+extern "C" int func_00271280_r(u16 arg0, u16 arg1, S2712_A *arg2, int arg3, int arg4, int arg5, int *arg6) asm("func_00271280");
+
+extern "C" int func_00271280_r(u16 arg0, u16 arg1, S2712_A *arg2, int arg3, int arg4, int arg5, int *arg6) {
+    int t20 = arg0;
+    int t21 = arg1;
+    int sp0 = arg3;
+    int sp4 = arg4;
+    int sp8 = arg5;
+    if (t20 == 0x8030) {
+        func_00271480(t21, arg2);
+    }
+    int t23 = (D_00373398 + 1) % 32;
+    S2712_Q *q = &D_004278B0[D_00373398];
+    if (q->unk28 != 0) {
+        int n = 0;
+        while (func_002EEA00(q->unk28) >= 0) {
+            if (n++ % 1000 == 0) {
+                func_002F0488(D_00358AD0);
+            }
+        }
+    }
+    q->unk14 = t20;
+    if (t20 == 0x8130) {
+        q->unk16 = t21;
+        q->unk18 = arg2->unk4;
+        q->unk1C = (arg2->unk8 << 16) | arg2->unkA;
+        q->unk20 = arg2->unkC;
+        q->unk24 = arg2->unk10;
+    } else {
+        q->unk16 = t21;
+        q->unk18 = (int)arg2;
+        q->unk1C = sp0;
+        q->unk20 = sp4;
+        q->unk24 = sp8;
+    }
+    func_002F3B80();
+    int id = D_003733B4++;
+    func_002F3BD0();
+    q->unk10 = id;
+    if (arg6 != 0) {
+        *arg6 = id;
+    }
+    int m = 0;
+    D_00370D40 += 1;
+    q->unk2C = D_00370D40;
+    for (;;) {
+        int r = func_002F0AB0(3, q, 0x30, 0, 0, 0);
+        q->unk28 = r;
+        if (r != 0) break;
+        if (m++ % 1000 == 0) {
+            func_002F0488(D_00358AA0);
+        }
+    }
+    D_00373398 = t23;
+    return 1;
+}
