@@ -405,7 +405,8 @@ int *func_00223360(int, void *, int);
 int func_002A1918_5(int, int, int, int, int) asm("func_002A1918");
 }
 
-extern "C" int func_002A1AE0(int params, int s, int mode) {
+extern "C" int func_002A1AE0(int px, int s, int mode) {
+    register int params asm("$18") = px;
     int flag = 0;
     int sp8 = 0;
     int sp4 = 0;
@@ -415,7 +416,7 @@ extern "C" int func_002A1AE0(int params, int s, int mode) {
     if (flag) return 1;
     if (func_0027DCB8(params, 0x6C4E7971, &sp4, 0)) {
         u16 n = 0;
-        int i = 0;
+        register int i asm("$17") = 0;
         int *arr = func_00223360(sp4, &n, func_0027DF00(params, 0x80804991) ^ 1);
         if (n != 0) {
             int *p = arr;
@@ -644,7 +645,60 @@ extern "C" void func_002A2550(S2A2550_0 *arg0, s32 arg1, s32 arg2) {
     arg0->unk8 = 0;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A2568);
+struct S2A25_Ctx {
+    int id;
+    S2A2550_0 r;
+};
+
+extern "C" {
+int func_0027D870_c(int, int, int *, int) asm("func_0027D870");
+int func_0027D1F8_c(int, int, int *, int) asm("func_0027D1F8");
+int func_0027D188_c(int, int, int *, int) asm("func_0027D188");
+bool func_0027DF00(int, u32);
+void func_001D83D0(int, void *, void *);
+int *func_00223388(int, u16 *, int);
+extern int D_0036D3B0;
+}
+
+extern "C" int func_002A2568(int params, int unused, int mode) {
+    S2A25_Ctx ctx;
+    int sp28 = 0;
+    int sp2C;
+    int sp30;
+    if (mode == 5) {
+        int t = 0;
+        func_0027D870_c(params, 0, &t, 0);
+        sp28 = t;
+    } else {
+        func_0027D1F8_c(params, 0, &sp28, 0);
+    }
+    sp2C = 0;
+    if (!func_0027DF00(params, 0x2E7D5EE7)) {
+        func_0027DF00(params, 0xBCEB479A);
+    }
+    if (func_0027D870_c(params, 0xA1DC81F9, &sp2C, 0)) {
+        ctx.id = sp2C;
+        func_002A2550(&ctx.r, sp28, mode);
+        func_001D83D0(D_0036D3B0, (void *)func_002A2200, &ctx);
+        return ctx.r.unk8;
+    }
+    if (func_0027D188_c(params, 0x6C4E7971, &sp30, 0)) {
+        u16 n = 0;
+        int *arr = func_00223388(sp30, &n, 1);
+        int i = 0;
+        func_002A2550(&ctx.r, sp28, mode);
+        if (n) {
+            do {
+                ctx.id = *arr;
+                func_001D83D0(D_0036D3B0, (void *)func_002A2230, &ctx);
+                i++;
+                arr++;
+            } while (i < n);
+        }
+        return ctx.r.unk8;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2A12B0", func_002A26F0);
 
