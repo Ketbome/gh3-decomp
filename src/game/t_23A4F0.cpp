@@ -12,7 +12,31 @@ INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A720);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A758);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A858);
+extern "C" int func_0023A858(f32* out, f32 a, f32 b, f32 c, f32 d, f32 e, f32 f, f32 g, f32 h) {
+    f32 nc = -d;
+    f32 x = a - e;
+    f32 y = b - f;
+    f32 den = g * nc + h * c;
+    f32 n1 = x * -h + y * g;
+    f32 n2 = x * nc + y * c;
+    register f32 z1 asm("$f1") = 0.0f;
+    if (z1 < den) {
+        if (n1 < z1 || den < n1) return 0;
+    } else {
+        if (z1 < n1 || n1 < den) return 0;
+    }
+    if (den > 0.0f) {
+        if (n2 < 0.0f || den < n2) return 0;
+    } else {
+        if (n2 > 0.0f || n2 < den) return 0;
+    }
+    if (__builtin_fabsf(den) < 1e-11f) {
+        *out = 0.0f;
+        return 1;
+    }
+    *out = n1 / den;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_23A4F0", func_0023A988);
 
