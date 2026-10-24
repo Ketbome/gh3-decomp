@@ -102,7 +102,78 @@ extern "C" void* func_0021C318(void* self) {
     return p;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21BA08", func_0021C3A8);
+struct N21C { N21C* prev; N21C* next; void* obj; };
+struct It21C { s32 pad; N21C* n; };
+
+extern "C" {
+void Heap_Free(s32 h, void* p);
+void func_001D0F90(void* p, s32 a);
+void func_0021BA08(void* p, s32 a);
+extern s32 D_00368A38;
+}
+
+extern "C" void func_0021C3A8(char* p, s32 a) {
+    It21C cur, end, nxt, c34, c44;
+    N21C* s = (N21C*)(p + 0x20);
+    s32 n = 0;
+    *(void**)(p + 0x18) = D_00351888;
+    cur.n = *(N21C**)(p + 0x24);
+    end.n = s;
+    nxt.n = cur.n;
+    if (cur.n != s) {
+        do {
+            n++;
+            nxt.n = nxt.n->next;
+        } while (nxt.n != s);
+    }
+    char* h = p + 0x1C;
+    N21C* s2 = (N21C*)(h + 4);
+    if (n != 0) {
+        cur.n = *(N21C**)(h + 8);
+        end.n = s2;
+        if (cur.n != s2) {
+            N21C* e = (N21C*)(p + 0x20);
+            asm("" : "+r"(e));
+            do {
+                if (cur.n->obj != 0) {
+                    func_0021BA08(cur.n->obj, 3);
+                    cur.n->obj = 0;
+                }
+                N21C* x = cur.n;
+                nxt.n = x;
+                c44.n = x;
+                nxt.n = x->next;
+                c34.n = x;
+                x->prev->next = x->next;
+                x->next->prev = x->prev;
+                Heap_Free(D_00368A38, x);
+                end.n = e;
+                cur.n = nxt.n;
+            } while (nxt.n != e);
+        }
+        N21C* q = *(N21C**)(h + 8);
+        *(N21C**)(h + 8) = s2;
+        *(N21C**)(h + 4) = s2;
+        if (q != s2) {
+            do {
+                N21C* t = q->next;
+                Heap_Free(D_00368A38, q);
+                q = t;
+            } while (q != (N21C*)(h + 4));
+        }
+    }
+    N21C* q = *(N21C**)(h + 8);
+    *(N21C**)(h + 8) = s2;
+    *(N21C**)(h + 4) = s2;
+    if (q != s2) {
+        do {
+            N21C* t = q->next;
+            Heap_Free(D_00368A38, q);
+            q = t;
+        } while (q != (N21C*)(h + 4));
+    }
+    func_001D0F90(p, a);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21BA08", func_0021C530);
 
