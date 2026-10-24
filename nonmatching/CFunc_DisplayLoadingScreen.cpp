@@ -430,7 +430,7 @@ extern char D_00355B28[];
 void func_0014F150(void);
 void func_00157318(char *, int);
 void func_00157378(f32);
-void func_001573B8(int);
+void func_001573B8();
 int func_0027D268(int, u32, void *, int);
 }
 
@@ -452,7 +452,7 @@ extern "C" int CFunc_DisplayLoadingScreen(int params) {
     if (func_0027DF00(params, 0xB468B98B)) flags |= 0x10;
     if (func_0027DF00(params, 0x32C96390)) flags |= 0x20;
     if (!func_0027DF00(params, 0xB671EC87)) func_00157318(name, flags);
-    if (func_0027DF00(params, 0x1F5CBB2A)) func_001573B8(params);
+    if (func_0027DF00(params, 0x1F5CBB2A)) func_001573B8();
     f32 v;
     if (func_0027D268(params, 0, &v, 0)) func_00157378(v);
     return 1;
