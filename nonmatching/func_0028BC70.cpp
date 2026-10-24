@@ -110,7 +110,11 @@ struct S28AB_Tab {
 extern "C" {
 extern S28AB_Ctx *D_0036F658;
 extern int D_00372580;
-void func_001C8258(int);
+int func_001C8258(int);
+int func_00296AF0(void *);
+int func_0027FAC8(int, void *, int, int, int);
+int func_001CA020(int, int);
+void func_0029D238(int, void *, int, int);
 void *func_001D1CF8(void *, u32);
 u8 *func_00283A08(u8 *);
 void func_0028B840(S28AB_Scr *);
@@ -355,7 +359,7 @@ extern "C" void func_0028BC70(S28BC_O *o) {
         *o->unk3C = o->unk28;
         o->unk24 = o->unk3C;
         for (int i = 0; i < o->unk40; i++) {
-            S28BC_I *it = (S28BC_I *)((char *)o->unkA4 + i * 0x30);
+            S28BC_I *it = (S28BC_I *)((int)(i * 0x30) + (int)o->unkA4);
             if (it->unk10) {
                 it->unk10 = (char *)o->unk3C + (it->unk10 - 0x28 - (char *)o);
             }
@@ -367,12 +371,13 @@ extern "C" void func_0028BC70(S28BC_O *o) {
     } else {
         p = o->unk3C;
     }
-    o->unk24 = p;
-    o->unk24->unk0 = o->unk14;
-    o->unk24->unk4 = 0;
-    o->unk24->unk8 = 0;
-    o->unk24->unkC = 1;
-    o->unk24->unk10 = 0;
+    S28BC_E *volatile *vp = (S28BC_E *volatile *)&o->unk24;
+    *vp = p;
+    (*vp)->unk0 = o->unk14;
+    (*vp)->unk4 = 0;
+    (*vp)->unk8 = 0;
+    (*vp)->unkC = 1;
+    (*vp)->unk10 = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028BDA8);
@@ -489,7 +494,47 @@ extern "C" int func_0028C8D0(S0028C8D0* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C8F0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_28AB28", func_0028C8F8);
+struct S28C8_Obj {
+    char pad0[0x2C];
+    int unk2C;
+};
+
+struct S28C8_Pk {
+    int unk0;
+    int unk4;
+    char data[0x408];
+    u8 hdrType;
+    char pad411;
+    s16 hdrLen;
+    void *hdrData;
+    char pad418[4];
+    int hdrC;
+    u8 hdr10;
+    char pad421[0x1F];
+};
+
+extern "C" void func_0028C8F8(int a, int b, S28C8_Obj *obj) {
+    S28C8_Pk l;
+    int g = D_00372580;
+    if (func_001C8258(g)) {
+        func_00296AF0(&l.hdrType);
+        l.unk4 = -1;
+        l.unk0 = a;
+        if (obj)
+            l.unk4 = obj->unk2C;
+        int n = func_0027FAC8(b, l.data, 0x400, 1, 0);
+        int h = func_001CA020(g, 0);
+        l.hdrLen = n + 8;
+        l.hdrType = 0x4C;
+        int two = 2;
+        int eight = 8;
+        l.hdrC = two;
+        l.hdr10 = eight;
+        l.hdrData = &l;
+        func_0029D238(h, &l.hdrType, two, eight);
+    }
+}
+
 
 extern "C" void func_0028C9D0(void) {
     func_0028C9F0();
