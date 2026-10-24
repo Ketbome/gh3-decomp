@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -63,7 +64,47 @@ extern "C" void func_0026AEF8(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AF28);
+struct S26AF_Ob {
+    char pad0[0x1C];
+    int items[3];
+};
+struct S26AF_E {
+    char pad0[4];
+    int unk4;
+    char pad8[0x14];
+    S26AF_Ob *unk1C;
+    int unk20;
+    char pad24[0x5C];
+};
+struct S26AF_Q {
+    S26AF_Ob *ob;
+    int idx;
+    char pad8[0x78];
+};
+extern "C" {
+extern S26AF_E D_003A44B0_af[] asm("D_003A44B0");
+extern S26AF_E D_003A44B0_ag[] asm("D_003A44B0");
+void func_00273B48(int, int);
+}
+
+extern "C" void func_0026AF28(int arg) {
+    if (func_0026ABB0() == 0) {
+        int idx = func_0026AD48(arg, 1);
+        if (idx >= 0) {
+            func_00273B48(idx, 1);
+            arg = D_003A44B0_af[idx].unk4;
+        }
+        for (int i = 0; i < D_00372E98; i++) {
+            S26AF_E *b = D_003A44B0_ag;
+            S26AF_Q *e = &((S26AF_Q *)&b->unk1C)[i];
+            if (e->ob && e->ob->items[e->idx] == arg) {
+                e->ob->items[e->idx] = 0;
+                e->ob = 0;
+                return;
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B150);
 
