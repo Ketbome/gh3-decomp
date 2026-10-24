@@ -77,7 +77,46 @@ INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C330);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010C428);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CA50);
+extern "C" {
+float func_002EC10C_v(void) __asm__("func_002EC10C");
+float func_002EC118_v(float) __asm__("func_002EC118");
+}
+
+extern "C" float* func_0010CA50(float* m, float a, float b, float c) {
+    float f23 = func_002EC118_v(a);
+    float f22 = func_002EC10C_v();
+    float f24 = func_002EC118_v(b);
+    float f21 = func_002EC10C_v();
+    float f20 = func_002EC118_v(c);
+    float f0 = func_002EC10C_v();
+    float* p3 = m + 8;
+    float f2 = f22 * f21;
+    m[2] = -f21;
+    m[0] = f24 * f20;
+    float* p5 = m + 4;
+    float f4 = f23 * f21;
+    float f3 = -f4 * f0;
+    float f6 = -f24 * f0;
+    m[1] = f6;
+    float f2b = f2 * f0;
+    float f1 = (-f2 * f20) + (f23 * f0);
+    m[4] = f1;
+    float f9 = f22 * f0;
+    p5[2] = -f22 * f24;
+    float* p4 = m + 12;
+    p5[1] = f2b + (f23 * f20);
+    m[8] = (f4 * f20) + f9;
+    p3[1] = f3 + (f22 * f20);
+    p3[2] = f23 * f24;
+    m[3] = 0;
+    p5[3] = 0;
+    p3[3] = 0;
+    m[12] = 0;
+    p4[1] = 0;
+    p4[2] = 0;
+    p4[3] = 1.0f;
+    return m;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_10C000", func_0010CB90);
 
