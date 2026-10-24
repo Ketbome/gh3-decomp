@@ -351,7 +351,65 @@ void func_0027E820(S25A_Arr *, int);
 void func_0027ACF8(int, u32);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_Pop);
+extern "C" int CFunc_Pop(int params, S25A_Script *script) {
+    S25A_PL l;
+    func_0027D870(params, 0, &l.key, 1);
+    l.a = 0;
+    func_0027D400(script->unk20, D_00372E70, &l.a, 1);
+    l.obj = 0;
+    func_0027D470(l.a, l.key, &l.obj, 1);
+    int n = l.obj->unk4 - 1;
+    switch (l.obj->type) {
+    case 1: {
+        int s = script->unk20;
+        u32 k = l.key;
+        int v = l.obj->unk4 == 1 ? l.obj->unk8 : ((int *)l.obj->unk8)[n];
+        func_0027C160(s, k, v);
+        break;
+    }
+    case 2: {
+        register int s asm("$17") = script->unk20;
+        register u32 k asm("$16") = l.key;
+        func_0027C1F8(s, k, func_0027EFA0(l.obj, n));
+        break;
+    }
+    case 13: {
+        int s = script->unk20;
+        u32 k = l.key;
+        int v = l.obj->unk4 == 1 ? l.obj->unk8 : ((int *)l.obj->unk8)[n];
+        func_0027C448(s, k, v);
+        break;
+    }
+    case 3: {
+        register int s asm("$17") = script->unk20;
+        register u32 k asm("$16") = l.key;
+        func_0027C028(s, k, func_0027EF60(l.obj, n));
+        break;
+    }
+    case 10: {
+        int s = script->unk20;
+        u32 k = l.key;
+        int v = l.obj->unk4 == 1 ? l.obj->unk8 : ((int *)l.obj->unk8)[n];
+        func_0027C7D0(s, k, v);
+        break;
+    }
+    case 12: {
+        int s = script->unk20;
+        u32 k = l.key;
+        int v = l.obj->unk4 == 1 ? l.obj->unk8 : ((int *)l.obj->unk8)[n];
+        func_0027C678(s, k, v);
+        break;
+    }
+    }
+    if (n) {
+        func_002797A8(l.obj, n);
+        func_0027E820(l.obj, n);
+    } else {
+        func_0027ACF8(l.a, l.key);
+        if (((S25A_Arr *)l.a)->unk4 == 0) func_0027ACF8(script->unk20, D_00372E70);
+    }
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_25A428", CFunc_CanPop);
 
