@@ -93,11 +93,24 @@ void func_0026DFE8(S0026DFE8 *);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D280);
 
+struct S26D4_Ob {
+    char pad0[0x1C];
+    int items[3];
+};
+struct S26D4_Q {
+    S26D4_Ob *ob;
+    int idx;
+    char pad8[0x78];
+};
+struct S26D4_V {
+    int v;
+    char pad4[0x7C];
+};
 struct S26D4_R {
     char pad0[0x10];
     int unk10;
     char pad14[8];
-    int unk1C;
+    S26D4_Ob *unk1C;
     int unk20;
     char pad24[0x14];
     int unk38;
@@ -106,6 +119,7 @@ struct S26D4_R {
 
 extern "C" {
 extern S26D4_R D_003A44B0_r[] asm("D_003A44B0");
+extern S26D4_R D_003A44B0_s[] asm("D_003A44B0");
 extern int D_00372E98;
 extern int D_00370C2C;
 extern float D_00370C1C_f asm("D_00370C1C");
@@ -126,7 +140,56 @@ GP_DATA(D_00370C50);
 GP_DATA(D_00370C1C);
 GP_DATA(D_00370C34);
 GP_DATA(D_00370C24);
-INCLUDE_ASM("asm/nonmatchings/game/t_26D280", func_0026D480);
+extern "C" void func_0026D480(int a) {
+    int r = func_00272F70();
+    if (r != 0) {
+        if (r < 0) {
+            func_0026AEA8(-1);
+            func_0026AE70();
+        } else {
+            func_0026AEA8(-1);
+        }
+    }
+    D_00370C2C += 1;
+    if (a == 0) {
+        int i = 0;
+        if (a < D_00372E98) {
+            do {
+                S26D4_R *b = D_003A44B0_s;
+                S26D4_Q *e = &((S26D4_Q *)&b->unk1C)[i];
+                if (e->ob != 0 && func_0026C3D8(i) == 0) {
+                    e->ob->items[e->idx] = 0;
+                    e->ob = 0;
+                }
+                i++;
+            } while (i < D_00372E98);
+        }
+    }
+    int j = 0;
+    if (D_00372E98 > 0) {
+        do {
+            S26D4_R *b = D_003A44B0_s;
+            S26D4_V *e = &((S26D4_V *)&b->unk38)[j];
+            if (e->v != 0 && func_0026DC68(*((int *)e - 10)) == 1) {
+                func_0026E190((int *)e->v);
+                e->v = 0;
+            }
+            j++;
+        } while (j < D_00372E98);
+    }
+    if (D_00370C50 < 0) func_0026BD80();
+    if (a == 0 && (D_00370C2C & 0x3F) == 0) {
+        if (D_00370C1C_f != 0.0f || D_00370C18 == 1) {
+            if (D_00370C34 == 0) {
+                if (D_00370C24 != 0 || D_00370C18 == 1) {
+                    func_0026CD30();
+                } else {
+                    func_0026D280();
+                }
+            }
+        }
+    }
+}
 
 extern "C" void func_0026D660(u64* a, u64* b) {
     *a = D_003A66F0.unkC88;
