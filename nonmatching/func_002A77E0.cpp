@@ -105,9 +105,10 @@ void *func_0011C3A8_h(int) asm("func_0011C3A8");
 S2A77_HN *func_002AE0A0(void *);
 }
 
-extern "C" void func_002A77E0(S2A77_Arr *a, int key) {
+extern "C" void func_002A77E0(S2A77_Arr *a, int kx) {
+    register int key asm("$20") = kx;
     S2A77_Heap *h = D_00368A38_h;
-    u32 i = 0;
+    register u32 i asm("$17") = 0;
     func_00119490(h, func_00119730(h, 0x478BA755, 1));
     func_0011AD80(func_00119500(D_00368A38_h), 0x10);
     D_00368A38_h->unk188 = 0;
