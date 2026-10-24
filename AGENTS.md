@@ -55,7 +55,7 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
   push if identical
 - `ninja`: build and compare (`build/SLUS_216.72.ok` only when byte-identical)
 - `dk state` / `dk rescue [--commit]`: recovery report / revert non-matching work in progress after an interruption
-- `dk next <files> --untried [--max-size N]`: functions still in INCLUDE_ASM nobody tried, smallest first
+- `dk next <files> --untried [--max-size N] [--min-size N]`: functions still in INCLUDE_ASM nobody tried, smallest first
 - `dk show <func>`: asm + m2c draft; `dk try <file> <func>`: GP_DATA + compare (no link, safe in parallel)
 - `dk revert <file> <func>`; `dk done <file> <worklog> <msg>`: padding, full file check, commit
 - `dk twins [--list] [files]`: decompile functions identical to an already matched one

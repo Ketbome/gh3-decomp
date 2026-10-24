@@ -5,7 +5,7 @@ decompilation (splat-style layout: one .s per function, C/C++ sources with INCLU
 Configured by a `decomp.toml` at the project root (see templates/decomp.toml). Commands:
 
   dk show <func> [--no-m2c]           original assembly (compact) + an m2c draft + where the function lives
-  dk next <src...> [--max-size N] [--untried]
+  dk next <src...> [--min-size N] [--max-size N] [--untried]
                                       functions still in INCLUDE_ASM, smallest first, with flags (jtbl, vu0:N%, ...);
                                       --untried leaves out functions named in a worklog or saved as a near miss
   dk check <src> <func...> | --all    compile <src> privately and compare functions with the original bytes;
@@ -454,7 +454,11 @@ def tried_functions():
 
 
 def cmd_next(args):
-    max_size = 1 << 32
+    min_size, max_size = 0, 1 << 32
+    if "--min-size" in args:
+        k = args.index("--min-size")
+        min_size = int(args[k + 1], 0)
+        args = args[:k] + args[k + 2:]
     if "--max-size" in args:
         k = args.index("--max-size")
         max_size = int(args[k + 1], 0)
@@ -475,7 +479,7 @@ def cmd_next(args):
                 if not path:
                     continue
             start, size, insns, _ = parse_asm(path)
-            if size > max_size:
+            if not min_size <= size <= max_size:
                 continue
             text = path.read_text()
             flags = []
@@ -935,9 +939,24 @@ COMMANDS = {"show": cmd_show, "next": cmd_next, "check": cmd_check, "try": cmd_t
             "docs": cmd_docs}
 
 
+def usage(cmd):
+    lines, keep = [], False
+    for line in __doc__.splitlines():
+        if line.startswith("  dk "):
+            keep = line.split()[1] == cmd
+        elif not line.startswith("     "):
+            keep = False
+        if keep:
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def main():
     if len(sys.argv) < 2 or sys.argv[1] not in COMMANDS:
         sys.exit(__doc__)
+    if {"-h", "--help"} & set(sys.argv[2:]):
+        print(usage(sys.argv[1]))
+        return
     COMMANDS[sys.argv[1]](sys.argv[2:])
 
 

@@ -9,7 +9,7 @@ Your worklog: read only the notes at its top (before the first `## ` file sectio
 
 ## Per function
 
-1. Pick: `dk next <your files> --untried [--max-size 0x400]` (smallest first, leaves out every function a worklog
+1. Pick: `dk next <your files> --untried [--max-size 0x400] [--min-size N]` (smallest first, leaves out every function a worklog
    mentions or `nonmatching/` holds; flags: `jtbl` switch, `vu0:N%` VU0 share, `fragment?`). Without `--untried`
    only when your focus is retrying give-ups that a toolchain fix unblocked.
 2. Look: `dk show <func>` prints the file, the original assembly and an m2c draft.
