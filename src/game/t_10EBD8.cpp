@@ -139,6 +139,8 @@ extern "C" void func_0010FE60(int op, int* x, int unused, int* y) {
     }
 }
 
+INCLUDE_ASM("asm/nonmatchings/game/t_10EBD8", func_0010FED0);
+
 struct V16_10E { u128_10E q; V16_10E() {} };
 struct FA16_10E { V16_10E* unk0; u32 unk4; u32 unk8; };
 struct FA4_10E { float* unk0; u32 unk4; u32 unk8; };
