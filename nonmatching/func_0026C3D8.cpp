@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 extern "C" {
@@ -63,7 +64,47 @@ extern "C" void func_0026AEF8(void) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026AF28);
+struct S26AF_Ob {
+    char pad0[0x1C];
+    int items[3];
+};
+struct S26AF_E {
+    char pad0[4];
+    int unk4;
+    char pad8[0x14];
+    S26AF_Ob *unk1C;
+    int unk20;
+    char pad24[0x5C];
+};
+struct S26AF_Q {
+    S26AF_Ob *ob;
+    int idx;
+    char pad8[0x78];
+};
+extern "C" {
+extern S26AF_E D_003A44B0_af[] asm("D_003A44B0");
+extern S26AF_E D_003A44B0_ag[] asm("D_003A44B0");
+void func_00273B48(int, int);
+}
+
+extern "C" void func_0026AF28(int arg) {
+    if (func_0026ABB0() == 0) {
+        int idx = func_0026AD48(arg, 1);
+        if (idx >= 0) {
+            func_00273B48(idx, 1);
+            arg = D_003A44B0_af[idx].unk4;
+        }
+        for (int i = 0; i < D_00372E98; i++) {
+            S26AF_E *b = D_003A44B0_ag;
+            S26AF_Q *e = &((S26AF_Q *)&b->unk1C)[i];
+            if (e->ob && e->ob->items[e->idx] == arg) {
+                e->ob->items[e->idx] = 0;
+                e->ob = 0;
+                return;
+            }
+        }
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B150);
 
@@ -122,7 +163,56 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B770);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BA48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BBA8);
+struct S26BB_E {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    char pad10[8];
+    int unk18;
+    char pad1C[8];
+    int unk24;
+    int unk28;
+    int unk2C;
+    char pad30[0xC];
+    int unk3C;
+    int unk40;
+    char pad44[0x3C];
+};
+extern "C" {
+extern S26BB_E D_003A44B0_bb[] asm("D_003A44B0");
+extern int D_00370C10_bb asm("D_00370C10");
+int func_0026B628_bb(int, int, int, int) __asm__("func_0026B628");
+int func_0026BCB0_bb(int, int, int) __asm__("func_0026BCB0");
+int func_0026BCA0(void);
+}
+
+GP_DATA(D_00370C50);
+GP_DATA(D_00370C10);
+extern "C" int func_0026BBA8(int ax, int bx, int cx, int dx) {
+    register int a asm("$16") = ax;
+    register int d asm("$17") = dx;
+    register int b asm("$18") = bx;
+    register int c asm("$19") = cx;
+    int i;
+    if (func_0026BCA0() != 0) goto fail;
+    i = func_0026B628_bb(a, b, c, d);
+    if (i == -1) {
+    fail:
+        return func_0026BCB0_bb(a, b, c);
+    }
+    D_003A44B0_bb[i].unkC = 0;
+    D_003A44B0_bb[i].unk8 = 0;
+    D_003A44B0_bb[i].unk28 = 0;
+    D_003A44B0_bb[i].unk2C = 1;
+    D_003A44B0_bb[i].unk24 = 0;
+    D_00370C10_bb = i;
+    D_003A44B0_bb[i].unk3C = D_003A44B0_bb[i].unk0;
+    D_003A44B0_bb[i].unk40 = 0;
+    D_00370C50 = i;
+    D_003A44B0_bb[i].unk18 |= 4;
+    return D_003A44B0_bb[i].unk4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BC98);
 
@@ -141,7 +231,96 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BDF8);
 GP_DATA(D_00370C10);
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BE00);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BEA8);
+typedef unsigned int u128_26B __attribute__((mode(TI)));
+
+struct S26BE_Ob {
+    char pad0[0xC];
+    int unkC;
+    char pad10[0xC];
+    int items[3];
+};
+struct S26BE_E {
+    char pad0[8];
+    f32 unk8;
+    f32 unkC;
+    char pad10[8];
+    u32 unk18;
+    S26BE_Ob *unk1C;
+    int unk20;
+    char pad24[0x10];
+    int unk34;
+    char pad38[0x48];
+};
+struct S26BE_O1 {
+    f32 a;
+    f32 b;
+    char pad[0x18];
+};
+
+extern "C" {
+extern S26BE_E D_003A44B0_f[] asm("D_003A44B0");
+extern int D_00370C10_f asm("D_00370C10");
+extern int D_00370AE0_f asm("D_00370AE0");
+int func_0026ABB0_f(void) __asm__("func_0026ABB0");
+int func_00267628_f(int) __asm__("func_00267628");
+void func_00266898_f(void *) __asm__("func_00266898");
+void func_00266BE8_f(void *) __asm__("func_00266BE8");
+void func_002668F8_f(void *, int) __asm__("func_002668F8");
+int func_0015D5C0_f(int, int) __asm__("func_0015D5C0");
+int func_001FC030_f(void *, int, char *) __asm__("func_001FC030");
+u128_26B func_001FBFD0_f(void *, int) __asm__("func_001FBFD0");
+void func_002687F0_f(int, void *, u128_26B *, f32, int, int, int, char *) __asm__("func_002687F0");
+int func_0026BE00_f(f32, int, void *, int, int) __asm__("func_0026BE00");
+}
+
+extern "C" int func_0026BEA8(S26BE_Ob *obj, int a1, int a2, int a3, int a4, f32 fa, f32 fb, f32 fc) {
+    S26BE_O1 o1;
+    char buf[0x10];
+    u128_26B v;
+    int res;
+    if (func_0026ABB0_f() != 0) return 0;
+    int o = D_00370AE0_f;
+    if (func_00267628_f(o) != 0) return 0;
+    int flag = a3 & 1;
+    func_00266898_f(&o1);
+    func_00266BE8_f(&o1);
+    if (flag) {
+        int r = func_0015D5C0_f(obj->unkC + 0x80, 0);
+        if (r) {
+            char *q = func_001FC030_f(obj, r, buf) ? buf : 0;
+            v = func_001FBFD0_f(obj, r);
+            func_002687F0_f(o, &o1, &v, fa, a4, 0, r, q);
+        } else {
+            func_00266BE8_f(&o1);
+        }
+    } else {
+        o1.b = o1.a = fb;
+    }
+    res = func_0026BE00_f(fc, a1, &o1, a2, a3);
+    if (res) {
+        S26BE_E *e = &D_003A44B0_f[D_00370C10_f];
+        if (e->unk1C) e->unk1C->items[e->unk20] = 0;
+        e->unk1C = obj;
+        for (int i = 0; i < 3; i++) {
+            if (obj->items[i] == 0) {
+                obj->items[i] = a1;
+                e->unk20 = i;
+                break;
+            }
+        }
+        if (fb != 0.0f) e->unk8 = e->unk8 * fb * 0.01f;
+        if (flag) {
+            e->unkC = fa;
+            e->unk34 = a4;
+            e->unk18 |= 1;
+        } else {
+            e->unk18 &= 0xFFFFFFFE;
+        }
+    }
+    int ok = res != 0;
+    func_002668F8_f(&o1, 2);
+    return ok;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026C110);
 
@@ -220,6 +399,8 @@ typedef unsigned int u128_26C __attribute__((mode(TI)));
 struct S26C3_Ob {
     char pad0[0xC];
     int unkC;
+    char pad10[0xC];
+    int items[3];
 };
 struct S26C3_E {
     char pad0[4];
@@ -249,7 +430,7 @@ void func_002668F8_c(void *, int) __asm__("func_002668F8");
 void func_00266928_c(void *, f32, f32) __asm__("func_00266928");
 void func_00273298_c(int, f32, f32) __asm__("func_00273298");
 int func_0026DC68_c(int, int, int *, S26C3_E *, int *, int) __asm__("func_0026DC68");
-void func_002687F0_c(int, void *, u128_26C *, int, int, int, char *, f32) __asm__("func_002687F0");
+void func_002687F0_c(int, void *, u128_26C *, f32, int, int, int, char *) __asm__("func_002687F0");
 int func_0015D5C0_c(int, int) __asm__("func_0015D5C0");
 int func_001FC030_c(void *, int, char *) __asm__("func_001FC030");
 u128_26C func_001FBFD0_c(void *, int) __asm__("func_001FBFD0");
@@ -265,8 +446,8 @@ extern "C" int func_0026C3D8(int arg) {
         S26C3_Ob *ob = e->unk1C;
         i = 0;
         if (D_00372E98 > 0) {
-            int *tp = (int *)((char *)ob + 0x1C) + e->unk20;
-            int *p10 = &e->unk10;
+            int *tp = &ob->items[e->unk20];
+            int *p10 = &D_003A44B0_e[arg].unk10;
             for (; i < D_00372E98; i++) {
                 if (D_003A44B0_e[i].unk4 == *tp) {
                     S26C3_E *ce = &D_003A44B0_e[i];
@@ -278,12 +459,12 @@ extern "C" int func_0026C3D8(int arg) {
                             if (r) {
                                 char *q = func_001FC030_c(ob, r, buf) ? buf : 0;
                                 v = func_001FBFD0_c(ob, r);
-                                func_002687F0_c(o, &o1, &v, ce->unk34, 0, r, q, ce->unkC);
+                                func_002687F0_c(o, &o1, &v, ce->unkC, ce->unk34, 0, r, q);
                             } else {
                                 func_00266BE8_c(&o1);
                             }
                         } else {
-                            o1.a = o1.b = ce->unk8;
+                            o1.b = o1.a = ce->unk8;
                         }
                         if (ce->unk8 != 100.0f) func_00266928_c(&o1, ce->unk8, o1.b);
                         func_00273298_c(ce->unk10, o1.a, o1.b);
