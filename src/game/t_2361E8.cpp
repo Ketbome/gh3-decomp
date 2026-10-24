@@ -34,7 +34,90 @@ extern "C" int CFunc_UpdatePakManVisibility(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236210);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2361E8", func_00236520);
+struct E236 {
+    char pad0[0x80];
+    s32 unk80;
+    char pad84[4];
+    s32 unk88;
+    char pad8C[0xC];
+    s32 unk98;
+    char pad9C[0x8E];
+    u8 unk12A;
+};
+
+struct Sub236 {
+    char pad0[0xC];
+    s32 count;
+};
+
+struct C236 {
+    s32 unk0;
+    E236* unk4;
+    Sub236 sub;
+};
+
+extern "C" {
+extern s32 D_0036FD2C;
+void* func_00233CA8_c(s32 a, s32 b) __asm__("func_00233CA8");
+E236* func_0023A4F8(void* p, s32 i);
+s32 func_0028D558(u32 k);
+s32 func_001287F0(s32 a, s32 b);
+s32 func_0027AA70(s32 p);
+void func_0027C448(s32 o, u32 k, s32 v);
+void func_0028D1D8(u32 k, s32 o, s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g, s32 h);
+void func_0027AC90(s32 o);
+void func_00113250(s32 o);
+void func_002350B0(void* p, s32 v);
+void func_00234CB8(void);
+}
+
+GP_DATA(D_0036FD2C);
+extern "C" void func_00236520(void* unused, s32 id) {
+    if (D_0036FD2C != 0) {
+        s32 t = func_00233C50();
+        if (t != 0) {
+            C236* c = (C236*)func_00233CA8_c(t, 0);
+            s32 i = 0;
+            E236* found = 0;
+            Sub236* sub0 = &c->sub;
+            E236* first = c->unk4;
+            if (i < sub0->count) {
+                Sub236* sub = sub0;
+                asm("" : "+r"(sub));
+                do {
+                    E236* e = func_0023A4F8(sub, i);
+                    if (e->unk12A != 0) {
+                        found = (e->unk98 ^ id) == 0 ? e : found;
+                    }
+                    i++;
+                } while (i < sub->count);
+            }
+            s32 v = c->unk0;
+            if ((v != 0 || found != first) && found != 0 && found->unk80 != v) {
+                if (func_0028D558(0xE238C13D) != 0) {
+                    s32 o = func_0027AA70(func_001287F0(8, 1));
+                    s32 w = found->unk88;
+                    if (w != 0) {
+                        func_0027C448(o, 0x65629C05, w);
+                    }
+                    if (first != 0) {
+                        s32 w2 = first->unk88;
+                        if (w2 != 0) {
+                            func_0027C448(o, 0x0E48C649, w2);
+                        }
+                    }
+                    func_0028D1D8(0xE238C13D, o, 0, 0, 0, 0, 0, 0, 0, 0);
+                    if (o != 0) {
+                        func_0027AC90(o);
+                        func_00113250(o);
+                    }
+                }
+                func_002350B0(c, found->unk80);
+                func_00234CB8();
+            }
+        }
+    }
+}
 
 extern "C" void func_002366C8(void) {
 }
