@@ -163,7 +163,56 @@ INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026B770);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BA48);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BBA8);
+struct S26BB_E {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    char pad10[8];
+    int unk18;
+    char pad1C[8];
+    int unk24;
+    int unk28;
+    int unk2C;
+    char pad30[0xC];
+    int unk3C;
+    int unk40;
+    char pad44[0x3C];
+};
+extern "C" {
+extern S26BB_E D_003A44B0_bb[] asm("D_003A44B0");
+extern int D_00370C10_bb asm("D_00370C10");
+int func_0026B628_bb(int, int, int, int) __asm__("func_0026B628");
+int func_0026BCB0_bb(int, int, int) __asm__("func_0026BCB0");
+int func_0026BCA0(void);
+}
+
+GP_DATA(D_00370C50);
+GP_DATA(D_00370C10);
+extern "C" int func_0026BBA8(int ax, int bx, int cx, int dx) {
+    register int a asm("$16") = ax;
+    register int d asm("$17") = dx;
+    register int b asm("$18") = bx;
+    register int c asm("$19") = cx;
+    int i;
+    if (func_0026BCA0() != 0) goto fail;
+    i = func_0026B628_bb(a, b, c, d);
+    if (i == -1) {
+    fail:
+        return func_0026BCB0_bb(a, b, c);
+    }
+    D_003A44B0_bb[i].unkC = 0;
+    D_003A44B0_bb[i].unk8 = 0;
+    D_003A44B0_bb[i].unk28 = 0;
+    D_003A44B0_bb[i].unk2C = 1;
+    D_003A44B0_bb[i].unk24 = 0;
+    D_00370C10_bb = i;
+    D_003A44B0_bb[i].unk3C = D_003A44B0_bb[i].unk0;
+    D_003A44B0_bb[i].unk40 = 0;
+    D_00370C50 = i;
+    D_003A44B0_bb[i].unk18 |= 4;
+    return D_003A44B0_bb[i].unk4;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26AEF8", func_0026BC98);
 
