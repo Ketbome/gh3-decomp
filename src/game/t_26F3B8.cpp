@@ -185,7 +185,32 @@ extern "C" void func_0026F7E8(void) {
     func_00271198(0x8050, 0x1D00, 0x1FFFFF);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F828);
+extern "C" void func_0026F828(int a, int b, f32 f) {
+    if (f == 0.0f) {
+        D_00370D10 = 0;
+        if (b) func_0026F6E8();
+    } else {
+        S26F3B8_B v;
+        v.unkC = 0x1E;
+        D_00370D10 = (int)(f * 163.83f);
+        v.unk8 = 0x3FFF;
+        v.unkA = 0x3FFF;
+        v.unk10 = 0xC8;
+        register int t0 asm("$8") = D_0032D838[a];
+        v.unk4 = t0;
+        func_00271198(0x8130, 0, (int)&v);
+        func_00271198(0x8070, 2, 1);
+        if (b) {
+            func_00271198(0x8010, 0xB80, D_00370D10);
+            func_00271198(0x8010, 0xC80, D_00370D10);
+            register int tmp asm("$3") = D_00370D10;
+            D_00370D14 = tmp;
+        }
+        u32 r = func_00271180(0);
+        func_00271198(0x8030, 0x1900, r);
+        func_00271198(0x8030, 0x1B00, r);
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F930);
 
