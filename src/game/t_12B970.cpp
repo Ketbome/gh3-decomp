@@ -303,7 +303,49 @@ extern "C" SB12_List* func_0012C958(SB12_List* self, int a) {
     return self;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_12B970", func_0012C980);
+struct N12F { N12F* prev; N12F* next; int val; };
+struct I12F { int unk0; N12F* cur; int unk8; int unkC; };
+struct L12F { int unk0; int unk4; N12F* prev; N12F* next; float f10; float f14; float f18; float f1C; };
+
+extern "C" L12F* func_0012C980(L12F* self, L12F* src) {
+    I12F A, B, C, D, E, F, G;
+    N12F tmp;
+    self->unk0 = src->unk0;
+    N12F* sent = (N12F*)&self->prev;
+    self->prev = sent;
+    sent->next = sent;
+    N12F* ssent = (N12F*)&src->prev;
+    N12F* dn = self->next;
+    C.cur = ssent;
+    N12F* sn = src->next;
+    A.cur = dn;
+    B.cur = sn;
+    D.cur = dn;
+    E.cur = sn;
+    F.cur = ssent;
+    if (sn != ssent) {
+        N12F* pt = &tmp;
+        do {
+            N12F* d = D.cur;
+            G.cur = d;
+            N12F* e = E.cur;
+            N12F* tail = d->prev;
+            N12F* n = (N12F*)Heap_Alloc(D_00368A38, 0xC, 1, 0);
+            tmp.next = d;
+            tmp.prev = tail;
+            pt->val = e->val;
+            if (n) *n = tmp;
+            d->prev = n;
+            n->prev->next = n;
+            E.cur = E.cur->next;
+        } while (E.cur != F.cur);
+    }
+    self->f10 = src->f10;
+    self->f14 = src->f14;
+    self->f18 = src->f18;
+    self->f1C = src->f1C;
+    return self;
+}
 
 struct VT12E { char pad0[8]; s16 delta; s16 pad0A; void (*fn)(void*, int); };
 struct O12E { char pad0[0x64]; VT12E* unk64; };
