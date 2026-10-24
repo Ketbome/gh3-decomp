@@ -87,7 +87,34 @@ SAtomH *func_002D5888(void *);
 extern SAtomT *D_00371FF0_p asm("D_00371FF0");
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_RegisterAtoms);
+extern "C" s32 CFunc_RegisterAtoms(int params) {
+    int sp0;
+    int sp4;
+    func_0011A558(0x9C2E2488, 0, 0);
+    func_0027D870(params, 0xA1DC81F9, &sp0, 1);
+    func_0027D470(params, 0, &sp4, 1);
+    int a = func_001E7EC8(Heap_Alloc(D_00368A38[0], 0x20, 1, 0));
+    func_001E7FD8(a, sp4);
+    SAtomT *t = D_00371FF0_p;
+    int key = sp0;
+    int m = (1 << t->bits) - 1;
+    register SAtomH *x asm("$4") = t->items;
+    SAtomH *e = (SAtomH *)((char *)x + ((key & m) * 0xC));
+    if (e->unk4 != 0 || e->unk0 != 0) {
+        x = (SAtomH *)func_0011C3A8_i(0);
+        if (x) x = func_002D5888(x);
+        x->unk0 = key;
+        x->unk4 = a;
+        x->unk8 = e->unk8;
+        e->unk8 = x;
+    } else {
+        e->unk0 = key;
+        e->unk4 = a;
+    }
+    t->count++;
+    func_0011A568(x);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_UpdateAtoms);
 
