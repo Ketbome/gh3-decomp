@@ -244,7 +244,10 @@ extern S269780_Q D_003A3460;
 extern "C" int func_0027D870(int, int, int *, int);
 extern "C" int func_0027D268(int, int, f32 *, int);
 
-extern "C" void func_00269780(int a, int script, int b) {
+extern "C" void func_00269780(int ax, int sx, int bx) {
+    register int script asm("$16") = sx;
+    register int a asm("$17") = ax;
+    register int b asm("$18") = bx;
     int key = 0;
     f32 f;
     func_0027D870(script, 0xA1DC81F9, &key, 1);
@@ -259,15 +262,11 @@ extern "C" void func_00269780(int a, int script, int b) {
             return;
         }
     }
-    S269780_Q *g = &D_003A3460;
-    g->unk0 = 0;
-    g->unk1C = 0;
-    g->unk4 = 0;
-    g->unk8 = 0;
-    g->unkC = 0;
-    g->unk10 = 0;
-    g->unk14 = 0;
-    g->unk18 = 0;
+    D_003A3460.unk0 = 0;
+    D_003A3460.unk1C = 0;
+    for (int j = 1; j < 7; j++) {
+        ((int *)&D_003A3460)[j] = 0;
+    }
 }
 
 extern "C" void func_00269888(int k) {
