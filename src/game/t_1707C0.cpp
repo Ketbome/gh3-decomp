@@ -99,7 +99,57 @@ extern "C" void func_00171BB0(void) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171BD0);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1707C0", func_00171E60);
+struct S_00171E60 {
+    int unk0;
+    int unk4;
+    int unk8;
+    int unkC;
+    int unk10;
+    void* unk14;
+    int unk18;
+    f32 unk1C;
+    f32 unk20;
+    f32 unk24;
+    f32 unk28;
+    char pad2C[4];
+    u128_171 unk30;
+    u128_171 unk40;
+    int unk50;
+    f32 unk54;
+    int unk58;
+    int unk5C;
+    int unk60;
+};
+
+extern "C" {
+int func_0011EF10(void);
+extern u8 D_003403C0[];
+extern u8 D_00347798[];
+}
+
+extern "C" S_00171E60* func_00171E60(S_00171E60* self) {
+    self->unk0 = 0;
+    self->unk8 = 0;
+    self->unkC = 0;
+    self->unk10 = 0;
+    self->unk14 = D_003403C0;
+    self->unk4 = func_0011EF10();
+    u128_171 v = MakeVec171(0.0f, 0.0f, 0.0f, 0.0f);
+    self->unk14 = D_00347798;
+    self->unk30 = v;
+    self->unk18 = 0;
+    self->unk1C = 0.0f;
+    self->unk20 = 0.0f;
+    self->unk40 = v;
+    self->unk24 = 0.0f;
+    self->unk50 = 1;
+    self->unk28 = 0.0f;
+    self->unk58 = 1;
+    self->unk54 = 6.0f;
+    self->unk5C = 1;
+    self->unk60 = 0;
+    return self;
+}
 
 struct S171F08 { char pad0[0x18]; int unk18; char pad1C[8]; float unk24; };
 
