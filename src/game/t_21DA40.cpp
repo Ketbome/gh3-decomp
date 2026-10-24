@@ -509,7 +509,37 @@ extern "C" int func_0021E7F8(int a, int b) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E848);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_21DA40", func_0021E8C8);
+struct S21Dc {
+    char pad0[0xC];
+    int unkC;
+};
+
+struct S21Da {
+    char pad0[0x1C];
+    S21Dc* unk1C;
+    s32 unk20;
+};
+
+extern "C" u128_21D func_00220318(int, int, int, int);
+extern "C" u128_21D func_00220318_3(int, int, int) __asm__("func_00220318");
+
+extern "C" int func_0021E8C8(S21Da* self, int params, S21Da* script) {
+    int id = 0;
+    func_0027D870(params, 0x98549BA4, &id, 1);
+    f32 len = 0.0f;
+    S21Dc* c = self->unk1C;
+    if (c) {
+      int u = c->unkC;
+      if (u) {
+        register u128_21D v asm("$2") = func_00220318_3(u, id, 0);
+        f32 t;
+        asm("qmtc2.ni %2, $vf2\n\tvmul.xyzw $vf1, $vf2, $vf2\n\tvaddy.x $vf2, $vf1, $vf1y\n\tvaddz.x $vf2, $vf2, $vf1z\n\tqmfc2.ni $2, $vf2\n\tmtc1 $2, %1\n\tnop\n\tnop\n\tsqrt.s %0, %1"
+            : "=f"(len), "=&f"(t) : "r"(v) : "$2");
+      }
+    }
+    func_0027C1F8(script->unk20, 0x374B9961, len);
+    return 0;
+}
 
 extern "C" int func_0021E970(int a, int b) {
     int r = func_00220FE8(a, b, 1);
