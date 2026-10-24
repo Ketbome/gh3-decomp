@@ -40,6 +40,11 @@ build file; `ninja` assembles, compiles, links and compares.
 
 Works on macOS (arm64) and Linux (x86-64).
 
+## Roadmap
+
+Matching first, then names and types, a shiftable build, code cleanup, easy community mods and a PC port:
+see [ROADMAP.md](ROADMAP.md), which also explains why the PS2 version and how to help.
+
 ## Layout
 
 | Path | Contents |

@@ -70,6 +70,7 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
 
 - `src/game/t_<addr>.cpp`: game code in chunks (cpp subsegments in `config/SLUS_216.72.yaml`)
 - `config/`: split and symbol names; `include/`: shared headers, assembler prelude
+- `ROADMAP.md`: phases after matching (names, shiftable build, cleanup, mods, port) and how to help
 - `docs/`: `STATE.md` (plan), `agent_protocol.md` (workers), `decomp_guide.md` (matching rules), `toolchain.md`,
   `text_map.md`, `worklog/<range>.md` (one per worker range), `worklog/names_pending.md`
 - `nonmatching/<func>.cpp`: near misses waiting for the permuter
