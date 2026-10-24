@@ -143,6 +143,11 @@ To survive a crash without losing work:
   `nor` result), else `movz` on `x` plus a `move`. Give the result its own variable declared at function level:
   `N* nn; ... nn = 0; if (~x->unk4 != 0) nn = x; ... n = nn;`. func_00150190 gets the inner `movn` this way
   (rest is register allocation: permuter).
+- **`x >= 0` as a 0/1 value**: a literal 0 gives `nor; srl 31`. The original's `slti x,0; xori 1` comes from a
+  comparison whose 0 is not a constant at expand time: `static inline bool Ge(int a, int b) { return a >= b; }`
+  called as `Ge(x, 0)`, or `int z = 0; ... x >= z`. `!(x < 0)`, `x > -1` and ternaries still give `nor`/`srl`.
+  func_002441D0 matches this way; `slti ...,0` also appears in branches/`movn` of func_00111E38, func_00211050,
+  func_0012FD78, func_001E3B60, func_00115EE8.
 - **A `%gp_rel` global load in a `jal` delay slot is normal** (the original has 421); a load kept out of the slot is
   C shape, not the assembler. Volatile accesses are already kept out of slots by asm_filter.py.
 - **libc names** (`strlen`, `strcpy`, `strcmp`, `memset`, see `config/symbols/lib.txt`): declare them with their
