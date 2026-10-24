@@ -6,7 +6,7 @@ so no progress figures or hashes are written by hand here.
 
 ## In flight
 
-Resumed 2026-10-23: A round 9 (round 8: 15/33), C round 12 (round 11: 15/25, stack-iterator family) running; B running on per-file `-funroll-loops` for t_1E95C0,
+Resumed 2026-10-23: A round 9 (round 8: 15/33), C idle (round 12: 5/40, yield dropping); B running on per-file `-funroll-loops` for t_1E95C0,
 t_1D00B0, t_225BF0, t_1D4540, t_1BB500 (forensics 5: the "short-loop padding" give-ups were unrolling; mtc1
 hazard at `.p2align` fixed in asm_filter.py, func_0013F258 given to A). Were stopped
 mid-round on 2026-10-20: A round 8
@@ -72,7 +72,8 @@ never mentioned in a worklog on 2026-10-14).
    func_00153958/3AB0/3C28 after it need it off; A's attempt is in its worklog).
 2. Retry the movz give-ups with the inline-reference pattern (func_001E1B28, func_0014E1B8 near misses; grep
    worklogs for movz/movn) and the `cvt.w.s` give-ups (func_001ADC90).
-3. Permuter batch with no worker (327 files in nonmatching/): next quiet point (e.g. overnight).
+3. Quiet point as soon as A and B finish: the three file splits above, then the permuter batch with no worker
+   (366 files in nonmatching/; yields of C and B are down, near misses are the biggest pool now).
 4. New focus for B and C after that: functions over 0x1000, or the families a toolchain fix unblocks.
 5. Idea, not decided: a naming/struct pass with a Ghidra-based assistant (e.g. REA, rea.tools; needs EE support in
    Ghidra), results into docs/worklog/names_pending.md. REA does not do matching.
