@@ -12,8 +12,10 @@ Configured by a `decomp.toml` at the project root (see templates/decomp.toml). C
                                       relocated fields are compared by symbol (+ addend), not by value
   dk try <src> <func...>              run the configured pre-check hooks on <src>, then `check`
   dk revert <src> <func...>           put functions back to their INCLUDE_ASM line
-  dk done <src> <worklog> <message>   pre-commit hooks, every function of <src> must match and none it had at HEAD
-                                      may be missing (neither written nor INCLUDE_ASM), commit <src> + <worklog>
+  dk done <src> <worklog> <message> [--revert]
+                                      pre-commit hooks, every function of <src> must match and none it had at HEAD
+                                      may be missing (neither written nor INCLUDE_ASM) or back in INCLUDE_ASM
+                                      (--revert allows that), commit <src> + <worklog>
   dk all [<src>...]                   check every C/C++ function (regression check after a toolchain change)
   dk twins [--list] [<src>...]        copy matched functions onto functions with identical assembly (symbols renamed,
                                       local types copied), keep only what matches
@@ -327,6 +329,15 @@ def lost_functions(src):
     return sorted(missing_functions(Path(src).read_text()) - missing_functions(head.stdout))
 
 
+def reverted_functions(src):
+    """Functions the committed version of a source defines and the working copy has back in INCLUDE_ASM."""
+    head = git("show", f"HEAD:{rel(src)}")
+    if head.returncode:
+        return []
+    included = set(re.findall(rf'^{INCLUDE_ASM}\("[^"]+",\s*(\w+)\);', Path(src).read_text(), re.M))
+    return sorted(set(defined_names(head.stdout)) & included)
+
+
 def run_check(src, names, quiet=False):
     image = IMAGE.read_bytes()
     with tempfile.TemporaryDirectory() as tmp:
@@ -514,6 +525,8 @@ def cmd_revert(args):
 
 
 def cmd_done(args):
+    allow_revert = "--revert" in args
+    args = [a for a in args if a != "--revert"]
     src, log, message = Path(args[0]), Path(args[1]), args[2]
     run_hooks("pre_check", src)
     run_hooks("pre_commit", src)
@@ -524,6 +537,11 @@ def cmd_done(args):
     lost = lost_functions(src)
     if lost:
         print("NOT COMMITTED: neither defined nor INCLUDE_ASM (a lost line?): " + " ".join(lost))
+        sys.exit(1)
+    reverted = reverted_functions(src)
+    if reverted and not allow_revert:
+        print("NOT COMMITTED: matched at HEAD, back to INCLUDE_ASM (pasted an older copy?); add --revert if "
+              "intended: " + " ".join(reverted))
         sys.exit(1)
     print(f"{len(good)} functions match")
     line = commit([src, log] if log.exists() else [src], message)

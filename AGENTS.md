@@ -57,7 +57,7 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
 - `dk state` / `dk rescue [--commit]`: recovery report / revert non-matching work in progress after an interruption
 - `dk next <files> --untried [--max-size N] [--min-size N]`: functions still in INCLUDE_ASM nobody tried, smallest first
 - `dk show <func>`: asm + m2c draft; `dk try <file> <func>`: GP_DATA + compare (no link, safe in parallel)
-- `dk revert <file> <func>`; `dk done <file> <worklog> <msg>`: padding, full file check, commit
+- `dk revert <file> <func>`; `dk done <file> <worklog> <msg> [--revert]`: padding, full file check (refuses a match turned back into INCLUDE_ASM unless --revert), commit
 - `dk twins [--list] [files]`: decompile functions identical to an already matched one
 - `dk protos <file> <func>`: near miss around calls: try each callee with the other return type (void <-> int)
 - `dk all`: check every C++ function (regression check after toolchain changes)
