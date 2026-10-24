@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 typedef unsigned int u128_211 __attribute__((mode(TI)));
@@ -79,6 +80,29 @@ static inline void Release211(char* q) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211050);
+
+struct V211 {
+    f32* data;
+    u32 size;
+    u32 cap;
+};
+
+static inline f32& At211(f32* const& d, u32 idx) {
+    return d[idx];
+}
+
+struct P211 {
+    char pad0[0x10];
+    f32* unk10;
+    char pad14[0x20];
+    int unk34;
+    V211 vec;
+};
+
+extern "C" {
+u32 func_00210CD0(void*);
+void* Heap_Alloc_211(void*, int, int, int) __asm__("Heap_Alloc");
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211BE8);
 
