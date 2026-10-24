@@ -579,7 +579,16 @@ extern "C" int func_0022D5E0(void) {
     return 0xA4;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_22BD90", func_0022D5E8);
+extern "C" void func_0022D5E8(char* p, char* a1, int a2, int a3, int a4, int a5) {
+    char buf[0x100];
+    VE22B* e = (VE22B*)(*(char**)(p + 0x34) + 0x78);
+    ((void (*)(char*, int, int))e->fn)(p + e->delta, a4, a5);
+    strcpy(*(char**)(p + 0x18), a1);
+    char* bp = buf;
+    asm("" : "+r"(bp));
+    func_00152548(bp, a1, *(int*)(*(char**)(p + 0x18) + 0x94));
+    func_0022BBB0(p, (int)buf, a2, a3, a4, a5);
+}
 
 extern "C" void func_0022D6A0(char* p, int a, int b, int c, int d, int e) {
     register int rb asm("$17") = b;
