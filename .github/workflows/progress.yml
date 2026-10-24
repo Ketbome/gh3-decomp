@@ -1,0 +1,21 @@
+# Writes the progress report from config/functions.txt and src/ (no disc needed) and uploads it as the artifact
+# ByteMatch reads (https://bytematch.dev/Ketbome/gh3-decomp). The build itself is verified by scripts/integrate.sh
+# before every push.
+name: progress
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate progress report
+        run: python3 scripts/report.py build/SLUS_216.72/report.json
+      - name: Upload progress report
+        uses: actions/upload-artifact@v4
+        with:
+          name: SLUS_216.72_report
+          path: build/SLUS_216.72/report.json

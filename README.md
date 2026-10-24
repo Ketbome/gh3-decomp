@@ -9,6 +9,8 @@ that release; the build checks its result against it.
 
 ## Status
 
+[![Progress](https://bytematch.dev/Ketbome/gh3-decomp.svg)](https://bytematch.dev/Ketbome/gh3-decomp)
+
 <!-- dk:progress -->
 | Binary | Code in matching C++ | Functions in C++ | Functions still in assembly |
 |---|---|---|---|

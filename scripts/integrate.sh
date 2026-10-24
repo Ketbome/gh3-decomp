@@ -22,6 +22,7 @@ if ! .venv/bin/python scripts/sync_src.py | tee sync.log | tail -1 | grep -q "^0
     grep "^src/" sync.log || true
     .venv/bin/python configure.py > /dev/null
 fi
+git diff --quiet config/functions.txt || { echo "config/functions.txt out of date: run configure.py and commit it"; exit 1; }
 ninja -j4 > ninja.log 2>&1 || { tail -20 ninja.log; exit 1; }
 .venv/bin/python scripts/progress.py
 cd "$ROOT"

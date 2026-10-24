@@ -63,6 +63,8 @@ Method: the [matching-decomp skill](https://github.com/Ketbome/decomp-skills); `
 - `dk all`: check every C++ function (regression check after toolchain changes)
 - `dk docs [--commit]`: regenerate the `<!-- dk:... -->` blocks of README.md
 - `.venv/bin/python scripts/progress.py`: progress
+- `scripts/report.py`: objdiff-format progress report from `config/functions.txt` (written by `configure.py`, commit
+  it when it changes); `.github/workflows/progress.yml` uploads it on push for [ByteMatch](https://bytematch.dev/Ketbome/gh3-decomp)
 - `scripts/permute.py <file> <func> [-j N]` then `scripts/permute_apply.py <func>`: decomp-permuter on a near miss
 - `scripts/qbkeys.py key <name>` / `build <qb script dirs>`: Neversoft checksums -> `config/qbkeys.txt`
 
