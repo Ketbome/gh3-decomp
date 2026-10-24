@@ -243,10 +243,10 @@ struct S2992_T {
 extern "C" {
 void *Heap_Alloc_9(int, u16, int, int) __asm__("Heap_Alloc");
 void func_00296F18_9(S2992_Msg *) __asm__("func_00296F18");
-int func_002972F8_9(void *, long, void *, u32 *) __asm__("func_002972F8");
+int func_002972F8_9(void *, int, void *, u32 *) __asm__("func_002972F8");
 int func_00298858_9(int, S2992_Msg *) __asm__("func_00298858");
 void func_0030A2F4_9(void *, void *, u16) __asm__("func_0030A2F4");
-int func_00115EE8_9(void *, void *, long) __asm__("func_00115EE8");
+int func_00115EE8_9(void *, void *, int) __asm__("func_00115EE8");
 }
 
 extern "C" int func_00299260(S2992_T *t) {
@@ -261,31 +261,33 @@ extern "C" int func_00299260(S2992_T *t) {
     u8 *buf = (u8 *)Heap_Alloc_9(D_00368A38, *(u16 *)&l.h1.a, 1, 0);
     u32 saved = l.sz;
     if ((s8)l.h1.t == 1) {
-        if (func_002972F8_9((u8 *)src + 3, (int)(t->unk8 - 3), buf, &l.sz) != 0) goto fail;
+        if (func_002972F8_9((u8 *)src + 3, (int)(t->unk8 - 3), buf, &l.sz) == 0) goto chk;
+        goto fail;
     } else if ((s8)l.h1.t == 2) {
         l.sz = (u8 *)func_00115EE8_9((u8 *)src + 3, buf, (int)(t->unk8 - 3)) - buf;
     }
-    if (saved != l.sz) goto fail;
+chk:
+    if (saved != l.sz) {
+    fail:
+        if (buf) Heap_Free(D_00368A38, buf);
+        return 4;
+    }
     {
         S2992_P3 *src2 = (S2992_P3 *)buf;
         l.h2.t = src2->t;
         *(S2992_B2 *)&l.h2.a = *(S2992_B2 *)&src2->a;
-        m.f14 = t->unk14;
         u8 *p2 = buf + 3;
-        m.ptr = Heap_Alloc_9(D_00368A38, *(u16 *)&l.h2.a, 1, 0);
-        func_0030A2F4_9(m.ptr, p2, *(u16 *)&l.h2.a);
+        m.f14 = t->unk14;
+        func_0030A2F4_9(m.ptr = Heap_Alloc_9(D_00368A38, *(u16 *)&l.h2.a, 1, 0), p2, *(u16 *)&l.h2.a);
+        m.f18 = t->unk18;
         m.b = l.h2.t;
         m.c = *(u16 *)&l.h2.a;
         m.f10 = t->unk10;
-        m.f18 = t->unk18;
         int r = func_00298858_9(t->unk10 + 4, &m);
         if (m.ptr) Heap_Free(D_00368A38, m.ptr);
         if (buf) Heap_Free(D_00368A38, buf);
         return r;
     }
-fail:
-    if (buf) Heap_Free(D_00368A38, buf);
-    return 4;
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_00299418);
@@ -524,4 +526,28 @@ extern "C" void func_0029A7B8(int self, u8 *src, s8 *dst, int n, int *out) {
 
 extern "C" void func_0030A2F4(u8 *, u8 *, int);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_298A30", func_0029A8E8);
+extern "C" int func_0029A8E8(char *self, u8 *src, u8 *dst, int n) {
+    if (n < 3) return 0;
+    if (!(*(int *)(self + 0x2294) & 0x20)) {
+        func_0030A2F4(dst, src, n);
+        return 1;
+    }
+    u8 buf[0x520];
+    S29A_P2 h;
+    h = *(S29A_P2 *)src;
+    int m = n - 2;
+    int len = m;
+    func_0030A2F4(buf, src + 2, m);
+    u8 key = *(u8 *)&h;
+    u8 *p = buf;
+    if (len > 0) {
+        int i = len;
+        do {
+            *p++ ^= key;
+        } while (--i);
+    }
+    u32 c = func_00114C50(buf, len);
+    if ((u16)((c >> 16) + c) != *(u16 *)&h) return 0;
+    func_0030A2F4(dst, buf, len);
+    return 1;
+}

@@ -164,11 +164,11 @@ void func_00266898_x(void *) __asm__("func_00266898");
 int func_0015D5C0_x(u128_268 *, int) __asm__("func_0015D5C0");
 int func_001FB3D8_x(void *, int, char *) __asm__("func_001FB3D8");
 u128_268 func_001FB390_x(void *, int) __asm__("func_001FB390");
-void func_002687F0_x(int, void *, u128_268 *, int, int, int, char *, f32) __asm__("func_002687F0");
+void func_002687F0_x(int, void *, u128_268 *, f32, int, int, int, char *) __asm__("func_002687F0");
 void func_00266BE8_x(void *) __asm__("func_00266BE8");
 int func_00266B60_x(void *) __asm__("func_00266B60");
 void func_00266928_x(void *, f32) __asm__("func_00266928");
-int func_00267BC8_x(int, int, void *, int, int, int, void *, int, f32, int) __asm__("func_00267BC8");
+int func_00267BC8_x(f32, int, int, void *, int, int, int, void *, int, int) __asm__("func_00267BC8");
 void func_00275EE8_x(u32, int) __asm__("func_00275EE8");
 void func_002677E0_x(int, int, int, void *) __asm__("func_002677E0");
 void func_002668F8_x(void *, int) __asm__("func_002668F8");
@@ -185,17 +185,19 @@ extern "C" int func_00268F40(int heap, int e, S268F_A *a, S268F_B *b, int c, int
     u128_268 buf80;
     u128_268 v90;
     int res;
+    int r;
     if (func_00266778_x() == 0) {
         S268F_E *en = func_00267348_x(heap, e);
         if (en != 0 && !(en->unk4 & 4)) {
             func_00266898_x(&o1);
             v70 = b->unkB0;
-            int r = func_0015D5C0_x(&v70, 0);
+            r = func_0015D5C0_x(&v70, 0);
             if (r != 0) {
                 char *q = func_001FB3D8_x(b, r, (char *)&buf80) ? (char *)&buf80 : 0;
                 v90 = func_001FB390_x(b, r);
+                u128_268 *pv = &v90;
                 f32 f = (a->unkC == 0.0f) ? en->unk10 : a->unkC;
-                func_002687F0_x(heap, &o1, &v90, a->unk10, a->unk0 & 1, r, q, f);
+                func_002687F0_x(heap, &o1, pv, f, a->unk10, a->unk0 & 1, r, q);
             } else {
                 func_00266BE8_x(&o1);
             }
@@ -211,7 +213,7 @@ extern "C" int func_00268F40(int heap, int e, S268F_A *a, S268F_B *b, int c, int
                 return 0;
             }
             func_00266928_x(&o1, a->unk8);
-            res = func_00267BC8_x(heap, e, &o1, 0, a->unk14, a->unk18, a, 0, a->unk4, 1);
+            res = func_00267BC8_x(a->unk4, heap, e, &o1, 0, a->unk14, a->unk18, a, 0, 1);
             if (D_00368748_x == 0) func_00275EE8_x(0x6D2E270E, 0);
             if (c == 0) {
                 func_002677E0_x(heap, res, e, b);
