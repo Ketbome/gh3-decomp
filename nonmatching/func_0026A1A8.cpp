@@ -339,13 +339,19 @@ void *func_0011C3A8_t(int) asm("func_0011C3A8");
 S26A1_N *func_0026A958_t(void *) asm("func_0026A958");
 }
 
-extern "C" int func_0026A1A8(u32 key, int a1, int a2, int a3, int a4) {
-    if (D_0037338C->Get(key)) {
+extern "C" int func_0026A1A8(u32 kx, int a1x, int a2x, int a3x, int a4x) {
+    register u32 key asm("$19") = kx;
+    register int a1 asm("$17") = a1x;
+    register int a2 asm("$21") = a2x;
+    register int a3 asm("$22") = a3x;
+    register int a4 asm("$23") = a4x;
+    u32 tk = key;
+    if (D_0037338C->Get(tk)) {
         return 0;
     }
-    S26A1_O *o = (S26A1_O *)Heap_Alloc(D_00368A38, 0x1C, 1, 0);
-    u32 h = key;
-    S26A1_T *t = D_0037338C;
+    register S26A1_O *o asm("$16") = (S26A1_O *)Heap_Alloc(D_00368A38, 0x1C, 1, 0);
+    register u32 h asm("$20") = key;
+    register S26A1_T *t asm("$18") = D_0037338C;
     o->unk18 = a1;
     o->unk4 = -1;
     o->unkC = a2;
