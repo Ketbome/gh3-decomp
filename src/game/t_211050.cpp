@@ -126,6 +126,50 @@ extern "C" f32 func_00211E10(S211* self, int i) {
     return *p;
 }
 
+struct V16_211 { u128_211 q; V16_211() {} };
+struct FA16_211 { V16_211* unk0; u32 unk4; u32 unk8; };
+struct FA4_211 { f32* unk0; u32 unk4; u32 unk8; };
+
+static inline void Set16_211(FA16_211* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free(D_00368A38, a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        V16_211* t = (V16_211*)Heap_Alloc_211(D_00368A38, n * 16, 1, 0);
+        for (int i = n - 1; i != -1; i--) {
+        }
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free(D_00368A38, a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+static inline void Set4_211(FA4_211* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free(D_00368A38, a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        f32* t = (f32*)Heap_Alloc_211(D_00368A38, n * 4, 1, 0);
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free(D_00368A38, a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_00211E28);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_211050", func_002120B8);
