@@ -1,3 +1,4 @@
+// cflags: -funroll-loops
 #include "common.h"
 
 struct SHT_N {
@@ -308,10 +309,27 @@ void func_0027EDE0(void *, int, int);
 void func_0027E6B0(void *, int);
 void func_0027C678(int, u32, void *);
 int func_00117F10(int, int);
+int func_00117F10_1(int) __asm__("func_00117F10");
 }
 
 GP_DATA(D_0036CDB4);
-INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_GetActiveControllers);
+extern "C" int CFunc_GetActiveControllers(int p, S2BCDA8_S *script) {
+    int arr[3];
+    S2BCDA8_M *m = D_0036CDB4;
+    func_0027E698(arr);
+    func_0027E760(arr, 2, 1);
+    for (int i = 0; i < 2; i++) {
+        S2BCDA8_C *c = m->unk28[i];
+        if (c && c->unk20 && func_00117F10_1(c->unk20)) {
+            func_0027EDE0(arr, i, 1);
+        } else {
+            func_0027EDE0(arr, i, 0);
+        }
+    }
+    func_0027C678(script->unk20, 0xA0984D83, arr);
+    func_0027E6B0(arr, 2);
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2BCDA8", CFunc_HideObjectByType);
 
