@@ -28,6 +28,8 @@ Your worklog: read only the notes at its top (before the first `## ` file sectio
    assembly in your files (renaming symbols) and keeps only what matches. Run it after matching anything, and
    prefer functions that have twins (`dk twins --list`).
 7. After each match (or a few): `dk done <file> docs/worklog/<range>.md "decomp: <file> +N functions"`.
+   Bring a saved near miss back with `git merge-file`, never by pasting the whole saved file over the source (it
+   reverts every match made since; `dk done` now refuses that).
    It fixes padding, refuses to commit if anything in the file does not match, and commits only those two paths.
 
 Stop only at the limit your prompt gives (matches and functions attempted; count both) or when `dk next <your files> --untried` lists nothing
