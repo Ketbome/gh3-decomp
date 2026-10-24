@@ -112,9 +112,8 @@ extern "C" void func_0014CC88(int id) {
     int h = func_0014CD98(id, 0);
     if (h != 0) {
         char* g = (char*)D_00377FE0_t;
-        asm("" : "+r"(g));
-        T14CC88* p = (T14CC88*)(g + 0x18);
         int i = 0;
+        T14CC88* p = (T14CC88*)(g + 0x18);
         do {
             if ((int)p->unk0 == h) {
                 int key = id;
@@ -145,7 +144,31 @@ extern "C" void func_0014CF48(int v) {
     D_00372B48 = v;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014CF50);
+static inline int SHT14_Find(HT_14CF50 *t, const int &k) {
+    HE_14CF50 *n;
+    if (t->unk4 == 0) {
+        return 0;
+    }
+    n = &t->unk4[k & ((1 << t->unk0) - 1)];
+    if (n == 0) {
+        return 0;
+    }
+    do {
+        if (n->unk0 == k) {
+            int v = n->unk4;
+            if (t->unk15 != 0 || v != 0) {
+                return v;
+            }
+        }
+        n = n->unk8;
+    } while (n);
+    return 0;
+}
+
+extern "C" int func_0014CF50(int arg0) {
+    int k = arg0;
+    return SHT14_Find(&D_003781A0, k);
+}
 
 extern "C" int func_0014CFD8(const char* name) {
     return D_004159C8[func_00113770(name, 0)];
@@ -233,7 +256,42 @@ extern "C" float func_0014DC38(int i) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC58);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_14C740", func_0014DC60);
+typedef unsigned int u128_14C __attribute__((mode(TI)));
+extern "C" {
+int func_0027DD88(int, int);
+int func_0027D268(int, int, float*, int);
+int func_0027D2D8(int, int, void*, int);
+}
+
+extern "C" int func_0014DC60(float* self, int args) {
+    float v[4];
+    if (func_0027DD88(args, 0x13B9DA7B)) {
+        if (func_0027D268(args, 0x13B9DA7B, v, 0)) {
+            int x = *(int*)v;
+            int one = 0x3F800000;
+            u128_14C lo, hi;
+            asm("pextlw %0, %1, %2" : "=r"(hi) : "r"(one), "r"(x));
+            asm("pextlw %0, %1, %2" : "=&r"(lo) : "r"(x), "r"(x));
+            asm("pcpyld %0, %1, %2" : "=r"(lo) : "r"(hi), "0"(lo));
+            *(u128_14C*)self = lo;
+            return 1;
+        }
+        if (func_0027D2D8(args, 0x13B9DA7B, self, 0)) return 1;
+    }
+    float zero = 0.0f;
+    v[1] = zero;
+    v[2] = zero;
+    v[3] = zero;
+    int a = func_0027D268(args, 0x7323E97C, &v[1], 0);
+    int b = func_0027D268(args, 0x0424D9EA, &v[2], 0);
+    int c = func_0027D268(args, 0x9D2D8850, &v[3], 0);
+    if (a) self[0] = v[1];
+    if (b) self[1] = v[2];
+    if (c) self[2] = v[3];
+    int r = 0;
+    if (a || b || c) r = 1;
+    return r;
+}
 
 extern "C" int func_0014DDB0(int* out, int s) {
     *out = 0;
