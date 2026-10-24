@@ -303,6 +303,18 @@ extern "C" void func_001D5350(S1D5348* p, u8 v) {
     func_001D5018(&p->unk164, v);
 }
 
+extern "C" {
+s32 func_001D3620(S1D5348*, u32, s32, void*);
+void func_001D5350_i(S1D5348*, s32) __asm__("func_001D5350");
+int func_0027D870(s32, u32, void*, int);
+void func_0027C160(s32, u32, s32);
+s32 func_0027D1F8(s32, u32, void*, s32);
+}
+
+static inline void Set1D53(s32& out, s32 x) {
+    if (x == 0x0203B372) out = 1;
+}
+
 INCLUDE_ASM("asm/nonmatchings/game/t_1D4540", func_001D5370);
 
 extern "C" void func_001D54A0(S1D54A0* p) {
