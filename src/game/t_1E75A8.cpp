@@ -646,7 +646,79 @@ extern "C" s32 func_001E9008(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E75A8", func_001E9010);
+extern "C" {
+int func_0027D268_9(void*, u32, void*, int) __asm__("func_0027D268");
+int func_0027D870_9(void*, u32, void*, int) __asm__("func_0027D870");
+int func_0027D1F8_9(void*, u32, void*, int) __asm__("func_0027D1F8");
+f32 func_0027EFA0(void*, int);
+}
+
+struct S1E9010 {
+    f32* unk0;
+    s32 unk4;
+    s32 unk8;
+    char pad0C[4];
+};
+
+extern "C" S1E9010* func_001E9010(S1E9010* self, void* a) {
+    s32 t;
+    f32 f;
+    Arr1E8C* arr;
+    s32 iv;
+    Arr1E8C* arr2;
+    s32 i;
+    *(char**)((char*)self + 0xC) = D_0034DC40;
+    self->unk4 = 1;
+    if (func_0027D870_9(a, 0xBA0E5FD6, &t, 0) != 0) {
+        self->unk8 = t;
+    } else {
+        self->unk8 = 0xC4E78E22;
+    }
+    switch ((u32)self->unk8) {
+    case 0x9E497FC6:
+        if (func_0027D268_9(a, 0x9E497FC6, &f, 0) != 0) {
+            self->unk0 = (f32*)Heap_Alloc(D_00368A38_m, self->unk4 * 4, 1, 0);
+            self->unk0[0] = f;
+        } else {
+            i = 0;
+            func_0027D470((int)a, 0x9E497FC6, &arr, 1);
+            s32 n = arr->unk4;
+            self->unk4 = n;
+            self->unk0 = (f32*)Heap_Alloc(D_00368A38_m, n * 4, 1, 0);
+            for (; i < self->unk4; i++) {
+                self->unk0[i] = func_0027EFA0(arr, i);
+            }
+        }
+        for (s32 j = 0; j < self->unk4; j++) {
+            self->unk0[j] *= 0.01f;
+        }
+        return self;
+    case 0x7A26BB9D:
+        if (func_0027D1F8_9(a, 0x7A26BB9D, &iv, 0) != 0) {
+            self->unk0 = (f32*)Heap_Alloc(D_00368A38_m, self->unk4 * 4, 1, 0);
+            *(s32*)self->unk0 = iv;
+        } else {
+            i = 0;
+            func_0027D470((int)a, 0x7A26BB9D, &arr2, 1);
+            s32 n = arr2->unk4;
+            self->unk4 = n;
+            self->unk0 = (f32*)Heap_Alloc(D_00368A38_m, n * 4, 1, 0);
+            for (s32 k = 0; k < self->unk4; k++) {
+                s32 v;
+                if (arr2->unk4 == 1) {
+                    v = (s32)arr2->unk8;
+                } else {
+                    v = arr2->unk8[k];
+                }
+                ((s32*)self->unk0)[k] = v;
+            }
+        }
+        return self;
+    case 0xC4E78E22:
+        break;
+    }
+    return self;
+}
 
 extern "C" void func_001E92B0(void* pv, s32 flags) {
     char* p = (char*)pv;
