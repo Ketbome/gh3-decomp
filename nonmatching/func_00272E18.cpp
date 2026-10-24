@@ -104,6 +104,7 @@ extern float D_0032E158[];
 extern u8 D_0032E1D8[];
 void func_00272058(void *, int, int);
 int func_0011DF78(int, int, int, int);
+int func_0011DBB8(int, int, int, int);
 void func_0011DC18(int);
 void func_0011E008(int);
 void func_0026AC60(void *, int);
@@ -190,7 +191,39 @@ extern float D_0032DCD8[];
 extern float D_0032DED8[];
 extern "C" int func_003174C0(float, float);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00271708);
+static inline void S271_Zero(int &n) {
+    if (n <= -1) n = 0;
+}
+
+extern "C" void func_00271708(void *pp, float a, float b, int sel) {
+    S271708 *p = (S271708 *)pp;
+    float t = b * 16.0f;
+    int n;
+    int idx = 0;
+    int hi = 0;
+    n = func_003174C0(t - 1.0f, t);
+    int m = n; if (m >= 0x10) m = 0xF; n = m;
+    S271_Zero(n);
+    switch (sel) {
+    case 0:
+        idx = func_00271910(D_0032DCD8, 0x80, a);
+        hi = 0x4000;
+        break;
+    case 1:
+        idx = func_00271910(D_0032D8D8, 0x80, a);
+        break;
+    case 2:
+        idx = func_00271910(D_0032DED8, 0x80, a);
+        hi = 0xC000;
+        break;
+    case 3:
+        idx = func_00271910(D_0032DAD8, 0x80, a);
+        hi = 0x8000;
+        break;
+    }
+    p->unk0 = (p->unk0 & 0xFFFFFFF0) | (n & 0xF);
+    p->unk4 = (p->unk4 & 0xFFFF003F) | (((idx & 0x7F) << 6) | hi);
+}
 
 extern "C" void func_00271880(u32 *p, float v, int mode) {
     int idx = 0;
@@ -392,7 +425,60 @@ extern "C" void func_00272020(S272020 *p) {
     func_00271A98((p->unk0 - 1) | 0x1D0, p->unk1C, p->unk34, 0, 0, 0);
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_271480", func_00272058);
+struct S272_B {
+    int unk0;
+    char pad4[8];
+    int unkC;
+    S272_B *unk10;
+    int unk14;
+    char pad18[4];
+    volatile int unk1C;
+    volatile int unk20;
+    char pad24[0x14];
+    int unk38;
+    int unk3C;
+};
+
+extern "C" void func_00272058(void *vp, int a, int b) {
+    S272_B *p = (S272_B *)vp;
+    if (p->unk14 != 0) {
+        int v;
+        if (p->unk0 == 0) {
+            int h = p->unk3C >> 1;
+            func_0011DBB8(p->unk14, p->unk38 + h * a, 1, h);
+            int h2 = p->unk3C >> 1;
+            int u = p->unk20;
+            v = u + h2;
+        } else {
+            int n;
+            int off;
+            if ((p->unkC >> 2) & 1) {
+                if (a == 0)
+                    off = p->unk38;
+                else
+                    off = p->unk10->unk38;
+                n = p->unk3C;
+            } else {
+                int h = p->unk3C >> 1;
+                off = p->unk38 + h * a;
+                n = h;
+            }
+            if (b != 0) {
+                int r = p->unk20 % n;
+                off += r;
+                n = r == 0 ? 0 : n - r;
+            }
+            if (n > 0)
+                func_0011DBB8(p->unk14, off, 1, n);
+            v = p->unk20 + n;
+        }
+        p->unk20 = v;
+        int x = p->unk20;
+        int y = p->unk1C;
+        if (y < x) x = y;
+        p->unk20 = x;
+    }
+}
 
 extern "C" int func_00272160(int *p) {
     int r = 0;
@@ -529,12 +615,10 @@ extern "C" void func_00272E18(void) {
         D_0032E1D8[0] |= sp[0];
         int n = D_00370DA0;
         int i = 0;
-        if (n > 0) {
-            u8 *s = sp + 1;
-            u8 *d = D_0032E1D8 + 1;
-            for (; i < n; i++) {
-                *d++ |= s[i];
-            }
+        u8 *s = sp + 1;
+        u8 *d = D_0032E1D8 + 1;
+        for (; i < n; i++) {
+            *d++ |= s[i];
         }
         D_00370DB4 &= ~f;
         D_0032E1D8[9] = sp[9];
