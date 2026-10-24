@@ -41,9 +41,41 @@ extern "C" int CFunc_TextOutputStart(void) {
     return 1;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2BEEE0", CFunc_TextOutput);
+extern "C" int func_0027D188(int, int, int *, int);
+extern "C" void func_0030B550(int, char *, int);
+extern "C" char D_003720F0[];
+extern "C" int CFunc_TextOutputEnd_2(int, int) asm("CFunc_TextOutputEnd");
 
 GP_DATA(D_003720E4);
+extern "C" int CFunc_TextOutput(int px, int b) {
+    register int params asm("$16") = px;
+    int first = D_003720E4 == 0;
+    int n;
+    if (first) CFunc_TextOutputStart();
+    func_0027D188(params, 0xC4745838, &n, 1);
+    func_0030B550(D_003720E8, D_003720F0, n);
+    register char *t0 asm("$3") = (char *)D_003720E8;
+    register char *q asm("$4");
+    if (*t0) {
+        q = t0;
+        for (;;) {
+            char *n2 = q + 1;
+            D_003720E8 = (int)n2;
+            if (q[1] == 0) break;
+            q = n2;
+        }
+    }
+    char *p = (char *)D_003720E8;
+    *p = 0xD;
+    p++;
+    D_003720E8 = (int)p;
+    *p = 0xA;
+    D_003720E8 = (int)(p + 1);
+    p[1] = 0;
+    if (first) CFunc_TextOutputEnd_2(params, b);
+    return 1;
+}
+
 extern "C" int CFunc_TextOutputEnd(int params) {
     char buf[0x200];
     if (func_0027DF00(params, 0xC844F1E2)) {
