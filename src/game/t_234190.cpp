@@ -339,7 +339,51 @@ extern "C" void func_002349C8(int a, S234b* p) {
 
 INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234A10);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_234190", func_00234B88);
+struct S234c {
+    char pad0[0x128];
+    u8 unk128;
+    char pad129;
+    u8 unk12A;
+    char pad12B[2];
+    u8 unk12D;
+};
+
+extern "C" void func_00234668(void*, void*);
+
+struct P234 {
+    char pad0[0x7D0];
+    union {
+        long a;
+        S234c* o;
+    };
+    long b;
+    long c;
+    long d;
+};
+
+extern "C" void func_00234B88(char* vp) {
+    S234* p = (S234*)vp;
+    for (int i = 0; i < p->unkF50; i++) {
+        P234* q = (P234*)(vp + i * 16);
+        S234c* o = q->o;
+        if (o->unk12A != 0) {
+            if (o->unk128 == 0) {
+                int j = i;
+                if (j < p->unkF50 - 1) {
+                    P234* r = q;
+                    do {
+                        r->a = r->c;
+                        r->b = r->d;
+                        r = (P234*)((char*)r + 16);
+                        j++;
+                    } while (j < p->unkF50 - 1);
+                }
+                p->unkF50--;
+            }
+        }
+        if (o->unk12A == 0 && o->unk12D == 0 && o->unk128 == 0) func_00234668(p, o);
+    }
+}
 
 extern "C" void func_00234C70(char* p) {
     *(int*)(p + 4) = 0;
