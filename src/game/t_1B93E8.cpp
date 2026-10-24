@@ -22,7 +22,41 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B95F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9C60);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9D78);
+typedef unsigned int u128_1B9 __attribute__((mode(TI)));
+struct V1B9 {
+    f32 x, y, z, w;
+} __attribute__((aligned(16)));
+
+extern "C" {
+extern char D_0038CA40[];
+extern f32 D_00372D18;
+extern f32 D_00372D1C;
+extern f32 D_00372CEC;
+extern f32 D_00372CF4;
+extern f32 D_00372CE8;
+extern f32 D_00372CF0;
+}
+
+extern "C" s32 func_001B9D78(const u128_1B9* a, f32 r) {
+    V1B9 v;
+    *(u128_1B9*)&v = *a;
+    register f32 one asm("$f0") = 1.0f;
+    *(volatile f32*)&v.w = one;
+    f32 lim = *(volatile f32*)&D_00372D18;
+    asm volatile("lqc2 $vf3, %1\n\tlqc2 $vf2, 0(%2)\n\tlqc2 $vf1, 0x10(%2)\n\tvmulax.xyzw $ACC, $vf2, $vf3x\n\tvmadday.xyzw $ACC, $vf1, $vf3y\n\tlqc2 $vf2, 0x20(%2)\n\tlqc2 $vf1, 0x30(%2)\n\tvmaddaz.xyzw $ACC, $vf2, $vf3z\n\tvmaddw.xyzw $vf1, $vf1, $vf3w\n\tsqc2 $vf1, %0"
+        : "=m"(v) : "m"(v), "r"(D_0038CA40));
+    f32 z = v.z;
+    f32 x = v.x;
+    f32 y = v.y;
+    if (r < z - lim || r < D_00372D1C - z) return 0;
+    f32 a1 = D_00372CEC * z;
+    f32 b1 = D_00372CF4 * y;
+    if (r < a1 + b1 || r < a1 - b1) return 0;
+    f32 a2 = D_00372CE8 * z;
+    f32 b2 = D_00372CF0 * x;
+    if (r < a2 - b2 || r < a2 + b2) return 0;
+    return 1;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9E90);
 
