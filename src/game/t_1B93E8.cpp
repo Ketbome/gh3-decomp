@@ -22,43 +22,96 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B95F0);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9C60);
 
-typedef unsigned int u128_1B9 __attribute__((mode(TI)));
-struct V1B9 {
-    f32 x, y, z, w;
-} __attribute__((aligned(16)));
+INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9D78);
+
+struct O1B9E {
+    char pad0[8];
+    s32 unk8;
+    s32 unkC;
+    char pad10[0x14];
+    s32 unk24;
+    char pad28[4];
+    O1B9E* unk2C;
+    char pad30[0x1C];
+    u16 unk4C;
+    u16 unk4E;
+    s16 unk50;
+    s16 unk52;
+};
 
 extern "C" {
-extern char D_0038CA40[];
-extern f32 D_00372D18;
-extern f32 D_00372D1C;
-extern f32 D_00372CEC;
-extern f32 D_00372CF4;
-extern f32 D_00372CE8;
-extern f32 D_00372CF0;
+extern s32 D_00372D24;
+extern char* D_00373324;
+void func_0019E380(s32 a, void* b, s32 c, s32 d, s32 e);
 }
 
-extern "C" s32 func_001B9D78(const u128_1B9* a, f32 r) {
-    V1B9 v;
-    *(u128_1B9*)&v = *a;
-    register f32 one asm("$f0") = 1.0f;
-    *(volatile f32*)&v.w = one;
-    f32 lim = *(volatile f32*)&D_00372D18;
-    asm volatile("lqc2 $vf3, %1\n\tlqc2 $vf2, 0(%2)\n\tlqc2 $vf1, 0x10(%2)\n\tvmulax.xyzw $ACC, $vf2, $vf3x\n\tvmadday.xyzw $ACC, $vf1, $vf3y\n\tlqc2 $vf2, 0x20(%2)\n\tlqc2 $vf1, 0x30(%2)\n\tvmaddaz.xyzw $ACC, $vf2, $vf3z\n\tvmaddw.xyzw $vf1, $vf1, $vf3w\n\tsqc2 $vf1, %0"
-        : "=m"(v) : "m"(v), "r"(D_0038CA40));
-    f32 z = v.z;
-    f32 x = v.x;
-    f32 y = v.y;
-    if (r < z - lim || r < D_00372D1C - z) return 0;
-    f32 a1 = D_00372CEC * z;
-    f32 b1 = D_00372CF4 * y;
-    if (r < a1 + b1 || r < a1 - b1) return 0;
-    f32 a2 = D_00372CE8 * z;
-    f32 b2 = D_00372CF0 * x;
-    if (r < a2 - b2 || r < a2 + b2) return 0;
-    return 1;
+extern "C" void func_001B9E90(void) {
+    s32 n = 0;
+    s32 idx = D_00372D24;
+    char* base = D_00373324;
+    s32 off = idx * 4;
+    *(char**)(base + off + 0x10) = D_00373270;
+    *(u8*)(base + idx + 0x20) = 1;
+    s32 acc = *(volatile s32*)&D_0036C7E8;
+    O1B9E* m = (O1B9E*)*(volatile int*)&D_0036CBC0[0];
+    char* p = D_00373270;
+    if (m) {
+        do {
+            if ((m->unk8 >> 11) & 1) {
+                m->unk50 = acc;
+                acc += m->unk4C;
+                m->unk52 = acc;
+                acc += m->unk4E;
+                func_0019E380(6, (char*)m + 0x30, m->unk50, m->unk52, -1);
+                if ((m->unk8 >> 9) & 1) {
+                    *(u32*)p = 0x50000000;
+                    *(u32*)(p + 4) = m->unkC;
+                    *(u32*)(p + 8) = 0;
+                    *(u32*)(p + 0xC) = 0;
+                } else {
+                    *(u32*)p = ((u32)(m->unk24 + 0xF) >> 4) + 0x30000000;
+                    *(u32*)(p + 4) = m->unkC;
+                    *(u32*)(p + 8) = 0;
+                    *(u32*)(p + 0xC) = ((u32)(m->unk24 + 0xF) >> 4) | 0x50000000;
+                }
+                p += 0x10;
+                n++;
+            }
+            m = m->unk2C;
+        } while (m);
+    }
+    D_00373270 = p;
+    if (n == 0) {
+        s32 i2 = D_00372D24;
+        char* b2 = D_00373324;
+        s32 off2 = i2 * 4;
+        *(s32*)(b2 + off2 + 0x10) = 0;
+        *(s16*)(b2 + 0x30) = 0x7FFF;
+        *(s16*)(b2 + 0x32) = 0;
+    } else {
+        char* b3 = D_00373324;
+        *(u16*)(b3 + 0x30) = D_0036C7E8;
+        *(s16*)(b3 + 0x32) = acc;
+        D_0037327C = p;
+        *(u32*)p = 0x60000000;
+        *(u32*)(p + 4) = 0;
+        D_00373270 = p + 8;
+        *(u32*)(p + 8) = 0;
+        D_00373270 = p + 0xC;
+        *(u32*)(p + 0xC) = 0x50000002;
+        D_00373270 = p + 0x10;
+        func_0019E048(0xE, 1, 0, 0, 0, 1, 1);
+        func_0019E318(0x3F, 0);
+        u32 k = (*(u32*)D_0037327C >> 28) & 7;
+        while (((u32)D_00373270 & 0xF) != 0) {
+            *(u32*)D_00373270 = 0;
+            D_00373270 += 4;
+        }
+        if (k != 3 && k != 0 && k != 4) {
+            *(u16*)D_0037327C = (D_00373270 - D_0037327C - 8) >> 4;
+        }
+    }
 }
-
-INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001B9E90);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1B93E8", func_001BA110);
 
