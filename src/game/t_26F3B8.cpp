@@ -83,7 +83,56 @@ extern f32 D_00370B08;
 extern f32 D_00370D18;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F3B8);
+extern "C" {
+extern signed char D_00370CC0[];
+int func_001150B8(signed char *);
+int func_0027D870(int, int, int *, int);
+int func_002763C0(u32, int);
+int func_0026F158(int, int *, int, int, int, int, int);
+int func_0026EED8(int, int, int *, int, int);
+int func_0027D400(int, u32, int *, int);
+void func_0027ABB0(int, int);
+}
+struct S26F3_K2 {
+    signed char a;
+    signed char b;
+};
+
+extern "C" int func_0026F3B8(int b0, int a1x) {
+    register int a0 asm("$20") = b0;
+    register int a1 asm("$22") = a1x;
+    int arr[26];
+    signed char k[2];
+    int tmp;
+    int n = 0;
+    *(S26F3_K2 *)k = *(S26F3_K2 *)D_00370CC0;
+    int *p = arr;
+    int i = 0;
+    do {
+        int key = func_001150B8(k);
+        tmp = 0;
+        int ok = func_0027D870(a0, key, &tmp, 0);
+        *p = tmp;
+        if (!ok) {
+            break;
+        }
+        k[0]++;
+        p++;
+        n++;
+        i++;
+    } while (i < 26);
+    int h = func_002763C0(0xC47133F3, 1);
+    int t2;
+    if (func_0026F158(h, arr, n, 0, 0, 0, a1) || (t2 = 0, func_0027D870(a0, 0x689FE07C, &t2, 0), func_0026EED8(t2, h, arr, n, a1))) {
+        int t3 = 0;
+        func_0027D400(a0, 0xB561F8FB, &t3, 0);
+        if (t3) {
+            func_0027ABB0(a1, t3);
+        }
+        return 1;
+    }
+    return 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_26F3B8", func_0026F568);
 
