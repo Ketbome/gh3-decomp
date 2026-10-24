@@ -96,5 +96,5 @@ from your agents; by hand they are not, until phases 2 and 4 make the code reada
 - Formats (phases 5 to 7): documenting the QB script format, archives, textures, models and audio of the PS2
   version.
 
-What is ours here is public domain (CC0 1.0, see [LICENSE](LICENSE)); contributions are accepted under the same
-terms. Never contribute game data or anything taken from leaked source code.
+What is ours here is licensed under the GNU AGPL v3.0 (see [LICENSE](LICENSE)); contributions are accepted under
+the same terms. Never contribute game data or anything taken from leaked source code.

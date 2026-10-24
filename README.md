@@ -66,9 +66,15 @@ tool, session recovery), every function verified byte for byte before it is comm
 
 ## Licence
 
-What is ours in this repository (the names, comments, documentation, scripts and build configuration, and the work
-of reconstruction) is dedicated to the public domain under [CC0 1.0](LICENSE). That dedication cannot and does not
-cover the game itself: the program this code reproduces belongs to its rights holders.
+Everything in this repository is licensed under the [GNU AGPL v3.0](LICENSE): the C++ code, names, comments,
+documentation, scripts and build configuration. Fork it, change it and reuse it without asking anyone; anything
+built from it and distributed or run as a network service must publish its source under the same licence.
+Contributions are accepted under the same terms. `scripts/dk.py` is a copy of the
+[decomp-skills](https://github.com/Ketbome/decomp-skills) tool, MIT licensed there.
+
+The licence can only cover what is ours. The original game (its program, assets and data) belongs to its rights
+holders, and nothing here grants any rights to it. That is why the repository holds no game data and building it
+needs your own copy of the game.
 
 ## Legal
 
