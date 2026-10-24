@@ -382,7 +382,60 @@ INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210968);
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210A18);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210A88);
+typedef unsigned int u128_20E __attribute__((mode(TI)));
+
+struct V16_20E { u128_20E q; V16_20E() {} };
+struct FA16_20E { V16_20E* unk0; u32 unk4; u32 unk8; };
+struct FA4_20E { float* unk0; u32 unk4; u32 unk8; };
+
+extern "C" {
+void* Heap_Alloc_20E(int, int, int, int) __asm__("Heap_Alloc");
+}
+
+static inline void Set16_20E(FA16_20E* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free(D_00368A38[0], a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        V16_20E* t = (V16_20E*)Heap_Alloc_20E(D_00368A38[0], n * 16, 1, 0);
+        for (int i = n - 1; i != -1; i--) {
+        }
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free(D_00368A38[0], a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+static inline void Set4_20E(FA4_20E* a, u32 n) {
+    if (n == 0) {
+        if (a->unk0 != 0) {
+            a->unk4 = 0;
+            if (a->unk0 != 0) Heap_Free(D_00368A38[0], a->unk0);
+            a->unk0 = 0;
+        }
+    } else {
+        float* t = (float*)Heap_Alloc_20E(D_00368A38[0], n * 4, 1, 0);
+        for (u32 i = 0; i < n && i < a->unk4; i++) {
+            t[i] = a->unk0[i];
+        }
+        if (a->unk0 != 0) Heap_Free(D_00368A38[0], a->unk0);
+        a->unk0 = t;
+        a->unk4 = n;
+        a->unk8 = n;
+    }
+}
+
+extern "C" void func_00210A88(FA16_20E* self, u32 n) {
+    Set16_20E(self, n);
+    Set4_20E((FA4_20E*)((char*)self + 0x10), n);
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_20EE10", func_00210C90);
 
