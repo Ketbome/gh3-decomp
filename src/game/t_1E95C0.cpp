@@ -562,6 +562,7 @@ INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAA68);
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EABC0);
 
 typedef int TI1EA __attribute__((mode(TI)));
+typedef unsigned int u128_1EA __attribute__((mode(TI)));
 
 extern "C" {
 f32 func_0010F698(void*);
@@ -611,7 +612,31 @@ extern "C" s32 func_001EAD28(char* p, TI1EA* pt) {
     return r;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAEA0);
+extern "C" {
+void func_0010F320(void* a, void* b, void* c);
+}
+
+extern "C" u128_1EA func_001EAEA0(char* self, u128_1EA* in) {
+    u128_1EA out;
+    if (func_001EAD28(self, (TI1EA*)in) != 0) {
+        return *in;
+    }
+    {
+        s32 m = *(s32*)(self + 0x34);
+        if (m != 0) {
+            if (m == 2) {
+                s32 t;
+                register u128_1EA v3 asm("vf3");
+                asm volatile("lqc2 $vf3, 0x10(%2)\n\tlqc2 $vf2, 0(%3)\n\tvsub.xyzw $vf2, $vf2, $vf3\n\tlwc1 $f0, 0x38(%2)\n\tvmul.xyzw $vf4, $vf2, $vf2\n\tvaddy.x $vf1, $vf4, $vf4y\n\tmfc1 %0, $f0\n\tvaddz.x $vf1, $vf1, $vf4z\n\tqmtc2.ni %0, $vf5\n\tnop\n\tnop\n\tvrsqrt $Q, $vf0w, $vf1x\n\tvwaitq\n\tvmulq.xyz $vf2, $vf2, $Q\n\tvmulx.xyzw $vf2, $vf2, $vf5x\n\tvadd.xyzw $vf3, $vf3, $vf2"
+                    : "=&r"(t), "=j"(v3) : "r"(self), "r"(in) : "$f0", "memory");
+                out = v3;
+            }
+        } else {
+            func_0010F320(self + 0x50, in, &out);
+        }
+        return out;
+    }
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_1E95C0", func_001EAF50);
 
