@@ -228,7 +228,23 @@ static inline int SHI_Next(SHI *t, int size) {
     }
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBCF8);
+extern "C" int func_002EBCF8(int key) {
+    int n = 0;
+    register SHI *g asm("$2") = D_003729D0_i;
+    SHI *t = SHI_Begin(g);
+    int size = 1 << t->bits;
+    for (;;) {
+        SHI_V *v;
+        if (!SHI_Next(t, size)) {
+            v = 0;
+        } else {
+            v = t->cur ? t->cur->val : 0;
+        }
+        if (v == 0) break;
+        if (v->unk4 == key) n++;
+    }
+    return n;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBDD8);
 
