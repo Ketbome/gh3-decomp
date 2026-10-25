@@ -193,7 +193,42 @@ extern "C" u32 func_002EB738(int kx) {
     return best;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB858);
+struct S2EB8_V {
+    int unk0;
+    int unk4;
+    char pad8[0xC];
+    f32 unk14;
+};
+extern "C" void func_002EBA98_v(void *) asm("func_002EBA98");
+
+extern "C" int func_002EB858(int kx, f32 x) {
+    register S2EB8_V *best asm("$4") = 0;
+    register int k8 asm("$8") = kx;
+    register SHI *g asm("$2") = D_003729D0_i;
+    SHI *t = SHI_Begin(g);
+    int size = 1 << t->bits;
+    for (;;) {
+        register S2EB8_V *v asm("$3");
+        if (!SHI_Next(t, size)) {
+            v = 0;
+        } else {
+            v = t->cur ? (S2EB8_V *)t->cur->val : 0;
+        }
+        if (v == 0) break;
+        if (v->unk4 == k8) {
+            if (x < v->unk14) {
+                best = v;
+                x = v->unk14;
+            }
+        }
+    }
+    int r = 0;
+    if (best) {
+        func_002EBA98_v(best);
+        r = 1;
+    }
+    return r;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB970);
 
