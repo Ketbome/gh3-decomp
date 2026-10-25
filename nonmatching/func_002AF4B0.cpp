@@ -320,29 +320,31 @@ struct S2AF4B0_C {
 
 extern "C" int func_002AF4B0(int n, int *out) {
     S2AF4B0_C *c = (S2AF4B0_C *)func_002DCA08(n);
-    int flags = 0;
-    if (c->unk1C == 0) return 0;
-    if (func_002DC9D8(n)) {
-        u8 b5, b6, b7;
-        if (func_002AF438((S2AF438 *)c, n)) {
-            S2AF4B0_B *b = c->unk1C;
-            flags = b->u10 == 0 ? 0 : 0x10000;
-            if (b->uA != 0) flags |= 0x1000;
-            b5 = b->u9;
-            b6 = b->uB;
-            b7 = b->uC;
-        } else {
-            S2AF4B0_B *b = c->unk1C;
-            flags = b->uF == 0 ? 0 : 0x10000;
-            if (b->uD != 0) flags |= 0x1000;
-            b5 = b->uE;
-            b6 = b->u10;
-            b7 = b->uB;
+    if (c->unk1C != 0) {
+        int flags = 0;
+        if (func_002DC9D8(n)) {
+            register int b5 asm("$5"); register int b6 asm("$6"); register int b7 asm("$7");
+            if (func_002AF438((S2AF438 *)c, n)) {
+                register S2AF4B0_B *b asm("$3") = c->unk1C;
+                flags = b->u10 == 0 ? 0 : 0x10000;
+                if (b->uA != 0) flags |= 0x1000;
+                b6 = b->uB;
+                b7 = b->uC;
+                b5 = b->u9;
+            } else {
+                register S2AF4B0_B *b asm("$3") = c->unk1C;
+                flags = b->uF == 0 ? 0 : 0x10000;
+                if (b->uD != 0) flags |= 0x1000;
+                b6 = b->u10;
+                b7 = b->uB;
+                b5 = b->uE;
+            }
+            if (b5 != 0) flags |= 0x100;
+            if (b6 != 0) flags |= 0x10;
+            if (b7 != 0) flags |= 1;
         }
-        if (b5 != 0) flags |= 0x100;
-        if (b6 != 0) flags |= 0x10;
-        if (b7 != 0) flags |= 1;
+        if (out) *out = flags;
+        return 1;
     }
-    if (out) *out = flags;
-    return 1;
+    return 0;
 }
