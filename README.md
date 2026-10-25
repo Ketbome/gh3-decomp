@@ -74,9 +74,9 @@ built from it and distributed or run as a network service must publish its sourc
 Contributions are accepted under the same terms. `scripts/dk.py` is a copy of the
 [decomp-skills](https://github.com/Ketbome/decomp-skills) tool, MIT licensed there.
 
-The licence can only cover what is ours. The original game (its program, assets and data) belongs to its rights
-holders, and nothing here grants any rights to it. That is why the repository holds no game data and building it
-needs your own copy of the game.
+The independently written C++ source and other work in this repository are provided under the AGPLv3. This licence
+does not cover the original game's executable, visual or audio assets, or other data, none of which are included
+here. Building the project therefore requires your own copy of the game.
 
 ## Legal
 
