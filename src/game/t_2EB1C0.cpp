@@ -103,7 +103,95 @@ GP_DATA(D_003729D8);
 GP_DATA(D_003729D4);
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB680);
 
-INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB738);
+struct SHI_V {
+    int unk0;
+    int unk4;
+};
+struct SHI_N {
+    int key;
+    SHI_V *val;
+    SHI_N *next;
+};
+struct SHI {
+    int bits;
+    SHI_N *tab;
+    int pad8;
+    int idx;
+    SHI_N *cur;
+};
+extern "C" SHI *D_003729D0_i asm("D_003729D0");
+
+static inline SHI *SHI_Begin(SHI *t) {
+    t->idx = -1;
+    t->cur = 0;
+    return t;
+}
+
+static inline int SHI_Next(SHI *t, int size) {
+    if (t->cur != 0) {
+        t->cur = t->cur->next;
+    } else if (t->idx >= 0) {
+        return 0;
+    }
+    if (t->cur != 0) return 1;
+    for (;;) {
+        int i = t->idx + 1;
+        t->idx = i;
+        if (!(i < size)) return 0;
+        SHI_N *p = t->tab + i;
+        t->cur = p;
+        if (p->val != 0) return 1;
+        if (p->next != 0) {
+            t->cur = p->next;
+            return 1;
+        }
+    }
+}
+
+struct S2EB7_N {
+    int unk0;
+    int unk4;
+    char pad8[0x14];
+    u32 unk1C;
+    char pad20[4];
+    S2EB7_N *unk24;
+};
+struct S2EB7_V {
+    int unk0;
+    int unk4;
+    char pad8[0x14];
+    u32 unk1C;
+};
+extern "C" S2EB7_N *D_003729C8_l asm("D_003729C8");
+
+extern "C" u32 func_002EB738(int kx) {
+    register int k9 asm("$9") = kx;
+    register u32 best asm("$7") = 0;
+    register SHI *g asm("$2") = D_003729D0_i;
+    SHI *t = SHI_Begin(g);
+    register int k8 asm("$8") = k9;
+    int size = 1 << t->bits;
+    for (;;) {
+        register S2EB7_V *v asm("$6");
+        if (!SHI_Next(t, size)) {
+            v = 0;
+        } else {
+            v = t->cur ? (S2EB7_V *)t->cur->val : 0;
+        }
+        if (v == 0) break;
+        if (v->unk4 == k8) {
+            if (best < v->unk1C) best = v->unk1C;
+        }
+    }
+    register int k4 asm("$4") = k9;
+    register S2EB7_N *n asm("$6");
+    for (n = D_003729C8_l; n; n = n->unk24) {
+        if (n->unk4 == k4) {
+            if (best < n->unk1C) best = n->unk1C;
+        }
+    }
+    return best;
+}
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EB858);
 
@@ -182,51 +270,6 @@ extern "C" void func_002EBA98(S2EBA_E *e) {
 }
 
 INCLUDE_ASM("asm/nonmatchings/game/t_2EB1C0", func_002EBC18);
-
-struct SHI_V {
-    int unk0;
-    int unk4;
-};
-struct SHI_N {
-    int key;
-    SHI_V *val;
-    SHI_N *next;
-};
-struct SHI {
-    int bits;
-    SHI_N *tab;
-    int pad8;
-    int idx;
-    SHI_N *cur;
-};
-extern "C" SHI *D_003729D0_i asm("D_003729D0");
-
-static inline SHI *SHI_Begin(SHI *t) {
-    t->idx = -1;
-    t->cur = 0;
-    return t;
-}
-
-static inline int SHI_Next(SHI *t, int size) {
-    if (t->cur != 0) {
-        t->cur = t->cur->next;
-    } else if (t->idx >= 0) {
-        return 0;
-    }
-    if (t->cur != 0) return 1;
-    for (;;) {
-        int i = t->idx + 1;
-        t->idx = i;
-        if (!(i < size)) return 0;
-        SHI_N *p = t->tab + i;
-        t->cur = p;
-        if (p->val != 0) return 1;
-        if (p->next != 0) {
-            t->cur = p->next;
-            return 1;
-        }
-    }
-}
 
 extern "C" int func_002EBCF8(int key) {
     int n = 0;
